@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" fill="#1565C0"/>
+  <rect width="512" height="512" fill="url(#bgGrad)"/>
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.14"/>
+    </linearGradient>
+    <circle id="hm" cx="0" cy="100" r="5" fill="#FFFFFF"/>
+    <circle id="of" cx="0" cy="100" r="10" fill="#FFFFFF"/>
+  </defs>
+
+  <!-- Ring string -->
+  <circle cx="256" cy="180" r="100" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.55"/>
+
+  <!-- 55 ring beads (5 OF + 50 HM, evenly spaced; first OF at bottom) -->
+  <g transform="translate(256 180)">
+    <use href="#of"/>
+    <g transform="rotate(6.545)"><use href="#hm"/></g>
+    <g transform="rotate(13.091)"><use href="#hm"/></g>
+    <g transform="rotate(19.636)"><use href="#hm"/></g>
+    <g transform="rotate(26.182)"><use href="#hm"/></g>
+    <g transform="rotate(32.727)"><use href="#hm"/></g>
+    <g transform="rotate(39.273)"><use href="#hm"/></g>
+    <g transform="rotate(45.818)"><use href="#hm"/></g>
+    <g transform="rotate(52.364)"><use href="#hm"/></g>
+    <g transform="rotate(58.909)"><use href="#hm"/></g>
+    <g transform="rotate(65.455)"><use href="#hm"/></g>
+    <g transform="rotate(72)"><use href="#of"/></g>
+    <g transform="rotate(78.545)"><use href="#hm"/></g>
+    <g transform="rotate(85.091)"><use href="#hm"/></g>
+    <g transform="rotate(91.636)"><use href="#hm"/></g>
+    <g transform="rotate(98.182)"><use href="#hm"/></g>
+    <g transform="rotate(104.727)"><use href="#hm"/></g>
+    <g transform="rotate(111.273)"><use href="#hm"/></g>
+    <g transform="rotate(117.818)"><use href="#hm"/></g>
+    <g transform="rotate(124.364)"><use href="#hm"/></g>
+    <g transform="rotate(130.909)"><use href="#hm"/></g>
+    <g transform="rotate(137.455)"><use href="#hm"/></g>
+    <g transform="rotate(144)"><use href="#of"/></g>
+    <g transform="rotate(150.545)"><use href="#hm"/></g>
+    <g transform="rotate(157.091)"><use href="#hm"/></g>
+    <g transform="rotate(163.636)"><use href="#hm"/></g>
+    <g transform="rotate(170.182)"><use href="#hm"/></g>
+    <g transform="rotate(176.727)"><use href="#hm"/></g>
+    <g transform="rotate(183.273)"><use href="#hm"/></g>
+    <g transform="rotate(189.818)"><use href="#hm"/></g>
+    <g transform="rotate(196.364)"><use href="#hm"/></g>
+    <g transform="rotate(202.909)"><use href="#hm"/></g>
+    <g transform="rotate(209.455)"><use href="#hm"/></g>
+    <g transform="rotate(216)"><use href="#of"/></g>
+    <g transform="rotate(222.545)"><use href="#hm"/></g>
+    <g transform="rotate(229.091)"><use href="#hm"/></g>
+    <g transform="rotate(235.636)"><use href="#hm"/></g>
+    <g transform="rotate(242.182)"><use href="#hm"/></g>
+    <g transform="rotate(248.727)"><use href="#hm"/></g>
+    <g transform="rotate(255.273)"><use href="#hm"/></g>
+    <g transform="rotate(261.818)"><use href="#hm"/></g>
+    <g transform="rotate(268.364)"><use href="#hm"/></g>
+    <g transform="rotate(274.909)"><use href="#hm"/></g>
+    <g transform="rotate(281.455)"><use href="#hm"/></g>
+    <g transform="rotate(288)"><use href="#of"/></g>
+    <g transform="rotate(294.545)"><use href="#hm"/></g>
+    <g transform="rotate(301.091)"><use href="#hm"/></g>
+    <g transform="rotate(307.636)"><use href="#hm"/></g>
+    <g transform="rotate(314.182)"><use href="#hm"/></g>
+    <g transform="rotate(320.727)"><use href="#hm"/></g>
+    <g transform="rotate(327.273)"><use href="#hm"/></g>
+    <g transform="rotate(333.818)"><use href="#hm"/></g>
+    <g transform="rotate(340.364)"><use href="#hm"/></g>
+    <g transform="rotate(346.909)"><use href="#hm"/></g>
+    <g transform="rotate(353.455)"><use href="#hm"/></g>
+  </g>
+
+  <!-- Tail string from junction down to cross -->
+  <line x1="256" y1="280" x2="256" y2="365" stroke="#FFFFFF" stroke-width="2" stroke-opacity="0.7"/>
+
+  <!-- Tail beads: 3 Hail Marys, then Pater Noster, then Creed -->
+  <circle cx="256" cy="294" r="4" fill="#FFFFFF"/>
+  <circle cx="256" cy="306" r="4" fill="#FFFFFF"/>
+  <circle cx="256" cy="318" r="4" fill="#FFFFFF"/>
+  <circle cx="256" cy="336" r="6.5" fill="#FFFFFF"/>
+  <circle cx="256" cy="354" r="5" fill="#FFFFFF"/>
+
+  <!-- Cross -->
+  <g stroke="#FFFFFF" stroke-width="16" stroke-linecap="round">
+    <line x1="256" y1="372" x2="256" y2="455"/>
+    <line x1="222" y1="402" x2="290" y2="402"/>
+  </g>
+</svg>
