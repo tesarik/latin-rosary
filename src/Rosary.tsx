@@ -144,61 +144,61 @@ export default function Rosary() {
 
   return (
     <div style={{
-      minHeight: "100vh",
+      height: "100dvh",
+      overflow: "hidden",
       background: "linear-gradient(160deg, #ECEFF1 0%, #FAFAFA 50%, #E8EAF6 100%)",
       display: "flex",
       flexDirection: "column",
       fontFamily: "Arial, sans-serif",
     }}>
 
-      {/* Header */}
-      <div style={{
-        background: accentColor,
-        padding: "16px 20px",
-        display: "flex",
-        alignItems: "center",
-        gap: 12,
-        position: "sticky",
-        top: 0,
-        zIndex: 10,
-      }}>
-        <button
-          onClick={confirmReset}
-          aria-label={t.exitToMenuAria}
-          style={{
-            background: "rgba(255,255,255,0.2)",
-            border: "none",
-            borderRadius: 8,
-            padding: "6px 12px",
-            cursor: "pointer",
-            color: "white",
-            fontSize: 14,
-            fontFamily: "Arial, sans-serif",
-          }}
-        >
-          ← {t.back}
-        </button>
-        <div style={{ flex: 1, textAlign: "center" }}>
-          <div style={{
-            color: "white",
-            fontFamily: "Arial, sans-serif",
-            fontSize: 20,
-            fontWeight: 600,
-          }}>
-            {mysterySet.name}
-          </div>
-        </div>
-        <div style={{ width: 60 }} />
-      </div>
-
-      {/* Progress bar */}
-      <div style={{ height: 7, background: "rgba(0,0,0,0.1)" }}>
+      {/* Sticky top: header + progress bar move together */}
+      <div style={{ position: "sticky", top: 0, zIndex: 10 }}>
         <div style={{
-          height: "100%",
-          width: `${progress}%`,
           background: accentColor,
-          transition: "width 0.3s ease",
-        }} />
+          padding: "16px 20px",
+          display: "flex",
+          alignItems: "center",
+          gap: 12,
+        }}>
+          <button
+            onClick={confirmReset}
+            aria-label={t.exitToMenuAria}
+            style={{
+              background: "rgba(255,255,255,0.2)",
+              border: "none",
+              borderRadius: 8,
+              padding: "6px 12px",
+              cursor: "pointer",
+              color: "white",
+              fontSize: 14,
+              fontFamily: "Arial, sans-serif",
+            }}
+          >
+            ← {t.back}
+          </button>
+          <div style={{ flex: 1, textAlign: "center" }}>
+            <div style={{
+              color: "white",
+              fontFamily: "Arial, sans-serif",
+              fontSize: 20,
+              fontWeight: 600,
+            }}>
+              {mysterySet.name}
+            </div>
+          </div>
+          <div style={{ width: 60 }} />
+        </div>
+
+        {/* Progress bar */}
+        <div style={{ height: 7, background: "rgba(0,0,0,0.1)" }}>
+          <div style={{
+            height: "100%",
+            width: `${progress}%`,
+            background: accentColor,
+            transition: "width 0.3s ease",
+          }} />
+        </div>
       </div>
 
       {/* Main content */}
@@ -208,6 +208,7 @@ export default function Rosary() {
         onTouchEnd={onTouchEnd}
         style={{
           flex: 1,
+          minHeight: 0,
           overflow: "auto",
           padding: "8px 14px",
           display: "flex",
