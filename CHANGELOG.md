@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- UI localization (`src/rosary/i18n.ts`): Czech, English, Slovak, German, Polish. Default locale auto-detected from `navigator.language`; user can override via a flag dropdown on the start screen (custom button + listbox, outside-click + Escape to close). Choice persists to `localStorage` (`ruzenec_locale`). Latin prayer texts and mystery clauses are untouched.
+- Inline SVG flags for the picker (`src/rosary/Flag.tsx`) — CZ, GB, SK, DE, PL at a uniform 24×16 viewBox. Slovak shield is retained so it doesn't read as the Russian tricolor.
+- Tap any Pater Noster bead (tail or ring) to jump straight to that point in the rosary.
+- Accessibility: `role="img"` + step count on the rosary SVG, `aria-live="polite"` region around the prayer card, `lang="la"` on prayer text, `aria-label`s on nav / back / mystery-selection buttons, decorative SVGs marked `aria-hidden`, bottom navigation wrapped in `<nav>`.
+- Confirmation prompt before the header back button discards mid-rosary progress.
+- TypeScript in strict mode across the project (`tsconfig.app.json` + `tsconfig.node.json`); all source files migrated to `.ts` / `.tsx`. Exported types: `MysteryKey`, `MysterySet`, `PrayerType`, `StaticPrayerType`, `HailMary`, `SequenceItem`, `SavedState`. `npm run typecheck` runs `tsc -b --noEmit`; `npm run build` now type-checks first.
+
+### Changed
+- Source split into `src/rosary/` modules: `prayers`, `sequence`, `storage`, `RosaryBeads`, `PrayerCard`, `MysteryMenu`. `Ruzenec.jsx` renamed to `src/Rosary.tsx` and shrunk to a ~300-line orchestrator.
+- Bead layout is now driven by a `beadId` on each sequence item and a `beadId → seqIdx` map in `RosaryBeads`; the old magic-number index arithmetic (`7 + d*13`, tail `idx 1..5`, etc.) is gone.
+- Top progress bar height bumped from 3px to 7px so it's actually visible.
+- Service-worker cache name is stamped at build time as `ruzenec-<pkg.version>-<build-id>` (Vite plugin in `vite.config.ts`), so each production build gets its own cache bucket and stale assets are dropped on activate.
+
 ## [0.1.0] - 2026-05-09
 
 ### Added

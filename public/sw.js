@@ -1,4 +1,6 @@
-const CACHE = "ruzenec-v1";
+// __SW_VERSION__ is replaced at build time (see vite.config.js). In dev mode
+// the SW is not registered, so the literal placeholder never reaches a browser.
+const CACHE = "ruzenec-__SW_VERSION__";
 
 self.addEventListener("install", () => {
   self.skipWaiting();

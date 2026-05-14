@@ -12,8 +12,10 @@ A small, offline-friendly web app for praying the rosary in Latin. UI is in Czec
 - Prayer body set in **EB Garamond**; UI chrome in Arial.
 - Tap to advance, swipe left/right to move forward/back, haptic tick on every step.
 - Keyboard navigation: `→` / `Space` / `Enter` advance; `←` goes back.
+- Tap any **Pater Noster bead** on the SVG to jump straight to that decade.
 - **Wake Lock** keeps the screen on while praying.
-- **PWA** with installable manifest, full-rosary SVG icon, and an offline service worker.
+- **PWA** with installable manifest, full-rosary SVG icon, and an offline service worker that re-caches per build.
+- Screen-reader friendly: ARIA labels on controls, live region around the prayer text, `lang="la"` on Latin bodies.
 - Progress is saved to `localStorage` and survives reloads (until a structural release bumps `STATE_VERSION`).
 
 ## Run locally
@@ -44,17 +46,19 @@ The manifest, icons, and service-worker scope all derive from this. Copy `.env.e
 
 ## Project layout
 
-- `src/Ruzenec.jsx` — the entire app: state, prayer texts, SVG bead ring, gestures, persistence.
-- `src/main.jsx` — entry point; registers the service worker in production.
+- `src/Rosary.tsx` — orchestrator: state, effects, prayer-screen layout.
+- `src/rosary/` — `prayers.ts`, `sequence.ts`, `storage.ts`, `RosaryBeads.tsx`, `PrayerCard.tsx`, `MysteryMenu.tsx`.
+- `src/main.tsx` — entry point; registers the service worker in production.
 - `public/manifest.webmanifest`, `public/sw.js`, `public/icon.svg` — PWA assets.
 - `index.html` — title, theme color, EB Garamond webfont.
-- `vite.config.js` — reads `BASE_PATH`.
+- `vite.config.ts` — reads `BASE_PATH`, stamps the SW cache version at build time.
+- `tsconfig.json`, `tsconfig.app.json`, `tsconfig.node.json` — strict TypeScript config.
 - `CHANGELOG.md` — release notes (Keep a Changelog format).
 - `CLAUDE.md` — orientation notes for AI-assisted development.
 
 ## Stack
 
-React 18, Vite 6, plain JSX. No CSS framework, no router, no state library, no test suite — styling is inline and the app fits in a single component on purpose.
+React 18, Vite 6, TypeScript (strict mode). No CSS framework, no router, no state library, no test suite — styling is inline and the app is split across a handful of small modules in `src/rosary/`.
 
 ## Source
 
