@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-05-14
+
 ### Added
 - UI localization (`src/rosary/i18n.ts`): Czech, English, Slovak, German, Polish. Default locale auto-detected from `navigator.language`; user can override via a flag dropdown on the start screen (custom button + listbox, outside-click + Escape to close). Choice persists to `localStorage` (`ruzenec_locale`). Latin prayer texts and mystery clauses are untouched.
 - Inline SVG flags for the picker (`src/rosary/Flag.tsx`) — CZ, GB, SK, DE, PL at a uniform 24×16 viewBox. Slovak shield is retained so it doesn't read as the Russian tricolor.
@@ -18,6 +20,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Source split into `src/rosary/` modules: `prayers`, `sequence`, `storage`, `RosaryBeads`, `PrayerCard`, `MysteryMenu`. `Ruzenec.jsx` renamed to `src/Rosary.tsx` and shrunk to a ~300-line orchestrator.
 - Bead layout is now driven by a `beadId` on each sequence item and a `beadId → seqIdx` map in `RosaryBeads`; the old magic-number index arithmetic (`7 + d*13`, tail `idx 1..5`, etc.) is gone.
 - Top progress bar height bumped from 3px to 7px so it's actually visible.
+- Header + progress bar are now wrapped in a single `position: sticky` container so the progress indicator stays pinned to the top of the viewport regardless of scroll position.
+- Prayer screen is now strictly viewport-bounded: outer container uses `height: 100dvh` + `overflow: hidden`, and the scrolling middle section has `min-height: 0` so accumulated paddings can't push the layout past the viewport.
 - Service-worker cache name is stamped at build time as `ruzenec-<pkg.version>-<build-id>` (Vite plugin in `vite.config.ts`), so each production build gets its own cache bucket and stale assets are dropped on activate.
 
 ## [0.1.0] - 2026-05-09
