@@ -33,7 +33,7 @@ function PrayerBody({ currentPrayer, accentColor, locale }: { currentPrayer: Seq
 
   const text = PRAYERS[currentPrayer.type];
   return (
-    <div lang="la" style={bodyStyle}>
+    <div style={bodyStyle}>
       <div style={{ whiteSpace: "pre-line", color: "#37474F" }}>{text}</div>
     </div>
   );

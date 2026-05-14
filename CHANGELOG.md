@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-05-14
+
+### Fixed
+- Removed lang="la" from `PrayerBody`. It cause to replace u with v as if in ancient Latin, but we use ecclestical latin and this is not desired. 
+
 ## [0.2.0] - 2026-05-14
 
 ### Added
