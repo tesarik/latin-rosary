@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { MYSTERIES, type MysteryKey } from "./rosary/prayers";
 import { buildRosarySequence, type SequenceItem } from "./rosary/sequence";
 import { loadSavedState, saveState } from "./rosary/storage";
+import { STRINGS, detectLocale, loadSavedLocale, saveLocale, type Locale } from "./rosary/i18n";
 import RosaryBeads from "./rosary/RosaryBeads";
 import PrayerCard from "./rosary/PrayerCard";
 import MysteryMenu from "./rosary/MysteryMenu";
@@ -20,13 +21,26 @@ export default function Rosary() {
     return [];
   });
   const [started, setStarted] = useState<boolean>(!!saved.current);
+  const [locale, setLocaleState] = useState<Locale>(() => loadSavedLocale() ?? detectLocale());
+  const t = STRINGS[locale];
   const prayerRef = useRef<HTMLDivElement | null>(null);
   const touchStart = useRef<TouchSample | null>(null);
+
+  const setLocale = useCallback((next: Locale) => {
+    setLocaleState(next);
+    saveLocale(next);
+  }, []);
 
   // Persist on every change
   useEffect(() => {
     saveState(started ? selectedMystery : null, currentStep);
   }, [selectedMystery, currentStep, started]);
+
+  // Reflect locale in the document so screen readers + browser UI pick it up.
+  useEffect(() => {
+    document.documentElement.lang = locale;
+    document.title = t.appTitle;
+  }, [locale, t.appTitle]);
 
   // Keep the screen on while praying. Re-acquire on visibilitychange because
   // browsers drop the lock when the tab is backgrounded.
@@ -78,7 +92,7 @@ export default function Rosary() {
   };
 
   const confirmReset = () => {
-    if (currentStep === 0 || window.confirm("Opravdu chcete ukončit modlitbu? Postup bude ztracen.")) {
+    if (currentStep === 0 || window.confirm(t.confirmExit)) {
       reset();
     }
   };
@@ -120,7 +134,7 @@ export default function Rosary() {
   };
 
   if (!started || !selectedMystery) {
-    return <MysteryMenu onStart={startRosary} />;
+    return <MysteryMenu onStart={startRosary} locale={locale} onLocaleChange={setLocale} />;
   }
 
   const mysterySet = MYSTERIES[selectedMystery];
@@ -150,7 +164,7 @@ export default function Rosary() {
       }}>
         <button
           onClick={confirmReset}
-          aria-label="Ukončit modlitbu a zpět do menu"
+          aria-label={t.exitToMenuAria}
           style={{
             background: "rgba(255,255,255,0.2)",
             border: "none",
@@ -162,7 +176,7 @@ export default function Rosary() {
             fontFamily: "Arial, sans-serif",
           }}
         >
-          ← Zpět
+          ← {t.back}
         </button>
         <div style={{ flex: 1, textAlign: "center" }}>
           <div style={{
@@ -201,7 +215,7 @@ export default function Rosary() {
         }}
       >
         <div style={{ margin: "auto 0", width: "100%" }}>
-          <RosaryBeads currentStep={currentStep} sequence={sequence} accentColor={accentColor} onJump={jumpTo} />
+          <RosaryBeads currentStep={currentStep} sequence={sequence} accentColor={accentColor} onJump={jumpTo} locale={locale} />
 
           {/* Prayer label */}
           <div style={{ textAlign: "center", marginTop: 8, marginBottom: 4 }}>
@@ -225,12 +239,13 @@ export default function Rosary() {
             currentStep={currentStep}
             totalSteps={sequence.length}
             onClick={onPrayerCardClick}
+            locale={locale}
           />
         </div>
       </div>
 
       {/* Navigation */}
-      <nav aria-label="Navigace modlitby" style={{
+      <nav aria-label={t.navAria} style={{
         padding: "10px 16px 16px",
         display: "flex",
         alignItems: "center",
@@ -241,7 +256,7 @@ export default function Rosary() {
         <button
           onClick={prev}
           disabled={currentStep === 0}
-          aria-label="Předchozí modlitba"
+          aria-label={t.previousAria}
           style={{
             padding: "14px 32px",
             borderRadius: 14,
@@ -255,13 +270,13 @@ export default function Rosary() {
             transition: "all 0.2s ease",
           }}
         >
-          Předchozí
+          {t.previous}
         </button>
 
         {currentStep < sequence.length - 1 ? (
           <button
             onClick={next}
-            aria-label="Další modlitba"
+            aria-label={t.nextAria}
             style={{
               padding: "14px 40px",
               borderRadius: 14,
@@ -276,12 +291,12 @@ export default function Rosary() {
               transition: "all 0.2s ease",
             }}
           >
-            Další
+            {t.next}
           </button>
         ) : (
           <button
             onClick={reset}
-            aria-label="Dokončit modlitbu"
+            aria-label={t.finishAria}
             style={{
               padding: "14px 40px",
               borderRadius: 14,
@@ -295,7 +310,7 @@ export default function Rosary() {
               boxShadow: `0 4px 16px ${accentColor}40`,
             }}
           >
-            Dokončit ✝
+            {t.finish} ✝
           </button>
         )}
       </nav>

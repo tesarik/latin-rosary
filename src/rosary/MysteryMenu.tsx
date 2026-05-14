@@ -1,13 +1,18 @@
 import { MYSTERIES, type MysteryKey } from "./prayers";
+import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
 
 type Props = {
   onStart: (key: MysteryKey) => void;
+  locale: Locale;
+  onLocaleChange: (locale: Locale) => void;
 };
 
-// Start screen: title + one button per mystery set. onStart(key) hands the
-// chosen mystery key back to the parent, which builds the sequence and flips
-// into the prayer screen.
-export default function MysteryMenu({ onStart }: Props) {
+// Start screen: title + one button per mystery set. Also hosts the language
+// picker — language is locked in once a rosary starts.
+// onStart(key) hands the chosen mystery key back to the parent.
+export default function MysteryMenu({ onStart, locale, onLocaleChange }: Props) {
+  const t = STRINGS[locale];
+
   return (
     <div style={{
       minHeight: "100vh",
@@ -18,7 +23,49 @@ export default function MysteryMenu({ onStart }: Props) {
       justifyContent: "center",
       fontFamily: "Arial, sans-serif",
       padding: 24,
+      position: "relative",
     }}>
+      <div
+        role="group"
+        aria-label={t.languagePickerAria}
+        style={{
+          position: "absolute",
+          top: 16,
+          right: 16,
+          display: "flex",
+          gap: 4,
+        }}
+      >
+        {SUPPORTED_LOCALES.map((code) => {
+          const active = code === locale;
+          return (
+            <button
+              key={code}
+              onClick={() => onLocaleChange(code)}
+              aria-pressed={active}
+              aria-label={STRINGS[code].localeName}
+              lang={code}
+              style={{
+                padding: "5px 9px",
+                borderRadius: 8,
+                border: "1px solid",
+                borderColor: active ? "#1565C0" : "#CFD8DC",
+                background: active ? "#1565C0" : "white",
+                color: active ? "white" : "#546E7A",
+                cursor: active ? "default" : "pointer",
+                fontSize: 12,
+                fontWeight: 600,
+                fontFamily: "Arial, sans-serif",
+                letterSpacing: 0.5,
+                textTransform: "uppercase",
+              }}
+            >
+              {code}
+            </button>
+          );
+        })}
+      </div>
+
       <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true" style={{ marginBottom: 16 }}>
         <line x1="24" y1="6" x2="24" y2="42" stroke="#1565C0" strokeWidth="4" strokeLinecap="round" />
         <line x1="12" y1="18" x2="36" y2="18" stroke="#1565C0" strokeWidth="4" strokeLinecap="round" />
@@ -32,7 +79,7 @@ export default function MysteryMenu({ onStart }: Props) {
         marginBottom: 6,
         letterSpacing: -0.5,
       }}>
-        Latinský růženec
+        {t.appTitle}
       </h1>
 
       <div style={{ width: "100%", maxWidth: 380, display: "flex", flexDirection: "column", gap: 12 }}>
@@ -40,7 +87,7 @@ export default function MysteryMenu({ onStart }: Props) {
           <button
             key={key}
             onClick={() => onStart(key)}
-            aria-label={`Začít růženec — ${val.name}`}
+            aria-label={t.startRosaryAria(val.name)}
             style={{
               display: "flex",
               alignItems: "center",
@@ -81,7 +128,7 @@ export default function MysteryMenu({ onStart }: Props) {
               </svg>
             </div>
             <div style={{ textAlign: "left" }}>
-              <div style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "#263238" }}>
+              <div lang="la" style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "#263238" }}>
                 {val.name}
               </div>
             </div>

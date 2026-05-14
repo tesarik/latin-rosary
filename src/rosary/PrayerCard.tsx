@@ -1,5 +1,6 @@
 import { PRAYER_TYPES, PRAYERS, getHailMary } from "./prayers";
 import type { SequenceItem } from "./sequence";
+import { STRINGS, type Locale } from "./i18n";
 
 const bodyStyle = {
   textAlign: "center" as const,
@@ -8,7 +9,7 @@ const bodyStyle = {
   fontSize: "clamp(17px, 5vw, 22px)",
 };
 
-function PrayerBody({ currentPrayer, accentColor }: { currentPrayer: SequenceItem | undefined; accentColor: string }) {
+function PrayerBody({ currentPrayer, accentColor, locale }: { currentPrayer: SequenceItem | undefined; accentColor: string; locale: Locale }) {
   if (!currentPrayer) return null;
 
   if (currentPrayer.type === PRAYER_TYPES.HAIL_MARY) {
@@ -16,7 +17,7 @@ function PrayerBody({ currentPrayer, accentColor }: { currentPrayer: SequenceIte
     return (
       <div lang="la" style={bodyStyle}>
         {currentPrayer.num !== undefined && (
-          <div lang="cs" aria-hidden="true" style={{
+          <div lang={locale} aria-hidden="true" style={{
             fontSize: 12, color: "#90A4AE", marginBottom: 8,
             fontFamily: "Arial, sans-serif", letterSpacing: 1,
           }}>
@@ -44,18 +45,20 @@ type Props = {
   currentStep: number;
   totalSteps: number;
   onClick: () => void;
+  locale: Locale;
 };
 
 // The tappable white card that wraps the current prayer's Latin text.
 // Click anywhere on the card to advance — except when the user is selecting
 // text, in which case the parent's handler bails out.
-export default function PrayerCard({ currentPrayer, accentColor, currentStep, totalSteps, onClick }: Props) {
+export default function PrayerCard({ currentPrayer, accentColor, currentStep, totalSteps, onClick, locale }: Props) {
+  const t = STRINGS[locale];
   return (
     <div
       onClick={onClick}
       role="region"
       aria-live="polite"
-      aria-label={`${currentPrayer?.label ?? ""}, krok ${currentStep + 1} z ${totalSteps}`}
+      aria-label={`${currentPrayer?.label ?? ""}, ${t.stepXofY(currentStep + 1, totalSteps)}`}
       style={{
         background: "white",
         borderRadius: 18,
@@ -68,7 +71,7 @@ export default function PrayerCard({ currentPrayer, accentColor, currentStep, to
         WebkitTapHighlightColor: "transparent",
       }}
     >
-      <PrayerBody currentPrayer={currentPrayer} accentColor={accentColor} />
+      <PrayerBody currentPrayer={currentPrayer} accentColor={accentColor} locale={locale} />
     </div>
   );
 }

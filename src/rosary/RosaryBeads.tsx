@@ -1,12 +1,14 @@
 import type { ReactElement } from "react";
 import { PRAYER_TYPES } from "./prayers";
 import type { SequenceItem } from "./sequence";
+import { STRINGS, type Locale } from "./i18n";
 
 type Props = {
   currentStep: number;
   sequence: SequenceItem[];
   accentColor: string;
   onJump?: (idx: number) => void;
+  locale: Locale;
 };
 
 type TailBead = {
@@ -42,7 +44,8 @@ function beadStyle(seqIdx: number, currentStep: number, accentColor: string) {
 //   Cross → Creed → [gap] → Our Father → HM → HM → HM → junction (Gloria, no bead) → Ring
 // All bead-to-sequence mapping goes through beadIdx[beadId] so the layout
 // stays decoupled from buildRosarySequence's index arithmetic.
-export default function RosaryBeads({ currentStep, sequence, accentColor, onJump }: Props) {
+export default function RosaryBeads({ currentStep, sequence, accentColor, onJump, locale }: Props) {
+  const t = STRINGS[locale];
   const cx = 150, cy = 128, r = 105;
   const elements: ReactElement[] = [];
 
@@ -119,7 +122,7 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
           fill="transparent" style={{ cursor: "pointer" }}
           onClick={(e) => { e.stopPropagation(); onJump(idx); }}
           role="button"
-          aria-label={`Skočit na Pater Noster úvodu, krok ${idx + 1} z ${sequence.length}`}
+          aria-label={t.jumpToOpeningPaterNoster(idx + 1, sequence.length)}
         />
       );
     }
@@ -214,7 +217,7 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
           fill="transparent" style={{ cursor: "pointer" }}
           onClick={(e) => { e.stopPropagation(); onJump(targetIdx); }}
           role="button"
-          aria-label={`Skočit na ${bead.decade + 1}. desátek`}
+          aria-label={t.jumpToDecade(bead.decade + 1)}
         />
       );
     }
@@ -229,7 +232,7 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
     <svg viewBox={`0 ${vbTop} 300 ${vbHeight}`}
       style={{ width: "100%", maxWidth: 220, margin: "0 auto", display: "block" }}
       role="img"
-      aria-label={`Růženec, krok ${currentStep + 1} z ${sequence.length}`}>
+      aria-label={t.rosaryAria(currentStep + 1, sequence.length)}>
       {elements}
     </svg>
   );
