@@ -17,7 +17,7 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation }: { c
       ? getHailMaryCs(currentPrayer.mysteryCs)
       : getHailMary(currentPrayer.mystery);
     return (
-      <div lang={showTranslation ? "cs" : "la"} style={bodyStyle}>
+      <div style={bodyStyle}>
         {currentPrayer.num !== undefined && (
           <div lang={locale} aria-hidden="true" style={{
             fontSize: 12, color: "#90A4AE", marginBottom: 8,
