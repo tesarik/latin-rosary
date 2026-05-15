@@ -5,6 +5,7 @@ export type SequenceItem = {
   label: string;
   beadId?: string;
   mystery?: string;
+  mysteryCs?: string;
   decade?: number;
   num?: number;
 };
@@ -24,9 +25,9 @@ export function buildRosarySequence(mysterySet: MysterySet): SequenceItem[] {
   seq.push({ type: PRAYER_TYPES.SIGN_OF_CROSS, label: "Signum Crucis" });
   seq.push({ type: PRAYER_TYPES.CREED,        label: "Credo",        beadId: "tail-creed" });
   seq.push({ type: PRAYER_TYPES.OUR_FATHER,   label: "Pater Noster", beadId: "tail-of" });
-  seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave Maria", mystery: "qui adaúgeat nobis fidem",       beadId: "tail-hm-0" });
-  seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave Maria", mystery: "qui corróboret nobis spem",      beadId: "tail-hm-1" });
-  seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave Maria", mystery: "qui perfíciat nobis caritátem",  beadId: "tail-hm-2" });
+  seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave Maria", mystery: "qui adaúgeat nobis fidem",      mysteryCs: "který v nás rozmnožuje víru",       beadId: "tail-hm-0" });
+  seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave Maria", mystery: "qui corróboret nobis spem",     mysteryCs: "který v nás posiluje naději",      beadId: "tail-hm-1" });
+  seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave Maria", mystery: "qui perfíciat nobis caritátem", mysteryCs: "který v nás zdokonaluje lásku",    beadId: "tail-hm-2" });
   seq.push({ type: PRAYER_TYPES.GLORY_BE,     label: "Gloria Patri" });
 
   // 5 decades
@@ -39,6 +40,7 @@ export function buildRosarySequence(mysterySet: MysterySet): SequenceItem[] {
         decade: d,
         num: h,
         mystery: mysterySet.mysteries[d],
+        mysteryCs: mysterySet.mysteriesCs[d],
         beadId: `ring-hm-${d}-${h - 1}`,
       });
     }

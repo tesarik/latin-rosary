@@ -199,7 +199,7 @@ export default function MysteryMenu({ onStart, locale, onLocaleChange }: Props) 
               </svg>
             </div>
             <div style={{ textAlign: "left" }}>
-              <div lang="la" style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "#263238" }}>
+              <div style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "#263238" }}>
                 {val.name}
               </div>
             </div>

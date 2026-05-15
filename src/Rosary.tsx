@@ -21,6 +21,7 @@ export default function Rosary() {
     return [];
   });
   const [started, setStarted] = useState<boolean>(!!saved.current);
+  const [showTranslation, setShowTranslation] = useState<boolean>(false);
   const [locale, setLocaleState] = useState<Locale>(() => loadSavedLocale() ?? detectLocale());
   const t = STRINGS[locale];
   const prayerRef = useRef<HTMLDivElement | null>(null);
@@ -241,6 +242,8 @@ export default function Rosary() {
             totalSteps={sequence.length}
             onClick={onPrayerCardClick}
             locale={locale}
+            showTranslation={showTranslation}
+            onLanguageChange={setShowTranslation}
           />
         </div>
       </div>

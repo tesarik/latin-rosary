@@ -1,4 +1,4 @@
-import { PRAYER_TYPES, PRAYERS, getHailMary } from "./prayers";
+import { PRAYER_TYPES, PRAYERS, PRAYERS_CS, getHailMary, getHailMaryCs } from "./prayers";
 import type { SequenceItem } from "./sequence";
 import { STRINGS, type Locale } from "./i18n";
 
@@ -9,13 +9,15 @@ const bodyStyle = {
   fontSize: "clamp(17px, 5vw, 22px)",
 };
 
-function PrayerBody({ currentPrayer, accentColor, locale }: { currentPrayer: SequenceItem | undefined; accentColor: string; locale: Locale }) {
+function PrayerBody({ currentPrayer, accentColor, locale, showTranslation }: { currentPrayer: SequenceItem | undefined; accentColor: string; locale: Locale; showTranslation: boolean }) {
   if (!currentPrayer) return null;
 
   if (currentPrayer.type === PRAYER_TYPES.HAIL_MARY) {
-    const hm = getHailMary(currentPrayer.mystery);
+    const hm = showTranslation
+      ? getHailMaryCs(currentPrayer.mysteryCs)
+      : getHailMary(currentPrayer.mystery);
     return (
-      <div lang="la" style={bodyStyle}>
+      <div lang={showTranslation ? "cs" : "la"} style={bodyStyle}>
         {currentPrayer.num !== undefined && (
           <div lang={locale} aria-hidden="true" style={{
             fontSize: 12, color: "#90A4AE", marginBottom: 8,
@@ -31,7 +33,7 @@ function PrayerBody({ currentPrayer, accentColor, locale }: { currentPrayer: Seq
     );
   }
 
-  const text = PRAYERS[currentPrayer.type];
+  const text = showTranslation ? PRAYERS_CS[currentPrayer.type] : PRAYERS[currentPrayer.type];
   return (
     <div style={bodyStyle}>
       <div style={{ whiteSpace: "pre-line", color: "#37474F" }}>{text}</div>
@@ -46,12 +48,16 @@ type Props = {
   totalSteps: number;
   onClick: () => void;
   locale: Locale;
+  showTranslation: boolean;
+  onLanguageChange: (showTranslation: boolean) => void;
 };
 
-// The tappable white card that wraps the current prayer's Latin text.
+// The tappable white card that wraps the current prayer's text.
 // Click anywhere on the card to advance — except when the user is selecting
-// text, in which case the parent's handler bails out.
-export default function PrayerCard({ currentPrayer, accentColor, currentStep, totalSteps, onClick, locale }: Props) {
+// text or interacting with the language select, in which case the parent's
+// click handler bails out. The select in the corner switches the body between
+// Latin and Czech.
+export default function PrayerCard({ currentPrayer, accentColor, currentStep, totalSteps, onClick, locale, showTranslation, onLanguageChange }: Props) {
   const t = STRINGS[locale];
   return (
     <div
@@ -60,6 +66,7 @@ export default function PrayerCard({ currentPrayer, accentColor, currentStep, to
       aria-live="polite"
       aria-label={`${currentPrayer?.label ?? ""}, ${t.stepXofY(currentStep + 1, totalSteps)}`}
       style={{
+        position: "relative",
         background: "white",
         borderRadius: 18,
         padding: "20px 18px",
@@ -71,7 +78,34 @@ export default function PrayerCard({ currentPrayer, accentColor, currentStep, to
         WebkitTapHighlightColor: "transparent",
       }}
     >
-      <PrayerBody currentPrayer={currentPrayer} accentColor={accentColor} locale={locale} />
+      <select
+        value={showTranslation ? "cs" : "la"}
+        onChange={(e) => onLanguageChange(e.target.value === "cs")}
+        onClick={(e) => e.stopPropagation()}
+        aria-label="Jazyk modlitby"
+        style={{
+          position: "absolute",
+          top: 8,
+          right: 8,
+          appearance: "none",
+          WebkitAppearance: "none",
+          MozAppearance: "none",
+          background: "transparent",
+          border: "1px solid #ECEFF1",
+          borderRadius: 6,
+          padding: "2px 6px",
+          fontSize: 11,
+          letterSpacing: 1,
+          color: "#78909C",
+          fontFamily: "Arial, sans-serif",
+          fontWeight: 600,
+          cursor: "pointer",
+        }}
+      >
+        <option value="la">LA</option>
+        <option value="cs">CZ</option>
+      </select>
+      <PrayerBody currentPrayer={currentPrayer} accentColor={accentColor} locale={locale} showTranslation={showTranslation} />
     </div>
   );
 }
