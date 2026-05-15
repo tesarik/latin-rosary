@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-05-15
+
 ### Added
 - Czech counterparts for every Latin prayer text (`PRAYERS_CS`, `getHailMaryCs` in `src/rosary/prayers.ts`, plus `mysteriesCs` on each `MysterySet`). The opening trio's `fidem` / `spem` / `caritátem` clauses get Czech equivalents stamped onto sequence items via `mysteryCs`.
 - `LA` / `CZ` select in the top-right of the prayer card to switch the prayer body between Latin and Czech. Clicks on the select don't propagate to the card's advance-on-tap handler.
