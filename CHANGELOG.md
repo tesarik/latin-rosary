@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Changed
-- `PrayerSections` now renders one chip per step instead of one segment per section. Repeated prayers (Ave María ×3, Cor Iesu ×3) show as that many identical chips, making "how many times have I prayed this" readable at a glance without a numeric counter. Chips wrap to multiple rows on narrow viewports.
+- `PrayerSections` is now a **circular state diagram**: each step is a node placed clockwise around a circle starting at the top, with SVG arc arrows connecting consecutive nodes. Done nodes/arrows tint in the accent color, active node is filled solid (with a soft shadow), future nodes/arrows stay muted. Repeated prayers (Ave María ×3, Cor Iesu ×3) show as that many nodes around the ring — counting nodes shows progress at a glance. Section labels use the full Latin names; ring radius and chip padding tuned so all 9 chips fit within a 360px container.
 
 ## [0.4.0] - 2026-05-17
 

@@ -57,8 +57,8 @@ export function buildRosarySequence(mysterySet: MysterySet): SequenceItem[] {
   return seq;
 }
 
-// Section labels for the Leonine post-Mass prayers. These drive the segmented
-// stepper above the prayer card; tap a segment to jump to its first step.
+// Section labels for the Leonine post-Mass prayers. These drive the circular
+// stepper above the prayer card; tap a node to jump to its first step.
 const LEO_SECTIONS = {
   AVE: "Ave María",
   SALVE: "Salve Regína",
