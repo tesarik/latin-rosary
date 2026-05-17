@@ -1,18 +1,36 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { MYSTERIES, type MysteryKey } from "./rosary/prayers";
-import { buildRosarySequence, type SequenceItem } from "./rosary/sequence";
+import { buildRosarySequence, OTHER_PRAYER_SETS, type OtherPrayerKey, type SequenceItem } from "./rosary/sequence";
 import { loadSavedState, saveState } from "./rosary/storage";
 import { STRINGS, detectLocale, loadSavedLocale, saveLocale, type Locale } from "./rosary/i18n";
 import RosaryBeads from "./rosary/RosaryBeads";
 import PrayerCard from "./rosary/PrayerCard";
+import PrayerSections from "./rosary/PrayerSections";
 import MysteryMenu from "./rosary/MysteryMenu";
 
 type TouchSample = { x: number; y: number; time: number };
 
+export type PrayerSetKey = MysteryKey | OtherPrayerKey;
+
+const isRosaryKey = (k: PrayerSetKey): k is MysteryKey => k in MYSTERIES;
+
+function getPrayerSetMeta(key: PrayerSetKey): { name: string; color: string; kind: "rosary" | "linear" } {
+  if (isRosaryKey(key)) {
+    const m = MYSTERIES[key];
+    return { name: m.name, color: m.color, kind: "rosary" };
+  }
+  const o = OTHER_PRAYER_SETS[key];
+  return { name: o.name, color: o.color, kind: "linear" };
+}
+
+function buildSequence(key: PrayerSetKey): SequenceItem[] {
+  return isRosaryKey(key) ? buildRosarySequence(MYSTERIES[key]) : OTHER_PRAYER_SETS[key].build();
+}
+
 export default function Rosary() {
   const saved = useRef(loadSavedState());
 
-  const [selectedMystery, setSelectedMystery] = useState<MysteryKey | null>(saved.current?.selectedMystery ?? null);
+  const [selectedSet, setSelectedSet] = useState<PrayerSetKey | null>(saved.current?.selectedMystery ?? null);
   const [currentStep, setCurrentStep] = useState<number>(saved.current?.currentStep ?? 0);
   const [sequence, setSequence] = useState<SequenceItem[]>(() => {
     if (saved.current?.selectedMystery) {
@@ -32,10 +50,13 @@ export default function Rosary() {
     saveLocale(next);
   }, []);
 
-  // Persist on every change
+  // Persist on every change — only the rosary survives a reload. Linear
+  // prayer sets (Leonine, etc.) are short and intentionally session-only:
+  // refreshing mid-prayer drops you back to the menu.
   useEffect(() => {
-    saveState(started ? selectedMystery : null, currentStep);
-  }, [selectedMystery, currentStep, started]);
+    const rosaryKey = started && selectedSet && isRosaryKey(selectedSet) ? selectedSet : null;
+    saveState(rosaryKey, currentStep);
+  }, [selectedSet, currentStep, started]);
 
   // Reflect locale in the document so screen readers + browser UI pick it up.
   useEffect(() => {
@@ -63,11 +84,12 @@ export default function Rosary() {
     };
   }, [started]);
 
-  const startRosary = useCallback((key: MysteryKey) => {
-    setSelectedMystery(key);
-    setSequence(buildRosarySequence(MYSTERIES[key]));
+  const startSet = useCallback((key: PrayerSetKey) => {
+    setSelectedSet(key);
+    setSequence(buildSequence(key));
     setCurrentStep(0);
     setStarted(true);
+    setShowTranslation(false);
   }, []);
 
   const buzz = () => { try { navigator.vibrate?.(25); } catch {} };
@@ -86,7 +108,7 @@ export default function Rosary() {
 
   const reset = () => {
     setStarted(false);
-    setSelectedMystery(null);
+    setSelectedSet(null);
     setCurrentStep(0);
     setSequence([]);
     saveState(null, 0);
@@ -134,13 +156,13 @@ export default function Rosary() {
     next();
   };
 
-  if (!started || !selectedMystery) {
-    return <MysteryMenu onStart={startRosary} locale={locale} onLocaleChange={setLocale} />;
+  if (!started || !selectedSet) {
+    return <MysteryMenu onStart={startSet} locale={locale} onLocaleChange={setLocale} />;
   }
 
-  const mysterySet = MYSTERIES[selectedMystery];
+  const setMeta = getPrayerSetMeta(selectedSet);
   const currentPrayer = sequence[currentStep];
-  const accentColor = mysterySet.color;
+  const accentColor = setMeta.color;
   const progress = sequence.length > 0 ? ((currentStep + 1) / sequence.length) * 100 : 0;
 
   return (
@@ -179,27 +201,30 @@ export default function Rosary() {
             ← {t.back}
           </button>
           <div style={{ flex: 1, textAlign: "center" }}>
-            <div style={{
+            <div lang="la" style={{
               color: "white",
               fontFamily: "Arial, sans-serif",
               fontSize: 20,
               fontWeight: 600,
             }}>
-              {mysterySet.name}
+              {setMeta.name}
             </div>
           </div>
           <div style={{ width: 60 }} />
         </div>
 
-        {/* Progress bar */}
-        <div style={{ height: 7, background: "rgba(0,0,0,0.1)" }}>
-          <div style={{
-            height: "100%",
-            width: `${progress}%`,
-            background: accentColor,
-            transition: "width 0.3s ease",
-          }} />
-        </div>
+        {/* Progress bar — only the rosary has a sequence long enough to
+            warrant one; linear sets use the section stepper instead. */}
+        {setMeta.kind === "rosary" && (
+          <div style={{ height: 7, background: "rgba(0,0,0,0.1)" }}>
+            <div style={{
+              height: "100%",
+              width: `${progress}%`,
+              background: accentColor,
+              transition: "width 0.3s ease",
+            }} />
+          </div>
+        )}
       </div>
 
       {/* Main content */}
@@ -217,7 +242,11 @@ export default function Rosary() {
         }}
       >
         <div style={{ margin: "auto 0", width: "100%" }}>
-          <RosaryBeads currentStep={currentStep} sequence={sequence} accentColor={accentColor} onJump={jumpTo} locale={locale} />
+          {setMeta.kind === "rosary" ? (
+            <RosaryBeads currentStep={currentStep} sequence={sequence} accentColor={accentColor} onJump={jumpTo} locale={locale} />
+          ) : (
+            <PrayerSections sequence={sequence} currentStep={currentStep} accentColor={accentColor} onJump={jumpTo} />
+          )}
 
           {/* Prayer label */}
           <div style={{ textAlign: "center", marginTop: 8, marginBottom: 4 }}>

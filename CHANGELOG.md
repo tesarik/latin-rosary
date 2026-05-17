@@ -6,6 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+- `PrayerSections` now renders one chip per step instead of one segment per section. Repeated prayers (Ave María ×3, Cor Iesu ×3) show as that many identical chips, making "how many times have I prayed this" readable at a glance without a numeric counter. Chips wrap to multiple rows on narrow viewports.
+
+## [0.4.0] - 2026-05-17
+
+### Added
+- "Další latinské modlitby" block on the start screen, separate from the rosary. First entry: **Orationes Leonis XIII** (Modlitby Lva XIII., post-Mass Leonine prayers) with full Latin + Czech texts sourced from `orationes-leonis-xiii.pdf`. Adds `HAIL_MARY_LEONINE`, `SALVE_REGINA_LEONINE`, `LEONINE_OREMUS`, `ST_MICHAEL`, `COR_IESU` to `PRAYER_TYPES`, plus an `OTHER_PRAYER_SETS` registry in `sequence.ts` and `buildLeoninePrayers()`.
+- Generalized prayer-set dispatch in `Rosary.tsx`: `PrayerSetKey = MysteryKey | OtherPrayerKey`, `getPrayerSetMeta()` and `buildSequence()` route by kind. The rosary still uses `buildRosarySequence` + bead ring; linear sets use the new sequence builder + `PrayerSections` stepper.
+- `PrayerSections` (new component): horizontal segmented stepper above the prayer card showing the prayer's sections. Current section filled in the accent color, completed sections tinted, future sections muted; tap a segment to jump to its first step. Replaces the bead ring for linear (non-rosary) prayer sets.
+- `section?: string` on `SequenceItem` — drives the stepper. Leonine Prayers split into 5 sections: "Ave María" (3 Aves), "Salve Regína", "Orémus", "S. Míchael", "Cor Iesu" (×3).
+- Localized "Other Latin prayers" heading on the start screen for all 5 supported locales (`otherPrayersHeading` in `i18n.ts`), plus `startPrayerAria` for the new buttons.
+
+### Changed
+- The horizontal progress bar at the top is now rosary-only. Linear prayer sets show the section stepper instead.
+- `localStorage` persistence is now scoped to rosary sessions only — starting a Leonine prayer doesn't save; reloading mid-prayer drops back to the menu (intentional, since these sets are short).
+- Header title is always Latin (`lang="la"`) regardless of UI locale, to match the prayer text on the card.
+
 ## [0.3.0] - 2026-05-15
 
 ### Added

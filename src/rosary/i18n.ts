@@ -20,7 +20,9 @@ type Strings = {
   finishAria: string;
   languagePickerAria: string;
   localeName: string;
+  otherPrayersHeading: string;
   startRosaryAria: (mysteryName: string) => string;
+  startPrayerAria: (prayerName: string) => string;
   stepXofY: (step: number, total: number) => string;
   jumpToOpeningPaterNoster: (step: number, total: number) => string;
   jumpToDecade: (n: number) => string;
@@ -42,7 +44,9 @@ export const STRINGS: Record<Locale, Strings> = {
     finishAria: "Dokončit modlitbu",
     languagePickerAria: "Volba jazyka",
     localeName: "Čeština",
+    otherPrayersHeading: "Další latinské modlitby",
     startRosaryAria: (n) => `Začít růženec — ${n}`,
+    startPrayerAria: (n) => `Začít modlitbu — ${n}`,
     stepXofY: (s, t) => `krok ${s} z ${t}`,
     jumpToOpeningPaterNoster: (s, t) => `Skočit na Pater Noster úvodu, krok ${s} z ${t}`,
     jumpToDecade: (n) => `Skočit na ${n}. desátek`,
@@ -62,7 +66,9 @@ export const STRINGS: Record<Locale, Strings> = {
     finishAria: "Finish prayer",
     languagePickerAria: "Language",
     localeName: "English",
+    otherPrayersHeading: "Other Latin prayers",
     startRosaryAria: (n) => `Start rosary — ${n}`,
+    startPrayerAria: (n) => `Start prayer — ${n}`,
     stepXofY: (s, t) => `step ${s} of ${t}`,
     jumpToOpeningPaterNoster: (s, t) => `Jump to opening Pater Noster, step ${s} of ${t}`,
     jumpToDecade: (n) => `Jump to decade ${n}`,
@@ -82,7 +88,9 @@ export const STRINGS: Record<Locale, Strings> = {
     finishAria: "Dokončiť modlitbu",
     languagePickerAria: "Voľba jazyka",
     localeName: "Slovenčina",
+    otherPrayersHeading: "Ďalšie latinské modlitby",
     startRosaryAria: (n) => `Začať ruženec — ${n}`,
+    startPrayerAria: (n) => `Začať modlitbu — ${n}`,
     stepXofY: (s, t) => `krok ${s} z ${t}`,
     jumpToOpeningPaterNoster: (s, t) => `Skočiť na Pater Noster úvodu, krok ${s} z ${t}`,
     jumpToDecade: (n) => `Skočiť na ${n}. desiatok`,
@@ -102,7 +110,9 @@ export const STRINGS: Record<Locale, Strings> = {
     finishAria: "Gebet beenden",
     languagePickerAria: "Sprache",
     localeName: "Deutsch",
+    otherPrayersHeading: "Weitere lateinische Gebete",
     startRosaryAria: (n) => `Rosenkranz beginnen — ${n}`,
+    startPrayerAria: (n) => `Gebet beginnen — ${n}`,
     stepXofY: (s, t) => `Schritt ${s} von ${t}`,
     jumpToOpeningPaterNoster: (s, t) => `Zum einleitenden Pater Noster springen, Schritt ${s} von ${t}`,
     jumpToDecade: (n) => `Zum ${n}. Gesätz springen`,
@@ -122,7 +132,9 @@ export const STRINGS: Record<Locale, Strings> = {
     finishAria: "Zakończ modlitwę",
     languagePickerAria: "Język",
     localeName: "Polski",
+    otherPrayersHeading: "Inne łacińskie modlitwy",
     startRosaryAria: (n) => `Rozpocznij różaniec — ${n}`,
+    startPrayerAria: (n) => `Rozpocznij modlitwę — ${n}`,
     stepXofY: (s, t) => `krok ${s} z ${t}`,
     jumpToOpeningPaterNoster: (s, t) => `Przeskocz do wprowadzającego Pater Noster, krok ${s} z ${t}`,
     jumpToDecade: (n) => `Przeskocz do ${n}. dziesiątki`,

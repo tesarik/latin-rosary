@@ -10,6 +10,14 @@ export const PRAYER_TYPES = {
   GLORY_BE: "glory_be",
   FATIMA: "fatima",
   SALVE_REGINA: "salve_regina",
+  // Leonine post-Mass prayer types. HAIL_MARY_LEONINE is its own type rather
+  // than reusing HAIL_MARY because the PDF uses a slightly different orthography
+  // (Iesus / María) and the Leonine version carries no mystery clause.
+  HAIL_MARY_LEONINE: "hail_mary_leonine",
+  SALVE_REGINA_LEONINE: "salve_regina_leonine",
+  LEONINE_OREMUS: "leonine_oremus",
+  ST_MICHAEL: "st_michael",
+  COR_IESU: "cor_iesu",
 } as const;
 
 export type PrayerType = (typeof PRAYER_TYPES)[keyof typeof PRAYER_TYPES];
@@ -102,6 +110,22 @@ export const PRAYERS: Record<StaticPrayerType, string> = {
 
 Orémus:
 Deus, cuius Unigénitus per vitam, mortem et resurrectiónem suam nobis salútis ætérnæ præmia comparávit: concéde, quæsumus; ut hæc mysteria sacratíssimo beátæ Maríæ Virginis Rosário recoléntes, et imitémur quod continent, et quod promíttunt, assequámur. Per eúndem Christum Dóminum nostrum. Amen.`,
+
+  // Source: orationes-leonis-xiii.pdf. Orthography (Iesus / María / lacrymárum)
+  // is preserved from the PDF and intentionally diverges from the rosary's HM.
+  [PRAYER_TYPES.HAIL_MARY_LEONINE]: `Ave María, grátia plena, Dóminus tecum, benedícta tu in muliéribus et benedíctus fructus ventris tui, Iesus. Sancta María, Mater Dei, ora pro nobis peccatóribus, nunc et in hora mortis nostræ. Amen.`,
+
+  [PRAYER_TYPES.SALVE_REGINA_LEONINE]: `Salve Regína, Mater misericórdiæ, vita, dulcédo, et spes nostra, salve. Ad te clamámus, éxsules fílii Evæ. Ad te suspirámus geméntes et flentes in hac lacrymárum valle. Eia ergo, Advocáta nostra, illos tuos misericórdes óculos ad nos convérte. Et Iesum, benedíctum fructum ventris tui, nobis, post hoc exílium, osténde. O clemens, o pia, o dulcis Virgo María.
+
+℣ Ora pro nobis, sancta Dei Génitrix.
+℟ Ut digni efficiámur promissiónibus Christi.`,
+
+  [PRAYER_TYPES.LEONINE_OREMUS]: `Orémus. Deus, refúgium nostrum et virtus, pópulum ad te clamántem propítius réspice; et intercedénte gloriósa, et immaculáta Vírgine Dei Genitríce María, cum beáto Ioseph, eius Sponso, ac beatis Apóstolis tuis Petro et Paulo, et ómnibus Sanctis, quas pro conversióne peccatórum, pro libertáte et exaltatióne sanctæ Matris Ecclésiæ, preces effúndimus, miséricors et benígnus exáudi. Per eúndem Christum Dóminum nostrum. Amen.`,
+
+  [PRAYER_TYPES.ST_MICHAEL]: `Sancte Míchael Archángele, defénde nos in prælio; contra nequítiam et insídias diáboli esto præsídium. Imperet illi Deus, súpplices deprecámur: tuque, Princeps milítiæ Cæléstis, sátanam aliósque spíritus malígnos, qui ad perditiónem animárum pervagántur in mundo, divína virtúte in inférnum detrúde. Amen.`,
+
+  [PRAYER_TYPES.COR_IESU]: `℣ Cor Iesu sacratíssimum.
+℟ Miserére nobis.`,
 };
 
 // The Hail Mary is split so the per-decade mystery clause can be visually
@@ -144,4 +168,19 @@ export const PRAYERS_CS: Record<StaticPrayerType, string> = {
 
 Modleme se:
 Bože, jehož jednorozený Syn nám svým životem, smrtí a vzkříšením získal odměny věčné spásy: uděl nám, prosíme, abychom rozjímáním těchto tajemství posvátného růžence blahoslavené Panny Marie, jak následovali to, co obsahují, tak dosáhli toho, co slibují. Skrze téhož Krista, Pána našeho. Amen.`,
+
+  // Czech sourced verbatim from orationes-leonis-xiii.pdf.
+  [PRAYER_TYPES.HAIL_MARY_LEONINE]: `Zdrávas, Maria, milosti plná, Pán s tebou. Požehnaná ty mezi ženami a požehnaný plod života tvého, Ježíš. Svatá Maria, Matko Boží, pros za nás hříšné nyní i v hodinu smrti naší. Amen.`,
+
+  [PRAYER_TYPES.SALVE_REGINA_LEONINE]: `Zdrávas Královno, Matko milosrdenství. Živote, sladkosti a naděje naše, buď zdráva. K Tobě voláme, vyhnaní synové Evy. K Tobě vzdycháme, lkajíce a plačíce v tomto slzavém údolí. A proto, orodovnice naše, obrať k nám své milosrdné oči. A Ježíše, požehnaný plod života svého, nám po tomto putování ukaž. Ó milostivá, ó přívětivá, ó přesladká Panno Maria.
+
+℣ Oroduj za nás, svatá Boží Rodičko.
+℟ Abychom byli učiněni hodnými Kristových zaslíbení.`,
+
+  [PRAYER_TYPES.LEONINE_OREMUS]: `Modleme se. Bože, útočiště naše a sílo, shlédni milostivě na lid, který k tobě volá, a na přímluvu slavné a neposkvrněné Panny, Bohorodičky Marie, se svatým Josefem, jejím snoubencem, i tvými svatými apoštoly Petrem a Pavlem a všemi svatými, vyslyš milosrdně a dobrotivě naše prosby, které předkládáme za obrácení hříšníků, za svobodu a povznesení svaté matky Církve. Skrze téhož Krista, našeho Pána. Amen.`,
+
+  [PRAYER_TYPES.ST_MICHAEL]: `Svatý Michaeli Archanděli, braň nás v boji; proti zlobě a úkladům ďáblovým budiž nám záštitou. Nech ať Bůh přikáže jemu, pokorně prosíme. Ty pak, kníže vojska nebeského, Satana a jiné duchy zlé, kteří ke zkáze duší světem obcházejí, božskou mocí do pekla svrhni. Amen.`,
+
+  [PRAYER_TYPES.COR_IESU]: `℣ Nejsvětější Srdce Ježíšovo.
+℟ Smiluj se nad námi.`,
 };

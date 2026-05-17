@@ -8,6 +8,9 @@ export type SequenceItem = {
   mysteryCs?: string;
   decade?: number;
   num?: number;
+  // Section name for linear (non-rosary) prayer sets — drives the segmented
+  // stepper shown above the prayer card. Rosary items leave this unset.
+  section?: string;
 };
 
 // Rosary structure (74 positions total):
@@ -53,3 +56,45 @@ export function buildRosarySequence(mysterySet: MysterySet): SequenceItem[] {
   seq.push({ type: PRAYER_TYPES.SIGN_OF_CROSS, label: "Signum Crucis" });
   return seq;
 }
+
+// Section labels for the Leonine post-Mass prayers. These drive the segmented
+// stepper above the prayer card; tap a segment to jump to its first step.
+const LEO_SECTIONS = {
+  AVE: "Ave María",
+  SALVE: "Salve Regína",
+  OREMUS: "Orémus",
+  MICHAEL: "S. Míchael",
+  COR_IESU: "Cor Iesu",
+} as const;
+
+// Orationes Leonis XIII — 9 steps across 5 sections. Linear, no beads, no
+// per-prayer counters. Source: orationes-leonis-xiii.pdf.
+export function buildLeoninePrayers(): SequenceItem[] {
+  const seq: SequenceItem[] = [];
+  for (let i = 0; i < 3; i++) {
+    seq.push({ type: PRAYER_TYPES.HAIL_MARY_LEONINE, label: "Ave María", section: LEO_SECTIONS.AVE });
+  }
+  seq.push({ type: PRAYER_TYPES.SALVE_REGINA_LEONINE, label: "Salve Regína", section: LEO_SECTIONS.SALVE });
+  seq.push({ type: PRAYER_TYPES.LEONINE_OREMUS,       label: "Orémus",       section: LEO_SECTIONS.OREMUS });
+  seq.push({ type: PRAYER_TYPES.ST_MICHAEL,           label: "Sancte Míchael", section: LEO_SECTIONS.MICHAEL });
+  for (let i = 0; i < 3; i++) {
+    seq.push({ type: PRAYER_TYPES.COR_IESU, label: "Cor Iesu", section: LEO_SECTIONS.COR_IESU });
+  }
+  return seq;
+}
+
+export type OtherPrayerKey = "leonine";
+
+// Linear prayer sets (no beads, not persisted). Keyed by `OtherPrayerKey`,
+// rendered as a separate block on the start screen.
+export const OTHER_PRAYER_SETS: Record<OtherPrayerKey, {
+  name: string;
+  color: string;
+  build: () => SequenceItem[];
+}> = {
+  leonine: {
+    name: "Orationes Leonis XIII",
+    color: "#5E35B1",
+    build: buildLeoninePrayers,
+  },
+};
