@@ -19,6 +19,10 @@ type Strings = {
   nextAria: string;
   finishAria: string;
   languagePickerAria: string;
+  textSizeAria: string;
+  textSizeSmallAria: string;
+  textSizeMediumAria: string;
+  textSizeLargeAria: string;
   localeName: string;
   otherPrayersHeading: string;
   startRosaryAria: (mysteryName: string) => string;
@@ -43,6 +47,10 @@ export const STRINGS: Record<Locale, Strings> = {
     nextAria: "Další modlitba",
     finishAria: "Dokončit modlitbu",
     languagePickerAria: "Volba jazyka",
+    textSizeAria: "Velikost písma",
+    textSizeSmallAria: "Malé písmo",
+    textSizeMediumAria: "Střední písmo",
+    textSizeLargeAria: "Velké písmo",
     localeName: "Čeština",
     otherPrayersHeading: "Další latinské modlitby",
     startRosaryAria: (n) => `Začít růženec — ${n}`,
@@ -65,6 +73,10 @@ export const STRINGS: Record<Locale, Strings> = {
     nextAria: "Next prayer",
     finishAria: "Finish prayer",
     languagePickerAria: "Language",
+    textSizeAria: "Text size",
+    textSizeSmallAria: "Small text",
+    textSizeMediumAria: "Medium text",
+    textSizeLargeAria: "Large text",
     localeName: "English",
     otherPrayersHeading: "Other Latin prayers",
     startRosaryAria: (n) => `Start rosary — ${n}`,
@@ -87,6 +99,10 @@ export const STRINGS: Record<Locale, Strings> = {
     nextAria: "Ďalšia modlitba",
     finishAria: "Dokončiť modlitbu",
     languagePickerAria: "Voľba jazyka",
+    textSizeAria: "Veľkosť písma",
+    textSizeSmallAria: "Malé písmo",
+    textSizeMediumAria: "Stredné písmo",
+    textSizeLargeAria: "Veľké písmo",
     localeName: "Slovenčina",
     otherPrayersHeading: "Ďalšie latinské modlitby",
     startRosaryAria: (n) => `Začať ruženec — ${n}`,
@@ -109,6 +125,10 @@ export const STRINGS: Record<Locale, Strings> = {
     nextAria: "Nächstes Gebet",
     finishAria: "Gebet beenden",
     languagePickerAria: "Sprache",
+    textSizeAria: "Schriftgröße",
+    textSizeSmallAria: "Kleine Schrift",
+    textSizeMediumAria: "Mittlere Schrift",
+    textSizeLargeAria: "Große Schrift",
     localeName: "Deutsch",
     otherPrayersHeading: "Weitere lateinische Gebete",
     startRosaryAria: (n) => `Rosenkranz beginnen — ${n}`,
@@ -131,6 +151,10 @@ export const STRINGS: Record<Locale, Strings> = {
     nextAria: "Następna modlitwa",
     finishAria: "Zakończ modlitwę",
     languagePickerAria: "Język",
+    textSizeAria: "Rozmiar tekstu",
+    textSizeSmallAria: "Mały tekst",
+    textSizeMediumAria: "Średni tekst",
+    textSizeLargeAria: "Duży tekst",
     localeName: "Polski",
     otherPrayersHeading: "Inne łacińskie modlitwy",
     startRosaryAria: (n) => `Rozpocznij różaniec — ${n}`,

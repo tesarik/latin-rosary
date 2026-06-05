@@ -1,23 +1,24 @@
 import { PRAYER_TYPES, PRAYERS, PRAYERS_CS, getHailMary, getHailMaryCs } from "./prayers";
 import type { SequenceItem } from "./sequence";
 import { STRINGS, type Locale } from "./i18n";
+import { FONT_SIZE_CLAMP, type FontSize } from "./fontSize";
 
 const bodyStyle = {
   textAlign: "center" as const,
   lineHeight: 1.35,
   fontFamily: "'EB Garamond', Georgia, serif",
-  fontSize: "clamp(17px, 5vw, 22px)",
 };
 
-function PrayerBody({ currentPrayer, accentColor, locale, showTranslation }: { currentPrayer: SequenceItem | undefined; accentColor: string; locale: Locale; showTranslation: boolean }) {
+function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontSize }: { currentPrayer: SequenceItem | undefined; accentColor: string; locale: Locale; showTranslation: boolean; fontSize: FontSize }) {
   if (!currentPrayer) return null;
+  const sizedBodyStyle = { ...bodyStyle, fontSize: FONT_SIZE_CLAMP[fontSize] };
 
   if (currentPrayer.type === PRAYER_TYPES.HAIL_MARY) {
     const hm = showTranslation
       ? getHailMaryCs(currentPrayer.mysteryCs)
       : getHailMary(currentPrayer.mystery);
     return (
-      <div style={bodyStyle}>
+      <div style={sizedBodyStyle}>
         {currentPrayer.num !== undefined && (
           <div lang={locale} aria-hidden="true" style={{
             fontSize: 12, color: "#90A4AE", marginBottom: 8,
@@ -27,7 +28,7 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation }: { c
           </div>
         )}
         <div style={{ whiteSpace: "pre-line", color: "#37474F" }}>{hm.before}</div>
-        <div style={{ color: accentColor, fontWeight: 600, margin: "4px 0" }}>{hm.mystery}.</div>
+        {hm.mystery && <div style={{ color: accentColor, fontWeight: 600, margin: "4px 0" }}>{hm.mystery}.</div>}
         <div style={{ whiteSpace: "pre-line", color: "#37474F" }}>{hm.after}</div>
       </div>
     );
@@ -35,7 +36,7 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation }: { c
 
   const text = showTranslation ? PRAYERS_CS[currentPrayer.type] : PRAYERS[currentPrayer.type];
   return (
-    <div style={bodyStyle}>
+    <div style={sizedBodyStyle}>
       <div style={{ whiteSpace: "pre-line", color: "#37474F" }}>{text}</div>
     </div>
   );
@@ -50,6 +51,7 @@ type Props = {
   locale: Locale;
   showTranslation: boolean;
   onLanguageChange: (showTranslation: boolean) => void;
+  fontSize: FontSize;
 };
 
 // The tappable white card that wraps the current prayer's text.
@@ -57,7 +59,7 @@ type Props = {
 // text or interacting with the language select, in which case the parent's
 // click handler bails out. The select in the corner switches the body between
 // Latin and Czech.
-export default function PrayerCard({ currentPrayer, accentColor, currentStep, totalSteps, onClick, locale, showTranslation, onLanguageChange }: Props) {
+export default function PrayerCard({ currentPrayer, accentColor, currentStep, totalSteps, onClick, locale, showTranslation, onLanguageChange, fontSize }: Props) {
   const t = STRINGS[locale];
   return (
     <div
@@ -105,7 +107,7 @@ export default function PrayerCard({ currentPrayer, accentColor, currentStep, to
         <option value="la">LA</option>
         <option value="cs">CZ</option>
       </select>
-      <PrayerBody currentPrayer={currentPrayer} accentColor={accentColor} locale={locale} showTranslation={showTranslation} />
+      <PrayerBody currentPrayer={currentPrayer} accentColor={accentColor} locale={locale} showTranslation={showTranslation} fontSize={fontSize} />
     </div>
   );
 }

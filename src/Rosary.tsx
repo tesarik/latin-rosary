@@ -3,9 +3,11 @@ import { MYSTERIES, type MysteryKey } from "./rosary/prayers";
 import { buildRosarySequence, OTHER_PRAYER_SETS, type OtherPrayerKey, type SequenceItem } from "./rosary/sequence";
 import { loadSavedState, saveState } from "./rosary/storage";
 import { STRINGS, detectLocale, loadSavedLocale, saveLocale, type Locale } from "./rosary/i18n";
+import { DEFAULT_FONT_SIZE, loadSavedFontSize, saveFontSize, type FontSize } from "./rosary/fontSize";
 import RosaryBeads from "./rosary/RosaryBeads";
 import PrayerCard from "./rosary/PrayerCard";
 import PrayerSections from "./rosary/PrayerSections";
+import FontSizeControl from "./rosary/FontSizeControl";
 import MysteryMenu from "./rosary/MysteryMenu";
 
 type TouchSample = { x: number; y: number; time: number };
@@ -41,6 +43,7 @@ export default function Rosary() {
   const [started, setStarted] = useState<boolean>(!!saved.current);
   const [showTranslation, setShowTranslation] = useState<boolean>(false);
   const [locale, setLocaleState] = useState<Locale>(() => loadSavedLocale() ?? detectLocale());
+  const [fontSize, setFontSizeState] = useState<FontSize>(() => loadSavedFontSize() ?? DEFAULT_FONT_SIZE);
   const t = STRINGS[locale];
   const prayerRef = useRef<HTMLDivElement | null>(null);
   const touchStart = useRef<TouchSample | null>(null);
@@ -48,6 +51,11 @@ export default function Rosary() {
   const setLocale = useCallback((next: Locale) => {
     setLocaleState(next);
     saveLocale(next);
+  }, []);
+
+  const setFontSize = useCallback((next: FontSize) => {
+    setFontSizeState(next);
+    saveFontSize(next);
   }, []);
 
   // Persist on every change — only the rosary survives a reload. Linear
@@ -210,7 +218,7 @@ export default function Rosary() {
               {setMeta.name}
             </div>
           </div>
-          <div style={{ width: 60 }} />
+          <FontSizeControl value={fontSize} onChange={setFontSize} accentColor={accentColor} locale={locale} />
         </div>
 
         {/* Progress bar — only the rosary has a sequence long enough to
@@ -273,6 +281,7 @@ export default function Rosary() {
             locale={locale}
             showTranslation={showTranslation}
             onLanguageChange={setShowTranslation}
+            fontSize={fontSize}
           />
         </div>
       </div>
