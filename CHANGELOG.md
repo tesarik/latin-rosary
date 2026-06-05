@@ -6,7 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-06-05
+
+### Added
+- **Seven Prayers of St. Bridget** (twelve-year devotion honoring the seven sheddings of the Precious Blood) as a new entry in the "Other Latin prayers" block. Opening prayer + 7 sheddings, each: meditation prayer + Pater Noster + Ave María (22 steps, 8-node section ring). New `brigit` key in `OTHER_PRAYER_SETS` + `buildBrigitPrayers()`, and eight `BRIGIT_*` prayer types in `prayers.ts`. **The meditation texts (Latin and Czech) are our own faithful translation, not a sourced edition** — this devotion has no stable authoritative Latin original; the divergence is flagged in code above the `BRIGIT_*` entries so the text can be replaced verbatim if a trustworthy booklet is obtained.
+- **Prayer-text size setting**: an A / A / A segmented control in the header lets you pick small / medium / large prayer-body text. The choice persists under its own `localStorage` key (`ruzenec_font_size`, default `medium`), survives reloads and applies to every prayer set. New `src/rosary/fontSize.ts` (level model + `clamp()` per level + load/save) and `src/rosary/FontSizeControl.tsx`; only the prayer body rescales, UI chrome stays fixed. Localized aria labels added for all 5 locales.
+
 ### Changed
+- **Unified all prayer texts to a single Latin orthography (Leonine "I" style: `Iesus` / `María` / `lacrymárum` / `Evæ` / `eius` / `baiulávit`).** The Ave María and the Salve Regína antiphon, which previously had two diverging copies (rosary vs. Leonine), are now each a single shared source: `getHailMary`/`getHailMaryCs` serve both the rosary decades and the Leonine prayers (the Leonine Ave passes no mystery clause), and `SALVE_REGINA_ANTIPHON`(`_CS`) backs both `SALVE_REGINA` (which appends the rosary's Orémus collect) and `SALVE_REGINA_LEONINE`. Removed the now-redundant `HAIL_MARY_LEONINE` prayer type; the Leonine Ave María reuses `HAIL_MARY`. Bead/sequence structure is unchanged, so `STATE_VERSION` stays at 3.
 - `PrayerSections` is now a **circular state diagram**: each step is a node placed clockwise around a circle starting at the top, with SVG arc arrows connecting consecutive nodes. Done nodes/arrows tint in the accent color, active node is filled solid (with a soft shadow), future nodes/arrows stay muted. Repeated prayers (Ave María ×3, Cor Iesu ×3) show as that many nodes around the ring — counting nodes shows progress at a glance. Section labels use the full Latin names; ring radius and chip padding tuned so all 9 chips fit within a 360px container.
 
 ## [0.4.0] - 2026-05-17

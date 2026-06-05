@@ -17,6 +17,8 @@ A single-page web app for praying the Latin rosary. UI chrome and menus are in C
 - `src/rosary/prayers.ts` — `PRAYER_TYPES`, `MYSTERIES`, `PRAYERS` (the Latin texts), `getHailMary(mystery)`, and the exported types `MysteryKey`, `MysterySet`, `PrayerType`, `StaticPrayerType`, `HailMary`.
 - `src/rosary/sequence.ts` — `buildRosarySequence(mysterySet)` and the `SequenceItem` type; stamps each bead-bearing item with a `beadId`.
 - `src/rosary/storage.ts` — `STATE_VERSION`, `loadSavedState`, `saveState`, `SavedState` type.
+- `src/rosary/fontSize.ts` — prayer-body text-size preference: `FONT_SIZES` (`small`/`medium`/`large`), `FontSize` type, `FONT_SIZE_CLAMP` (the responsive `clamp()` per level), `DEFAULT_FONT_SIZE`, and `loadSavedFontSize` / `saveFontSize` (own `localStorage` key, like the locale preference).
+- `src/rosary/FontSizeControl.tsx` — the A / A / A segmented control shown in the header; white-on-translucent, active level filled solid. Props: `value`, `onChange`, `accentColor`, `locale`.
 - `src/rosary/RosaryBeads.tsx` — SVG bead ring + `beadStyle` helper. Props: `currentStep`, `sequence`, `accentColor`, `onJump?`.
 - `src/rosary/PrayerCard.tsx` — the tappable white card. `PrayerBody` (internal) renders Hail Mary with the highlighted mystery clause or any other prayer's body text.
 - `src/rosary/MysteryMenu.tsx` — start screen with one button per mystery set; calls `onStart(key)`.
@@ -62,6 +64,7 @@ Pater Noster beads (tail + 5 ring beads) carry a transparent 11–12px hit circl
 - `localStorage` key `ruzenec_state`, schema `{ version, selectedMystery, currentStep }`.
 - `STATE_VERSION` (currently 3) — increment on any structural change to the sequence; `loadSavedState` discards mismatched versions silently.
 - State is saved on every `currentStep` / `selectedMystery` / `started` change and cleared on reset.
+- Two standalone UI preferences persist under their own keys, independent of the session and not versioned: `ruzenec_locale` (see `i18n.ts`) and `ruzenec_font_size` (see `fontSize.ts`, default `medium`). Both survive reset and reload.
 
 ## Interactions
 
@@ -73,6 +76,7 @@ Pater Noster beads (tail + 5 ring beads) carry a transparent 11–12px hit circl
 - **Wake Lock API** keeps the screen on while a rosary is in progress (re-acquired on `visibilitychange`).
 - Active bead glows in the mystery's accent color; the cross icon glows when a Sign of Cross step is active.
 - The header back button (`← Zpět`) routes through `confirmReset()` and prompts before discarding progress (skipped silently when `currentStep === 0`).
+- The header's right side holds the **A / A / A text-size control** (`FontSizeControl`); tapping a level rescales the prayer body via `FONT_SIZE_CLAMP` and persists the choice. Only the prayer-body text scales — UI chrome stays fixed.
 
 ## Typography
 
@@ -95,4 +99,5 @@ No lint, no tests, no CI configured yet.
 - New prayer types or sequence changes: update `PRAYER_TYPES` and `PRAYERS` in `src/rosary/prayers.ts` (extend `StaticPrayerType` if the new prayer has static text), the builder in `src/rosary/sequence.ts` (stamp new bead-bearing items with a `beadId` matching the layout), the bead layout in `src/rosary/RosaryBeads.tsx` if structure changes, and bump `STATE_VERSION` in `src/rosary/storage.ts`.
 - Keep accessibility attributes when editing UI: `aria-label` on interactive buttons, `aria-live="polite"` on the prayer card, `lang="la"` on prayer-text containers, `aria-hidden="true"` on decorative SVGs.
 - Latin diacritics (acute accents, æ, œ) are part of the prayer text — preserve them exactly when editing.
+- Every prayer text is transcribed from a trustworthy source **except** the St. Bridget `BRIGIT_*` entries, which are our own translation (no authoritative Latin original exists for that devotion). They're flagged with a banner comment in `prayers.ts`; if a sourced Latin booklet is ever obtained, replace those texts verbatim. Don't add further unsourced prayers without flagging them the same way.
 - The icon (`public/icon.svg`) is hand-tuned to mirror the rosary visualization in the app; if you change the in-app SVG, consider keeping the icon in sync.
