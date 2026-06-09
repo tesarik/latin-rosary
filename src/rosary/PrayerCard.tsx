@@ -1,7 +1,7 @@
 import { PRAYER_TYPES, PRAYERS, PRAYERS_CS, getHailMary, getHailMaryCs } from "./prayers";
 import type { SequenceItem } from "./sequence";
 import { STRINGS, type Locale } from "./i18n";
-import { FONT_SIZE_CLAMP, type FontSize } from "./fontSize";
+import { accentText, type Theme } from "./theme";
 
 const bodyStyle = {
   textAlign: "center" as const,
@@ -9,9 +9,10 @@ const bodyStyle = {
   fontFamily: "'EB Garamond', Georgia, serif",
 };
 
-function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontSize }: { currentPrayer: SequenceItem | undefined; accentColor: string; locale: Locale; showTranslation: boolean; fontSize: FontSize }) {
+function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontSizeClamp, theme }: { currentPrayer: SequenceItem | undefined; accentColor: string; locale: Locale; showTranslation: boolean; fontSizeClamp: string; theme: Theme }) {
   if (!currentPrayer) return null;
-  const sizedBodyStyle = { ...bodyStyle, fontSize: FONT_SIZE_CLAMP[fontSize] };
+  const sizedBodyStyle = { ...bodyStyle, fontSize: fontSizeClamp };
+  const clauseColor = accentText(accentColor, theme);
 
   if (currentPrayer.type === PRAYER_TYPES.HAIL_MARY) {
     const hm = showTranslation
@@ -21,15 +22,15 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
       <div style={sizedBodyStyle}>
         {currentPrayer.num !== undefined && (
           <div lang={locale} aria-hidden="true" style={{
-            fontSize: 12, color: "#90A4AE", marginBottom: 8,
+            fontSize: 12, color: "var(--text-muted)", marginBottom: 8,
             fontFamily: "Arial, sans-serif", letterSpacing: 1,
           }}>
             {currentPrayer.num} / 10
           </div>
         )}
-        <div style={{ whiteSpace: "pre-line", color: "#37474F" }}>{hm.before}</div>
-        {hm.mystery && <div style={{ color: accentColor, fontWeight: 600, margin: "4px 0" }}>{hm.mystery}.</div>}
-        <div style={{ whiteSpace: "pre-line", color: "#37474F" }}>{hm.after}</div>
+        <div style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{hm.before}</div>
+        {hm.mystery && <div style={{ color: clauseColor, fontWeight: 600, margin: "4px 0" }}>{hm.mystery}.</div>}
+        <div style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{hm.after}</div>
       </div>
     );
   }
@@ -37,7 +38,7 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
   const text = showTranslation ? PRAYERS_CS[currentPrayer.type] : PRAYERS[currentPrayer.type];
   return (
     <div style={sizedBodyStyle}>
-      <div style={{ whiteSpace: "pre-line", color: "#37474F" }}>{text}</div>
+      <div style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{text}</div>
     </div>
   );
 }
@@ -51,7 +52,8 @@ type Props = {
   locale: Locale;
   showTranslation: boolean;
   onLanguageChange: (showTranslation: boolean) => void;
-  fontSize: FontSize;
+  fontSizeClamp: string;
+  theme: Theme;
 };
 
 // The tappable white card that wraps the current prayer's text.
@@ -59,7 +61,7 @@ type Props = {
 // text or interacting with the language select, in which case the parent's
 // click handler bails out. The select in the corner switches the body between
 // Latin and Czech.
-export default function PrayerCard({ currentPrayer, accentColor, currentStep, totalSteps, onClick, locale, showTranslation, onLanguageChange, fontSize }: Props) {
+export default function PrayerCard({ currentPrayer, accentColor, currentStep, totalSteps, onClick, locale, showTranslation, onLanguageChange, fontSizeClamp, theme }: Props) {
   const t = STRINGS[locale];
   return (
     <div
@@ -69,12 +71,12 @@ export default function PrayerCard({ currentPrayer, accentColor, currentStep, to
       aria-label={`${currentPrayer?.label ?? ""}, ${t.stepXofY(currentStep + 1, totalSteps)}`}
       style={{
         position: "relative",
-        background: "white",
+        background: "var(--surface)",
         borderRadius: 18,
         padding: "20px 18px",
         margin: "6px 0 12px",
         boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
-        border: "1px solid #ECEFF1",
+        border: "1px solid var(--border)",
         cursor: "pointer",
         userSelect: "text",
         WebkitTapHighlightColor: "transparent",
@@ -93,12 +95,12 @@ export default function PrayerCard({ currentPrayer, accentColor, currentStep, to
           WebkitAppearance: "none",
           MozAppearance: "none",
           background: "transparent",
-          border: "1px solid #ECEFF1",
+          border: "1px solid var(--border)",
           borderRadius: 6,
           padding: "2px 6px",
           fontSize: 11,
           letterSpacing: 1,
-          color: "#78909C",
+          color: "var(--text-muted)",
           fontFamily: "Arial, sans-serif",
           fontWeight: 600,
           cursor: "pointer",
@@ -107,7 +109,7 @@ export default function PrayerCard({ currentPrayer, accentColor, currentStep, to
         <option value="la">LA</option>
         <option value="cs">CZ</option>
       </select>
-      <PrayerBody currentPrayer={currentPrayer} accentColor={accentColor} locale={locale} showTranslation={showTranslation} fontSize={fontSize} />
+      <PrayerBody currentPrayer={currentPrayer} accentColor={accentColor} locale={locale} showTranslation={showTranslation} fontSizeClamp={fontSizeClamp} theme={theme} />
     </div>
   );
 }

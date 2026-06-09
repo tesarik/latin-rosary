@@ -23,7 +23,6 @@ export default function PrayerSections({ sequence, currentStep, accentColor, onJ
   if (N === 0) return null;
 
   const W = 320, H = 36, pad = 12, y = H / 2;
-  const lineColor = "#B0BEC5";
   const xOf = (i: number) => (N === 1 ? W / 2 : pad + (W - 2 * pad) * (i / (N - 1)));
 
   return (
@@ -40,9 +39,8 @@ export default function PrayerSections({ sequence, currentStep, accentColor, onJ
             <line
               key={`thread-${i}`}
               x1={xOf(i)} y1={y} x2={xOf(i + 1)} y2={y}
-              stroke={done ? accentColor : lineColor}
               strokeWidth={1.5}
-              style={{ transition: "stroke 0.3s ease" }}
+              style={{ stroke: done ? accentColor : "var(--thread)", transition: "stroke 0.3s ease" }}
             />
           );
         })}
@@ -51,16 +49,14 @@ export default function PrayerSections({ sequence, currentStep, accentColor, onJ
           const isActive = i === currentStep;
           const isPast = i < currentStep;
           const isPrimary = !!item.section;
-          const fill = isActive ? accentColor : isPast ? "#90A4AE" : "#CFD8DC";
+          const fill = isActive ? accentColor : isPast ? "var(--bead-past)" : "var(--bead-future)";
           const r = isActive ? (isPrimary ? 6.5 : 5) : isPrimary ? 5.5 : 3.4;
           return (
             <g key={i}>
               <circle
                 cx={xOf(i)} cy={y} r={r}
-                fill={fill}
-                stroke={isActive ? accentColor : "none"}
                 strokeWidth={isActive ? 2 : 0}
-                style={{ transition: "all 0.3s ease", filter: isActive ? `drop-shadow(0 0 5px ${accentColor})` : "none" }}
+                style={{ fill, stroke: isActive ? accentColor : "none", transition: "all 0.3s ease", filter: isActive ? `drop-shadow(0 0 5px ${accentColor})` : "none" }}
               />
               {/* Only section-start beads jump (avoids stray taps on the small
                   sub-step beads during swipes — same rule as the rosary). */}

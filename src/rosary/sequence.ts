@@ -134,3 +134,55 @@ export const OTHER_PRAYER_SETS: Record<OtherPrayerKey, {
     build: buildBrigitPrayers,
   },
 };
+
+export type OrdinaryPrayerKey =
+  | "signum_crucis"
+  | "pater_noster"
+  | "ave_maria"
+  | "gloria_patri"
+  | "symbolum_apostolorum"
+  | "symbolum_nicenum"
+  | "salve_regina"
+  | "sub_tuum"
+  | "angelus"
+  | "regina_caeli"
+  | "anima_christi"
+  | "angele_dei"
+  | "sancte_michael"
+  | "requiem"
+  | "decalogue";
+
+// Shared accent for the standalone "ordinary" prayers (no liturgical color of
+// their own) — the app's brand blue.
+const ORDINARY_COLOR = "#1565C0";
+
+// Orationes utilissimæ — standalone single prayers, shown as expandable links
+// on the start screen. Each builds a one-step sequence: no beads, no stepper,
+// not persisted. Prayers the app already had reuse their existing type; the
+// rest use the types added in prayers.ts. The start-screen menu sorts these
+// alphabetically by name, so registry order here doesn't matter. Salve Regína
+// reuses the Leonine antiphon (which also carries the ℣/℟ versicle).
+const ordinary = (name: string, type: PrayerType): { name: string; color: string; build: () => SequenceItem[] } =>
+  ({ name, color: ORDINARY_COLOR, build: () => [{ type, label: name }] });
+
+export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, {
+  name: string;
+  color: string;
+  build: () => SequenceItem[];
+}> = {
+  signum_crucis:        ordinary("Signum Crucis",        PRAYER_TYPES.SIGN_OF_CROSS),
+  pater_noster:         ordinary("Pater Noster",         PRAYER_TYPES.OUR_FATHER),
+  ave_maria:            ordinary("Ave María",            PRAYER_TYPES.HAIL_MARY),
+  gloria_patri:         ordinary("Gloria Patri",         PRAYER_TYPES.GLORY_BE),
+  symbolum_apostolorum: ordinary("Symbolum Apostolórum", PRAYER_TYPES.CREED),
+  symbolum_nicenum:     ordinary("Symbolum Nicænum",     PRAYER_TYPES.NICENE_CREED),
+  salve_regina:         ordinary("Salve Regína",         PRAYER_TYPES.SALVE_REGINA_LEONINE),
+  sub_tuum:             ordinary("Sub tuum præsídium",   PRAYER_TYPES.SUB_TUUM),
+  angelus:              ordinary("Angelus Dómini",       PRAYER_TYPES.ANGELUS),
+  regina_caeli:         ordinary("Regína Cæli",          PRAYER_TYPES.REGINA_CAELI),
+  anima_christi:        ordinary("Ánima Christi",        PRAYER_TYPES.ANIMA_CHRISTI),
+  angele_dei:           ordinary("Angele Dei",           PRAYER_TYPES.ANGELE_DEI),
+  sancte_michael:       ordinary("Sancte Míchael",       PRAYER_TYPES.ST_MICHAEL),
+  requiem:              ordinary("Pro defunctis (Réquiem)", PRAYER_TYPES.REQUIEM),
+  decalogue:            ordinary("Decálogus",            PRAYER_TYPES.DECALOGUE),
+};

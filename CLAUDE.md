@@ -5,7 +5,7 @@ A single-page web app for praying the Latin rosary. UI chrome and menus are in C
 ## Stack
 
 - **React 18** + **Vite 6**, **TypeScript** in strict mode (`tsconfig.app.json` for app code, `tsconfig.node.json` for `vite.config.ts`, root `tsconfig.json` references both).
-- No CSS framework — all styling is inline `style={{...}}` objects in the React tree (one minimal `src/index.css` only resets body margin and sets the default font).
+- No CSS framework — all styling is inline `style={{...}}` objects in the React tree. The one stylesheet, `src/index.css`, holds the box-model reset **and the light/dark theme tokens** (CSS custom properties); inline styles reference neutrals as `var(--…)` so the palette flips by toggling `data-theme` on `<html>`. See **Theming** below.
 - No router, no state library, no test framework. The whole app is a single component.
 - PWA: `public/manifest.webmanifest` + `public/sw.js` (network-first for navigations, cache-first for assets) + `public/icon.svg`. The SW cache name is `ruzenec-__SW_VERSION__` and the `swVersion()` plugin in `vite.config.js` rewrites the placeholder at build time to `ruzenec-<pkg.version>-<base36-timestamp>` so each production build gets its own cache bucket and the `activate` handler drops every other bucket.
 - Deploys as a static site. Sub-path is configurable via `BASE_PATH` env var (read in `vite.config.js`); the manifest, icon links, and SW registration scope all flow from `import.meta.env.BASE_URL`.
@@ -13,15 +13,16 @@ A single-page web app for praying the Latin rosary. UI chrome and menus are in C
 ## File map
 
 - `src/main.tsx` — entry; mounts `<Rosary />`, registers the service worker in production only.
-- `src/Rosary.tsx` — **orchestrator**: state (`selectedMystery`, `currentStep`, `sequence`, `started`), `next` / `prev` / `jumpTo` / `confirmReset`, persistence wiring, wake-lock effect, keyboard + swipe handlers, header + progress bar + bottom-nav layout. Renders either `<MysteryMenu>` or the prayer screen.
+- `src/Rosary.tsx` — **orchestrator**: state (`selectedMystery`, `currentStep`, `sequence`, `started`), `next` / `prev` / `jumpTo` / `confirmReset`, persistence wiring, wake-lock effect, keyboard + swipe handlers, header + progress bar + bottom-nav layout. Renders either `<MysteryMenu>` or the prayer screen. A prayer set has one of three `kind`s: `rosary` (bead ring + progress bar), `linear` (section bead-strand stepper), or `single` (one standalone prayer — no bead ring/section stepper and no progress bar, just the label chip + prayer card).
 - `src/rosary/prayers.ts` — `PRAYER_TYPES`, `MYSTERIES`, `PRAYERS` (the Latin texts), `getHailMary(mystery)`, and the exported types `MysteryKey`, `MysterySet`, `PrayerType`, `StaticPrayerType`, `HailMary`.
-- `src/rosary/sequence.ts` — `buildRosarySequence(mysterySet)` and the `SequenceItem` type; stamps each bead-bearing item with a `beadId`.
+- `src/rosary/sequence.ts` — `buildRosarySequence(mysterySet)` and the `SequenceItem` type (stamps each bead-bearing item with a `beadId`); the `OTHER_PRAYER_SETS` registry of multi-step linear sets (Leonine, St. Bridget) with their builders; and the `ORDINARY_PRAYERS` registry (`OrdinaryPrayerKey`) of standalone single prayers — the *Orationes utilissimæ* prayers (`orationes.pdf`, `angelus-domini-anima-christi.pdf`): Signum Crucis, Pater Noster, Ave María, Gloria Patri, both Creeds, Salve Regína, Sub tuum præsídium, Angelus Dómini, Regína Cæli, Ánima Christi, Angele Dei, Sancte Míchael, Réquiem, Decálogus — each building a one-step sequence (reusing existing prayer types where the app already had them).
 - `src/rosary/storage.ts` — `STATE_VERSION`, `loadSavedState`, `saveState`, `SavedState` type.
-- `src/rosary/fontSize.ts` — prayer-body text-size preference: `FONT_SIZES` (`small`/`medium`/`large`), `FontSize` type, `FONT_SIZE_CLAMP` (the responsive `clamp()` per level), `DEFAULT_FONT_SIZE`, and `loadSavedFontSize` / `saveFontSize` (own `localStorage` key, like the locale preference).
-- `src/rosary/FontSizeControl.tsx` — the A / A / A segmented control shown in the header; white-on-translucent, active level filled solid. Props: `value`, `onChange`, `accentColor`, `locale`.
+- `src/rosary/fontSize.ts` — prayer-body text-size preference as a bounded numeric step index: `FONT_SCALE_MIN` / `FONT_SCALE_MAX` / `DEFAULT_FONT_SCALE`, `clampFontScale(i)`, `fontSizeClamp(i)` (the responsive `clamp()` for a step, scaling a base 17/5vw/22 band), and `loadSavedFontScale` / `saveFontScale` (own `localStorage` key `ruzenec_font_size`, with back-compat for the old `small`/`medium`/`large` values). Like the locale preference.
+- `src/rosary/theme.ts` — light/dark preference: `Theme` type, `systemTheme` / `loadSavedTheme` / `saveTheme` / `applyTheme` (sets `data-theme` on `<html>`), `resolveTheme` (saved ?? OS), and `accentText(accent, theme)` (lightens a dark accent for text use in dark mode). Own `localStorage` key `ruzenec_theme`. The palette values live in `src/index.css`.
+- `src/rosary/FontSizeControl.tsx` — header text-size control: a compact "Aa" button that opens a popover with smaller-A / bigger-A nudge buttons (stays open for repeated taps; outside-click / Escape closes; buttons disable at the bounds). Props: `value` (index), `onChange`, `accentColor`, `locale`.
 - `src/rosary/RosaryBeads.tsx` — SVG bead ring + `beadStyle` helper. Props: `currentStep`, `sequence`, `accentColor`, `onJump?`.
 - `src/rosary/PrayerCard.tsx` — the tappable white card. `PrayerBody` (internal) renders Hail Mary with the highlighted mystery clause or any other prayer's body text.
-- `src/rosary/MysteryMenu.tsx` — start screen with one button per mystery set; calls `onStart(key)`.
+- `src/rosary/MysteryMenu.tsx` — start screen: one button per mystery set, then under the "Other Latin prayers" heading a collapsible **"Orationes utilissimæ"** group (rolls down links to `ORDINARY_PRAYERS`) followed by the linear-set buttons (Leonine, St. Bridget); also hosts the language picker and theme toggle. Calls `onStart(key)`.
 - `src/vite-env.d.ts` — Vite client type reference (declares `import.meta.env` and `*.css` modules).
 - `src/index.css` — body reset.
 - `tsconfig.json` / `tsconfig.app.json` / `tsconfig.node.json` — strict TypeScript config split between app and Node-side (vite.config.ts).
@@ -64,7 +65,7 @@ Pater Noster beads (tail + 5 ring beads) carry a transparent 11–12px hit circl
 - `localStorage` key `ruzenec_state`, schema `{ version, selectedMystery, currentStep }`.
 - `STATE_VERSION` (currently 3) — increment on any structural change to the sequence; `loadSavedState` discards mismatched versions silently.
 - State is saved on every `currentStep` / `selectedMystery` / `started` change and cleared on reset.
-- Two standalone UI preferences persist under their own keys, independent of the session and not versioned: `ruzenec_locale` (see `i18n.ts`) and `ruzenec_font_size` (see `fontSize.ts`, default `medium`). Both survive reset and reload.
+- Three standalone UI preferences persist under their own keys, independent of the session and not versioned: `ruzenec_locale` (see `i18n.ts`), `ruzenec_font_size` (see `fontSize.ts`; a numeric step index), and `ruzenec_theme` (see `theme.ts`; `light`/`dark`, defaults to the OS setting until chosen). All survive reset and reload.
 
 ## Interactions
 
@@ -76,7 +77,14 @@ Pater Noster beads (tail + 5 ring beads) carry a transparent 11–12px hit circl
 - **Wake Lock API** keeps the screen on while a rosary is in progress (re-acquired on `visibilitychange`).
 - Active bead glows in the mystery's accent color; the cross icon glows when a Sign of Cross step is active.
 - The header back button (`← Zpět`) routes through `confirmReset()` and prompts before discarding progress (skipped silently when `currentStep === 0`).
-- The header's right side holds the **A / A / A text-size control** (`FontSizeControl`); tapping a level rescales the prayer body via `FONT_SIZE_CLAMP` and persists the choice. Only the prayer-body text scales — UI chrome stays fixed.
+- The header's right side holds the **text-size control** (`FontSizeControl`): a compact "Aa" button opening a smaller-A / bigger-A nudge popover that steps the prayer body through a bounded scale (`fontSizeClamp`) and persists the choice. Only the prayer-body text scales — UI chrome stays fixed.
+
+## Theming (light / dark)
+
+- Neutral colors are **CSS custom properties** defined in `src/index.css`: a light set on `:root` and a dark override on `:root[data-theme="dark"]` (`--bg`, `--surface`, `--surface-hover`, `--border`, `--border-strong`, `--text`, `--text-strong`, `--text-soft`, `--text-muted`, `--bead-past`, `--bead-future`, `--thread`, `--track`, `--nav-fade`). Inline styles reference them as `var(--…)`.
+- **Don't hardcode neutral colors** in components — add/extend a token. Mystery **accent** colors stay raw (passed via JS), used for solid fills (header, active bead, buttons, progress); for accent-as-*text* on the dark card (highlighted clause, label chip) run it through `accentText(accent, theme)` so dark accents stay legible.
+- **SVG caveat:** `var(--…)` does **not** resolve in SVG presentation *attributes* (`fill="…"`, `stroke="…"`). Set them via the `style` object instead (see `RosaryBeads.tsx` / `PrayerSections.tsx`).
+- `theme.ts` toggles `data-theme` on `<html>`; an inline script in `index.html` sets it before first paint (anti-FOUC) from `ruzenec_theme` or the OS. `Rosary` holds the state and follows OS changes until the user picks explicitly. The sun/moon toggle lives top-left on the start screen (`MysteryMenu`), mirroring the language picker.
 
 ## Typography
 
@@ -97,6 +105,7 @@ No lint, no tests, no CI configured yet.
 
 - Don't introduce a CSS framework or a state library — the app's simplicity is intentional. (TypeScript is fine — it lives in `src/rosary/*.ts` for data/types and `*.tsx` for components, with strict mode on.)
 - New prayer types or sequence changes: update `PRAYER_TYPES` and `PRAYERS` in `src/rosary/prayers.ts` (extend `StaticPrayerType` if the new prayer has static text), the builder in `src/rosary/sequence.ts` (stamp new bead-bearing items with a `beadId` matching the layout), the bead layout in `src/rosary/RosaryBeads.tsx` if structure changes, and bump `STATE_VERSION` in `src/rosary/storage.ts`.
+- To add an **ordinary (single) prayer**: add its text to `PRAYERS` / `PRAYERS_CS` (as a new `StaticPrayerType`) if it doesn't exist, then add an `ORDINARY_PRAYERS` entry whose `build()` returns the one-step sequence. It appears automatically as a link in the start-screen "Ordinary prayers" group — no `MysteryMenu`/`Rosary` changes needed.
 - Keep accessibility attributes when editing UI: `aria-label` on interactive buttons, `aria-live="polite"` on the prayer card, `lang="la"` on prayer-text containers, `aria-hidden="true"` on decorative SVGs.
 - Latin diacritics (acute accents, æ, œ) are part of the prayer text — preserve them exactly when editing.
 - Every prayer text is transcribed from a trustworthy source **except** the St. Bridget `BRIGIT_*` entries, which are our own translation (no authoritative Latin original exists for that devotion). They're flagged with a banner comment in `prayers.ts`; if a sourced Latin booklet is ever obtained, replace those texts verbatim. Don't add further unsourced prayers without flagging them the same way.

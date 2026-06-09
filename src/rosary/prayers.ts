@@ -30,6 +30,19 @@ export const PRAYER_TYPES = {
   BRIGIT_CROSS: "brigit_cross",
   BRIGIT_CRUCIFIXION: "brigit_crucifixion",
   BRIGIT_PIERCING: "brigit_piercing",
+  // Orationes utilissimæ — basic prayers shown as single-prayer links on the
+  // start screen (source: orationes.pdf). The ones the app already had
+  // (Signum Crucis, Pater Noster, Ave María, Gloria Patri, Apostles' Creed,
+  // Salve Regína antiphon, Sancte Míchael) reuse their existing types; these
+  // are the additions.
+  NICENE_CREED: "nicene_creed",
+  SUB_TUUM: "sub_tuum",
+  ANGELE_DEI: "angele_dei",
+  REQUIEM: "requiem",
+  DECALOGUE: "decalogue",
+  ANGELUS: "angelus",
+  REGINA_CAELI: "regina_caeli",
+  ANIMA_CHRISTI: "anima_christi",
 } as const;
 
 export type PrayerType = (typeof PRAYER_TYPES)[keyof typeof PRAYER_TYPES];
@@ -164,6 +177,79 @@ Deus, cuius Unigénitus per vitam, mortem et resurrectiónem suam nobis salútis
   [PRAYER_TYPES.BRIGIT_CRUCIFIXION]: `O Iesu, divíne amátor animárum nostrárum, in honórem illíus pretiósi Sánguinis quem ex Vulnéribus mánuum et pedum tuórum in Cruce profudísti, miserére mei, et per illos rivos Sánguinis tui salva ánimam meam in hora mortis meæ. Amen.`,
 
   [PRAYER_TYPES.BRIGIT_PIERCING]: `O Iesu, divíne amátor animárum nostrárum, in honórem illíus Sánguinis et aquæ quæ ex apérto látere et Corde tuo manavérunt, súscipe me in Cor tuum sacratíssimum, et per hanc últimam effusiónem perdúc me et omnes ánimas in glóriam ætérnam. Amen.`,
+
+  // Orationes utilissimæ additions. Source: orationes.pdf.
+  [PRAYER_TYPES.NICENE_CREED]: `Credo in unum Deum, Patrem omnipoténtem, factórem cæli et terræ, visibílium ómnium et invisibílium. Et in unum Dóminum Iesum Christum, Fílium Dei unigénitum. Et ex Patre natum ante ómnia sæcula. Deum de Deo, lumen de lúmine, Deum verum de Deo vero. Génitum, non factum, consubstantiálem Patri: per quem ómnia facta sunt. Qui propter nos hómines et propter nostram salútem descéndit de cælis. Et incarnátus est de Spíritu Sancto ex María Vírgine: Et homo factus est. Crucifíxus étiam pro nobis: sub Póntio Piláto passus, et sepúltus est. Et resurréxit tértia die, secúndum Scriptúras. Et ascéndit in cælum: sedet ad déxteram Patris. Et íterum ventúrus est cum glória iudicáre vivos et mórtuos: cuius regni non erit finis. Et in Spíritum Sanctum, Dóminum et vivificántem: qui ex Patre Filióque procédit. Qui cum Patre et Fílio simul adorátur et conglorificátur: qui locútus est per Prophétas. Et unam sanctam cathólicam et apostólicam Ecclésiam. Confíteor unum baptísma in remissiónem peccatórum. Et exspécto resurrectiónem mortuórum. Et vitam ventúri sæculi. Amen.`,
+
+  [PRAYER_TYPES.SUB_TUUM]: `Sub tuum præsídium confúgimus, sancta Dei Génitrix. Nostras deprecatiónes ne despícias in necessitátibus, sed a perículis cunctis líbera nos semper, Virgo benedícta. Dómina nostra, mediátrix nostra, advocáta nostra, tuo Fílio nos reconcília, tuo Fílio nos comménda, tuo Fílio nos repræsénta.`,
+
+  [PRAYER_TYPES.ANGELE_DEI]: `Angele Dei, qui custos es mei, me, tibi commíssum pietáte supérna, illúmina, custódi, rege et gubérna. Amen.`,
+
+  [PRAYER_TYPES.REQUIEM]: `Réquiem ætérnam dona eis, Dómine.
+Et lux perpétua lúceat eis.
+Requiéscant in pace. Amen.`,
+
+  [PRAYER_TYPES.DECALOGUE]: `1. Non habébis deos aliénos coram me.
+2. Non assúmes nomen Dómini Dei tui in vanum.
+3. Memento, ut dies festos sanctífices.
+4. Honóra patrem tuum et matrem tuam.
+5. Non occídes.
+6. Non mœcháberis.
+7. Non furtum fácies.
+8. Non loquéris contra próximum tuum falsum testimónium.
+9. Non desiderábis uxórem eius.
+10. Non concupísces eius bona.`,
+
+  // Source: angelus-domini-anima-christi.pdf.
+  [PRAYER_TYPES.ANGELUS]: `℣ Angelus Dómini nuntiávit Maríæ.
+℟ Et concépit de Spíritu Sancto.
+
+Ave, María, grátia plena, Dóminus tecum. Benedícta tu in muliéribus, et benedíctus fructus ventris tui, Iesus. Sancta María, Mater Dei, ora pro nobis peccatóribus, nunc, et in hora mortis nostræ. Amen.
+
+℣ Ecce ancílla Dómini.
+℟ Fiat mihi secúndum verbum tuum.
+
+Ave, María…
+
+℣ Et Verbum caro factum est.
+℟ Et habitávit in nobis.
+
+Ave, María…
+
+℣ Ora pro nobis, sancta Dei Génitrix.
+℟ Ut digni efficiámur promissiónibus Christi.
+
+Orémus. Grátiam tuam, quǽsumus, Dómine, méntibus nostris infúnde: ut qui Angelo nuntiánte Christi Fílii tui Incarnatiónem cognóvimus, per Passiónem eius et Crucem ad resurrectiónis glóriam perducámur. Per Christum Dóminum nostrum.
+℟ Amen.`,
+
+  // Source: regina-caeli-anima-christi.pdf. The PDF's collect had obvious
+  // typos (dignetus / gaudíam / Jesu / ejus / ae spellings); rendered here in
+  // the canonical wording and the app's Iesu / æ orthography.
+  [PRAYER_TYPES.REGINA_CAELI]: `Regína cæli, lætáre, allelúia,
+quia quem meruísti portáre, allelúia,
+resurréxit, sicut dixit, allelúia.
+Ora pro nobis Deum, allelúia.
+
+℣ Gaude et lætáre Virgo María, allelúia.
+℟ Quia surréxit Dóminus vére, allelúia.
+
+Orémus. Deus, qui per resurrectiónem Fílii tui, Dómini nostri Iesu Christi, mundum lætificáre dignátus es: præsta, quǽsumus; ut per eius Genetrícem Vírginem Maríam perpétuæ capiámus gáudia vitæ. Per eúndem Christum Dóminum nostrum.
+℟ Amen.`,
+
+  [PRAYER_TYPES.ANIMA_CHRISTI]: `Ánima Christi, sanctífica me.
+Corpus Christi, salva me.
+Sanguis Christi, inébria me.
+Aqua láteris Christi, lava me.
+Pássio Christi, confórta me.
+O bone Iesu, exáudi me.
+Intra tua vúlnera abscónde me.
+Ne permíttas me separári a te.
+Ab hoste malígno defénde me.
+In hora mortis meæ voca me.
+Et iube me veníre ad te,
+ut cum Sanctis tuis laudem te
+in sǽcula sæculórum.
+Amen.`,
 };
 
 // The Hail Mary is split so the per-decade mystery clause can be visually
@@ -249,4 +335,86 @@ Bože, jehož jednorozený Syn nám svým životem, smrtí a vzkříšením zís
   [PRAYER_TYPES.BRIGIT_CRUCIFIXION]: `Ó Ježíši, božský milovníku našich duší, ke cti oné předrahé Krve, kterou jsi vylil z ran svých rukou a nohou na kříži, smiluj se nade mnou a skrze ony praménky své Krve zachraň mou duši v hodině mé smrti. Amen.`,
 
   [PRAYER_TYPES.BRIGIT_PIERCING]: `Ó Ježíši, božský milovníku našich duší, ke cti oné Krve a vody, které vytryskly z tvého otevřeného boku a Srdce, přijmi mě do svého nejsvětějšího Srdce a skrze toto poslední vylití doveď mě i všechny duše do věčné slávy. Amen.`,
+
+  // Orationes utilissimæ additions. Czech sourced verbatim from orationes.pdf.
+  [PRAYER_TYPES.NICENE_CREED]: `Věřím v jednoho Boha, Otce všemohoucího, Stvořitele nebe i země, všeho viditelného i neviditelného. Věřím v jednoho Pána, Ježíše Krista, jednorozeného Syna Božího, který se zrodil z Otce přede všemi věky: Bůh z Boha, Světlo ze Světla, pravý Bůh z pravého Boha, zrozený, nestvořený, jedné podstaty s Otcem: skrze něho všechno je stvořeno. On pro nás lidi a pro naši spásu sestoupil z nebe. Skrze Ducha svatého přijal tělo z Marie Panny a stal se člověkem. Byl za nás ukřižován, za dnů Poncia Piláta byl umučen a pohřben. Třetího dne vstal z mrtvých podle Písma. Vstoupil do nebe, sedí po pravici Otce. A znovu přijde, ve slávě, soudit živé i mrtvé a jeho království bude bez konce. Věřím v Ducha svatého, Pána a dárce života, který z Otce i Syna vychází, s Otcem i Synem je zároveň uctíván a oslavován a mluvil ústy proroků. Věřím v jednu, svatou, všeobecnou, apoštolskou církev. Vyznávám jeden křest na odpuštění hříchů. Očekávám vzkříšení mrtvých a život budoucího věku. Amen.`,
+
+  [PRAYER_TYPES.SUB_TUUM]: `Pod ochranu tvou se utíkáme, svatá Boží Rodičko. Neodmítej naše prosby v našich potřebách, ale ode všeho nebezpečí vysvoboď nás vždycky, Panno slavná a požehnaná. Paní naše, prostřednice naše, orodovnice naše, u Syna nám smilování vypros, Synu svému nás doporuč, k Synu svému nás doprovoď.`,
+
+  [PRAYER_TYPES.ANGELE_DEI]: `Anděle Boží, strážce můj,
+rač vždycky být ochránce můj:
+mě vždycky veď a napravuj,
+ke všemu dobrému mě vzbuzuj.
+Ctnostem svatým mě vyučuj,
+ať jsem tak živ, jak chce Bůh můj.
+Tělo, svět, ďábla přemáhám,
+na tvá vnuknutí pozor dávám.
+A tak s tebou ve spojení,
+ať vytrvám do skonání,
+po smrti pak v nebi věčně
+chválím Boha ustavičně. Amen.`,
+
+  [PRAYER_TYPES.REQUIEM]: `Odpočinutí věčné dej jim, Pane.
+A světlo věčné ať jim svítí.
+Ať odpočívají v pokoji. Amen.`,
+
+  [PRAYER_TYPES.DECALOGUE]: `1. V jednoho Boha věřiti budeš.
+2. Nevezmeš jména Božího nadarmo.
+3. Pomni, abys den sváteční světil.
+4. Cti otce svého i matku svou, abys dlouho živ byl a dobře ti bylo na zemi.
+5. Nezabiješ.
+6. Nesesmilníš.
+7. Nepokradeš.
+8. Nepromluvíš křivého svědectví proti bližnímu svému.
+9. Nepožádáš manželky bližního svého.
+10. Aniž požádáš statku jeho.`,
+
+  // Czech sourced verbatim from angelus-domini-anima-christi.pdf.
+  [PRAYER_TYPES.ANGELUS]: `℣ Anděl Páně zvěstoval Panně Marii.
+℟ A ona počala z Ducha svatého.
+
+Zdrávas, Maria, milosti plná, Pán s tebou; požehnaná ty mezi ženami a požehnaný plod života tvého Ježíš. Svatá Maria, Matko Boží, pros za nás hříšné nyní i v hodinu smrti naší. Amen.
+
+℣ Maria řekla: Jsem služebnice Páně.
+℟ Ať se mi stane podle tvého slova.
+
+Zdrávas, Maria…
+
+℣ A Slovo se stalo tělem.
+℟ A přebývalo mezi námi.
+
+Zdrávas, Maria…
+
+℣ Oroduj za nás, svatá Boží Rodičko.
+℟ Aby nám Kristus dal účast na svých zaslíbeních.
+
+Modleme se: Pane, poznali jsme andělské poselství o vtělení Krista, tvého Syna; vlej nám, prosíme, do duše svou milost, ať nás jeho umučení a kříž přivede ke slávě vzkříšení. Skrze Krista, našeho Pána.
+℟ Amen.`,
+
+  // Czech sourced verbatim from regina-caeli-anima-christi.pdf.
+  [PRAYER_TYPES.REGINA_CAELI]: `Raduj se, Královno nebeská, aleluja,
+protože splnil Pán slova svá, aleluja,
+z mrtvých vstal, Matko, Ježíš tvůj, aleluja:
+u něho za nás oroduj, aleluja.
+
+℣ Raduj se a vesel, Panno Maria, aleluja,
+℟ neboť Pán vpravdě z mrtvých vstal, aleluja.
+
+Modleme se: Bože, vzkříšením svého Syna, našeho Pána Ježíše Krista, jsi naplnil svět radostí; na přímluvu jeho Rodičky, Panny Marie, dej ať dosáhneme radosti života věčného. Skrze Krista, našeho Pána.
+℟ Amen.`,
+
+  [PRAYER_TYPES.ANIMA_CHRISTI]: `Duše Kristova, posvěť mě.
+Tělo Kristovo, zachraň mě.
+Krvi Kristova, opoj mě.
+Vodo z boku Kristova, obmyj mě.
+Utrpení Kristovo, posilni mě.
+Dobrý Ježíši, vyslyš mě.
+Ve svých ranách ukryj mě.
+Nedopusť, abych se odloučil od tebe.
+Před zlým nepřítelem ochraň mě.
+V hodině mé smrti zavolej mě.
+A dej, ať přijdu k tobě,
+abych tě s tvými svatými
+chválil navěky.
+Amen.`,
 };

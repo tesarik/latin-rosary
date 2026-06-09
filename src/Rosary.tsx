@@ -1,9 +1,10 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { MYSTERIES, type MysteryKey } from "./rosary/prayers";
-import { buildRosarySequence, OTHER_PRAYER_SETS, type OtherPrayerKey, type SequenceItem } from "./rosary/sequence";
+import { buildRosarySequence, OTHER_PRAYER_SETS, ORDINARY_PRAYERS, type OtherPrayerKey, type OrdinaryPrayerKey, type SequenceItem } from "./rosary/sequence";
 import { loadSavedState, saveState } from "./rosary/storage";
 import { STRINGS, detectLocale, loadSavedLocale, saveLocale, type Locale } from "./rosary/i18n";
-import { DEFAULT_FONT_SIZE, loadSavedFontSize, saveFontSize, type FontSize } from "./rosary/fontSize";
+import { DEFAULT_FONT_SCALE, clampFontScale, fontSizeClamp, loadSavedFontScale, saveFontScale } from "./rosary/fontSize";
+import { accentText, applyTheme, loadSavedTheme, resolveTheme, saveTheme, systemTheme, type Theme } from "./rosary/theme";
 import RosaryBeads from "./rosary/RosaryBeads";
 import PrayerCard from "./rosary/PrayerCard";
 import PrayerSections from "./rosary/PrayerSections";
@@ -12,21 +13,28 @@ import MysteryMenu from "./rosary/MysteryMenu";
 
 type TouchSample = { x: number; y: number; time: number };
 
-export type PrayerSetKey = MysteryKey | OtherPrayerKey;
+export type PrayerSetKey = MysteryKey | OtherPrayerKey | OrdinaryPrayerKey;
 
 const isRosaryKey = (k: PrayerSetKey): k is MysteryKey => k in MYSTERIES;
+const isOrdinaryKey = (k: PrayerSetKey): k is OrdinaryPrayerKey => k in ORDINARY_PRAYERS;
 
-function getPrayerSetMeta(key: PrayerSetKey): { name: string; color: string; kind: "rosary" | "linear" } {
+function getPrayerSetMeta(key: PrayerSetKey): { name: string; color: string; kind: "rosary" | "linear" | "single" } {
   if (isRosaryKey(key)) {
     const m = MYSTERIES[key];
     return { name: m.name, color: m.color, kind: "rosary" };
+  }
+  if (isOrdinaryKey(key)) {
+    const o = ORDINARY_PRAYERS[key];
+    return { name: o.name, color: o.color, kind: "single" };
   }
   const o = OTHER_PRAYER_SETS[key];
   return { name: o.name, color: o.color, kind: "linear" };
 }
 
 function buildSequence(key: PrayerSetKey): SequenceItem[] {
-  return isRosaryKey(key) ? buildRosarySequence(MYSTERIES[key]) : OTHER_PRAYER_SETS[key].build();
+  if (isRosaryKey(key)) return buildRosarySequence(MYSTERIES[key]);
+  if (isOrdinaryKey(key)) return ORDINARY_PRAYERS[key].build();
+  return OTHER_PRAYER_SETS[key].build();
 }
 
 export default function Rosary() {
@@ -43,7 +51,8 @@ export default function Rosary() {
   const [started, setStarted] = useState<boolean>(!!saved.current);
   const [showTranslation, setShowTranslation] = useState<boolean>(false);
   const [locale, setLocaleState] = useState<Locale>(() => loadSavedLocale() ?? detectLocale());
-  const [fontSize, setFontSizeState] = useState<FontSize>(() => loadSavedFontSize() ?? DEFAULT_FONT_SIZE);
+  const [fontScale, setFontScaleState] = useState<number>(() => loadSavedFontScale() ?? DEFAULT_FONT_SCALE);
+  const [theme, setThemeState] = useState<Theme>(() => resolveTheme());
   const t = STRINGS[locale];
   const prayerRef = useRef<HTMLDivElement | null>(null);
   const touchStart = useRef<TouchSample | null>(null);
@@ -53,9 +62,33 @@ export default function Rosary() {
     saveLocale(next);
   }, []);
 
-  const setFontSize = useCallback((next: FontSize) => {
-    setFontSizeState(next);
-    saveFontSize(next);
+  const setFontScale = useCallback((next: number) => {
+    const c = clampFontScale(next);
+    setFontScaleState(c);
+    saveFontScale(c);
+  }, []);
+
+  const toggleTheme = useCallback(() => {
+    setThemeState((prev) => {
+      const next: Theme = prev === "dark" ? "light" : "dark";
+      saveTheme(next);
+      applyTheme(next);
+      return next;
+    });
+  }, []);
+
+  // Reflect the active theme on <html>, and follow OS changes until the user
+  // has made an explicit choice.
+  useEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
+
+  useEffect(() => {
+    if (typeof matchMedia === "undefined") return;
+    const mq = matchMedia("(prefers-color-scheme: dark)");
+    const onChange = () => { if (!loadSavedTheme()) setThemeState(systemTheme()); };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
   }, []);
 
   // Persist on every change — only the rosary survives a reload. Linear
@@ -165,7 +198,7 @@ export default function Rosary() {
   };
 
   if (!started || !selectedSet) {
-    return <MysteryMenu onStart={startSet} locale={locale} onLocaleChange={setLocale} />;
+    return <MysteryMenu onStart={startSet} locale={locale} onLocaleChange={setLocale} theme={theme} onToggleTheme={toggleTheme} />;
   }
 
   const setMeta = getPrayerSetMeta(selectedSet);
@@ -177,7 +210,7 @@ export default function Rosary() {
     <div style={{
       height: "100dvh",
       overflow: "hidden",
-      background: "linear-gradient(160deg, #ECEFF1 0%, #FAFAFA 50%, #E8EAF6 100%)",
+      background: "var(--bg)",
       display: "flex",
       flexDirection: "column",
       fontFamily: "Arial, sans-serif",
@@ -218,13 +251,13 @@ export default function Rosary() {
               {setMeta.name}
             </div>
           </div>
-          <FontSizeControl value={fontSize} onChange={setFontSize} accentColor={accentColor} locale={locale} />
+          <FontSizeControl value={fontScale} onChange={setFontScale} accentColor={accentColor} locale={locale} />
         </div>
 
         {/* Progress bar — only the rosary has a sequence long enough to
             warrant one; linear sets use the section stepper instead. */}
         {setMeta.kind === "rosary" && (
-          <div style={{ height: 7, background: "rgba(0,0,0,0.1)" }}>
+          <div style={{ height: 7, background: "var(--track)" }}>
             <div style={{
               height: "100%",
               width: `${progress}%`,
@@ -252,16 +285,16 @@ export default function Rosary() {
         <div style={{ margin: "auto 0", width: "100%" }}>
           {setMeta.kind === "rosary" ? (
             <RosaryBeads currentStep={currentStep} sequence={sequence} accentColor={accentColor} onJump={jumpTo} locale={locale} />
-          ) : (
+          ) : setMeta.kind === "linear" ? (
             <PrayerSections sequence={sequence} currentStep={currentStep} accentColor={accentColor} onJump={jumpTo} />
-          )}
+          ) : null}
 
           {/* Prayer label */}
           <div style={{ textAlign: "center", marginTop: 8, marginBottom: 4 }}>
-            <span style={{
+            <span lang="la" style={{
               display: "inline-block",
               background: accentColor + "15",
-              color: accentColor,
+              color: accentText(accentColor, theme),
               padding: "5px 14px",
               borderRadius: 20,
               fontSize: 13,
@@ -281,7 +314,8 @@ export default function Rosary() {
             locale={locale}
             showTranslation={showTranslation}
             onLanguageChange={setShowTranslation}
-            fontSize={fontSize}
+            fontSizeClamp={fontSizeClamp(fontScale)}
+            theme={theme}
           />
         </div>
       </div>
@@ -293,7 +327,7 @@ export default function Rosary() {
         alignItems: "center",
         justifyContent: "center",
         gap: 16,
-        background: "linear-gradient(transparent, #ECEFF1)",
+        background: "var(--nav-fade)",
       }}>
         <button
           onClick={prev}
@@ -302,9 +336,9 @@ export default function Rosary() {
           style={{
             padding: "14px 32px",
             borderRadius: 14,
-            border: "1px solid #CFD8DC",
-            background: "white",
-            color: currentStep === 0 ? "#CFD8DC" : "#546E7A",
+            border: "1px solid var(--border-strong)",
+            background: "var(--surface)",
+            color: currentStep === 0 ? "var(--border-strong)" : "var(--text-soft)",
             cursor: currentStep === 0 ? "default" : "pointer",
             fontSize: 15,
             fontWeight: 500,

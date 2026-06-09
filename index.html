@@ -3,6 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <script>
+      // Resolve the theme before first paint to avoid a light-mode flash.
+      // Saved preference wins; otherwise follow the OS setting. Keep the key in
+      // sync with src/rosary/theme.ts.
+      (function () {
+        try {
+          var t = localStorage.getItem("ruzenec_theme");
+          if (t !== "light" && t !== "dark") {
+            t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          }
+          document.documentElement.dataset.theme = t;
+        } catch (e) {}
+      })();
+    </script>
     <title>Růženec</title>
     <meta name="theme-color" content="#1565C0" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
