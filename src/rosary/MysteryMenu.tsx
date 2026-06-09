@@ -1,16 +1,62 @@
 import { useEffect, useRef, useState } from "react";
 import { MYSTERIES, type MysteryKey } from "./prayers";
-import { OTHER_PRAYER_SETS, type OtherPrayerKey } from "./sequence";
+import { OTHER_PRAYER_SETS, ORDINARY_PRAYERS, type OtherPrayerKey, type OrdinaryPrayerKey } from "./sequence";
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
+import type { Theme } from "./theme";
 import Flag from "./Flag";
 
-type PrayerSetKey = MysteryKey | OtherPrayerKey;
+type PrayerSetKey = MysteryKey | OtherPrayerKey | OrdinaryPrayerKey;
 
 type Props = {
   onStart: (key: PrayerSetKey) => void;
   locale: Locale;
   onLocaleChange: (locale: Locale) => void;
+  theme: Theme;
+  onToggleTheme: () => void;
 };
+
+// Sun/moon toggle in the top-left of the start screen, mirroring the language
+// picker top-right. Shows the icon for the theme you'd switch TO.
+function ThemeToggle({ theme, onToggle, locale }: { theme: Theme; onToggle: () => void; locale: Locale }) {
+  const t = STRINGS[locale];
+  const dark = theme === "dark";
+  return (
+    <button
+      onClick={onToggle}
+      aria-label={t.themeToggleAria}
+      aria-pressed={dark}
+      style={{
+        position: "absolute",
+        top: 16,
+        left: 16,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: 40,
+        height: 40,
+        borderRadius: 10,
+        border: "1px solid var(--border-strong)",
+        background: "var(--surface)",
+        color: "var(--text-soft)",
+        cursor: "pointer",
+        boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+      }}
+    >
+      {dark ? (
+        // Sun (tap to go light)
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4" />
+        </svg>
+      ) : (
+        // Moon (tap to go dark)
+        <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+        </svg>
+      )}
+    </button>
+  );
+}
 
 // Custom flag dropdown. Native <select> can't render SVG inside <option>, so
 // this is a button + listbox pattern with outside-click + Escape to close.
@@ -48,18 +94,18 @@ function LanguagePicker({ locale, onChange }: { locale: Locale; onChange: (l: Lo
           gap: 8,
           padding: "6px 10px",
           borderRadius: 10,
-          border: "1px solid #CFD8DC",
-          background: "white",
+          border: "1px solid var(--border-strong)",
+          background: "var(--surface)",
           cursor: "pointer",
           fontFamily: "Arial, sans-serif",
           fontSize: 13,
-          color: "#37474F",
+          color: "var(--text)",
           boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
         }}
       >
         <Flag locale={locale} />
         <span lang={locale} style={{ fontWeight: 600 }}>{STRINGS[locale].localeName}</span>
-        <span aria-hidden="true" style={{ fontSize: 10, marginLeft: 2, color: "#90A4AE" }}>{open ? "▴" : "▾"}</span>
+        <span aria-hidden="true" style={{ fontSize: 10, marginLeft: 2, color: "var(--text-muted)" }}>{open ? "▴" : "▾"}</span>
       </button>
       {open && (
         <ul
@@ -73,8 +119,8 @@ function LanguagePicker({ locale, onChange }: { locale: Locale; onChange: (l: Lo
             margin: 0,
             padding: 4,
             listStyle: "none",
-            background: "white",
-            border: "1px solid #CFD8DC",
+            background: "var(--surface)",
+            border: "1px solid var(--border-strong)",
             borderRadius: 10,
             boxShadow: "0 6px 24px rgba(0,0,0,0.12)",
             zIndex: 20,
@@ -97,15 +143,15 @@ function LanguagePicker({ locale, onChange }: { locale: Locale; onChange: (l: Lo
                     padding: "8px 10px",
                     border: "none",
                     borderRadius: 6,
-                    background: active ? "#ECEFF1" : "transparent",
-                    color: "#263238",
+                    background: active ? "var(--surface-hover)" : "transparent",
+                    color: "var(--text-strong)",
                     fontFamily: "Arial, sans-serif",
                     fontSize: 14,
                     fontWeight: active ? 600 : 500,
                     cursor: active ? "default" : "pointer",
                     textAlign: "left",
                   }}
-                  onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = "#F5F7F8"; }}
+                  onMouseEnter={(e) => { if (!active) e.currentTarget.style.background = "var(--surface-hover)"; }}
                   onMouseLeave={(e) => { if (!active) e.currentTarget.style.background = "transparent"; }}
                 >
                   <Flag locale={code} />
@@ -120,16 +166,105 @@ function LanguagePicker({ locale, onChange }: { locale: Locale; onChange: (l: Lo
   );
 }
 
+// Collapsible "Ordinary prayers" group: a card whose header rolls down a few
+// small links to standalone single prayers (Pater Noster, Ave María, …).
+// Tapping a link starts that one-prayer "set".
+function OrdinaryPrayers({ onStart, locale }: { onStart: (key: OrdinaryPrayerKey) => void; locale: Locale }) {
+  const t = STRINGS[locale];
+  const [open, setOpen] = useState(false);
+  const entries = (Object.entries(ORDINARY_PRAYERS) as [OrdinaryPrayerKey, typeof ORDINARY_PRAYERS[OrdinaryPrayerKey]][])
+    .sort((a, b) => a[1].name.localeCompare(b[1].name));
+  const accent = entries[0]?.[1].color ?? "#1565C0";
+
+  return (
+    <div style={{
+      background: "var(--surface)",
+      border: "1px solid var(--border)",
+      borderRadius: 16,
+      boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+      overflow: "hidden",
+    }}>
+      <button
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        style={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          gap: 16,
+          padding: "18px 24px",
+          background: "transparent",
+          border: "none",
+          cursor: "pointer",
+          textAlign: "left",
+        }}
+      >
+        <div style={{
+          width: 40, height: 40, borderRadius: 12, background: accent + "18",
+          display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+        }}>
+          <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+            <circle cx="4" cy="6" r="1" fill={accent} />
+            <circle cx="4" cy="10" r="1" fill={accent} />
+            <circle cx="4" cy="14" r="1" fill={accent} />
+            <line x1="8" y1="6" x2="16" y2="6" stroke={accent} strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="8" y1="10" x2="16" y2="10" stroke={accent} strokeWidth="1.5" strokeLinecap="round" />
+            <line x1="8" y1="14" x2="16" y2="14" stroke={accent} strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </div>
+        <div lang="la" style={{ flex: 1, fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
+          Orationes utilissimæ
+        </div>
+        <span aria-hidden="true" style={{
+          fontSize: 14,
+          color: "var(--text-muted)",
+          transform: open ? "rotate(180deg)" : "none",
+          transition: "transform 0.2s ease",
+        }}>▾</span>
+      </button>
+
+      {open && (
+        <div style={{ borderTop: "1px solid var(--border)", padding: "4px 0", animation: "rolldown 0.22s ease" }}>
+          {entries.map(([key, val]) => (
+            <button
+              key={key}
+              onClick={() => onStart(key)}
+              aria-label={t.startPrayerAria(val.name)}
+              lang="la"
+              style={{
+                width: "100%",
+                display: "block",
+                textAlign: "left",
+                padding: "11px 24px 11px 80px",
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                fontFamily: "Arial, sans-serif",
+                fontSize: 16,
+                color: "var(--text)",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+            >
+              {val.name}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // Start screen: title + one button per mystery set. Also hosts the language
 // picker — language is locked in once a rosary starts.
 // onStart(key) hands the chosen mystery key back to the parent.
-export default function MysteryMenu({ onStart, locale, onLocaleChange }: Props) {
+export default function MysteryMenu({ onStart, locale, onLocaleChange, theme, onToggleTheme }: Props) {
   const t = STRINGS[locale];
 
   return (
     <div style={{
       minHeight: "100vh",
-      background: "linear-gradient(160deg, #ECEFF1 0%, #FAFAFA 50%, #E8EAF6 100%)",
+      background: "var(--bg)",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -138,6 +273,7 @@ export default function MysteryMenu({ onStart, locale, onLocaleChange }: Props) 
       padding: 24,
       position: "relative",
     }}>
+      <ThemeToggle theme={theme} onToggle={onToggleTheme} locale={locale} />
       <LanguagePicker locale={locale} onChange={onLocaleChange} />
 
       <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true" style={{ marginBottom: 16 }}>
@@ -149,7 +285,7 @@ export default function MysteryMenu({ onStart, locale, onLocaleChange }: Props) 
         fontFamily: "Arial, sans-serif",
         fontSize: 36,
         fontWeight: 700,
-        color: "#263238",
+        color: "var(--text-strong)",
         marginBottom: 6,
         letterSpacing: -0.5,
       }}>
@@ -172,13 +308,15 @@ export default function MysteryMenu({ onStart, locale, onLocaleChange }: Props) 
           fontFamily: "Arial, sans-serif",
           fontSize: 14,
           fontWeight: 600,
-          color: "#78909C",
+          color: "var(--text-muted)",
           letterSpacing: 0.5,
           textTransform: "uppercase",
           margin: "16px 4px 0",
         }}>
           {t.otherPrayersHeading}
         </h2>
+
+        <OrdinaryPrayers onStart={onStart} locale={locale} />
 
         {(Object.entries(OTHER_PRAYER_SETS) as [OtherPrayerKey, typeof OTHER_PRAYER_SETS[OtherPrayerKey]][]).map(([key, val]) => (
           <PrayerSetButton
@@ -214,8 +352,8 @@ function PrayerSetButton({ name, color, ariaLabel, icon, onClick }: {
         alignItems: "center",
         gap: 16,
         padding: "18px 24px",
-        background: "white",
-        border: "1px solid #E0E0E0",
+        background: "var(--surface)",
+        border: "1px solid var(--border)",
         borderRadius: 16,
         cursor: "pointer",
         transition: "all 0.2s ease",
@@ -229,7 +367,7 @@ function PrayerSetButton({ name, color, ariaLabel, icon, onClick }: {
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = "translateY(0)";
         e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.04)";
-        e.currentTarget.style.borderColor = "#E0E0E0";
+        e.currentTarget.style.borderColor = "var(--border)";
       }}
     >
       <div style={{
@@ -251,7 +389,7 @@ function PrayerSetButton({ name, color, ariaLabel, icon, onClick }: {
         </svg>
       </div>
       <div style={{ textAlign: "left" }}>
-        <div lang="la" style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "#263238" }}>
+        <div lang="la" style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
           {name}
         </div>
       </div>

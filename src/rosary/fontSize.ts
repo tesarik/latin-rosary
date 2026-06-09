@@ -1,36 +1,44 @@
-// Prayer-body text-size preference. Three discrete levels picked via the
-// A / A / A control in the header. Persisted independently of the prayer
-// session (its own localStorage key), mirroring the locale preference in
-// i18n.ts — the choice survives reloads and applies to every prayer set.
+// Prayer-body text-size preference. A bounded stepped scale (finer than the old
+// three fixed levels) that the user nudges smaller / bigger from the header
+// control. The chosen step index is persisted under its own localStorage key,
+// independent of the prayer session — mirrors the locale preference in i18n.ts.
 
-export const FONT_SIZES = ["small", "medium", "large"] as const;
-export type FontSize = (typeof FONT_SIZES)[number];
+// Multipliers applied to the base (medium) clamp band. Index 2 (== 1.0) is the
+// original default size; the array ends are the lower/upper bounds.
+const FONT_SCALES = [0.8, 0.9, 1.0, 1.12, 1.26, 1.42, 1.6] as const;
 
-export const DEFAULT_FONT_SIZE: FontSize = "medium";
+export const FONT_SCALE_MIN = 0;
+export const FONT_SCALE_MAX = FONT_SCALES.length - 1;
+export const DEFAULT_FONT_SCALE = 2;
 
-// Responsive clamp() applied to the prayer body in PrayerCard. `medium` keeps
-// the original sizing; `small` / `large` scale the whole clamp band so the text
-// stays fluid across viewport widths at every level.
-export const FONT_SIZE_CLAMP: Record<FontSize, string> = {
-  small: "clamp(15px, 4.2vw, 19px)",
-  medium: "clamp(17px, 5vw, 22px)",
-  large: "clamp(20px, 6vw, 27px)",
-};
+export const clampFontScale = (i: number): number =>
+  Math.min(FONT_SCALE_MAX, Math.max(FONT_SCALE_MIN, Math.round(i)));
 
-const FONT_SIZE_STORAGE_KEY = "ruzenec_font_size";
+// Responsive clamp() for a given step, scaling the base 17 / 5vw / 22 band so
+// the text stays fluid across viewport widths at every step.
+export function fontSizeClamp(index: number): string {
+  const m = FONT_SCALES[clampFontScale(index)]!;
+  return `clamp(${(17 * m).toFixed(1)}px, ${(5 * m).toFixed(2)}vw, ${(22 * m).toFixed(1)}px)`;
+}
 
-export function loadSavedFontSize(): FontSize | null {
+const FONT_SCALE_STORAGE_KEY = "ruzenec_font_size";
+
+// Back-compat: 0.5.0 stored the named level "small" | "medium" | "large".
+const LEGACY: Record<string, number> = { small: 1, medium: 2, large: 4 };
+
+export function loadSavedFontScale(): number | null {
   try {
-    const raw = localStorage.getItem(FONT_SIZE_STORAGE_KEY);
-    if (raw && (FONT_SIZES as readonly string[]).includes(raw)) {
-      return raw as FontSize;
-    }
+    const raw = localStorage.getItem(FONT_SCALE_STORAGE_KEY);
+    if (raw === null) return null;
+    if (raw in LEGACY) return LEGACY[raw]!;
+    const n = Number.parseInt(raw, 10);
+    if (Number.isFinite(n)) return clampFontScale(n);
   } catch {}
   return null;
 }
 
-export function saveFontSize(size: FontSize): void {
+export function saveFontScale(index: number): void {
   try {
-    localStorage.setItem(FONT_SIZE_STORAGE_KEY, size);
+    localStorage.setItem(FONT_SCALE_STORAGE_KEY, String(clampFontScale(index)));
   } catch {}
 }

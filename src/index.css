@@ -11,3 +11,54 @@ html, body, #root {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* Theme tokens. Components reference these as var(--…) from their inline
+   styles, so flipping the palette is just a matter of toggling data-theme on
+   <html> (set early by the inline script in index.html, kept in sync by the
+   React theme state). Mystery accent colors are NOT tokenized — they stay the
+   liturgical green/red/gold/etc. in both themes. */
+:root {
+  color-scheme: light;
+  --bg: linear-gradient(160deg, #ECEFF1 0%, #FAFAFA 50%, #E8EAF6 100%);
+  --surface: #ffffff;
+  --surface-hover: #F5F7F8;
+  --border: #ECEFF1;
+  --border-strong: #CFD8DC;
+  --text: #37474F;
+  --text-strong: #263238;
+  --text-soft: #546E7A;
+  --text-muted: #78909C;
+  --bead-past: #90A4AE;
+  --bead-future: #CFD8DC;
+  --thread: #B0BEC5;
+  --track: rgba(0, 0, 0, 0.1);
+  --nav-fade: linear-gradient(transparent, #ECEFF1);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: linear-gradient(160deg, #15181E 0%, #101216 55%, #161421 100%);
+  --surface: #1E232B;
+  --surface-hover: #262C35;
+  --border: #2A313B;
+  --border-strong: #3A434F;
+  --text: #DDE2E7;
+  --text-strong: #EEF1F4;
+  --text-soft: #AEB8C2;
+  --text-muted: #8995A1;
+  --bead-past: #6A7682;
+  --bead-future: #39414C;
+  --thread: #39414C;
+  --track: rgba(255, 255, 255, 0.14);
+  --nav-fade: linear-gradient(transparent, #101216);
+}
+
+body {
+  background: var(--bg);
+}
+
+/* Reveal for the collapsible "Ordinary prayers" group (MysteryMenu). */
+@keyframes rolldown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: none; }
+}

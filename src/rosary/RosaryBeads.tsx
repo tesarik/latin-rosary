@@ -32,7 +32,7 @@ function beadStyle(seqIdx: number, currentStep: number, accentColor: string) {
   const isActive = seqIdx === currentStep;
   const isPast = seqIdx < currentStep;
   return {
-    fill: isActive ? accentColor : isPast ? "#90A4AE" : "#CFD8DC",
+    fill: isActive ? accentColor : isPast ? "var(--bead-past)" : "var(--bead-future)",
     stroke: isActive ? accentColor : "none",
     strokeWidth: isActive ? 2.5 : 0,
     filter: isActive ? `drop-shadow(0 0 8px ${accentColor})` : "none",
@@ -71,13 +71,13 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
     { y: junctionY + sp * 3 + sp * 2 + gap, beadId: "tail-creed", rad: 5.5, jumpable: false },
   ];
 
-  const lineColor = "#B0BEC5";
+  const lineColor = "var(--thread)";
   const lw = 1.5;
 
   // Tail connecting lines - from junction point down to first bead, then between beads
   elements.push(
     <line key="tline-junc" x1={cx} y1={junctionY} x2={cx} y2={tailPositions[0]!.y}
-      stroke={lineColor} strokeWidth={lw} />
+      strokeWidth={lw} style={{ stroke: lineColor }} />
   );
   for (let i = 0; i < tailPositions.length - 1; i++) {
     const from = tailPositions[i]!;
@@ -85,8 +85,8 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
     const isDashed = (from.beadId === "tail-of" && to.beadId === "tail-creed");
     elements.push(
       <line key={`tline-${i}`} x1={cx} y1={from.y} x2={cx} y2={to.y}
-        stroke={lineColor} strokeWidth={lw}
-        strokeDasharray={isDashed ? "3,4" : "none"} />
+        strokeWidth={lw} strokeDasharray={isDashed ? "3,4" : "none"}
+        style={{ stroke: lineColor }} />
     );
   }
 
@@ -96,7 +96,7 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
   const crossMid = crossTop + 8;
   const crossBot = crossTop + 20;
 
-  elements.push(<line key="tline-cross" x1={cx} y1={creedY} x2={cx} y2={crossTop} stroke={lineColor} strokeWidth={lw} />);
+  elements.push(<line key="tline-cross" x1={cx} y1={creedY} x2={cx} y2={crossTop} strokeWidth={lw} style={{ stroke: lineColor }} />);
   const currentType = sequence[currentStep]?.type;
   const crossActive = currentType === PRAYER_TYPES.SIGN_OF_CROSS;
   elements.push(
@@ -113,8 +113,8 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
     const bs = beadStyle(idx, currentStep, accentColor);
     elements.push(
       <circle key={`tail-${beadId}`} cx={cx} cy={y} r={rad}
-        fill={bs.fill} stroke={bs.stroke} strokeWidth={bs.strokeWidth}
-        style={{ transition: "all 0.3s ease", filter: bs.filter }} />
+        strokeWidth={bs.strokeWidth}
+        style={{ fill: bs.fill, stroke: bs.stroke, transition: "all 0.3s ease", filter: bs.filter }} />
     );
     if (jumpable && onJump) {
       elements.push(
@@ -176,7 +176,7 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
       const b = ringBeadPositions[i + 1]!;
       elements.push(
         <line key={`rline-${i}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y}
-          stroke={lineColor} strokeWidth={lw} />
+          strokeWidth={lw} style={{ stroke: lineColor }} />
       );
     }
     ringCursor += 11;
@@ -190,7 +190,7 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
     const b = ringBeadPositions[firstOfNext]!;
     elements.push(
       <line key={`rline-gap-${d}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y}
-        stroke={lineColor} strokeWidth={lw} />
+        strokeWidth={lw} style={{ stroke: lineColor }} />
     );
   }
 
@@ -198,7 +198,7 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
   const lastRingBead = ringBeadPositions[ringBeadPositions.length - 1]!;
   elements.push(
     <line key="rline-to-junc-r" x1={lastRingBead.x} y1={lastRingBead.y} x2={cx} y2={junctionY}
-      stroke={lineColor} strokeWidth={lw} />
+      strokeWidth={lw} style={{ stroke: lineColor }} />
   );
 
   // Ring beads ON TOP of lines (with optional jump hit-circle for Pater Noster)
@@ -207,8 +207,8 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
     const bs = beadStyle(bead.seqIdx, currentStep, accentColor);
     elements.push(
       <circle key={bead.key} cx={bead.x} cy={bead.y} r={bead.radius}
-        fill={bs.fill} stroke={bs.stroke} strokeWidth={bs.strokeWidth}
-        style={{ transition: "all 0.3s ease", filter: bs.filter }} />
+        strokeWidth={bs.strokeWidth}
+        style={{ fill: bs.fill, stroke: bs.stroke, transition: "all 0.3s ease", filter: bs.filter }} />
     );
     if (bead.isOf && onJump) {
       const targetIdx = bead.seqIdx;
