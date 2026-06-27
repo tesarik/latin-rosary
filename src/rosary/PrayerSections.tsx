@@ -1,10 +1,12 @@
 import type { SequenceItem } from "./sequence";
+import { STRINGS, type Locale } from "./i18n";
 
 type Props = {
   sequence: SequenceItem[];
   currentStep: number;
   accentColor: string;
   onJump: (idx: number) => void;
+  locale: Locale;
 };
 
 // Compact horizontal bead strand for linear (non-rosary) prayer sets — styled
@@ -18,7 +20,8 @@ type Props = {
 // tappable to jump; the sub-step beads between them (Pater Noster / Ave María)
 // are small and inert, exactly like the rosary's non-jumpable Hail Mary beads.
 // So a St. Bridget shedding reads as one big bead followed by two small ones.
-export default function PrayerSections({ sequence, currentStep, accentColor, onJump }: Props) {
+export default function PrayerSections({ sequence, currentStep, accentColor, onJump, locale }: Props) {
+  const t = STRINGS[locale];
   const N = sequence.length;
   if (N === 0) return null;
 
@@ -28,7 +31,7 @@ export default function PrayerSections({ sequence, currentStep, accentColor, onJ
   return (
     <div
       role="navigation"
-      aria-label="Sekce modlitby"
+      aria-label={t.prayerSectionsAria}
       style={{ width: "100%", maxWidth: 332, margin: "0 auto 4px" }}
     >
       <svg viewBox={`0 0 ${W} ${H}`} style={{ width: "100%", display: "block" }}>
@@ -68,7 +71,7 @@ export default function PrayerSections({ sequence, currentStep, accentColor, onJ
                   onClick={(e) => { e.stopPropagation(); onJump(i); }}
                   role="button"
                   aria-current={isActive ? "step" : undefined}
-                  aria-label={`Skočit na ${item.section}`}
+                  aria-label={t.jumpToSection(item.section!)}
                 />
               )}
             </g>

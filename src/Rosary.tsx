@@ -1,10 +1,11 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { MYSTERIES, type MysteryKey } from "./rosary/prayers";
-import { buildRosarySequence, OTHER_PRAYER_SETS, ORDINARY_PRAYERS, type OtherPrayerKey, type OrdinaryPrayerKey, type SequenceItem } from "./rosary/sequence";
+import { buildRosarySequence, OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type OtherPrayerKey, type OrdinaryPrayerKey, type LitanyKey, type SequenceItem } from "./rosary/sequence";
 import { loadSavedState, saveState } from "./rosary/storage";
 import { STRINGS, detectLocale, loadSavedLocale, saveLocale, type Locale } from "./rosary/i18n";
 import { DEFAULT_FONT_SCALE, clampFontScale, fontSizeClamp, loadSavedFontScale, saveFontScale } from "./rosary/fontSize";
 import { accentText, applyTheme, loadSavedTheme, resolveTheme, saveTheme, systemTheme, type Theme } from "./rosary/theme";
+import { track } from "./rosary/analytics";
 import RosaryBeads from "./rosary/RosaryBeads";
 import PrayerCard from "./rosary/PrayerCard";
 import PrayerSections from "./rosary/PrayerSections";
@@ -13,10 +14,11 @@ import MysteryMenu from "./rosary/MysteryMenu";
 
 type TouchSample = { x: number; y: number; time: number };
 
-export type PrayerSetKey = MysteryKey | OtherPrayerKey | OrdinaryPrayerKey;
+export type PrayerSetKey = MysteryKey | OtherPrayerKey | OrdinaryPrayerKey | LitanyKey;
 
 const isRosaryKey = (k: PrayerSetKey): k is MysteryKey => k in MYSTERIES;
 const isOrdinaryKey = (k: PrayerSetKey): k is OrdinaryPrayerKey => k in ORDINARY_PRAYERS;
+const isLitanyKey = (k: PrayerSetKey): k is LitanyKey => k in LITANIES;
 
 function getPrayerSetMeta(key: PrayerSetKey): { name: string; color: string; kind: "rosary" | "linear" | "single" } {
   if (isRosaryKey(key)) {
@@ -27,6 +29,10 @@ function getPrayerSetMeta(key: PrayerSetKey): { name: string; color: string; kin
     const o = ORDINARY_PRAYERS[key];
     return { name: o.name, color: o.color, kind: "single" };
   }
+  if (isLitanyKey(key)) {
+    const o = LITANIES[key];
+    return { name: o.name, color: o.color, kind: "single" };
+  }
   const o = OTHER_PRAYER_SETS[key];
   return { name: o.name, color: o.color, kind: "linear" };
 }
@@ -34,6 +40,7 @@ function getPrayerSetMeta(key: PrayerSetKey): { name: string; color: string; kin
 function buildSequence(key: PrayerSetKey): SequenceItem[] {
   if (isRosaryKey(key)) return buildRosarySequence(MYSTERIES[key]);
   if (isOrdinaryKey(key)) return ORDINARY_PRAYERS[key].build();
+  if (isLitanyKey(key)) return LITANIES[key].build();
   return OTHER_PRAYER_SETS[key].build();
 }
 
@@ -131,6 +138,7 @@ export default function Rosary() {
     setCurrentStep(0);
     setStarted(true);
     setShowTranslation(false);
+    track(`pray/${key}`);
   }, []);
 
   const buzz = () => { try { navigator.vibrate?.(25); } catch {} };
@@ -242,7 +250,7 @@ export default function Rosary() {
             ← {t.back}
           </button>
           <div style={{ flex: 1, textAlign: "center" }}>
-            <div lang="la" style={{
+            <div style={{
               color: "white",
               fontFamily: "Arial, sans-serif",
               fontSize: 20,
@@ -277,21 +285,22 @@ export default function Rosary() {
           flex: 1,
           minHeight: 0,
           overflow: "auto",
-          padding: "8px 14px",
-          display: "flex",
-          flexDirection: "column",
         }}
       >
-        <div style={{ margin: "auto 0", width: "100%" }}>
+        {/* Centering wrapper: `min-height: 100%` centers short content but
+            grows past the viewport for long prayers, so the top stays
+            scrollable — avoids the flex auto-margin clipping trap. */}
+        <div style={{ minHeight: "100%", display: "flex", flexDirection: "column", justifyContent: "center", padding: "8px 14px" }}>
+          <div style={{ width: "100%" }}>
           {setMeta.kind === "rosary" ? (
             <RosaryBeads currentStep={currentStep} sequence={sequence} accentColor={accentColor} onJump={jumpTo} locale={locale} />
           ) : setMeta.kind === "linear" ? (
-            <PrayerSections sequence={sequence} currentStep={currentStep} accentColor={accentColor} onJump={jumpTo} />
+            <PrayerSections sequence={sequence} currentStep={currentStep} accentColor={accentColor} onJump={jumpTo} locale={locale} />
           ) : null}
 
           {/* Prayer label */}
           <div style={{ textAlign: "center", marginTop: 8, marginBottom: 4 }}>
-            <span lang="la" style={{
+            <span style={{
               display: "inline-block",
               background: accentColor + "15",
               color: accentText(accentColor, theme),
@@ -317,6 +326,7 @@ export default function Rosary() {
             fontSizeClamp={fontSizeClamp(fontScale)}
             theme={theme}
           />
+          </div>
         </div>
       </div>
 

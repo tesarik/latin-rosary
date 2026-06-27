@@ -1,7 +1,26 @@
+import type { ReactNode } from "react";
 import { PRAYER_TYPES, PRAYERS, PRAYERS_CS, getHailMary, getHailMaryCs } from "./prayers";
 import type { SequenceItem } from "./sequence";
 import { STRINGS, type Locale } from "./i18n";
 import { accentText, type Theme } from "./theme";
+
+// Render prayer text, turning `{r}…{/r}` spans into red liturgical rubrics
+// (missal-style seasonal labels). Newlines are handled by the container's
+// `whiteSpace: pre-line`. Plain text without markup passes through unchanged.
+function withRubrics(text: string): ReactNode {
+  const out: ReactNode[] = [];
+  const re = /\{r\}([\s\S]*?)\{\/r\}/g;
+  let last = 0;
+  let key = 0;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) out.push(text.slice(last, m.index));
+    out.push(<span key={key++} style={{ color: "var(--rubric)" }}>{m[1]}</span>);
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) out.push(text.slice(last));
+  return out;
+}
 
 const bodyStyle = {
   textAlign: "center" as const,
@@ -13,13 +32,18 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
   if (!currentPrayer) return null;
   const sizedBodyStyle = { ...bodyStyle, fontSize: fontSizeClamp };
   const clauseColor = accentText(accentColor, theme);
+  // Only the translation is language-tagged (the UI locale). Latin is left
+  // UNTAGGED on purpose: lang="la" makes EB Garamond apply its Latin localized
+  // forms (`locl`) and render u→v, and font-feature-settings can't reliably turn
+  // that off across browsers (mobile Safari ignores it). So never tag lang="la".
+  const bodyLang = showTranslation ? locale : undefined;
 
   if (currentPrayer.type === PRAYER_TYPES.HAIL_MARY) {
     const hm = showTranslation
       ? getHailMaryCs(currentPrayer.mysteryCs)
       : getHailMary(currentPrayer.mystery);
     return (
-      <div style={sizedBodyStyle}>
+      <div lang={bodyLang} style={sizedBodyStyle}>
         {currentPrayer.num !== undefined && (
           <div lang={locale} aria-hidden="true" style={{
             fontSize: 12, color: "var(--text-muted)", marginBottom: 8,
@@ -37,8 +61,8 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
 
   const text = showTranslation ? PRAYERS_CS[currentPrayer.type] : PRAYERS[currentPrayer.type];
   return (
-    <div style={sizedBodyStyle}>
-      <div style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{text}</div>
+    <div lang={bodyLang} style={sizedBodyStyle}>
+      <div style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{withRubrics(text)}</div>
     </div>
   );
 }
@@ -86,7 +110,7 @@ export default function PrayerCard({ currentPrayer, accentColor, currentStep, to
         value={showTranslation ? "cs" : "la"}
         onChange={(e) => onLanguageChange(e.target.value === "cs")}
         onClick={(e) => e.stopPropagation()}
-        aria-label="Jazyk modlitby"
+        aria-label={t.prayerLanguageAria}
         style={{
           position: "absolute",
           top: 8,
