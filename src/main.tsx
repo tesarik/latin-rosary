@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Rosary from "./Rosary";
+import { initAnalytics } from "./rosary/analytics";
 import "./index.css";
 
 const root = document.getElementById("root");
@@ -11,6 +12,8 @@ ReactDOM.createRoot(root).render(
     <Rosary />
   </React.StrictMode>
 );
+
+initAnalytics();
 
 if ("serviceWorker" in navigator && import.meta.env.PROD) {
   window.addEventListener("load", () => {

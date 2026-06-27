@@ -33,6 +33,7 @@ html, body, #root {
   --thread: #B0BEC5;
   --track: rgba(0, 0, 0, 0.1);
   --nav-fade: linear-gradient(transparent, #ECEFF1);
+  --rubric: #B3261E;
 }
 
 :root[data-theme="dark"] {
@@ -51,6 +52,7 @@ html, body, #root {
   --thread: #39414C;
   --track: rgba(255, 255, 255, 0.14);
   --nav-fade: linear-gradient(transparent, #101216);
+  --rubric: #EC8E86;
 }
 
 body {

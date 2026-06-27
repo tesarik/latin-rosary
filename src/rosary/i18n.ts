@@ -23,6 +23,12 @@ type Strings = {
   textSizeDecreaseAria: string;
   textSizeIncreaseAria: string;
   themeToggleAria: string;
+  aboutTitle: string;
+  aboutText: string;
+  aboutCreator: string;
+  aboutFeedback: string;
+  aboutAnalytics: string;
+  aboutClose: string;
   localeName: string;
   otherPrayersHeading: string;
   startRosaryAria: (mysteryName: string) => string;
@@ -31,6 +37,9 @@ type Strings = {
   jumpToOpeningPaterNoster: (step: number, total: number) => string;
   jumpToDecade: (n: number) => string;
   rosaryAria: (step: number, total: number) => string;
+  prayerSectionsAria: string;
+  jumpToSection: (name: string) => string;
+  prayerLanguageAria: string;
 };
 
 export const STRINGS: Record<Locale, Strings> = {
@@ -51,6 +60,12 @@ export const STRINGS: Record<Locale, Strings> = {
     textSizeDecreaseAria: "Zmenšit písmo",
     textSizeIncreaseAria: "Zvětšit písmo",
     themeToggleAria: "Přepnout tmavý režim",
+    aboutTitle: "O aplikaci",
+    aboutText: "Modlitba růžence a dalších modliteb v latině s českým překladem.",
+    aboutCreator: "Tvůrce",
+    aboutFeedback: "Chyby a návrhy posílejte na",
+    aboutAnalytics: "Sbírají se anonymní statistiky používání, bez cookies.",
+    aboutClose: "Zavřít",
     localeName: "Čeština",
     otherPrayersHeading: "Další latinské modlitby",
     startRosaryAria: (n) => `Začít růženec — ${n}`,
@@ -59,6 +74,9 @@ export const STRINGS: Record<Locale, Strings> = {
     jumpToOpeningPaterNoster: (s, t) => `Skočit na Pater Noster úvodu, krok ${s} z ${t}`,
     jumpToDecade: (n) => `Skočit na ${n}. desátek`,
     rosaryAria: (s, t) => `Růženec, krok ${s} z ${t}`,
+    prayerSectionsAria: "Sekce modlitby",
+    jumpToSection: (n) => `Skočit na ${n}`,
+    prayerLanguageAria: "Jazyk modlitby",
   },
   en: {
     appTitle: "Latin Rosary",
@@ -77,6 +95,12 @@ export const STRINGS: Record<Locale, Strings> = {
     textSizeDecreaseAria: "Decrease text size",
     textSizeIncreaseAria: "Increase text size",
     themeToggleAria: "Toggle dark mode",
+    aboutTitle: "About",
+    aboutText: "Praying the rosary and other prayers in Latin, with Czech translation.",
+    aboutCreator: "Created by",
+    aboutFeedback: "Send errors and improvements to",
+    aboutAnalytics: "Anonymous, cookieless usage statistics are collected.",
+    aboutClose: "Close",
     localeName: "English",
     otherPrayersHeading: "Other Latin prayers",
     startRosaryAria: (n) => `Start rosary — ${n}`,
@@ -85,6 +109,9 @@ export const STRINGS: Record<Locale, Strings> = {
     jumpToOpeningPaterNoster: (s, t) => `Jump to opening Pater Noster, step ${s} of ${t}`,
     jumpToDecade: (n) => `Jump to decade ${n}`,
     rosaryAria: (s, t) => `Rosary, step ${s} of ${t}`,
+    prayerSectionsAria: "Prayer sections",
+    jumpToSection: (n) => `Jump to ${n}`,
+    prayerLanguageAria: "Prayer language",
   },
   sk: {
     appTitle: "Latinský ruženec",
@@ -103,6 +130,12 @@ export const STRINGS: Record<Locale, Strings> = {
     textSizeDecreaseAria: "Zmenšiť písmo",
     textSizeIncreaseAria: "Zväčšiť písmo",
     themeToggleAria: "Prepnúť tmavý režim",
+    aboutTitle: "O aplikácii",
+    aboutText: "Modlitba ruženca a ďalších modlitieb v latinčine s českým prekladom.",
+    aboutCreator: "Tvorca",
+    aboutFeedback: "Chyby a návrhy posielajte na",
+    aboutAnalytics: "Zbierajú sa anonymné štatistiky používania, bez cookies.",
+    aboutClose: "Zavrieť",
     localeName: "Slovenčina",
     otherPrayersHeading: "Ďalšie latinské modlitby",
     startRosaryAria: (n) => `Začať ruženec — ${n}`,
@@ -111,6 +144,9 @@ export const STRINGS: Record<Locale, Strings> = {
     jumpToOpeningPaterNoster: (s, t) => `Skočiť na Pater Noster úvodu, krok ${s} z ${t}`,
     jumpToDecade: (n) => `Skočiť na ${n}. desiatok`,
     rosaryAria: (s, t) => `Ruženec, krok ${s} z ${t}`,
+    prayerSectionsAria: "Sekcie modlitby",
+    jumpToSection: (n) => `Skočiť na ${n}`,
+    prayerLanguageAria: "Jazyk modlitby",
   },
   de: {
     appTitle: "Lateinischer Rosenkranz",
@@ -129,6 +165,12 @@ export const STRINGS: Record<Locale, Strings> = {
     textSizeDecreaseAria: "Schrift verkleinern",
     textSizeIncreaseAria: "Schrift vergrößern",
     themeToggleAria: "Dunkelmodus umschalten",
+    aboutTitle: "Über die App",
+    aboutText: "Den Rosenkranz und weitere Gebete auf Latein beten, mit tschechischer Übersetzung.",
+    aboutCreator: "Erstellt von",
+    aboutFeedback: "Fehler und Verbesserungen senden Sie an",
+    aboutAnalytics: "Es werden anonyme, cookiefreie Nutzungsstatistiken erfasst.",
+    aboutClose: "Schließen",
     localeName: "Deutsch",
     otherPrayersHeading: "Weitere lateinische Gebete",
     startRosaryAria: (n) => `Rosenkranz beginnen — ${n}`,
@@ -137,6 +179,9 @@ export const STRINGS: Record<Locale, Strings> = {
     jumpToOpeningPaterNoster: (s, t) => `Zum einleitenden Pater Noster springen, Schritt ${s} von ${t}`,
     jumpToDecade: (n) => `Zum ${n}. Gesätz springen`,
     rosaryAria: (s, t) => `Rosenkranz, Schritt ${s} von ${t}`,
+    prayerSectionsAria: "Gebetsabschnitte",
+    jumpToSection: (n) => `Zu ${n} springen`,
+    prayerLanguageAria: "Gebetssprache",
   },
   pl: {
     appTitle: "Łaciński różaniec",
@@ -155,6 +200,12 @@ export const STRINGS: Record<Locale, Strings> = {
     textSizeDecreaseAria: "Zmniejsz tekst",
     textSizeIncreaseAria: "Powiększ tekst",
     themeToggleAria: "Przełącz tryb ciemny",
+    aboutTitle: "O aplikacji",
+    aboutText: "Modlitwa różańca i innych modlitw po łacinie z czeskim tłumaczeniem.",
+    aboutCreator: "Autor",
+    aboutFeedback: "Błędy i propozycje wysyłaj na",
+    aboutAnalytics: "Zbierane są anonimowe statystyki użycia, bez cookies.",
+    aboutClose: "Zamknij",
     localeName: "Polski",
     otherPrayersHeading: "Inne łacińskie modlitwy",
     startRosaryAria: (n) => `Rozpocznij różaniec — ${n}`,
@@ -163,6 +214,9 @@ export const STRINGS: Record<Locale, Strings> = {
     jumpToOpeningPaterNoster: (s, t) => `Przeskocz do wprowadzającego Pater Noster, krok ${s} z ${t}`,
     jumpToDecade: (n) => `Przeskocz do ${n}. dziesiątki`,
     rosaryAria: (s, t) => `Różaniec, krok ${s} z ${t}`,
+    prayerSectionsAria: "Sekcje modlitwy",
+    jumpToSection: (n) => `Przejdź do ${n}`,
+    prayerLanguageAria: "Język modlitwy",
   },
 };
 

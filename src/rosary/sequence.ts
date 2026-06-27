@@ -136,11 +136,14 @@ export const OTHER_PRAYER_SETS: Record<OtherPrayerKey, {
 };
 
 export type OrdinaryPrayerKey =
+  | "alma_redemptoris"
+  | "ave_regina_caelorum"
   | "signum_crucis"
   | "pater_noster"
   | "ave_maria"
   | "gloria_patri"
   | "symbolum_apostolorum"
+  | "symbolum_athanasianum"
   | "symbolum_nicenum"
   | "salve_regina"
   | "sub_tuum"
@@ -170,11 +173,14 @@ export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, {
   color: string;
   build: () => SequenceItem[];
 }> = {
+  alma_redemptoris:     ordinary("Alma Redemptóris Mater", PRAYER_TYPES.ALMA_REDEMPTORIS),
+  ave_regina_caelorum:  ordinary("Ave Regína Cælórum",   PRAYER_TYPES.AVE_REGINA_CAELORUM),
   signum_crucis:        ordinary("Signum Crucis",        PRAYER_TYPES.SIGN_OF_CROSS),
   pater_noster:         ordinary("Pater Noster",         PRAYER_TYPES.OUR_FATHER),
   ave_maria:            ordinary("Ave María",            PRAYER_TYPES.HAIL_MARY),
   gloria_patri:         ordinary("Gloria Patri",         PRAYER_TYPES.GLORY_BE),
   symbolum_apostolorum: ordinary("Symbolum Apostolórum", PRAYER_TYPES.CREED),
+  symbolum_athanasianum:ordinary("Symbolum Athanasiánum", PRAYER_TYPES.ATHANASIAN_CREED),
   symbolum_nicenum:     ordinary("Symbolum Nicænum",     PRAYER_TYPES.NICENE_CREED),
   salve_regina:         ordinary("Salve Regína",         PRAYER_TYPES.SALVE_REGINA_LEONINE),
   sub_tuum:             ordinary("Sub tuum præsídium",   PRAYER_TYPES.SUB_TUUM),
@@ -185,4 +191,23 @@ export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, {
   sancte_michael:       ordinary("Sancte Míchael",       PRAYER_TYPES.ST_MICHAEL),
   requiem:              ordinary("Pro defunctis (Réquiem)", PRAYER_TYPES.REQUIEM),
   decalogue:            ordinary("Decálogus",            PRAYER_TYPES.DECALOGUE),
+};
+
+export type LitanyKey = "loreto" | "sacred_heart";
+
+const LITANY_COLOR = "#3949AB";
+
+const litany = (name: string, type: PrayerType): { name: string; color: string; build: () => SequenceItem[] } =>
+  ({ name, color: LITANY_COLOR, build: () => [{ type, label: name }] });
+
+// Litanies — shown as expandable links under "Litaníæ" on the start screen,
+// same single-prayer model as ORDINARY_PRAYERS (one long step, no beads). More
+// litanies will be added.
+export const LITANIES: Record<LitanyKey, {
+  name: string;
+  color: string;
+  build: () => SequenceItem[];
+}> = {
+  loreto:       litany("Litaníæ Lauretánæ", PRAYER_TYPES.LITANY_LORETO),
+  sacred_heart: litany("Litaníæ Sacratíssimi Cordis Iesu", PRAYER_TYPES.LITANY_SACRED_HEART),
 };

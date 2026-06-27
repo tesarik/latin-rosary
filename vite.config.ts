@@ -24,8 +24,10 @@ function swVersion(): Plugin {
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
+  const pkg = JSON.parse(fs.readFileSync("package.json", "utf-8")) as { version: string };
   return {
     base: env.BASE_PATH || "/",
+    define: { __APP_VERSION__: JSON.stringify(pkg.version) },
     plugins: [react(), swVersion()],
   };
 });
