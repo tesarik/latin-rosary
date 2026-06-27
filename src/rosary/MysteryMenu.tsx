@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { MYSTERIES, type MysteryKey } from "./prayers";
-import { OTHER_PRAYER_SETS, ORDINARY_PRAYERS, type OtherPrayerKey, type OrdinaryPrayerKey } from "./sequence";
+import { OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type OtherPrayerKey, type OrdinaryPrayerKey, type LitanyKey } from "./sequence";
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
 import type { Theme } from "./theme";
 import Flag from "./Flag";
+import AboutDialog from "./AboutDialog";
 
-type PrayerSetKey = MysteryKey | OtherPrayerKey | OrdinaryPrayerKey;
+type PrayerSetKey = MysteryKey | OtherPrayerKey | OrdinaryPrayerKey | LitanyKey;
 
 type Props = {
   onStart: (key: PrayerSetKey) => void;
@@ -166,15 +167,19 @@ function LanguagePicker({ locale, onChange }: { locale: Locale; onChange: (l: Lo
   );
 }
 
-// Collapsible "Ordinary prayers" group: a card whose header rolls down a few
-// small links to standalone single prayers (Pater Noster, Ave María, …).
-// Tapping a link starts that one-prayer "set".
-function OrdinaryPrayers({ onStart, locale }: { onStart: (key: OrdinaryPrayerKey) => void; locale: Locale }) {
+// Collapsible group: a card whose header rolls down small links to standalone
+// single prayers, sorted alphabetically. Used for both "Orationes utilissimæ"
+// and "Litaníæ"; tapping a link starts that one-prayer "set".
+function CollapsiblePrayers({ title, entries, onStart, locale }: {
+  title: string;
+  entries: [PrayerSetKey, { name: string; color: string }][];
+  onStart: (key: PrayerSetKey) => void;
+  locale: Locale;
+}) {
   const t = STRINGS[locale];
   const [open, setOpen] = useState(false);
-  const entries = (Object.entries(ORDINARY_PRAYERS) as [OrdinaryPrayerKey, typeof ORDINARY_PRAYERS[OrdinaryPrayerKey]][])
-    .sort((a, b) => a[1].name.localeCompare(b[1].name));
-  const accent = entries[0]?.[1].color ?? "#1565C0";
+  const sorted = [...entries].sort((a, b) => a[1].name.localeCompare(b[1].name));
+  const accent = sorted[0]?.[1].color ?? "#1565C0";
 
   return (
     <div style={{
@@ -212,8 +217,8 @@ function OrdinaryPrayers({ onStart, locale }: { onStart: (key: OrdinaryPrayerKey
             <line x1="8" y1="14" x2="16" y2="14" stroke={accent} strokeWidth="1.5" strokeLinecap="round" />
           </svg>
         </div>
-        <div lang="la" style={{ flex: 1, fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
-          Orationes utilissimæ
+        <div style={{ flex: 1, fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
+          {title}
         </div>
         <span aria-hidden="true" style={{
           fontSize: 14,
@@ -225,12 +230,11 @@ function OrdinaryPrayers({ onStart, locale }: { onStart: (key: OrdinaryPrayerKey
 
       {open && (
         <div style={{ borderTop: "1px solid var(--border)", padding: "4px 0", animation: "rolldown 0.22s ease" }}>
-          {entries.map(([key, val]) => (
+          {sorted.map(([key, val]) => (
             <button
               key={key}
               onClick={() => onStart(key)}
               aria-label={t.startPrayerAria(val.name)}
-              lang="la"
               style={{
                 width: "100%",
                 display: "block",
@@ -260,6 +264,7 @@ function OrdinaryPrayers({ onStart, locale }: { onStart: (key: OrdinaryPrayerKey
 // onStart(key) hands the chosen mystery key back to the parent.
 export default function MysteryMenu({ onStart, locale, onLocaleChange, theme, onToggleTheme }: Props) {
   const t = STRINGS[locale];
+  const [aboutOpen, setAboutOpen] = useState(false);
 
   return (
     <div style={{
@@ -316,7 +321,19 @@ export default function MysteryMenu({ onStart, locale, onLocaleChange, theme, on
           {t.otherPrayersHeading}
         </h2>
 
-        <OrdinaryPrayers onStart={onStart} locale={locale} />
+        <CollapsiblePrayers
+          title="Orationes utilissimæ"
+          entries={Object.entries(ORDINARY_PRAYERS) as [PrayerSetKey, { name: string; color: string }][]}
+          onStart={onStart}
+          locale={locale}
+        />
+
+        <CollapsiblePrayers
+          title="Litaníæ"
+          entries={Object.entries(LITANIES) as [PrayerSetKey, { name: string; color: string }][]}
+          onStart={onStart}
+          locale={locale}
+        />
 
         {(Object.entries(OTHER_PRAYER_SETS) as [OtherPrayerKey, typeof OTHER_PRAYER_SETS[OtherPrayerKey]][]).map(([key, val]) => (
           <PrayerSetButton
@@ -328,7 +345,26 @@ export default function MysteryMenu({ onStart, locale, onLocaleChange, theme, on
             onClick={() => onStart(key)}
           />
         ))}
+
+        <button
+          onClick={() => setAboutOpen(true)}
+          style={{
+            marginTop: 12,
+            alignSelf: "center",
+            background: "transparent",
+            border: "none",
+            color: "var(--text-muted)",
+            fontFamily: "Arial, sans-serif",
+            fontSize: 13,
+            cursor: "pointer",
+            padding: 8,
+          }}
+        >
+          {t.aboutTitle}
+        </button>
       </div>
+
+      {aboutOpen && <AboutDialog locale={locale} onClose={() => setAboutOpen(false)} />}
     </div>
   );
 }
@@ -389,7 +425,7 @@ function PrayerSetButton({ name, color, ariaLabel, icon, onClick }: {
         </svg>
       </div>
       <div style={{ textAlign: "left" }}>
-        <div lang="la" style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
+        <div style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
           {name}
         </div>
       </div>

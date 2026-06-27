@@ -43,6 +43,11 @@ export const PRAYER_TYPES = {
   ANGELUS: "angelus",
   REGINA_CAELI: "regina_caeli",
   ANIMA_CHRISTI: "anima_christi",
+  ATHANASIAN_CREED: "athanasian_creed",
+  ALMA_REDEMPTORIS: "alma_redemptoris",
+  AVE_REGINA_CAELORUM: "ave_regina_caelorum",
+  LITANY_LORETO: "litany_loreto",
+  LITANY_SACRED_HEART: "litany_sacred_heart",
 } as const;
 
 export type PrayerType = (typeof PRAYER_TYPES)[keyof typeof PRAYER_TYPES];
@@ -250,6 +255,188 @@ Et iube me veníre ad te,
 ut cum Sanctis tuis laudem te
 in sǽcula sæculórum.
 Amen.`,
+
+  // Athanasian Creed. Source: cs.wikipedia.org/wiki/Vyznání_Quicumque. The Latin
+  // there is unaccented; rendered here in the app's pointed orthography (accents
+  // + æ/œ ligatures) to match the other two creeds — review the pointing.
+  [PRAYER_TYPES.ATHANASIAN_CREED]: `Quicúmque vult salvus esse, ante ómnia opus est, ut téneat cathólicam fidem: quam nisi quísque íntegram inviolatámque serváverit, absque dúbio in ætérnum períbit. Fides autem cathólica hæc est: ut unum Deum in Trinitáte, et Trinitátem in unitáte venerémur; neque confundéntes persónas, neque substántiam separántes. Ália est enim persóna Patris, ália Fílii, ália Spíritus Sancti; sed Patris, et Fílii, et Spíritus Sancti una est divínitas, æquális glória, coætérna maiéstas. Qualis Pater, talis Fílius, talis Spíritus Sanctus. Increátus Pater, increátus Fílius, increátus Spíritus Sanctus. Imménsus Pater, imménsus Fílius, imménsus Spíritus Sanctus. Ætérnus Pater, ætérnus Fílius, ætérnus Spíritus Sanctus. Et tamen non tres ætérni, sed unus ætérnus. Sicut non tres increáti, nec tres imménsi, sed unus increátus et unus imménsus. Simíliter omnípotens Pater, omnípotens Fílius, omnípotens Spíritus Sanctus. Et tamen non tres omnipoténtes, sed unus omnípotens. Ita Deus Pater, Deus Fílius, Deus Spíritus Sanctus. Et tamen non tres dii, sed unus est Deus. Ita Dóminus Pater, Dóminus Fílius, Dóminus Spíritus Sanctus. Et tamen non tres Dómini, sed unus est Dóminus. Quia, sicut singillátim unamquámque persónam Deum ac Dóminum confitéri christiána veritáte compéllimur, ita tres Deos aut Dóminos dícere cathólica religióne prohibémur.
+
+Pater a nullo est factus, nec creátus, nec génitus. Fílius a Patre solo est, non factus, nec creátus, sed génitus. Spíritus Sanctus a Patre et Fílio, non factus, nec creátus, nec génitus, sed procédens. Unus ergo Pater, non tres Patres; unus Fílius, non tres Fílii; unus Spíritus Sanctus, non tres Spíritus Sancti. Et in hac Trinitáte nihil prius aut postérius, nihil maius aut minus, sed totæ tres persónæ coætérnæ sibi sunt et coæquáles. Ita ut per ómnia, sicut iam supra dictum est, et únitas in Trinitáte, et Trínitas in unitáte veneránda sit. Qui vult ergo salvus esse, ita de Trinitáte séntiat.
+
+Sed necessárium est ad ætérnam salútem, ut incarnatiónem quoque Dómini nostri Iesu Christi fidéliter credat. Est ergo fides recta, ut credámus et confiteámur, quia Dóminus noster Iesus Christus, Dei Fílius, Deus et homo est. Deus est ex substántia Patris ante sǽcula génitus, et homo est ex substántia matris in sǽculo natus. Perféctus Deus, perféctus homo, ex ánima rationáli et humána carne subsístens. Æquális Patri secúndum divinitátem, minor Patre secúndum humanitátem. Qui licet Deus sit et homo, non duo tamen, sed unus est Christus. Unus autem non conversióne divinitátis in carnem, sed assumptióne humanitátis in Deum. Unus omníno, non confusióne substántiæ, sed unitáte persónæ. Nam sicut ánima rationális et caro unus est homo, ita Deus et homo unus est Christus. Qui passus est pro salúte nostra, descéndit ad ínferos, tértia die resurréxit a mórtuis. Ascéndit ad cælos, sedet ad déxteram Dei Patris omnipoténtis, inde ventúrus est iudicáre vivos et mórtuos. Ad cuius advéntum omnes hómines resúrgere habent cum corpóribus suis, et redditúri sunt de factis própriis ratiónem. Et qui bona egérunt, ibunt in vitam ætérnam; qui vero mala, in ignem ætérnum. Hæc est fides cathólica, quam nisi quísque fidéliter firmitérque credíderit, salvus esse non póterit. Amen.`,
+
+  // Marian antiphon for Advent → Candlemas. Antiphon Czech from cs.wikipedia;
+  // accented Latin matches en.wikipedia's pointed text. Versicles + collects are
+  // canonical liturgical Latin (seasonal — both given, with red {r}…{/r} rubrics).
+  [PRAYER_TYPES.ALMA_REDEMPTORIS]: `Alma Redemptóris Mater, quæ pérvia cæli porta manes, et stella maris, succúrre cadénti, súrgere qui curat pópulo: tu quæ genuísti, natúra miránte, tuum sanctum Genitórem, Virgo prius ac postérius, Gabriélis ab ore sumens illud Ave, peccatórum miserére.
+
+{r}Témpore Advéntus:{/r}
+℣ Ángelus Dómini nuntiávit Maríæ.
+℟ Et concépit de Spíritu Sancto.
+Orémus. Grátiam tuam, quǽsumus, Dómine, méntibus nostris infúnde: ut qui, Ángelo nuntiánte, Christi Fílii tui incarnatiónem cognóvimus, per passiónem eius et crucem ad resurrectiónis glóriam perducámur. Per eúndem Christum Dóminum nostrum. Amen.
+
+{r}A Nativitáte Dómini usque ad Purificatiónem:{/r}
+℣ Post partum, Virgo, invioláta permansísti.
+℟ Dei Génitrix, intercéde pro nobis.
+Orémus. Deus, qui salútis ætérnæ, beátæ Maríæ virginitáte fecúnda, humáno géneri prǽmia præstitísti: tríbue, quǽsumus, ut ipsam pro nobis intercédere sentiámus, per quam merúimus auctórem vitæ suscípere, Dóminum nostrum Iesum Christum Fílium tuum. Amen.`,
+
+  // Marian antiphon for Candlemas → Holy Week. Source: cs.wikipedia.org/wiki/Ave_Regina_caelorum
+  // (unaccented there; the pointing here is rule-derived like the Quicumque, no pointed source online).
+  [PRAYER_TYPES.AVE_REGINA_CAELORUM]: `{r}A Purificatióne usque ad Hebdómadam Sanctam:{/r}
+Ave, Regína cælórum,
+Ave, Dómina Angelórum:
+Salve, radix, salve, porta
+Ex qua mundo lux est orta:
+
+Gaude, Virgo gloriósa,
+Super omnes speciósa,
+Vale, o valde decóra,
+Et pro nobis Christum exóra.
+
+℣ Dignáre me laudáre te, Virgo sacráta.
+℟ Da mihi virtútem contra hostes tuos.
+Orémus. Concéde, miséricors Deus, fragilitáti nostræ præsídium: ut, qui sanctæ Dei Genitrícis memóriam ágimus, intercessiónis eius auxílio, a nostris iniquitátibus resurgámus. Per eúndem Christum Dóminum nostrum. Amen.`,
+
+  // Litany of Loreto. Latin invocations sourced from en.wikipedia.org/wiki/Litany_of_Loreto
+  // (current 2020 set), pointed by rule (verified). Concluding collects are canonical
+  // liturgical Latin (the Paschal one from the Regína Cæli source). Agnus Dei rendered
+  // as "miserére nobis" ×3 to match the ČBK Czech. Seasonal endings carry red rubrics.
+  [PRAYER_TYPES.LITANY_LORETO]: `Kyrie, eléison. 2×
+Christe, eléison. 2×
+Kyrie, eléison. 2×
+Pater de cælis, Deus, miserére nobis.
+Fili, Redémptor mundi, Deus, miserére nobis.
+Spíritus Sancte, Deus, miserére nobis.
+Sancta Trínitas, unus Deus, miserére nobis.
+
+Sancta María, ora pro nobis.
+Sancta Dei Génitrix, ora pro nobis.
+Sancta Virgo vírginum, ora pro nobis.
+Mater Christi, ora pro nobis.
+Mater Ecclésiæ, ora pro nobis.
+Mater misericórdiæ, ora pro nobis.
+Mater divínæ grátiæ, ora pro nobis.
+Mater spei, ora pro nobis.
+Mater puríssima, ora pro nobis.
+Mater castíssima, ora pro nobis.
+Mater invioláta, ora pro nobis.
+Mater intemeráta, ora pro nobis.
+Mater amábilis, ora pro nobis.
+Mater admirábilis, ora pro nobis.
+Mater boni consílii, ora pro nobis.
+Mater Creatóris, ora pro nobis.
+Mater Salvatóris, ora pro nobis.
+Virgo prudentíssima, ora pro nobis.
+Virgo veneránda, ora pro nobis.
+Virgo prædicánda, ora pro nobis.
+Virgo potens, ora pro nobis.
+Virgo clemens, ora pro nobis.
+Virgo fidélis, ora pro nobis.
+Spéculum iustítiæ, ora pro nobis.
+Sedes sapiéntiæ, ora pro nobis.
+Causa nostræ lætítiæ, ora pro nobis.
+Vas spirituále, ora pro nobis.
+Vas honorábile, ora pro nobis.
+Vas insígne devotiónis, ora pro nobis.
+Rosa mýstica, ora pro nobis.
+Turris Davídica, ora pro nobis.
+Turris ebúrnea, ora pro nobis.
+Domus áurea, ora pro nobis.
+Fœderis arca, ora pro nobis.
+Iánua cæli, ora pro nobis.
+Stella matutína, ora pro nobis.
+Salus infirmórum, ora pro nobis.
+Refúgium peccatórum, ora pro nobis.
+Solácium migrántium, ora pro nobis.
+Consolátrix afflictórum, ora pro nobis.
+Auxílium christianórum, ora pro nobis.
+Regína angelórum, ora pro nobis.
+Regína patriarchárum, ora pro nobis.
+Regína prophetárum, ora pro nobis.
+Regína apostolórum, ora pro nobis.
+Regína mártyrum, ora pro nobis.
+Regína confessórum, ora pro nobis.
+Regína vírginum, ora pro nobis.
+Regína sanctórum ómnium, ora pro nobis.
+Regína sine labe origináli concépta, ora pro nobis.
+Regína in cælum assúmpta, ora pro nobis.
+Regína sacratíssimi Rosárii, ora pro nobis.
+Regína famíliæ, ora pro nobis.
+Regína pacis, ora pro nobis.
+
+Agnus Dei, qui tollis peccáta mundi, miserére nobis. 3×
+
+℣ Ora pro nobis, sancta Dei Génitrix.
+℟ Ut digni efficiámur promissiónibus Christi.
+Orémus. Concéde nos fámulos tuos, quǽsumus, Dómine Deus, perpétua mentis et córporis sanitáte gaudére: et gloriósa beátæ Maríæ semper Vírginis intercessióne, a præsénti liberári tristítia, et ætérna pérfrui lætítia. Per Christum Dóminum nostrum. Amen.
+
+{r}Tempore Advéntus:{/r}
+℣ Angelus Dómini nuntiávit Maríæ.
+℟ Et concépit de Spíritu Sancto.
+Orémus. Deus, qui de beátæ Maríæ Vírginis útero Verbum tuum, Angelo nuntiánte, carnem suscípere voluísti: præsta supplícibus tuis; ut, qui vere eam Genitrícem Dei crédimus, eius apud te intercessiónibus adiuvémur. Per Christum Dóminum nostrum. Amen.
+
+{r}Tempore Nativitátis:{/r}
+℣ Post partum, Virgo, invioláta permansísti.
+℟ Dei Génitrix, intercéde pro nobis.
+Orémus. Deus, qui salútis ætérnæ, beátæ Maríæ virginitáte fecúnda, humáno géneri prǽmia præstitísti: tríbue, quǽsumus, ut ipsam pro nobis intercédere sentiámus, per quam merúimus auctórem vitæ suscípere, Dóminum nostrum Iesum Christum Fílium tuum. Amen.
+
+{r}Tempore Pascháli:{/r}
+℣ Gaude et lætáre, Virgo María, allelúia.
+℟ Quia surréxit Dóminus vere, allelúia.
+Orémus. Deus, qui per resurrectiónem Fílii tui, Dómini nostri Iesu Christi, mundum lætificáre dignátus es: præsta, quǽsumus, ut per eius Genetrícem Vírginem Maríam perpétuæ capiámus gáudia vitæ. Per eúndem Christum Dóminum nostrum. Amen.`,
+
+  // Litany of the Most Sacred Heart of Jesus (approved by Leo XIII, 1899).
+  // Latin is the canonical, fixed text (cross-checked against EWTN / Sancta Missa
+  // via search, since fetch tools blocked verbatim reproduction); rule-pointed.
+  // Czech sourced verbatim from the ČBK Kancionál (065). Agnus Dei = miserére ×3
+  // to match the Czech.
+  [PRAYER_TYPES.LITANY_SACRED_HEART]: `Kyrie, eléison. 2×
+Christe, eléison. 2×
+Kyrie, eléison. 2×
+Pater de cælis, Deus, miserére nobis.
+Fili, Redémptor mundi, Deus, miserére nobis.
+Spíritus Sancte, Deus, miserére nobis.
+Sancta Trínitas, unus Deus, miserére nobis.
+
+Cor Iesu, Fílii Patris ætérni, miserére nobis.
+Cor Iesu, in sinu Vírginis Matris a Spíritu Sancto formátum, miserére nobis.
+Cor Iesu, Verbo Dei substantiáliter unítum, miserére nobis.
+Cor Iesu, maiestátis infinítæ, miserére nobis.
+Cor Iesu, templum Dei sanctum, miserére nobis.
+Cor Iesu, tabernáculum Altíssimi, miserére nobis.
+Cor Iesu, domus Dei et porta cæli, miserére nobis.
+Cor Iesu, fornax ardens caritátis, miserére nobis.
+Cor Iesu, iustítiæ et amóris receptáculum, miserére nobis.
+Cor Iesu, bonitáte et amóre plenum, miserére nobis.
+Cor Iesu, virtútum ómnium abýssus, miserére nobis.
+Cor Iesu, omni laude digníssimum, miserére nobis.
+Cor Iesu, rex et centrum ómnium córdium, miserére nobis.
+Cor Iesu, in quo sunt omnes thesáuri sapiéntiæ et sciéntiæ, miserére nobis.
+Cor Iesu, in quo hábitat omnis plenitúdo divinitátis, miserére nobis.
+Cor Iesu, in quo Pater sibi bene complácuit, miserére nobis.
+Cor Iesu, de cuius plenitúdine omnes nos accépimus, miserére nobis.
+Cor Iesu, desidérium cóllium æternórum, miserére nobis.
+Cor Iesu, pátiens et multæ misericórdiæ, miserére nobis.
+Cor Iesu, dives in omnes qui ínvocant te, miserére nobis.
+Cor Iesu, fons vitæ et sanctitátis, miserére nobis.
+Cor Iesu, propitiátio pro peccátis nostris, miserére nobis.
+Cor Iesu, saturátum oppróbriis, miserére nobis.
+Cor Iesu, attrítum propter scélera nostra, miserére nobis.
+Cor Iesu, usque ad mortem obédiens factum, miserére nobis.
+Cor Iesu, láncea perforátum, miserére nobis.
+Cor Iesu, fons totíus consolatiónis, miserére nobis.
+Cor Iesu, vita et resurréctio nostra, miserére nobis.
+Cor Iesu, pax et reconciliátio nostra, miserére nobis.
+Cor Iesu, víctima peccatórum, miserére nobis.
+Cor Iesu, salus in te sperántium, miserére nobis.
+Cor Iesu, spes in te moriéntium, miserére nobis.
+Cor Iesu, delíciæ Sanctórum ómnium, miserére nobis.
+
+Agnus Dei, qui tollis peccáta mundi, miserére nobis. 3×
+
+℣ Iesu, mitis et húmilis Corde.
+℟ Fac cor nostrum secúndum Cor tuum.
+Orémus. Omnípotens sempitérne Deus, réspice in Cor dilectíssimi Fílii tui, et in laudes et satisfactiónes, quas in nómine peccatórum tibi persólvit, iísque misericórdiam tuam peténtibus tu véniam concéde placátus, in nómine eiúsdem Fílii tui Iesu Christi, qui tecum vivit et regnat in sǽcula sæculórum. Amen.`,
 };
 
 // The Hail Mary is split so the per-decade mystery clause can be visually
@@ -417,4 +604,178 @@ A dej, ať přijdu k tobě,
 abych tě s tvými svatými
 chválil navěky.
 Amen.`,
+
+  // Czech sourced verbatim from cs.wikipedia.org/wiki/Vyznání_Quicumque.
+  [PRAYER_TYPES.ATHANASIAN_CREED]: `Kdokoli chce být spasen, je v prvé řadě třeba, aby se držel všeobecné víry. Jestliže ji někdo nezachová neporušenou a ucelenou, bezpochyby zahyne navěky. Všeobecná víra je pak tato: Abychom uctívali jednoho Boha v Trojici, a Trojici v jednotě, abychom ani nezaměňovali osoby, ani neoddělovali podstatu. Jiná je totiž osoba Otce, jiná osoba Syna, jiná osoba Ducha Svatého. Avšak božství Otce, Syna a Ducha Svatého je jedno, stejná je jejich sláva a souvěčná je jejich vznešenost. Jaký je Otec, takový je Syn, takový je Duch Svatý. Nestvořený je Otec, nestvořený je Syn, nestvořený je Duch Svatý. Věčný je Otec, věčný je Syn, věčný je Duch Svatý. A přece nejsou tři věční, ale jen jeden věčný. Jako nejsou tři nestvoření, ani tři nezměrní, ale jeden nestvořený a jeden nezměrný. Podobně je všemohoucí Otec, všemohoucí Syn a všemohoucí Duch Svatý. A přece nejsou tři všemohoucí, nýbrž jeden všemohoucí. Tak je Bůh Otec, Bůh Syn a Bůh Duch Svatý, a přece nejsou tři bohové, ale je jen jediný Bůh. Stejně tak je Pánem Otec, Pánem je Syn a Pánem je Duch Svatý, ale nejsou tři Páni, ale je jen jeden Pán. Protože jako jsme nuceni v křesťanské víře vyznávat jednotlivě každou osobu jako Boha a Pána, stejně tak je nám zakázáno ve všeobecném náboženství říkat, že existují tři bohové nebo páni.
+
+Otec nebyl učiněn z ničeho: nebyl ani stvořen, ani zrozen. Syn je jen z Otce, neučiněný, nestvořený, ale zrozený. Duch Svatý je z Otce a Syna: neučiněný, nestvořený, nezrozený, nýbrž vycházející. Jeden je tedy Otec, nikoli tři otcové; jeden je Syn, nikoli tři synové; jeden je Duch Svatý, nikoli tři duchové svatí. A v této Trojici není nic dřív nebo později, nic není větší ani menší, ale všechny tři osoby jsou navzájem souvěčné a rovné, takže je třeba vždy uctívat, jak již bylo výše řečeno, jednotu v Trojici a Trojici v jednotě. Kdo chce být spasen, musí takto smýšlet o Trojici.
+
+K věčné spáse je však pro člověka potřebné, aby pevně věřil i ve vtělení našeho Pána Ježíše Krista. Je totiž správná víra, abychom věřili a vyznávali, že náš Pán Ježíš Kristus, Boží Syn, je Bohem i člověkem. Je Bůh, zrozený před věky z podstaty Otce, je člověk, narozený v čase z podstaty matky. Je dokonalým Bohem a dokonalým člověkem, složeným z rozumové duše a lidského těla. Je roven Otci podle božství, ale menší než Otec podle lidství. I když je Bohem a člověkem, nejsou dva Kristové, nýbrž je jen jeden Kristus. Je jeden nikoli proto, že by se božství stalo tělem, nýbrž proto, že lidství bylo přijato do Boha. Zcela a pouze jeden, nikoli ve spojených podstatách, nýbrž v jednotě osoby. Neboť jako rozumová duše a tělo jsou jeden člověk, tak Bůh a člověk jsou jeden Kristus. Ten trpěl pro naši spásu, sestoupil do pekel a třetího dne vstal z mrtvých; vystoupil na nebesa, sedí po pravici všemohoucího Otce a odtud přijde soudit živé i mrtvé. Při jeho příchodu všichni lidé musejí vstát se svými těly, dostanou odplatu za své činy. Kdo konali dobro, půjdou do věčného života, kdo však zlo, půjdou do věčného ohně. Taková je všeobecná víra. Kdo ji pevně a věrně nezastává, nemůže být spasen. Amen.`,
+
+  // Antiphon: official liturgical translation from cs.wikipedia. The Advent
+  // versicle+collect reuse the (sourced) Angelus Czech; the post-Christmas
+  // collect is our translation of the canonical Latin.
+  [PRAYER_TYPES.ALMA_REDEMPTORIS]: `Slavná Matko Spasitele, bráno nebes, hvězdo mořská, na pomoc přijď svému lidu, který touží povstat z hříchu. Přijalas zvěst Gabriela, porodilas svého Tvůrce, pannou jsi být nepřestala – celý vesmír nad tím žasne. Smiluj se nad hříšným světem.
+
+{r}V době adventní:{/r}
+℣ Anděl Páně zvěstoval Panně Marii.
+℟ A ona počala z Ducha svatého.
+Modleme se: Pane, poznali jsme andělské poselství o vtělení Krista, tvého Syna; vlej nám, prosíme, do duše svou milost, ať nás jeho umučení a kříž přivede ke slávě vzkříšení. Skrze Krista, našeho Pána. Amen.
+
+{r}Od Narození Páně do Hromnic:{/r}
+℣ Po porodu jsi, Panno, zůstala neporušená.
+℟ Bohorodičko, přimlouvej se za nás.
+Modleme se: Bože, panenstvím blahoslavené Marie jsi daroval lidstvu odměnu věčné spásy; dej, prosíme, ať poznáváme přímluvu té, skrze niž jsme přijali původce života, našeho Pána Ježíše Krista, tvého Syna. Amen.`,
+
+  // Czech (rhymed) from cs.wikipedia.org/wiki/Ave_Regina_caelorum.
+  [PRAYER_TYPES.AVE_REGINA_CAELORUM]: `{r}Od Hromnic do Svatého týdne:{/r}
+Zdráva buď, Královno nebe,
+zdrávas, andělé slaví tebe,
+zdrávas, Máti, zdrávas, bráno,
+z níž je světu světlo dáno.
+
+Plesej, Panno oslavená,
+nade všechny vyvolená,
+zdráva buď, lilie čistá,
+přimlouvej se za nás u Krista.
+
+℣ Učiň mě hodným chválit tě, svatá Panno.
+℟ Dej mi sílu proti tvým nepřátelům.
+Modleme se: Milosrdný Bože, posilni naši slabost, abychom my, kdo slavíme památku svaté Boží Rodičky, na její přímluvu povstali ze svých nepravostí. Skrze Krista, našeho Pána. Amen.`,
+
+  // Czech sourced verbatim from the Kancionál (067, © ČBK), with the three 2020
+  // invocations (Matko milosrdenství / Matko naděje / Útěcho migrujících) slotted
+  // into their official positions per the user.
+  [PRAYER_TYPES.LITANY_LORETO]: `Pane, smiluj se. 2×
+Kriste, smiluj se. 2×
+Pane, smiluj se. 2×
+Bože, náš nebeský Otče, smiluj se nad námi.
+Bože Synu, Vykupiteli světa, smiluj se nad námi.
+Bože Duchu svatý, smiluj se nad námi.
+Bože v Trojici jediný, smiluj se nad námi.
+
+Svatá Maria, oroduj za nás.
+Svatá Boží Rodičko, oroduj za nás.
+Svatá Panno panen, oroduj za nás.
+Matko Kristova, oroduj za nás.
+Matko církve, oroduj za nás.
+Matko milosrdenství, oroduj za nás.
+Matko božské milosti, oroduj za nás.
+Matko naděje, oroduj za nás.
+Matko nejčistší, oroduj za nás.
+Matko nejcudnější, oroduj za nás.
+Matko neporušená, oroduj za nás.
+Matko neposkvrněná, oroduj za nás.
+Matko láskyhodná, oroduj za nás.
+Matko obdivuhodná, oroduj za nás.
+Matko dobré rady, oroduj za nás.
+Matko Stvořitelova, oroduj za nás.
+Matko Spasitelova, oroduj za nás.
+Panno nejmoudřejší, oroduj za nás.
+Panno úctyhodná, oroduj za nás.
+Panno chvályhodná, oroduj za nás.
+Panno mocná, oroduj za nás.
+Panno dobrotivá, oroduj za nás.
+Panno věrná, oroduj za nás.
+Zrcadlo spravedlnosti, oroduj za nás.
+Trůne moudrosti, oroduj za nás.
+Příčino naší radosti, oroduj za nás.
+Stánku Ducha svatého, oroduj za nás.
+Stánku vyvolený, oroduj za nás.
+Stánku zbožnosti, oroduj za nás.
+Růže tajemná, oroduj za nás.
+Věži Davidova, oroduj za nás.
+Věži z kosti slonové, oroduj za nás.
+Dome zlatý, oroduj za nás.
+Archo úmluvy, oroduj za nás.
+Bráno nebeská, oroduj za nás.
+Hvězdo jitřní, oroduj za nás.
+Uzdravení nemocných, oroduj za nás.
+Útočiště hříšníků, oroduj za nás.
+Útěcho migrujících, oroduj za nás.
+Těšitelko zarmoucených, oroduj za nás.
+Pomocnice křesťanů, oroduj za nás.
+Královno andělů, oroduj za nás.
+Královno patriarchů, oroduj za nás.
+Královno proroků, oroduj za nás.
+Královno apoštolů, oroduj za nás.
+Královno mučedníků, oroduj za nás.
+Královno vyznavačů, oroduj za nás.
+Královno panen, oroduj za nás.
+Královno všech svatých, oroduj za nás.
+Královno počatá bez poskvrny hříchu dědičného, oroduj za nás.
+Královno nanebevzatá, oroduj za nás.
+Královno posvátného růžence, oroduj za nás.
+Královno rodin, oroduj za nás.
+Královno míru, oroduj za nás.
+
+Beránku Boží, který snímáš hříchy světa, smiluj se nad námi. 3×
+
+℣ Oroduj za nás, svatá Boží Rodičko,
+℟ aby nám Kristus dal účast na svých zaslíbeních.
+Modleme se: Všemohoucí, věčný Bože, dej nám, svým služebníkům, stálé zdraví duše i těla a na přímluvu Panny Marie obrať naše trápení v trvalou radost. Skrze Krista, našeho Pána. Amen.
+
+{r}V době adventní:{/r}
+℣ Anděl Páně zvěstoval Panně Marii
+℟ a ona počala z Ducha svatého.
+Modleme se: Bože, tvé věčné Slovo se při andělově zvěstování stalo v lůně Panny Marie člověkem; vyslyš naše pokorné prosby a dej všem, kdo ji s vírou uctívají jako Bohorodičku, aby jim její přímluva u tebe stále pomáhala. Skrze Krista, našeho Pána. Amen.
+
+{r}V době vánoční:{/r}
+℣ Po porodu, Panno, jsi zůstala neporušená.
+℟ Svatá Boží Rodičko, přimlouvej se za nás.
+Modleme se: Bože, tys vyvolil blahoslavenou Pannu Marii za Matku Spasitele lidského pokolení; dej, ať poznáváme, že ta, která nám zrodila původce života, stále se za nás u něho přimlouvá. Neboť on s tebou žije a kraluje na věky věků. Amen.
+
+{r}V době velikonoční:{/r}
+℣ Raduj se a plesej, Panno Maria, aleluja!
+℟ Neboť Pán v pravdě z mrtvých vstal, aleluja!
+Modleme se: Bože, tvůj Syn, náš Pán Ježíš Kristus, vstal z mrtvých a naplnil svět radostnou nadějí na vzkříšení; prosíme tě, dej, ať v nás tato velikonoční radost stále roste, abychom tak jako jeho Matka Panna Maria, a s její pomocí šťastně dosáhli plné radosti v nebi. Neboť on s tebou žije a kraluje na věky věků. Amen.`,
+
+  // Czech sourced verbatim from the Kancionál (065, © ČBK).
+  [PRAYER_TYPES.LITANY_SACRED_HEART]: `Pane, smiluj se. 2×
+Kriste, smiluj se. 2×
+Pane, smiluj se. 2×
+Bože náš nebeský Otče, smiluj se nad námi.
+Bože Synu, Vykupiteli světa, smiluj se nad námi.
+Bože Duchu Svatý, smiluj se nad námi.
+Bože v Trojici jediný, smiluj se nad námi.
+
+Srdce Ježíšovo, Srdce Syna věčného Otce, smiluj se nad námi.
+Srdce Ježíšovo, utvořené Duchem Svatým v lůně panenské Matky, smiluj se nad námi.
+Srdce Ježíšovo, podstatně spojené se Slovem Božím, smiluj se nad námi.
+Srdce Ježíšovo, nekonečně vznešené, smiluj se nad námi.
+Srdce Ježíšovo, svatý chráme Boží, smiluj se nad námi.
+Srdce Ježíšovo, stánku Nejvyššího, smiluj se nad námi.
+Srdce Ježíšovo, dome Boží a bráno nebe, smiluj se nad námi.
+Srdce Ježíšovo, planoucí výhni lásky, smiluj se nad námi.
+Srdce Ježíšovo, v němž přebývá Boží spravedlnost a slitování, smiluj se nad námi.
+Srdce Ježíšovo, plné dobroty a lásky, smiluj se nad námi.
+Srdce Ježíšovo, hlubino všech ctností, smiluj se nad námi.
+Srdce Ježíšovo, hodné veškeré chvály, smiluj se nad námi.
+Srdce Ježíšovo, králi a střede všech srdcí, smiluj se nad námi.
+Srdce Ježíšovo, pokladnice veškeré moudrosti a umění, smiluj se nad námi.
+Srdce Ježíšovo, ve kterém přebývá všechna plnost božství, smiluj se nad námi.
+Srdce Ježíšovo, Otci ze všech nejmilejší, smiluj se nad námi.
+Srdce Ježíšovo, z jehož plnosti jsme všichni přijali, smiluj se nad námi.
+Srdce Ježíšovo, odvěká touho všeho tvorstva, smiluj se nad námi.
+Srdce Ježíšovo, trpělivé a nejvýš milosrdné, smiluj se nad námi.
+Srdce Ježíšovo, bohaté a štědré ke všem, kdo tě vzývají, smiluj se nad námi.
+Srdce Ježíšovo, prameni života a svatosti, smiluj se nad námi.
+Srdce Ježíšovo, smírná oběti za naše hříchy, smiluj se nad námi.
+Srdce Ježíšovo, potupami nasycené, smiluj se nad námi.
+Srdce Ježíšovo, pro nepravosti naše ztrýzněné, smiluj se nad námi.
+Srdce Ježíšovo, až k smrti poslušné, smiluj se nad námi.
+Srdce Ježíšovo, kopím probodené, smiluj se nad námi.
+Srdce Ježíšovo, prameni dokonalé útěchy, smiluj se nad námi.
+Srdce Ježíšovo, živote náš a naše vzkříšení, smiluj se nad námi.
+Srdce Ježíšovo, pokoji náš a naše smíření, smiluj se nad námi.
+Srdce Ježíšovo, za hříšníky obětované, smiluj se nad námi.
+Srdce Ježíšovo, spáso všech, kdo v tebe doufají, smiluj se nad námi.
+Srdce Ježíšovo, naděje všech, kdo v tobě umírají, smiluj se nad námi.
+Srdce Ježíšovo, radosti všech svatých, smiluj se nad námi.
+
+Beránku Boží, který snímáš hříchy světa, smiluj se nad námi. 3×
+
+℣ Ježíši tichý, srdce pokorného,
+℟ přetvoř naše srdce podle Srdce svého.
+Modleme se: Všemohoucí věčný Bože, pohleď na Srdce svého milovaného Syna, shlédni na chvály a dostiučinění, které ti přináší za nás hříšníky; usmiř se a odpusť nám, když skrze ně prosíme o tvé milosrdenství. Neboť on s tebou žije a kraluje na věky věků. Amen.`,
 };
