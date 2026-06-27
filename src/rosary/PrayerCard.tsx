@@ -22,6 +22,37 @@ function withRubrics(text: string): ReactNode {
   return out;
 }
 
+// Litanies read like a printed litany book rather than a centered prayer card:
+// left-aligned, one invocation per line, with the repeated response (the part
+// after the final comma — "ora pro nobis", "miserére nobis", "oroduj za nás"…)
+// set in italic. Versicle/response lines (℣/℟), the Orémus/Modleme se collect,
+// blank spacers and red rubric labels keep their normal styling.
+function renderLitany(text: string): ReactNode {
+  return text.split("\n").map((line, i) => {
+    const trimmed = line.trim();
+    if (trimmed === "") return <div key={i} aria-hidden="true" style={{ height: "0.6em" }} />;
+    const structural =
+      trimmed.startsWith("℣") ||
+      trimmed.startsWith("℟") ||
+      trimmed.startsWith("Orémus") ||
+      trimmed.startsWith("Modleme se") ||
+      trimmed.includes("{r}");
+    if (structural) return <div key={i} style={{ margin: "3px 0" }}>{withRubrics(line)}</div>;
+    const idx = line.lastIndexOf(",");
+    if (idx === -1) return <div key={i} style={{ margin: "3px 0" }}>{line}</div>;
+    return (
+      <div key={i} style={{ margin: "3px 0" }}>
+        {line.slice(0, idx + 1)}
+        <span style={{ fontStyle: "italic" }}>{line.slice(idx + 1)}</span>
+      </div>
+    );
+  });
+}
+
+// A litany renders with the line-by-line layout above instead of one centered
+// block. New litanies (PRAYER_TYPES.LITANY_*) pick this up automatically.
+const isLitanyType = (type: string) => type.startsWith("litany_");
+
 const bodyStyle = {
   textAlign: "center" as const,
   lineHeight: 1.35,
@@ -60,6 +91,13 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
   }
 
   const text = showTranslation ? PRAYERS_CS[currentPrayer.type] : PRAYERS[currentPrayer.type];
+  if (isLitanyType(currentPrayer.type)) {
+    return (
+      <div lang={bodyLang} style={{ ...sizedBodyStyle, textAlign: "left" }}>
+        <div style={{ color: "var(--text)" }}>{renderLitany(text)}</div>
+      </div>
+    );
+  }
   return (
     <div lang={bodyLang} style={sizedBodyStyle}>
       <div style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{withRubrics(text)}</div>
