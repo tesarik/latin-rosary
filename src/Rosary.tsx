@@ -44,17 +44,29 @@ function buildSequence(key: PrayerSetKey): SequenceItem[] {
   return OTHER_PRAYER_SETS[key].build();
 }
 
-export default function Rosary() {
-  const saved = useRef(loadSavedState());
+// Only multi-step sets are worth persisting across reloads: the rosary and the
+// linear devotions (Leonine, St. Bridget). Single-prayer sets (litanies,
+// ordinary prayers) have no progress to resume, so they stay session-only.
+const isPersistableKey = (k: string): k is MysteryKey | OtherPrayerKey =>
+  k in MYSTERIES || k in OTHER_PRAYER_SETS;
 
-  const [selectedSet, setSelectedSet] = useState<PrayerSetKey | null>(saved.current?.selectedMystery ?? null);
-  const [currentStep, setCurrentStep] = useState<number>(saved.current?.currentStep ?? 0);
-  const [sequence, setSequence] = useState<SequenceItem[]>(() => {
-    if (saved.current?.selectedMystery) {
-      return buildRosarySequence(MYSTERIES[saved.current.selectedMystery]);
-    }
-    return [];
-  });
+// Turn a raw saved state into a ready-to-use initial state, or null if the saved
+// key is no longer a persistable set or the step is out of range for the current
+// sequence (e.g. the sequence shrank without a STATE_VERSION bump).
+function resolveInitialState(): { key: PrayerSetKey; step: number; sequence: SequenceItem[] } | null {
+  const saved = loadSavedState();
+  if (!saved || !isPersistableKey(saved.selectedSet)) return null;
+  const sequence = buildSequence(saved.selectedSet);
+  if (saved.currentStep >= sequence.length) return null;
+  return { key: saved.selectedSet, step: saved.currentStep, sequence };
+}
+
+export default function Rosary() {
+  const saved = useRef(resolveInitialState());
+
+  const [selectedSet, setSelectedSet] = useState<PrayerSetKey | null>(saved.current?.key ?? null);
+  const [currentStep, setCurrentStep] = useState<number>(saved.current?.step ?? 0);
+  const [sequence, setSequence] = useState<SequenceItem[]>(saved.current?.sequence ?? []);
   const [started, setStarted] = useState<boolean>(!!saved.current);
   const [showTranslation, setShowTranslation] = useState<boolean>(false);
   const [locale, setLocaleState] = useState<Locale>(() => loadSavedLocale() ?? detectLocale());
@@ -98,12 +110,12 @@ export default function Rosary() {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  // Persist on every change — only the rosary survives a reload. Linear
-  // prayer sets (Leonine, etc.) are short and intentionally session-only:
-  // refreshing mid-prayer drops you back to the menu.
+  // Persist on every change. Multi-step sets (the rosary + the linear devotions
+  // like St. Bridget) survive a reload; single-prayer sets are session-only
+  // (nothing to resume), so refreshing one drops you back to the menu.
   useEffect(() => {
-    const rosaryKey = started && selectedSet && isRosaryKey(selectedSet) ? selectedSet : null;
-    saveState(rosaryKey, currentStep);
+    const key = started && selectedSet && isPersistableKey(selectedSet) ? selectedSet : null;
+    saveState(key, currentStep);
   }, [selectedSet, currentStep, started]);
 
   // Reflect locale in the document so screen readers + browser UI pick it up.

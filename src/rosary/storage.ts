@@ -1,15 +1,15 @@
-import { MYSTERIES, type MysteryKey } from "./prayers";
-import { buildRosarySequence } from "./sequence";
-
 const STORAGE_KEY = "ruzenec_state";
 
-// Bump on any structural change to the prayer sequence so stale saved progress
-// is discarded cleanly instead of silently desyncing the bead positions.
-export const STATE_VERSION = 3;
+// Bump on any structural change to the prayer sequence (or this schema) so stale
+// saved progress is discarded cleanly instead of silently desyncing positions.
+export const STATE_VERSION = 4;
 
+// The saved set key is stored as a plain string; the caller (Rosary) validates
+// it against the live prayer-set registries and rebuilds the sequence, so this
+// module stays free of any dependency on the prayer data.
 export type SavedState = {
   version: number;
-  selectedMystery: MysteryKey;
+  selectedSet: string;
   currentStep: number;
 };
 
@@ -19,22 +19,17 @@ export function loadSavedState(): SavedState | null {
     if (!raw) return null;
     const saved = JSON.parse(raw) as Partial<SavedState>;
     if (saved.version !== STATE_VERSION) return null;
-    if (!saved.selectedMystery || !(saved.selectedMystery in MYSTERIES)) return null;
-    const seqLen = buildRosarySequence(MYSTERIES[saved.selectedMystery]).length;
-    if (typeof saved.currentStep !== "number" || saved.currentStep < 0 || saved.currentStep >= seqLen) return null;
-    return {
-      version: saved.version,
-      selectedMystery: saved.selectedMystery,
-      currentStep: saved.currentStep,
-    };
+    if (typeof saved.selectedSet !== "string" || !saved.selectedSet) return null;
+    if (typeof saved.currentStep !== "number" || saved.currentStep < 0) return null;
+    return { version: STATE_VERSION, selectedSet: saved.selectedSet, currentStep: saved.currentStep };
   } catch {}
   return null;
 }
 
-export function saveState(selectedMystery: MysteryKey | null, currentStep: number): void {
+export function saveState(selectedSet: string | null, currentStep: number): void {
   try {
-    if (selectedMystery) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: STATE_VERSION, selectedMystery, currentStep }));
+    if (selectedSet) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: STATE_VERSION, selectedSet, currentStep }));
     } else {
       localStorage.removeItem(STORAGE_KEY);
     }
