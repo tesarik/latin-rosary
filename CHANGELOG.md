@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- **Error boundary** — a top-level boundary (`src/rosary/ErrorBoundary.tsx`) catches any uncaught render error (previously a blank screen mid-prayer) and shows a themed, localized recovery card: **Reload**, or **clear saved progress and reload** for the likely corrupt-`localStorage` case. Localized in all 5 locales.
+- **"Update available" prompt for the PWA** — the service worker no longer `skipWaiting()`s on its own; a new build waits until the user accepts an in-app bottom prompt (`UpdateToast`), which swaps in the new version and reloads once. New `useServiceWorkerUpdate` hook (SW registration moved here from `main.tsx`); a `controllerchange` guard avoids a spurious reload on first install. Localized in all 5 locales.
+- **Unit tests for the navigation/persistence logic** — a second Vitest suite (`src/rosary/navigation.test.ts`) covers `isPersistableKey`, `resolveInitialState` (resume / reject non-persistable / out-of-range / negative steps), the `canGoToStep` bounds check, and `getPrayerSetMeta` kinds — the branching logic behind resuming and stepping, previously untested.
+- **ESLint** — flat config (`eslint.config.js`) with `@eslint/js` + typescript-eslint recommended + `react-hooks` + `react-refresh`, a `npm run lint` script, and a `lint` step in CI (`typecheck → lint → test → build`).
+
+### Changed
+- **Extracted the orchestrator's session logic into `src/rosary/navigation.ts`** (pure, no React/DOM) so it can be unit-tested: set-key guards, `getPrayerSetMeta`, `buildSequence`, `isPersistableKey`, `resolveInitialState`, `canGoToStep`. `Rosary.tsx` and `MysteryMenu.tsx` now import `PrayerSetKey` from there (removing a duplicated type).
+- **Reduced-motion support** — a `prefers-reduced-motion: reduce` stylesheet rule neutralizes transitions/animations (bead glow, progress bar, roll-down), and `Rosary.goToStep` uses instant (not smooth) scrolling when the setting is on.
+- **Dialog focus management** — the About modal now moves focus inside on open, traps Tab within the dialog, and returns focus to the opener on close.
+
+### Fixed
+- **Corrupt saved-state crash.** Registry membership used `k in MYSTERIES`, which walks the prototype chain — so a saved `selectedSet` of `"toString"` / `"constructor"` passed the persistability check and then resolved to a prototype function, crashing on load. The guards now use an own-property check (`hasOwnProperty`). Found by the new navigation tests.
+
 ## [0.8.0]
 
 ### Changed

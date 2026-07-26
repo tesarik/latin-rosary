@@ -64,3 +64,18 @@ body {
   from { opacity: 0; transform: translateY(-6px); }
   to   { opacity: 1; transform: none; }
 }
+
+/* Honor the OS "reduce motion" setting. Inline styles set transitions/animations
+   throughout (bead glow, progress bar, roll-down, hover fades); an !important
+   stylesheet rule overrides them without touching every component. The JS smooth
+   scroll checks the same media query directly (see Rosary.goToStep). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

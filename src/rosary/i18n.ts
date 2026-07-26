@@ -40,6 +40,13 @@ type Strings = {
   prayerSectionsAria: string;
   jumpToSection: (name: string) => string;
   prayerLanguageAria: string;
+  errorTitle: string;
+  errorMessage: string;
+  errorReload: string;
+  errorReset: string;
+  updateAvailable: string;
+  updateAction: string;
+  updateDismissAria: string;
 };
 
 export const STRINGS: Record<Locale, Strings> = {
@@ -77,6 +84,13 @@ export const STRINGS: Record<Locale, Strings> = {
     prayerSectionsAria: "Sekce modlitby",
     jumpToSection: (n) => `Skočit na ${n}`,
     prayerLanguageAria: "Jazyk modlitby",
+    errorTitle: "Něco se pokazilo",
+    errorMessage: "V aplikaci nastala neočekávaná chyba.",
+    errorReload: "Načíst znovu",
+    errorReset: "Vymazat uložený postup a načíst znovu",
+    updateAvailable: "K dispozici je nová verze.",
+    updateAction: "Aktualizovat",
+    updateDismissAria: "Zavřít oznámení",
   },
   en: {
     appTitle: "Latin Rosary",
@@ -112,6 +126,13 @@ export const STRINGS: Record<Locale, Strings> = {
     prayerSectionsAria: "Prayer sections",
     jumpToSection: (n) => `Jump to ${n}`,
     prayerLanguageAria: "Prayer language",
+    errorTitle: "Something went wrong",
+    errorMessage: "The app ran into an unexpected problem.",
+    errorReload: "Reload",
+    errorReset: "Clear saved progress and reload",
+    updateAvailable: "A new version is available.",
+    updateAction: "Update",
+    updateDismissAria: "Dismiss notification",
   },
   sk: {
     appTitle: "Latinský ruženec",
@@ -147,6 +168,13 @@ export const STRINGS: Record<Locale, Strings> = {
     prayerSectionsAria: "Sekcie modlitby",
     jumpToSection: (n) => `Skočiť na ${n}`,
     prayerLanguageAria: "Jazyk modlitby",
+    errorTitle: "Niečo sa pokazilo",
+    errorMessage: "V aplikácii nastala neočakávaná chyba.",
+    errorReload: "Načítať znova",
+    errorReset: "Vymazať uložený postup a načítať znova",
+    updateAvailable: "K dispozícii je nová verzia.",
+    updateAction: "Aktualizovať",
+    updateDismissAria: "Zavrieť oznámenie",
   },
   de: {
     appTitle: "Lateinischer Rosenkranz",
@@ -182,6 +210,13 @@ export const STRINGS: Record<Locale, Strings> = {
     prayerSectionsAria: "Gebetsabschnitte",
     jumpToSection: (n) => `Zu ${n} springen`,
     prayerLanguageAria: "Gebetssprache",
+    errorTitle: "Etwas ist schiefgelaufen",
+    errorMessage: "In der App ist ein unerwarteter Fehler aufgetreten.",
+    errorReload: "Neu laden",
+    errorReset: "Gespeicherten Fortschritt löschen und neu laden",
+    updateAvailable: "Eine neue Version ist verfügbar.",
+    updateAction: "Aktualisieren",
+    updateDismissAria: "Benachrichtigung schließen",
   },
   pl: {
     appTitle: "Łaciński różaniec",
@@ -217,6 +252,13 @@ export const STRINGS: Record<Locale, Strings> = {
     prayerSectionsAria: "Sekcje modlitwy",
     jumpToSection: (n) => `Przejdź do ${n}`,
     prayerLanguageAria: "Język modlitwy",
+    errorTitle: "Coś poszło nie tak",
+    errorMessage: "W aplikacji wystąpił nieoczekiwany błąd.",
+    errorReload: "Załaduj ponownie",
+    errorReset: "Wyczyść zapisany postęp i załaduj ponownie",
+    updateAvailable: "Dostępna jest nowa wersja.",
+    updateAction: "Aktualizuj",
+    updateDismissAria: "Zamknij powiadomienie",
   },
 };
 

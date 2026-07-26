@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { STRINGS, type Locale } from "./i18n";
 import { analyticsConfigured } from "./analytics";
 
@@ -19,11 +19,39 @@ type Props = { locale: Locale; onClose: () => void };
 // closes it. Themed; the version is injected at build time (vite.config.ts).
 export default function AboutDialog({ locale, onClose }: Props) {
   const t = STRINGS[locale];
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
+  // Focus management: move focus into the dialog on open, trap Tab within it,
+  // and return focus to whatever was focused before (the About button) on close.
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    closeRef.current?.focus();
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { onClose(); return; }
+      if (e.key !== "Tab") return;
+      const root = dialogRef.current;
+      if (!root) return;
+      const focusables = root.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0]!;
+      const last = focusables[focusables.length - 1]!;
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      previouslyFocused?.focus?.();
+    };
   }, [onClose]);
 
   return (
@@ -44,6 +72,7 @@ export default function AboutDialog({ locale, onClose }: Props) {
       }}
     >
       <div
+        ref={dialogRef}
         onClick={(e) => e.stopPropagation()}
         style={{
           position: "relative",
@@ -58,6 +87,7 @@ export default function AboutDialog({ locale, onClose }: Props) {
         }}
       >
         <button
+          ref={closeRef}
           onClick={onClose}
           aria-label={t.aboutClose}
           style={{

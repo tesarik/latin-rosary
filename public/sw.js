@@ -2,8 +2,14 @@
 // the SW is not registered, so the literal placeholder never reaches a browser.
 const CACHE = "ruzenec-__SW_VERSION__";
 
-self.addEventListener("install", () => {
-  self.skipWaiting();
+// Deliberately no skipWaiting() here: a new build stays in the "waiting" state
+// until the user accepts the in-app "update available" prompt, which posts the
+// SKIP_WAITING message below. (On a first-ever install there is no active
+// worker, so activation happens immediately anyway.)
+self.addEventListener("install", () => {});
+
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
