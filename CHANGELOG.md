@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.9.0]
 
 ### Added
 - **Error boundary** — a top-level boundary (`src/rosary/ErrorBoundary.tsx`) catches any uncaught render error (previously a blank screen mid-prayer) and shows a themed, localized recovery card: **Reload**, or **clear saved progress and reload** for the likely corrupt-`localStorage` case. Localized in all 5 locales.
