@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.8.0]
+
+### Changed
+- **Linear devotions now resume after a reload.** Progress persistence was rosary-only; it now covers every multi-step set — including the St. Bridget and Leonine prayers — so reopening the app returns you to where you left off. Single-prayer sets (litanies, ordinary prayers) stay session-only (nothing to resume). The saved schema now stores a generic `selectedSet` key; `storage.ts` is decoupled from the prayer data, and `Rosary` validates the key + step against the live registries. `STATE_VERSION` bumped 3 → 4 (old saved progress is discarded once).
+
 ## [0.7.0]
 
 - **Usage analytics (GoatCounter)** — cookieless, no personal data, no consent banner. New `src/rosary/analytics.ts`: loads the beacon **only in production**, **never under Do-Not-Track**, and no-ops until `GOATCOUNTER_CODE` is set (so it's fully inert by default). Tracks a pageview on load plus a `pray/<set>` event when a prayer set is opened (`track()` in `Rosary.startSet`). A localized privacy note appears in the About panel once configured. Provider-agnostic call site, so swapping tools later changes only this file.
