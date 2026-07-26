@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { MYSTERIES, type MysteryKey } from "./prayers";
-import { OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type OtherPrayerKey, type OrdinaryPrayerKey, type LitanyKey } from "./sequence";
+import { OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type OtherPrayerKey } from "./sequence";
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
+import type { PrayerSetKey } from "./navigation";
 import type { Theme } from "./theme";
 import Flag from "./Flag";
 import AboutDialog from "./AboutDialog";
-
-type PrayerSetKey = MysteryKey | OtherPrayerKey | OrdinaryPrayerKey | LitanyKey;
 
 type Props = {
   onStart: (key: PrayerSetKey) => void;

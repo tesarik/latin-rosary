@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { MYSTERIES, type MysteryKey } from "./rosary/prayers";
-import { buildRosarySequence, OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type OtherPrayerKey, type OrdinaryPrayerKey, type LitanyKey, type SequenceItem } from "./rosary/sequence";
+import { type SequenceItem } from "./rosary/sequence";
 import { loadSavedState, saveState } from "./rosary/storage";
+import { getPrayerSetMeta, buildSequence, isPersistableKey, resolveInitialState, canGoToStep, type PrayerSetKey } from "./rosary/navigation";
 import { STRINGS, detectLocale, loadSavedLocale, saveLocale, type Locale } from "./rosary/i18n";
 import { DEFAULT_FONT_SCALE, clampFontScale, fontSizeClamp, loadSavedFontScale, saveFontScale } from "./rosary/fontSize";
 import { accentText, applyTheme, loadSavedTheme, resolveTheme, saveTheme, systemTheme, type Theme } from "./rosary/theme";
@@ -11,58 +11,13 @@ import PrayerCard from "./rosary/PrayerCard";
 import PrayerSections from "./rosary/PrayerSections";
 import FontSizeControl from "./rosary/FontSizeControl";
 import MysteryMenu from "./rosary/MysteryMenu";
+import UpdateToast from "./rosary/UpdateToast";
+import { useServiceWorkerUpdate } from "./rosary/useServiceWorkerUpdate";
 
 type TouchSample = { x: number; y: number; time: number };
 
-export type PrayerSetKey = MysteryKey | OtherPrayerKey | OrdinaryPrayerKey | LitanyKey;
-
-const isRosaryKey = (k: PrayerSetKey): k is MysteryKey => k in MYSTERIES;
-const isOrdinaryKey = (k: PrayerSetKey): k is OrdinaryPrayerKey => k in ORDINARY_PRAYERS;
-const isLitanyKey = (k: PrayerSetKey): k is LitanyKey => k in LITANIES;
-
-function getPrayerSetMeta(key: PrayerSetKey): { name: string; color: string; kind: "rosary" | "linear" | "single" } {
-  if (isRosaryKey(key)) {
-    const m = MYSTERIES[key];
-    return { name: m.name, color: m.color, kind: "rosary" };
-  }
-  if (isOrdinaryKey(key)) {
-    const o = ORDINARY_PRAYERS[key];
-    return { name: o.name, color: o.color, kind: "single" };
-  }
-  if (isLitanyKey(key)) {
-    const o = LITANIES[key];
-    return { name: o.name, color: o.color, kind: "single" };
-  }
-  const o = OTHER_PRAYER_SETS[key];
-  return { name: o.name, color: o.color, kind: "linear" };
-}
-
-function buildSequence(key: PrayerSetKey): SequenceItem[] {
-  if (isRosaryKey(key)) return buildRosarySequence(MYSTERIES[key]);
-  if (isOrdinaryKey(key)) return ORDINARY_PRAYERS[key].build();
-  if (isLitanyKey(key)) return LITANIES[key].build();
-  return OTHER_PRAYER_SETS[key].build();
-}
-
-// Only multi-step sets are worth persisting across reloads: the rosary and the
-// linear devotions (Leonine, St. Bridget). Single-prayer sets (litanies,
-// ordinary prayers) have no progress to resume, so they stay session-only.
-const isPersistableKey = (k: string): k is MysteryKey | OtherPrayerKey =>
-  k in MYSTERIES || k in OTHER_PRAYER_SETS;
-
-// Turn a raw saved state into a ready-to-use initial state, or null if the saved
-// key is no longer a persistable set or the step is out of range for the current
-// sequence (e.g. the sequence shrank without a STATE_VERSION bump).
-function resolveInitialState(): { key: PrayerSetKey; step: number; sequence: SequenceItem[] } | null {
-  const saved = loadSavedState();
-  if (!saved || !isPersistableKey(saved.selectedSet)) return null;
-  const sequence = buildSequence(saved.selectedSet);
-  if (saved.currentStep >= sequence.length) return null;
-  return { key: saved.selectedSet, step: saved.currentStep, sequence };
-}
-
 export default function Rosary() {
-  const saved = useRef(resolveInitialState());
+  const saved = useRef(resolveInitialState(loadSavedState()));
 
   const [selectedSet, setSelectedSet] = useState<PrayerSetKey | null>(saved.current?.key ?? null);
   const [currentStep, setCurrentStep] = useState<number>(saved.current?.step ?? 0);
@@ -72,6 +27,7 @@ export default function Rosary() {
   const [locale, setLocaleState] = useState<Locale>(() => loadSavedLocale() ?? detectLocale());
   const [fontScale, setFontScaleState] = useState<number>(() => loadSavedFontScale() ?? DEFAULT_FONT_SCALE);
   const [theme, setThemeState] = useState<Theme>(() => resolveTheme());
+  const { updateReady, applyUpdate, dismissUpdate } = useServiceWorkerUpdate();
   const t = STRINGS[locale];
   const prayerRef = useRef<HTMLDivElement | null>(null);
   const touchStart = useRef<TouchSample | null>(null);
@@ -156,10 +112,11 @@ export default function Rosary() {
   const buzz = () => { try { navigator.vibrate?.(25); } catch {} };
 
   const goToStep = (idx: number) => {
-    if (idx >= 0 && idx < sequence.length && idx !== currentStep) {
+    if (canGoToStep(idx, currentStep, sequence.length)) {
       buzz();
       setCurrentStep(idx);
-      prayerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+      const reduce = typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+      prayerRef.current?.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
     }
   };
 
@@ -217,8 +174,17 @@ export default function Rosary() {
     next();
   };
 
+  const updateToast = updateReady ? (
+    <UpdateToast locale={locale} onUpdate={applyUpdate} onDismiss={dismissUpdate} />
+  ) : null;
+
   if (!started || !selectedSet) {
-    return <MysteryMenu onStart={startSet} locale={locale} onLocaleChange={setLocale} theme={theme} onToggleTheme={toggleTheme} />;
+    return (
+      <>
+        <MysteryMenu onStart={startSet} locale={locale} onLocaleChange={setLocale} theme={theme} onToggleTheme={toggleTheme} />
+        {updateToast}
+      </>
+    );
   }
 
   const setMeta = getPrayerSetMeta(selectedSet);
@@ -412,6 +378,8 @@ export default function Rosary() {
           </button>
         )}
       </nav>
+
+      {updateToast}
     </div>
   );
 }

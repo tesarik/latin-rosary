@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import Rosary from "./Rosary";
+import ErrorBoundary from "./rosary/ErrorBoundary";
 import { initAnalytics } from "./rosary/analytics";
 import "./index.css";
 
@@ -9,15 +10,13 @@ if (!root) throw new Error("#root element not found");
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <Rosary />
+    <ErrorBoundary>
+      <Rosary />
+    </ErrorBoundary>
   </React.StrictMode>
 );
 
 initAnalytics();
 
-if ("serviceWorker" in navigator && import.meta.env.PROD) {
-  window.addEventListener("load", () => {
-    const base = import.meta.env.BASE_URL;
-    navigator.serviceWorker.register(base + "sw.js", { scope: base }).catch(() => {});
-  });
-}
+// Service worker registration + update detection lives in useServiceWorkerUpdate
+// (used by Rosary), so the "update available" prompt can be shown in-app.
