@@ -13,12 +13,25 @@ const CREATOR = {
 
 const linkStyle = { color: "#1565C0", textDecoration: "none" } as const;
 
+// Build timestamp (ISO, injected in vite.config.ts) formatted for the locale.
+// Returns null if the value is missing or unparsable, so the line is just omitted.
+function formatBuildDate(locale: Locale): string | null {
+  const d = new Date(__BUILD_DATE__);
+  if (Number.isNaN(d.getTime())) return null;
+  try {
+    return d.toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" });
+  } catch {
+    return d.toISOString().slice(0, 10);
+  }
+}
+
 type Props = { locale: Locale; onClose: () => void };
 
 // Modal "About" panel opened from the start screen. Backdrop click or Escape
 // closes it. Themed; the version is injected at build time (vite.config.ts).
 export default function AboutDialog({ locale, onClose }: Props) {
   const t = STRINGS[locale];
+  const buildDate = formatBuildDate(locale);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -105,7 +118,10 @@ export default function AboutDialog({ locale, onClose }: Props) {
         </svg>
 
         <div style={{ textAlign: "center", fontSize: 22, fontWeight: 700, color: "var(--text-strong)" }}>{t.appTitle}</div>
-        <div style={{ textAlign: "center", fontSize: 12, color: "var(--text-muted)", marginTop: 2 }}>v{__APP_VERSION__}</div>
+        <div style={{ textAlign: "center", fontSize: 12, color: "var(--text-muted)", marginTop: 2 }}>
+          v{__APP_VERSION__}
+          {buildDate && ` · ${t.aboutBuilt} ${buildDate}`}
+        </div>
         <div style={{ textAlign: "center", fontSize: 14, color: "var(--text)", margin: "12px 0 14px", lineHeight: 1.4 }}>{t.aboutText}</div>
 
         <div style={{ fontSize: 14, color: "var(--text)" }}>

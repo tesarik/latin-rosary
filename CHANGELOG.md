@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- **Build date in the About panel** — the version line now reads `v0.9.0 · sestaveno 30. července 2026`. A new `__BUILD_DATE__` define (ISO timestamp, set in `vite.config.ts` alongside `__APP_VERSION__`) is formatted with `toLocaleDateString` in the active UI locale; the label is localized in all 5 locales, and the date is omitted if the value can't be parsed.
+
 ## [0.9.0]
 
 ### Added

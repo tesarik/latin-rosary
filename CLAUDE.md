@@ -27,7 +27,7 @@ A single-page web app for praying the Latin rosary. UI chrome and menus are in C
 - `src/rosary/RosaryBeads.tsx` — SVG bead ring + `beadStyle` helper. Props: `currentStep`, `sequence`, `accentColor`, `onJump?`.
 - `src/rosary/PrayerCard.tsx` — the tappable white card. `PrayerBody` (internal) renders Hail Mary with the highlighted mystery clause or any other prayer's body text. Litanies (any `LITANY_*` type, via `isLitanyType`/`renderLitany`) get a distinct layout: left-aligned (not centered), one invocation per line, with the repeated response (text after the final comma) in *italic*; `℣`/`℟` versicles, the `Orémus`/`Modleme se` collect, and `{r}…{/r}` rubric labels keep their normal styling.
 - `src/rosary/analytics.ts` — privacy-first usage analytics (GoatCounter): cookieless, no PII, no consent banner. `initAnalytics()` (called from `main.tsx`) loads the beacon only in production, only when `GOATCOUNTER_CODE` is set, and never under Do-Not-Track; `track(path)` records events (`pray/<set>` from `Rosary.startSet`). Fully inert until the code is filled in. `analyticsConfigured` gates the About privacy note.
-- `src/rosary/AboutDialog.tsx` — modal "About" panel (app name, build-time `__APP_VERSION__`, description, creator/contact), opened from the start screen; themed, localized, Escape/backdrop to close. Creator name + contact live in the `CREATOR` constant at the top of the file (contact line hidden when empty).
+- `src/rosary/AboutDialog.tsx` — modal "About" panel (app name, build-time `__APP_VERSION__` + `__BUILD_DATE__` rendered as `v0.9.0 · sestaveno 30. července 2026` via `toLocaleDateString(locale)`, description, creator/contact), opened from the start screen; themed, localized, Escape/backdrop to close. Creator name + contact live in the `CREATOR` constant at the top of the file (contact line hidden when empty).
 - `src/rosary/MysteryMenu.tsx` — start screen: one button per mystery set, then under the "Other Latin prayers" heading two collapsible groups via the reusable `CollapsiblePrayers` component — **"Orationes utilissimæ"** (`ORDINARY_PRAYERS`) and **"Litaníæ"** (`LITANIES`) — followed by the linear-set buttons (Leonine, St. Bridget); also hosts the language picker and theme toggle. Calls `onStart(key)`.
 - `src/vite-env.d.ts` — Vite client type reference (declares `import.meta.env` and `*.css` modules).
 - `src/index.css` — body reset.
@@ -36,7 +36,7 @@ A single-page web app for praying the Latin rosary. UI chrome and menus are in C
 - `public/manifest.webmanifest` — PWA metadata.
 - `public/icon.svg` — full-rosary visualization used as app icon.
 - `index.html` — title, theme color, manifest link, EB Garamond webfont preload.
-- `vite.config.ts` — reads `BASE_PATH`, configures React plugin, stamps the SW cache version at build time.
+- `vite.config.ts` — reads `BASE_PATH`, configures React plugin, defines `__APP_VERSION__` (from `package.json`) and `__BUILD_DATE__` (ISO timestamp of the build; in `npm run dev` it's the dev-server start time), stamps the SW cache version at build time.
 - `CHANGELOG.md` — Keep a Changelog format.
 
 ## Domain model (in `src/rosary/`)

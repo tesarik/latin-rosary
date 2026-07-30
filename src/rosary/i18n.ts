@@ -29,6 +29,7 @@ type Strings = {
   aboutFeedback: string;
   aboutAnalytics: string;
   aboutClose: string;
+  aboutBuilt: string;
   localeName: string;
   otherPrayersHeading: string;
   startRosaryAria: (mysteryName: string) => string;
@@ -73,6 +74,7 @@ export const STRINGS: Record<Locale, Strings> = {
     aboutFeedback: "Chyby a návrhy posílejte na",
     aboutAnalytics: "Sbírají se anonymní statistiky používání, bez cookies.",
     aboutClose: "Zavřít",
+    aboutBuilt: "sestaveno",
     localeName: "Čeština",
     otherPrayersHeading: "Další latinské modlitby",
     startRosaryAria: (n) => `Začít růženec — ${n}`,
@@ -115,6 +117,7 @@ export const STRINGS: Record<Locale, Strings> = {
     aboutFeedback: "Send errors and improvements to",
     aboutAnalytics: "Anonymous, cookieless usage statistics are collected.",
     aboutClose: "Close",
+    aboutBuilt: "built",
     localeName: "English",
     otherPrayersHeading: "Other Latin prayers",
     startRosaryAria: (n) => `Start rosary — ${n}`,
@@ -157,6 +160,7 @@ export const STRINGS: Record<Locale, Strings> = {
     aboutFeedback: "Chyby a návrhy posielajte na",
     aboutAnalytics: "Zbierajú sa anonymné štatistiky používania, bez cookies.",
     aboutClose: "Zavrieť",
+    aboutBuilt: "zostavené",
     localeName: "Slovenčina",
     otherPrayersHeading: "Ďalšie latinské modlitby",
     startRosaryAria: (n) => `Začať ruženec — ${n}`,
@@ -199,6 +203,7 @@ export const STRINGS: Record<Locale, Strings> = {
     aboutFeedback: "Fehler und Verbesserungen senden Sie an",
     aboutAnalytics: "Es werden anonyme, cookiefreie Nutzungsstatistiken erfasst.",
     aboutClose: "Schließen",
+    aboutBuilt: "erstellt",
     localeName: "Deutsch",
     otherPrayersHeading: "Weitere lateinische Gebete",
     startRosaryAria: (n) => `Rosenkranz beginnen — ${n}`,
@@ -241,6 +246,7 @@ export const STRINGS: Record<Locale, Strings> = {
     aboutFeedback: "Błędy i propozycje wysyłaj na",
     aboutAnalytics: "Zbierane są anonimowe statystyki użycia, bez cookies.",
     aboutClose: "Zamknij",
+    aboutBuilt: "zbudowano",
     localeName: "Polski",
     otherPrayersHeading: "Inne łacińskie modlitwy",
     startRosaryAria: (n) => `Rozpocznij różaniec — ${n}`,
