@@ -27,7 +27,10 @@ export default defineConfig(({ mode }) => {
   const pkg = JSON.parse(fs.readFileSync("package.json", "utf-8")) as { version: string };
   return {
     base: env.BASE_PATH || "/",
-    define: { __APP_VERSION__: JSON.stringify(pkg.version) },
+    define: {
+      __APP_VERSION__: JSON.stringify(pkg.version),
+      __BUILD_DATE__: JSON.stringify(new Date().toISOString()),
+    },
     plugins: [react(), swVersion()],
   };
 });
