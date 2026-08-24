@@ -25,9 +25,18 @@ describe("isPersistableKey", () => {
     for (const k of Object.keys(OTHER_PRAYER_SETS)) expect(isPersistableKey(k)).toBe(true);
   });
 
-  it("rejects single-prayer sets (litanies + ordinaries)", () => {
+  it("rejects single-prayer sets (one-card litanies + ordinaries)", () => {
     for (const k of Object.keys(ORDINARY_PRAYERS)) expect(isPersistableKey(k)).toBe(false);
-    for (const k of Object.keys(LITANIES)) expect(isPersistableKey(k)).toBe(false);
+    for (const [k, v] of Object.entries(LITANIES)) {
+      if (v.kind !== "linear") expect(isPersistableKey(k)).toBe(false);
+    }
+  });
+
+  // The Litany of the Saints steps through sections, so it has progress to resume.
+  it("accepts a litany that declares itself linear", () => {
+    const linear = Object.entries(LITANIES).filter(([, v]) => v.kind === "linear");
+    expect(linear.length).toBeGreaterThan(0);
+    for (const [k] of linear) expect(isPersistableKey(k)).toBe(true);
   });
 
   it("rejects unknown / garbage keys", () => {
@@ -115,5 +124,14 @@ describe("getPrayerSetMeta", () => {
     expect(getPrayerSetMeta("brigit").kind).toBe("linear");
     expect(getPrayerSetMeta("pater_noster").kind).toBe("single");
     expect(getPrayerSetMeta("loreto").kind).toBe("single");
+    expect(getPrayerSetMeta("saints").kind).toBe("linear");
+  });
+
+  it("builds the Litany of the Saints as one step per section", () => {
+    const seq = buildSequence("saints");
+    expect(seq.length).toBe(15);
+    // Every step is a section, so the bead strand shows nine tappable nodes.
+    expect(seq.every((i) => !!i.section)).toBe(true);
+    expect(new Set(seq.map((i) => i.type)).size).toBe(15);
   });
 });

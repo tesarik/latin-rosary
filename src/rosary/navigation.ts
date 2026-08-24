@@ -39,7 +39,7 @@ export function getPrayerSetMeta(key: PrayerSetKey): { name: string; color: stri
   }
   if (isLitanyKey(key)) {
     const o = LITANIES[key];
-    return { name: o.name, color: o.color, kind: "single" };
+    return { name: o.name, color: o.color, kind: o.kind ?? "single" };
   }
   const o = OTHER_PRAYER_SETS[key];
   return { name: o.name, color: o.color, kind: "linear" };
@@ -52,11 +52,15 @@ export function buildSequence(key: PrayerSetKey): SequenceItem[] {
   return OTHER_PRAYER_SETS[key].build();
 }
 
-// Only multi-step sets are worth persisting across reloads: the rosary and the
-// linear devotions (Leonine, St. Bridget). Single-prayer sets (litanies,
-// ordinary prayers) have no progress to resume, so they stay session-only.
-export const isPersistableKey = (k: string): k is MysteryKey | OtherPrayerKey =>
-  has(MYSTERIES, k) || has(OTHER_PRAYER_SETS, k);
+// Only multi-step sets are worth persisting across reloads: the rosary, the
+// linear devotions (Leonine, St. Bridget), and any litany that declares itself
+// linear (the Litany of the Saints). Single-prayer sets — the ordinary prayers
+// and the one-card litanies — have no progress to resume, so they stay
+// session-only.
+export const isPersistableKey = (k: string): k is MysteryKey | OtherPrayerKey | LitanyKey =>
+  has(MYSTERIES, k) ||
+  has(OTHER_PRAYER_SETS, k) ||
+  (has(LITANIES, k) && LITANIES[k as LitanyKey].kind === "linear");
 
 // Turn a raw saved state into a ready-to-use initial state, or null if there's
 // nothing to resume: no saved state, a key that's no longer a persistable set,

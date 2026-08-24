@@ -27,6 +27,44 @@ function withRubrics(text: string): ReactNode {
 // after the final comma — "ora pro nobis", "miserére nobis", "oroduj za nás"…)
 // set in italic. Versicle/response lines (℣/℟), the Orémus/Modleme se collect,
 // blank spacers and red rubric labels keep their normal styling.
+// The congregation's response, italicized in the litany layout. Matching a known
+// response phrase beats splitting at the last comma: responses that carry a comma
+// of their own ("líbera nos, Iesu", "parce nobis, Dómine") would otherwise be cut
+// mid-phrase, leaving only the address in italics.
+const LITANY_RESPONSES = [
+  "miserére nobis", "ora pro nobis", "parce nobis", "exáudi nos", "líbera nos",
+  "smiluj se nad námi", "oroduj za nás", "odpusť nám", "vyslyš nás", "vysvoboď nás",
+  // Litany of Humility — first person, and its third section answers with a full
+  // clause rather than a short response.
+  "líbera me", "exáudi me", "Iesu, da mihi grátiam",
+  "osvoboď mě", "vyslyš mě", "Ježíši, dej mi milost",
+  // Precious Blood
+  "salva nos", "buď naší spásou",
+  // Litany of the Saints — plural saints take "oráte"/"intercédite", and its
+  // intercessions answer with a two-part clause. The full phrases must be listed,
+  // not just their tails, so the earliest-match rule picks the whole response.
+  "oráte pro nobis", "intercédite pro nobis", "te rogámus, audi nos",
+  "orodujte za nás", "přimlouvejte se za nás", "prosíme tě, vyslyš nás",
+];
+
+// Index where the response starts, or -1. Earliest match wins, so an invocation
+// that happens to echo a response word later in the line can't misalign the split.
+function responseStart(line: string): number {
+  let at = -1;
+  for (const r of LITANY_RESPONSES) {
+    const i = line.indexOf(r);
+    if (i > 0 && (at === -1 || i < at)) at = i;
+  }
+  return at;
+}
+
+// Acclamations the whole assembly repeats verbatim — the Kyrie, and the "audi nos"
+// pair, which is "Christe" in Loreto / Sacred Heart but "Iesu" in the Holy Name
+// litany. Matched on the full phrase, since every Holy Name invocation also opens
+// with "Iesu," / "Ježíši," and those do take a response.
+const LITANY_ACCLAMATION =
+  /^(Kyrie|Christe|Pane|Kriste), (eléison|smiluj se)\.|^(Christe|Iesu|Kriste|Ježíši), (ex)?(áudi|audi|slyš|uslyš|vyslyš) (nos|nás)\./;
+
 function renderLitany(text: string): ReactNode {
   return text.split("\n").map((line, i) => {
     const trimmed = line.trim();
@@ -36,14 +74,15 @@ function renderLitany(text: string): ReactNode {
       trimmed.startsWith("℟") ||
       trimmed.startsWith("Orémus") ||
       trimmed.startsWith("Modleme se") ||
-      trimmed.includes("{r}");
+      trimmed.includes("{r}") ||
+      LITANY_ACCLAMATION.test(trimmed);
     if (structural) return <div key={i} style={{ margin: "3px 0" }}>{withRubrics(line)}</div>;
-    const idx = line.lastIndexOf(",");
-    if (idx === -1) return <div key={i} style={{ margin: "3px 0" }}>{line}</div>;
+    const at = responseStart(line);
+    if (at === -1) return <div key={i} style={{ margin: "3px 0" }}>{line}</div>;
     return (
       <div key={i} style={{ margin: "3px 0" }}>
-        {line.slice(0, idx + 1)}
-        <span style={{ fontStyle: "italic" }}>{line.slice(idx + 1)}</span>
+        {line.slice(0, at)}
+        <span style={{ fontStyle: "italic" }}>{line.slice(at)}</span>
       </div>
     );
   });
