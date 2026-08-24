@@ -193,21 +193,75 @@ export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, {
   decalogue:            ordinary("Decálogus",            PRAYER_TYPES.DECALOGUE),
 };
 
-export type LitanyKey = "loreto" | "sacred_heart";
+export type LitanyKey =
+  | "loreto"
+  | "sacred_heart"
+  | "holy_name"
+  | "humility"
+  | "st_joseph"
+  | "precious_blood"
+  | "saints";
 
 const LITANY_COLOR = "#3949AB";
 
-const litany = (name: string, type: PrayerType): { name: string; color: string; build: () => SequenceItem[] } =>
-  ({ name, color: LITANY_COLOR, build: () => [{ type, label: name }] });
-
-// Litanies — shown as expandable links under "Litaníæ" on the start screen,
-// same single-prayer model as ORDINARY_PRAYERS (one long step, no beads). More
-// litanies will be added.
-export const LITANIES: Record<LitanyKey, {
+type LitanyEntry = {
   name: string;
   color: string;
   build: () => SequenceItem[];
-}> = {
+  // Litanies are single-step unless they say otherwise. Only the Litany of the
+  // Saints is "linear": too long for one card, so it steps through its sections
+  // (and therefore persists — see isPersistableKey).
+  kind?: "single" | "linear";
+};
+
+const litany = (name: string, type: PrayerType): LitanyEntry =>
+  ({ name, color: LITANY_COLOR, build: () => [{ type, label: name }] });
+
+// The Litany of the Saints, section by section — the source's own five divisions,
+// with the saints split into their labelled groups and the long conclusion into
+// three parts. The `section` on each item is what the bead strand and the card's
+// label chip show; each is one step.
+const LITANY_SAINTS_SECTIONS = [
+  { type: PRAYER_TYPES.LITANY_SAINTS_SUPPLICATIO, section: "Supplicátio" },
+  { type: PRAYER_TYPES.LITANY_SAINTS_MARY,        section: "Sancta María" },
+  { type: PRAYER_TYPES.LITANY_SAINTS_PATRIARCHS,  section: "Patriárchæ" },
+  { type: PRAYER_TYPES.LITANY_SAINTS_APOSTLES,    section: "Apóstoli" },
+  { type: PRAYER_TYPES.LITANY_SAINTS_MARTYRS,     section: "Mártyres" },
+  { type: PRAYER_TYPES.LITANY_SAINTS_BISHOPS,     section: "Epíscopi" },
+  { type: PRAYER_TYPES.LITANY_SAINTS_RELIGIOUS,   section: "Presbýteri" },
+  { type: PRAYER_TYPES.LITANY_SAINTS_WOMEN,       section: "Sanctæ Dei" },
+  { type: PRAYER_TYPES.LITANY_SAINTS_LAITY,       section: "Láici" },
+  { type: PRAYER_TYPES.LITANY_SAINTS_CHRIST,      section: "Ad Christum" },
+  { type: PRAYER_TYPES.LITANY_SAINTS_NECESSITIES, section: "Necessitátes" },
+  { type: PRAYER_TYPES.LITANY_SAINTS_CONCLUSION,  section: "Conclúsio" },
+  { type: PRAYER_TYPES.LITANY_SAINTS_PSALM,       section: "Psalmus LXIX" },
+  { type: PRAYER_TYPES.LITANY_SAINTS_VERSICLES,   section: "Versículi" },
+  { type: PRAYER_TYPES.LITANY_SAINTS_COLLECTS,    section: "Collectæ" },
+] as const;
+
+export function buildSaintsLitany(): SequenceItem[] {
+  return LITANY_SAINTS_SECTIONS.map((s) => ({ type: s.type, label: s.section, section: s.section }));
+}
+
+// Litanies — shown as expandable links under "Litaníæ" on the start screen,
+// same single-prayer model as ORDINARY_PRAYERS (one long step, no beads). Five of
+// the six approved for public recitation, plus the Litany of Humility (a private
+// devotion). Only the Litany of the Saints is missing: it is structurally
+// different — named saints, deprecations, intercessions — and long enough that it
+// would want the `linear` kind with a section stepper rather than one step.
+export const LITANIES: Record<LitanyKey, LitanyEntry> = {
   loreto:       litany("Litaníæ Lauretánæ", PRAYER_TYPES.LITANY_LORETO),
   sacred_heart: litany("Litaníæ Sacratíssimi Cordis Iesu", PRAYER_TYPES.LITANY_SACRED_HEART),
+  holy_name:    litany("Litaníæ Sanctíssimi Nóminis Iesu", PRAYER_TYPES.LITANY_HOLY_NAME),
+  // Private devotion, not one of the approved liturgical litanies; its Latin is
+  // ours rather than a sourced original (see the banner in prayers.ts).
+  humility:     litany("Litaníæ Humilitátis", PRAYER_TYPES.LITANY_HUMILITY),
+  st_joseph:    litany("Litaníæ Sancti Ioseph", PRAYER_TYPES.LITANY_ST_JOSEPH),
+  precious_blood: litany("Litaníæ Pretiosíssimi Sánguinis D.N.I.C.", PRAYER_TYPES.LITANY_PRECIOUS_BLOOD),
+  saints: {
+    name: "Litaníæ Omnium Sanctórum",
+    color: LITANY_COLOR,
+    build: buildSaintsLitany,
+    kind: "linear",
+  },
 };

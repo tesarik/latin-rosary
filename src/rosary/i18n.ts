@@ -301,3 +301,23 @@ export function saveLocale(locale: Locale): void {
     localStorage.setItem(LOCALE_STORAGE_KEY, locale);
   } catch {}
 }
+
+// Prayer-body language: Latin (false) or the translation (true). Its own key,
+// independent of the session and of the UI locale above — mirrors the font-size
+// and theme preferences.
+const PRAYER_LANGUAGE_STORAGE_KEY = "ruzenec_prayer_language";
+
+export function loadSavedShowTranslation(): boolean | null {
+  try {
+    const raw = localStorage.getItem(PRAYER_LANGUAGE_STORAGE_KEY);
+    if (raw === "translation") return true;
+    if (raw === "latin") return false;
+  } catch {}
+  return null;
+}
+
+export function saveShowTranslation(showTranslation: boolean): void {
+  try {
+    localStorage.setItem(PRAYER_LANGUAGE_STORAGE_KEY, showTranslation ? "translation" : "latin");
+  } catch {}
+}

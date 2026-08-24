@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { type SequenceItem } from "./rosary/sequence";
 import { loadSavedState, saveState } from "./rosary/storage";
 import { getPrayerSetMeta, buildSequence, isPersistableKey, resolveInitialState, canGoToStep, type PrayerSetKey } from "./rosary/navigation";
-import { STRINGS, detectLocale, loadSavedLocale, saveLocale, type Locale } from "./rosary/i18n";
+import { STRINGS, detectLocale, loadSavedLocale, saveLocale, loadSavedShowTranslation, saveShowTranslation, type Locale } from "./rosary/i18n";
 import { DEFAULT_FONT_SCALE, clampFontScale, fontSizeClamp, loadSavedFontScale, saveFontScale } from "./rosary/fontSize";
 import { accentText, applyTheme, loadSavedTheme, resolveTheme, saveTheme, systemTheme, type Theme } from "./rosary/theme";
 import { track } from "./rosary/analytics";
@@ -23,7 +23,7 @@ export default function Rosary() {
   const [currentStep, setCurrentStep] = useState<number>(saved.current?.step ?? 0);
   const [sequence, setSequence] = useState<SequenceItem[]>(saved.current?.sequence ?? []);
   const [started, setStarted] = useState<boolean>(!!saved.current);
-  const [showTranslation, setShowTranslation] = useState<boolean>(false);
+  const [showTranslation, setShowTranslationState] = useState<boolean>(() => loadSavedShowTranslation() ?? false);
   const [locale, setLocaleState] = useState<Locale>(() => loadSavedLocale() ?? detectLocale());
   const [fontScale, setFontScaleState] = useState<number>(() => loadSavedFontScale() ?? DEFAULT_FONT_SCALE);
   const [theme, setThemeState] = useState<Theme>(() => resolveTheme());
@@ -35,6 +35,11 @@ export default function Rosary() {
   const setLocale = useCallback((next: Locale) => {
     setLocaleState(next);
     saveLocale(next);
+  }, []);
+
+  const setShowTranslation = useCallback((next: boolean) => {
+    setShowTranslationState(next);
+    saveShowTranslation(next);
   }, []);
 
   const setFontScale = useCallback((next: number) => {
@@ -105,7 +110,6 @@ export default function Rosary() {
     setSequence(buildSequence(key));
     setCurrentStep(0);
     setStarted(true);
-    setShowTranslation(false);
     track(`pray/${key}`);
   }, []);
 
