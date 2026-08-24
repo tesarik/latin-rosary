@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.11.0]
 
 ### Added
 - **Litany of the Saints** (*Litaníæ Omnium Sanctórum*) — completes all six litanies approved for public recitation, and the first litany that isn't a single card: it steps through **fifteen sections** (Supplicátio → the eight saint groups → Ad Christum → Necessitátes → Conclúsio → Psalmus LXIX → Versículi → Collectæ), so it gets the bead-strand stepper and resumes where you left off. Litany registry entries now take an optional `kind`, and `isPersistableKey` accepts a litany that declares itself linear. The **traditional** form, complete: 102 saint invocations, 23 deprecations, 17 intercessions, and the full conclusion including the Pater noster, Psalm 69, the versicles and all eleven collects — 225 lines per language, by far the longest text in the app. Latin verbatim from preces-latinae.org (*Varia Pietatis Exercitia*, 1754, with later saints folded in), accents ours, two evident source typos corrected. **The Czech is our own translation**, banner-flagged like the St. Bridget prayers: no Czech edition of the traditional litany exists to transcribe, the Czech books having only the modern short form.
