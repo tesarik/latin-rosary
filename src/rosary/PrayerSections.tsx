@@ -28,6 +28,13 @@ export default function PrayerSections({ sequence, currentStep, accentColor, onJ
   const W = 320, H = 36, pad = 12, y = H / 2;
   const xOf = (i: number) => (N === 1 ? W / 2 : pad + (W - 2 * pad) * (i / (N - 1)));
 
+  // A user-built plan can run far longer than the 15-section Litany of the
+  // Saints, so shrink the beads once they would otherwise touch. Below roughly
+  // 12px of spacing the full-size beads start to overlap.
+  const gap = N > 1 ? (W - 2 * pad) / (N - 1) : W;
+  const scale = Math.min(1, gap / 12);
+  const hitRadius = Math.max(5, Math.min(9, gap / 2));
+
   return (
     <div
       role="navigation"
@@ -53,7 +60,8 @@ export default function PrayerSections({ sequence, currentStep, accentColor, onJ
           const isPast = i < currentStep;
           const isPrimary = !!item.section;
           const fill = isActive ? accentColor : isPast ? "var(--bead-past)" : "var(--bead-future)";
-          const r = isActive ? (isPrimary ? 6.5 : 5) : isPrimary ? 5.5 : 3.4;
+          const base = isActive ? (isPrimary ? 6.5 : 5) : isPrimary ? 5.5 : 3.4;
+          const r = Math.max(1, base * scale);
           return (
             <g key={i}>
               <circle
@@ -65,7 +73,7 @@ export default function PrayerSections({ sequence, currentStep, accentColor, onJ
                   sub-step beads during swipes — same rule as the rosary). */}
               {isPrimary && (
                 <circle
-                  cx={xOf(i)} cy={y} r={9}
+                  cx={xOf(i)} cy={y} r={hitRadius}
                   fill="transparent"
                   style={{ cursor: "pointer" }}
                   onClick={(e) => { e.stopPropagation(); onJump(i); }}

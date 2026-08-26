@@ -48,6 +48,36 @@ type Strings = {
   updateAvailable: string;
   updateAction: string;
   updateDismissAria: string;
+  plansTitle: string;
+  plansTileHint: string;
+  plansEmpty: string;
+  planNew: string;
+  planNamePlaceholder: string;
+  planUnnamed: string;
+  planAddPrayer: string;
+  planSave: string;
+  planCancel: string;
+  planDelete: string;
+  planEdit: string;
+  planShare: string;
+  planShareCopied: string;
+  planShareFallback: string;
+  planLimitReached: string;
+  planStepLimitReached: string;
+  planCount: (n: number) => string;
+  plansCount: (n: number) => string;
+  planImportConfirm: (name: string) => string;
+  planDeleteConfirm: (name: string) => string;
+  plansOpenAria: string;
+  planBackAria: string;
+  planMoveUpAria: string;
+  planMoveDownAria: string;
+  planRemoveAria: string;
+  planRepeatDecreaseAria: string;
+  planRepeatIncreaseAria: string;
+  planEditAria: (name: string) => string;
+  planShareAria: (name: string) => string;
+  planDeleteAria: (name: string) => string;
 };
 
 export const STRINGS: Record<Locale, Strings> = {
@@ -93,6 +123,36 @@ export const STRINGS: Record<Locale, Strings> = {
     updateAvailable: "K dispozici je nová verze.",
     updateAction: "Aktualizovat",
     updateDismissAria: "Zavřít oznámení",
+    plansTitle: "Modlitební plány",
+    plansTileHint: "Vlastní pořadí modliteb",
+    plansEmpty: "Zatím nemáte žádný plán. Sestavte si vlastní pořadí z jednotlivých modliteb a litanií.",
+    planNew: "Nový plán",
+    planNamePlaceholder: "Název plánu",
+    planUnnamed: "Bez názvu",
+    planAddPrayer: "Přidat modlitbu",
+    planSave: "Uložit",
+    planCancel: "Zrušit",
+    planDelete: "Smazat",
+    planEdit: "Upravit",
+    planShare: "Sdílet",
+    planShareCopied: "Odkaz zkopírován do schránky.",
+    planShareFallback: "Odkaz na plán:",
+    planLimitReached: "Více plánů už uložit nelze.",
+    planStepLimitReached: "Plán je už příliš dlouhý.",
+    planCount: (n) => `${n} ${n === 1 ? "krok" : n < 5 ? "kroky" : "kroků"}`,
+    plansCount: (n) => `${n} ${n === 1 ? "plán" : n < 5 ? "plány" : "plánů"}`,
+    planImportConfirm: (n) => `Přidat sdílený plán „${n}“?`,
+    planDeleteConfirm: (n) => `Smazat plán „${n}“?`,
+    plansOpenAria: "Otevřít modlitební plány",
+    planBackAria: "Zpět do menu",
+    planMoveUpAria: "Posunout nahoru",
+    planMoveDownAria: "Posunout dolů",
+    planRemoveAria: "Odebrat modlitbu",
+    planRepeatDecreaseAria: "Snížit počet opakování",
+    planRepeatIncreaseAria: "Zvýšit počet opakování",
+    planEditAria: (n) => `Upravit plán ${n}`,
+    planShareAria: (n) => `Sdílet plán ${n}`,
+    planDeleteAria: (n) => `Smazat plán ${n}`,
   },
   en: {
     appTitle: "Latin Rosary",
@@ -136,6 +196,36 @@ export const STRINGS: Record<Locale, Strings> = {
     updateAvailable: "A new version is available.",
     updateAction: "Update",
     updateDismissAria: "Dismiss notification",
+    plansTitle: "Prayer plans",
+    plansTileHint: "Your own order of prayers",
+    plansEmpty: "No plans yet. Build your own order from the single prayers and the litanies.",
+    planNew: "New plan",
+    planNamePlaceholder: "Plan name",
+    planUnnamed: "Untitled",
+    planAddPrayer: "Add prayer",
+    planSave: "Save",
+    planCancel: "Cancel",
+    planDelete: "Delete",
+    planEdit: "Edit",
+    planShare: "Share",
+    planShareCopied: "Link copied to the clipboard.",
+    planShareFallback: "Link to the plan:",
+    planLimitReached: "No room for more plans.",
+    planStepLimitReached: "This plan is already too long.",
+    planCount: (n) => `${n} ${n === 1 ? "step" : "steps"}`,
+    plansCount: (n) => `${n} ${n === 1 ? "plan" : "plans"}`,
+    planImportConfirm: (n) => `Add the shared plan “${n}”?`,
+    planDeleteConfirm: (n) => `Delete the plan “${n}”?`,
+    plansOpenAria: "Open prayer plans",
+    planBackAria: "Back to menu",
+    planMoveUpAria: "Move up",
+    planMoveDownAria: "Move down",
+    planRemoveAria: "Remove prayer",
+    planRepeatDecreaseAria: "Decrease repetitions",
+    planRepeatIncreaseAria: "Increase repetitions",
+    planEditAria: (n) => `Edit plan ${n}`,
+    planShareAria: (n) => `Share plan ${n}`,
+    planDeleteAria: (n) => `Delete plan ${n}`,
   },
   sk: {
     appTitle: "Latinský ruženec",
@@ -179,6 +269,36 @@ export const STRINGS: Record<Locale, Strings> = {
     updateAvailable: "K dispozícii je nová verzia.",
     updateAction: "Aktualizovať",
     updateDismissAria: "Zavrieť oznámenie",
+    plansTitle: "Modlitebné plány",
+    plansTileHint: "Vlastné poradie modlitieb",
+    plansEmpty: "Zatiaľ nemáte žiadny plán. Zostavte si vlastné poradie z jednotlivých modlitieb a litánií.",
+    planNew: "Nový plán",
+    planNamePlaceholder: "Názov plánu",
+    planUnnamed: "Bez názvu",
+    planAddPrayer: "Pridať modlitbu",
+    planSave: "Uložiť",
+    planCancel: "Zrušiť",
+    planDelete: "Zmazať",
+    planEdit: "Upraviť",
+    planShare: "Zdieľať",
+    planShareCopied: "Odkaz skopírovaný do schránky.",
+    planShareFallback: "Odkaz na plán:",
+    planLimitReached: "Viac plánov už uložiť nemožno.",
+    planStepLimitReached: "Plán je už príliš dlhý.",
+    planCount: (n) => `${n} ${n === 1 ? "krok" : n < 5 ? "kroky" : "krokov"}`,
+    plansCount: (n) => `${n} ${n === 1 ? "plán" : n < 5 ? "plány" : "plánov"}`,
+    planImportConfirm: (n) => `Pridať zdieľaný plán „${n}“?`,
+    planDeleteConfirm: (n) => `Zmazať plán „${n}“?`,
+    plansOpenAria: "Otvoriť modlitebné plány",
+    planBackAria: "Späť do menu",
+    planMoveUpAria: "Posunúť nahor",
+    planMoveDownAria: "Posunúť nadol",
+    planRemoveAria: "Odobrať modlitbu",
+    planRepeatDecreaseAria: "Znížiť počet opakovaní",
+    planRepeatIncreaseAria: "Zvýšiť počet opakovaní",
+    planEditAria: (n) => `Upraviť plán ${n}`,
+    planShareAria: (n) => `Zdieľať plán ${n}`,
+    planDeleteAria: (n) => `Zmazať plán ${n}`,
   },
   de: {
     appTitle: "Lateinischer Rosenkranz",
@@ -222,6 +342,36 @@ export const STRINGS: Record<Locale, Strings> = {
     updateAvailable: "Eine neue Version ist verfügbar.",
     updateAction: "Aktualisieren",
     updateDismissAria: "Benachrichtigung schließen",
+    plansTitle: "Gebetspläne",
+    plansTileHint: "Eigene Reihenfolge der Gebete",
+    plansEmpty: "Noch keine Pläne. Stellen Sie Ihre eigene Reihenfolge aus den einzelnen Gebeten und Litaneien zusammen.",
+    planNew: "Neuer Plan",
+    planNamePlaceholder: "Name des Plans",
+    planUnnamed: "Ohne Titel",
+    planAddPrayer: "Gebet hinzufügen",
+    planSave: "Speichern",
+    planCancel: "Abbrechen",
+    planDelete: "Löschen",
+    planEdit: "Bearbeiten",
+    planShare: "Teilen",
+    planShareCopied: "Link in die Zwischenablage kopiert.",
+    planShareFallback: "Link zum Plan:",
+    planLimitReached: "Es können keine weiteren Pläne gespeichert werden.",
+    planStepLimitReached: "Dieser Plan ist bereits zu lang.",
+    planCount: (n) => `${n} ${n === 1 ? "Schritt" : "Schritte"}`,
+    plansCount: (n) => `${n} ${n === 1 ? "Plan" : "Pläne"}`,
+    planImportConfirm: (n) => `Geteilten Plan „${n}“ hinzufügen?`,
+    planDeleteConfirm: (n) => `Plan „${n}“ löschen?`,
+    plansOpenAria: "Gebetspläne öffnen",
+    planBackAria: "Zurück zum Menü",
+    planMoveUpAria: "Nach oben",
+    planMoveDownAria: "Nach unten",
+    planRemoveAria: "Gebet entfernen",
+    planRepeatDecreaseAria: "Wiederholungen verringern",
+    planRepeatIncreaseAria: "Wiederholungen erhöhen",
+    planEditAria: (n) => `Plan ${n} bearbeiten`,
+    planShareAria: (n) => `Plan ${n} teilen`,
+    planDeleteAria: (n) => `Plan ${n} löschen`,
   },
   pl: {
     appTitle: "Łaciński różaniec",
@@ -265,6 +415,36 @@ export const STRINGS: Record<Locale, Strings> = {
     updateAvailable: "Dostępna jest nowa wersja.",
     updateAction: "Aktualizuj",
     updateDismissAria: "Zamknij powiadomienie",
+    plansTitle: "Plany modlitewne",
+    plansTileHint: "Własna kolejność modlitw",
+    plansEmpty: "Nie masz jeszcze żadnego planu. Ułóż własną kolejność z pojedynczych modlitw i litanii.",
+    planNew: "Nowy plan",
+    planNamePlaceholder: "Nazwa planu",
+    planUnnamed: "Bez nazwy",
+    planAddPrayer: "Dodaj modlitwę",
+    planSave: "Zapisz",
+    planCancel: "Anuluj",
+    planDelete: "Usuń",
+    planEdit: "Edytuj",
+    planShare: "Udostępnij",
+    planShareCopied: "Link skopiowany do schowka.",
+    planShareFallback: "Link do planu:",
+    planLimitReached: "Nie można zapisać więcej planów.",
+    planStepLimitReached: "Ten plan jest już za długi.",
+    planCount: (n) => { const d = n % 10, h = n % 100; return `${n} ${n === 1 ? "krok" : d >= 2 && d <= 4 && (h < 12 || h > 14) ? "kroki" : "kroków"}`; },
+    plansCount: (n) => { const d = n % 10, h = n % 100; return `${n} ${n === 1 ? "plan" : d >= 2 && d <= 4 && (h < 12 || h > 14) ? "plany" : "planów"}`; },
+    planImportConfirm: (n) => `Dodać udostępniony plan „${n}”?`,
+    planDeleteConfirm: (n) => `Usunąć plan „${n}”?`,
+    plansOpenAria: "Otwórz plany modlitewne",
+    planBackAria: "Powrót do menu",
+    planMoveUpAria: "Przesuń w górę",
+    planMoveDownAria: "Przesuń w dół",
+    planRemoveAria: "Usuń modlitwę",
+    planRepeatDecreaseAria: "Zmniejsz liczbę powtórzeń",
+    planRepeatIncreaseAria: "Zwiększ liczbę powtórzeń",
+    planEditAria: (n) => `Edytuj plan ${n}`,
+    planShareAria: (n) => `Udostępnij plan ${n}`,
+    planDeleteAria: (n) => `Usunąć plan ${n}`,
   },
 };
 

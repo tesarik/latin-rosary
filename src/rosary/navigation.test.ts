@@ -9,6 +9,7 @@ import {
 import { STATE_VERSION, type SavedState } from "./storage";
 import { MYSTERIES } from "./prayers";
 import { OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES } from "./sequence";
+import { PLAN_COLOR, type Plan } from "./plans";
 
 const saved = (selectedSet: string, currentStep: number): SavedState => ({
   version: STATE_VERSION,
@@ -133,5 +134,48 @@ describe("getPrayerSetMeta", () => {
     // Every step is a section, so the bead strand shows nine tappable nodes.
     expect(seq.every((i) => !!i.section)).toBe(true);
     expect(new Set(seq.map((i) => i.type)).size).toBe(15);
+  });
+});
+
+// User plans aren't a static registry — they're loaded from storage and can be
+// edited or deleted — so every lookup is resolved against the list passed in.
+describe("user prayer plans", () => {
+  const plan: Plan = {
+    id: "abc123",
+    name: "Večerní modlitba",
+    steps: [{ key: "signum_crucis", repeat: 1 }, { key: "ave_maria", repeat: 3 }, { key: "loreto", repeat: 1 }],
+  };
+  const key = "plan:abc123";
+
+  it("classifies a plan as linear, so it gets the bead strand", () => {
+    const meta = getPrayerSetMeta(key, [plan]);
+    expect(meta).toEqual({ name: "Večerní modlitba", color: PLAN_COLOR, kind: "linear" });
+  });
+
+  it("builds the plan's flattened sequence", () => {
+    expect(buildSequence(key, [plan]).length).toBe(5);
+  });
+
+  it("builds nothing for a plan that no longer exists", () => {
+    expect(buildSequence(key, [])).toEqual([]);
+  });
+
+  it("persists a plan that exists and refuses one that doesn't", () => {
+    expect(isPersistableKey(key, [plan])).toBe(true);
+    expect(isPersistableKey(key, [])).toBe(false);
+    expect(isPersistableKey("plan:", [plan])).toBe(false);
+  });
+
+  it("resumes a saved plan mid-sequence", () => {
+    expect(resolveInitialState(saved(key, 3), [plan])).toMatchObject({ key, step: 3 });
+  });
+
+  it("drops saved progress once the plan is deleted", () => {
+    expect(resolveInitialState(saved(key, 3), [])).toBeNull();
+  });
+
+  it("drops saved progress once the plan has been shortened past it", () => {
+    const shorter: Plan = { ...plan, steps: [{ key: "signum_crucis", repeat: 1 }] };
+    expect(resolveInitialState(saved(key, 3), [shorter])).toBeNull();
   });
 });
