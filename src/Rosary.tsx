@@ -6,18 +6,33 @@ import { STRINGS, detectLocale, loadSavedLocale, saveLocale, loadSavedShowTransl
 import { DEFAULT_FONT_SCALE, clampFontScale, fontSizeClamp, loadSavedFontScale, saveFontScale } from "./rosary/fontSize";
 import { accentText, applyTheme, loadSavedTheme, resolveTheme, saveTheme, systemTheme, type Theme } from "./rosary/theme";
 import { track } from "./rosary/analytics";
+import {
+  isPlanKey,
+  loadPlans,
+  savePlans,
+  newPlanId,
+  readSharedPlanFromHash,
+  requestPersistentStorage,
+  MAX_PLANS,
+  type Plan,
+} from "./rosary/plans";
 import RosaryBeads from "./rosary/RosaryBeads";
 import PrayerCard from "./rosary/PrayerCard";
 import PrayerSections from "./rosary/PrayerSections";
 import FontSizeControl from "./rosary/FontSizeControl";
 import MysteryMenu from "./rosary/MysteryMenu";
+import PlansScreen from "./rosary/PlansScreen";
 import UpdateToast from "./rosary/UpdateToast";
 import { useServiceWorkerUpdate } from "./rosary/useServiceWorkerUpdate";
 
 type TouchSample = { x: number; y: number; time: number };
 
 export default function Rosary() {
-  const saved = useRef(resolveInitialState(loadSavedState()));
+  // Plans are user data loaded from their own storage key; the navigation
+  // helpers take the live list rather than reading storage themselves.
+  const [plans, setPlansState] = useState<Plan[]>(loadPlans);
+  const [plansOpen, setPlansOpen] = useState(false);
+  const saved = useRef(resolveInitialState(loadSavedState(), plans));
 
   const [selectedSet, setSelectedSet] = useState<PrayerSetKey | null>(saved.current?.key ?? null);
   const [currentStep, setCurrentStep] = useState<number>(saved.current?.step ?? 0);
@@ -31,6 +46,11 @@ export default function Rosary() {
   const t = STRINGS[locale];
   const prayerRef = useRef<HTMLDivElement | null>(null);
   const touchStart = useRef<TouchSample | null>(null);
+
+  const setPlans = useCallback((next: Plan[]) => {
+    savePlans(next);
+    setPlansState(next);
+  }, []);
 
   const setLocale = useCallback((next: Locale) => {
     setLocaleState(next);
@@ -75,9 +95,28 @@ export default function Rosary() {
   // like St. Bridget) survive a reload; single-prayer sets are session-only
   // (nothing to resume), so refreshing one drops you back to the menu.
   useEffect(() => {
-    const key = started && selectedSet && isPersistableKey(selectedSet) ? selectedSet : null;
+    const key = started && selectedSet && isPersistableKey(selectedSet, plans) ? selectedSet : null;
     saveState(key, currentStep);
-  }, [selectedSet, currentStep, started]);
+  }, [selectedSet, currentStep, started, plans]);
+
+  // A shared plan arrives in the URL fragment (#plan=…). Import it once, on
+  // mount: the fragment is cleared first so a reload — or a declined import —
+  // can't re-prompt, and the plan gets a fresh id so a shared plan can never
+  // overwrite a local one.
+  useEffect(() => {
+    const draft = readSharedPlanFromHash(window.location.hash);
+    if (!draft) return;
+    history.replaceState(null, "", window.location.pathname + window.location.search);
+    if (plans.length >= MAX_PLANS) {
+      window.alert(t.planLimitReached);
+      return;
+    }
+    if (!window.confirm(t.planImportConfirm(draft.name))) return;
+    setPlans([...plans, { ...draft, id: newPlanId(plans) }]);
+    requestPersistentStorage();
+    setPlansOpen(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Reflect locale in the document so screen readers + browser UI pick it up.
   useEffect(() => {
@@ -107,11 +146,12 @@ export default function Rosary() {
 
   const startSet = useCallback((key: PrayerSetKey) => {
     setSelectedSet(key);
-    setSequence(buildSequence(key));
+    setSequence(buildSequence(key, plans));
     setCurrentStep(0);
     setStarted(true);
-    track(`pray/${key}`);
-  }, []);
+    // Plan ids are per-device and unbounded — report plans as one bucket.
+    track(`pray/${isPlanKey(key) ? "plan" : key}`);
+  }, [plans]);
 
   const buzz = () => { try { navigator.vibrate?.(25); } catch {} };
 
@@ -185,13 +225,31 @@ export default function Rosary() {
   if (!started || !selectedSet) {
     return (
       <>
-        <MysteryMenu onStart={startSet} locale={locale} onLocaleChange={setLocale} theme={theme} onToggleTheme={toggleTheme} />
+        {plansOpen ? (
+          <PlansScreen
+            plans={plans}
+            onChange={setPlans}
+            onStart={startSet}
+            onClose={() => setPlansOpen(false)}
+            locale={locale}
+          />
+        ) : (
+          <MysteryMenu
+            onStart={startSet}
+            onOpenPlans={() => setPlansOpen(true)}
+            planCount={plans.length}
+            locale={locale}
+            onLocaleChange={setLocale}
+            theme={theme}
+            onToggleTheme={toggleTheme}
+          />
+        )}
         {updateToast}
       </>
     );
   }
 
-  const setMeta = getPrayerSetMeta(selectedSet);
+  const setMeta = getPrayerSetMeta(selectedSet, plans);
   const currentPrayer = sequence[currentStep];
   const accentColor = setMeta.color;
   const progress = sequence.length > 0 ? ((currentStep + 1) / sequence.length) * 100 : 0;

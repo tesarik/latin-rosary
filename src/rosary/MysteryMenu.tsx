@@ -4,11 +4,15 @@ import { OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type OtherPrayerKey } fr
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
 import type { PrayerSetKey } from "./navigation";
 import type { Theme } from "./theme";
+import { PLAN_COLOR } from "./plans";
 import Flag from "./Flag";
 import AboutDialog from "./AboutDialog";
+import { PlanIcon } from "./PlansScreen";
 
 type Props = {
   onStart: (key: PrayerSetKey) => void;
+  onOpenPlans: () => void;
+  planCount: number;
   locale: Locale;
   onLocaleChange: (locale: Locale) => void;
   theme: Theme;
@@ -261,7 +265,7 @@ function CollapsiblePrayers({ title, entries, onStart, locale }: {
 // Start screen: title + one button per mystery set. Also hosts the language
 // picker — language is locked in once a rosary starts.
 // onStart(key) hands the chosen mystery key back to the parent.
-export default function MysteryMenu({ onStart, locale, onLocaleChange, theme, onToggleTheme }: Props) {
+export default function MysteryMenu({ onStart, onOpenPlans, planCount, locale, onLocaleChange, theme, onToggleTheme }: Props) {
   const t = STRINGS[locale];
   const [aboutOpen, setAboutOpen] = useState(false);
 
@@ -345,6 +349,15 @@ export default function MysteryMenu({ onStart, locale, onLocaleChange, theme, on
           />
         ))}
 
+        <PrayerSetButton
+          name={t.plansTitle}
+          subtitle={planCount > 0 ? t.plansCount(planCount) : t.plansTileHint}
+          color={PLAN_COLOR}
+          ariaLabel={t.plansOpenAria}
+          icon="plan"
+          onClick={onOpenPlans}
+        />
+
         <button
           onClick={() => setAboutOpen(true)}
           style={{
@@ -371,11 +384,12 @@ export default function MysteryMenu({ onStart, locale, onLocaleChange, theme, on
 // Shared button used for both rosary mystery sets and the linear prayer block.
 // The icon variant tells the rosary buttons apart from the linear ones at a
 // glance — circle-with-cross for rosary, plain cross for linear prayers.
-function PrayerSetButton({ name, color, ariaLabel, icon, onClick }: {
+function PrayerSetButton({ name, subtitle, color, ariaLabel, icon, onClick }: {
   name: string;
+  subtitle?: string;
   color: string;
   ariaLabel: string;
-  icon: "rosary" | "cross";
+  icon: "rosary" | "cross" | "plan";
   onClick: () => void;
 }) {
   return (
@@ -415,18 +429,27 @@ function PrayerSetButton({ name, color, ariaLabel, icon, onClick }: {
         justifyContent: "center",
         flexShrink: 0,
       }}>
-        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
-          {icon === "rosary" && (
-            <circle cx="10" cy="10" r="8" fill="none" stroke={color} strokeWidth="1.5" />
-          )}
-          <line x1="10" y1={icon === "rosary" ? 5 : 3} x2="10" y2={icon === "rosary" ? 15 : 17} stroke={color} strokeWidth="1.5" strokeLinecap="round" />
-          <line x1={icon === "rosary" ? 6 : 5} y1={icon === "rosary" ? 9 : 8} x2={icon === "rosary" ? 14 : 15} y2={icon === "rosary" ? 9 : 8} stroke={color} strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
+        {icon === "plan" ? (
+          <PlanIcon color={color} />
+        ) : (
+          <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+            {icon === "rosary" && (
+              <circle cx="10" cy="10" r="8" fill="none" stroke={color} strokeWidth="1.5" />
+            )}
+            <line x1="10" y1={icon === "rosary" ? 5 : 3} x2="10" y2={icon === "rosary" ? 15 : 17} stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+            <line x1={icon === "rosary" ? 6 : 5} y1={icon === "rosary" ? 9 : 8} x2={icon === "rosary" ? 14 : 15} y2={icon === "rosary" ? 9 : 8} stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        )}
       </div>
-      <div style={{ textAlign: "left" }}>
+      <div style={{ textAlign: "left", minWidth: 0 }}>
         <div style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
           {name}
         </div>
+        {subtitle && (
+          <div style={{ fontFamily: "Arial, sans-serif", fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>
+            {subtitle}
+          </div>
+        )}
       </div>
     </button>
   );
