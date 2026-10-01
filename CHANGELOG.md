@@ -4,6 +4,19 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- **English translations of every prayer** (`PRAYERS_EN`, ~50 texts including all seven litanies and the fifteen sections of the Litany of the Saints) plus English mystery clauses and Ave María halves. The prayer card's language toggle is no longer LA↔CZ but **LA↔the chosen UI language**, so an English UI prays the English text. Unlike much of the Czech, these are **our own rendering** of the received traditional English forms rather than a transcription — banner-flagged in `prayers.ts` like the `BRIGIT_*` entries, to be replaced verbatim if an English edition is obtained.
+- **Localized names for every prayer** — each mystery set, ordinary prayer, litany, linear devotion and the two collapsible group headers now carries a `nameTr` (cs/en). The start screen and the plan editor's picker show the Latin name with its name in the UI language beneath it in muted grey, the same two-line shape the prayer-plan tile already used.
+
+### Changed
+- **The language picker offers Czech and English only.** `sk`/`de`/`pl` are gone: their UI strings existed but no prayer translation did, so choosing them only ever localized the chrome. A saved locale that is no longer supported falls back to the detected one. `SUPPORTED_LOCALES` now drives `PRAYER_TRANSLATIONS`, so adding a locale fails to compile until its full prayer table exists.
+- Prayer translations are keyed by locale throughout: `PRAYERS_CS` is joined by `PRAYERS_EN` under `PRAYER_TRANSLATIONS`, `getHailMaryCs` becomes `getHailMaryTr(locale, …)`, `MysterySet.mysteriesCs` becomes `mysteriesTr`, and `SequenceItem.mysteryCs` becomes `mysteryTr`. `STATE_VERSION` is unchanged — no sequence's shape or length moved.
+
+### Fixed
+- **A litany collect containing response words is no longer part-italicized.** `renderLitany` took any known response phrase anywhere in the line, so an English collect ending "…and deliver us from the punishments which we deserve for them." italicized from *deliver us* onward. A response must now end its line, bar a short vocative (", O Lord."), and among the candidates the longest wins — needed for English, where "That thou wouldst spare us, we beseech thee, hear us." must split at *we beseech thee*, not at *spare us*.
+
 ## [0.12.0]
 
 ### Added

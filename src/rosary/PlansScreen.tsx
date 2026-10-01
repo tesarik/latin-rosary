@@ -10,6 +10,7 @@ import {
   PLAN_ITEM_GROUPS,
   newPlanId,
   planItemName,
+  planItemNameTr,
   planKeyOf,
   planLength,
   planShareUrl,
@@ -374,6 +375,7 @@ function PlanEditor({ draft, onDraftChange, onSave, onNotice, locale }: {
             <span style={{ fontSize: 13, color: "var(--text-muted)", flexShrink: 0 }}>{i + 1}.</span>
             <span style={{ fontSize: 15, color: "var(--text-strong)", overflowWrap: "anywhere" }}>
               {planItemName(step.key)}
+              <span style={{ color: "var(--text-muted)" }}> · {planItemNameTr(step.key, locale)}</span>
             </span>
           </div>
 
@@ -392,7 +394,7 @@ function PlanEditor({ draft, onDraftChange, onSave, onNotice, locale }: {
       ))}
 
       {pickerOpen ? (
-        <PrayerPicker onPick={add} onClose={() => setPickerOpen(false)} closeLabel={t.planCancel} />
+        <PrayerPicker onPick={add} onClose={() => setPickerOpen(false)} closeLabel={t.planCancel} locale={locale} />
       ) : (
         <button
           onClick={() => setPickerOpen(true)}
@@ -467,10 +469,11 @@ function StepButton({ label, aria, onClick, disabled, danger }: {
 // The prayer catalogue a plan may draw on: the ordinary prayers and the
 // litanies, in the same two groups the start screen uses. The rosary and the
 // linear devotions are deliberately absent (see plans.ts).
-function PrayerPicker({ onPick, onClose, closeLabel }: {
+function PrayerPicker({ onPick, onClose, closeLabel, locale }: {
   onPick: (key: PlanItemKey) => void;
   onClose: () => void;
   closeLabel: string;
+  locale: Locale;
 }) {
   return (
     <div style={{
@@ -515,7 +518,10 @@ function PrayerPicker({ onPick, onClose, closeLabel }: {
                 onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
               >
-                {planItemName(key)}
+                <div>{planItemName(key)}</div>
+                <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 1 }}>
+                  {planItemNameTr(key, locale)}
+                </div>
               </button>
             ))}
           </div>

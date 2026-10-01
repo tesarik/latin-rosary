@@ -12,6 +12,7 @@
 // Nothing here touches React; the DOM appears only in the share helpers, which
 // read `location`. Covered by plans.test.ts.
 
+import type { Locale } from "./i18n";
 import {
   ORDINARY_PRAYERS,
   LITANIES,
@@ -60,6 +61,11 @@ const planEntry = (k: PlanItemKey) =>
     : LITANIES[k as LitanyKey];
 
 export const planItemName = (k: PlanItemKey): string => planEntry(k).name;
+
+// The same prayer's name in the UI language — the muted second line under the
+// Latin one in the editor's picker, matching the start screen.
+export const planItemNameTr = (k: PlanItemKey, locale: Locale): string =>
+  planEntry(k).nameTr[locale];
 
 // The two groups the editor's prayer picker offers, each sorted by name.
 const byName = <K extends PlanItemKey>(keys: K[], reg: Record<K, { name: string }>): K[] =>

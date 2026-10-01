@@ -3,21 +3,26 @@ import {
   PRAYER_TYPES,
   PRAYERS,
   PRAYERS_CS,
+  PRAYERS_EN,
+  PRAYER_TRANSLATIONS,
   MYSTERIES,
   getHailMary,
-  getHailMaryCs,
+  getHailMaryTr,
   type PrayerType,
   type MysteryKey,
 } from "./prayers";
 import { buildRosarySequence, OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type SequenceItem } from "./sequence";
+import { SUPPORTED_LOCALES, type Locale } from "./i18n";
 import { STATE_VERSION } from "./storage";
 
 // Resolve the displayed text for a sequence item's type. HAIL_MARY is the one
-// type with no PRAYERS entry — its text is assembled by getHailMary(Cs).
+// type with no PRAYERS entry — its text is assembled by getHailMary(Tr).
 const latinText = (type: PrayerType): string =>
   type === PRAYER_TYPES.HAIL_MARY ? getHailMary(undefined).after : PRAYERS[type];
-const czechText = (type: PrayerType): string =>
-  type === PRAYER_TYPES.HAIL_MARY ? getHailMaryCs(undefined).after : PRAYERS_CS[type];
+const translatedText = (locale: Locale, type: PrayerType): string =>
+  type === PRAYER_TYPES.HAIL_MARY
+    ? getHailMaryTr(locale, undefined).after
+    : PRAYER_TRANSLATIONS[locale][type];
 
 // Every sequence the app can build, flattened to its items.
 function allSequences(): { label: string; seq: SequenceItem[] }[] {
@@ -38,30 +43,72 @@ function allSequences(): { label: string; seq: SequenceItem[] }[] {
 }
 
 describe("prayer text tables", () => {
-  it("PRAYERS and PRAYERS_CS expose the same keys", () => {
-    expect(Object.keys(PRAYERS).sort()).toEqual(Object.keys(PRAYERS_CS).sort());
+  it("every translation table exposes exactly the Latin keys", () => {
+    const latin = Object.keys(PRAYERS).sort();
+    expect(Object.keys(PRAYERS_CS).sort()).toEqual(latin);
+    expect(Object.keys(PRAYERS_EN).sort()).toEqual(latin);
+  });
+
+  it("PRAYER_TRANSLATIONS covers every supported locale", () => {
+    expect(Object.keys(PRAYER_TRANSLATIONS).sort()).toEqual([...SUPPORTED_LOCALES].sort());
   });
 
   it("no prayer text is empty", () => {
     for (const [type, text] of Object.entries(PRAYERS)) {
       expect(text.trim(), `Latin ${type}`).not.toBe("");
     }
-    for (const [type, text] of Object.entries(PRAYERS_CS)) {
-      expect(text.trim(), `Czech ${type}`).not.toBe("");
+    for (const locale of SUPPORTED_LOCALES) {
+      for (const [type, text] of Object.entries(PRAYER_TRANSLATIONS[locale])) {
+        expect(text.trim(), `${locale} ${type}`).not.toBe("");
+      }
     }
   });
 });
 
-describe("every prayer in every set resolves to Latin + Czech text", () => {
+describe("every prayer in every set resolves to Latin + a text in every locale", () => {
   for (const { label, seq } of allSequences()) {
     it(label, () => {
       expect(seq.length).toBeGreaterThan(0);
       for (const item of seq) {
         expect(latinText(item.type)?.trim(), `${label} → ${item.type} (la)`).toBeTruthy();
-        expect(czechText(item.type)?.trim(), `${label} → ${item.type} (cs)`).toBeTruthy();
+        for (const locale of SUPPORTED_LOCALES) {
+          expect(
+            translatedText(locale, item.type)?.trim(),
+            `${label} → ${item.type} (${locale})`
+          ).toBeTruthy();
+        }
       }
     });
   }
+});
+
+describe("display names", () => {
+  const registries = {
+    mystery: MYSTERIES,
+    linear: OTHER_PRAYER_SETS,
+    ordinary: ORDINARY_PRAYERS,
+    litany: LITANIES,
+  };
+
+  it("every prayer set has a localized name in every locale", () => {
+    for (const [group, registry] of Object.entries(registries)) {
+      for (const [key, set] of Object.entries(registry)) {
+        for (const locale of SUPPORTED_LOCALES) {
+          expect(set.nameTr[locale]?.trim(), `${group}:${key} (${locale})`).toBeTruthy();
+        }
+      }
+    }
+  });
+
+  it("every mystery set has five clauses in every locale", () => {
+    for (const key of Object.keys(MYSTERIES) as MysteryKey[]) {
+      for (const locale of SUPPORTED_LOCALES) {
+        const clauses = MYSTERIES[key].mysteriesTr[locale];
+        expect(clauses.length, `${key} (${locale})`).toBe(5);
+        for (const c of clauses) expect(c.trim(), `${key} (${locale})`).toBeTruthy();
+      }
+    }
+  });
 });
 
 describe("rosary sequence structure", () => {

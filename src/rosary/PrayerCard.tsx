@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { PRAYER_TYPES, PRAYERS, PRAYERS_CS, getHailMary, getHailMaryCs } from "./prayers";
+import { PRAYER_TYPES, PRAYERS, PRAYER_TRANSLATIONS, getHailMary, getHailMaryTr } from "./prayers";
 import type { SequenceItem } from "./sequence";
 import { STRINGS, type Locale } from "./i18n";
 import { accentText, type Theme } from "./theme";
@@ -36,8 +36,8 @@ const LITANY_RESPONSES = [
   "smiluj se nad námi", "oroduj za nás", "odpusť nám", "vyslyš nás", "vysvoboď nás",
   // Litany of Humility — first person, and its third section answers with a full
   // clause rather than a short response.
-  "líbera me", "exáudi me", "Iesu, da mihi grátiam",
-  "osvoboď mě", "vyslyš mě", "Ježíši, dej mi milost",
+  "líbera me", "exáudi me", "Iesu, da mihi grátiam ita desiderándi",
+  "osvoboď mě", "vyslyš mě", "Ježíši, dej mi milost po tom toužit",
   // Precious Blood
   "salva nos", "buď naší spásou",
   // Litany of the Saints — plural saints take "oráte"/"intercédite", and its
@@ -45,15 +45,37 @@ const LITANY_RESPONSES = [
   // not just their tails, so the earliest-match rule picks the whole response.
   "oráte pro nobis", "intercédite pro nobis", "te rogámus, audi nos",
   "orodujte za nás", "přimlouvejte se za nás", "prosíme tě, vyslyš nás",
+  // English. Bare "hear us" is deliberately NOT listed: it also occurs inside
+  // petitions ("…vouchsafe to hear us, we beseech thee, hear us."), where the
+  // earliest-match rule would cut the line at the wrong place. The two phrases
+  // that actually end a line are listed in full instead.
+  "have mercy on us", "pray for us", "spare us", "graciously hear us",
+  "deliver us", "save us", "intercede for us", "we beseech thee, hear us",
+  // Litany of Humility — first person, and a full clause for its third section.
+  "deliver me", "hear me", "Jesus, grant me the grace to desire it",
 ];
 
-// Index where the response starts, or -1. Earliest match wins, so an invocation
-// that happens to echo a response word later in the line can't misalign the split.
+// A response has to END the line — bar a short vocative address (", Dómine.",
+// ", O Jesus.") — or a collect that happens to contain the words would be
+// italicized from there to its full stop ("…and deliver us from the punishments
+// which we deserve for them."). Anything with more text after it isn't a response.
+const MAX_RESPONSE_TAIL = 12;
+
+// Index where the response starts, or -1. Among the phrases that end the line,
+// the LONGEST wins (ties broken by the earliest position), because a short
+// response can sit inside a petition closing with a longer one: "That thou
+// wouldst spare us, we beseech thee, hear us." splits at "we beseech thee".
 function responseStart(line: string): number {
   let at = -1;
+  let best = 0;
   for (const r of LITANY_RESPONSES) {
     const i = line.indexOf(r);
-    if (i > 0 && (at === -1 || i < at)) at = i;
+    if (i <= 0) continue;
+    if (line.length - (i + r.length) > MAX_RESPONSE_TAIL) continue;
+    if (r.length > best || (r.length === best && i < at)) {
+      at = i;
+      best = r.length;
+    }
   }
   return at;
 }
@@ -63,7 +85,7 @@ function responseStart(line: string): number {
 // litany. Matched on the full phrase, since every Holy Name invocation also opens
 // with "Iesu," / "Ježíši," and those do take a response.
 const LITANY_ACCLAMATION =
-  /^(Kyrie|Christe|Pane|Kriste), (eléison|smiluj se)\.|^(Christe|Iesu|Kriste|Ježíši), (ex)?(áudi|audi|slyš|uslyš|vyslyš) (nos|nás)\./;
+  /^(Kyrie|Christe|Pane|Kriste), (eléison|smiluj se)\.|^(Christe|Iesu|Kriste|Ježíši), (ex)?(áudi|audi|slyš|uslyš|vyslyš) (nos|nás)\.|^(Lord|Christ), have mercy\.|^(Christ|Jesus), (graciously )?hear us\./;
 
 function renderLitany(text: string): ReactNode {
   return text.split("\n").map((line, i) => {
@@ -74,6 +96,7 @@ function renderLitany(text: string): ReactNode {
       trimmed.startsWith("℟") ||
       trimmed.startsWith("Orémus") ||
       trimmed.startsWith("Modleme se") ||
+      trimmed.startsWith("Let us pray") ||
       trimmed.includes("{r}") ||
       LITANY_ACCLAMATION.test(trimmed);
     if (structural) return <div key={i} style={{ margin: "3px 0" }}>{withRubrics(line)}</div>;
@@ -110,7 +133,7 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
 
   if (currentPrayer.type === PRAYER_TYPES.HAIL_MARY) {
     const hm = showTranslation
-      ? getHailMaryCs(currentPrayer.mysteryCs)
+      ? getHailMaryTr(locale, currentPrayer.mysteryTr?.[locale])
       : getHailMary(currentPrayer.mystery);
     return (
       <div lang={bodyLang} style={sizedBodyStyle}>
@@ -129,7 +152,7 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
     );
   }
 
-  const text = showTranslation ? PRAYERS_CS[currentPrayer.type] : PRAYERS[currentPrayer.type];
+  const text = showTranslation ? PRAYER_TRANSLATIONS[locale][currentPrayer.type] : PRAYERS[currentPrayer.type];
   if (isLitanyType(currentPrayer.type)) {
     return (
       <div lang={bodyLang} style={{ ...sizedBodyStyle, textAlign: "left" }}>
@@ -161,7 +184,7 @@ type Props = {
 // Click anywhere on the card to advance — except when the user is selecting
 // text or interacting with the language select, in which case the parent's
 // click handler bails out. The select in the corner switches the body between
-// Latin and Czech.
+// Latin and the translation in the active UI language (LA ↔ CZ / EN).
 export default function PrayerCard({ currentPrayer, accentColor, currentStep, totalSteps, onClick, locale, showTranslation, onLanguageChange, fontSizeClamp, theme }: Props) {
   const t = STRINGS[locale];
   return (
@@ -184,8 +207,8 @@ export default function PrayerCard({ currentPrayer, accentColor, currentStep, to
       }}
     >
       <select
-        value={showTranslation ? "cs" : "la"}
-        onChange={(e) => onLanguageChange(e.target.value === "cs")}
+        value={showTranslation ? "tr" : "la"}
+        onChange={(e) => onLanguageChange(e.target.value === "tr")}
         onClick={(e) => e.stopPropagation()}
         aria-label={t.prayerLanguageAria}
         style={{
@@ -208,7 +231,7 @@ export default function PrayerCard({ currentPrayer, accentColor, currentStep, to
         }}
       >
         <option value="la">LA</option>
-        <option value="cs">CZ</option>
+        <option value="tr">{t.prayerLanguageShort}</option>
       </select>
       <PrayerBody currentPrayer={currentPrayer} accentColor={accentColor} locale={locale} showTranslation={showTranslation} fontSizeClamp={fontSizeClamp} theme={theme} />
     </div>

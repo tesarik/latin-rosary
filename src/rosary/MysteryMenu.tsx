@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { MYSTERIES, type MysteryKey } from "./prayers";
+import { MYSTERIES, type Localized, type MysteryKey } from "./prayers";
 import { OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type OtherPrayerKey } from "./sequence";
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
 import type { PrayerSetKey } from "./navigation";
@@ -8,6 +8,10 @@ import { PLAN_COLOR } from "./plans";
 import Flag from "./Flag";
 import AboutDialog from "./AboutDialog";
 import { PlanIcon } from "./PlansScreen";
+
+// Registry rows the collapsible groups render: a Latin name, its translations,
+// and the accent used for the group's icon.
+type GroupEntry = [PrayerSetKey, { name: string; nameTr: Localized; color: string }];
 
 type Props = {
   onStart: (key: PrayerSetKey) => void;
@@ -172,10 +176,13 @@ function LanguagePicker({ locale, onChange }: { locale: Locale; onChange: (l: Lo
 
 // Collapsible group: a card whose header rolls down small links to standalone
 // single prayers, sorted alphabetically. Used for both "Orationes utilissimæ"
-// and "Litaníæ"; tapping a link starts that one-prayer "set".
-function CollapsiblePrayers({ title, entries, onStart, locale }: {
+// and "Litaníæ"; tapping a link starts that one-prayer "set". Every row shows
+// the Latin name with its name in the UI language as a muted subtitle — the
+// same two-line shape the prayer-plan tile uses.
+function CollapsiblePrayers({ title, subtitle, entries, onStart, locale }: {
   title: string;
-  entries: [PrayerSetKey, { name: string; color: string }][];
+  subtitle: string;
+  entries: [PrayerSetKey, { name: string; nameTr: Localized; color: string }][];
   onStart: (key: PrayerSetKey) => void;
   locale: Locale;
 }) {
@@ -220,8 +227,13 @@ function CollapsiblePrayers({ title, entries, onStart, locale }: {
             <line x1="8" y1="14" x2="16" y2="14" stroke={accent} strokeWidth="1.5" strokeLinecap="round" />
           </svg>
         </div>
-        <div style={{ flex: 1, fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
-          {title}
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
+            {title}
+          </div>
+          <div style={{ fontFamily: "Arial, sans-serif", fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>
+            {subtitle}
+          </div>
         </div>
         <span aria-hidden="true" style={{
           fontSize: 14,
@@ -237,7 +249,7 @@ function CollapsiblePrayers({ title, entries, onStart, locale }: {
             <button
               key={key}
               onClick={() => onStart(key)}
-              aria-label={t.startPrayerAria(val.name)}
+              aria-label={t.startPrayerAria(val.nameTr[locale])}
               style={{
                 width: "100%",
                 display: "block",
@@ -253,7 +265,10 @@ function CollapsiblePrayers({ title, entries, onStart, locale }: {
               onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
             >
-              {val.name}
+              <div>{val.name}</div>
+              <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 1 }}>
+                {val.nameTr[locale]}
+              </div>
             </button>
           ))}
         </div>
@@ -305,8 +320,9 @@ export default function MysteryMenu({ onStart, onOpenPlans, planCount, locale, o
           <PrayerSetButton
             key={key}
             name={val.name}
+            subtitle={val.nameTr[locale]}
             color={val.color}
-            ariaLabel={t.startRosaryAria(val.name)}
+            ariaLabel={t.startRosaryAria(val.nameTr[locale])}
             icon="rosary"
             onClick={() => onStart(key)}
           />
@@ -326,14 +342,16 @@ export default function MysteryMenu({ onStart, onOpenPlans, planCount, locale, o
 
         <CollapsiblePrayers
           title="Orationes utilissimæ"
-          entries={Object.entries(ORDINARY_PRAYERS) as [PrayerSetKey, { name: string; color: string }][]}
+          subtitle={t.ordinaryGroupName}
+          entries={Object.entries(ORDINARY_PRAYERS) as GroupEntry[]}
           onStart={onStart}
           locale={locale}
         />
 
         <CollapsiblePrayers
           title="Litaníæ"
-          entries={Object.entries(LITANIES) as [PrayerSetKey, { name: string; color: string }][]}
+          subtitle={t.litaniesGroupName}
+          entries={Object.entries(LITANIES) as GroupEntry[]}
           onStart={onStart}
           locale={locale}
         />
@@ -342,8 +360,9 @@ export default function MysteryMenu({ onStart, onOpenPlans, planCount, locale, o
           <PrayerSetButton
             key={key}
             name={val.name}
+            subtitle={val.nameTr[locale]}
             color={val.color}
-            ariaLabel={t.startPrayerAria(val.name)}
+            ariaLabel={t.startPrayerAria(val.nameTr[locale])}
             icon="cross"
             onClick={() => onStart(key)}
           />
