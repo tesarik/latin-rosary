@@ -1893,6 +1893,36 @@ const SALVE_REGINA_ANTIPHON_EN = `Hail, holy Queen, Mother of mercy, our life, o
 // line with the Latin so the card's LA↔EN toggle never changes the structure.
 // Treat them like the BRIGIT_* and Czech Litany-of-the-Saints entries: if a
 // trustworthy English edition is ever obtained, replace these verbatim.
+//
+// SPOT-CHECKED against online witnesses after the fact (not transcribed from
+// them). Verified line for line, no differences of substance: the Litany of
+// Loreto against vatican.va (incl. the three 2020 invocations and their
+// positions); the Litany of the Saints against preces-latinae.org, the same
+// page the Latin came from; the Precious Blood and the Holy Name against EWTN;
+// the Litany of Humility against the Merry del Val text at EWTN, which the
+// Czech here also follows. St. Joseph matches the traditional 1909 English —
+// the USCCB's 2021 translation modernizes nine invocations (Pure Guardian,
+// Provider for the Son of God, Cornerstone of families, …); the traditional
+// wording is kept deliberately, since the Latin and Czech here are traditional
+// too. Remaining differences from those witnesses are synonym-level renderings
+// of the same Latin and are kept where ours tracks the Latin more closely
+// (e.g. "immeasurable" for immensus, "freeing souls from the depths of
+// purgatory" for de lacu purgatórii).
+//
+// Second pass, also spot-checked: the Nicene Creed (replaced outright with the
+// current Roman Missal / ICEL 2011 text, to match the Czech here, which is
+// likewise the current missal), the Angelus, Regina Cæli, Sub tuum præsídium,
+// Ánima Christi, and Psalm 69 in the Litany of the Saints — whose ℣/℟ split was
+// corrected to follow the Latin's, as the Czech already did.
+//
+// STILL NOT checked against any witness: Angele Dei, Réquiem, Decálogus, Ave
+// Regína Cælórum, Alma Redemptóris, the Leonine collect, the BRIGIT_* prayers,
+// and — within the Litany of the Saints — the eleven collects and the versicles.
+// The two Marian antiphons are our own wording rather than any received English
+// translation; no single received English text exists for either.
+//
+// House style throughout: "Holy Spirit" (not "Holy Ghost") and lower-case
+// thee/thy/thou, where the printed witnesses capitalize divine pronouns.
 // ---------------------------------------------------------------------------
 export const PRAYERS_EN: Record<StaticPrayerType, string> = {
   [PRAYER_TYPES.SIGN_OF_CROSS]: `In the name ☩ of the Father, and of the Son, and of the Holy Spirit. Amen.`,
@@ -1914,7 +1944,7 @@ O God, whose only-begotten Son, by his life, death and resurrection, has purchas
 
   [PRAYER_TYPES.LEONINE_OREMUS]: `Let us pray. O God, our refuge and our strength, look down in mercy on thy people who cry to thee; and by the intercession of the glorious and immaculate Virgin Mary, Mother of God, of Saint Joseph her spouse, of thy blessed Apostles Peter and Paul, and of all the saints, in mercy and goodness hear our prayers for the conversion of sinners, and for the liberty and exaltation of holy Mother Church. Through the same Christ our Lord. Amen.`,
 
-  [PRAYER_TYPES.ST_MICHAEL]: `Saint Michael the Archangel, defend us in battle; be our protection against the wickedness and snares of the devil. May God rebuke him, we humbly pray; and do thou, O Prince of the heavenly host, by the power of God, cast into hell Satan and all the evil spirits who prowl through the world seeking the ruin of souls. Amen.`,
+  [PRAYER_TYPES.ST_MICHAEL]: `Saint Michael the Archangel, defend us in battle; be our protection against the wickedness and snares of the devil. May God rebuke him, we humbly pray; and do thou, O Prince of the heavenly host, by the power of God, thrust into hell Satan and all the evil spirits who prowl about the world seeking the ruin of souls. Amen.`,
 
   [PRAYER_TYPES.COR_IESU]: `℣ Most Sacred Heart of Jesus.
 ℟ Have mercy on us.`,
@@ -1938,7 +1968,9 @@ O God, whose only-begotten Son, by his life, death and resurrection, has purchas
 
   [PRAYER_TYPES.BRIGIT_PIERCING]: `O Jesus, divine lover of our souls, in honour of that Blood and water which flowed from thy opened side and Heart, receive me into thy most sacred Heart, and by this last outpouring lead me and all souls into eternal glory. Amen.`,
 
-  [PRAYER_TYPES.NICENE_CREED]: `I believe in one God, the Father almighty, maker of heaven and earth, of all things visible and invisible. And in one Lord Jesus Christ, the only-begotten Son of God, born of the Father before all ages: God from God, Light from Light, true God from true God, begotten, not made, of one substance with the Father, through whom all things were made. Who for us men and for our salvation came down from heaven, and was incarnate by the Holy Spirit of the Virgin Mary, and was made man. He was crucified also for us, suffered under Pontius Pilate, and was buried. And on the third day he rose again, according to the Scriptures. He ascended into heaven and is seated at the right hand of the Father. And he shall come again in glory to judge the living and the dead, and of his kingdom there shall be no end. And in the Holy Spirit, the Lord and giver of life, who proceeds from the Father and the Son; who together with the Father and the Son is adored and glorified; who spoke through the Prophets. And in one, holy, catholic and apostolic Church. I confess one baptism for the forgiveness of sins. And I await the resurrection of the dead, and the life of the world to come. Amen.`,
+  // Current English Roman Missal (ICEL 2011) — the counterpart of the Czech
+  // here, which is likewise the current missal text.
+  [PRAYER_TYPES.NICENE_CREED]: `I believe in one God, the Father almighty, maker of heaven and earth, of all things visible and invisible. I believe in one Lord Jesus Christ, the Only Begotten Son of God, born of the Father before all ages. God from God, Light from Light, true God from true God, begotten, not made, consubstantial with the Father; through him all things were made. For us men and for our salvation he came down from heaven, and by the Holy Spirit was incarnate of the Virgin Mary, and became man. For our sake he was crucified under Pontius Pilate, he suffered death and was buried, and rose again on the third day in accordance with the Scriptures. He ascended into heaven and is seated at the right hand of the Father. He will come again in glory to judge the living and the dead and his kingdom will have no end. I believe in the Holy Spirit, the Lord, the giver of life, who proceeds from the Father and the Son, who with the Father and the Son is adored and glorified, who has spoken through the prophets. I believe in one, holy, catholic and apostolic Church. I confess one Baptism for the forgiveness of sins and I look forward to the resurrection of the dead and the life of the world to come. Amen.`,
 
   [PRAYER_TYPES.SUB_TUUM]: `We fly to thy protection, O holy Mother of God. Despise not our petitions in our necessities, but deliver us always from all dangers, O glorious and blessed Virgin. Our Lady, our mediatrix, our advocate, reconcile us to thy Son, commend us to thy Son, present us to thy Son.`,
 
@@ -1999,7 +2031,7 @@ Passion of Christ, strengthen me.
 O good Jesus, hear me.
 Within thy wounds hide me.
 Suffer me not to be separated from thee.
-From the malicious enemy defend me.
+From the malignant enemy defend me.
 In the hour of my death call me.
 And bid me come unto thee,
 that with thy saints I may praise thee
@@ -2209,7 +2241,7 @@ Jesus, lover of us, have mercy on us.
 Jesus, God of peace, have mercy on us.
 Jesus, author of life, have mercy on us.
 Jesus, model of virtues, have mercy on us.
-Jesus, zealous for souls, have mercy on us.
+Jesus, zealous lover of souls, have mercy on us.
 Jesus, our God, have mercy on us.
 Jesus, our refuge, have mercy on us.
 Jesus, father of the poor, have mercy on us.
@@ -2235,7 +2267,7 @@ From all evil, deliver us, O Jesus.
 From all sin, deliver us, O Jesus.
 From thy wrath, deliver us, O Jesus.
 From the snares of the devil, deliver us, O Jesus.
-From the spirit of impurity, deliver us, O Jesus.
+From the spirit of fornication, deliver us, O Jesus.
 From everlasting death, deliver us, O Jesus.
 From the neglect of thy inspirations, deliver us, O Jesus.
 
@@ -2266,29 +2298,29 @@ Let us pray. O Lord Jesus Christ, who hast said: Ask and you shall receive; seek
   // English follows the widely circulated form, kept to the Latin's 8 + 8 + 7.
   [PRAYER_TYPES.LITANY_HUMILITY]: `O Jesus, meek and humble of heart, hear me.
 
-From the desire of being esteemed, deliver me, Jesus.
-From the desire of being loved, deliver me, Jesus.
-From the desire of being extolled, deliver me, Jesus.
-From the desire of being honoured, deliver me, Jesus.
-From the desire of being praised, deliver me, Jesus.
-From the desire of being preferred to others, deliver me, Jesus.
-From the desire of being consulted, deliver me, Jesus.
-From the desire of being approved, deliver me, Jesus.
+From the desire of being esteemed, deliver me, O Jesus.
+From the desire of being loved, deliver me, O Jesus.
+From the desire of being extolled, deliver me, O Jesus.
+From the desire of being honoured, deliver me, O Jesus.
+From the desire of being praised, deliver me, O Jesus.
+From the desire of being preferred to others, deliver me, O Jesus.
+From the desire of being consulted, deliver me, O Jesus.
+From the desire of being approved, deliver me, O Jesus.
 
-From the fear of being humiliated, deliver me, Jesus.
-From the fear of being despised, deliver me, Jesus.
-From the fear of being rebuked, deliver me, Jesus.
-From the fear of being slandered, deliver me, Jesus.
-From the fear of being forgotten, deliver me, Jesus.
-From the fear of being ridiculed, deliver me, Jesus.
-From the fear of being wronged, deliver me, Jesus.
-From the fear of being suspected, deliver me, Jesus.
+From the fear of being humiliated, deliver me, O Jesus.
+From the fear of being despised, deliver me, O Jesus.
+From the fear of suffering rebukes, deliver me, O Jesus.
+From the fear of being calumniated, deliver me, O Jesus.
+From the fear of being forgotten, deliver me, O Jesus.
+From the fear of being ridiculed, deliver me, O Jesus.
+From the fear of being wronged, deliver me, O Jesus.
+From the fear of being suspected, deliver me, O Jesus.
 
 That others may be loved more than I, Jesus, grant me the grace to desire it.
 That others may be esteemed more than I, Jesus, grant me the grace to desire it.
 That others may increase in the opinion of the world and I decrease, Jesus, grant me the grace to desire it.
 That others may be chosen and I set aside, Jesus, grant me the grace to desire it.
-That others may be praised and I unnoticed, Jesus, grant me the grace to desire it.
+That others may be praised and I go unnoticed, Jesus, grant me the grace to desire it.
 That others may be preferred to me in everything, Jesus, grant me the grace to desire it.
 That others may become holier than I, provided that I become as holy as thou wouldst have me, Jesus, grant me the grace to desire it.
 
@@ -2482,7 +2514,7 @@ Saints Cyril and Methodius, pray for us.
 Saint Charles Borromeo, pray for us.
 Saint Francis de Sales, pray for us.
 Saint Pius the Tenth, pray for us.
-All ye holy bishops and confessors, pray for us.
+All ye holy popes and confessors, pray for us.
 All ye holy doctors, pray for us.`,
 
   [PRAYER_TYPES.LITANY_SAINTS_RELIGIOUS]: `Saint Anthony, pray for us.
@@ -2525,7 +2557,7 @@ From thy wrath, deliver us, O Lord.
 From sudden and unlooked-for death, deliver us, O Lord.
 From the snares of the devil, deliver us, O Lord.
 From anger, hatred and all ill will, deliver us, O Lord.
-From the spirit of impurity, deliver us, O Lord.
+From the spirit of fornication, deliver us, O Lord.
 From lightning and tempest, deliver us, O Lord.
 From the scourge of earthquake, deliver us, O Lord.
 From plague, famine and war, deliver us, O Lord.
@@ -2582,9 +2614,9 @@ Lord, have mercy. 2×`,
 ℟ that desire evils to me.
 ℣ Let them be presently turned away blushing for shame,
 ℟ that say to me: Aha, aha.
-℣ Let all that seek thee rejoice and be glad in thee,
-℟ and let such as love thy salvation say always:
-℣ The Lord be magnified,
+℣ Let them rejoice and be glad in thee,
+℟ all they that seek thee.
+℣ And let them say always: The Lord be magnified,
 ℟ who love thy salvation.
 ℣ But I am needy and poor:
 ℟ O God, help me.
