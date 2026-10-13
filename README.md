@@ -49,7 +49,7 @@ The manifest, icons, and service-worker scope all derive from this. Copy `.env.e
 - `src/Rosary.tsx` — orchestrator: state, effects, prayer-screen layout.
 - `src/rosary/` — `prayers.ts`, `sequence.ts`, `storage.ts`, `RosaryBeads.tsx`, `PrayerCard.tsx`, `MysteryMenu.tsx`.
 - `src/main.tsx` — entry point; registers the service worker in production.
-- `public/manifest.webmanifest`, `public/sw.js`, `public/icon.svg` — PWA assets.
+- `public/manifest.webmanifest`, `public/sw.js`, `public/icon.svg` (+ PNG renders `icon-180/192/512.png` for iOS and Android) — PWA assets.
 - `index.html` — title, theme color, EB Garamond webfont.
 - `vite.config.ts` — reads `BASE_PATH`, stamps the SW cache version at build time.
 - `tsconfig.json`, `tsconfig.app.json`, `tsconfig.node.json` — strict TypeScript config.
