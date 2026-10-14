@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Fixed
+- **App icon on iPhone** — iOS ignores an SVG `apple-touch-icon` and shows a page screenshot or a letter on the home screen instead. The icon is now also rendered to PNG (`icon-180.png` for iOS, `icon-192.png` / `icon-512.png` in the manifest for Android), from `icon.svg` with Inkscape.
+
 ## [0.12.0]
 
 ### Added

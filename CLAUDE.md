@@ -39,7 +39,7 @@ A single-page web app for praying the Latin rosary. UI chrome and menus are in C
 - `tsconfig.json` / `tsconfig.app.json` / `tsconfig.node.json` — strict TypeScript config split between app and Node-side (vite.config.ts).
 - `public/sw.js` — offline caching.
 - `public/manifest.webmanifest` — PWA metadata.
-- `public/icon.svg` — full-rosary visualization used as app icon.
+- `public/icon.svg` — full-rosary visualization used as app icon. `public/icon-180.png` (iOS `apple-touch-icon`; iOS ignores SVG there) and `icon-192.png` / `icon-512.png` (manifest) are rendered from it: `inkscape icon.svg --export-type=png --export-filename=icon-512.png -w 512 -h 512`.
 - `index.html` — title, theme color, manifest link, EB Garamond webfont preload.
 - `vite.config.ts` — reads `BASE_PATH`, configures React plugin, defines `__APP_VERSION__` (from `package.json`) and `__BUILD_DATE__` (ISO timestamp of the build; in `npm run dev` it's the dev-server start time), stamps the SW cache version at build time.
 - `CHANGELOG.md` — Keep a Changelog format.
@@ -129,4 +129,4 @@ CI: `.github/workflows/ci.yml` runs `typecheck` → `lint` → `test` → `build
 - Keep accessibility attributes when editing UI: `aria-label` on interactive buttons, `aria-live="polite"` on the prayer card, `aria-hidden="true"` on decorative SVGs. (Do **not** add `lang="la"` to prayer text — it triggers EB Garamond's u→v; see Typography.)
 - Latin diacritics (acute accents, æ, œ) are part of the prayer text — preserve them exactly when editing.
 - Every prayer text is transcribed from a trustworthy source **except** the St. Bridget `BRIGIT_*` entries, which are our own translation (no authoritative Latin original exists for that devotion), the **Czech** Holy Name litany, whose invocations are sourced but whose closing collect is our own wording, the **Latin** Litany of Humility, which has no authoritative original to transcribe (modern devotion, author unknown, published in 1880 as a translation from the French) — its pointing is ours, assembled from two Latin witnesses; and the **Czech** Litany of the Saints, which is our translation of the traditional Latin, because the Czech liturgical books carry only the modern short form (Kancionál 068A/B). All are flagged with banner comments in `prayers.ts`. They're flagged with a banner comment in `prayers.ts`; if a sourced Latin booklet is ever obtained, replace those texts verbatim. Don't add further unsourced prayers without flagging them the same way.
-- The icon (`public/icon.svg`) is hand-tuned to mirror the rosary visualization in the app; if you change the in-app SVG, consider keeping the icon in sync.
+- The icon (`public/icon.svg`) is hand-tuned to mirror the rosary visualization in the app; if you change the in-app SVG, consider keeping the icon in sync — and re-render the PNG icons whenever `icon.svg` changes.
