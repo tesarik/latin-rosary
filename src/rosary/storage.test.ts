@@ -33,6 +33,11 @@ describe("storage", () => {
     expect(loadSavedState()).toEqual({ version: STATE_VERSION, active: "slavny", progress: { slavny: 40 } });
   });
 
+  it("migrates version 5, dropping only the places kept in plans", () => {
+    put({ version: 5, active: "plan:abc", progress: { radostny: 30, "plan:abc": 4, leonine: 2 } });
+    expect(loadSavedState()).toEqual({ version: STATE_VERSION, active: null, progress: { radostny: 30, leonine: 2 } });
+  });
+
   it("discards older versions and malformed data", () => {
     put({ version: 3, selectedSet: "slavny", currentStep: 40 });
     expect(loadSavedState()).toBeNull();

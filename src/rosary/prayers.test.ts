@@ -11,7 +11,8 @@ import {
   type PrayerType,
   type MysteryKey,
 } from "./prayers";
-import { buildRosarySequence, OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type SequenceItem } from "./sequence";
+import { buildRosarySequence, sliceLines, OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type SequenceItem } from "./sequence";
+import { parseLitany } from "./litany";
 import { SUPPORTED_LOCALES, type Locale } from "./i18n";
 import { STATE_VERSION } from "./storage";
 
@@ -69,12 +70,15 @@ describe("every prayer in every set resolves to Latin + a text in every locale",
   for (const { label, seq } of allSequences()) {
     it(label, () => {
       expect(seq.length).toBeGreaterThan(0);
+      // A section of a longer text must be non-empty on its own, too.
+      const cut = (text: string | undefined, item: SequenceItem) =>
+        text !== undefined && item.lines ? sliceLines(text, item.lines) : text;
       for (const item of seq) {
-        expect(latinText(item.type)?.trim(), `${label} → ${item.type} (la)`).toBeTruthy();
+        expect(cut(latinText(item.type), item)?.trim(), `${label} → ${item.section ?? item.type} (la)`).toBeTruthy();
         for (const locale of SUPPORTED_LOCALES) {
           expect(
-            translatedText(locale, item.type)?.trim(),
-            `${label} → ${item.type} (${locale})`
+            cut(translatedText(locale, item.type), item)?.trim(),
+            `${label} → ${item.section ?? item.type} (${locale})`
           ).toBeTruthy();
         }
       }
@@ -151,5 +155,61 @@ describe("persistence", () => {
   it("STATE_VERSION is a positive integer", () => {
     expect(Number.isInteger(STATE_VERSION)).toBe(true);
     expect(STATE_VERSION).toBeGreaterThan(0);
+  });
+});
+
+// Litanies are cut into sections by line number, once, for every language — so
+// every translation must keep the Latin's line structure exactly.
+describe("litany sections", () => {
+  for (const [key, set] of Object.entries(LITANIES)) {
+    const seq = set.build();
+    const ranged = seq.filter((i) => i.lines);
+    if (ranged.length === 0) continue;
+
+    it(`${key}: every translation has the Latin's line count`, () => {
+      const type = ranged[0]!.type;
+      const n = PRAYERS[type as keyof typeof PRAYERS].split("\n").length;
+      for (const locale of SUPPORTED_LOCALES) {
+        expect(translatedText(locale, type)!.split("\n").length, locale).toBe(n);
+      }
+    });
+
+    it(`${key}: sections are contiguous, start at line 0 and cover the text`, () => {
+      expect(seq.every((i) => i.lines && i.section)).toBe(true);
+      expect(seq[0]!.lines![0]).toBe(0);
+      for (let i = 1; i < seq.length; i++) expect(seq[i]!.lines![0]).toBe(seq[i - 1]!.lines![1]);
+      expect(seq.length).toBeGreaterThan(1);
+    });
+  }
+});
+
+describe("litany responses", () => {
+  const runsOf = (type: PrayerType, locale?: Locale) =>
+    parseLitany(locale ? translatedText(locale, type)! : PRAYERS[type as keyof typeof PRAYERS]).filter((b) => b.kind === "run");
+
+  it("groups the Loreto invocations under one response in every language", () => {
+    expect(runsOf(PRAYER_TYPES.LITANY_LORETO).map((r) => r.kind === "run" && r.response)).toEqual(["miserére nobis", "ora pro nobis"]);
+    expect(runsOf(PRAYER_TYPES.LITANY_LORETO, "cs").map((r) => r.kind === "run" && r.response)).toEqual(["smiluj se nad námi", "oroduj za nás"]);
+    expect(runsOf(PRAYER_TYPES.LITANY_LORETO, "en").map((r) => r.kind === "run" && r.response)).toEqual(["have mercy on us", "pray for us"]);
+  });
+
+  it("strips the response from every line of a run", () => {
+    const run = runsOf(PRAYER_TYPES.LITANY_LORETO)[1]!;
+    expect(run.kind === "run" && run.invocations[0]).toBe("Sancta María");
+    expect(run.kind === "run" && run.invocations.every((i) => !i.includes("ora pro nobis"))).toBe(true);
+  });
+
+  it("keeps a lone response inline: the Agnus Dei and Propítius esto", () => {
+    const blocks = parseLitany(PRAYERS[PRAYER_TYPES.LITANY_HOLY_NAME]);
+    const singles = blocks.filter((b) => b.kind === "single").map((b) => b.kind === "single" && b.invocation);
+    expect(singles).toContain("Propítius esto,");
+    expect(singles.filter((s) => s && s.startsWith("Agnus Dei")).length).toBe(3);
+  });
+
+  it("never groups the Kyrie or a versicle", () => {
+    const blocks = parseLitany(PRAYERS[PRAYER_TYPES.LITANY_SACRED_HEART]);
+    const plain = blocks.filter((b) => b.kind === "plain").map((b) => b.kind === "plain" && b.line);
+    expect(plain).toContain("Kyrie, eléison. 2×");
+    expect(plain.some((l) => l && l.startsWith("℣"))).toBe(true);
   });
 });

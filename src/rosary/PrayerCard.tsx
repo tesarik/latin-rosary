@@ -1,8 +1,9 @@
-import type { ReactNode } from "react";
+import type { ReactNode, Ref } from "react";
 import { PRAYER_TYPES, PRAYERS, PRAYER_TRANSLATIONS, getHailMary, getHailMaryTr } from "./prayers";
-import type { SequenceItem } from "./sequence";
+import { sliceLines, type SequenceItem } from "./sequence";
 import { STRINGS, type Locale } from "./i18n";
 import { accentText, type Theme } from "./theme";
+import { parseLitany } from "./litany";
 
 // Render prayer text, turning `{r}…{/r}` spans into red liturgical rubrics
 // (missal-style seasonal labels). Newlines are handled by the container's
@@ -23,91 +24,46 @@ function withRubrics(text: string): ReactNode {
 }
 
 // Litanies read like a printed litany book rather than a centered prayer card:
-// left-aligned, one invocation per line, with the repeated response (the part
-// after the final comma — "ora pro nobis", "miserére nobis", "oroduj za nás"…)
-// set in italic. Versicle/response lines (℣/℟), the Orémus/Modleme se collect,
-// blank spacers and red rubric labels keep their normal styling.
-// The congregation's response, italicized in the litany layout. Matching a known
-// response phrase beats splitting at the last comma: responses that carry a comma
-// of their own ("líbera nos, Iesu", "parce nobis, Dómine") would otherwise be cut
-// mid-phrase, leaving only the address in italics.
-const LITANY_RESPONSES = [
-  "miserére nobis", "ora pro nobis", "parce nobis", "exáudi nos", "líbera nos",
-  "smiluj se nad námi", "oroduj za nás", "odpusť nám", "vyslyš nás", "vysvoboď nás",
-  // Litany of Humility — first person, and its third section answers with a full
-  // clause rather than a short response.
-  "líbera me", "exáudi me", "Iesu, da mihi grátiam ita desiderándi",
-  "osvoboď mě", "vyslyš mě", "Ježíši, dej mi milost po tom toužit",
-  // Precious Blood
-  "salva nos", "buď naší spásou",
-  // Litany of the Saints — plural saints take "oráte"/"intercédite", and its
-  // intercessions answer with a two-part clause. The full phrases must be listed,
-  // not just their tails, so the earliest-match rule picks the whole response.
-  "oráte pro nobis", "intercédite pro nobis", "te rogámus, audi nos",
-  "orodujte za nás", "přimlouvejte se za nás", "prosíme tě, vyslyš nás",
-  // English. Bare "hear us" is deliberately NOT listed: it also occurs inside
-  // petitions ("…vouchsafe to hear us, we beseech thee, hear us."), where the
-  // earliest-match rule would cut the line at the wrong place. The two phrases
-  // that actually end a line are listed in full instead.
-  "have mercy on us", "pray for us", "spare us", "graciously hear us",
-  "deliver us", "save us", "intercede for us", "we beseech thee, hear us",
-  // Litany of Humility — first person, and a full clause for its third section.
-  "deliver me", "hear me", "Jesus, grant me the grace to desire it",
-];
-
-// A response has to END the line — bar a short vocative address (", Dómine.",
-// ", O Jesus.") — or a collect that happens to contain the words would be
-// italicized from there to its full stop ("…and deliver us from the punishments
-// which we deserve for them."). Anything with more text after it isn't a response.
-const MAX_RESPONSE_TAIL = 12;
-
-// Index where the response starts, or -1. Among the phrases that end the line,
-// the LONGEST wins (ties broken by the earliest position), because a short
-// response can sit inside a petition closing with a longer one: "That thou
-// wouldst spare us, we beseech thee, hear us." splits at "we beseech thee".
-function responseStart(line: string): number {
-  let at = -1;
-  let best = 0;
-  for (const r of LITANY_RESPONSES) {
-    const i = line.indexOf(r);
-    if (i <= 0) continue;
-    if (line.length - (i + r.length) > MAX_RESPONSE_TAIL) continue;
-    if (r.length > best || (r.length === best && i < at)) {
-      at = i;
-      best = r.length;
+// left-aligned, one invocation per line. A run of invocations sharing a
+// response shows that response once, in a band above them that sticks to the
+// top while the run scrolls past; a lone invocation keeps its response inline,
+// in italic. See `parseLitany` in litany.ts.
+function renderLitany(text: string, accent: string): ReactNode {
+  return parseLitany(text).map((b, i) => {
+    switch (b.kind) {
+      case "blank":
+        return <div key={i} aria-hidden="true" style={{ height: "0.6em" }} />;
+      case "plain":
+        return <div key={i} style={{ margin: "3px 0" }}>{withRubrics(b.line)}</div>;
+      case "single":
+        return (
+          <div key={i} style={{ margin: "3px 0" }}>
+            {b.invocation} <span style={{ fontStyle: "italic" }}>{b.response}</span>
+          </div>
+        );
+      case "run":
+        return (
+          <div key={i}>
+            <div style={{
+              position: "sticky",
+              top: 0,
+              zIndex: 1,
+              background: "var(--surface)",
+              color: accent,
+              textAlign: "right",
+              fontWeight: 600,
+              padding: "4px 0",
+              margin: "2px 0",
+              borderBottom: "1px solid var(--border)",
+            }}>
+              ℟ {b.response}
+            </div>
+            {b.invocations.map((inv, j) => (
+              <div key={j} style={{ margin: "3px 0" }}>{inv}</div>
+            ))}
+          </div>
+        );
     }
-  }
-  return at;
-}
-
-// Acclamations the whole assembly repeats verbatim — the Kyrie, and the "audi nos"
-// pair, which is "Christe" in Loreto / Sacred Heart but "Iesu" in the Holy Name
-// litany. Matched on the full phrase, since every Holy Name invocation also opens
-// with "Iesu," / "Ježíši," and those do take a response.
-const LITANY_ACCLAMATION =
-  /^(Kyrie|Christe|Pane|Kriste), (eléison|smiluj se)\.|^(Christe|Iesu|Kriste|Ježíši), (ex)?(áudi|audi|slyš|uslyš|vyslyš) (nos|nás)\.|^(Lord|Christ), have mercy\.|^(Christ|Jesus), (graciously )?hear us\./;
-
-function renderLitany(text: string): ReactNode {
-  return text.split("\n").map((line, i) => {
-    const trimmed = line.trim();
-    if (trimmed === "") return <div key={i} aria-hidden="true" style={{ height: "0.6em" }} />;
-    const structural =
-      trimmed.startsWith("℣") ||
-      trimmed.startsWith("℟") ||
-      trimmed.startsWith("Orémus") ||
-      trimmed.startsWith("Modleme se") ||
-      trimmed.startsWith("Let us pray") ||
-      trimmed.includes("{r}") ||
-      LITANY_ACCLAMATION.test(trimmed);
-    if (structural) return <div key={i} style={{ margin: "3px 0" }}>{withRubrics(line)}</div>;
-    const at = responseStart(line);
-    if (at === -1) return <div key={i} style={{ margin: "3px 0" }}>{line}</div>;
-    return (
-      <div key={i} style={{ margin: "3px 0" }}>
-        {line.slice(0, at)}
-        <span style={{ fontStyle: "italic" }}>{line.slice(at)}</span>
-      </div>
-    );
   });
 }
 
@@ -152,11 +108,14 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
     );
   }
 
-  const text = showTranslation ? PRAYER_TRANSLATIONS[locale][currentPrayer.type] : PRAYERS[currentPrayer.type];
+  const full = showTranslation ? PRAYER_TRANSLATIONS[locale][currentPrayer.type] : PRAYERS[currentPrayer.type];
+  // A litany step may be one section of a longer text: the same line range in
+  // every language, since the translations keep the Latin's line structure.
+  const text = currentPrayer.lines ? sliceLines(full, currentPrayer.lines) : full;
   if (isLitanyType(currentPrayer.type)) {
     return (
       <div lang={bodyLang} style={{ ...sizedBodyStyle, textAlign: "left" }}>
-        <div style={{ color: "var(--text)" }}>{renderLitany(text)}</div>
+        <div style={{ color: "var(--text)" }}>{renderLitany(text, clauseColor)}</div>
       </div>
     );
   }
@@ -175,18 +134,24 @@ type Props = {
   onClick: () => void;
   locale: Locale;
   showTranslation: boolean;
-  onLanguageChange: (showTranslation: boolean) => void;
   fontSizeClamp: string;
   theme: Theme;
+  // Contained: the card fills the height it is given and scrolls its text
+  // inside, so its rounded top and shadow never scroll away; `scrollRef`
+  // then points at that inner scroller. Otherwise the card grows with its
+  // text and the page scrolls (the rosary, where the bead ring scrolls too).
+  contained?: boolean;
+  scrollRef?: Ref<HTMLDivElement>;
 };
 
 // The tappable white card that wraps the current prayer's text.
 // Click anywhere on the card to advance — except when the user is selecting
 // text or interacting with the language select, in which case the parent's
-// click handler bails out. The select in the corner switches the body between
-// Latin and the translation in the active UI language (LA ↔ CZ / EN).
-export default function PrayerCard({ currentPrayer, accentColor, currentStep, totalSteps, onClick, locale, showTranslation, onLanguageChange, fontSizeClamp, theme }: Props) {
+// click handler bails out. Which language the body shows (Latin or the active
+// UI language) is chosen by the LanguageToggle in the label row above the card.
+export default function PrayerCard({ currentPrayer, accentColor, currentStep, totalSteps, onClick, locale, showTranslation, fontSizeClamp, theme, contained, scrollRef }: Props) {
   const t = STRINGS[locale];
+  const body = <PrayerBody currentPrayer={currentPrayer} accentColor={accentColor} locale={locale} showTranslation={showTranslation} fontSizeClamp={fontSizeClamp} theme={theme} />;
   return (
     <div
       onClick={onClick}
@@ -197,8 +162,9 @@ export default function PrayerCard({ currentPrayer, accentColor, currentStep, to
         position: "relative",
         background: "var(--surface)",
         borderRadius: 18,
-        padding: "20px 18px",
-        margin: "6px 0 12px",
+        ...(contained
+          ? { display: "flex", flexDirection: "column", maxHeight: "100%", minHeight: 0, overflow: "hidden" }
+          : { padding: "20px 18px", margin: "6px 0 12px" }),
         boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
         border: "1px solid var(--border)",
         cursor: "pointer",
@@ -206,34 +172,14 @@ export default function PrayerCard({ currentPrayer, accentColor, currentStep, to
         WebkitTapHighlightColor: "transparent",
       }}
     >
-      <select
-        value={showTranslation ? "tr" : "la"}
-        onChange={(e) => onLanguageChange(e.target.value === "tr")}
-        onClick={(e) => e.stopPropagation()}
-        aria-label={t.prayerLanguageAria}
-        style={{
-          position: "absolute",
-          top: 8,
-          right: 8,
-          appearance: "none",
-          WebkitAppearance: "none",
-          MozAppearance: "none",
-          background: "transparent",
-          border: "1px solid var(--border)",
-          borderRadius: 6,
-          padding: "2px 6px",
-          fontSize: 11,
-          letterSpacing: 1,
-          color: "var(--text-muted)",
-          fontFamily: "Arial, sans-serif",
-          fontWeight: 600,
-          cursor: "pointer",
-        }}
-      >
-        <option value="la">LA</option>
-        <option value="tr">{t.prayerLanguageShort}</option>
-      </select>
-      <PrayerBody currentPrayer={currentPrayer} accentColor={accentColor} locale={locale} showTranslation={showTranslation} fontSizeClamp={fontSizeClamp} theme={theme} />
+      {contained ? (
+        // Only side padding on the scroller itself: a sticky ℟ band sticks at
+        // the scroller's padding edge, so vertical padding would leave a strip
+        // above it for text to show through. The vertical space is inside.
+        <div ref={scrollRef} style={{ overflowY: "auto", minHeight: 0, padding: "0 18px" }}>
+          <div style={{ padding: "20px 0" }}>{body}</div>
+        </div>
+      ) : body}
     </div>
   );
 }

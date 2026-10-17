@@ -31,7 +31,7 @@ describe("isPersistableKey", () => {
     for (const k of Object.keys(OTHER_PRAYER_SETS)) expect(isPersistableKey(k)).toBe(true);
   });
 
-  it("rejects single-prayer sets (one-card litanies + ordinaries)", () => {
+  it("rejects single-prayer sets (the ordinary prayers)", () => {
     for (const k of Object.keys(ORDINARY_PRAYERS)) expect(isPersistableKey(k)).toBe(false);
     for (const [k, v] of Object.entries(LITANIES)) {
       if (v.kind !== "linear") expect(isPersistableKey(k)).toBe(false);
@@ -89,7 +89,7 @@ describe("resolveSession", () => {
   });
 
   it("rejects a non-persistable key, as the open set and as progress", () => {
-    const res = resolveSession(saved("loreto", { loreto: 1, pater_noster: 1 }));
+    const res = resolveSession(saved("pater_noster", { sub_tuum: 1, pater_noster: 1 }));
     expect(res.active).toBeNull();
     expect(res.progress).toEqual({});
   });
@@ -162,8 +162,18 @@ describe("getPrayerSetMeta", () => {
     expect(getPrayerSetMeta("leonine").kind).toBe("linear");
     expect(getPrayerSetMeta("brigit").kind).toBe("linear");
     expect(getPrayerSetMeta("pater_noster").kind).toBe("single");
-    expect(getPrayerSetMeta("loreto").kind).toBe("single");
+    expect(getPrayerSetMeta("loreto").kind).toBe("linear");
     expect(getPrayerSetMeta("saints").kind).toBe("linear");
+  });
+
+  it("steps every litany through its sections, so each has progress to resume", () => {
+    for (const k of Object.keys(LITANIES)) {
+      expect(getPrayerSetMeta(k as keyof typeof LITANIES).kind, k).toBe("linear");
+      expect(isPersistableKey(k), k).toBe(true);
+    }
+    expect(buildSequence("loreto").map((i) => i.section)).toEqual(
+      ["Kyrie", "Sancta María", "Virgo", "Spéculum iustítiæ", "Regína", "Agnus Dei"]
+    );
   });
 
   it("builds the Litany of the Saints as one step per section", () => {
@@ -191,7 +201,8 @@ describe("user prayer plans", () => {
   });
 
   it("builds the plan's flattened sequence", () => {
-    expect(buildSequence(key, [plan]).length).toBe(5);
+    // 1 + 3 + the Litany of Loreto's six sections.
+    expect(buildSequence(key, [plan]).length).toBe(10);
   });
 
   it("builds nothing for a plan that no longer exists", () => {

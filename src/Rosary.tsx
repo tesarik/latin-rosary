@@ -21,6 +21,7 @@ import RosaryBeads from "./rosary/RosaryBeads";
 import PrayerCard from "./rosary/PrayerCard";
 import PrayerSections from "./rosary/PrayerSections";
 import FontSizeControl from "./rosary/FontSizeControl";
+import LanguageToggle from "./rosary/LanguageToggle";
 import MysteryMenu from "./rosary/MysteryMenu";
 import PlansScreen from "./rosary/PlansScreen";
 import UpdateToast from "./rosary/UpdateToast";
@@ -315,6 +316,40 @@ export default function Rosary() {
   const accentColor = setMeta.color;
   const progressPct = sequence.length > 0 ? ((currentStep + 1) / sequence.length) * 100 : 0;
 
+  const labelChip = (
+    <div style={{ textAlign: "center", marginTop: 8, marginBottom: 4 }}>
+      <span style={{
+        display: "inline-block",
+        background: accentColor + "15",
+        color: accentText(accentColor, theme),
+        padding: "5px 14px",
+        borderRadius: 20,
+        fontSize: 13,
+        fontWeight: 600,
+        letterSpacing: 0.5,
+      }}>
+        {currentPrayer?.label}
+      </span>
+    </div>
+  );
+
+  const pinned = setMeta.kind !== "rosary";
+  const card = (
+    <PrayerCard
+      currentPrayer={currentPrayer}
+      accentColor={accentColor}
+      currentStep={currentStep}
+      totalSteps={sequence.length}
+      onClick={onPrayerCardClick}
+      locale={locale}
+      showTranslation={showTranslation}
+      fontSizeClamp={fontSizeClamp(fontScale)}
+      theme={theme}
+      contained={pinned}
+      scrollRef={pinned ? prayerRef : undefined}
+    />
+  );
+
   return (
     <div style={{
       height: "100dvh",
@@ -332,23 +367,30 @@ export default function Rosary() {
           padding: "16px 20px",
           display: "flex",
           alignItems: "center",
-          gap: 12,
+          gap: 8,
         }}>
           <button
             onClick={exitToMenu}
             aria-label={t.exitToMenuAria}
+            title={t.exitToMenuAria}
             style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+              width: 38,
+              height: 30,
+              padding: 0,
               background: "rgba(255,255,255,0.2)",
               border: "none",
               borderRadius: 8,
-              padding: "6px 12px",
               cursor: "pointer",
               color: "white",
-              fontSize: 14,
+              fontSize: 18,
               fontFamily: "Arial, sans-serif",
             }}
           >
-            ← {t.back}
+            ←
           </button>
           <div style={{ flex: 1, textAlign: "center" }}>
             <div style={{
@@ -387,6 +429,7 @@ export default function Rosary() {
               </svg>
             </button>
           )}
+          <LanguageToggle showTranslation={showTranslation} onChange={setShowTranslation} accentColor={accentColor} locale={locale} />
           <FontSizeControl value={fontScale} onChange={setFontScale} accentColor={accentColor} locale={locale} />
         </div>
 
@@ -404,58 +447,51 @@ export default function Rosary() {
         )}
       </div>
 
-      {/* Main content */}
+      {/* Main content. Swipes are caught on the whole area, strand included. */}
       <div
-        ref={prayerRef}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
-        style={{
-          flex: 1,
-          minHeight: 0,
-          overflow: "auto",
-        }}
+        style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}
       >
-        {/* Centering wrapper: `min-height: 100%` centers short content but
-            grows past the viewport for long prayers, so the top stays
-            scrollable — avoids the flex auto-margin clipping trap. */}
-        <div style={{ minHeight: "100%", display: "flex", flexDirection: "column", justifyContent: "center", padding: "8px 14px" }}>
-          <div style={{ width: "100%" }}>
-          {setMeta.kind === "rosary" ? (
-            <RosaryBeads currentStep={currentStep} sequence={sequence} accentColor={accentColor} onJump={jumpTo} locale={locale} />
-          ) : setMeta.kind === "linear" ? (
-            <PrayerSections sequence={sequence} currentStep={currentStep} accentColor={accentColor} onJump={jumpTo} locale={locale} />
-          ) : null}
-
-          {/* Prayer label */}
-          <div style={{ textAlign: "center", marginTop: 8, marginBottom: 4 }}>
-            <span style={{
-              display: "inline-block",
-              background: accentColor + "15",
-              color: accentText(accentColor, theme),
-              padding: "5px 14px",
-              borderRadius: 20,
-              fontSize: 13,
-              fontWeight: 600,
-              letterSpacing: 0.5,
-            }}>
-              {currentPrayer?.label}
-            </span>
+        {pinned ? (
+          <>
+            {/* Everything but the rosary pins its progress (the bead strand,
+                for linear sets) and label above a card that scrolls its text
+                inside — so a long litany section never scrolls the progress,
+                or the card's own rounded top, out of view. */}
+            <div style={{ flexShrink: 0, padding: "8px 14px 0" }}>
+              {setMeta.kind === "linear" && (
+                <PrayerSections sequence={sequence} currentStep={currentStep} accentColor={accentColor} onJump={jumpTo} locale={locale} />
+              )}
+              {labelChip}
+            </div>
+            <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", justifyContent: "center", padding: "6px 14px 12px" }}>
+              {card}
+            </div>
+          </>
+        ) : (
+          // The rosary: the bead ring is too tall to pin, so ring, label and
+          // card scroll together.
+          <div
+            ref={prayerRef}
+            style={{
+              flex: 1,
+              minHeight: 0,
+              overflow: "auto",
+            }}
+          >
+            {/* Centering wrapper: `min-height: 100%` centers short content but
+                grows past the viewport for long prayers, so the top stays
+                scrollable — avoids the flex auto-margin clipping trap. */}
+            <div style={{ minHeight: "100%", display: "flex", flexDirection: "column", justifyContent: "center", padding: "8px 14px" }}>
+              <div style={{ width: "100%" }}>
+                <RosaryBeads currentStep={currentStep} sequence={sequence} accentColor={accentColor} onJump={jumpTo} locale={locale} />
+                {labelChip}
+                {card}
+              </div>
+            </div>
           </div>
-
-          <PrayerCard
-            currentPrayer={currentPrayer}
-            accentColor={accentColor}
-            currentStep={currentStep}
-            totalSteps={sequence.length}
-            onClick={onPrayerCardClick}
-            locale={locale}
-            showTranslation={showTranslation}
-            onLanguageChange={setShowTranslation}
-            fontSizeClamp={fontSizeClamp(fontScale)}
-            theme={theme}
-          />
-          </div>
-        </div>
+        )}
       </div>
 
       {/* Navigation */}
