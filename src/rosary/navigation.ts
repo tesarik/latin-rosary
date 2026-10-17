@@ -1,6 +1,6 @@
 // Pure session/navigation logic, extracted from the Rosary orchestrator so it
 // can be unit-tested without a DOM. Nothing here touches React or the browser:
-// `resolveInitialState` takes an already-loaded SavedState, and the step-bounds
+// `resolveSession` takes an already-loaded SavedState, and the step-bounds
 // predicate is a plain function. Rosary wires these to `localStorage` and state.
 //
 // User-defined plans aren't a static registry — they're loaded from storage and
@@ -90,18 +90,35 @@ export const isPersistableKey = (
   (has(LITANIES, k) && LITANIES[k as LitanyKey].kind === "linear") ||
   (isPlanKey(k) && !!findPlan(plans, k));
 
-// Turn a raw saved state into a ready-to-use initial state, or null if there's
-// nothing to resume: no saved state, a key that's no longer a persistable set
-// (a deleted plan included), or a step out of range for the current sequence
-// (e.g. the sequence shrank without a STATE_VERSION bump).
-export function resolveInitialState(
+// Validate a raw saved state against the live registries and plans. Every
+// progress entry must name a set that is still persistable (a deleted plan is
+// not), at a step past the first and inside the current sequence (it may have
+// shrunk, e.g. an edited plan); anything else is dropped. Step 0 is never kept:
+// there is nothing to resume. `active` reopens the set that was on screen,
+// at its saved step, or at the start if it had none.
+export function resolveSession(
   saved: SavedState | null,
   plans: Plan[] = []
-): { key: PrayerSetKey; step: number; sequence: SequenceItem[] } | null {
-  if (!saved || !isPersistableKey(saved.selectedSet, plans)) return null;
-  const sequence = buildSequence(saved.selectedSet, plans);
-  if (saved.currentStep < 0 || saved.currentStep >= sequence.length) return null;
-  return { key: saved.selectedSet, step: saved.currentStep, sequence };
+): {
+  active: { key: PrayerSetKey; step: number; sequence: SequenceItem[] } | null;
+  progress: Record<string, number>;
+} {
+  const progress: Record<string, number> = {};
+  for (const [k, step] of Object.entries(saved?.progress ?? {})) {
+    if (resumeStep(k, step, plans) !== null) progress[k] = step;
+  }
+  const key = saved?.active;
+  if (!key || !isPersistableKey(key, plans)) return { active: null, progress };
+  const step = has(progress, key) ? progress[key]! : 0;
+  return { active: { key, step, sequence: buildSequence(key, plans) }, progress };
+}
+
+// The step to resume a set at, or null if a saved step is not worth resuming:
+// a set that isn't persistable, the first step, or past the end of the
+// sequence as it is built now.
+export function resumeStep(key: string, step: number, plans: Plan[] = []): number | null {
+  if (!isPersistableKey(key, plans) || step <= 0) return null;
+  return step < buildSequence(key, plans).length ? step : null;
 }
 
 // A move is valid only if it lands on a real, different step. Used by next /

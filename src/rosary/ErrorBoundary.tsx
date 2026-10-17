@@ -1,6 +1,6 @@
 import { Component, type ReactNode } from "react";
 import { STRINGS, loadSavedLocale, detectLocale } from "./i18n";
-import { saveState } from "./storage";
+import { clearSavedState } from "./storage";
 
 type Props = { children: ReactNode };
 type State = { error: Error | null };
@@ -25,7 +25,7 @@ export default class ErrorBoundary extends Component<Props, State> {
   private reload = () => window.location.reload();
 
   private resetAndReload = () => {
-    saveState(null, 0); // clears the ruzenec_state key via the storage module
+    clearSavedState();
     window.location.reload();
   };
 

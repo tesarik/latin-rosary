@@ -20,20 +20,24 @@ import {
   type PlanStep,
 } from "./plans";
 import type { PrayerSetKey } from "./navigation";
+import type { Theme } from "./theme";
+import ResumeLine, { type ResumeInfo } from "./ResumeLine";
 
 type Props = {
   plans: Plan[];
   onChange: (plans: Plan[]) => void;
   onStart: (key: PrayerSetKey) => void;
   onClose: () => void;
+  resume: ResumeInfo;
+  theme: Theme;
   locale: Locale;
 };
 
 // The prayer-plan screen: a list of the user's saved plans, and the editor that
-// builds one. Reached from the "Prayer plans" tile on the start screen, so it
-// is only ever open when nothing is in progress — editing a plan can therefore
-// never desync a saved position (starting a set is what leaves this screen).
-export default function PlansScreen({ plans, onChange, onStart, onClose, locale }: Props) {
+// builds one. Reached from the "Prayer plans" tile on the start screen. A plan
+// may have a saved place; `Rosary.setPlans` drops it when the plan is edited or
+// deleted, since the steps it pointed into have changed.
+export default function PlansScreen({ plans, onChange, onStart, onClose, resume, theme, locale }: Props) {
   const t = STRINGS[locale];
   const [draft, setDraft] = useState<Plan | null>(null);
   const [toast, setToast] = useState<string | null>(null);
@@ -108,6 +112,8 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, locale 
               <PlanRow
                 key={plan.id}
                 plan={plan}
+                resume={resume[planKeyOf(plan.id)]}
+                theme={theme}
                 locale={locale}
                 onStart={() => onStart(planKeyOf(plan.id))}
                 onEdit={() => setDraft({ ...plan, steps: plan.steps.map((s) => ({ ...s })) })}
@@ -204,8 +210,10 @@ function Header({ title, backLabel, backAria, onBack }: {
   );
 }
 
-function PlanRow({ plan, locale, onStart, onEdit, onShare, onDelete }: {
+function PlanRow({ plan, resume, theme, locale, onStart, onEdit, onShare, onDelete }: {
   plan: Plan;
+  resume: ResumeInfo[string] | undefined;
+  theme: Theme;
   locale: Locale;
   onStart: () => void;
   onEdit: () => void;
@@ -249,6 +257,7 @@ function PlanRow({ plan, locale, onStart, onEdit, onShare, onDelete }: {
           <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>
             {t.planCount(planLength(plan.steps))}
           </div>
+          <ResumeLine info={resume} color={PLAN_COLOR} theme={theme} locale={locale} />
         </div>
       </button>
 
