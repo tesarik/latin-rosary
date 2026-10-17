@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.13.1]
+
+### Added
+- **Light/dark toggle in the prayer header**, so the theme can be switched mid-prayer without going back to the start screen. It shares its sun/moon glyph (`ThemeIcon`) with the start-screen toggle.
+
+### Fixed
+- **One response band per section in the Litany of the Saints.** It alternates *ora pro nobis* (one saint) and *oráte pro nobis* (a group) line by line, and each switch started a new band, so a section like Mártyres had three bands stacked up and several lines still carrying their response. Both forms now count as one response, labelled ***ora(te) pro nobis*** (*oroduj(te) za nás*), so every saints' section has a single band.
+
+### Changed
+- **The prayer header has two rows.** The buttons sit in one row on top: ← and ↺ on the left; ☾, Aa and 🌐 La on the right. The prayer's name runs across the full width below them, so a long litany name no longer wraps to three lines between the buttons.
+
 ## [0.13.0]
 
 ### Added
