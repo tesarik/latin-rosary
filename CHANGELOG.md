@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Fixed
+- **Service worker no longer wipes other apps' offline caches** — every app on the same domain shares one Cache Storage, and `activate` deleted every cache except its own, so updating the rosary broke offline mode of other apps deployed next to it (and vice versa). It now deletes only its own old `ruzenec-*` builds.
 - **App icon on iPhone** — iOS ignores an SVG `apple-touch-icon` and shows a page screenshot or a letter on the home screen instead. The icon is now also rendered to PNG (`icon-180.png` for iOS, `icon-192.png` / `icon-512.png` in the manifest for Android), from `icon.svg` with Inkscape.
 
 ## [0.12.0]
