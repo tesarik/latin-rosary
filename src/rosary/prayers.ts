@@ -1915,11 +1915,28 @@ const SALVE_REGINA_ANTIPHON_EN = `Hail, holy Queen, Mother of mercy, our life, o
 // Ánima Christi, and Psalm 69 in the Litany of the Saints — whose ℣/℟ split was
 // corrected to follow the Latin's, as the Czech already did.
 //
-// STILL NOT checked against any witness: Angele Dei, Réquiem, Decálogus, Ave
-// Regína Cælórum, Alma Redemptóris, the Leonine collect, the BRIGIT_* prayers,
-// and — within the Litany of the Saints — the eleven collects and the versicles.
-// The two Marian antiphons are our own wording rather than any received English
-// translation; no single received English text exists for either.
+// Third pass. The Litany of the Saints' closing versicles and ten collects
+// were our own translation; they now follow the traditional thee/thou text at
+// salvemariaregina.info (Prayers/Rogation.html — the page names no printed
+// source). Kept from the Latin rather than that page: "N." alone (it adds
+// "(Bishop)"), the short "Through our Lord Jesus Christ. Amen." our Latin
+// carries, "The Lord be with you" (it has "thee"), and the final versicle
+// without its "and the intercession of Mary", which the Latin does not have.
+// The Leonine collect now follows catholic.org (prayer 3238). Angele Dei
+// matches the received "God's love" form; Réquiem follows our Latin
+// (Requiéscant in pace) rather than the longer catechism ending; the Decálogus
+// is the traditional catechetical formula.
+//
+// The two Marian antiphons, Alma Redemptóris and Ave Regína Cælórum, take
+// their English from the Liturgy of the Hours (ICEL 1973–75, Night Prayer;
+// checked against a "Night Prayer from the Liturgy of the Hours" booklet).
+// That edition gives the Alma in prose and in "you", and the Ave Regína as the
+// rhymed "Hail, O Queen of heaven enthroned", so neither tracks the Latin line
+// for line. Only the antiphon bodies changed; the seasonal versicles and
+// collects that follow them are unchanged.
+//
+// STILL NOT checked against any witness: the BRIGIT_* prayers, which are a
+// translation of our own text (no authoritative original exists).
 //
 // House style throughout: "Holy Spirit" (not "Holy Ghost") and lower-case
 // thee/thy/thou, where the printed witnesses capitalize divine pronouns.
@@ -1942,7 +1959,7 @@ O God, whose only-begotten Son, by his life, death and resurrection, has purchas
 
   [PRAYER_TYPES.SALVE_REGINA_LEONINE]: SALVE_REGINA_ANTIPHON_EN,
 
-  [PRAYER_TYPES.LEONINE_OREMUS]: `Let us pray. O God, our refuge and our strength, look down in mercy on thy people who cry to thee; and by the intercession of the glorious and immaculate Virgin Mary, Mother of God, of Saint Joseph her spouse, of thy blessed Apostles Peter and Paul, and of all the saints, in mercy and goodness hear our prayers for the conversion of sinners, and for the liberty and exaltation of holy Mother Church. Through the same Christ our Lord. Amen.`,
+  [PRAYER_TYPES.LEONINE_OREMUS]: `Let us pray. O God, our refuge and our strength, look down with favour on thy people who cry to thee; and through the intercession of the glorious and immaculate Virgin Mary, Mother of God, of Saint Joseph her spouse, of thy blessed Apostles Peter and Paul, and of all the saints, in mercy and goodness hear our prayers for the conversion of sinners, and for the liberty and exaltation of our holy Mother the Church. Through the same Christ our Lord. Amen.`,
 
   [PRAYER_TYPES.ST_MICHAEL]: `Saint Michael the Archangel, defend us in battle; be our protection against the wickedness and snares of the devil. May God rebuke him, we humbly pray; and do thou, O Prince of the heavenly host, by the power of God, thrust into hell Satan and all the evil spirits who prowl about the world seeking the ruin of souls. Amen.`,
 
@@ -2044,7 +2061,7 @@ The Father was made by none, neither created nor begotten. The Son is from the F
 
 But it is necessary for eternal salvation that he also believe faithfully in the Incarnation of our Lord Jesus Christ. It is therefore the right faith that we believe and confess that our Lord Jesus Christ, the Son of God, is God and man. He is God, begotten of the substance of the Father before the ages; and he is man, born in the world of the substance of his mother. Perfect God, perfect man, subsisting of a rational soul and human flesh. Equal to the Father according to his divinity, less than the Father according to his humanity. Who, although he is God and man, is nevertheless not two, but one Christ. One, however, not by the conversion of the divinity into flesh, but by the assumption of the humanity into God. Wholly one, not by a confusion of substance, but by unity of person. For as a rational soul and flesh are one man, so God and man are one Christ. Who suffered for our salvation, descended into hell, on the third day rose again from the dead. He ascended into heaven, is seated at the right hand of God the Father almighty, from thence he shall come to judge the living and the dead. At whose coming all men shall rise again with their bodies, and shall give an account of their own deeds. And those who have done good shall go into life everlasting; but those who have done evil, into everlasting fire. This is the catholic faith, which, unless a man believes faithfully and firmly, he cannot be saved. Amen.`,
 
-  [PRAYER_TYPES.ALMA_REDEMPTORIS]: `Loving Mother of the Redeemer, who remainest the open gate of heaven and star of the sea, come to the help of thy falling people that strives to rise: thou who, while nature marvelled, didst bring forth thy holy Creator, Virgin before and after, receiving that Ave from the mouth of Gabriel, have mercy on us sinners.
+  [PRAYER_TYPES.ALMA_REDEMPTORIS]: `Loving mother of the Redeemer, gate of heaven, star of the sea, assist your people who have fallen yet strive to rise again. To the wonderment of nature you bore your Creator, yet remained a virgin after as before. You who received Gabriel's joyful greeting, have pity on us poor sinners.
 
 {r}In Advent:{/r}
 ℣ The Angel of the Lord declared unto Mary.
@@ -2057,15 +2074,15 @@ Let us pray. Pour forth, we beseech thee, O Lord, thy grace into our hearts, tha
 Let us pray. O God, who by the fruitful virginity of blessed Mary hast bestowed upon mankind the rewards of eternal salvation: grant, we beseech thee, that we may know the intercession of her through whom we were made worthy to receive the author of life, our Lord Jesus Christ, thy Son. Amen.`,
 
   [PRAYER_TYPES.AVE_REGINA_CAELORUM]: `{r}From the Purification to Holy Week:{/r}
-Hail, O Queen of heaven,
-hail, O Lady of the angels:
-hail, O root, hail, O gate
-from whom the light of the world has risen:
+Hail, O Queen of heaven enthroned!
+Hail, by angels Mistress owned!
+Root of Jesse, Gate of morn,
+whence the world's true light was born:
 
-Rejoice, O glorious Virgin,
-lovely beyond all others,
-farewell, O most comely one,
-and pray for us to Christ.
+Glorious Virgin, joy to thee,
+loveliest whom in heaven they see:
+fairest thou where all are fair,
+plead with Christ our sins to spare.
 
 ℣ Vouchsafe that I may praise thee, O sacred Virgin.
 ℟ Give me strength against thine enemies.
@@ -2626,47 +2643,47 @@ Lord, have mercy. 2×`,
 ℟ As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
 
   [PRAYER_TYPES.LITANY_SAINTS_VERSICLES]: `℣ Save thy servants.
-℟ O my God, who trust in thee.
+℟ Who hope in thee, O my God.
 ℣ Be unto us, O Lord, a tower of strength.
-℟ From the face of the enemy.
+℟ Against the face of the enemy.
 ℣ Let not the enemy prevail against us.
-℟ Nor the son of iniquity have power to hurt us.
+℟ Nor the son of iniquity have power to harm us.
 ℣ O Lord, deal not with us according to our sins.
-℟ Neither reward us according to our iniquities.
-℣ Let us pray for our Supreme Pontiff N.
-℟ May the Lord preserve him and give him life, and make him blessed upon the earth, and deliver him not up to the will of his enemies.
+℟ Neither requite us according to our iniquities.
+℣ Let us pray for our Sovereign Pontiff N.
+℟ The Lord preserve him and give him life, and make him blessed upon the earth, and deliver him not up to the will of his enemies.
 ℣ Let us pray for our benefactors.
-℟ Vouchsafe, O Lord, for thy name's sake, to reward with eternal life all them that do us good. Amen.
+℟ Vouchsafe, O Lord, for thy name's sake, to reward with eternal life all those who do us good. Amen.
 ℣ Let us pray for the faithful departed.
 ℟ Eternal rest grant unto them, O Lord, and let perpetual light shine upon them.
 ℣ May they rest in peace.
 ℟ Amen.
 ℣ For our absent brethren.
-℟ Save thy servants, O my God, who trust in thee.
-℣ Send them help, O Lord, from the sanctuary.
-℟ And defend them out of Sion.
+℟ Save thy servants, who hope in thee, O my God.
+℣ Send them help, O Lord, from thy holy place.
+℟ And from Sion protect them.
 ℣ O Lord, hear my prayer.
 ℟ And let my cry come unto thee.
 ℣ The Lord be with you.
 ℟ And with thy spirit.`,
 
   [PRAYER_TYPES.LITANY_SAINTS_COLLECTS]: `Let us pray.
-O God, whose nature is ever to have mercy and to spare: receive our petition; that we, and all thy servants who are bound by the chain of sins, may by the compassion of thy goodness mercifully be absolved.
-Graciously hear, we beseech thee, O Lord, the prayers of thy suppliants, and forgive the sins of them that confess to thee: that in thy bounty thou mayest grant us both pardon and peace.
-Mercifully show unto us, O Lord, thine unspeakable mercy: that thou mayest both loose us from all our sins, and deliver us from the punishments which we deserve for them.
-O God, who art offended by sin and appeased by penance: mercifully regard the prayers of thy people who make supplication unto thee, and turn away the scourges of thine anger, which we deserve for our sins.
-Almighty and eternal God, have mercy upon thy servant our Supreme Pontiff N., and direct him according to thy clemency into the way of everlasting salvation: that by thy grace he may desire the things that please thee, and perform them with all his strength.
-O God, from whom are holy desires, right counsels and just works: give unto thy servants that peace which the world cannot give; that our hearts may be devoted to thy commandments, and that, the fear of enemies being removed, our times, under thy protection, may be peaceful.
-Burn our reins and our hearts, O Lord, with the fire of the Holy Spirit: that we may serve thee with a chaste body, and please thee with a clean heart.
-O God, the Creator and Redeemer of all the faithful, grant to the souls of thy servants and handmaids the remission of all their sins: that, through pious supplications, they may obtain the pardon they have always desired.
-Prevent, we beseech thee, O Lord, our actions by thine inspiration, and further them by thy help: that every prayer and work of ours may always begin from thee, and through thee be likewise ended.
-Almighty and eternal God, who hast dominion over the living and the dead, and hast mercy on all whom thou foreknowest shall be thine by faith and works: we humbly beseech thee that they for whom we have resolved to pour forth our prayers, whether this present world still holds them in the flesh or the world to come has already received them freed from their bodies, may, through the intercession of all thy saints, by the clemency of thy goodness obtain the pardon of all their sins. Through our Lord Jesus Christ. Amen.
+O God, whose property is always to have mercy and to spare: receive our petition; that we, and all thy servants who are bound by the chains of sin, may by the compassion of thy goodness be mercifully absolved.
+Graciously hear, we beseech thee, O Lord, the prayers of thy suppliants, and pardon the sins of those who confess to thee: that in thy bounty thou mayest grant us both pardon and peace.
+In thy clemency, O Lord, show unto us thine unspeakable mercy: that thou mayest both loose us from all our sins, and deliver us from the punishments which we deserve for them.
+O God, who by sin art offended and by penance pacified: mercifully regard the prayers of thy suppliant people, and turn away the scourges of thine anger, which we deserve for our sins.
+Almighty, everlasting God, have mercy upon thy servant N., our Sovereign Pontiff, and direct him according to thy clemency into the way of everlasting salvation: that by thy grace he may desire those things that are pleasing to thee, and perform them with all his strength.
+O God, from whom are holy desires, good counsels and just works: give to thy servants that peace which the world cannot give; that our hearts be set to keep thy commandments, and that being removed from the fear of our enemies, we may pass our time in peace under thy protection.
+Inflame, O Lord, our desire and heart with the fire of the Holy Spirit: that we may serve thee with a chaste body, and please thee with a clean heart.
+O God, the Creator and Redeemer of all the faithful, give to the souls of thy servants departed the remission of all their sins: that, through pious supplication, they may obtain the pardon which they have always desired.
+Direct, we beseech thee, O Lord, our actions by thy holy inspirations, and carry them on by thy gracious assistance: that every prayer and work of ours may begin always from thee, and through thee be happily ended.
+Almighty and everlasting God, who hast dominion over the living and the dead, and art merciful to all whom thou foreknowest will be thine by faith and good works: we humbly beseech thee that those for whom we intend to pour forth our prayers, whether this present world still detain them in the flesh or the world to come has already received them out of their bodies, may, through the intercession of all thy saints, by the clemency of thy goodness obtain the remission of all their sins. Through our Lord Jesus Christ. Amen.
 
 ℣ The Lord be with you.
 ℟ And with thy spirit.
 ℣ May the almighty and merciful Lord graciously hear us.
 ℟ Amen.
-℣ And may the souls of the faithful departed, through the mercy of God, rest in peace.
+℣ May the souls of the faithful departed, through the mercy of God, rest in peace.
 ℟ Amen.`,
 };
 
