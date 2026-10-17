@@ -1,6 +1,7 @@
 // __SW_VERSION__ is replaced at build time (see vite.config.js). In dev mode
 // the SW is not registered, so the literal placeholder never reaches a browser.
-const CACHE = "ruzenec-__SW_VERSION__";
+const PREFIX = "ruzenec-";
+const CACHE = PREFIX + "__SW_VERSION__";
 
 // Deliberately no skipWaiting() here: a new build stays in the "waiting" state
 // until the user accepts the in-app "update available" prompt, which posts the
@@ -15,8 +16,9 @@ self.addEventListener("message", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     Promise.all([
+      // Other apps on the same domain share this cache storage: drop only our own old builds.
       caches.keys().then((keys) =>
-        Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
+        Promise.all(keys.filter((k) => k.startsWith(PREFIX) && k !== CACHE).map((k) => caches.delete(k)))
       ),
       self.clients.claim(),
     ])

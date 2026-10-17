@@ -19,6 +19,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 - **A litany collect containing response words is no longer part-italicized.** `renderLitany` took any known response phrase anywhere in the line, so an English collect ending "…and deliver us from the punishments which we deserve for them." italicized from *deliver us* onward. A response must now end its line, bar a short vocative (", O Lord."), and among the candidates the longest wins — needed for English, where "That thou wouldst spare us, we beseech thee, hear us." must split at *we beseech thee*, not at *spare us*.
+- **Service worker no longer wipes other apps' offline caches** — every app on the same domain shares one Cache Storage, and `activate` deleted every cache except its own, so updating the rosary broke offline mode of other apps deployed next to it (and vice versa). It now deletes only its own old `ruzenec-*` builds.
+- **App icon on iPhone** — iOS ignores an SVG `apple-touch-icon` and shows a page screenshot or a letter on the home screen instead. The icon is now also rendered to PNG (`icon-180.png` for iOS, `icon-192.png` / `icon-512.png` in the manifest for Android), from `icon.svg` with Inkscape.
 
 ## [0.12.0]
 
