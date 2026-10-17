@@ -1,6 +1,17 @@
 // Latin prayer texts and the three traditional mystery sets.
 // Source: `Posvátný růženec latinsko – česky.pdf` (not in repo).
 // Diacritics (acute accents, æ, œ) are part of the prayer text — preserve exactly.
+//
+// The Latin is the prayer; everything keyed by `Locale` beside it (PRAYERS_CS /
+// PRAYERS_EN via PRAYER_TRANSLATIONS, the mystery clauses, the display names) is
+// the translation the card's LA↔<language> toggle shows. Adding a UI locale in
+// i18n.ts therefore means adding a full translation table here.
+
+import type { Locale } from "./i18n";
+
+// One string per supported UI locale. Used for display names and the
+// per-decade mystery clauses; the prayer bodies use PRAYER_TRANSLATIONS.
+export type Localized = Record<Locale, string>;
 
 export const PRAYER_TYPES = {
   SIGN_OF_CROSS: "sign_of_cross",
@@ -75,16 +86,21 @@ export type PrayerType = (typeof PRAYER_TYPES)[keyof typeof PRAYER_TYPES];
 
 export type MysteryKey = "radostny" | "bolestny" | "slavny";
 
+type FiveClauses = readonly [string, string, string, string, string];
+
 export type MysterySet = {
+  // Latin name, shown as the set's title; `nameTr` is the localized subtitle.
   name: string;
+  nameTr: Localized;
   color: string;
-  mysteries: readonly [string, string, string, string, string];
-  mysteriesCs: readonly [string, string, string, string, string];
+  mysteries: FiveClauses;
+  mysteriesTr: Record<Locale, FiveClauses>;
 };
 
 export const MYSTERIES: Record<MysteryKey, MysterySet> = {
   radostny: {
     name: "Mysteria Gaudiosa",
+    nameTr: { cs: "Radostná tajemství", en: "The Joyful Mysteries" },
     color: "#2E7D32",
     mysteries: [
       "quem, Virgo, de Spiritu Sancto concepísti",
@@ -93,16 +109,26 @@ export const MYSTERIES: Record<MysteryKey, MysterySet> = {
       "quem, Virgo, in templo præsentásti",
       "quem, Virgo, in templo invenísti",
     ],
-    mysteriesCs: [
-      "kterého jsi, Panno, z Ducha Svatého počala",
-      "s kterým jsi, Panno, Alžbětu navštívila",
-      "kterého jsi, Panno, v Betlémě porodila",
-      "kterého jsi, Panno, v chrámě obětovala",
-      "kterého jsi, Panno, v chrámě nalezla",
-    ],
+    mysteriesTr: {
+      cs: [
+        "kterého jsi, Panno, z Ducha Svatého počala",
+        "s kterým jsi, Panno, Alžbětu navštívila",
+        "kterého jsi, Panno, v Betlémě porodila",
+        "kterého jsi, Panno, v chrámě obětovala",
+        "kterého jsi, Panno, v chrámě nalezla",
+      ],
+      en: [
+        "whom thou, O Virgin, didst conceive of the Holy Spirit",
+        "whom thou, O Virgin, didst carry when visiting Elizabeth",
+        "whom thou, O Virgin, didst bring forth in Bethlehem",
+        "whom thou, O Virgin, didst present in the temple",
+        "whom thou, O Virgin, didst find in the temple",
+      ],
+    },
   },
   bolestny: {
     name: "Mysteria Dolorosa",
+    nameTr: { cs: "Bolestná tajemství", en: "The Sorrowful Mysteries" },
     color: "#C62828",
     mysteries: [
       "qui pro nobis Sanguinem sudávit",
@@ -111,16 +137,26 @@ export const MYSTERIES: Record<MysteryKey, MysterySet> = {
       "qui pro nobis crucem baiulávit",
       "qui pro nobis crucifíxus est",
     ],
-    mysteriesCs: [
-      "který se pro nás krví potil",
-      "který byl pro nás bičován",
-      "který byl pro nás trním korunován",
-      "který pro nás nesl kříž",
-      "který byl pro nás ukřižován",
-    ],
+    mysteriesTr: {
+      cs: [
+        "který se pro nás krví potil",
+        "který byl pro nás bičován",
+        "který byl pro nás trním korunován",
+        "který pro nás nesl kříž",
+        "který byl pro nás ukřižován",
+      ],
+      en: [
+        "who sweated blood for us",
+        "who was scourged for us",
+        "who was crowned with thorns for us",
+        "who carried the cross for us",
+        "who was crucified for us",
+      ],
+    },
   },
   slavny: {
     name: "Mysteria Gloriosa",
+    nameTr: { cs: "Slavná tajemství", en: "The Glorious Mysteries" },
     color: "#F9A825",
     mysteries: [
       "qui resurréxit a mortuis",
@@ -129,13 +165,22 @@ export const MYSTERIES: Record<MysteryKey, MysterySet> = {
       "qui te, o Virgo, in cælum assúmpsit",
       "qui te, o Virgo, in cælis coronávit",
     ],
-    mysteriesCs: [
-      "který z mrtvých vstal",
-      "který na nebe vstoupil",
-      "který Ducha Svatého seslal",
-      "který tě, Panno, na nebe vzal",
-      "který tě, Panno, v nebi korunoval",
-    ],
+    mysteriesTr: {
+      cs: [
+        "který z mrtvých vstal",
+        "který na nebe vstoupil",
+        "který Ducha Svatého seslal",
+        "který tě, Panno, na nebe vzal",
+        "který tě, Panno, v nebi korunoval",
+      ],
+      en: [
+        "who rose from the dead",
+        "who ascended into heaven",
+        "who sent the Holy Spirit",
+        "who assumed thee, O Virgin, into heaven",
+        "who crowned thee, O Virgin, in heaven",
+      ],
+    },
   },
 };
 
@@ -994,15 +1039,26 @@ export function getHailMary(mystery: string | undefined): HailMary {
   };
 }
 
-const AVE_MARIA_BEFORE_CS = `Zdrávas, Maria, milosti plná, Pán s tebou, požehnaná ty mezi ženami a požehnaný plod života tvého, Ježíš`;
-const AVE_MARIA_AFTER_CS = `Svatá Maria, Matko Boží, pros za nás hříšné nyní i v hodinu smrti naší. Amen.`;
+// Translated Ave María, one halves-pair per UI locale — same split as the Latin
+// above, so the mystery clause lands in the same place in every language.
+const AVE_MARIA_TR: Record<Locale, { before: string; after: string }> = {
+  cs: {
+    before: `Zdrávas, Maria, milosti plná, Pán s tebou, požehnaná ty mezi ženami a požehnaný plod života tvého, Ježíš`,
+    after: `Svatá Maria, Matko Boží, pros za nás hříšné nyní i v hodinu smrti naší. Amen.`,
+  },
+  en: {
+    before: `Hail Mary, full of grace, the Lord is with thee; blessed art thou among women, and blessed is the fruit of thy womb, Jesus`,
+    after: `Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.`,
+  },
+};
 
-export function getHailMaryCs(mystery: string | undefined): HailMary {
+export function getHailMaryTr(locale: Locale, mystery: string | undefined): HailMary {
   const m = mystery ?? "";
+  const { before, after } = AVE_MARIA_TR[locale];
   return {
-    before: m ? `${AVE_MARIA_BEFORE_CS},` : `${AVE_MARIA_BEFORE_CS}.`,
+    before: m ? `${before},` : `${before}.`,
     mystery: m,
-    after: AVE_MARIA_AFTER_CS,
+    after,
   };
 }
 
@@ -1821,4 +1877,820 @@ Všemohoucí věčný Bože, ty vládneš živým i mrtvým a smilováváš se n
 ℟ Amen.
 ℣ A duše věřících ať pro Boží milosrdenství odpočívají v pokoji.
 ℟ Amen.`,
+};
+
+// English counterpart of the shared Salve Regína antiphon (see SALVE_REGINA_ANTIPHON).
+const SALVE_REGINA_ANTIPHON_EN = `Hail, holy Queen, Mother of mercy, our life, our sweetness and our hope. To thee do we cry, poor banished children of Eve. To thee do we send up our sighs, mourning and weeping in this valley of tears. Turn then, most gracious Advocate, thine eyes of mercy toward us. And after this our exile, show unto us the blessed fruit of thy womb, Jesus. O clement, O loving, O sweet Virgin Mary.
+
+℣ Pray for us, O holy Mother of God.
+℟ That we may be made worthy of the promises of Christ.`;
+
+// ---------------------------------------------------------------------------
+// English counterparts of the Latin prayer texts — OUR OWN RENDERING, not a
+// transcription. Unlike the Czech (much of which is sourced verbatim from the
+// Kancionál and the app's source PDFs), no English booklet was available: these
+// follow the received traditional English forms of each prayer, kept line for
+// line with the Latin so the card's LA↔EN toggle never changes the structure.
+// Treat them like the BRIGIT_* and Czech Litany-of-the-Saints entries: if a
+// trustworthy English edition is ever obtained, replace these verbatim.
+//
+// SPOT-CHECKED against online witnesses after the fact (not transcribed from
+// them). Verified line for line, no differences of substance: the Litany of
+// Loreto against vatican.va (incl. the three 2020 invocations and their
+// positions); the Litany of the Saints against preces-latinae.org, the same
+// page the Latin came from; the Precious Blood and the Holy Name against EWTN;
+// the Litany of Humility against the Merry del Val text at EWTN, which the
+// Czech here also follows. St. Joseph matches the traditional 1909 English —
+// the USCCB's 2021 translation modernizes nine invocations (Pure Guardian,
+// Provider for the Son of God, Cornerstone of families, …); the traditional
+// wording is kept deliberately, since the Latin and Czech here are traditional
+// too. Remaining differences from those witnesses are synonym-level renderings
+// of the same Latin and are kept where ours tracks the Latin more closely
+// (e.g. "immeasurable" for immensus, "freeing souls from the depths of
+// purgatory" for de lacu purgatórii).
+//
+// Second pass, also spot-checked: the Nicene Creed (replaced outright with the
+// current Roman Missal / ICEL 2011 text, to match the Czech here, which is
+// likewise the current missal), the Angelus, Regina Cæli, Sub tuum præsídium,
+// Ánima Christi, and Psalm 69 in the Litany of the Saints — whose ℣/℟ split was
+// corrected to follow the Latin's, as the Czech already did.
+//
+// Third pass. The Litany of the Saints' closing versicles and ten collects
+// were our own translation; they now follow the traditional thee/thou text at
+// salvemariaregina.info (Prayers/Rogation.html — the page names no printed
+// source). Kept from the Latin rather than that page: "N." alone (it adds
+// "(Bishop)"), the short "Through our Lord Jesus Christ. Amen." our Latin
+// carries, "The Lord be with you" (it has "thee"), and the final versicle
+// without its "and the intercession of Mary", which the Latin does not have.
+// The Leonine collect now follows catholic.org (prayer 3238). Angele Dei
+// matches the received "God's love" form; Réquiem follows our Latin
+// (Requiéscant in pace) rather than the longer catechism ending; the Decálogus
+// is the traditional catechetical formula.
+//
+// The two Marian antiphons, Alma Redemptóris and Ave Regína Cælórum, take
+// their English from the Liturgy of the Hours (ICEL 1973–75, Night Prayer;
+// checked against a "Night Prayer from the Liturgy of the Hours" booklet).
+// That edition gives the Alma in prose and in "you", and the Ave Regína as the
+// rhymed "Hail, O Queen of heaven enthroned", so neither tracks the Latin line
+// for line. Only the antiphon bodies changed; the seasonal versicles and
+// collects that follow them are unchanged.
+//
+// STILL NOT checked against any witness: the BRIGIT_* prayers, which are a
+// translation of our own text (no authoritative original exists).
+//
+// House style throughout: "Holy Spirit" (not "Holy Ghost") and lower-case
+// thee/thy/thou, where the printed witnesses capitalize divine pronouns.
+// ---------------------------------------------------------------------------
+export const PRAYERS_EN: Record<StaticPrayerType, string> = {
+  [PRAYER_TYPES.SIGN_OF_CROSS]: `In the name ☩ of the Father, and of the Son, and of the Holy Spirit. Amen.`,
+
+  [PRAYER_TYPES.CREED]: `I believe in God, the Father almighty, Creator of heaven and earth. And in Jesus Christ, his only Son, our Lord; who was conceived by the Holy Spirit, born of the Virgin Mary, suffered under Pontius Pilate, was crucified, died, and was buried; he descended into hell; on the third day he rose again from the dead; he ascended into heaven, and is seated at the right hand of God the Father almighty; from thence he shall come to judge the living and the dead. I believe in the Holy Spirit, the holy catholic Church, the communion of saints, the forgiveness of sins, the resurrection of the body, and life everlasting. Amen.`,
+
+  [PRAYER_TYPES.OUR_FATHER]: `Our Father, who art in heaven, hallowed be thy name. Thy kingdom come. Thy will be done, on earth as it is in heaven. Give us this day our daily bread, and forgive us our trespasses, as we forgive those who trespass against us. And lead us not into temptation, but deliver us from evil. Amen.`,
+
+  [PRAYER_TYPES.GLORY_BE]: `Glory be to the Father, and to the Son, and to the Holy Spirit. As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
+
+  [PRAYER_TYPES.FATIMA]: `O my Jesus, forgive us our sins, save us from the fires of hell, and lead all souls to heaven, especially those most in need of thy mercy.`,
+
+  [PRAYER_TYPES.SALVE_REGINA]: `${SALVE_REGINA_ANTIPHON_EN}
+
+Let us pray:
+O God, whose only-begotten Son, by his life, death and resurrection, has purchased for us the rewards of eternal salvation: grant, we beseech thee, that meditating upon these mysteries of the most holy Rosary of the Blessed Virgin Mary, we may imitate what they contain and obtain what they promise. Through the same Christ our Lord. Amen.`,
+
+  [PRAYER_TYPES.SALVE_REGINA_LEONINE]: SALVE_REGINA_ANTIPHON_EN,
+
+  [PRAYER_TYPES.LEONINE_OREMUS]: `Let us pray. O God, our refuge and our strength, look down with favour on thy people who cry to thee; and through the intercession of the glorious and immaculate Virgin Mary, Mother of God, of Saint Joseph her spouse, of thy blessed Apostles Peter and Paul, and of all the saints, in mercy and goodness hear our prayers for the conversion of sinners, and for the liberty and exaltation of our holy Mother the Church. Through the same Christ our Lord. Amen.`,
+
+  [PRAYER_TYPES.ST_MICHAEL]: `Saint Michael the Archangel, defend us in battle; be our protection against the wickedness and snares of the devil. May God rebuke him, we humbly pray; and do thou, O Prince of the heavenly host, by the power of God, thrust into hell Satan and all the evil spirits who prowl about the world seeking the ruin of souls. Amen.`,
+
+  [PRAYER_TYPES.COR_IESU]: `℣ Most Sacred Heart of Jesus.
+℟ Have mercy on us.`,
+
+  // Seven Prayers of St. Bridget — TRANSLATION, not a sourced text. See the note
+  // in PRAYERS above the Latin BRIGIT_* entries; the English, like the Czech, is
+  // our own rendering of the same content.
+  [PRAYER_TYPES.BRIGIT_OPENING]: `O Jesus, I now wish to pray the Lord's Prayer seven times in union with that love with which thou didst sanctify this prayer in thy Heart. Take it from my lips into thy divine Heart; amend and perfect it, that it may bring the Most Holy Trinity as much honour and joy as thou thyself didst render to it on earth by this prayer. May it overflow upon thy most sacred Humanity, to the honour and glory of thy Wounds and of the precious Blood that thou didst pour forth from them. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_CIRCUMCISION]: `O Jesus, divine lover of our souls, in honour of that first shedding of thy precious Blood which thou didst suffer for us at thy Circumcision, deliver me from every sin, mortal and venial, and protect me against the dangers and the enemies of my salvation. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_AGONY]: `O Jesus, divine lover of our souls, in honour of that fearful agony which thou didst endure in the garden of Olives, when thy most sacred Body streamed with a sweat of blood, defend me against all the enemies of my salvation, visible and invisible, and grant me the grace of a happy death. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_SCOURGING]: `O Jesus, divine lover of our souls, in honour of that precious Blood which thou didst shed in thy most cruel scourging, deliver me, I beseech thee, from the punishments my sins have deserved, and give me patience in all the trials of this life. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_THORNS]: `O Jesus, divine lover of our souls, in honour of that Blood which thou didst pour forth from thy sacred head at the crowning with thorns, deliver me from all evil thoughts and from pride, and grant that I may cleave to thee always in mind and heart. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_CROSS]: `O Jesus, divine lover of our souls, in honour of that Blood which thou didst shed while carrying the Cross to Calvary, grant me true repentance and the patience to bear my cross daily, following thee faithfully. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_CRUCIFIXION]: `O Jesus, divine lover of our souls, in honour of that precious Blood which thou didst pour forth from the Wounds of thy hands and feet upon the Cross, have mercy on me, and by those streams of thy Blood save my soul in the hour of my death. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_PIERCING]: `O Jesus, divine lover of our souls, in honour of that Blood and water which flowed from thy opened side and Heart, receive me into thy most sacred Heart, and by this last outpouring lead me and all souls into eternal glory. Amen.`,
+
+  // Current English Roman Missal (ICEL 2011) — the counterpart of the Czech
+  // here, which is likewise the current missal text.
+  [PRAYER_TYPES.NICENE_CREED]: `I believe in one God, the Father almighty, maker of heaven and earth, of all things visible and invisible. I believe in one Lord Jesus Christ, the Only Begotten Son of God, born of the Father before all ages. God from God, Light from Light, true God from true God, begotten, not made, consubstantial with the Father; through him all things were made. For us men and for our salvation he came down from heaven, and by the Holy Spirit was incarnate of the Virgin Mary, and became man. For our sake he was crucified under Pontius Pilate, he suffered death and was buried, and rose again on the third day in accordance with the Scriptures. He ascended into heaven and is seated at the right hand of the Father. He will come again in glory to judge the living and the dead and his kingdom will have no end. I believe in the Holy Spirit, the Lord, the giver of life, who proceeds from the Father and the Son, who with the Father and the Son is adored and glorified, who has spoken through the prophets. I believe in one, holy, catholic and apostolic Church. I confess one Baptism for the forgiveness of sins and I look forward to the resurrection of the dead and the life of the world to come. Amen.`,
+
+  [PRAYER_TYPES.SUB_TUUM]: `We fly to thy protection, O holy Mother of God. Despise not our petitions in our necessities, but deliver us always from all dangers, O glorious and blessed Virgin. Our Lady, our mediatrix, our advocate, reconcile us to thy Son, commend us to thy Son, present us to thy Son.`,
+
+  [PRAYER_TYPES.ANGELE_DEI]: `Angel of God, my guardian dear, to whom God's love commits me here, ever this day be at my side, to light and guard, to rule and guide. Amen.`,
+
+  [PRAYER_TYPES.REQUIEM]: `Eternal rest grant unto them, O Lord.
+And let perpetual light shine upon them.
+May they rest in peace. Amen.`,
+
+  [PRAYER_TYPES.DECALOGUE]: `1. Thou shalt not have strange gods before me.
+2. Thou shalt not take the name of the Lord thy God in vain.
+3. Remember that thou keep holy the Lord's day.
+4. Honour thy father and thy mother.
+5. Thou shalt not kill.
+6. Thou shalt not commit adultery.
+7. Thou shalt not steal.
+8. Thou shalt not bear false witness against thy neighbour.
+9. Thou shalt not covet thy neighbour's wife.
+10. Thou shalt not covet thy neighbour's goods.`,
+
+  [PRAYER_TYPES.ANGELUS]: `℣ The Angel of the Lord declared unto Mary.
+℟ And she conceived of the Holy Spirit.
+
+Hail Mary, full of grace, the Lord is with thee; blessed art thou among women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.
+
+℣ Behold the handmaid of the Lord.
+℟ Be it done unto me according to thy word.
+
+Hail Mary…
+
+℣ And the Word was made flesh.
+℟ And dwelt among us.
+
+Hail Mary…
+
+℣ Pray for us, O holy Mother of God.
+℟ That we may be made worthy of the promises of Christ.
+
+Let us pray. Pour forth, we beseech thee, O Lord, thy grace into our hearts, that we to whom the Incarnation of Christ thy Son was made known by the message of an angel, may by his Passion and Cross be brought to the glory of his Resurrection. Through Christ our Lord.
+℟ Amen.`,
+
+  [PRAYER_TYPES.REGINA_CAELI]: `Queen of heaven, rejoice, alleluia,
+for he whom thou didst merit to bear, alleluia,
+has risen as he said, alleluia.
+Pray for us to God, alleluia.
+
+℣ Rejoice and be glad, O Virgin Mary, alleluia.
+℟ For the Lord is truly risen, alleluia.
+
+Let us pray. O God, who by the resurrection of thy Son, our Lord Jesus Christ, hast been pleased to give joy to the world: grant, we beseech thee, that through his Mother, the Virgin Mary, we may lay hold of the joys of everlasting life. Through the same Christ our Lord.
+℟ Amen.`,
+
+  [PRAYER_TYPES.ANIMA_CHRISTI]: `Soul of Christ, sanctify me.
+Body of Christ, save me.
+Blood of Christ, inebriate me.
+Water from the side of Christ, wash me.
+Passion of Christ, strengthen me.
+O good Jesus, hear me.
+Within thy wounds hide me.
+Suffer me not to be separated from thee.
+From the malignant enemy defend me.
+In the hour of my death call me.
+And bid me come unto thee,
+that with thy saints I may praise thee
+for ever and ever.
+Amen.`,
+
+  [PRAYER_TYPES.ATHANASIAN_CREED]: `Whosoever wishes to be saved must, above all, hold the catholic faith: which, unless a man keeps whole and undefiled, without doubt he shall perish everlastingly. And the catholic faith is this: that we worship one God in Trinity, and Trinity in unity; neither confounding the persons, nor dividing the substance. For the person of the Father is one, that of the Son another, that of the Holy Spirit another; but the divinity of the Father, of the Son and of the Holy Spirit is one, their glory equal, their majesty coeternal. Such as the Father is, such is the Son, and such is the Holy Spirit. The Father uncreated, the Son uncreated, the Holy Spirit uncreated. The Father immeasurable, the Son immeasurable, the Holy Spirit immeasurable. The Father eternal, the Son eternal, the Holy Spirit eternal. And yet there are not three eternals, but one eternal. As also there are not three uncreated, nor three immeasurable, but one uncreated and one immeasurable. So likewise the Father is almighty, the Son almighty, the Holy Spirit almighty. And yet there are not three almighties, but one almighty. So the Father is God, the Son is God, the Holy Spirit is God. And yet there are not three Gods, but one God. So the Father is Lord, the Son is Lord, the Holy Spirit is Lord. And yet there are not three Lords, but one Lord. For as we are compelled by the Christian truth to confess each person singly to be God and Lord, so are we forbidden by the catholic religion to say that there are three Gods or Lords.
+
+The Father was made by none, neither created nor begotten. The Son is from the Father alone, not made nor created, but begotten. The Holy Spirit is from the Father and the Son, not made, nor created, nor begotten, but proceeding. So there is one Father, not three Fathers; one Son, not three Sons; one Holy Spirit, not three Holy Spirits. And in this Trinity there is nothing before or after, nothing greater or less, but all three persons are coeternal together and coequal. So that in all things, as has already been said, both the unity in Trinity and the Trinity in unity is to be worshipped. He therefore who wishes to be saved, let him think thus of the Trinity.
+
+But it is necessary for eternal salvation that he also believe faithfully in the Incarnation of our Lord Jesus Christ. It is therefore the right faith that we believe and confess that our Lord Jesus Christ, the Son of God, is God and man. He is God, begotten of the substance of the Father before the ages; and he is man, born in the world of the substance of his mother. Perfect God, perfect man, subsisting of a rational soul and human flesh. Equal to the Father according to his divinity, less than the Father according to his humanity. Who, although he is God and man, is nevertheless not two, but one Christ. One, however, not by the conversion of the divinity into flesh, but by the assumption of the humanity into God. Wholly one, not by a confusion of substance, but by unity of person. For as a rational soul and flesh are one man, so God and man are one Christ. Who suffered for our salvation, descended into hell, on the third day rose again from the dead. He ascended into heaven, is seated at the right hand of God the Father almighty, from thence he shall come to judge the living and the dead. At whose coming all men shall rise again with their bodies, and shall give an account of their own deeds. And those who have done good shall go into life everlasting; but those who have done evil, into everlasting fire. This is the catholic faith, which, unless a man believes faithfully and firmly, he cannot be saved. Amen.`,
+
+  [PRAYER_TYPES.ALMA_REDEMPTORIS]: `Loving mother of the Redeemer, gate of heaven, star of the sea, assist your people who have fallen yet strive to rise again. To the wonderment of nature you bore your Creator, yet remained a virgin after as before. You who received Gabriel's joyful greeting, have pity on us poor sinners.
+
+{r}In Advent:{/r}
+℣ The Angel of the Lord declared unto Mary.
+℟ And she conceived of the Holy Spirit.
+Let us pray. Pour forth, we beseech thee, O Lord, thy grace into our hearts, that we to whom the Incarnation of Christ thy Son was made known by the message of an angel, may by his Passion and Cross be brought to the glory of his Resurrection. Through the same Christ our Lord. Amen.
+
+{r}From Christmas to the Purification:{/r}
+℣ After childbirth thou didst remain a Virgin inviolate.
+℟ O Mother of God, intercede for us.
+Let us pray. O God, who by the fruitful virginity of blessed Mary hast bestowed upon mankind the rewards of eternal salvation: grant, we beseech thee, that we may know the intercession of her through whom we were made worthy to receive the author of life, our Lord Jesus Christ, thy Son. Amen.`,
+
+  [PRAYER_TYPES.AVE_REGINA_CAELORUM]: `{r}From the Purification to Holy Week:{/r}
+Hail, O Queen of heaven enthroned!
+Hail, by angels Mistress owned!
+Root of Jesse, Gate of morn,
+whence the world's true light was born:
+
+Glorious Virgin, joy to thee,
+loveliest whom in heaven they see:
+fairest thou where all are fair,
+plead with Christ our sins to spare.
+
+℣ Vouchsafe that I may praise thee, O sacred Virgin.
+℟ Give me strength against thine enemies.
+Let us pray. Grant, O merciful God, a defence to our weakness: that we, who keep the memory of the holy Mother of God, may by the help of her intercession rise again from our iniquities. Through the same Christ our Lord. Amen.`,
+
+  [PRAYER_TYPES.LITANY_LORETO]: `Lord, have mercy. 2×
+Christ, have mercy. 2×
+Lord, have mercy. 2×
+Christ, hear us.
+Christ, graciously hear us.
+God the Father of heaven, have mercy on us.
+God the Son, Redeemer of the world, have mercy on us.
+God the Holy Spirit, have mercy on us.
+Holy Trinity, one God, have mercy on us.
+
+Holy Mary, pray for us.
+Holy Mother of God, pray for us.
+Holy Virgin of virgins, pray for us.
+Mother of Christ, pray for us.
+Mother of the Church, pray for us.
+Mother of mercy, pray for us.
+Mother of divine grace, pray for us.
+Mother of hope, pray for us.
+Mother most pure, pray for us.
+Mother most chaste, pray for us.
+Mother inviolate, pray for us.
+Mother undefiled, pray for us.
+Mother most amiable, pray for us.
+Mother most admirable, pray for us.
+Mother of good counsel, pray for us.
+Mother of our Creator, pray for us.
+Mother of our Saviour, pray for us.
+Virgin most prudent, pray for us.
+Virgin most venerable, pray for us.
+Virgin most renowned, pray for us.
+Virgin most powerful, pray for us.
+Virgin most merciful, pray for us.
+Virgin most faithful, pray for us.
+Mirror of justice, pray for us.
+Seat of wisdom, pray for us.
+Cause of our joy, pray for us.
+Spiritual vessel, pray for us.
+Vessel of honour, pray for us.
+Singular vessel of devotion, pray for us.
+Mystical rose, pray for us.
+Tower of David, pray for us.
+Tower of ivory, pray for us.
+House of gold, pray for us.
+Ark of the covenant, pray for us.
+Gate of heaven, pray for us.
+Morning star, pray for us.
+Health of the sick, pray for us.
+Refuge of sinners, pray for us.
+Solace of migrants, pray for us.
+Comfort of the afflicted, pray for us.
+Help of Christians, pray for us.
+Queen of angels, pray for us.
+Queen of patriarchs, pray for us.
+Queen of prophets, pray for us.
+Queen of apostles, pray for us.
+Queen of martyrs, pray for us.
+Queen of confessors, pray for us.
+Queen of virgins, pray for us.
+Queen of all saints, pray for us.
+Queen conceived without original sin, pray for us.
+Queen assumed into heaven, pray for us.
+Queen of the most holy Rosary, pray for us.
+Queen of families, pray for us.
+Queen of peace, pray for us.
+
+Lamb of God, who takest away the sins of the world, spare us, O Lord.
+Lamb of God, who takest away the sins of the world, graciously hear us, O Lord.
+Lamb of God, who takest away the sins of the world, have mercy on us.
+
+℣ Pray for us, O holy Mother of God.
+℟ That we may be made worthy of the promises of Christ.
+Let us pray. Grant, we beseech thee, O Lord God, that we thy servants may enjoy perpetual health of mind and body; and by the glorious intercession of blessed Mary, ever Virgin, be delivered from present sorrow and come to enjoy eternal gladness. Through Christ our Lord. Amen.
+
+{r}In Advent:{/r}
+℣ The Angel of the Lord declared unto Mary.
+℟ And she conceived of the Holy Spirit.
+Let us pray. O God, who didst will that thy Word should take flesh in the womb of the blessed Virgin Mary at the message of an angel: grant to us thy suppliants, that we who believe her truly to be the Mother of God may be helped by her intercession with thee. Through Christ our Lord. Amen.
+
+{r}In Christmastide:{/r}
+℣ After childbirth thou didst remain a Virgin inviolate.
+℟ O Mother of God, intercede for us.
+Let us pray. O God, who by the fruitful virginity of blessed Mary hast bestowed upon mankind the rewards of eternal salvation: grant, we beseech thee, that we may know the intercession of her through whom we were made worthy to receive the author of life, our Lord Jesus Christ, thy Son. Amen.
+
+{r}In Eastertide:{/r}
+℣ Rejoice and be glad, O Virgin Mary, alleluia.
+℟ For the Lord is truly risen, alleluia.
+Let us pray. O God, who by the resurrection of thy Son, our Lord Jesus Christ, hast been pleased to give joy to the world: grant, we beseech thee, that through his Mother, the Virgin Mary, we may lay hold of the joys of everlasting life. Through the same Christ our Lord. Amen.`,
+
+  [PRAYER_TYPES.LITANY_SACRED_HEART]: `Lord, have mercy. 2×
+Christ, have mercy. 2×
+Lord, have mercy. 2×
+Christ, hear us.
+Christ, graciously hear us.
+God the Father of heaven, have mercy on us.
+God the Son, Redeemer of the world, have mercy on us.
+God the Holy Spirit, have mercy on us.
+Holy Trinity, one God, have mercy on us.
+
+Heart of Jesus, Son of the eternal Father, have mercy on us.
+Heart of Jesus, formed by the Holy Spirit in the womb of the Virgin Mother, have mercy on us.
+Heart of Jesus, substantially united to the Word of God, have mercy on us.
+Heart of Jesus, of infinite majesty, have mercy on us.
+Heart of Jesus, holy temple of God, have mercy on us.
+Heart of Jesus, tabernacle of the Most High, have mercy on us.
+Heart of Jesus, house of God and gate of heaven, have mercy on us.
+Heart of Jesus, burning furnace of charity, have mercy on us.
+Heart of Jesus, vessel of justice and love, have mercy on us.
+Heart of Jesus, full of goodness and love, have mercy on us.
+Heart of Jesus, abyss of all virtues, have mercy on us.
+Heart of Jesus, most worthy of all praise, have mercy on us.
+Heart of Jesus, king and centre of all hearts, have mercy on us.
+Heart of Jesus, in whom are all the treasures of wisdom and knowledge, have mercy on us.
+Heart of Jesus, in whom dwells all the fullness of the Godhead, have mercy on us.
+Heart of Jesus, in whom the Father was well pleased, have mercy on us.
+Heart of Jesus, of whose fullness we have all received, have mercy on us.
+Heart of Jesus, desire of the everlasting hills, have mercy on us.
+Heart of Jesus, patient and rich in mercy, have mercy on us.
+Heart of Jesus, rich to all who call upon thee, have mercy on us.
+Heart of Jesus, fount of life and holiness, have mercy on us.
+Heart of Jesus, propitiation for our sins, have mercy on us.
+Heart of Jesus, filled with reproaches, have mercy on us.
+Heart of Jesus, bruised for our offences, have mercy on us.
+Heart of Jesus, obedient unto death, have mercy on us.
+Heart of Jesus, pierced with a lance, have mercy on us.
+Heart of Jesus, source of all consolation, have mercy on us.
+Heart of Jesus, our life and resurrection, have mercy on us.
+Heart of Jesus, our peace and reconciliation, have mercy on us.
+Heart of Jesus, victim for our sins, have mercy on us.
+Heart of Jesus, salvation of those who hope in thee, have mercy on us.
+Heart of Jesus, hope of those who die in thee, have mercy on us.
+Heart of Jesus, delight of all the saints, have mercy on us.
+
+Lamb of God, who takest away the sins of the world, spare us, O Lord.
+Lamb of God, who takest away the sins of the world, graciously hear us, O Lord.
+Lamb of God, who takest away the sins of the world, have mercy on us.
+
+℣ Jesus, meek and humble of heart.
+℟ Make our hearts like unto thy Heart.
+Let us pray. Almighty and eternal God, look upon the Heart of thy most beloved Son, and upon the praises and satisfaction he offers thee in the name of sinners; and to those who implore thy mercy grant pardon in the name of the same Jesus Christ thy Son, who lives and reigns with thee for ever and ever. Amen.`,
+
+  [PRAYER_TYPES.LITANY_HOLY_NAME]: `Lord, have mercy. 2×
+Christ, have mercy. 2×
+Lord, have mercy. 2×
+Jesus, hear us.
+Jesus, graciously hear us.
+God the Father of heaven, have mercy on us.
+God the Son, Redeemer of the world, have mercy on us.
+God the Holy Spirit, have mercy on us.
+Holy Trinity, one God, have mercy on us.
+
+Jesus, Son of the living God, have mercy on us.
+Jesus, splendour of the Father, have mercy on us.
+Jesus, brightness of eternal light, have mercy on us.
+Jesus, king of glory, have mercy on us.
+Jesus, sun of justice, have mercy on us.
+Jesus, Son of the Virgin Mary, have mercy on us.
+Jesus, most amiable, have mercy on us.
+Jesus, most admirable, have mercy on us.
+Jesus, mighty God, have mercy on us.
+Jesus, father of the world to come, have mercy on us.
+Jesus, angel of great counsel, have mercy on us.
+Jesus most powerful, have mercy on us.
+Jesus most patient, have mercy on us.
+Jesus most obedient, have mercy on us.
+Jesus, meek and humble of heart, have mercy on us.
+Jesus, lover of chastity, have mercy on us.
+Jesus, lover of us, have mercy on us.
+Jesus, God of peace, have mercy on us.
+Jesus, author of life, have mercy on us.
+Jesus, model of virtues, have mercy on us.
+Jesus, zealous lover of souls, have mercy on us.
+Jesus, our God, have mercy on us.
+Jesus, our refuge, have mercy on us.
+Jesus, father of the poor, have mercy on us.
+Jesus, treasure of the faithful, have mercy on us.
+Jesus, good shepherd, have mercy on us.
+Jesus, true light, have mercy on us.
+Jesus, eternal wisdom, have mercy on us.
+Jesus, infinite goodness, have mercy on us.
+Jesus, our way and our life, have mercy on us.
+Jesus, joy of the angels, have mercy on us.
+Jesus, king of the patriarchs, have mercy on us.
+Jesus, master of the apostles, have mercy on us.
+Jesus, teacher of the evangelists, have mercy on us.
+Jesus, strength of the martyrs, have mercy on us.
+Jesus, light of the confessors, have mercy on us.
+Jesus, purity of virgins, have mercy on us.
+Jesus, crown of all saints, have mercy on us.
+
+Be merciful, spare us, O Jesus.
+Be merciful, graciously hear us, O Jesus.
+
+From all evil, deliver us, O Jesus.
+From all sin, deliver us, O Jesus.
+From thy wrath, deliver us, O Jesus.
+From the snares of the devil, deliver us, O Jesus.
+From the spirit of fornication, deliver us, O Jesus.
+From everlasting death, deliver us, O Jesus.
+From the neglect of thy inspirations, deliver us, O Jesus.
+
+Through the mystery of thy holy Incarnation, deliver us, O Jesus.
+Through thy nativity, deliver us, O Jesus.
+Through thy infancy, deliver us, O Jesus.
+Through thy most divine life, deliver us, O Jesus.
+Through thy labours, deliver us, O Jesus.
+Through thy agony and passion, deliver us, O Jesus.
+Through thy cross and dereliction, deliver us, O Jesus.
+Through thy sufferings, deliver us, O Jesus.
+Through thy death and burial, deliver us, O Jesus.
+Through thy resurrection, deliver us, O Jesus.
+Through thy ascension, deliver us, O Jesus.
+Through thy institution of the most holy Eucharist, deliver us, O Jesus.
+Through thy joys, deliver us, O Jesus.
+Through thy glory, deliver us, O Jesus.
+
+Lamb of God, who takest away the sins of the world, spare us, O Jesus.
+Lamb of God, who takest away the sins of the world, graciously hear us, O Jesus.
+Lamb of God, who takest away the sins of the world, have mercy on us, O Jesus.
+
+℣ Jesus, hear us.
+℟ Jesus, graciously hear us.
+Let us pray. O Lord Jesus Christ, who hast said: Ask and you shall receive; seek and you shall find; knock and it shall be opened to you: we beseech thee, grant to us who ask the gift of thy most divine love, that we may love thee with our whole heart, in word and in deed, and never cease to praise thee. Make us, O Lord, to have both a perpetual fear and love of thy holy name, for thou never failest to govern those whom thou dost establish in the solidity of thy love. Who livest and reignest for ever and ever. Amen.`,
+
+  // Litany of Humility — like the Latin above, not a sourced original; the
+  // English follows the widely circulated form, kept to the Latin's 8 + 8 + 7.
+  [PRAYER_TYPES.LITANY_HUMILITY]: `O Jesus, meek and humble of heart, hear me.
+
+From the desire of being esteemed, deliver me, O Jesus.
+From the desire of being loved, deliver me, O Jesus.
+From the desire of being extolled, deliver me, O Jesus.
+From the desire of being honoured, deliver me, O Jesus.
+From the desire of being praised, deliver me, O Jesus.
+From the desire of being preferred to others, deliver me, O Jesus.
+From the desire of being consulted, deliver me, O Jesus.
+From the desire of being approved, deliver me, O Jesus.
+
+From the fear of being humiliated, deliver me, O Jesus.
+From the fear of being despised, deliver me, O Jesus.
+From the fear of suffering rebukes, deliver me, O Jesus.
+From the fear of being calumniated, deliver me, O Jesus.
+From the fear of being forgotten, deliver me, O Jesus.
+From the fear of being ridiculed, deliver me, O Jesus.
+From the fear of being wronged, deliver me, O Jesus.
+From the fear of being suspected, deliver me, O Jesus.
+
+That others may be loved more than I, Jesus, grant me the grace to desire it.
+That others may be esteemed more than I, Jesus, grant me the grace to desire it.
+That others may increase in the opinion of the world and I decrease, Jesus, grant me the grace to desire it.
+That others may be chosen and I set aside, Jesus, grant me the grace to desire it.
+That others may be praised and I go unnoticed, Jesus, grant me the grace to desire it.
+That others may be preferred to me in everything, Jesus, grant me the grace to desire it.
+That others may become holier than I, provided that I become as holy as thou wouldst have me, Jesus, grant me the grace to desire it.
+
+He must increase, but I must decrease. Amen.`,
+
+  // Litany of St. Joseph, with the seven invocations added in 2021 — same
+  // interleaved positions as the Latin above.
+  [PRAYER_TYPES.LITANY_ST_JOSEPH]: `Lord, have mercy. 2×
+Christ, have mercy. 2×
+Lord, have mercy. 2×
+Christ, hear us.
+Christ, graciously hear us.
+God the Father of heaven, have mercy on us.
+God the Son, Redeemer of the world, have mercy on us.
+God the Holy Spirit, have mercy on us.
+Holy Trinity, one God, have mercy on us.
+
+Holy Mary, pray for us.
+Saint Joseph, pray for us.
+Illustrious son of David, pray for us.
+Light of the patriarchs, pray for us.
+Spouse of the Mother of God, pray for us.
+Guardian of the Redeemer, pray for us.
+Chaste guardian of the Virgin, pray for us.
+Foster-father of the Son of God, pray for us.
+Diligent defender of Christ, pray for us.
+Servant of Christ, pray for us.
+Minister of salvation, pray for us.
+Head of the Holy Family, pray for us.
+Joseph most just, pray for us.
+Joseph most chaste, pray for us.
+Joseph most prudent, pray for us.
+Joseph most valiant, pray for us.
+Joseph most obedient, pray for us.
+Joseph most faithful, pray for us.
+Mirror of patience, pray for us.
+Lover of poverty, pray for us.
+Model of workmen, pray for us.
+Glory of domestic life, pray for us.
+Guardian of virgins, pray for us.
+Pillar of families, pray for us.
+Support in difficulties, pray for us.
+Solace of the wretched, pray for us.
+Hope of the sick, pray for us.
+Patron of exiles, pray for us.
+Patron of the afflicted, pray for us.
+Patron of the poor, pray for us.
+Patron of the dying, pray for us.
+Terror of demons, pray for us.
+Protector of holy Church, pray for us.
+
+Lamb of God, who takest away the sins of the world, spare us, O Lord.
+Lamb of God, who takest away the sins of the world, graciously hear us, O Lord.
+Lamb of God, who takest away the sins of the world, have mercy on us.
+
+℣ He made him the lord of his house.
+℟ And the ruler of all his possessions.
+Let us pray. O God, who in thine ineffable providence didst vouchsafe to choose blessed Joseph to be the spouse of thy most holy Mother: grant, we beseech thee, that we may deserve to have him for our intercessor in heaven, whom we venerate as our protector on earth. Through Christ our Lord. Amen.`,
+
+  // Litany of the Most Precious Blood — the 24 invocations of the 1960 text.
+  [PRAYER_TYPES.LITANY_PRECIOUS_BLOOD]: `Lord, have mercy. 2×
+Christ, have mercy. 2×
+Lord, have mercy. 2×
+Christ, hear us.
+Christ, graciously hear us.
+God the Father of heaven, have mercy on us.
+God the Son, Redeemer of the world, have mercy on us.
+God the Holy Spirit, have mercy on us.
+Holy Trinity, one God, have mercy on us.
+
+Blood of Christ, only-begotten Son of the eternal Father, save us.
+Blood of Christ, incarnate Word of God, save us.
+Blood of Christ, of the new and eternal Testament, save us.
+Blood of Christ, falling upon the earth in the agony, save us.
+Blood of Christ, shed profusely in the scourging, save us.
+Blood of Christ, flowing forth in the crowning with thorns, save us.
+Blood of Christ, poured out on the Cross, save us.
+Blood of Christ, price of our salvation, save us.
+Blood of Christ, without which there is no forgiveness, save us.
+Blood of Christ, Eucharistic drink and refreshment of souls, save us.
+Blood of Christ, stream of mercy, save us.
+Blood of Christ, victor over demons, save us.
+Blood of Christ, courage of martyrs, save us.
+Blood of Christ, strength of confessors, save us.
+Blood of Christ, bringing forth virgins, save us.
+Blood of Christ, help of those in peril, save us.
+Blood of Christ, relief of the burdened, save us.
+Blood of Christ, solace in sorrow, save us.
+Blood of Christ, hope of the penitent, save us.
+Blood of Christ, consolation of the dying, save us.
+Blood of Christ, peace and tenderness of hearts, save us.
+Blood of Christ, pledge of eternal life, save us.
+Blood of Christ, freeing souls from the depths of purgatory, save us.
+Blood of Christ, most worthy of all glory and honour, save us.
+
+Lamb of God, who takest away the sins of the world, spare us, O Lord.
+Lamb of God, who takest away the sins of the world, graciously hear us, O Lord.
+Lamb of God, who takest away the sins of the world, have mercy on us.
+
+℣ Thou hast redeemed us, O Lord, in thy Blood.
+℟ And made us for our God a kingdom.
+Let us pray. Almighty and eternal God, who hast appointed thine only-begotten Son to be the Redeemer of the world, and hast willed to be appeased by his Blood: grant, we beseech thee, that we may so venerate the price of our salvation, and by its power be so defended on earth against the evils of this present life, that we may rejoice in its everlasting fruit in heaven. Through the same Christ our Lord. Amen.`,
+
+  // ---------------------------------------------------------------------------
+  // English for the Litany of the Saints: like the Czech beside it, OUR OWN
+  // rendering of the traditional Latin, section for section and line for line.
+  // ---------------------------------------------------------------------------
+
+  [PRAYER_TYPES.LITANY_SAINTS_SUPPLICATIO]: `Lord, have mercy. 2×
+Christ, have mercy. 2×
+Lord, have mercy. 2×
+Christ, hear us.
+Christ, graciously hear us.
+God the Father of heaven, have mercy on us.
+God the Son, Redeemer of the world, have mercy on us.
+God the Holy Spirit, have mercy on us.
+Holy Trinity, one God, have mercy on us.`,
+
+  [PRAYER_TYPES.LITANY_SAINTS_MARY]: `Holy Mary, pray for us.
+Holy Mother of God, pray for us.
+Holy Virgin of virgins, pray for us.
+Saint Michael, pray for us.
+Saint Gabriel, pray for us.
+Saint Raphael, pray for us.
+All ye holy angels and archangels, pray for us.
+All ye holy orders of blessed spirits, pray for us.`,
+
+  [PRAYER_TYPES.LITANY_SAINTS_PATRIARCHS]: `Saint Abraham, pray for us.
+Saint Moses, pray for us.
+Saint Elijah, pray for us.
+Saint John the Baptist, pray for us.
+Saint Joseph, pray for us.
+All ye holy patriarchs and prophets, pray for us.`,
+
+  [PRAYER_TYPES.LITANY_SAINTS_APOSTLES]: `Saint Peter, pray for us.
+Saint Paul, pray for us.
+Saint Andrew, pray for us.
+Saint James the Greater, pray for us.
+Saint John, pray for us.
+Saint Thomas, pray for us.
+Saint James the Less, pray for us.
+Saint Philip, pray for us.
+Saint Bartholomew, pray for us.
+Saint Matthew, pray for us.
+Saint Simon, pray for us.
+Saint Thaddeus, pray for us.
+Saint Matthias, pray for us.
+Saint Barnabas, pray for us.
+Saint Luke, pray for us.
+Saint Mark, pray for us.
+All ye holy apostles and evangelists, pray for us.
+All ye holy disciples of the Lord, pray for us.`,
+
+  [PRAYER_TYPES.LITANY_SAINTS_MARTYRS]: `All ye holy Innocents, pray for us.
+Saint Stephen, pray for us.
+Saint Ignatius of Antioch, pray for us.
+Saint Polycarp, pray for us.
+Saint Justin, pray for us.
+Saint Lawrence, pray for us.
+Saint Vincent, pray for us.
+Saints Fabian and Sebastian, pray for us.
+Saints John and Paul, pray for us.
+Saints Cosmas and Damian, pray for us.
+Saints Gervase and Protase, pray for us.
+Saint Cyprian, pray for us.
+Saint Boniface, pray for us.
+Saint Stanislaus, pray for us.
+Saint Thomas Becket, pray for us.
+Saints John Fisher and Thomas More, pray for us.
+Saint Paul Miki, pray for us.
+Saints John de Brébeuf and Isaac Jogues, pray for us.
+Saint Peter Chanel, pray for us.
+Saint Charles Lwanga, pray for us.
+Saints Perpetua and Felicity, pray for us.
+Saint Maria Goretti, pray for us.
+All ye holy martyrs, pray for us.`,
+
+  [PRAYER_TYPES.LITANY_SAINTS_BISHOPS]: `Saint Sylvester, pray for us.
+Saint Leo, pray for us.
+Saint Gregory, pray for us.
+Saint Ambrose, pray for us.
+Saint Augustine, pray for us.
+Saint Jerome, pray for us.
+Saint Athanasius, pray for us.
+Saints Basil and Gregory Nazianzen, pray for us.
+Saint John Chrysostom, pray for us.
+Saint Martin, pray for us.
+Saint Nicholas, pray for us.
+Saint Patrick, pray for us.
+Saints Cyril and Methodius, pray for us.
+Saint Charles Borromeo, pray for us.
+Saint Francis de Sales, pray for us.
+Saint Pius the Tenth, pray for us.
+All ye holy popes and confessors, pray for us.
+All ye holy doctors, pray for us.`,
+
+  [PRAYER_TYPES.LITANY_SAINTS_RELIGIOUS]: `Saint Anthony, pray for us.
+Saint Benedict, pray for us.
+Saint Bernard, pray for us.
+Saint Dominic, pray for us.
+Saint Francis, pray for us.
+Saint Thomas Aquinas, pray for us.
+Saint Ignatius of Loyola, pray for us.
+Saint Francis Xavier, pray for us.
+Saint Vincent de Paul, pray for us.
+Saint John Mary Vianney, pray for us.
+Saint John Bosco, pray for us.
+All ye holy priests and levites, pray for us.
+All ye holy monks and hermits, pray for us.`,
+
+  [PRAYER_TYPES.LITANY_SAINTS_WOMEN]: `Saint Anne, pray for us.
+Saint Mary Magdalene, pray for us.
+Saint Agatha, pray for us.
+Saint Lucy, pray for us.
+Saint Agnes, pray for us.
+Saint Cecilia, pray for us.
+Saint Catherine, pray for us.
+Saint Anastasia, pray for us.
+Saint Catherine of Siena, pray for us.
+Saint Teresa of Avila, pray for us.
+Saint Rose of Lima, pray for us.
+All ye holy virgins and widows, pray for us.`,
+
+  [PRAYER_TYPES.LITANY_SAINTS_LAITY]: `Saint Louis, pray for us.
+Saint Monica, pray for us.
+Saint Elizabeth of Hungary, pray for us.
+All ye holy men and women, saints of God, intercede for us.`,
+
+  [PRAYER_TYPES.LITANY_SAINTS_CHRIST]: `Be merciful, spare us, O Lord.
+Be merciful, graciously hear us, O Lord.
+From all evil, deliver us, O Lord.
+From all sin, deliver us, O Lord.
+From thy wrath, deliver us, O Lord.
+From sudden and unlooked-for death, deliver us, O Lord.
+From the snares of the devil, deliver us, O Lord.
+From anger, hatred and all ill will, deliver us, O Lord.
+From the spirit of fornication, deliver us, O Lord.
+From lightning and tempest, deliver us, O Lord.
+From the scourge of earthquake, deliver us, O Lord.
+From plague, famine and war, deliver us, O Lord.
+From everlasting death, deliver us, O Lord.
+Through the mystery of thy holy Incarnation, deliver us, O Lord.
+Through thy coming, deliver us, O Lord.
+Through thy nativity, deliver us, O Lord.
+Through thy baptism and holy fasting, deliver us, O Lord.
+Through thy cross and passion, deliver us, O Lord.
+Through thy death and burial, deliver us, O Lord.
+Through thy holy resurrection, deliver us, O Lord.
+Through thine admirable ascension, deliver us, O Lord.
+Through the coming of the Holy Spirit, the Paraclete, deliver us, O Lord.
+On the day of judgement, deliver us, O Lord.`,
+
+  [PRAYER_TYPES.LITANY_SAINTS_NECESSITIES]: `We sinners, we beseech thee, hear us.
+That thou wouldst spare us, we beseech thee, hear us.
+That thou wouldst pardon us, we beseech thee, hear us.
+That thou wouldst vouchsafe to bring us to true penance, we beseech thee, hear us.
+That thou wouldst vouchsafe to govern and preserve thy holy Church, we beseech thee, hear us.
+That thou wouldst vouchsafe to preserve the Apostolic Lord and all the orders of the Church in holy religion, we beseech thee, hear us.
+That thou wouldst vouchsafe to humble the enemies of holy Church, we beseech thee, hear us.
+That thou wouldst vouchsafe to grant peace and true concord to Christian rulers and princes, we beseech thee, hear us.
+That thou wouldst vouchsafe to bestow peace and unity on all Christian people, we beseech thee, hear us.
+That thou wouldst vouchsafe to call back to the unity of the Church all who have gone astray, and to lead all unbelievers to the light of the Gospel, we beseech thee, hear us.
+That thou wouldst vouchsafe to strengthen and preserve us in thy holy service, we beseech thee, hear us.
+That thou wouldst lift up our minds to heavenly desires, we beseech thee, hear us.
+That thou wouldst render eternal good to all our benefactors, we beseech thee, hear us.
+That thou wouldst deliver from eternal damnation our souls and those of our brethren, kindred and benefactors, we beseech thee, hear us.
+That thou wouldst vouchsafe to give and preserve the fruits of the earth, we beseech thee, hear us.
+That thou wouldst vouchsafe to grant eternal rest to all the faithful departed, we beseech thee, hear us.
+That thou wouldst vouchsafe to hear us, we beseech thee, hear us.`,
+
+  [PRAYER_TYPES.LITANY_SAINTS_CONCLUSION]: `Son of God, we beseech thee, hear us.
+Lamb of God, who takest away the sins of the world, spare us, O Lord.
+Lamb of God, who takest away the sins of the world, graciously hear us, O Lord.
+Lamb of God, who takest away the sins of the world, have mercy on us.
+Christ, hear us.
+Christ, graciously hear us.
+Lord, have mercy. 2×
+Christ, have mercy. 2×
+Lord, have mercy. 2×`,
+
+  [PRAYER_TYPES.LITANY_SAINTS_PSALM]: `{r}Our Father (in silence){/r}
+℣ And lead us not into temptation.
+℟ But deliver us from evil.
+
+{r}Psalm 69{/r}
+℣ O God, come to my assistance:
+℟ O Lord, make haste to help me.
+℣ Let them be confounded and ashamed,
+℟ that seek after my soul.
+℣ Let them be turned backward and blush for shame,
+℟ that desire evils to me.
+℣ Let them be presently turned away blushing for shame,
+℟ that say to me: Aha, aha.
+℣ Let them rejoice and be glad in thee,
+℟ all they that seek thee.
+℣ And let them say always: The Lord be magnified,
+℟ who love thy salvation.
+℣ But I am needy and poor:
+℟ O God, help me.
+℣ Thou art my helper and my deliverer:
+℟ O Lord, make no delay.
+℣ Glory be to the Father, and to the Son, and to the Holy Spirit.
+℟ As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
+
+  [PRAYER_TYPES.LITANY_SAINTS_VERSICLES]: `℣ Save thy servants.
+℟ Who hope in thee, O my God.
+℣ Be unto us, O Lord, a tower of strength.
+℟ Against the face of the enemy.
+℣ Let not the enemy prevail against us.
+℟ Nor the son of iniquity have power to harm us.
+℣ O Lord, deal not with us according to our sins.
+℟ Neither requite us according to our iniquities.
+℣ Let us pray for our Sovereign Pontiff N.
+℟ The Lord preserve him and give him life, and make him blessed upon the earth, and deliver him not up to the will of his enemies.
+℣ Let us pray for our benefactors.
+℟ Vouchsafe, O Lord, for thy name's sake, to reward with eternal life all those who do us good. Amen.
+℣ Let us pray for the faithful departed.
+℟ Eternal rest grant unto them, O Lord, and let perpetual light shine upon them.
+℣ May they rest in peace.
+℟ Amen.
+℣ For our absent brethren.
+℟ Save thy servants, who hope in thee, O my God.
+℣ Send them help, O Lord, from thy holy place.
+℟ And from Sion protect them.
+℣ O Lord, hear my prayer.
+℟ And let my cry come unto thee.
+℣ The Lord be with you.
+℟ And with thy spirit.`,
+
+  [PRAYER_TYPES.LITANY_SAINTS_COLLECTS]: `Let us pray.
+O God, whose property is always to have mercy and to spare: receive our petition; that we, and all thy servants who are bound by the chains of sin, may by the compassion of thy goodness be mercifully absolved.
+Graciously hear, we beseech thee, O Lord, the prayers of thy suppliants, and pardon the sins of those who confess to thee: that in thy bounty thou mayest grant us both pardon and peace.
+In thy clemency, O Lord, show unto us thine unspeakable mercy: that thou mayest both loose us from all our sins, and deliver us from the punishments which we deserve for them.
+O God, who by sin art offended and by penance pacified: mercifully regard the prayers of thy suppliant people, and turn away the scourges of thine anger, which we deserve for our sins.
+Almighty, everlasting God, have mercy upon thy servant N., our Sovereign Pontiff, and direct him according to thy clemency into the way of everlasting salvation: that by thy grace he may desire those things that are pleasing to thee, and perform them with all his strength.
+O God, from whom are holy desires, good counsels and just works: give to thy servants that peace which the world cannot give; that our hearts be set to keep thy commandments, and that being removed from the fear of our enemies, we may pass our time in peace under thy protection.
+Inflame, O Lord, our desire and heart with the fire of the Holy Spirit: that we may serve thee with a chaste body, and please thee with a clean heart.
+O God, the Creator and Redeemer of all the faithful, give to the souls of thy servants departed the remission of all their sins: that, through pious supplication, they may obtain the pardon which they have always desired.
+Direct, we beseech thee, O Lord, our actions by thy holy inspirations, and carry them on by thy gracious assistance: that every prayer and work of ours may begin always from thee, and through thee be happily ended.
+Almighty and everlasting God, who hast dominion over the living and the dead, and art merciful to all whom thou foreknowest will be thine by faith and good works: we humbly beseech thee that those for whom we intend to pour forth our prayers, whether this present world still detain them in the flesh or the world to come has already received them out of their bodies, may, through the intercession of all thy saints, by the clemency of thy goodness obtain the remission of all their sins. Through our Lord Jesus Christ. Amen.
+
+℣ The Lord be with you.
+℟ And with thy spirit.
+℣ May the almighty and merciful Lord graciously hear us.
+℟ Amen.
+℣ May the souls of the faithful departed, through the mercy of God, rest in peace.
+℟ Amen.`,
+};
+
+// The prayer body the card shows when the LA↔<language> toggle is on the
+// translation side. Keyed by UI locale, so a new locale in i18n.ts fails to
+// compile here until its table exists.
+export const PRAYER_TRANSLATIONS: Record<Locale, Record<StaticPrayerType, string>> = {
+  cs: PRAYERS_CS,
+  en: PRAYERS_EN,
 };

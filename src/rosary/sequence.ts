@@ -1,11 +1,12 @@
-import { PRAYER_TYPES, type MysterySet, type PrayerType } from "./prayers";
+import { PRAYER_TYPES, type Localized, type MysterySet, type PrayerType } from "./prayers";
 
 export type SequenceItem = {
   type: PrayerType;
   label: string;
   beadId?: string;
   mystery?: string;
-  mysteryCs?: string;
+  // The same clause in each UI language; the card picks the active one.
+  mysteryTr?: Localized;
   decade?: number;
   num?: number;
   // Section name for linear (non-rosary) prayer sets — drives the segmented
@@ -28,9 +29,9 @@ export function buildRosarySequence(mysterySet: MysterySet): SequenceItem[] {
   seq.push({ type: PRAYER_TYPES.SIGN_OF_CROSS, label: "Signum Crucis" });
   seq.push({ type: PRAYER_TYPES.CREED,        label: "Credo",        beadId: "tail-creed" });
   seq.push({ type: PRAYER_TYPES.OUR_FATHER,   label: "Pater Noster", beadId: "tail-of" });
-  seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave María", mystery: "qui adaúgeat nobis fidem",      mysteryCs: "který v nás rozmnožuje víru",       beadId: "tail-hm-0" });
-  seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave María", mystery: "qui corróboret nobis spem",     mysteryCs: "který v nás posiluje naději",      beadId: "tail-hm-1" });
-  seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave María", mystery: "qui perfíciat nobis caritátem", mysteryCs: "který v nás zdokonaluje lásku",    beadId: "tail-hm-2" });
+  seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave María", mystery: "qui adaúgeat nobis fidem",      mysteryTr: { cs: "který v nás rozmnožuje víru",  en: "who may increase our faith" },     beadId: "tail-hm-0" });
+  seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave María", mystery: "qui corróboret nobis spem",     mysteryTr: { cs: "který v nás posiluje naději", en: "who may strengthen our hope" },    beadId: "tail-hm-1" });
+  seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave María", mystery: "qui perfíciat nobis caritátem", mysteryTr: { cs: "který v nás zdokonaluje lásku", en: "who may perfect our charity" },   beadId: "tail-hm-2" });
   seq.push({ type: PRAYER_TYPES.GLORY_BE,     label: "Gloria Patri" });
 
   // 5 decades
@@ -43,7 +44,10 @@ export function buildRosarySequence(mysterySet: MysterySet): SequenceItem[] {
         decade: d,
         num: h,
         mystery: mysterySet.mysteries[d],
-        mysteryCs: mysterySet.mysteriesCs[d],
+        mysteryTr: {
+          cs: mysterySet.mysteriesTr.cs[d]!,
+          en: mysterySet.mysteriesTr.en[d]!,
+        },
         beadId: `ring-hm-${d}-${h - 1}`,
       });
     }
@@ -120,16 +124,19 @@ export type OtherPrayerKey = "leonine" | "brigit";
 // rendered as a separate block on the start screen.
 export const OTHER_PRAYER_SETS: Record<OtherPrayerKey, {
   name: string;
+  nameTr: Localized;
   color: string;
   build: () => SequenceItem[];
 }> = {
   leonine: {
     name: "Orationes Leonis XIII",
+    nameTr: { cs: "Modlitby Lva XIII.", en: "The Leonine Prayers" },
     color: "#5E35B1",
     build: buildLeoninePrayers,
   },
   brigit: {
     name: "Orationes Sanctæ Brigittæ",
+    nameTr: { cs: "Modlitby svaté Brigity", en: "The Prayers of Saint Bridget" },
     color: "#8E1B1B",
     build: buildBrigitPrayers,
   },
@@ -165,32 +172,37 @@ const ORDINARY_COLOR = "#1565C0";
 // rest use the types added in prayers.ts. The start-screen menu sorts these
 // alphabetically by name, so registry order here doesn't matter. Salve Regína
 // reuses the Leonine antiphon (which also carries the ℣/℟ versicle).
-const ordinary = (name: string, type: PrayerType): { name: string; color: string; build: () => SequenceItem[] } =>
-  ({ name, color: ORDINARY_COLOR, build: () => [{ type, label: name }] });
+// The Latin `name` titles the entry; `nameTr` is the localized subtitle under it
+// on the start screen and in the plan editor's picker.
+const ordinary = (name: string, nameTr: Localized, type: PrayerType): OrdinaryEntry =>
+  ({ name, nameTr, color: ORDINARY_COLOR, build: () => [{ type, label: name }] });
 
-export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, {
+type OrdinaryEntry = {
   name: string;
+  nameTr: Localized;
   color: string;
   build: () => SequenceItem[];
-}> = {
-  alma_redemptoris:     ordinary("Alma Redemptóris Mater", PRAYER_TYPES.ALMA_REDEMPTORIS),
-  ave_regina_caelorum:  ordinary("Ave Regína Cælórum",   PRAYER_TYPES.AVE_REGINA_CAELORUM),
-  signum_crucis:        ordinary("Signum Crucis",        PRAYER_TYPES.SIGN_OF_CROSS),
-  pater_noster:         ordinary("Pater Noster",         PRAYER_TYPES.OUR_FATHER),
-  ave_maria:            ordinary("Ave María",            PRAYER_TYPES.HAIL_MARY),
-  gloria_patri:         ordinary("Gloria Patri",         PRAYER_TYPES.GLORY_BE),
-  symbolum_apostolorum: ordinary("Symbolum Apostolórum", PRAYER_TYPES.CREED),
-  symbolum_athanasianum:ordinary("Symbolum Athanasiánum", PRAYER_TYPES.ATHANASIAN_CREED),
-  symbolum_nicenum:     ordinary("Symbolum Nicænum",     PRAYER_TYPES.NICENE_CREED),
-  salve_regina:         ordinary("Salve Regína",         PRAYER_TYPES.SALVE_REGINA_LEONINE),
-  sub_tuum:             ordinary("Sub tuum præsídium",   PRAYER_TYPES.SUB_TUUM),
-  angelus:              ordinary("Angelus Dómini",       PRAYER_TYPES.ANGELUS),
-  regina_caeli:         ordinary("Regína Cæli",          PRAYER_TYPES.REGINA_CAELI),
-  anima_christi:        ordinary("Ánima Christi",        PRAYER_TYPES.ANIMA_CHRISTI),
-  angele_dei:           ordinary("Angele Dei",           PRAYER_TYPES.ANGELE_DEI),
-  sancte_michael:       ordinary("Sancte Míchael",       PRAYER_TYPES.ST_MICHAEL),
-  requiem:              ordinary("Pro defunctis (Réquiem)", PRAYER_TYPES.REQUIEM),
-  decalogue:            ordinary("Decálogus",            PRAYER_TYPES.DECALOGUE),
+};
+
+export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, OrdinaryEntry> = {
+  alma_redemptoris:     ordinary("Alma Redemptóris Mater", { cs: "Slavná Matko Spasitele", en: "Loving Mother of the Redeemer" }, PRAYER_TYPES.ALMA_REDEMPTORIS),
+  ave_regina_caelorum:  ordinary("Ave Regína Cælórum", { cs: "Zdráva buď, Královno nebes", en: "Hail, Queen of Heaven" },   PRAYER_TYPES.AVE_REGINA_CAELORUM),
+  signum_crucis:        ordinary("Signum Crucis", { cs: "Znamení kříže", en: "The Sign of the Cross" },        PRAYER_TYPES.SIGN_OF_CROSS),
+  pater_noster:         ordinary("Pater Noster", { cs: "Otče náš", en: "The Our Father" },         PRAYER_TYPES.OUR_FATHER),
+  ave_maria:            ordinary("Ave María", { cs: "Zdrávas, Maria", en: "The Hail Mary" },            PRAYER_TYPES.HAIL_MARY),
+  gloria_patri:         ordinary("Gloria Patri", { cs: "Sláva Otci", en: "The Glory Be" },         PRAYER_TYPES.GLORY_BE),
+  symbolum_apostolorum: ordinary("Symbolum Apostolórum", { cs: "Apoštolské vyznání víry", en: "The Apostles' Creed" }, PRAYER_TYPES.CREED),
+  symbolum_athanasianum:ordinary("Symbolum Athanasiánum", { cs: "Athanasiánské vyznání víry", en: "The Athanasian Creed" }, PRAYER_TYPES.ATHANASIAN_CREED),
+  symbolum_nicenum:     ordinary("Symbolum Nicænum", { cs: "Nicejsko-cařihradské vyznání víry", en: "The Nicene Creed" },     PRAYER_TYPES.NICENE_CREED),
+  salve_regina:         ordinary("Salve Regína", { cs: "Zdrávas Královno", en: "Hail, Holy Queen" },         PRAYER_TYPES.SALVE_REGINA_LEONINE),
+  sub_tuum:             ordinary("Sub tuum præsídium", { cs: "Pod ochranu tvou", en: "Under Thy Protection" },   PRAYER_TYPES.SUB_TUUM),
+  angelus:              ordinary("Angelus Dómini", { cs: "Anděl Páně", en: "The Angelus" },       PRAYER_TYPES.ANGELUS),
+  regina_caeli:         ordinary("Regína Cæli", { cs: "Raduj se, Královno nebeská", en: "Queen of Heaven" },          PRAYER_TYPES.REGINA_CAELI),
+  anima_christi:        ordinary("Ánima Christi", { cs: "Duše Kristova", en: "Soul of Christ" },        PRAYER_TYPES.ANIMA_CHRISTI),
+  angele_dei:           ordinary("Angele Dei", { cs: "Anděle Boží", en: "Angel of God" },           PRAYER_TYPES.ANGELE_DEI),
+  sancte_michael:       ordinary("Sancte Míchael", { cs: "Svatý Michaeli", en: "Saint Michael the Archangel" },       PRAYER_TYPES.ST_MICHAEL),
+  requiem:              ordinary("Pro defunctis (Réquiem)", { cs: "Za zemřelé", en: "Eternal Rest" }, PRAYER_TYPES.REQUIEM),
+  decalogue:            ordinary("Decálogus", { cs: "Desatero", en: "The Ten Commandments" },            PRAYER_TYPES.DECALOGUE),
 };
 
 export type LitanyKey =
@@ -206,6 +218,7 @@ const LITANY_COLOR = "#3949AB";
 
 type LitanyEntry = {
   name: string;
+  nameTr: Localized;
   color: string;
   build: () => SequenceItem[];
   // Litanies are single-step unless they say otherwise. Only the Litany of the
@@ -214,8 +227,8 @@ type LitanyEntry = {
   kind?: "single" | "linear";
 };
 
-const litany = (name: string, type: PrayerType): LitanyEntry =>
-  ({ name, color: LITANY_COLOR, build: () => [{ type, label: name }] });
+const litany = (name: string, nameTr: Localized, type: PrayerType): LitanyEntry =>
+  ({ name, nameTr, color: LITANY_COLOR, build: () => [{ type, label: name }] });
 
 // The Litany of the Saints, section by section — the source's own five divisions,
 // with the saints split into their labelled groups and the long conclusion into
@@ -250,16 +263,17 @@ export function buildSaintsLitany(): SequenceItem[] {
 // different — named saints, deprecations, intercessions — and long enough that it
 // would want the `linear` kind with a section stepper rather than one step.
 export const LITANIES: Record<LitanyKey, LitanyEntry> = {
-  loreto:       litany("Litaníæ Lauretánæ", PRAYER_TYPES.LITANY_LORETO),
-  sacred_heart: litany("Litaníæ Sacratíssimi Cordis Iesu", PRAYER_TYPES.LITANY_SACRED_HEART),
-  holy_name:    litany("Litaníæ Sanctíssimi Nóminis Iesu", PRAYER_TYPES.LITANY_HOLY_NAME),
+  loreto:       litany("Litaníæ Lauretánæ", { cs: "Loretánské litanie", en: "The Litany of Loreto" }, PRAYER_TYPES.LITANY_LORETO),
+  sacred_heart: litany("Litaníæ Sacratíssimi Cordis Iesu", { cs: "Litanie k Nejsvětějšímu Srdci Ježíšovu", en: "The Litany of the Sacred Heart" }, PRAYER_TYPES.LITANY_SACRED_HEART),
+  holy_name:    litany("Litaníæ Sanctíssimi Nóminis Iesu", { cs: "Litanie k nejsvětějšímu jménu Ježíš", en: "The Litany of the Holy Name" }, PRAYER_TYPES.LITANY_HOLY_NAME),
   // Private devotion, not one of the approved liturgical litanies; its Latin is
   // ours rather than a sourced original (see the banner in prayers.ts).
-  humility:     litany("Litaníæ Humilitátis", PRAYER_TYPES.LITANY_HUMILITY),
-  st_joseph:    litany("Litaníæ Sancti Ioseph", PRAYER_TYPES.LITANY_ST_JOSEPH),
-  precious_blood: litany("Litaníæ Pretiosíssimi Sánguinis D.N.I.C.", PRAYER_TYPES.LITANY_PRECIOUS_BLOOD),
+  humility:     litany("Litaníæ Humilitátis", { cs: "Litanie pokory", en: "The Litany of Humility" }, PRAYER_TYPES.LITANY_HUMILITY),
+  st_joseph:    litany("Litaníæ Sancti Ioseph", { cs: "Litanie k svatému Josefu", en: "The Litany of Saint Joseph" }, PRAYER_TYPES.LITANY_ST_JOSEPH),
+  precious_blood: litany("Litaníæ Pretiosíssimi Sánguinis D.N.I.C.", { cs: "Litanie k Nejdražší Krvi Páně", en: "The Litany of the Precious Blood" }, PRAYER_TYPES.LITANY_PRECIOUS_BLOOD),
   saints: {
     name: "Litaníæ Omnium Sanctórum",
+    nameTr: { cs: "Litanie ke všem svatým", en: "The Litany of the Saints" },
     color: LITANY_COLOR,
     build: buildSaintsLitany,
     kind: "linear",
