@@ -1,7 +1,8 @@
 import { describe, it, expect } from "vitest";
 import {
   isPersistableKey,
-  resolveInitialState,
+  resolveSession,
+  resumeStep,
   canGoToStep,
   buildSequence,
   getPrayerSetMeta,
@@ -11,11 +12,15 @@ import { MYSTERIES } from "./prayers";
 import { OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES } from "./sequence";
 import { PLAN_COLOR, type Plan } from "./plans";
 
-const saved = (selectedSet: string, currentStep: number): SavedState => ({
+const saved = (active: string | null, progress: Record<string, number>): SavedState => ({
   version: STATE_VERSION,
-  selectedSet,
-  currentStep,
+  active,
+  progress,
 });
+
+// The common case: one set open at a saved step.
+const open = (key: string, step: number, plans: Plan[] = []) =>
+  resolveSession(saved(key, { [key]: step }), plans);
 
 describe("isPersistableKey", () => {
   it("accepts every rosary mystery set", () => {
@@ -48,45 +53,78 @@ describe("isPersistableKey", () => {
   });
 });
 
-describe("resolveInitialState", () => {
-  it("returns null when there's nothing saved", () => {
-    expect(resolveInitialState(null)).toBeNull();
+describe("resolveSession", () => {
+  it("returns nothing to resume when there's nothing saved", () => {
+    expect(resolveSession(null)).toEqual({ active: null, progress: {} });
   });
 
-  it("resumes a valid rosary position with a rebuilt sequence", () => {
-    const res = resolveInitialState(saved("radostny", 5));
-    expect(res).not.toBeNull();
-    expect(res!.key).toBe("radostny");
-    expect(res!.step).toBe(5);
-    expect(res!.sequence.length).toBe(74);
+  it("reopens a valid rosary position with a rebuilt sequence", () => {
+    const { active } = open("radostny", 5);
+    expect(active).not.toBeNull();
+    expect(active!.key).toBe("radostny");
+    expect(active!.step).toBe(5);
+    expect(active!.sequence.length).toBe(74);
   });
 
-  it("resumes a linear devotion", () => {
-    const res = resolveInitialState(saved("brigit", 3));
-    expect(res).not.toBeNull();
-    expect(res!.key).toBe("brigit");
-    expect(res!.sequence.length).toBe(buildSequence("brigit").length);
+  it("reopens a linear devotion", () => {
+    const { active } = open("brigit", 3);
+    expect(active!.key).toBe("brigit");
+    expect(active!.sequence.length).toBe(buildSequence("brigit").length);
   });
 
-  it("rejects a non-persistable key even if saved", () => {
-    expect(resolveInitialState(saved("loreto", 0))).toBeNull();
-    expect(resolveInitialState(saved("pater_noster", 0))).toBeNull();
+  it("keeps the place of every unfinished set, not just the open one", () => {
+    const res = resolveSession(saved("leonine", { radostny: 23, leonine: 2, saints: 5 }));
+    expect(res.progress).toEqual({ radostny: 23, leonine: 2, saints: 5 });
+    expect(res.active).toMatchObject({ key: "leonine", step: 2 });
   });
 
-  it("rejects a step past the end of the (possibly shrunk) sequence", () => {
+  it("can hold progress with nothing open (the user went back to the menu)", () => {
+    const res = resolveSession(saved(null, { slavny: 40 }));
+    expect(res.active).toBeNull();
+    expect(res.progress).toEqual({ slavny: 40 });
+  });
+
+  it("opens a set with no saved step at its start", () => {
+    expect(resolveSession(saved("bolestny", {})).active).toMatchObject({ key: "bolestny", step: 0 });
+  });
+
+  it("rejects a non-persistable key, as the open set and as progress", () => {
+    const res = resolveSession(saved("loreto", { loreto: 1, pater_noster: 1 }));
+    expect(res.active).toBeNull();
+    expect(res.progress).toEqual({});
+  });
+
+  it("rejects prototype keys", () => {
+    const res = resolveSession(saved("toString", { toString: 3, constructor: 2 }));
+    expect(res.active).toBeNull();
+    expect(res.progress).toEqual({});
+  });
+
+  it("drops a step past the end of the (possibly shrunk) sequence", () => {
     const len = buildSequence("radostny").length;
-    expect(resolveInitialState(saved("radostny", len))).toBeNull();
-    expect(resolveInitialState(saved("radostny", len + 100))).toBeNull();
+    expect(open("radostny", len).progress).toEqual({});
+    expect(open("radostny", len + 100).progress).toEqual({});
+    expect(open("radostny", len).active).toMatchObject({ key: "radostny", step: 0 });
   });
 
   it("accepts the last valid step but not one beyond it", () => {
     const len = buildSequence("slavny").length;
-    expect(resolveInitialState(saved("slavny", len - 1))).not.toBeNull();
-    expect(resolveInitialState(saved("slavny", len))).toBeNull();
+    expect(open("slavny", len - 1).progress).toEqual({ slavny: len - 1 });
+    expect(open("slavny", len).progress).toEqual({});
   });
 
-  it("rejects a negative step", () => {
-    expect(resolveInitialState(saved("radostny", -1))).toBeNull();
+  it("drops step 0 and negative steps: nothing to resume", () => {
+    expect(open("radostny", 0).progress).toEqual({});
+    expect(open("radostny", -1).progress).toEqual({});
+  });
+});
+
+describe("resumeStep", () => {
+  it("returns the saved step only when it is worth resuming", () => {
+    expect(resumeStep("radostny", 23)).toBe(23);
+    expect(resumeStep("radostny", 0)).toBeNull();
+    expect(resumeStep("radostny", 74)).toBeNull();
+    expect(resumeStep("pater_noster", 1)).toBeNull();
   });
 });
 
@@ -167,15 +205,15 @@ describe("user prayer plans", () => {
   });
 
   it("resumes a saved plan mid-sequence", () => {
-    expect(resolveInitialState(saved(key, 3), [plan])).toMatchObject({ key, step: 3 });
+    expect(open(key, 3, [plan]).active).toMatchObject({ key, step: 3 });
   });
 
   it("drops saved progress once the plan is deleted", () => {
-    expect(resolveInitialState(saved(key, 3), [])).toBeNull();
+    expect(open(key, 3, [])).toEqual({ active: null, progress: {} });
   });
 
   it("drops saved progress once the plan has been shortened past it", () => {
     const shorter: Plan = { ...plan, steps: [{ key: "signum_crucis", repeat: 1 }] };
-    expect(resolveInitialState(saved(key, 3), [shorter])).toBeNull();
+    expect(open(key, 3, [shorter]).progress).toEqual({});
   });
 });

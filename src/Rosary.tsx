@@ -1,13 +1,14 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { type SequenceItem } from "./rosary/sequence";
 import { loadSavedState, saveState } from "./rosary/storage";
-import { getPrayerSetMeta, buildSequence, isPersistableKey, resolveInitialState, canGoToStep, type PrayerSetKey } from "./rosary/navigation";
+import { getPrayerSetMeta, buildSequence, isPersistableKey, resolveSession, resumeStep, canGoToStep, type PrayerSetKey } from "./rosary/navigation";
 import { STRINGS, detectLocale, loadSavedLocale, saveLocale, loadSavedShowTranslation, saveShowTranslation, type Locale } from "./rosary/i18n";
 import { DEFAULT_FONT_SCALE, clampFontScale, fontSizeClamp, loadSavedFontScale, saveFontScale } from "./rosary/fontSize";
 import { accentText, applyTheme, loadSavedTheme, resolveTheme, saveTheme, systemTheme, type Theme } from "./rosary/theme";
 import { track } from "./rosary/analytics";
 import {
   isPlanKey,
+  planKeyOf,
   loadPlans,
   savePlans,
   newPlanId,
@@ -32,12 +33,15 @@ export default function Rosary() {
   // helpers take the live list rather than reading storage themselves.
   const [plans, setPlansState] = useState<Plan[]>(loadPlans);
   const [plansOpen, setPlansOpen] = useState(false);
-  const saved = useRef(resolveInitialState(loadSavedState(), plans));
+  const saved = useRef(resolveSession(loadSavedState(), plans));
 
-  const [selectedSet, setSelectedSet] = useState<PrayerSetKey | null>(saved.current?.key ?? null);
-  const [currentStep, setCurrentStep] = useState<number>(saved.current?.step ?? 0);
-  const [sequence, setSequence] = useState<SequenceItem[]>(saved.current?.sequence ?? []);
-  const [started, setStarted] = useState<boolean>(!!saved.current);
+  const [selectedSet, setSelectedSet] = useState<PrayerSetKey | null>(saved.current.active?.key ?? null);
+  const [currentStep, setCurrentStep] = useState<number>(saved.current.active?.step ?? 0);
+  const [sequence, setSequence] = useState<SequenceItem[]>(saved.current.active?.sequence ?? []);
+  const [started, setStarted] = useState<boolean>(!!saved.current.active);
+  // Saved step of every unfinished multi-step set, so leaving one to pray
+  // something else never loses its place. Kept in step with currentStep below.
+  const [progress, setProgress] = useState<Record<string, number>>(saved.current.progress);
   const [showTranslation, setShowTranslationState] = useState<boolean>(() => loadSavedShowTranslation() ?? false);
   const [locale, setLocaleState] = useState<Locale>(() => loadSavedLocale() ?? detectLocale());
   const [fontScale, setFontScaleState] = useState<number>(() => loadSavedFontScale() ?? DEFAULT_FONT_SCALE);
@@ -47,10 +51,27 @@ export default function Rosary() {
   const prayerRef = useRef<HTMLDivElement | null>(null);
   const touchStart = useRef<TouchSample | null>(null);
 
+  // Saving plans also forgets the place in any plan that was edited or
+  // deleted: its saved step pointed into a sequence that no longer exists.
   const setPlans = useCallback((next: Plan[]) => {
     savePlans(next);
+    const unchanged = new Set(
+      next
+        .filter((p) => {
+          const old = plans.find((o) => o.id === p.id);
+          return old && JSON.stringify(old.steps) === JSON.stringify(p.steps);
+        })
+        .map((p) => planKeyOf(p.id))
+    );
+    setProgress((prev) => {
+      const stale = Object.keys(prev).filter((k) => isPlanKey(k) && !unchanged.has(k));
+      if (stale.length === 0) return prev;
+      const kept = { ...prev };
+      for (const k of stale) delete kept[k];
+      return kept;
+    });
     setPlansState(next);
-  }, []);
+  }, [plans]);
 
   const setLocale = useCallback((next: Locale) => {
     setLocaleState(next);
@@ -91,13 +112,37 @@ export default function Rosary() {
     return () => mq.removeEventListener("change", onChange);
   }, []);
 
-  // Persist on every change. Multi-step sets (the rosary + the linear devotions
-  // like St. Bridget) survive a reload; single-prayer sets are session-only
-  // (nothing to resume), so refreshing one drops you back to the menu.
+  // Record the open set's step in the progress map. Only multi-step sets (the
+  // rosary, the linear devotions, the linear litany, plans) are tracked;
+  // single-prayer sets have nothing to resume. Step 0 is "not started", so it
+  // is removed rather than stored.
   useEffect(() => {
-    const key = started && selectedSet && isPersistableKey(selectedSet, plans) ? selectedSet : null;
-    saveState(key, currentStep);
+    if (!started || !selectedSet || !isPersistableKey(selectedSet, plans)) return;
+    setProgress((prev) => {
+      if (currentStep > 0 ? prev[selectedSet] === currentStep : !Object.hasOwn(prev, selectedSet)) return prev;
+      const next = { ...prev };
+      if (currentStep > 0) next[selectedSet] = currentStep;
+      else delete next[selectedSet];
+      return next;
+    });
   }, [selectedSet, currentStep, started, plans]);
+
+  // Persist on every change: the progress map, plus the open set so a reload
+  // reopens it (a single-prayer set reloads to the menu instead).
+  useEffect(() => {
+    const active = started && selectedSet && isPersistableKey(selectedSet, plans) ? selectedSet : null;
+    saveState(active, progress);
+  }, [selectedSet, started, progress, plans]);
+
+  // What the start screen shows under each unfinished set: "Continue · 23/74".
+  // Entries a plan edit or deletion has made unresumable are left out.
+  const resume = useMemo(() => {
+    const out: Record<string, { step: number; total: number }> = {};
+    for (const [k, step] of Object.entries(progress)) {
+      if (resumeStep(k, step, plans) !== null) out[k] = { step: step + 1, total: buildSequence(k as PrayerSetKey, plans).length };
+    }
+    return out;
+  }, [progress, plans]);
 
   // A shared plan arrives in the URL fragment (#plan=…). Import it once, on
   // mount: the fragment is cleared first so a reload — or a declined import —
@@ -144,14 +189,15 @@ export default function Rosary() {
     };
   }, [started]);
 
+  // Opening a set resumes it where it was left, if it was left unfinished.
   const startSet = useCallback((key: PrayerSetKey) => {
     setSelectedSet(key);
     setSequence(buildSequence(key, plans));
-    setCurrentStep(0);
+    setCurrentStep(resumeStep(key, progress[key] ?? 0, plans) ?? 0);
     setStarted(true);
     // Plan ids are per-device and unbounded — report plans as one bucket.
     track(`pray/${isPlanKey(key) ? "plan" : key}`);
-  }, [plans]);
+  }, [plans, progress]);
 
   const buzz = () => { try { navigator.vibrate?.(25); } catch {} };
 
@@ -168,18 +214,30 @@ export default function Rosary() {
   const prev = () => goToStep(currentStep - 1);
   const jumpTo = (idx: number) => goToStep(idx);
 
-  const reset = () => {
+  // Back to the menu. The set's progress stays in the map, so opening it
+  // again resumes where it was left.
+  const exitToMenu = () => {
     setStarted(false);
     setSelectedSet(null);
     setCurrentStep(0);
     setSequence([]);
-    saveState(null, 0);
   };
 
-  const confirmReset = () => {
-    if (currentStep === 0 || window.confirm(t.confirmExit)) {
-      reset();
+  // Finishing a set forgets its progress; the next time it starts from the top.
+  const finish = () => {
+    if (selectedSet) {
+      setProgress((prev) => {
+        if (!Object.hasOwn(prev, selectedSet)) return prev;
+        const next = { ...prev };
+        delete next[selectedSet];
+        return next;
+      });
     }
+    exitToMenu();
+  };
+
+  const confirmRestart = () => {
+    if (window.confirm(t.confirmRestart)) goToStep(0);
   };
 
   // Keyboard navigation
@@ -231,11 +289,14 @@ export default function Rosary() {
             onChange={setPlans}
             onStart={startSet}
             onClose={() => setPlansOpen(false)}
+            resume={resume}
+            theme={theme}
             locale={locale}
           />
         ) : (
           <MysteryMenu
             onStart={startSet}
+            resume={resume}
             onOpenPlans={() => setPlansOpen(true)}
             planCount={plans.length}
             locale={locale}
@@ -252,7 +313,7 @@ export default function Rosary() {
   const setMeta = getPrayerSetMeta(selectedSet, plans);
   const currentPrayer = sequence[currentStep];
   const accentColor = setMeta.color;
-  const progress = sequence.length > 0 ? ((currentStep + 1) / sequence.length) * 100 : 0;
+  const progressPct = sequence.length > 0 ? ((currentStep + 1) / sequence.length) * 100 : 0;
 
   return (
     <div style={{
@@ -274,7 +335,7 @@ export default function Rosary() {
           gap: 12,
         }}>
           <button
-            onClick={confirmReset}
+            onClick={exitToMenu}
             aria-label={t.exitToMenuAria}
             style={{
               background: "rgba(255,255,255,0.2)",
@@ -299,6 +360,33 @@ export default function Rosary() {
               {setMeta.name}
             </div>
           </div>
+          {/* Restart: with progress now kept across visits, this is the way
+              back to the first step. Hidden on step 0, where it would do nothing. */}
+          {currentStep > 0 && (
+            <button
+              onClick={confirmRestart}
+              aria-label={t.restartAria}
+              title={t.restartAria}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 34,
+                height: 30,
+                padding: 0,
+                border: "none",
+                borderRadius: 8,
+                cursor: "pointer",
+                background: "rgba(255,255,255,0.2)",
+                color: "white",
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 12a9 9 0 1 0 3-6.7" />
+                <path d="M3 3v6h6" />
+              </svg>
+            </button>
+          )}
           <FontSizeControl value={fontScale} onChange={setFontScale} accentColor={accentColor} locale={locale} />
         </div>
 
@@ -308,7 +396,7 @@ export default function Rosary() {
           <div style={{ height: 7, background: "var(--track)" }}>
             <div style={{
               height: "100%",
-              width: `${progress}%`,
+              width: `${progressPct}%`,
               background: accentColor,
               transition: "width 0.3s ease",
             }} />
@@ -421,7 +509,7 @@ export default function Rosary() {
           </button>
         ) : (
           <button
-            onClick={reset}
+            onClick={finish}
             aria-label={t.finishAria}
             style={{
               padding: "14px 40px",

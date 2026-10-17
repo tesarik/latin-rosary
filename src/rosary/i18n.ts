@@ -15,8 +15,11 @@ type Strings = {
   previous: string;
   next: string;
   finish: string;
-  confirmExit: string;
   exitToMenuAria: string;
+  restartAria: string;
+  confirmRestart: string;
+  // Under an unfinished set on the start screen: "Continue · 23/74".
+  resumeAt: (step: number, total: number) => string;
   navAria: string;
   previousAria: string;
   nextAria: string;
@@ -94,8 +97,10 @@ export const STRINGS: Record<Locale, Strings> = {
     previous: "Předchozí",
     next: "Další",
     finish: "Dokončit",
-    confirmExit: "Opravdu chcete ukončit modlitbu? Postup bude ztracen.",
-    exitToMenuAria: "Ukončit modlitbu a zpět do menu",
+    exitToMenuAria: "Zpět do menu, postup zůstane uložen",
+    restartAria: "Začít modlitbu znovu",
+    confirmRestart: "Začít modlitbu znovu od začátku?",
+    resumeAt: (step, total) => `Pokračovat · ${step}/${total}`,
     navAria: "Navigace modlitby",
     previousAria: "Předchozí modlitba",
     nextAria: "Další modlitba",
@@ -170,8 +175,10 @@ export const STRINGS: Record<Locale, Strings> = {
     previous: "Previous",
     next: "Next",
     finish: "Finish",
-    confirmExit: "End the prayer? Your progress will be lost.",
-    exitToMenuAria: "End prayer and return to menu",
+    exitToMenuAria: "Back to menu, your progress is kept",
+    restartAria: "Start the prayer again",
+    confirmRestart: "Start this prayer again from the beginning?",
+    resumeAt: (step, total) => `Continue · ${step}/${total}`,
     navAria: "Prayer navigation",
     previousAria: "Previous prayer",
     nextAria: "Next prayer",

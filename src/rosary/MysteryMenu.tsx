@@ -4,6 +4,7 @@ import { OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type OtherPrayerKey } fr
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
 import type { PrayerSetKey } from "./navigation";
 import type { Theme } from "./theme";
+import ResumeLine, { type ResumeInfo } from "./ResumeLine";
 import { PLAN_COLOR } from "./plans";
 import Flag from "./Flag";
 import AboutDialog from "./AboutDialog";
@@ -15,6 +16,7 @@ type GroupEntry = [PrayerSetKey, { name: string; nameTr: Localized; color: strin
 
 type Props = {
   onStart: (key: PrayerSetKey) => void;
+  resume: ResumeInfo;
   onOpenPlans: () => void;
   planCount: number;
   locale: Locale;
@@ -179,15 +181,18 @@ function LanguagePicker({ locale, onChange }: { locale: Locale; onChange: (l: Lo
 // and "Litaníæ"; tapping a link starts that one-prayer "set". Every row shows
 // the Latin name with its name in the UI language as a muted subtitle — the
 // same two-line shape the prayer-plan tile uses.
-function CollapsiblePrayers({ title, subtitle, entries, onStart, locale }: {
+function CollapsiblePrayers({ title, subtitle, entries, onStart, resume, theme, locale }: {
   title: string;
   subtitle: string;
   entries: [PrayerSetKey, { name: string; nameTr: Localized; color: string }][];
   onStart: (key: PrayerSetKey) => void;
+  resume: ResumeInfo;
+  theme: Theme;
   locale: Locale;
 }) {
   const t = STRINGS[locale];
-  const [open, setOpen] = useState(false);
+  // A group holding an unfinished set starts open, so its place is visible.
+  const [open, setOpen] = useState(() => entries.some(([k]) => Object.hasOwn(resume, k)));
   const sorted = [...entries].sort((a, b) => a[1].name.localeCompare(b[1].name));
   const accent = sorted[0]?.[1].color ?? "#1565C0";
 
@@ -269,6 +274,7 @@ function CollapsiblePrayers({ title, subtitle, entries, onStart, locale }: {
               <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 1 }}>
                 {val.nameTr[locale]}
               </div>
+              <ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />
             </button>
           ))}
         </div>
@@ -280,7 +286,7 @@ function CollapsiblePrayers({ title, subtitle, entries, onStart, locale }: {
 // Start screen: title + one button per mystery set. Also hosts the language
 // picker — language is locked in once a rosary starts.
 // onStart(key) hands the chosen mystery key back to the parent.
-export default function MysteryMenu({ onStart, onOpenPlans, planCount, locale, onLocaleChange, theme, onToggleTheme }: Props) {
+export default function MysteryMenu({ onStart, resume, onOpenPlans, planCount, locale, onLocaleChange, theme, onToggleTheme }: Props) {
   const t = STRINGS[locale];
   const [aboutOpen, setAboutOpen] = useState(false);
 
@@ -324,6 +330,7 @@ export default function MysteryMenu({ onStart, onOpenPlans, planCount, locale, o
             color={val.color}
             ariaLabel={t.startRosaryAria(val.nameTr[locale])}
             icon="rosary"
+            resume={<ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />}
             onClick={() => onStart(key)}
           />
         ))}
@@ -345,6 +352,8 @@ export default function MysteryMenu({ onStart, onOpenPlans, planCount, locale, o
           subtitle={t.ordinaryGroupName}
           entries={Object.entries(ORDINARY_PRAYERS) as GroupEntry[]}
           onStart={onStart}
+          resume={resume}
+          theme={theme}
           locale={locale}
         />
 
@@ -353,6 +362,8 @@ export default function MysteryMenu({ onStart, onOpenPlans, planCount, locale, o
           subtitle={t.litaniesGroupName}
           entries={Object.entries(LITANIES) as GroupEntry[]}
           onStart={onStart}
+          resume={resume}
+          theme={theme}
           locale={locale}
         />
 
@@ -364,6 +375,7 @@ export default function MysteryMenu({ onStart, onOpenPlans, planCount, locale, o
             color={val.color}
             ariaLabel={t.startPrayerAria(val.nameTr[locale])}
             icon="cross"
+            resume={<ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />}
             onClick={() => onStart(key)}
           />
         ))}
@@ -403,9 +415,10 @@ export default function MysteryMenu({ onStart, onOpenPlans, planCount, locale, o
 // Shared button used for both rosary mystery sets and the linear prayer block.
 // The icon variant tells the rosary buttons apart from the linear ones at a
 // glance — circle-with-cross for rosary, plain cross for linear prayers.
-function PrayerSetButton({ name, subtitle, color, ariaLabel, icon, onClick }: {
+function PrayerSetButton({ name, subtitle, resume, color, ariaLabel, icon, onClick }: {
   name: string;
   subtitle?: string;
+  resume?: React.ReactNode;
   color: string;
   ariaLabel: string;
   icon: "rosary" | "cross" | "plan";
@@ -469,6 +482,7 @@ function PrayerSetButton({ name, subtitle, color, ariaLabel, icon, onClick }: {
             {subtitle}
           </div>
         )}
+        {resume}
       </div>
     </button>
   );
