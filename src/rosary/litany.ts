@@ -67,9 +67,32 @@ export function responseStart(line: string): number {
 export const LITANY_ACCLAMATION =
   /^(Kyrie|Christe|Pane|Kriste), (eléison|smiluj se)\.|^(Christe|Iesu|Kriste|Ježíši), (ex)?(áudi|audi|slyš|uslyš|vyslyš) (nos|nás)\.|^(Lord|Christ), have mercy\.|^(Christ|Jesus), (graciously )?hear us\./;
 
-// A known response, as the line carries it, minus closing punctuation — the
-// key a run of lines is grouped by ("ora pro nobis.", "ora pro nobis" → same).
+// A known response, as the line carries it, minus closing punctuation
+// ("ora pro nobis.", "ora pro nobis" → same).
 const responseKey = (response: string): string => response.replace(/[.!;:,\s]+$/, "");
+
+// The plural form of a response, mapped to its singular and to the band
+// label for a run that uses both: the Litany of the Saints answers a group
+// ("Omnes sancti Apóstoli…", "Sancti Cyrílle et Methódi…") with "oráte" where
+// one saint gets "ora", and alternates between them line by line. Treating
+// both as one response keeps one band per run, labelled "ora(te) pro nobis",
+// instead of a new band at every switch. English uses "pray for us" for both.
+const PLURAL_OF: Record<string, { singular: string; both: string }> = {
+  "oráte pro nobis": { singular: "ora pro nobis", both: "ora(te) pro nobis" },
+  "orodujte za nás": { singular: "oroduj za nás", both: "oroduj(te) za nás" },
+};
+const family = (response: string): string => {
+  const k = responseKey(response);
+  return Object.hasOwn(PLURAL_OF, k) ? PLURAL_OF[k]!.singular : k;
+};
+
+// The band text for a run: its one response form, or the combined label when
+// it mixes the singular and plural.
+function bandLabel(forms: string[]): string {
+  if (forms.length === 1) return forms[0]!;
+  const plural = forms.find((f) => Object.hasOwn(PLURAL_OF, f));
+  return plural ? PLURAL_OF[plural]!.both : forms[0]!;
+}
 
 export type LitanyBlock =
   | { kind: "blank" }
@@ -94,10 +117,18 @@ const isStructural = (trimmed: string): boolean =>
   LITANY_ACCLAMATION.test(trimmed);
 
 // Split a litany (or one section of it) into display blocks. Two or more
-// consecutive invocations with the same response become a `run`; a lone one
-// keeps its response inline, so a response is never shown above a single line.
+// consecutive invocations with the same response — counting a plural form
+// as the same (see PLURAL_OF) — become a `run`; a lone one keeps its response
+// inline, so a response is never shown above a single line.
 export function parseLitany(text: string): LitanyBlock[] {
   const blocks: LitanyBlock[] = [];
+  // The response forms seen in each run, for its band label.
+  const forms = new Map<LitanyBlock, string[]>();
+  const note = (run: LitanyBlock, response: string) => {
+    const list = forms.get(run)!;
+    const k = responseKey(response);
+    if (!list.includes(k)) list.push(k);
+  };
   for (const line of text.split("\n")) {
     const trimmed = line.trim();
     if (trimmed === "") { blocks.push({ kind: "blank" }); continue; }
@@ -106,13 +137,19 @@ export function parseLitany(text: string): LitanyBlock[] {
     const invocation = line.slice(0, at).trimEnd();
     const response = line.slice(at).trim();
     const prev = blocks[blocks.length - 1];
-    if (prev?.kind === "run" && responseKey(prev.response) === responseKey(response)) {
+    if (prev?.kind === "run" && family(prev.response) === family(response)) {
       prev.invocations.push(bare(invocation));
-    } else if (prev?.kind === "single" && responseKey(prev.response) === responseKey(response)) {
-      blocks[blocks.length - 1] = { kind: "run", response: responseKey(response), invocations: [bare(prev.invocation), bare(invocation)] };
+      note(prev, response);
+    } else if (prev?.kind === "single" && family(prev.response) === family(response)) {
+      const run: LitanyBlock = { kind: "run", response: family(response), invocations: [bare(prev.invocation), bare(invocation)] };
+      forms.set(run, []);
+      note(run, prev.response);
+      note(run, response);
+      blocks[blocks.length - 1] = run;
     } else {
       blocks.push({ kind: "single", invocation, response });
     }
   }
+  for (const [run, list] of forms) if (run.kind === "run") run.response = bandLabel(list);
   return blocks;
 }

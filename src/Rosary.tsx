@@ -22,6 +22,7 @@ import PrayerCard from "./rosary/PrayerCard";
 import PrayerSections from "./rosary/PrayerSections";
 import FontSizeControl from "./rosary/FontSizeControl";
 import LanguageToggle from "./rosary/LanguageToggle";
+import ThemeIcon from "./rosary/ThemeIcon";
 import MysteryMenu from "./rosary/MysteryMenu";
 import PlansScreen from "./rosary/PlansScreen";
 import UpdateToast from "./rosary/UpdateToast";
@@ -362,13 +363,14 @@ export default function Rosary() {
 
       {/* Sticky top: header + progress bar move together */}
       <div style={{ position: "sticky", top: 0, zIndex: 10 }}>
+        {/* Two rows: the controls on top (back + restart left; theme, text
+            size and language right), the set's name across the full width
+            below, so a long litany name never has to squeeze between buttons. */}
         <div style={{
           background: accentColor,
-          padding: "16px 20px",
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
+          padding: "10px 14px 12px",
         }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
           <button
             onClick={exitToMenu}
             aria-label={t.exitToMenuAria}
@@ -392,16 +394,6 @@ export default function Rosary() {
           >
             ←
           </button>
-          <div style={{ flex: 1, textAlign: "center" }}>
-            <div style={{
-              color: "white",
-              fontFamily: "Arial, sans-serif",
-              fontSize: 20,
-              fontWeight: 600,
-            }}>
-              {setMeta.name}
-            </div>
-          </div>
           {/* Restart: with progress now kept across visits, this is the way
               back to the first step. Hidden on step 0, where it would do nothing. */}
           {currentStep > 0 && (
@@ -429,8 +421,43 @@ export default function Rosary() {
               </svg>
             </button>
           )}
-          <LanguageToggle showTranslation={showTranslation} onChange={setShowTranslation} accentColor={accentColor} locale={locale} />
+          <div style={{ flex: 1 }} />
+          <button
+            onClick={toggleTheme}
+            aria-label={t.themeToggleAria}
+            aria-pressed={theme === "dark"}
+            title={t.themeToggleAria}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+              width: 34,
+              height: 30,
+              padding: 0,
+              background: "rgba(255,255,255,0.2)",
+              border: "none",
+              borderRadius: 8,
+              cursor: "pointer",
+              color: "white",
+            }}
+          >
+            <ThemeIcon dark={theme === "dark"} size={16} />
+          </button>
           <FontSizeControl value={fontScale} onChange={setFontScale} accentColor={accentColor} locale={locale} />
+          <LanguageToggle showTranslation={showTranslation} onChange={setShowTranslation} accentColor={accentColor} locale={locale} />
+        </div>
+        <div style={{
+          marginTop: 8,
+          textAlign: "center",
+          color: "white",
+          fontFamily: "Arial, sans-serif",
+          fontSize: 20,
+          fontWeight: 600,
+          lineHeight: 1.25,
+        }}>
+          {setMeta.name}
+        </div>
         </div>
 
         {/* Progress bar — only the rosary has a sequence long enough to

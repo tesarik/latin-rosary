@@ -206,6 +206,22 @@ describe("litany responses", () => {
     expect(singles.filter((s) => s && s.startsWith("Agnus Dei")).length).toBe(3);
   });
 
+  // The Litany of the Saints alternates "ora" (one saint) and "oráte" (a
+  // group); both are one response, so each section gets a single band.
+  it("treats ora / oráte as one response: one band per saints' section", () => {
+    for (const [locale, label] of [[undefined, "ora(te) pro nobis"], ["cs", "oroduj(te) za nás"]] as const) {
+      const text = locale ? translatedText(locale, PRAYER_TYPES.LITANY_SAINTS_MARTYRS)! : PRAYERS[PRAYER_TYPES.LITANY_SAINTS_MARTYRS];
+      const blocks = parseLitany(text).filter((b) => b.kind !== "blank");
+      expect(blocks.length, locale ?? "la").toBe(1);
+      expect(blocks[0]!.kind === "run" && blocks[0]!.response, locale ?? "la").toBe(label);
+    }
+  });
+
+  it("keeps a run of only the singular form labelled as such", () => {
+    const blocks = parseLitany(PRAYERS[PRAYER_TYPES.LITANY_SAINTS_LAITY]);
+    expect(blocks[0]!.kind === "run" && blocks[0]!.response).toBe("ora pro nobis");
+  });
+
   it("never groups the Kyrie or a versicle", () => {
     const blocks = parseLitany(PRAYERS[PRAYER_TYPES.LITANY_SACRED_HEART]);
     const plain = blocks.filter((b) => b.kind === "plain").map((b) => b.kind === "plain" && b.line);
