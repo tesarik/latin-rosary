@@ -37,7 +37,7 @@ type Strings = {
   aboutClose: string;
   aboutBuilt: string;
   localeName: string;
-  // Two-letter badge on the prayer card's language toggle (LA ↔ this).
+  // Two-letter code on the header language button (La ↔ this).
   prayerLanguageShort: string;
   otherPrayersHeading: string;
   ordinaryGroupName: string;
@@ -118,7 +118,7 @@ export const STRINGS: Record<Locale, Strings> = {
     aboutClose: "Zavřít",
     aboutBuilt: "sestaveno",
     localeName: "Čeština",
-    prayerLanguageShort: "CZ",
+    prayerLanguageShort: "Cz",
     otherPrayersHeading: "Další latinské modlitby",
     ordinaryGroupName: "Základní modlitby",
     litaniesGroupName: "Litanie",
@@ -196,7 +196,7 @@ export const STRINGS: Record<Locale, Strings> = {
     aboutClose: "Close",
     aboutBuilt: "built",
     localeName: "English",
-    prayerLanguageShort: "EN",
+    prayerLanguageShort: "En",
     otherPrayersHeading: "Other Latin prayers",
     ordinaryGroupName: "Essential prayers",
     litaniesGroupName: "Litanies",

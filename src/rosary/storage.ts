@@ -2,12 +2,17 @@ const STORAGE_KEY = "ruzenec_state";
 
 // Bump on any structural change to the prayer sequence (or this schema) so stale
 // saved progress is discarded cleanly instead of silently desyncing positions.
-export const STATE_VERSION = 5;
+export const STATE_VERSION = 6;
 
-// Version 4 stored a single `{ selectedSet, currentStep }`. Its sequences are
-// identical to version 5's, so it is migrated rather than discarded — dropping
-// it would lose every in-progress rosary on update.
-const LEGACY_SINGLE_SESSION_VERSION = 4;
+// Older saves are migrated rather than discarded, which would lose every
+// in-progress rosary on update. Version 4 stored a single
+// `{ selectedSet, currentStep }`; version 5 has today's shape. In both, only
+// user plans have a different sequence now (version 6 split the one-card
+// litanies into sections, so a plan containing one got longer), so the places
+// kept in plans are dropped and everything else carries over.
+const V4_SINGLE_SESSION = 4;
+const V5_PROGRESS_MAP = 5;
+const isStalePlanKey = (k: string): boolean => k.startsWith("plan:");
 
 // `progress` holds the saved step of every multi-step set that was left
 // unfinished, so praying something else in between never loses a place.
@@ -30,18 +35,21 @@ export function loadSavedState(): SavedState | null {
     const saved = JSON.parse(raw) as Record<string, unknown> | null;
     if (!saved || typeof saved !== "object") return null;
 
-    if (saved.version === LEGACY_SINGLE_SESSION_VERSION) {
+    if (saved.version === V4_SINGLE_SESSION) {
       const { selectedSet, currentStep } = saved;
       if (typeof selectedSet !== "string" || !selectedSet || !isStep(currentStep)) return null;
+      if (isStalePlanKey(selectedSet)) return null;
       return { version: STATE_VERSION, active: selectedSet, progress: { [selectedSet]: currentStep } };
     }
 
-    if (saved.version !== STATE_VERSION) return null;
-    const active = typeof saved.active === "string" && saved.active ? saved.active : null;
+    const migrating = saved.version === V5_PROGRESS_MAP;
+    if (saved.version !== STATE_VERSION && !migrating) return null;
+    let active = typeof saved.active === "string" && saved.active ? saved.active : null;
+    if (migrating && active && isStalePlanKey(active)) active = null;
     const progress: Record<string, number> = {};
     if (saved.progress && typeof saved.progress === "object") {
       for (const [k, v] of Object.entries(saved.progress)) {
-        if (k && isStep(v)) progress[k] = v;
+        if (k && isStep(v) && !(migrating && isStalePlanKey(k))) progress[k] = v;
       }
     }
     return { version: STATE_VERSION, active, progress };

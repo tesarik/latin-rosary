@@ -12,7 +12,19 @@ export type SequenceItem = {
   // Section name for linear (non-rosary) prayer sets — drives the segmented
   // stepper shown above the prayer card. Rosary items leave this unset.
   section?: string;
+  // For one section of a longer text: the [start, end) line range to show.
+  // Line-based, so one range serves every language (see sliceLines).
+  lines?: readonly [number, number];
 };
+
+// The [start, end) lines of a text, without the blank spacer lines a section
+// boundary leaves at either edge.
+export function sliceLines(text: string, [start, end]: readonly [number, number]): string {
+  const lines = text.split("\n").slice(start, end);
+  while (lines.length > 0 && lines[0]!.trim() === "") lines.shift();
+  while (lines.length > 0 && lines[lines.length - 1]!.trim() === "") lines.pop();
+  return lines.join("\n");
+}
 
 // Rosary structure (74 positions total):
 //   Opening (7): Sign of Cross + Creed + Pater Noster + 3 Ave Marias + Gloria Patri
@@ -221,14 +233,36 @@ type LitanyEntry = {
   nameTr: Localized;
   color: string;
   build: () => SequenceItem[];
-  // Litanies are single-step unless they say otherwise. Only the Litany of the
-  // Saints is "linear": too long for one card, so it steps through its sections
-  // (and therefore persists — see isPersistableKey).
+  // "linear" steps through sections (and therefore persists — see
+  // isPersistableKey); a litany without a kind is one single step. Every
+  // litany is linear today: the Litany of the Saints with one prayer type per
+  // section, the others cut from one text by line range (see `litany`).
   kind?: "single" | "linear";
 };
 
-const litany = (name: string, nameTr: Localized, type: PrayerType): LitanyEntry =>
-  ({ name, nameTr, color: LITANY_COLOR, build: () => [{ type, label: name }] });
+// A litany stepped through section by section, cut out of its one text by line
+// number. Each section is [label, first line]; it runs to the next section's
+// first line, and the last one to the end. The translations keep the Latin's
+// line structure (prayers.test.ts checks it), so one set of cuts fits every
+// language. The label is the section's opening words, or its theme.
+const litany = (
+  name: string,
+  nameTr: Localized,
+  type: PrayerType,
+  sections: readonly (readonly [string, number])[]
+): LitanyEntry => ({
+  name,
+  nameTr,
+  color: LITANY_COLOR,
+  kind: "linear",
+  build: () =>
+    sections.map(([label, start], i) => ({
+      type,
+      label,
+      section: label,
+      lines: [start, sections[i + 1]?.[1] ?? Number.MAX_SAFE_INTEGER] as const,
+    })),
+});
 
 // The Litany of the Saints, section by section — the source's own five divisions,
 // with the saints split into their labelled groups and the long conclusion into
@@ -256,21 +290,57 @@ export function buildSaintsLitany(): SequenceItem[] {
   return LITANY_SAINTS_SECTIONS.map((s) => ({ type: s.type, label: s.section, section: s.section }));
 }
 
-// Litanies — shown as expandable links under "Litaníæ" on the start screen,
-// same single-prayer model as ORDINARY_PRAYERS (one long step, no beads). Five of
-// the six approved for public recitation, plus the Litany of Humility (a private
-// devotion). Only the Litany of the Saints is missing: it is structurally
-// different — named saints, deprecations, intercessions — and long enough that it
-// would want the `linear` kind with a section stepper rather than one step.
+// Litanies — shown as expandable links under "Litaníæ" on the start screen.
+// Each steps through its sections with the bead strand, like the Leonine
+// prayers: the six litanies approved for public recitation, plus the Litany of
+// Humility (a private devotion). Sections follow each litany's own divisions —
+// the Kyrie and the Trinity, the groups of invocations, then the Agnus Dei
+// with the versicle and collect — splitting a long run of one form roughly
+// evenly where the text has no division of its own.
 export const LITANIES: Record<LitanyKey, LitanyEntry> = {
-  loreto:       litany("Litaníæ Lauretánæ", { cs: "Loretánské litanie", en: "The Litany of Loreto" }, PRAYER_TYPES.LITANY_LORETO),
-  sacred_heart: litany("Litaníæ Sacratíssimi Cordis Iesu", { cs: "Litanie k Nejsvětějšímu Srdci Ježíšovu", en: "The Litany of the Sacred Heart" }, PRAYER_TYPES.LITANY_SACRED_HEART),
-  holy_name:    litany("Litaníæ Sanctíssimi Nóminis Iesu", { cs: "Litanie k nejsvětějšímu jménu Ježíš", en: "The Litany of the Holy Name" }, PRAYER_TYPES.LITANY_HOLY_NAME),
+  loreto: litany("Litaníæ Lauretánæ", { cs: "Loretánské litanie", en: "The Litany of Loreto" }, PRAYER_TYPES.LITANY_LORETO, [
+    ["Kyrie", 0],
+    ["Sancta María", 10],
+    ["Virgo", 27],
+    ["Spéculum iustítiæ", 33],
+    ["Regína", 51],
+    ["Agnus Dei", 65],
+  ]),
+  sacred_heart: litany("Litaníæ Sacratíssimi Cordis Iesu", { cs: "Litanie k Nejsvětějšímu Srdci Ježíšovu", en: "The Litany of the Sacred Heart" }, PRAYER_TYPES.LITANY_SACRED_HEART, [
+    ["Kyrie", 0],
+    ["Cor Iesu I", 10],
+    ["Cor Iesu II", 23],
+    ["Cor Iesu III", 32],
+    ["Agnus Dei", 44],
+  ]),
+  holy_name: litany("Litaníæ Sanctíssimi Nóminis Iesu", { cs: "Litanie k nejsvětějšímu jménu Ježíš", en: "The Litany of the Holy Name" }, PRAYER_TYPES.LITANY_HOLY_NAME, [
+    ["Kyrie", 0],
+    ["Iesu I", 10],
+    ["Iesu II", 29],
+    ["Ab omni malo", 49],
+    ["Per mystérium", 60],
+    ["Agnus Dei", 75],
+  ]),
   // Private devotion, not one of the approved liturgical litanies; its Latin is
   // ours rather than a sourced original (see the banner in prayers.ts).
-  humility:     litany("Litaníæ Humilitátis", { cs: "Litanie pokory", en: "The Litany of Humility" }, PRAYER_TYPES.LITANY_HUMILITY),
-  st_joseph:    litany("Litaníæ Sancti Ioseph", { cs: "Litanie k svatému Josefu", en: "The Litany of Saint Joseph" }, PRAYER_TYPES.LITANY_ST_JOSEPH),
-  precious_blood: litany("Litaníæ Pretiosíssimi Sánguinis D.N.I.C.", { cs: "Litanie k Nejdražší Krvi Páně", en: "The Litany of the Precious Blood" }, PRAYER_TYPES.LITANY_PRECIOUS_BLOOD),
+  humility: litany("Litaníæ Humilitátis", { cs: "Litanie pokory", en: "The Litany of Humility" }, PRAYER_TYPES.LITANY_HUMILITY, [
+    ["A desidério", 0],
+    ["A timóre", 11],
+    ["Ut álii", 20],
+  ]),
+  st_joseph: litany("Litaníæ Sancti Ioseph", { cs: "Litanie k svatému Josefu", en: "The Litany of Saint Joseph" }, PRAYER_TYPES.LITANY_ST_JOSEPH, [
+    ["Kyrie", 0],
+    ["Sancte Ioseph", 10],
+    ["Ioseph iustíssime", 22],
+    ["Custos vírginum", 32],
+    ["Agnus Dei", 44],
+  ]),
+  precious_blood: litany("Litaníæ Pretiosíssimi Sánguinis D.N.I.C.", { cs: "Litanie k Nejdražší Krvi Páně", en: "The Litany of the Precious Blood" }, PRAYER_TYPES.LITANY_PRECIOUS_BLOOD, [
+    ["Kyrie", 0],
+    ["Sanguis Christi I", 10],
+    ["Sanguis Christi II", 22],
+    ["Agnus Dei", 35],
+  ]),
   saints: {
     name: "Litaníæ Omnium Sanctórum",
     nameTr: { cs: "Litanie ke všem svatým", en: "The Litany of the Saints" },
