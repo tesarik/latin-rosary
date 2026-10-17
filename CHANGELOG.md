@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.13.1]
 
 ### Added
 - **Light/dark toggle in the prayer header**, so the theme can be switched mid-prayer without going back to the start screen. It shares its sun/moon glyph (`ThemeIcon`) with the start-screen toggle.
