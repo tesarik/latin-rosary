@@ -1,7 +1,8 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { type SequenceItem } from "./rosary/sequence";
 import { loadSavedState, saveState } from "./rosary/storage";
-import { getPrayerSetMeta, buildSequence, isPersistableKey, resolveSession, resumeStep, canGoToStep, type PrayerSetKey } from "./rosary/navigation";
+import { getPrayerSetMeta, buildSequence, isPersistableKey, isRosaryKey, resolveSession, resumeStep, canGoToStep, type PrayerSetKey } from "./rosary/navigation";
+import { MYSTERIES, PRAYER_TYPES } from "./rosary/prayers";
 import { STRINGS, detectLocale, loadSavedLocale, saveLocale, loadSavedShowTranslation, saveShowTranslation, type Locale } from "./rosary/i18n";
 import { DEFAULT_FONT_SCALE, clampFontScale, fontSizeClamp, loadSavedFontScale, saveFontScale } from "./rosary/fontSize";
 import { accentText, applyTheme, loadSavedTheme, resolveTheme, saveTheme, systemTheme, type Theme } from "./rosary/theme";
@@ -15,6 +16,7 @@ import {
   readSharedPlanFromHash,
   requestPersistentStorage,
   MAX_PLANS,
+  PLAN_COLOR,
   type Plan,
 } from "./rosary/plans";
 import RosaryBeads from "./rosary/RosaryBeads";
@@ -26,9 +28,29 @@ import ThemeIcon from "./rosary/ThemeIcon";
 import MysteryMenu from "./rosary/MysteryMenu";
 import PlansScreen from "./rosary/PlansScreen";
 import UpdateToast from "./rosary/UpdateToast";
+import { askConfirm } from "./rosary/ConfirmDialog";
 import { useServiceWorkerUpdate } from "./rosary/useServiceWorkerUpdate";
 
 type TouchSample = { x: number; y: number; time: number };
+
+const ROMAN = ["I", "II", "III", "IV", "V"] as const;
+
+// Side-by-side layout (progress left, card right): a phone on its side or a
+// tablet. Below this a portrait phone stacks them.
+const WIDE_LAYOUT = "(orientation: landscape) and (min-width: 640px)";
+
+function useMediaQuery(query: string): boolean {
+  const [matches, setMatches] = useState(() => typeof matchMedia !== "undefined" && matchMedia(query).matches);
+  useEffect(() => {
+    if (typeof matchMedia === "undefined") return;
+    const mq = matchMedia(query);
+    const onChange = () => setMatches(mq.matches);
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, [query]);
+  return matches;
+}
 
 export default function Rosary() {
   // Plans are user data loaded from their own storage key; the navigation
@@ -50,6 +72,7 @@ export default function Rosary() {
   const [theme, setThemeState] = useState<Theme>(() => resolveTheme());
   const { updateReady, applyUpdate, dismissUpdate } = useServiceWorkerUpdate();
   const t = STRINGS[locale];
+  const wide = useMediaQuery(WIDE_LAYOUT);
   const prayerRef = useRef<HTMLDivElement | null>(null);
   const touchStart = useRef<TouchSample | null>(null);
 
@@ -166,13 +189,16 @@ export default function Rosary() {
     if (!draft) return;
     history.replaceState(null, "", window.location.pathname + window.location.search);
     if (plans.length >= MAX_PLANS) {
-      window.alert(t.planLimitReached);
+      void askConfirm({ message: t.planLimitReached, confirmLabel: t.dialogOk, cancelLabel: null, color: PLAN_COLOR });
       return;
     }
-    if (!window.confirm(t.planImportConfirm(draft.name))) return;
-    setPlans([...plans, { ...draft, id: newPlanId(plans) }]);
-    requestPersistentStorage();
-    setPlansOpen(true);
+    void askConfirm({ message: t.planImportConfirm(draft.name), confirmLabel: t.planImportAdd, cancelLabel: t.planCancel, color: PLAN_COLOR })
+      .then((ok) => {
+        if (!ok) return;
+        setPlans([...plans, { ...draft, id: newPlanId(plans) }]);
+        requestPersistentStorage();
+        setPlansOpen(true);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -212,11 +238,16 @@ export default function Rosary() {
     track(`pray/${isPlanKey(key) ? "plan" : key}`);
   }, [plans, progress]);
 
-  const buzz = () => { try { navigator.vibrate?.(25); } catch {} };
+  // A short tick on every step; a double pulse on reaching a decade's Gloria
+  // Patri, so the end of a decade can be felt without looking at the screen.
+  const buzz = (item: SequenceItem | undefined) => {
+    const decadeEnd = item?.type === PRAYER_TYPES.GLORY_BE && item.decade !== undefined;
+    try { navigator.vibrate?.(decadeEnd ? [35, 90, 35] : 25); } catch {}
+  };
 
   const goToStep = (idx: number) => {
     if (canGoToStep(idx, currentStep, sequence.length)) {
-      buzz();
+      buzz(sequence[idx]);
       setCurrentStep(idx);
       const reduce = typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches;
       prayerRef.current?.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
@@ -249,8 +280,9 @@ export default function Rosary() {
     exitToMenu();
   };
 
-  const confirmRestart = () => {
-    if (window.confirm(t.confirmRestart)) goToStep(0);
+  const confirmRestart = async () => {
+    const ok = await askConfirm({ message: t.confirmRestart, confirmLabel: t.restartLabel, cancelLabel: t.planCancel, color: getPrayerSetMeta(selectedSet!, plans).color });
+    if (ok) goToStep(0);
   };
 
   // Keyboard navigation
@@ -259,6 +291,9 @@ export default function Rosary() {
     const onKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
       if (target?.tagName === "INPUT" || target?.tagName === "TEXTAREA") return;
+      // An open in-app dialog owns the keyboard (it also stops keys itself,
+      // but only once its effect has run).
+      if (document.querySelector('[role="alertdialog"]')) return;
       if (e.key === "ArrowRight" || e.key === " " || e.key === "Enter") { e.preventDefault(); next(); }
       else if (e.key === "ArrowLeft") { e.preventDefault(); prev(); }
     };
@@ -329,19 +364,40 @@ export default function Rosary() {
   const accentColor = setMeta.color;
   const progressPct = sequence.length > 0 ? ((currentStep + 1) / sequence.length) * 100 : 0;
 
+  // Within a rosary decade the chip names the decade and quotes its mystery in
+  // full, in the language the prayer is shown in (the La / Cz switch): in
+  // Latin just the number, as Latin prayer books head them ("II. quem, Virgo,
+  // visitándo Elisabeth portásti"); translated, "2. desátek: s kterým jsi,
+  // Panno, Alžbětu navštívila". The prayer itself is plain from the
+  // card. Everywhere else the chip names the current prayer or section.
+  const decade = currentPrayer?.decade;
+  const chipText = decade !== undefined && isRosaryKey(selectedSet)
+    ? showTranslation
+      ? t.decadeLabel(decade + 1, MYSTERIES[selectedSet].mysteriesTr[locale][decade]!)
+      : `${ROMAN[decade]}. ${MYSTERIES[selectedSet].mysteries[decade]}`
+    : currentPrayer?.label;
+
   const labelChip = (
     <div style={{ textAlign: "center", marginTop: 8, marginBottom: 4 }}>
-      <span style={{
-        display: "inline-block",
-        background: accentColor + "15",
-        color: accentText(accentColor, theme),
-        padding: "5px 14px",
-        borderRadius: 20,
-        fontSize: 13,
-        fontWeight: 600,
-        letterSpacing: 0.5,
-      }}>
-        {currentPrayer?.label}
+      {/* A decade's chip quotes its mystery, so it may wrap to two lines. It
+          is set in Arial, so the Latin may carry lang="la" here (the u→v
+          issue is EB Garamond's alone — see Typography). */}
+      <span
+        lang={decade !== undefined && isRosaryKey(selectedSet) ? (showTranslation ? locale : "la") : undefined}
+        style={{
+          display: "inline-block",
+          maxWidth: "100%",
+          background: accentColor + "15",
+          color: accentText(accentColor, theme),
+          padding: "5px 14px",
+          borderRadius: 16,
+          fontSize: 13,
+          fontWeight: 600,
+          letterSpacing: 0.3,
+          lineHeight: 1.35,
+        }}
+      >
+        {chipText}
       </span>
     </div>
   );
@@ -391,12 +447,12 @@ export default function Rosary() {
               alignItems: "center",
               justifyContent: "center",
               flexShrink: 0,
-              width: 38,
-              height: 30,
+              width: 44,
+              height: 40,
               padding: 0,
               background: "rgba(255,255,255,0.2)",
               border: "none",
-              borderRadius: 8,
+              borderRadius: 10,
               cursor: "pointer",
               color: "white",
               fontSize: 18,
@@ -416,17 +472,17 @@ export default function Rosary() {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                width: 34,
-                height: 30,
+                width: 44,
+                height: 40,
                 padding: 0,
                 border: "none",
-                borderRadius: 8,
+                borderRadius: 10,
                 cursor: "pointer",
                 background: "rgba(255,255,255,0.2)",
                 color: "white",
               }}
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M3 12a9 9 0 1 0 3-6.7" />
                 <path d="M3 3v6h6" />
               </svg>
@@ -443,17 +499,17 @@ export default function Rosary() {
               alignItems: "center",
               justifyContent: "center",
               flexShrink: 0,
-              width: 34,
-              height: 30,
+              width: 44,
+              height: 40,
               padding: 0,
               background: "rgba(255,255,255,0.2)",
               border: "none",
-              borderRadius: 8,
+              borderRadius: 10,
               cursor: "pointer",
               color: "white",
             }}
           >
-            <ThemeIcon dark={theme === "dark"} size={16} />
+            <ThemeIcon dark={theme === "dark"} size={18} />
           </button>
           <FontSizeControl value={fontScale} onChange={setFontScale} accentColor={accentColor} locale={locale} />
           <LanguageToggle showTranslation={showTranslation} onChange={setShowTranslation} accentColor={accentColor} locale={locale} />
@@ -485,28 +541,46 @@ export default function Rosary() {
         )}
       </div>
 
-      {/* Main content. Swipes are caught on the whole area, strand included. */}
+      {/* Main content. Swipes are caught on the whole area, strand included.
+          Portrait: the progress (the rosary's bead ring, or a linear set's
+          strand) and the label are pinned above a card that scrolls its text
+          inside, so a long prayer never scrolls the progress, or the card's
+          rounded top, out of view. Landscape (a phone on its side, a tablet):
+          the progress gets a column of its own on the left, beside the card. */}
       <div
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
-        style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}
+        style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: wide ? "row" : "column" }}
       >
-        {/* The progress (the rosary's bead ring, or the strand of a linear
-            set) and the label are pinned above a card that scrolls its text
-            inside, so a long prayer never scrolls the progress, or the
-            card's own rounded top, out of view. */}
-        <div style={{ flexShrink: 0, padding: "8px 14px 0" }}>
+        <div style={wide
+          ? { flex: "0 0 38%", maxWidth: 440, minHeight: 0, overflow: "auto", display: "flex", flexDirection: "column", justifyContent: "center", padding: "8px 8px 12px 20px" }
+          : { flexShrink: 0, padding: "8px 14px 0" }}
+        >
           {setMeta.kind === "rosary" ? (
-            <RosaryBeads currentStep={currentStep} sequence={sequence} accentColor={accentColor} onJump={jumpTo} locale={locale} />
+            <RosaryBeads
+              currentStep={currentStep}
+              sequence={sequence}
+              accentColor={accentColor}
+              onJump={jumpTo}
+              locale={locale}
+              {...(wide ? { maxHeight: "60dvh", maxWidth: 320 } : {})}
+            />
           ) : setMeta.kind === "linear" ? (
             <PrayerSections sequence={sequence} currentStep={currentStep} accentColor={accentColor} onJump={jumpTo} locale={locale} />
           ) : null}
           {labelChip}
         </div>
-        {/* The card sits right under the label rather than centred in the
-            space left, so it stays next to the progress and doesn't move as
-            the text length changes from step to step. */}
-        <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", padding: "6px 14px 12px" }}>
+        {/* The card sits right under the label (portrait) rather than centred
+            in the space left, so it stays next to the progress and doesn't
+            move as the text length changes from step to step. */}
+        <div style={{
+          flex: 1,
+          minHeight: 0,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: wide ? "center" : "flex-start",
+          padding: wide ? "12px 20px 12px 8px" : "6px 14px 12px",
+        }}>
           {card}
         </div>
       </div>

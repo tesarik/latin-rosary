@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.17.0]
+
+### Added
+- **The decade and its mystery are shown while praying the rosary.** Within a decade, the label under the ring names the decade and quotes its mystery in full. It follows the La | Cz switch: *II. quem, Virgo, visitándo Elisabeth portásti* in Latin (just the number, as Latin prayer books head them), *2. desátek: s kterým jsi, Panno, Alžbětu navštívila* in Czech (*Decade 2: …* in English). Before, it read just *Ave María*. The label stays up through the Pater Noster, Gloria and Fatima prayer too, where the mystery isn't otherwise shown.
+- **The end of a decade can be felt.** Reaching a decade's Gloria Patri gives a double vibration, while every other step gives a single short one.
+- **Landscape layout.** On a phone turned on its side, or on a tablet, the rosary ring (or the bead strand) and the label sit in a column on the left, with the prayer beside them. The ring may grow larger there.
+
+### Changed
+- **Touch-sized header buttons.** ←, ↺, ☾, Aa and the language switch are 40 px tall (from 30 px), so they are easier to hit and harder to confuse.
+- **The language switch is one tap.** It shows both sides, **La | Cz**, with the active one filled white, so it reads as a toggle. It no longer opens a menu.
+- **In-app dialogs.** Restarting a prayer, deleting a plan, importing a shared plan or a backup, and the share-link fallback use a dialog in the app's own style instead of the browser's system box. While a dialog is open, keys no longer move the prayer on.
+
 ## [0.16.0]
 
 ### Added

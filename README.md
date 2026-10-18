@@ -19,7 +19,9 @@ A small, offline-friendly web app for praying the rosary and other prayers in La
 - Litanies and the other multi-step prayers step through their **sections** on a bead strand. In a litany, a response shared by several invocations is shown **once**, in a band that stays at the top of the card (*℟ ora pro nobis*), instead of on every line.
 - **Unfinished prayers keep their place**: leave the rosary to pray something else, and come back to *Pokračovat · 23/74*. The last unfinished prayer is offered at the top of the start screen. Every multi-step prayer remembers its own step across reloads.
 - Tap or swipe to move on or back. On a keyboard, `→` / `Space` / `Enter` move on and `←` goes back. Every step gives a haptic tick.
-- The header holds the controls: back and restart, light/dark theme, text size, and the prayer language (Latin ↔ Czech/English).
+- The header holds the controls: back and restart, light/dark theme, text size, and a one-tap switch for the prayer language (Latin ↔ Czech/English).
+- In the rosary, the label names the current decade and quotes its mystery in full, in the language the prayer is shown in (*II. quem, Virgo, visitándo Elisabeth portásti* / *2. desátek: s kterým jsi, Panno, Alžbětu navštívila*), and a double vibration marks the end of each decade.
+- Turn a phone sideways, or use a tablet, and the beads and the prayer sit side by side.
 - **Wake Lock** keeps the screen on while praying.
 
 **App**

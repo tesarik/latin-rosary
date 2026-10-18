@@ -34,6 +34,7 @@ import {
 import type { PrayerSetKey } from "./navigation";
 import type { Theme } from "./theme";
 import ResumeLine, { type ResumeInfo } from "./ResumeLine";
+import { askConfirm } from "./ConfirmDialog";
 
 type Props = {
   plans: Plan[];
@@ -67,8 +68,8 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
     setDraft(null);
   };
 
-  const remove = (plan: Plan) => {
-    if (!window.confirm(t.planDeleteConfirm(plan.name))) return;
+  const remove = async (plan: Plan) => {
+    if (!(await askConfirm({ message: t.planDeleteConfirm(plan.name), confirmLabel: t.planDelete, cancelLabel: t.planCancel, color: "var(--rubric)" }))) return;
     onChange(plans.filter((p) => p.id !== plan.id));
   };
 
@@ -93,7 +94,7 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
       setToast(long ? t.planShareLong : t.planShareCopied);
       return;
     } catch {}
-    window.prompt(t.planShareFallback, url);
+    void askConfirm({ message: t.planShareFallback, detail: url, confirmLabel: t.dialogOk, cancelLabel: null, color: PLAN_COLOR });
   };
 
   const startNew = () => {
@@ -130,7 +131,7 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
       setToast(t.planImportNone);
       return;
     }
-    if (!window.confirm(t.planImportBackupConfirm(take.length))) return;
+    if (!(await askConfirm({ message: t.planImportBackupConfirm(take.length), confirmLabel: t.planImportAdd, cancelLabel: t.planCancel, color: PLAN_COLOR }))) return;
     const next = [...plans];
     for (const p of take) next.push({ ...p, id: newPlanId(next) });
     onChange(next);
@@ -271,8 +272,8 @@ function Header({ title, backLabel, backAria, onBack }: {
           alignItems: "center",
           justifyContent: "center",
           flexShrink: 0,
-          width: 38,
-          height: 30,
+          width: 44,
+          height: 40,
           padding: 0,
           background: "rgba(255,255,255,0.2)",
           border: "none",
@@ -289,7 +290,7 @@ function Header({ title, backLabel, backAria, onBack }: {
         {title}
       </div>
       {/* Spacer keeps the title optically centred against the back button. */}
-      <div aria-hidden="true" style={{ width: 38, flexShrink: 0 }} />
+      <div aria-hidden="true" style={{ width: 44, flexShrink: 0 }} />
     </div>
   );
 }

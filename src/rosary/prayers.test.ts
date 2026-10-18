@@ -120,6 +120,23 @@ describe("display names", () => {
 });
 
 describe("rosary sequence structure", () => {
+  // The label chip names the decade from `decade`, so every prayer of a
+  // decade — not just its Ave Marías — must carry it, and nothing else may.
+  it("stamps each decade's 13 prayers with its number, and only those", () => {
+    const seq = buildRosarySequence(MYSTERIES.radostny);
+    for (let d = 0; d < 5; d++) {
+      const items = seq.filter((i) => i.decade === d);
+      expect(items.length, `decade ${d}`).toBe(13);
+      expect(items.map((i) => i.type)).toEqual([
+        PRAYER_TYPES.OUR_FATHER,
+        ...Array(10).fill(PRAYER_TYPES.HAIL_MARY),
+        PRAYER_TYPES.GLORY_BE,
+        PRAYER_TYPES.FATIMA,
+      ]);
+    }
+    expect(seq.filter((i) => i.decade === undefined).length).toBe(74 - 65);
+  });
+
   const seq = buildRosarySequence(MYSTERIES.radostny);
 
   it("is 74 steps", () => {

@@ -4,6 +4,10 @@ import type { SequenceItem } from "./sequence";
 import { STRINGS, type Locale } from "./i18n";
 
 type Props = {
+  // Size caps: on a phone in portrait the ring shares the height with the
+  // card, so it is kept small; in landscape it has a column of its own.
+  maxHeight?: string;
+  maxWidth?: number;
   currentStep: number;
   sequence: SequenceItem[];
   accentColor: string;
@@ -44,7 +48,7 @@ function beadStyle(seqIdx: number, currentStep: number, accentColor: string) {
 //   Cross → Creed → [gap] → Our Father → HM → HM → HM → junction (Gloria, no bead) → Ring
 // All bead-to-sequence mapping goes through beadIdx[beadId] so the layout
 // stays decoupled from buildRosarySequence's index arithmetic.
-export default function RosaryBeads({ currentStep, sequence, accentColor, onJump, locale }: Props) {
+export default function RosaryBeads({ currentStep, sequence, accentColor, onJump, locale, maxHeight = "30dvh", maxWidth = 220 }: Props) {
   const t = STRINGS[locale];
   const cx = 150, cy = 128, r = 105;
   const elements: ReactElement[] = [];
@@ -230,7 +234,7 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
 
   return (
     <svg viewBox={`0 ${vbTop} 300 ${vbHeight}`}
-      style={{ width: "100%", maxWidth: 220, maxHeight: "30dvh", margin: "0 auto", display: "block" }}
+      style={{ width: "100%", maxWidth, maxHeight, margin: "0 auto", display: "block" }}
       role="img"
       aria-label={t.rosaryAria(currentStep + 1, sequence.length)}>
       {elements}
