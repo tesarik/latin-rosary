@@ -30,12 +30,20 @@ describe("isPlanItemKey", () => {
     for (const k of Object.keys(LITANIES)) expect(isPlanItemKey(k)).toBe(true);
   });
 
-  // A plan strings together short prayers; the rosary and the linear devotions
-  // are deliberately not offered (they'd lose their own navigation).
-  it("rejects the rosary sets and the linear devotions", () => {
-    for (const k of ["radostny", "bolestny", "slavny", "leonine", "brigit"]) {
+  // The rosary would lose its bead ring and St. Bridget's Pater/Ave sub-steps
+  // would each become a bead, so neither is offered.
+  it("rejects the rosary sets and the St. Bridget prayers", () => {
+    for (const k of ["radostny", "bolestny", "slavny", "brigit"]) {
       expect(isPlanItemKey(k)).toBe(false);
     }
+  });
+
+  it("accepts the Leonine prayers and inlines their nine steps", () => {
+    expect(isPlanItemKey("leonine")).toBe(true);
+    const seq = buildPlanSequence(plan([{ key: "leonine", repeat: 1 }]));
+    expect(seq.length).toBe(9);
+    expect(seq.every((i) => !!i.section)).toBe(true);
+    expect(PLAN_ITEM_GROUPS.some((g) => g.keys.includes("leonine"))).toBe(true);
   });
 
   it("rejects prototype members and unknown keys", () => {
@@ -46,9 +54,9 @@ describe("isPlanItemKey", () => {
 });
 
 describe("PLAN_ITEM_GROUPS", () => {
-  it("offers every ordinary prayer and litany exactly once", () => {
+  it("offers every ordinary prayer, litany and the Leonine prayers exactly once", () => {
     const offered = PLAN_ITEM_GROUPS.flatMap((g) => g.keys);
-    const expected = [...Object.keys(ORDINARY_PRAYERS), ...Object.keys(LITANIES)];
+    const expected = [...Object.keys(ORDINARY_PRAYERS), ...Object.keys(LITANIES), "leonine"];
     expect(new Set(offered).size).toBe(offered.length);
     expect([...offered].sort()).toEqual([...expected].sort());
   });
