@@ -43,11 +43,11 @@ export default function FontSizeControl({ value, onChange, accentColor, locale }
           alignItems: "center",
           justifyContent: "center",
           gap: 2,
-          width: 42,
-          height: 30,
+          width: 46,
+          height: 40,
           padding: 0,
           border: "none",
-          borderRadius: 8,
+          borderRadius: 10,
           cursor: "pointer",
           background: open ? "var(--surface)" : "rgba(255,255,255,0.2)",
           color: open ? accentColor : "white",
@@ -57,8 +57,8 @@ export default function FontSizeControl({ value, onChange, accentColor, locale }
           transition: "background 0.2s ease, color 0.2s ease",
         }}
       >
-        <span style={{ fontSize: 11 }}>A</span>
-        <span style={{ fontSize: 17 }}>A</span>
+        <span style={{ fontSize: 12 }}>A</span>
+        <span style={{ fontSize: 18 }}>A</span>
       </button>
 
       {open && (

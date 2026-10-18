@@ -22,6 +22,13 @@ type Strings = {
   resumeAt: (step: number, total: number) => string;
   // Small heading over the start screen's tile for the last unfinished prayer.
   continueHeading: string;
+  // In-app dialogs.
+  dialogOk: string;
+  restartLabel: string;
+  planImportAdd: string;
+  // Label chip within a rosary decade (translation shown): its number and the
+  // mystery in full. With Latin shown, the chip is Latin ("II. quem, …").
+  decadeLabel: (n: number, mystery: string) => string;
   navAria: string;
   previousAria: string;
   nextAria: string;
@@ -128,6 +135,10 @@ export const STRINGS: Record<Locale, Strings> = {
     confirmRestart: "Začít modlitbu znovu od začátku?",
     resumeAt: (step, total) => `Pokračovat · ${step}/${total}`,
     continueHeading: "Rozepsaná modlitba",
+    dialogOk: "OK",
+    restartLabel: "Začít znovu",
+    planImportAdd: "Přidat",
+    decadeLabel: (n, m) => `${n}. desátek: ${m}`,
     navAria: "Navigace modlitby",
     previousAria: "Předchozí modlitba",
     nextAria: "Další modlitba",
@@ -227,6 +238,10 @@ export const STRINGS: Record<Locale, Strings> = {
     confirmRestart: "Start this prayer again from the beginning?",
     resumeAt: (step, total) => `Continue · ${step}/${total}`,
     continueHeading: "Unfinished prayer",
+    dialogOk: "OK",
+    restartLabel: "Start again",
+    planImportAdd: "Add",
+    decadeLabel: (n, m) => `Decade ${n}: ${m}`,
     navAria: "Prayer navigation",
     previousAria: "Previous prayer",
     nextAria: "Next prayer",

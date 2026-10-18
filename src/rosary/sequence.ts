@@ -7,6 +7,8 @@ export type SequenceItem = {
   mystery?: string;
   // The same clause in each UI language; the card picks the active one.
   mysteryTr?: Localized;
+  // The decade (0–4) a rosary item belongs to: its Pater Noster, ten Ave
+  // Marías, Gloria Patri and Fatima prayer. Unset outside the decades.
   decade?: number;
   num?: number;
   // Section name for linear (non-rosary) prayer sets — drives the segmented
@@ -51,7 +53,7 @@ export function buildRosarySequence(mysterySet: MysterySet): SequenceItem[] {
 
   // 5 decades
   for (let d = 0; d < 5; d++) {
-    seq.push({ type: PRAYER_TYPES.OUR_FATHER, label: "Pater Noster", beadId: `ring-of-${d}` });
+    seq.push({ type: PRAYER_TYPES.OUR_FATHER, label: "Pater Noster", decade: d, beadId: `ring-of-${d}` });
     for (let h = 1; h <= 10; h++) {
       seq.push({
         type: PRAYER_TYPES.HAIL_MARY,
@@ -66,8 +68,8 @@ export function buildRosarySequence(mysterySet: MysterySet): SequenceItem[] {
         beadId: `ring-hm-${d}-${h - 1}`,
       });
     }
-    seq.push({ type: PRAYER_TYPES.GLORY_BE, label: "Gloria Patri" });
-    seq.push({ type: PRAYER_TYPES.FATIMA,   label: "O mi Iesu" });
+    seq.push({ type: PRAYER_TYPES.GLORY_BE, label: "Gloria Patri", decade: d });
+    seq.push({ type: PRAYER_TYPES.FATIMA,   label: "O mi Iesu",    decade: d });
   }
 
   // Closing
