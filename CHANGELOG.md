@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.17.0]
 
 ### Added
 - **The decade and its mystery are shown while praying the rosary.** Within a decade, the label under the ring names the decade and quotes its mystery in full. It follows the La | Cz switch: *II. quem, Virgo, visitándo Elisabeth portásti* in Latin (just the number, as Latin prayer books head them), *2. desátek: s kterým jsi, Panno, Alžbětu navštívila* in Czech (*Decade 2: …* in English). Before, it read just *Ave María*. The label stays up through the Pater Noster, Gloria and Fatima prayer too, where the mystery isn't otherwise shown.
