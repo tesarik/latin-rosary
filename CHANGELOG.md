@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.14.0]
+
+### Added
+- **Today's mysteries are marked on the start screen.** A *dnes* pill tags the set traditionally prayed today: joyful on Monday and Thursday, sorrowful on Tuesday and Friday, glorious on Wednesday and Saturday. On Sunday it follows the season: joyful in Advent and Christmastide, sorrowful in Lent, glorious otherwise.
+- **The Marian antiphon in season is marked.** Under *Orationes utilissimæ*, a *nyní* pill marks Alma Redemptóris (Advent to 1 February), Ave Regína Cælórum (2 February to Easter), Regína Cæli (Eastertide) or Salve Regína (Trinity Sunday to Advent). In Eastertide the Angelus row notes that the Regína Cæli is prayed instead. A new `liturgy.ts` computes Easter, Advent and the seasons, and is unit-tested.
+
+### Changed
+- **The rosary's bead ring is pinned too.** As with the other prayers, the ring and label stay put and a long prayer (the Credo, Salve Regína at a large text size) scrolls inside its card, so the card's top no longer scrolls away. The ring's height is capped so it fits small phones. Every card now sits right under its label instead of centred in the space left.
+- **A lone litany response is styled like the band:** in the accent colour and upright, no longer italic.
+
 ## [0.13.1]
 
 ### Added

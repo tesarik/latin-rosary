@@ -230,7 +230,7 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
 
   return (
     <svg viewBox={`0 ${vbTop} 300 ${vbHeight}`}
-      style={{ width: "100%", maxWidth: 220, margin: "0 auto", display: "block" }}
+      style={{ width: "100%", maxWidth: 220, maxHeight: "30dvh", margin: "0 auto", display: "block" }}
       role="img"
       aria-label={t.rosaryAria(currentStep + 1, sequence.length)}>
       {elements}

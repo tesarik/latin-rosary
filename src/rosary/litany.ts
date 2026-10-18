@@ -98,7 +98,7 @@ export type LitanyBlock =
   | { kind: "blank" }
   // A line shown as is: the Kyrie, ℣/℟, the collect, a rubric label, prose.
   | { kind: "plain"; line: string }
-  // One invocation with its own response, set in italics after it.
+  // One invocation with its own response, shown after it in the accent colour.
   | { kind: "single"; invocation: string; response: string }
   // Consecutive invocations sharing one response: the response is shown once,
   // above them, and the lines carry only the invocation, without the comma

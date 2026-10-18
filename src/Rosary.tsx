@@ -334,7 +334,6 @@ export default function Rosary() {
     </div>
   );
 
-  const pinned = setMeta.kind !== "rosary";
   const card = (
     <PrayerCard
       currentPrayer={currentPrayer}
@@ -346,8 +345,8 @@ export default function Rosary() {
       showTranslation={showTranslation}
       fontSizeClamp={fontSizeClamp(fontScale)}
       theme={theme}
-      contained={pinned}
-      scrollRef={pinned ? prayerRef : undefined}
+      contained
+      scrollRef={prayerRef}
     />
   );
 
@@ -480,45 +479,24 @@ export default function Rosary() {
         onTouchEnd={onTouchEnd}
         style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}
       >
-        {pinned ? (
-          <>
-            {/* Everything but the rosary pins its progress (the bead strand,
-                for linear sets) and label above a card that scrolls its text
-                inside — so a long litany section never scrolls the progress,
-                or the card's own rounded top, out of view. */}
-            <div style={{ flexShrink: 0, padding: "8px 14px 0" }}>
-              {setMeta.kind === "linear" && (
-                <PrayerSections sequence={sequence} currentStep={currentStep} accentColor={accentColor} onJump={jumpTo} locale={locale} />
-              )}
-              {labelChip}
-            </div>
-            <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", justifyContent: "center", padding: "6px 14px 12px" }}>
-              {card}
-            </div>
-          </>
-        ) : (
-          // The rosary: the bead ring is too tall to pin, so ring, label and
-          // card scroll together.
-          <div
-            ref={prayerRef}
-            style={{
-              flex: 1,
-              minHeight: 0,
-              overflow: "auto",
-            }}
-          >
-            {/* Centering wrapper: `min-height: 100%` centers short content but
-                grows past the viewport for long prayers, so the top stays
-                scrollable — avoids the flex auto-margin clipping trap. */}
-            <div style={{ minHeight: "100%", display: "flex", flexDirection: "column", justifyContent: "center", padding: "8px 14px" }}>
-              <div style={{ width: "100%" }}>
-                <RosaryBeads currentStep={currentStep} sequence={sequence} accentColor={accentColor} onJump={jumpTo} locale={locale} />
-                {labelChip}
-                {card}
-              </div>
-            </div>
-          </div>
-        )}
+        {/* The progress (the rosary's bead ring, or the strand of a linear
+            set) and the label are pinned above a card that scrolls its text
+            inside, so a long prayer never scrolls the progress, or the
+            card's own rounded top, out of view. */}
+        <div style={{ flexShrink: 0, padding: "8px 14px 0" }}>
+          {setMeta.kind === "rosary" ? (
+            <RosaryBeads currentStep={currentStep} sequence={sequence} accentColor={accentColor} onJump={jumpTo} locale={locale} />
+          ) : setMeta.kind === "linear" ? (
+            <PrayerSections sequence={sequence} currentStep={currentStep} accentColor={accentColor} onJump={jumpTo} locale={locale} />
+          ) : null}
+          {labelChip}
+        </div>
+        {/* The card sits right under the label rather than centred in the
+            space left, so it stays next to the progress and doesn't move as
+            the text length changes from step to step. */}
+        <div style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column", justifyContent: "flex-start", padding: "6px 14px 12px" }}>
+          {card}
+        </div>
       </div>
 
       {/* Navigation */}

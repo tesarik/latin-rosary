@@ -11,6 +11,7 @@ A small, offline-friendly web app for praying the rosary and other prayers in La
 - **Seven litanies**: Loreto, the Sacred Heart, the Holy Name, St. Joseph, the Precious Blood, All Saints (traditional form) and the Litany of Humility.
 - The **Leonine prayers** (after Low Mass) and the **prayers of St. Bridget**.
 - **Prayer plans**: build your own named sequence of prayers and litanies, with repeats, and share it as a link.
+- The start screen marks **today's mysteries**, by weekday and on Sunday by liturgical season, and the **Marian antiphon of the season**.
 
 **Praying**
 

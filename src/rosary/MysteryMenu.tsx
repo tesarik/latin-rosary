@@ -3,7 +3,8 @@ import { MYSTERIES, type Localized, type MysteryKey } from "./prayers";
 import { OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type OtherPrayerKey } from "./sequence";
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
 import type { PrayerSetKey } from "./navigation";
-import type { Theme } from "./theme";
+import { accentText, type Theme } from "./theme";
+import { marianAntiphon, mysteriesOfDay, seasonOf } from "./liturgy";
 import ResumeLine, { type ResumeInfo } from "./ResumeLine";
 import { PLAN_COLOR } from "./plans";
 import Flag from "./Flag";
@@ -166,17 +167,43 @@ function LanguagePicker({ locale, onChange }: { locale: Locale; onChange: (l: Lo
   );
 }
 
+// Small accent pill after a prayer's name: the mysteries prayed today, or the
+// Marian antiphon of the season.
+function Badge({ label, color, theme }: { label: string; color: string; theme: Theme }) {
+  return (
+    <span style={{
+      display: "inline-block",
+      marginLeft: 8,
+      padding: "2px 8px",
+      borderRadius: 10,
+      background: color + "1f",
+      color: accentText(color, theme),
+      fontFamily: "Arial, sans-serif",
+      fontSize: 11,
+      fontWeight: 700,
+      letterSpacing: 0.4,
+      textTransform: "uppercase",
+      verticalAlign: "middle",
+    }}>
+      {label}
+    </span>
+  );
+}
+
 // Collapsible group: a card whose header rolls down small links to standalone
 // single prayers, sorted alphabetically. Used for both "Orationes utilissimæ"
 // and "Litaníæ"; tapping a link starts that one-prayer "set". Every row shows
 // the Latin name with its name in the UI language as a muted subtitle — the
 // same two-line shape the prayer-plan tile uses.
-function CollapsiblePrayers({ title, subtitle, entries, onStart, resume, theme, locale }: {
+function CollapsiblePrayers({ title, subtitle, entries, onStart, resume, badges = {}, notes = {}, theme, locale }: {
   title: string;
   subtitle: string;
   entries: [PrayerSetKey, { name: string; nameTr: Localized; color: string }][];
   onStart: (key: PrayerSetKey) => void;
   resume: ResumeInfo;
+  // Per-row pill after the name, and an extra muted line under it.
+  badges?: Record<string, string>;
+  notes?: Record<string, string>;
   theme: Theme;
   locale: Locale;
 }) {
@@ -260,10 +287,13 @@ function CollapsiblePrayers({ title, subtitle, entries, onStart, resume, theme, 
               onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
             >
-              <div>{val.name}</div>
+              <div>{val.name}{badges[key] && <Badge label={badges[key]} color={val.color} theme={theme} />}</div>
               <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 1 }}>
                 {val.nameTr[locale]}
               </div>
+              {notes[key] && (
+                <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 2, fontStyle: "italic" }}>{notes[key]}</div>
+              )}
               <ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />
             </button>
           ))}
@@ -279,6 +309,12 @@ function CollapsiblePrayers({ title, subtitle, entries, onStart, resume, theme, 
 export default function MysteryMenu({ onStart, resume, onOpenPlans, planCount, locale, onLocaleChange, theme, onToggleTheme }: Props) {
   const t = STRINGS[locale];
   const [aboutOpen, setAboutOpen] = useState(false);
+  // Today's place in the calendar: which mysteries to pray, which Marian
+  // antiphon is in season, and whether Eastertide replaces the Angelus.
+  const now = new Date();
+  const todaysMysteries = mysteriesOfDay(now);
+  const antiphon = marianAntiphon(now);
+  const eastertide = seasonOf(now) === "easter";
 
   return (
     <div style={{
@@ -317,8 +353,9 @@ export default function MysteryMenu({ onStart, resume, onOpenPlans, planCount, l
             key={key}
             name={val.name}
             subtitle={val.nameTr[locale]}
+            badge={key === todaysMysteries ? <Badge label={t.todayBadge} color={val.color} theme={theme} /> : undefined}
             color={val.color}
-            ariaLabel={t.startRosaryAria(val.nameTr[locale])}
+            ariaLabel={key === todaysMysteries ? `${t.startRosaryAria(val.nameTr[locale])}, ${t.todayBadge}` : t.startRosaryAria(val.nameTr[locale])}
             icon="rosary"
             resume={<ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />}
             onClick={() => onStart(key)}
@@ -342,6 +379,8 @@ export default function MysteryMenu({ onStart, resume, onOpenPlans, planCount, l
           subtitle={t.ordinaryGroupName}
           entries={Object.entries(ORDINARY_PRAYERS) as GroupEntry[]}
           onStart={onStart}
+          badges={{ [antiphon]: t.seasonBadge }}
+          notes={eastertide ? { angelus: t.angelusEastertide } : {}}
           resume={resume}
           theme={theme}
           locale={locale}
@@ -405,9 +444,10 @@ export default function MysteryMenu({ onStart, resume, onOpenPlans, planCount, l
 // Shared button used for both rosary mystery sets and the linear prayer block.
 // The icon variant tells the rosary buttons apart from the linear ones at a
 // glance — circle-with-cross for rosary, plain cross for linear prayers.
-function PrayerSetButton({ name, subtitle, resume, color, ariaLabel, icon, onClick }: {
+function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon, onClick }: {
   name: string;
   subtitle?: string;
+  badge?: React.ReactNode;
   resume?: React.ReactNode;
   color: string;
   ariaLabel: string;
@@ -465,7 +505,7 @@ function PrayerSetButton({ name, subtitle, resume, color, ariaLabel, icon, onCli
       </div>
       <div style={{ textAlign: "left", minWidth: 0 }}>
         <div style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
-          {name}
+          {name}{badge}
         </div>
         {subtitle && (
           <div style={{ fontFamily: "Arial, sans-serif", fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>
