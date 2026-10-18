@@ -1,7 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { STRINGS, type Locale } from "./i18n";
 import {
   MAX_PLANS,
+  MAX_CUSTOM_PRAYERS,
+  MAX_CUSTOM_TEXT,
+  MAX_CUSTOM_TITLE,
+  LONG_SHARE_URL,
   MAX_PLAN_LENGTH,
   MAX_PLAN_NAME,
   MAX_PLAN_STEPS,
@@ -15,6 +19,14 @@ import {
   planLength,
   planShareUrl,
   requestPersistentStorage,
+  customKeyOf,
+  exportPlans,
+  findCustom,
+  isCustomKey,
+  newCustomId,
+  parsePlansBackup,
+  stepName,
+  type CustomPrayer,
   type Plan,
   type PlanItemKey,
   type PlanStep,
@@ -62,11 +74,15 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
 
   // Native share sheet where there is one (mobile), clipboard otherwise, and a
   // prompt as the last resort so the link is always reachable by hand.
+  // A plan's own prayers travel in the link, so a long one is flagged: some
+  // chat apps cut long URLs short.
   const share = async (plan: Plan) => {
     const url = planShareUrl(plan);
+    const long = url.length > LONG_SHARE_URL;
     try {
       if (navigator.share) {
         await navigator.share({ title: plan.name, url });
+        if (long) setToast(t.planShareLong);
         return;
       }
     } catch {
@@ -74,7 +90,7 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
     }
     try {
       await navigator.clipboard.writeText(url);
-      setToast(t.planShareCopied);
+      setToast(long ? t.planShareLong : t.planShareCopied);
       return;
     } catch {}
     window.prompt(t.planShareFallback, url);
@@ -88,10 +104,44 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
     setDraft({ id: newPlanId(plans), name: "", steps: [] });
   };
 
+  // Backup: every plan to a JSON file the user keeps, and back. Imported
+  // plans are added with fresh ids — never overwriting a local plan — up to
+  // the plan limit.
+  const fileInput = useRef<HTMLInputElement | null>(null);
+
+  const exportAll = () => {
+    const blob = new Blob([exportPlans(plans)], { type: "application/json" });
+    const href = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = href;
+    a.download = `ruzenec-plany-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(href), 1000);
+  };
+
+  const importFile = async (file: File) => {
+    const parsed = parsePlansBackup(await file.text());
+    if (!parsed) {
+      setToast(t.planImportInvalid);
+      return;
+    }
+    const take = parsed.slice(0, Math.max(0, MAX_PLANS - plans.length));
+    if (take.length === 0) {
+      setToast(t.planImportNone);
+      return;
+    }
+    if (!window.confirm(t.planImportBackupConfirm(take.length))) return;
+    const next = [...plans];
+    for (const p of take) next.push({ ...p, id: newPlanId(next) });
+    onChange(next);
+    requestPersistentStorage();
+    setToast(t.planImportDone(take.length));
+  };
+
   return (
     <div style={{ minHeight: "100dvh", background: "var(--bg)", fontFamily: "Arial, sans-serif" }}>
       <Header
-        title={draft ? t.planNew : t.plansTitle}
+        title={draft ? (plans.some((p) => p.id === draft.id) ? t.planEdit : t.planNew) : t.plansTitle}
         backLabel={draft ? t.planCancel : t.back}
         backAria={draft ? t.planCancel : t.planBackAria}
         onBack={() => (draft ? setDraft(null) : onClose())}
@@ -138,6 +188,31 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
             >
               + {t.planNew}
             </button>
+
+            <div style={{ marginTop: 12, padding: "14px 16px", borderRadius: 14, background: "var(--surface)", border: "1px solid var(--border)" }}>
+              <p style={{ margin: "0 0 10px", color: "var(--text-soft)", fontSize: 13, lineHeight: 1.5 }}>
+                {t.planBackupHint}
+              </p>
+              <div style={{ display: "flex", gap: 8 }}>
+                <button onClick={exportAll} disabled={plans.length === 0} style={backupButton(plans.length === 0)}>
+                  {t.planExport}
+                </button>
+                <button onClick={() => fileInput.current?.click()} style={backupButton(false)}>
+                  {t.planImport}
+                </button>
+              </div>
+              <input
+                ref={fileInput}
+                type="file"
+                accept="application/json,.json"
+                style={{ display: "none" }}
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  e.target.value = "";
+                  if (file) void importFile(file);
+                }}
+              />
+            </div>
           </>
         )}
       </div>
@@ -185,27 +260,36 @@ function Header({ title, backLabel, backAria, onBack }: {
       top: 0,
       zIndex: 10,
     }}>
+      {/* Arrow only, like the prayer header's back button; the label is for
+          screen readers and the tooltip ("Back" or, in the editor, "Cancel"). */}
       <button
         onClick={onBack}
         aria-label={backAria}
+        title={backLabel}
         style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexShrink: 0,
+          width: 38,
+          height: 30,
+          padding: 0,
           background: "rgba(255,255,255,0.2)",
           border: "none",
           borderRadius: 8,
-          padding: "6px 12px",
           cursor: "pointer",
           color: "white",
-          fontSize: 14,
+          fontSize: 18,
           fontFamily: "Arial, sans-serif",
         }}
       >
-        ← {backLabel}
+        ←
       </button>
       <div style={{ flex: 1, textAlign: "center", color: "white", fontSize: 20, fontWeight: 600 }}>
         {title}
       </div>
       {/* Spacer keeps the title optically centred against the back button. */}
-      <div aria-hidden="true" style={{ width: 56 }} />
+      <div aria-hidden="true" style={{ width: 38, flexShrink: 0 }} />
     </div>
   );
 }
@@ -309,6 +393,8 @@ function PlanEditor({ draft, onDraftChange, onSave, onNotice, locale }: {
 }) {
   const t = STRINGS[locale];
   const [pickerOpen, setPickerOpen] = useState(draft.steps.length === 0);
+  // The own-prayer form: a new prayer (no id) or the one being edited.
+  const [customForm, setCustomForm] = useState<Omit<CustomPrayer, "id"> & { id?: string } | null>(null);
 
   const setSteps = (steps: Plan["steps"]) => onDraftChange({ ...draft, steps });
 
@@ -326,6 +412,43 @@ function PlanEditor({ draft, onDraftChange, onSave, onNotice, locale }: {
     }
     setSteps(steps);
     setPickerOpen(false);
+  };
+
+  const openCustomForm = () => {
+    if ((draft.custom?.length ?? 0) >= MAX_CUSTOM_PRAYERS) {
+      onNotice(t.planCustomLimit);
+      return;
+    }
+    setPickerOpen(false);
+    setCustomForm({ title: "", text: "", textTr: "" });
+  };
+
+  // Add a new own prayer as the plan's next step, or update an edited one in
+  // place (every step using it shows the change).
+  const saveCustom = (form: Omit<CustomPrayer, "id"> & { id?: string }) => {
+    const textTr = form.textTr?.trim();
+    const prayer = (id: string): CustomPrayer =>
+      textTr ? { id, title: form.title.trim(), text: form.text.trim(), textTr } : { id, title: form.title.trim(), text: form.text.trim() };
+    if (form.id) {
+      const id = form.id;
+      onDraftChange({ ...draft, custom: (draft.custom ?? []).map((c) => (c.id === id ? prayer(id) : c)) });
+    } else {
+      const id = newCustomId(draft);
+      const steps = [...draft.steps, { key: customKeyOf(id), repeat: 1 }];
+      if (!fits(steps)) {
+        onNotice(t.planStepLimitReached);
+        return;
+      }
+      onDraftChange({ ...draft, steps, custom: [...(draft.custom ?? []), prayer(id)] });
+    }
+    setCustomForm(null);
+  };
+
+  // Removing a step drops its own prayer too once no other step uses it.
+  const removeStep = (i: number) => {
+    const steps = draft.steps.filter((_, k) => k !== i);
+    const custom = (draft.custom ?? []).filter((c) => steps.some((st) => st.key === customKeyOf(c.id)));
+    onDraftChange({ ...draft, steps, custom });
   };
 
   const move = (i: number, delta: number) => {
@@ -346,7 +469,12 @@ function PlanEditor({ draft, onDraftChange, onSave, onNotice, locale }: {
     setSteps(steps);
   };
 
-  const save = () => onSave({ ...draft, name: draft.name.trim() || t.planUnnamed });
+  const save = () => {
+    // Only keep the own prayers some step still uses.
+    const custom = (draft.custom ?? []).filter((c) => draft.steps.some((st) => st.key === customKeyOf(c.id)));
+    const name = draft.name.trim() || t.planUnnamed;
+    onSave(custom.length > 0 ? { ...draft, name, custom } : { id: draft.id, name, steps: draft.steps });
+  };
 
   return (
     <>
@@ -383,8 +511,8 @@ function PlanEditor({ draft, onDraftChange, onSave, onNotice, locale }: {
           <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
             <span style={{ fontSize: 13, color: "var(--text-muted)", flexShrink: 0 }}>{i + 1}.</span>
             <span style={{ fontSize: 15, color: "var(--text-strong)", overflowWrap: "anywhere" }}>
-              {planItemName(step.key)}
-              <span style={{ color: "var(--text-muted)" }}> · {planItemNameTr(step.key, locale)}</span>
+              {stepName(draft, step.key)}
+              <span style={{ color: "var(--text-muted)" }}> · {isCustomKey(step.key) ? t.planCustomTag : planItemNameTr(step.key, locale)}</span>
             </span>
           </div>
 
@@ -397,50 +525,63 @@ function PlanEditor({ draft, onDraftChange, onSave, onNotice, locale }: {
             <div style={{ flex: 1 }} />
             <StepButton label="↑" aria={t.planMoveUpAria} disabled={i === 0} onClick={() => move(i, -1)} />
             <StepButton label="↓" aria={t.planMoveDownAria} disabled={i === draft.steps.length - 1} onClick={() => move(i, 1)} />
-            <StepButton label="×" aria={t.planRemoveAria} danger onClick={() => setSteps(draft.steps.filter((_, k) => k !== i))} />
+            {isCustomKey(step.key) && (
+              <StepButton
+                label="✎"
+                aria={t.planCustomEditAria(stepName(draft, step.key))}
+                onClick={() => {
+                  const c = isCustomKey(step.key) ? findCustom(draft, step.key) : null;
+                  if (c) { setPickerOpen(false); setCustomForm({ ...c, textTr: c.textTr ?? "" }); }
+                }}
+              />
+            )}
+            <StepButton label="×" aria={t.planRemoveAria} danger onClick={() => removeStep(i)} />
           </div>
         </div>
       ))}
 
-      {pickerOpen ? (
+      {customForm ? (
+        <CustomPrayerForm
+          initial={customForm}
+          onSave={saveCustom}
+          onCancel={() => setCustomForm(null)}
+          locale={locale}
+        />
+      ) : pickerOpen ? (
         <PrayerPicker onPick={add} onClose={() => setPickerOpen(false)} closeLabel={t.planCancel} locale={locale} />
       ) : (
-        <button
-          onClick={() => setPickerOpen(true)}
-          style={{
-            padding: "14px 20px",
-            borderRadius: 14,
-            border: "1.5px dashed var(--border-strong)",
-            background: "transparent",
-            color: PLAN_COLOR,
-            fontFamily: "Arial, sans-serif",
-            fontSize: 15,
-            fontWeight: 600,
-            cursor: "pointer",
-          }}
-        >
-          + {t.planAddPrayer}
-        </button>
+        <div style={{ display: "flex", gap: 8 }}>
+          <button onClick={() => setPickerOpen(true)} style={addButton}>
+            + {t.planAddPrayer}
+          </button>
+          <button onClick={openCustomForm} style={addButton}>
+            + {t.planCustomAdd}
+          </button>
+        </div>
       )}
 
-      <button
-        onClick={save}
-        disabled={draft.steps.length === 0}
-        style={{
-          marginTop: 4,
-          padding: "15px 20px",
-          borderRadius: 14,
-          border: "none",
-          background: draft.steps.length === 0 ? "var(--border-strong)" : PLAN_COLOR,
-          color: "white",
-          fontFamily: "Arial, sans-serif",
-          fontSize: 16,
-          fontWeight: 600,
-          cursor: draft.steps.length === 0 ? "default" : "pointer",
-        }}
-      >
-        {t.planSave}
-      </button>
+      {/* Hidden while an own prayer is being written: its form has its own
+          Save, and two Save buttons on screen would be ambiguous. */}
+      {!customForm && (
+        <button
+          onClick={save}
+          disabled={draft.steps.length === 0}
+          style={{
+            marginTop: 4,
+            padding: "15px 20px",
+            borderRadius: 14,
+            border: "none",
+            background: draft.steps.length === 0 ? "var(--border-strong)" : PLAN_COLOR,
+            color: "white",
+            fontFamily: "Arial, sans-serif",
+            fontSize: 16,
+            fontWeight: 600,
+            cursor: draft.steps.length === 0 ? "default" : "pointer",
+          }}
+        >
+          {t.planSave}
+        </button>
+      )}
     </>
   );
 }
@@ -566,5 +707,122 @@ export function PlanIcon({ color }: { color: string }) {
       <line x1="6.75" y1="10.5" x2="13.25" y2="10.5" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
       <line x1="6.75" y1="14" x2="10.75" y2="14" stroke={color} strokeWidth="1.5" strokeLinecap="round" />
     </svg>
+  );
+}
+
+function backupButton(disabled: boolean): React.CSSProperties {
+  return {
+    flex: 1,
+    padding: "10px 12px",
+    borderRadius: 10,
+    border: "1px solid var(--border-strong)",
+    background: "var(--surface)",
+    color: disabled ? "var(--border-strong)" : PLAN_COLOR,
+    fontFamily: "Arial, sans-serif",
+    fontSize: 14,
+    fontWeight: 600,
+    cursor: disabled ? "default" : "pointer",
+  };
+}
+
+const addButton: React.CSSProperties = {
+  flex: 1,
+  padding: "14px 12px",
+  borderRadius: 14,
+  border: "1.5px dashed var(--border-strong)",
+  background: "transparent",
+  color: PLAN_COLOR,
+  fontFamily: "Arial, sans-serif",
+  fontSize: 15,
+  fontWeight: 600,
+  cursor: "pointer",
+};
+
+const fieldStyle: React.CSSProperties = {
+  width: "100%",
+  padding: "11px 12px",
+  borderRadius: 10,
+  border: "1px solid var(--border-strong)",
+  background: "var(--surface)",
+  color: "var(--text-strong)",
+  fontFamily: "Arial, sans-serif",
+  fontSize: 15,
+};
+
+// Write or edit a plan's own prayer: a title, its text, and an optional second
+// version for the language button. Shown as plain text when prayed — never as
+// markup — so anything typed (or received in a shared link) is safe.
+function CustomPrayerForm({ initial, onSave, onCancel, locale }: {
+  initial: Omit<CustomPrayer, "id"> & { id?: string };
+  onSave: (form: Omit<CustomPrayer, "id"> & { id?: string }) => void;
+  onCancel: () => void;
+  locale: Locale;
+}) {
+  const t = STRINGS[locale];
+  const [form, setForm] = useState(initial);
+  const ready = form.title.trim() !== "" && form.text.trim() !== "";
+  const label = (text: string) => (
+    <span style={{ display: "block", margin: "0 0 4px", fontSize: 13, color: "var(--text-soft)" }}>{text}</span>
+  );
+  return (
+    <div style={{
+      background: "var(--surface)",
+      border: "1px solid var(--border-strong)",
+      borderRadius: 14,
+      padding: 14,
+      display: "flex",
+      flexDirection: "column",
+      gap: 12,
+      animation: "rolldown 0.22s ease",
+    }}>
+      <label>
+        {label(t.planCustomTitle)}
+        <input
+          value={form.title}
+          maxLength={MAX_CUSTOM_TITLE}
+          onChange={(e) => setForm({ ...form, title: e.target.value })}
+          style={fieldStyle}
+        />
+      </label>
+      <label>
+        {label(t.planCustomText)}
+        <textarea
+          value={form.text}
+          maxLength={MAX_CUSTOM_TEXT}
+          rows={6}
+          onChange={(e) => setForm({ ...form, text: e.target.value })}
+          style={{ ...fieldStyle, resize: "vertical", lineHeight: 1.45 }}
+        />
+      </label>
+      <label>
+        {label(t.planCustomTextTr)}
+        <textarea
+          value={form.textTr ?? ""}
+          maxLength={MAX_CUSTOM_TEXT}
+          rows={4}
+          onChange={(e) => setForm({ ...form, textTr: e.target.value })}
+          style={{ ...fieldStyle, resize: "vertical", lineHeight: 1.45 }}
+        />
+        <span style={{ display: "block", marginTop: 4, fontSize: 12, color: "var(--text-muted)" }}>{t.planCustomTextTrHint}</span>
+      </label>
+      <div style={{ display: "flex", gap: 8 }}>
+        <button onClick={onCancel} style={{ ...addButton, border: "1px solid var(--border-strong)", color: "var(--text-soft)" }}>
+          {t.planCancel}
+        </button>
+        <button
+          onClick={() => ready && onSave(form)}
+          disabled={!ready}
+          style={{
+            ...addButton,
+            border: "none",
+            background: ready ? PLAN_COLOR : "var(--border-strong)",
+            color: "white",
+            cursor: ready ? "pointer" : "default",
+          }}
+        >
+          {initial.id ? t.planSave : t.planCustomAddToPlan}
+        </button>
+      </div>
+    </div>
   );
 }

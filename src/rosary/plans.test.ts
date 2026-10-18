@@ -17,9 +17,15 @@ import {
   MAX_PLAN_NAME,
   MAX_PLAN_STEPS,
   MAX_REPEAT,
+  MAX_CUSTOM_PRAYERS,
+  MAX_CUSTOM_TEXT,
+  MAX_CUSTOM_TITLE,
+  exportPlans,
+  parsePlansBackup,
   type Plan,
 } from "./plans";
 import { ORDINARY_PRAYERS, LITANIES } from "./sequence";
+import { PRAYER_TYPES } from "./prayers";
 
 const plan = (steps: Plan["steps"], name = "Večerní modlitba"): Plan =>
   ({ id: "abc123", name, steps });
@@ -212,5 +218,95 @@ describe("plan set keys", () => {
     expect(findPlan([p], "plan:abc123")).toBe(p);
     expect(findPlan([p], "plan:gone")).toBeNull();
     expect(findPlan([], "plan:abc123")).toBeNull();
+  });
+});
+
+// A plan's own prayers: text the user writes, stored inside the plan.
+describe("custom prayers", () => {
+  const withCustom = (custom: unknown[], steps: unknown[]) =>
+    sanitizePlan({ id: "abc123", name: "Můj plán", steps, custom });
+  const mine = { id: "c1", title: "Za rodinu", text: "Pane, žehnej naší rodině.\nAmen.", textTr: "Lord, bless our family. Amen." };
+
+  it("keeps a custom prayer a step uses, and builds it as one card", () => {
+    const p = withCustom([mine], [{ key: "pater_noster", repeat: 1 }, { key: "custom:c1", repeat: 2 }])!;
+    expect(p.custom).toEqual([mine]);
+    const seq = buildPlanSequence(p);
+    expect(seq.length).toBe(3);
+    expect(seq[1]).toMatchObject({ type: PRAYER_TYPES.CUSTOM, label: "Za rodinu", section: "Za rodinu", custom: { text: mine.text, textTr: mine.textTr } });
+    expect(planLength(p.steps)).toBe(3);
+  });
+
+  it("drops an unused custom prayer, and a step naming one the plan lacks", () => {
+    const p = withCustom([mine, { ...mine, id: "c2" }], [{ key: "custom:c1", repeat: 1 }, { key: "custom:c9", repeat: 1 }])!;
+    expect(p.custom!.map((c) => c.id)).toEqual(["c1"]);
+    expect(p.steps.map((s) => s.key)).toEqual(["custom:c1"]);
+  });
+
+  it("rejects a plan whose only step is a missing custom prayer", () => {
+    expect(withCustom([], [{ key: "custom:c1", repeat: 1 }])).toBeNull();
+  });
+
+  it("caps and cleans the fields", () => {
+    const long = withCustom(
+      [{ id: "c1", title: "  T  ".repeat(40), text: "x".repeat(MAX_CUSTOM_TEXT + 50), textTr: "   " }],
+      [{ key: "custom:c1", repeat: 1 }]
+    )!;
+    const c = long.custom![0]!;
+    expect(c.title.length).toBeLessThanOrEqual(MAX_CUSTOM_TITLE);
+    expect(c.title).not.toMatch(/\s{2}/);
+    expect(c.text.length).toBe(MAX_CUSTOM_TEXT);
+    expect("textTr" in c).toBe(false);
+    const crlf = withCustom([{ id: "c1", title: "A", text: "a\r\nb" }], [{ key: "custom:c1", repeat: 1 }])!;
+    expect(crlf.custom![0]!.text).toBe("a\nb");
+  });
+
+  it("drops a custom prayer with no title or text, a bad id, or past the cap", () => {
+    const steps = Array.from({ length: 12 }, (_, i) => ({ key: `custom:c${i + 1}`, repeat: 1 }));
+    const many = Array.from({ length: 12 }, (_, i) => ({ id: `c${i + 1}`, title: `T${i}`, text: "x" }));
+    expect(withCustom(many, steps)!.custom!.length).toBe(MAX_CUSTOM_PRAYERS);
+    expect(withCustom([{ id: "c1", title: "", text: "x" }], [{ key: "custom:c1", repeat: 1 }])).toBeNull();
+    expect(withCustom([{ id: "c1", title: "T", text: "  " }], [{ key: "custom:c1", repeat: 1 }])).toBeNull();
+    expect(withCustom([{ id: "__proto__", title: "T", text: "x" }], [{ key: "custom:__proto__", repeat: 1 }])).toBeNull();
+  });
+
+  it("round-trips through a share link, whatever the text contains", () => {
+    const tricky = { id: "c1", title: "Za; mír: a, víru %", text: "Řádek 1\nŘádek 2; 50 % : konec, ✝", textTr: "Line: one; two" };
+    const p = withCustom([tricky], [{ key: "ave_maria", repeat: 3 }, { key: "custom:c1", repeat: 1 }])!;
+    expect(decodePlan(encodePlan(p))).toEqual({ name: p.name, steps: p.steps, custom: [tricky] });
+  });
+
+  it("still reads a share link from before custom prayers", () => {
+    expect(decodePlan("Ve%C4%8Der;pater_noster,ave_maria*3")).toEqual({
+      name: "Večer",
+      steps: [{ key: "pater_noster", repeat: 1 }, { key: "ave_maria", repeat: 3 }],
+    });
+  });
+});
+
+describe("backup", () => {
+  const plans: Plan[] = [
+    { id: "p1", name: "Ráno", steps: [{ key: "angelus", repeat: 1 }] },
+    {
+      id: "p2",
+      name: "Večer",
+      steps: [{ key: "loreto", repeat: 1 }, { key: "custom:c1", repeat: 1 }],
+      custom: [{ id: "c1", title: "Za rodinu", text: "Amen." }],
+    },
+  ];
+
+  it("round-trips every plan, without ids", () => {
+    const withoutIds = plans.map((p) => { const rest: Partial<Plan> = { ...p }; delete rest.id; return rest; });
+    expect(parsePlansBackup(exportPlans(plans))).toEqual(withoutIds);
+  });
+
+  it("rejects anything that isn't a backup of this app", () => {
+    expect(parsePlansBackup("not json")).toBeNull();
+    expect(parsePlansBackup(JSON.stringify({ plans }))).toBeNull();
+    expect(parsePlansBackup(JSON.stringify({ app: "other", version: 1, plans }))).toBeNull();
+  });
+
+  it("drops invalid plans from a backup but keeps the rest", () => {
+    const json = JSON.stringify({ app: "latin-rosary", version: 1, plans: [plans[0], { name: "", steps: [] }, null] });
+    expect(parsePlansBackup(json)).toEqual([{ name: "Ráno", steps: [{ key: "angelus", repeat: 1 }] }]);
   });
 });

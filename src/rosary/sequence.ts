@@ -15,6 +15,9 @@ export type SequenceItem = {
   // For one section of a longer text: the [start, end) line range to show.
   // Line-based, so one range serves every language (see sliceLines).
   lines?: readonly [number, number];
+  // A user's own prayer (type CUSTOM): its text, and optionally a second
+  // version that the language button switches to.
+  custom?: { text: string; textTr?: string };
 };
 
 // The [start, end) lines of a text, without the blank spacer lines a section

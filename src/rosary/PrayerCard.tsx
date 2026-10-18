@@ -108,6 +108,20 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
     );
   }
 
+  // A user's own prayer: plain text, never parsed for rubrics or litany
+  // responses. The language button switches to its second version if it has
+  // one, and otherwise leaves the one text up (untagged: its language is
+  // whatever the user wrote it in).
+  if (currentPrayer.type === PRAYER_TYPES.CUSTOM) {
+    const custom = currentPrayer.custom;
+    const useTr = showTranslation && !!custom?.textTr;
+    return (
+      <div lang={useTr ? locale : undefined} style={sizedBodyStyle}>
+        <div style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{useTr ? custom!.textTr : custom?.text}</div>
+      </div>
+    );
+  }
+
   const full = showTranslation ? PRAYER_TRANSLATIONS[locale][currentPrayer.type] : PRAYERS[currentPrayer.type];
   // A litany step may be one section of a longer text: the same line range in
   // every language, since the translations keep the Latin's line structure.
