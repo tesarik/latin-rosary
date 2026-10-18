@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.15.0]
 
 ### Added
 - **Prayers of your own in a plan.** *+ Vlastní modlitba* in the plan editor adds a prayer you write: a title, its Latin text and an optional Czech/English text, which the header's language button switches to. It is prayed as one card and can be repeated, reordered and edited (✎) like any other step. It lives inside its plan, so it is deleted with the plan and shared with it: the share link carries the text, and warns when the link gets long. It is always shown as plain text. Limits: 10 per plan, 60 characters per title, 2,000 per text.
