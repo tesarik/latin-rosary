@@ -40,6 +40,11 @@ type Strings = {
   // Two-letter code on the header language button (La ↔ this).
   prayerLanguageShort: string;
   otherPrayersHeading: string;
+  // Tag on the mysteries prayed today, and on the Marian antiphon of the season.
+  todayBadge: string;
+  seasonBadge: string;
+  // Under the Angelus in Eastertide, when the Regína Cæli takes its place.
+  angelusEastertide: string;
   ordinaryGroupName: string;
   litaniesGroupName: string;
   startRosaryAria: (mysteryName: string) => string;
@@ -120,6 +125,9 @@ export const STRINGS: Record<Locale, Strings> = {
     localeName: "Čeština",
     prayerLanguageShort: "Cz",
     otherPrayersHeading: "Další latinské modlitby",
+    todayBadge: "dnes",
+    seasonBadge: "nyní",
+    angelusEastertide: "V době velikonoční se místo něj modlí Regína Cæli",
     ordinaryGroupName: "Základní modlitby",
     litaniesGroupName: "Litanie",
     startRosaryAria: (n) => `Začít růženec — ${n}`,
@@ -198,6 +206,9 @@ export const STRINGS: Record<Locale, Strings> = {
     localeName: "English",
     prayerLanguageShort: "En",
     otherPrayersHeading: "Other Latin prayers",
+    todayBadge: "today",
+    seasonBadge: "now",
+    angelusEastertide: "In Eastertide the Regína Cæli is prayed instead",
     ordinaryGroupName: "Essential prayers",
     litaniesGroupName: "Litanies",
     startRosaryAria: (n) => `Start rosary — ${n}`,

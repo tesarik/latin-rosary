@@ -27,7 +27,7 @@ function withRubrics(text: string): ReactNode {
 // left-aligned, one invocation per line. A run of invocations sharing a
 // response shows that response once, in a band above them that sticks to the
 // top while the run scrolls past; a lone invocation keeps its response inline,
-// in italic. See `parseLitany` in litany.ts.
+// styled like the band (accent colour, upright). See `parseLitany` in litany.ts.
 function renderLitany(text: string, accent: string): ReactNode {
   return parseLitany(text).map((b, i) => {
     switch (b.kind) {
@@ -38,7 +38,7 @@ function renderLitany(text: string, accent: string): ReactNode {
       case "single":
         return (
           <div key={i} style={{ margin: "3px 0" }}>
-            {b.invocation} <span style={{ fontStyle: "italic" }}>{b.response}</span>
+            {b.invocation} <span style={{ color: accent, fontWeight: 600 }}>{b.response}</span>
           </div>
         );
       case "run":
