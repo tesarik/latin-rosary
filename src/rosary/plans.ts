@@ -15,6 +15,7 @@
 // read `location`. Covered by plans.test.ts.
 
 import type { Locale } from "./i18n";
+import { PRAYER_TYPES } from "./prayers";
 import {
   ORDINARY_PRAYERS,
   LITANIES,
@@ -32,8 +33,18 @@ type PlanDevotionKey = keyof typeof PLAN_DEVOTIONS;
 // What a plan may contain: any ordinary prayer, any litany, or the Leonine
 // prayers.
 export type PlanItemKey = OrdinaryPrayerKey | LitanyKey | PlanDevotionKey;
-export type PlanStep = { key: PlanItemKey; repeat: number };
-export type Plan = { id: string; name: string; steps: PlanStep[] };
+
+// A prayer the user writes into a plan: a title, its Latin text, and
+// optionally a translation (written in the UI language of the time) that the
+// header's language button switches to, as for every other prayer. It
+// lives inside its plan — deleted with it, shared with it — and a step
+// refers to it as `custom:<id>`.
+export type CustomPrayer = { id: string; title: string; text: string; textTr?: string };
+export type CustomKey = `custom:${string}`;
+export type PlanStepKey = PlanItemKey | CustomKey;
+
+export type PlanStep = { key: PlanStepKey; repeat: number };
+export type Plan = { id: string; name: string; steps: PlanStep[]; custom?: CustomPrayer[] };
 
 // A plan's prayer-set key is prefixed so it can never collide with a registry
 // key (see navigation.PrayerSetKey).
@@ -52,10 +63,32 @@ export const MAX_PLAN_NAME = 40;
 // Hard ceiling on the *built* sequence, so a hand-crafted share link can't hand
 // the bead strand a thousand beads. Steps past it are dropped on load.
 export const MAX_PLAN_LENGTH = 200;
+// Caps on a plan's own prayers. The text caps keep a share link — which
+// carries the text — short enough for chat apps that truncate long URLs.
+export const MAX_CUSTOM_PRAYERS = 10;
+export const MAX_CUSTOM_TITLE = 60;
+export const MAX_CUSTOM_TEXT = 2000;
 
 const PLANS_STORAGE_KEY = "ruzenec_plans";
 const ID_RE = /^[a-z0-9]{1,24}$/;
 const PLAN_PREFIX = "plan:";
+const CUSTOM_PREFIX = "custom:";
+const CUSTOM_ID_RE = /^[a-z0-9]{1,8}$/;
+
+export const isCustomKey = (k: string): k is CustomKey => k.startsWith(CUSTOM_PREFIX);
+export const customKeyOf = (id: string): CustomKey => `${CUSTOM_PREFIX}${id}`;
+const customIdOf = (k: CustomKey): string => k.slice(CUSTOM_PREFIX.length);
+
+export const findCustom = (plan: Pick<Plan, "custom">, k: CustomKey): CustomPrayer | null =>
+  plan.custom?.find((c) => c.id === customIdOf(k)) ?? null;
+
+// A fresh id for a plan's own prayer, unique within that plan.
+export function newCustomId(plan: Pick<Plan, "custom">): string {
+  const taken = new Set((plan.custom ?? []).map((c) => c.id));
+  let n = taken.size + 1;
+  while (taken.has(`c${n}`)) n++;
+  return `c${n}`;
+}
 
 // Own-property check, NOT `in` — same reason as navigation.ts: a corrupt or
 // hostile key like "toString" must not resolve to a prototype member.
@@ -72,6 +105,14 @@ const planEntry = (k: PlanItemKey) =>
       : PLAN_DEVOTIONS[k as PlanDevotionKey];
 
 export const planItemName = (k: PlanItemKey): string => planEntry(k).name;
+
+// A step's name in the editor: the registry name, or a custom prayer's title.
+export const stepName = (plan: Pick<Plan, "custom">, k: PlanStepKey): string =>
+  isCustomKey(k) ? findCustom(plan, k)?.title ?? "" : planItemName(k);
+
+// How many prayer-card steps one repetition of a step is worth. A custom
+// prayer is one card.
+const stepCost = (k: PlanStepKey): number => (isCustomKey(k) ? 1 : planEntry(k).build().length);
 
 // The same prayer's name in the UI language — the muted second line under the
 // Latin one in the editor's picker, matching the start screen.
@@ -104,9 +145,11 @@ export const planIdOf = (k: PlanSetKey): string => k.slice(PLAN_PREFIX.length);
 export const findPlan = (plans: Plan[], key: PlanSetKey): Plan | null =>
   plans.find((p) => p.id === planIdOf(key)) ?? null;
 
-// Validate anything claiming to be a plan — parsed JSON from localStorage or a
-// decoded share link. Unknown / prototype step keys are dropped, repeats are
-// clamped, and a plan left with no steps is rejected outright rather than
+// Validate anything claiming to be a plan — parsed JSON from localStorage, a
+// backup file or a decoded share link. Unknown / prototype step keys are
+// dropped, repeats are clamped, custom prayers are trimmed to their caps (and
+// dropped when empty or unused), a step naming a custom prayer the plan lacks
+// is dropped, and a plan left with no steps is rejected outright rather than
 // resurfacing as an unprayable empty set.
 export function sanitizePlan(raw: unknown): Plan | null {
   if (!raw || typeof raw !== "object") return null;
@@ -117,24 +160,47 @@ export function sanitizePlan(raw: unknown): Plan | null {
   if (!name) return null;
   if (!Array.isArray(p.steps)) return null;
 
+  const custom = sanitizeCustom(p.custom);
   const steps: PlanStep[] = [];
   let length = 0;
   for (const raw of p.steps) {
     if (steps.length >= MAX_PLAN_STEPS) break;
     if (!raw || typeof raw !== "object") continue;
     const { key, repeat } = raw as Partial<PlanStep>;
-    if (typeof key !== "string" || !isPlanItemKey(key)) continue;
+    if (typeof key !== "string") continue;
+    if (isCustomKey(key) ? !findCustom({ custom }, key) : !isPlanItemKey(key)) continue;
     const n =
       typeof repeat === "number" && Number.isFinite(repeat)
         ? Math.min(MAX_REPEAT, Math.max(1, Math.floor(repeat)))
         : 1;
-    const cost = planEntry(key).build().length * n;
+    const cost = stepCost(key) * n;
     if (length + cost > MAX_PLAN_LENGTH) break;
     length += cost;
     steps.push({ key, repeat: n });
   }
   if (steps.length === 0) return null;
-  return { id: p.id, name, steps };
+  const used = custom.filter((c) => steps.some((s) => s.key === customKeyOf(c.id)));
+  return used.length > 0 ? { id: p.id, name, steps, custom: used } : { id: p.id, name, steps };
+}
+
+const cleanText = (v: unknown, max: number): string =>
+  typeof v === "string" ? v.replace(/\r\n?/g, "\n").trim().slice(0, max) : "";
+
+function sanitizeCustom(raw: unknown): CustomPrayer[] {
+  if (!Array.isArray(raw)) return [];
+  const out: CustomPrayer[] = [];
+  for (const c of raw) {
+    if (out.length >= MAX_CUSTOM_PRAYERS) break;
+    if (!c || typeof c !== "object") continue;
+    const { id, title, text, textTr } = c as Partial<CustomPrayer>;
+    if (typeof id !== "string" || !CUSTOM_ID_RE.test(id) || out.some((o) => o.id === id)) continue;
+    const t = cleanText(title, MAX_CUSTOM_TITLE).replace(/\s+/g, " ");
+    const body = cleanText(text, MAX_CUSTOM_TEXT);
+    if (!t || !body) continue;
+    const tr = cleanText(textTr, MAX_CUSTOM_TEXT);
+    out.push(tr ? { id, title: t, text: body, textTr: tr } : { id, title: t, text: body });
+  }
+  return out;
 }
 
 export function loadPlans(): Plan[] {
@@ -191,6 +257,18 @@ export function buildPlanSequence(plan: Plan): SequenceItem[] {
   const seq: SequenceItem[] = [];
   for (const step of plan.steps) {
     for (let i = 0; i < step.repeat; i++) {
+      if (isCustomKey(step.key)) {
+        const c = findCustom(plan, step.key);
+        if (c) {
+          seq.push({
+            type: PRAYER_TYPES.CUSTOM,
+            label: c.title,
+            section: c.title,
+            custom: c.textTr ? { text: c.text, textTr: c.textTr } : { text: c.text },
+          });
+        }
+        continue;
+      }
       for (const item of planEntry(step.key).build()) {
         seq.push({ ...item, section: item.section ?? item.label });
       }
@@ -203,21 +281,29 @@ export function buildPlanSequence(plan: Plan): SequenceItem[] {
 // Takes the steps rather than a whole Plan so the editor can measure a
 // candidate list before committing it.
 export const planLength = (steps: PlanStep[]): number =>
-  steps.reduce((n, s) => n + planEntry(s.key).build().length * s.repeat, 0);
+  steps.reduce((n, s) => n + stepCost(s.key) * s.repeat, 0);
 
 // --- Sharing ---------------------------------------------------------------
 // A plan is a list of short registry keys, so it fits comfortably in a URL
-// fragment: #plan=<name>;<key>[*<repeat>],<key>,…  The fragment never reaches a
-// server. `encodeURIComponent` escapes both separators, so a name containing
-// ";" or "," survives the round trip.
+// fragment: #plan=<name>;<key>[*<repeat>],<key>,…[;<custom>,<custom>,…]
+// where each custom prayer is <id>:<title>:<text>[:<textTr>]. The fragment
+// never reaches a server. `encodeURIComponent` escapes every separator used
+// here (";", ",", ":"), so any text survives the round trip; the step keys
+// are plain ASCII and "custom:<id>" keeps its colon unescaped on purpose.
 
 const SHARE_PARAM = "plan";
+
+// Past this, a link may be cut short by chat apps; the editor warns.
+export const LONG_SHARE_URL = 4000;
 
 export function encodePlan(plan: Plan): string {
   const steps = plan.steps
     .map((s) => (s.repeat > 1 ? `${s.key}*${s.repeat}` : s.key))
     .join(",");
-  return `${encodeURIComponent(plan.name)};${steps}`;
+  const custom = (plan.custom ?? [])
+    .map((c) => [c.id, c.title, c.text, ...(c.textTr ? [c.textTr] : [])].map(encodeURIComponent).join(":"))
+    .join(",");
+  return `${encodeURIComponent(plan.name)};${steps}${custom ? `;${custom}` : ""}`;
 }
 
 export function planShareUrl(plan: Plan): string {
@@ -228,27 +314,62 @@ export function planShareUrl(plan: Plan): string {
 // Decode a shared payload into a plan WITHOUT an id — the importer assigns a
 // fresh one, so a shared plan can never overwrite a local one.
 export function decodePlan(payload: string): Omit<Plan, "id"> | null {
-  const sep = payload.indexOf(";");
-  if (sep < 0) return null;
-  let name: string;
+  const [rawName, rawSteps, rawCustom] = payload.split(";");
+  if (rawName === undefined || rawSteps === undefined) return null;
   try {
-    name = decodeURIComponent(payload.slice(0, sep));
-  } catch {
-    return null;
-  }
-  const steps = payload
-    .slice(sep + 1)
-    .split(",")
-    .map((token) => {
+    const name = decodeURIComponent(rawName);
+    const steps = rawSteps.split(",").map((token) => {
       const [key, count] = token.split("*");
       return { key, repeat: count ? Number(count) : 1 };
     });
-  // Reuse the same validation the stored plans go through; the id is a stand-in.
-  const plan = sanitizePlan({ id: "shared", name, steps });
-  return plan ? { name: plan.name, steps: plan.steps } : null;
+    const custom = (rawCustom ? rawCustom.split(",") : []).map((token) => {
+      const [id, title, text, textTr] = token.split(":").map(decodeURIComponent);
+      return { id, title, text, textTr };
+    });
+    // Reuse the same validation the stored plans go through; the id is a stand-in.
+    const plan = sanitizePlan({ id: "shared", name, steps, custom });
+    return plan ? withoutId(plan) : null;
+  } catch {
+    return null;
+  }
 }
+
+const withoutId = (plan: Plan): Omit<Plan, "id"> => {
+  const rest: Partial<Plan> = { ...plan };
+  delete rest.id;
+  return rest as Omit<Plan, "id">;
+};
 
 export function readSharedPlanFromHash(hash: string): Omit<Plan, "id"> | null {
   const match = new RegExp(`(?:^|[#&])${SHARE_PARAM}=([^&]*)`).exec(hash);
   return match ? decodePlan(match[1]!) : null;
+}
+
+// --- Backup ----------------------------------------------------------------
+// Plans live only in this browser's localStorage, so clearing site data or
+// changing phones loses them. A backup is a plain JSON file the user saves
+// and later loads back; nothing leaves the device.
+
+const BACKUP_APP = "latin-rosary";
+
+export function exportPlans(plans: Plan[]): string {
+  return JSON.stringify({ app: BACKUP_APP, version: PLANS_VERSION, plans }, null, 2);
+}
+
+// The plans in a backup file, validated, WITHOUT ids — like a shared plan,
+// each import gets a fresh id so it can never overwrite a local plan. Null if
+// the file isn't a backup of this app.
+export function parsePlansBackup(json: string): Omit<Plan, "id">[] | null {
+  try {
+    const parsed = JSON.parse(json) as { app?: unknown; version?: unknown; plans?: unknown };
+    if (parsed?.app !== BACKUP_APP || parsed.version !== PLANS_VERSION || !Array.isArray(parsed.plans)) return null;
+    const out: Omit<Plan, "id">[] = [];
+    for (const candidate of parsed.plans) {
+      const plan = sanitizePlan({ ...(candidate as object), id: "imported" });
+      if (plan) out.push(withoutId(plan));
+    }
+    return out;
+  } catch {
+    return null;
+  }
 }

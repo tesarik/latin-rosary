@@ -10,7 +10,7 @@ A small, offline-friendly web app for praying the rosary and other prayers in La
 - **Orationes utilissimæ**: the everyday prayers, both Creeds and the Athanasian Creed, the four seasonal Marian antiphons, the Angelus, Ánima Christi, Sub tuum præsídium, and more.
 - **Seven litanies**: Loreto, the Sacred Heart, the Holy Name, St. Joseph, the Precious Blood, All Saints (traditional form) and the Litany of Humility.
 - The **Leonine prayers** (after Low Mass) and the **prayers of St. Bridget**.
-- **Prayer plans**: build your own named sequence of prayers, litanies and the Leonine prayers, with repeats, and share it as a link.
+- **Prayer plans**: build your own named sequence of prayers, litanies, the Leonine prayers and **prayers of your own** (Latin text plus an optional translation), with repeats. Share a plan as a link, or **back up** all plans to a file and load them back, on another device too. Plans are stored only in the browser.
 - The start screen marks **today's mysteries**, by weekday and on Sunday by liturgical season, and the **Marian antiphon of the season**.
 
 **Praying**

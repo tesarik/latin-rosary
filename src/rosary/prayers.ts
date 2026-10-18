@@ -18,6 +18,9 @@ export const PRAYER_TYPES = {
   CREED: "creed",
   OUR_FATHER: "our_father",
   HAIL_MARY: "hail_mary",
+  // A user's own prayer in a plan: its text travels on the sequence item
+  // (`SequenceItem.custom`), so it has no entry in the prayer tables.
+  CUSTOM: "custom",
   GLORY_BE: "glory_be",
   FATIMA: "fatima",
   SALVE_REGINA: "salve_regina",
@@ -186,7 +189,7 @@ export const MYSTERIES: Record<MysteryKey, MysterySet> = {
 
 // The Hail Mary is intentionally absent — its text is built by `getHailMary`
 // so the per-decade mystery clause can be highlighted.
-export type StaticPrayerType = Exclude<PrayerType, typeof PRAYER_TYPES.HAIL_MARY>;
+export type StaticPrayerType = Exclude<PrayerType, typeof PRAYER_TYPES.HAIL_MARY | typeof PRAYER_TYPES.CUSTOM>;
 
 // The Salve Regína antiphon + versicle is shared verbatim between the rosary's
 // closing prayer and the Leonine post-Mass prayers. The rosary additionally

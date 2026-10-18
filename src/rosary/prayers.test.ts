@@ -16,14 +16,18 @@ import { parseLitany } from "./litany";
 import { SUPPORTED_LOCALES, type Locale } from "./i18n";
 import { STATE_VERSION } from "./storage";
 
-// Resolve the displayed text for a sequence item's type. HAIL_MARY is the one
-// type with no PRAYERS entry — its text is assembled by getHailMary(Tr).
+// Resolve the displayed text for a sequence item's type. HAIL_MARY has no
+// PRAYERS entry — its text is assembled by getHailMary(Tr) — and CUSTOM (a
+// user's own prayer in a plan) carries its text on the item; no registry set
+// contains one, so it resolves to nothing here.
 const latinText = (type: PrayerType): string =>
-  type === PRAYER_TYPES.HAIL_MARY ? getHailMary(undefined).after : PRAYERS[type];
+  type === PRAYER_TYPES.HAIL_MARY ? getHailMary(undefined).after
+  : type === PRAYER_TYPES.CUSTOM ? ""
+  : PRAYERS[type];
 const translatedText = (locale: Locale, type: PrayerType): string =>
-  type === PRAYER_TYPES.HAIL_MARY
-    ? getHailMaryTr(locale, undefined).after
-    : PRAYER_TRANSLATIONS[locale][type];
+  type === PRAYER_TYPES.HAIL_MARY ? getHailMaryTr(locale, undefined).after
+  : type === PRAYER_TYPES.CUSTOM ? ""
+  : PRAYER_TRANSLATIONS[locale][type];
 
 // Every sequence the app can build, flattened to its items.
 function allSequences(): { label: string; seq: SequenceItem[] }[] {

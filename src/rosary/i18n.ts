@@ -93,6 +93,25 @@ type Strings = {
   planEditAria: (name: string) => string;
   planShareAria: (name: string) => string;
   planDeleteAria: (name: string) => string;
+  // A plan's own prayers.
+  planCustomAdd: string;
+  planCustomTag: string;
+  planCustomTitle: string;
+  planCustomText: string;
+  planCustomTextTr: string;
+  planCustomTextTrHint: string;
+  planCustomAddToPlan: string;
+  planCustomLimit: string;
+  planCustomEditAria: (title: string) => string;
+  planShareLong: string;
+  // Backup of all plans as a file.
+  planBackupHint: string;
+  planExport: string;
+  planImport: string;
+  planImportBackupConfirm: (n: number) => string;
+  planImportDone: (n: number) => string;
+  planImportInvalid: string;
+  planImportNone: string;
 };
 
 export const STRINGS: Record<Locale, Strings> = {
@@ -176,6 +195,23 @@ export const STRINGS: Record<Locale, Strings> = {
     planEditAria: (n) => `Upravit plán ${n}`,
     planShareAria: (n) => `Sdílet plán ${n}`,
     planDeleteAria: (n) => `Smazat plán ${n}`,
+    planCustomAdd: "Vlastní modlitba",
+    planCustomTag: "vlastní modlitba",
+    planCustomTitle: "Název modlitby",
+    planCustomText: "Text latinsky",
+    planCustomTextTr: "Text česky (nepovinné)",
+    planCustomTextTrHint: "Tlačítko jazyka v hlavičce pak přepíná mezi latinou a češtinou.",
+    planCustomAddToPlan: "Přidat do plánu",
+    planCustomLimit: "Plán může mít nejvýš 10 vlastních modliteb.",
+    planCustomEditAria: (n) => `Upravit modlitbu ${n}`,
+    planShareLong: "Odkaz je dlouhý – některé aplikace ho mohou zkrátit.",
+    planBackupHint: "Plány jsou uložené jen v tomto prohlížeči. Zálohu si uložte jako soubor a později ji můžete načíst zpět, třeba v jiném zařízení.",
+    planExport: "Zálohovat plány",
+    planImport: "Načíst zálohu",
+    planImportBackupConfirm: (n) => `Přidat ${n} ${n === 1 ? "plán" : n >= 2 && n <= 4 ? "plány" : "plánů"} ze zálohy?`,
+    planImportDone: (n) => `Přidáno ${n} ${n === 1 ? "plán" : n >= 2 && n <= 4 ? "plány" : "plánů"}.`,
+    planImportInvalid: "Tento soubor není záloha plánů.",
+    planImportNone: "V záloze nejsou žádné plány, nebo už není místo.",
   },
   en: {
     appTitle: "Latin Rosary",
@@ -257,6 +293,23 @@ export const STRINGS: Record<Locale, Strings> = {
     planEditAria: (n) => `Edit plan ${n}`,
     planShareAria: (n) => `Share plan ${n}`,
     planDeleteAria: (n) => `Delete plan ${n}`,
+    planCustomAdd: "Own prayer",
+    planCustomTag: "own prayer",
+    planCustomTitle: "Prayer title",
+    planCustomText: "Latin text",
+    planCustomTextTr: "English text (optional)",
+    planCustomTextTrHint: "The language button in the header then switches between the Latin and the English.",
+    planCustomAddToPlan: "Add to plan",
+    planCustomLimit: "A plan can hold at most 10 prayers of your own.",
+    planCustomEditAria: (n) => `Edit prayer ${n}`,
+    planShareLong: "The link is long; some apps may cut it short.",
+    planBackupHint: "Plans are stored only in this browser. Save a backup as a file and load it back later, on another device too.",
+    planExport: "Back up plans",
+    planImport: "Load a backup",
+    planImportBackupConfirm: (n) => `Add ${n} ${n === 1 ? "plan" : "plans"} from the backup?`,
+    planImportDone: (n) => `Added ${n} ${n === 1 ? "plan" : "plans"}.`,
+    planImportInvalid: "This file is not a plans backup.",
+    planImportNone: "The backup has no plans, or there is no room left.",
   },
 };
 
