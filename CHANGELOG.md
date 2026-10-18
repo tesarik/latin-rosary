@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.14.0]
 
 ### Added
 - **Today's mysteries are marked on the start screen.** A *dnes* pill tags the set traditionally prayed today: joyful on Monday and Thursday, sorrowful on Tuesday and Friday, glorious on Wednesday and Saturday. On Sunday it follows the season: joyful in Advent and Christmastide, sorrowful in Lent, glorious otherwise.
