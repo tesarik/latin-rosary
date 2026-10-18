@@ -3,6 +3,15 @@ import ReactDOM from "react-dom/client";
 import Rosary from "./Rosary";
 import ErrorBoundary from "./rosary/ErrorBoundary";
 import { initAnalytics } from "./rosary/analytics";
+// EB Garamond for the prayer body, bundled with the app (@fontsource) rather
+// than fetched from Google Fonts: same-origin files are cached by the service
+// worker, so the font works offline, and no visitor's IP goes to a third party.
+// Each CSS file declares every subset with its unicode-range, so the browser
+// downloads only the ones the page uses (Latin and Latin Extended for Czech).
+import "@fontsource/eb-garamond/400.css";
+import "@fontsource/eb-garamond/400-italic.css";
+import "@fontsource/eb-garamond/500.css";
+import "@fontsource/eb-garamond/600.css";
 import "./index.css";
 
 const root = document.getElementById("root");

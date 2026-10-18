@@ -19,6 +19,8 @@ type GroupEntry = [PrayerSetKey, { name: string; nameTr: Localized; color: strin
 type Props = {
   onStart: (key: PrayerSetKey) => void;
   resume: ResumeInfo;
+  // The most recently prayed unfinished set, offered first.
+  continueWith: { key: PrayerSetKey; name: string; color: string; step: number; total: number } | null;
   onOpenPlans: () => void;
   planCount: number;
   locale: Locale;
@@ -306,7 +308,7 @@ function CollapsiblePrayers({ title, subtitle, entries, onStart, resume, badges 
 // Start screen: title + one button per mystery set. Also hosts the language
 // picker — language is locked in once a rosary starts.
 // onStart(key) hands the chosen mystery key back to the parent.
-export default function MysteryMenu({ onStart, resume, onOpenPlans, planCount, locale, onLocaleChange, theme, onToggleTheme }: Props) {
+export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans, planCount, locale, onLocaleChange, theme, onToggleTheme }: Props) {
   const t = STRINGS[locale];
   const [aboutOpen, setAboutOpen] = useState(false);
   // Today's place in the calendar: which mysteries to pray, which Marian
@@ -348,6 +350,23 @@ export default function MysteryMenu({ onStart, resume, onOpenPlans, planCount, l
       </h1>
 
       <div style={{ width: "100%", maxWidth: 380, display: "flex", flexDirection: "column", gap: 12 }}>
+        {/* The last unfinished prayer, one tap away — otherwise it may sit
+            inside a collapsed group (a litany) or in the plans screen. Its own
+            row further down still shows its place too. */}
+        {continueWith && (
+          <>
+            <h2 style={{ ...sectionHeading, margin: "4px 4px 0" }}>{t.continueHeading}</h2>
+            <PrayerSetButton
+              name={continueWith.name}
+              resume={<ResumeLine info={continueWith} color={continueWith.color} theme={theme} locale={locale} />}
+              color={continueWith.color}
+              ariaLabel={`${continueWith.name}, ${t.resumeAt(continueWith.step, continueWith.total)}`}
+              icon="continue"
+              onClick={() => onStart(continueWith.key)}
+            />
+            <div aria-hidden="true" style={{ height: 4 }} />
+          </>
+        )}
         {(Object.entries(MYSTERIES) as [MysteryKey, typeof MYSTERIES[MysteryKey]][]).map(([key, val]) => (
           <PrayerSetButton
             key={key}
@@ -362,15 +381,7 @@ export default function MysteryMenu({ onStart, resume, onOpenPlans, planCount, l
           />
         ))}
 
-        <h2 style={{
-          fontFamily: "Arial, sans-serif",
-          fontSize: 14,
-          fontWeight: 600,
-          color: "var(--text-muted)",
-          letterSpacing: 0.5,
-          textTransform: "uppercase",
-          margin: "16px 4px 0",
-        }}>
+        <h2 style={sectionHeading}>
           {t.otherPrayersHeading}
         </h2>
 
@@ -451,7 +462,7 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
   resume?: React.ReactNode;
   color: string;
   ariaLabel: string;
-  icon: "rosary" | "cross" | "plan";
+  icon: "rosary" | "cross" | "plan" | "continue";
   onClick: () => void;
 }) {
   return (
@@ -493,6 +504,10 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
       }}>
         {icon === "plan" ? (
           <PlanIcon color={color} />
+        ) : icon === "continue" ? (
+          <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+            <path d="M7 4.5 L15.5 10 L7 15.5 Z" fill={color} />
+          </svg>
         ) : (
           <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
             {icon === "rosary" && (
@@ -517,3 +532,14 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
     </button>
   );
 }
+
+// Small uppercase heading over a group of start-screen rows.
+const sectionHeading: React.CSSProperties = {
+  fontFamily: "Arial, sans-serif",
+  fontSize: 14,
+  fontWeight: 600,
+  color: "var(--text-muted)",
+  letterSpacing: 0.5,
+  textTransform: "uppercase",
+  margin: "16px 4px 0",
+};

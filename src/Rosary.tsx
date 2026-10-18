@@ -117,14 +117,17 @@ export default function Rosary() {
   // Record the open set's step in the progress map. Only multi-step sets (the
   // rosary, the linear devotions, the linear litany, plans) are tracked;
   // single-prayer sets have nothing to resume. Step 0 is "not started", so it
-  // is removed rather than stored.
+  // is removed rather than stored. The set just prayed moves to the END of
+  // the map (delete, then re-add): object keys keep insertion order, through
+  // JSON too, so the last key is the most recently prayed set — the one the
+  // start screen's "continue" tile offers.
   useEffect(() => {
     if (!started || !selectedSet || !isPersistableKey(selectedSet, plans)) return;
     setProgress((prev) => {
       if (currentStep > 0 ? prev[selectedSet] === currentStep : !Object.hasOwn(prev, selectedSet)) return prev;
       const next = { ...prev };
+      delete next[selectedSet];
       if (currentStep > 0) next[selectedSet] = currentStep;
-      else delete next[selectedSet];
       return next;
     });
   }, [selectedSet, currentStep, started, plans]);
@@ -145,6 +148,14 @@ export default function Rosary() {
     }
     return out;
   }, [progress, plans]);
+
+  // The most recently prayed unfinished set, for the start screen's tile.
+  const continueWith = useMemo(() => {
+    const key = Object.keys(resume).at(-1) as PrayerSetKey | undefined;
+    if (!key) return null;
+    const meta = getPrayerSetMeta(key, plans);
+    return { key, name: meta.name, color: meta.color, ...resume[key]! };
+  }, [resume, plans]);
 
   // A shared plan arrives in the URL fragment (#plan=…). Import it once, on
   // mount: the fragment is cleared first so a reload — or a declined import —
@@ -299,6 +310,7 @@ export default function Rosary() {
           <MysteryMenu
             onStart={startSet}
             resume={resume}
+            continueWith={continueWith}
             onOpenPlans={() => setPlansOpen(true)}
             planCount={plans.length}
             locale={locale}
