@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.16.0]
 
 ### Added
 - **"Rozepsaná modlitba" at the top of the start screen.** When a prayer is unfinished, the most recently prayed one is offered first, one tap away. Before, it could sit inside the collapsed *Litaníæ* group or on the plans screen. Its own row further down still shows its place too.
