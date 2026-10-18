@@ -1,8 +1,10 @@
 // User-defined prayer plans: a named, ordered list of prayers the user picks
-// from the *Orationes utilissimæ* and the litanies, prayed as one linear set.
-// The rosary and the linear devotions (Leonine, St. Bridget) are deliberately
-// NOT selectable — a plan strings together short prayers; nesting a 74-step
-// rosary inside one would lose the bead ring that makes it a rosary.
+// from the *Orationes utilissimæ*, the litanies and the Leonine prayers,
+// prayed as one linear set. A multi-step entry (a litany, the Leonine
+// prayers) is inlined as its own steps. The rosary is deliberately NOT
+// selectable — nesting a 74-step rosary inside a plan would lose the bead
+// ring that makes it a rosary — and neither are the St. Bridget prayers,
+// whose Pater/Ave sub-steps would each become a bead of the plan's strand.
 //
 // Plans live under their OWN localStorage key, not inside `ruzenec_state`:
 // that key is discarded on every STATE_VERSION bump and cleared on reset, which
@@ -16,13 +18,20 @@ import type { Locale } from "./i18n";
 import {
   ORDINARY_PRAYERS,
   LITANIES,
+  OTHER_PRAYER_SETS,
   type OrdinaryPrayerKey,
   type LitanyKey,
   type SequenceItem,
 } from "./sequence";
 
-// What a plan may contain: any ordinary prayer or any litany.
-export type PlanItemKey = OrdinaryPrayerKey | LitanyKey;
+// The linear devotions a plan may include — each step of theirs already is a
+// section, so they inline cleanly.
+const PLAN_DEVOTIONS = { leonine: OTHER_PRAYER_SETS.leonine } as const;
+type PlanDevotionKey = keyof typeof PLAN_DEVOTIONS;
+
+// What a plan may contain: any ordinary prayer, any litany, or the Leonine
+// prayers.
+export type PlanItemKey = OrdinaryPrayerKey | LitanyKey | PlanDevotionKey;
 export type PlanStep = { key: PlanItemKey; repeat: number };
 export type Plan = { id: string; name: string; steps: PlanStep[] };
 
@@ -53,12 +62,14 @@ const PLAN_PREFIX = "plan:";
 const has = (obj: object, k: string): boolean => Object.prototype.hasOwnProperty.call(obj, k);
 
 export const isPlanItemKey = (k: string): k is PlanItemKey =>
-  has(ORDINARY_PRAYERS, k) || has(LITANIES, k);
+  has(ORDINARY_PRAYERS, k) || has(LITANIES, k) || has(PLAN_DEVOTIONS, k);
 
 const planEntry = (k: PlanItemKey) =>
   has(ORDINARY_PRAYERS, k)
     ? ORDINARY_PRAYERS[k as OrdinaryPrayerKey]
-    : LITANIES[k as LitanyKey];
+    : has(LITANIES, k)
+      ? LITANIES[k as LitanyKey]
+      : PLAN_DEVOTIONS[k as PlanDevotionKey];
 
 export const planItemName = (k: PlanItemKey): string => planEntry(k).name;
 
@@ -67,7 +78,7 @@ export const planItemName = (k: PlanItemKey): string => planEntry(k).name;
 export const planItemNameTr = (k: PlanItemKey, locale: Locale): string =>
   planEntry(k).nameTr[locale];
 
-// The two groups the editor's prayer picker offers, each sorted by name.
+// The groups the editor's prayer picker offers, each sorted by name.
 const byName = <K extends PlanItemKey>(keys: K[], reg: Record<K, { name: string }>): K[] =>
   [...keys].sort((a, b) => reg[a].name.localeCompare(reg[b].name));
 
@@ -79,6 +90,10 @@ export const PLAN_ITEM_GROUPS: { title: string; keys: PlanItemKey[] }[] = [
   {
     title: "Litaníæ",
     keys: byName(Object.keys(LITANIES) as LitanyKey[], LITANIES),
+  },
+  {
+    title: "Aliæ preces",
+    keys: byName(Object.keys(PLAN_DEVOTIONS) as PlanDevotionKey[], PLAN_DEVOTIONS),
   },
 ];
 

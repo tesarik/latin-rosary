@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- **The Leonine prayers can be added to a prayer plan**, under a new *Aliæ preces* group in the editor. Like a litany, they inline as their own nine steps. The rosary and the St. Bridget prayers stay out: the rosary would lose its bead ring, and St. Bridget's Pater/Ave sub-steps would each become a bead.
+
 ## [0.14.0]
 
 ### Added
