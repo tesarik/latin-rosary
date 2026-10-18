@@ -22,6 +22,12 @@ describe("storage", () => {
     expect(loadSavedState()).toEqual({ version: STATE_VERSION, active: "radostny", progress: { radostny: 23, leonine: 2 } });
   });
 
+  // The start screen offers the LAST key as "continue": the order must survive.
+  it("keeps the progress map's key order (most recent last)", () => {
+    saveState(null, { slavny: 5, leonine: 2, radostny: 23 });
+    expect(Object.keys(loadSavedState()!.progress)).toEqual(["slavny", "leonine", "radostny"]);
+  });
+
   it("removes the key when there is nothing to keep", () => {
     saveState("radostny", {});
     saveState(null, {});

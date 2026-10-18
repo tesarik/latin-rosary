@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- **"Rozepsaná modlitba" at the top of the start screen.** When a prayer is unfinished, the most recently prayed one is offered first, one tap away. Before, it could sit inside the collapsed *Litaníæ* group or on the plans screen. Its own row further down still shows its place too.
+
+### Changed
+- **EB Garamond is bundled with the app** (`@fontsource/eb-garamond`) instead of being loaded from Google Fonts. Offline, the prayers used to fall back to another typeface, because the service worker could not cache Google's stylesheet. Bundled files are cached like the rest of the app. No request goes to Google any more, so visitors' IP addresses no longer reach a third party (a GDPR concern in the EU). Only the subsets in use are downloaded.
+
 ## [0.15.0]
 
 ### Added

@@ -78,6 +78,11 @@ describe("resolveSession", () => {
     expect(res.active).toMatchObject({ key: "leonine", step: 2 });
   });
 
+  it("keeps the order of the places (most recently prayed last)", () => {
+    const res = resolveSession(saved(null, { saints: 5, radostny: 23, leonine: 2 }));
+    expect(Object.keys(res.progress)).toEqual(["saints", "radostny", "leonine"]);
+  });
+
   it("can hold progress with nothing open (the user went back to the menu)", () => {
     const res = resolveSession(saved(null, { slavny: 40 }));
     expect(res.active).toBeNull();

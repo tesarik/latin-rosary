@@ -20,6 +20,8 @@ type Strings = {
   confirmRestart: string;
   // Under an unfinished set on the start screen: "Continue · 23/74".
   resumeAt: (step: number, total: number) => string;
+  // Small heading over the start screen's tile for the last unfinished prayer.
+  continueHeading: string;
   navAria: string;
   previousAria: string;
   nextAria: string;
@@ -125,6 +127,7 @@ export const STRINGS: Record<Locale, Strings> = {
     restartAria: "Začít modlitbu znovu",
     confirmRestart: "Začít modlitbu znovu od začátku?",
     resumeAt: (step, total) => `Pokračovat · ${step}/${total}`,
+    continueHeading: "Rozepsaná modlitba",
     navAria: "Navigace modlitby",
     previousAria: "Předchozí modlitba",
     nextAria: "Další modlitba",
@@ -223,6 +226,7 @@ export const STRINGS: Record<Locale, Strings> = {
     restartAria: "Start the prayer again",
     confirmRestart: "Start this prayer again from the beginning?",
     resumeAt: (step, total) => `Continue · ${step}/${total}`,
+    continueHeading: "Unfinished prayer",
     navAria: "Prayer navigation",
     previousAria: "Previous prayer",
     nextAria: "Next prayer",
