@@ -14,6 +14,14 @@ import "@fontsource/eb-garamond/500.css";
 import "@fontsource/eb-garamond/600.css";
 import "./index.css";
 
+// Latin prayers use ǽ (U+01FD), often the only Latin Extended glyph on a
+// screen, so that subset would otherwise be fetched only when it first shows
+// up (and fall back to a system serif if that fetch fails, e.g. offline).
+// Load it up front for every imported face so the service worker caches it.
+for (const face of ["400", "italic 400", "500", "600"]) {
+  document.fonts.load(`${face} 1em 'EB Garamond'`, "ǽ").catch(() => {});
+}
+
 const root = document.getElementById("root");
 if (!root) throw new Error("#root element not found");
 

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.17.1]
+
+### Fixed
+- **ǽ in the Latin prayers is set in EB Garamond.** On Android it could show in a heavier system serif (e.g. *sǽcula* in the Gloria Patri). It is the only character from the font's Latin Extended subset on most Latin screens, so that file was downloaded only when the letter first appeared, and the system font filled in until it arrived, or for good when the download failed offline. The subset is now loaded when the app starts, so the service worker caches it in advance.
+
 ## [0.17.0]
 
 ### Added
