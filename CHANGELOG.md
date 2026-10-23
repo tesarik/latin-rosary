@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.18.0]
+
+### Changed
+- **English for visitors in other languages.** A browser set to German, Polish, Spanish or any language the app doesn't speak now gets the English interface; before, it got Czech. A Slovak browser gets Czech. A language once chosen in the app still wins.
+- **The installed app is called *Rosarium*.** The home-screen name (*Rosarium*, in full *Rosarium Latinum*) is Latin instead of Czech (*Růženec*), so it reads the same in every country. The browser tab still shows the name in the chosen language.
+
+### Fixed
+- **The installed app turns to landscape on Android.** The app manifest locked it upright, so the landscape layout from 0.17.0 showed only in the browser.
+
 ## [0.17.1]
 
 ### Fixed
