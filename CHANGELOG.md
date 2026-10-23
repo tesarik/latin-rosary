@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.18.0]
 
 ### Changed
 - **English for visitors in other languages.** A browser set to German, Polish, Spanish or any language the app doesn't speak now gets the English interface; before, it got Czech. A Slovak browser gets Czech. A language once chosen in the app still wins.
