@@ -7,7 +7,12 @@
 export const SUPPORTED_LOCALES = ["cs", "en"] as const;
 export type Locale = (typeof SUPPORTED_LOCALES)[number];
 
-export const DEFAULT_LOCALE: Locale = "cs";
+// For a browser in any other language: English is the one more visitors read.
+export const DEFAULT_LOCALE: Locale = "en";
+
+// Languages close enough to a supported one to be served it rather than the
+// default.
+const LOCALE_FALLBACKS: Record<string, Locale> = { sk: "cs" };
 
 type Strings = {
   appTitle: string;
@@ -332,7 +337,8 @@ export const STRINGS: Record<Locale, Strings> = {
   },
 };
 
-// Match navigator.language(s) to a supported locale; fall back to DEFAULT_LOCALE.
+// Match navigator.language(s) to a supported locale, or to a close one (Slovak
+// → Czech); fall back to DEFAULT_LOCALE.
 export function detectLocale(): Locale {
   const candidates: string[] = [];
   if (typeof navigator !== "undefined") {
@@ -343,6 +349,9 @@ export function detectLocale(): Locale {
     const tag = raw.toLowerCase().split(/[-_]/)[0];
     if (tag && (SUPPORTED_LOCALES as readonly string[]).includes(tag)) {
       return tag as Locale;
+    }
+    if (tag && Object.prototype.hasOwnProperty.call(LOCALE_FALLBACKS, tag)) {
+      return LOCALE_FALLBACKS[tag];
     }
   }
   return DEFAULT_LOCALE;

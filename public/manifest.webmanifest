@@ -1,14 +1,13 @@
 {
-  "name": "Latinský růženec",
-  "short_name": "Růženec",
-  "description": "Latinský růženec",
+  "name": "Rosarium Latinum",
+  "short_name": "Rosarium",
+  "description": "Rosarium et aliae preces Latinae",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
-  "orientation": "portrait",
   "background_color": "#ECEFF1",
   "theme_color": "#1565C0",
-  "lang": "cs",
+  "lang": "la",
   "icons": [
     {
       "src": "icon.svg",
