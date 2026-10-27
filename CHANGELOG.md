@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- **Link previews.** A link to the app shared on Facebook, WhatsApp, Messenger and the like now shows a picture of the rosary with *Rosarium Latinum* and a short description in English and Czech, instead of a bare address. Search engines get the description too.
+
+### Fixed
+- **The home-screen icon shows the whole rosary.** The PNG icons used on Android and iPhone were missing the ring of beads, leaving only a thin circle above the cross.
+
 ## [0.18.0]
 
 ### Changed
