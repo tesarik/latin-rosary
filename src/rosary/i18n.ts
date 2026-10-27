@@ -50,6 +50,8 @@ type Strings = {
   aboutAnalytics: string;
   aboutClose: string;
   aboutBuilt: string;
+  // Link from About to the static prayer pages (texts to read and share).
+  aboutPrayerTexts: string;
   localeName: string;
   // Two-letter code on the header language button (La ↔ this).
   prayerLanguageShort: string;
@@ -160,6 +162,7 @@ export const STRINGS: Record<Locale, Strings> = {
     aboutAnalytics: "Sbírají se anonymní statistiky používání, bez cookies.",
     aboutClose: "Zavřít",
     aboutBuilt: "sestaveno",
+    aboutPrayerTexts: "Texty modliteb na webu",
     localeName: "Čeština",
     prayerLanguageShort: "Cz",
     otherPrayersHeading: "Další latinské modlitby",
@@ -263,6 +266,7 @@ export const STRINGS: Record<Locale, Strings> = {
     aboutAnalytics: "Anonymous, cookieless usage statistics are collected.",
     aboutClose: "Close",
     aboutBuilt: "built",
+    aboutPrayerTexts: "The prayer texts on the web",
     localeName: "English",
     prayerLanguageShort: "En",
     otherPrayersHeading: "Other Latin prayers",

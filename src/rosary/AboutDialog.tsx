@@ -124,6 +124,10 @@ export default function AboutDialog({ locale, onClose }: Props) {
         </div>
         <div style={{ textAlign: "center", fontSize: 14, color: "var(--text)", margin: "12px 0 14px", lineHeight: 1.4 }}>{t.aboutText}</div>
 
+        <div style={{ textAlign: "center", fontSize: 14, margin: "0 0 14px" }}>
+          <a href={`${import.meta.env.BASE_URL}${locale}/`} target="_blank" rel="noopener" style={linkStyle}>{t.aboutPrayerTexts}</a>
+        </div>
+
         <div style={{ fontSize: 14, color: "var(--text)" }}>
           <span style={{ color: "var(--text-muted)" }}>{t.aboutCreator}: </span>
           {CREATOR.name}

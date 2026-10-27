@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { type SequenceItem } from "./rosary/sequence";
 import { loadSavedState, saveState } from "./rosary/storage";
-import { getPrayerSetMeta, buildSequence, isPersistableKey, isRosaryKey, resolveSession, resumeStep, canGoToStep, type PrayerSetKey } from "./rosary/navigation";
+import { getPrayerSetMeta, buildSequence, isBuiltInKey, isPersistableKey, isRosaryKey, resolveSession, resumeStep, canGoToStep, type PrayerSetKey } from "./rosary/navigation";
 import { MYSTERIES, PRAYER_TYPES } from "./rosary/prayers";
 import { STRINGS, detectLocale, loadSavedLocale, saveLocale, loadSavedShowTranslation, saveShowTranslation, type Locale } from "./rosary/i18n";
 import { DEFAULT_FONT_SCALE, clampFontScale, fontSizeClamp, loadSavedFontScale, saveFontScale } from "./rosary/fontSize";
@@ -237,6 +237,16 @@ export default function Rosary() {
     // Plan ids are per-device and unbounded — report plans as one bucket.
     track(`pray/${isPlanKey(key) ? "plan" : key}`);
   }, [plans, progress]);
+
+  // The static prayer pages link to a set as #pray=<key>: open it once, on
+  // mount. The fragment is cleared first, so a reload doesn't reopen it.
+  useEffect(() => {
+    const m = /^#pray=([\w-]+)$/.exec(window.location.hash);
+    if (!m) return;
+    history.replaceState(null, "", window.location.pathname + window.location.search);
+    if (isBuiltInKey(m[1]!)) startSet(m[1]!);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // A short tick on every step; a double pulse on reaching a decade's Gloria
   // Patri, so the end of a decade can be felt without looking at the screen.

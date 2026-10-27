@@ -36,6 +36,11 @@ export type PrayerSetKind = "rosary" | "linear" | "single";
 // could resolve to a prototype function (and crash `buildSequence`).
 const has = (obj: object, k: string): boolean => Object.prototype.hasOwnProperty.call(obj, k);
 
+// A key of one of the built-in prayer sets (not a user plan). Used for the
+// `#pray=<key>` links from the static prayer pages.
+export const isBuiltInKey = (k: string): k is MysteryKey | OtherPrayerKey | OrdinaryPrayerKey | LitanyKey =>
+  has(MYSTERIES, k) || has(OTHER_PRAYER_SETS, k) || has(ORDINARY_PRAYERS, k) || has(LITANIES, k);
+
 export const isRosaryKey = (k: PrayerSetKey): k is MysteryKey => has(MYSTERIES, k);
 export const isOrdinaryKey = (k: PrayerSetKey): k is OrdinaryPrayerKey => has(ORDINARY_PRAYERS, k);
 export const isLitanyKey = (k: PrayerSetKey): k is LitanyKey => has(LITANIES, k);

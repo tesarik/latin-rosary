@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
+- **The prayer texts on the web.** Every prayer, litany and devotion now has its own page in English and in Czech, with the Latin beside the translation, so search engines can find them (for *Litany of Loreto Latin*, *Salve Regina text* and the like). The rosary's page gives its prayers and every mystery. A button opens the prayer straight in the app. The pages are listed at `en/` and `cs/`, and *About* links to them.
 - **Link previews.** A link to the app shared on Facebook, WhatsApp, Messenger and the like now shows a picture of the rosary with *Rosarium Latinum* and a short description in English and Czech, instead of a bare address. Search engines get the description too.
 
 ### Fixed
