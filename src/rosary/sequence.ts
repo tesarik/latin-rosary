@@ -193,7 +193,25 @@ export function buildBrigitPrayers(): SequenceItem[] {
   return seq;
 }
 
-export type OtherPrayerKey = "leonine" | "brigit";
+// The Seven Sorrows and Joys of St. Joseph, short form: seven sections, each a
+// red heading with its Glória Patri, and Vírginum custos to close. Every step
+// is a section, so the strand has eight beads, and plans can inline it whole.
+const IOSEPH_SECTIONS = [
+  { type: PRAYER_TYPES.IOSEPH_1, section: "Núntium Angeli" },
+  { type: PRAYER_TYPES.IOSEPH_2, section: "Natívitas" },
+  { type: PRAYER_TYPES.IOSEPH_3, section: "Circumcísio" },
+  { type: PRAYER_TYPES.IOSEPH_4, section: "Prophétia Simeónis" },
+  { type: PRAYER_TYPES.IOSEPH_5, section: "Fuga in Ægýptum" },
+  { type: PRAYER_TYPES.IOSEPH_6, section: "Réditus" },
+  { type: PRAYER_TYPES.IOSEPH_7, section: "Invéntio in Templo" },
+  { type: PRAYER_TYPES.IOSEPH_VIRGINUM_CUSTOS, section: "Vírginum custos" },
+] as const;
+
+export function buildIosephPrayers(): SequenceItem[] {
+  return IOSEPH_SECTIONS.map(({ type, section }) => ({ type, label: section, section }));
+}
+
+export type OtherPrayerKey = "leonine" | "brigit" | "ioseph";
 
 // Linear prayer sets (no beads, not persisted). Keyed by `OtherPrayerKey`,
 // rendered as a separate block on the start screen.
@@ -214,6 +232,12 @@ export const OTHER_PRAYER_SETS: Record<OtherPrayerKey, {
     nameTr: { cs: "Modlitby svaté Brigity", en: "The Prayers of Saint Bridget" },
     color: "#8E1B1B",
     build: buildBrigitPrayers,
+  },
+  ioseph: {
+    name: "Septem Dolóres et Gáudia Sancti Ioseph",
+    nameTr: { cs: "Sedm bolestí a radostí svatého Josefa", en: "The Seven Sorrows and Joys of St. Joseph" },
+    color: "#6D4C41",
+    build: buildIosephPrayers,
   },
 };
 

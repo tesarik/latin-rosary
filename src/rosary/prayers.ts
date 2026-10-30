@@ -92,6 +92,16 @@ export const PRAYER_TYPES = {
   CHAPLET_TRISAGION: "chaplet_trisagion",
   CHAPLET_CLOSING: "chaplet_closing",
   CHAPLET_TRUST: "chaplet_trust",
+  // Septem Dolóres et Gáudia Sancti Ioseph, in its short Latin form: seven
+  // headings, each with a Glória Patri, then Vírginum custos.
+  IOSEPH_1: "ioseph_1",
+  IOSEPH_2: "ioseph_2",
+  IOSEPH_3: "ioseph_3",
+  IOSEPH_4: "ioseph_4",
+  IOSEPH_5: "ioseph_5",
+  IOSEPH_6: "ioseph_6",
+  IOSEPH_7: "ioseph_7",
+  IOSEPH_VIRGINUM_CUSTOS: "ioseph_virginum_custos",
 } as const;
 
 export type PrayerType = (typeof PRAYER_TYPES)[keyof typeof PRAYER_TYPES];
@@ -209,6 +219,12 @@ const SALVE_REGINA_ANTIPHON = `Salve Regína, Mater misericórdiæ, vita, dulcé
 ℣ Ora pro nobis, sancta Dei Génitrix.
 ℟ Ut digni efficiámur promissiónibus Christi.`;
 
+const GLORIA_PATRI = `Glória Patri, et Fílio, et Spirítui Sancto. Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.`;
+
+// One of St. Joseph's seven sorrows and joys: its heading in red, as a missal
+// heads a section, then the Glória Patri said after it.
+const ioseph = (heading: string, gloria: string) => `{r}${heading}{/r}\n\n${gloria}`;
+
 export const PRAYERS: Record<StaticPrayerType, string> = {
   [PRAYER_TYPES.SIGN_OF_CROSS]: `In nómine ☩ Patris et Fílii et Spíritus Sancti. Amen.`,
 
@@ -216,7 +232,7 @@ export const PRAYERS: Record<StaticPrayerType, string> = {
 
   [PRAYER_TYPES.OUR_FATHER]: `Pater noster, qui es in cælis, sanctificétur nomen tuum. Advéniat regnum tuum. Fiat volúntas tua, sicut in cælo et in terra. Panem nostrum quotidiánum da nobis hódie: et dimítte nobis débita nostra, sicut et nos dimíttimus debitóribus nostris. Et ne nos indúcas in tentatiónem: sed líbera nos a malo. Amen.`,
 
-  [PRAYER_TYPES.GLORY_BE]: `Glória Patri, et Fílio, et Spirítui Sancto. Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.`,
+  [PRAYER_TYPES.GLORY_BE]: GLORIA_PATRI,
 
   [PRAYER_TYPES.FATIMA]: `O mi Iesu, indúlge peccáta nostra, consérva nos ab ígne inférni, duc ómnes ad cæli glóriam, præcípue misericordia túa máxime indigéntes.`,
 
@@ -1054,6 +1070,23 @@ Omnípotens sempitérne Deus, qui vivórum domináris simul et mortuórum, omni�
   [PRAYER_TYPES.CHAPLET_CLOSING]: `Ætérne Deus, in quo misericórdia est infiníta et thesáurus miseratiónis inexháustus, benígne réspice in nos et adáuge in nobis misericórdiam tuam, ut in diffícilibus moméntis non desperémus neque animo deficiámus, sed magna cum fidúcia voluntáti tuæ sanctæ nos subiciámus, quæ est ipse Amor et ipsa Misericórdia.`,
 
   [PRAYER_TYPES.CHAPLET_TRUST]: `Iesu, in te confído.`,
+
+  // Septem Dolóres et Gáudia Sancti Ioseph — the short Latin form of the
+  // Veterum Sapientia Institute (its page is gone; the text survives in the
+  // description of its recording, rumble.com/v1om8q6): the seven headings,
+  // each with a Glória Patri, and Vírginum custos (also at preces-latinae.org,
+  // same words). The long Raccolta prayers, one per sorrow, are Italian in
+  // origin with no Latin, so they are not here. Spelled with I for J, as
+  // everywhere in this file; "Ægýtum" and "Resurréctione" corrected.
+  [PRAYER_TYPES.IOSEPH_1]: ioseph("I. Dúbium de María et Núntium Angeli.", GLORIA_PATRI),
+  [PRAYER_TYPES.IOSEPH_2]: ioseph("II. Paupértas Nativitátis Christi et Natívitas Ipsa.", GLORIA_PATRI),
+  [PRAYER_TYPES.IOSEPH_3]: ioseph("III. Circumcísio Christi et Nominátio Iesu.", GLORIA_PATRI),
+  [PRAYER_TYPES.IOSEPH_4]: ioseph("IV. Prophétia Simeónis de Ruína et Resurrectióne Multórum in Israel.", GLORIA_PATRI),
+  [PRAYER_TYPES.IOSEPH_5]: ioseph("V. Fuga in Ægýptum et Cládes Idolórum.", GLORIA_PATRI),
+  [PRAYER_TYPES.IOSEPH_6]: ioseph("VI. Réditus de Ægýpto et Vita cum Iesu et María.", GLORIA_PATRI),
+  [PRAYER_TYPES.IOSEPH_7]: ioseph("VII. Amíssio Iesu et Invéntio Eiúsdem in Templo.", GLORIA_PATRI),
+
+  [PRAYER_TYPES.IOSEPH_VIRGINUM_CUSTOS]: `Vírginum custos et pater, sancte Ioseph, cuius fidéli custódiæ ipsa Innocéntia Christus Iesus et Virgo vírginum María commíssa fuit: te per hoc utrúmque caríssimum pignus Iesum et Maríam óbsecro et obtéstor, ut me, ab omni immundítia præservátum, mente incontamináta, puro corde et casto córpore Iesu et Maríæ semper fácias castíssime famulári. Amen.`,
 };
 
 // The Hail Mary is split so the per-decade mystery clause can be visually
@@ -1107,6 +1140,8 @@ const SALVE_REGINA_ANTIPHON_CS = `Zdrávas Královno, Matko milosrdenství. Živ
 
 // Czech counterparts of the Latin prayer texts. Mirrors `PRAYERS` 1:1 so the
 // prayer card can swap languages without any structural changes.
+const GLORIA_PATRI_CS = `Sláva Otci i Synu i Duchu Svatému, jako byla na počátku, i nyní, i vždycky, a na věky věků. Amen.`;
+
 export const PRAYERS_CS: Record<StaticPrayerType, string> = {
   [PRAYER_TYPES.SIGN_OF_CROSS]: `Ve jménu ☩ Otce i Syna i Ducha Svatého. Amen.`,
 
@@ -1114,7 +1149,7 @@ export const PRAYERS_CS: Record<StaticPrayerType, string> = {
 
   [PRAYER_TYPES.OUR_FATHER]: `Otče náš, jenž jsi na nebesích, posvěť se jméno tvé. Přijď království tvé. Buď vůle tvá jako v nebi, tak i na zemi. Chléb náš vezdejší dej nám dnes. A odpusť nám naše viny, jako i my odpouštíme našim viníkům. A neuveď nás v pokušení, ale zbav nás od zlého. Amen.`,
 
-  [PRAYER_TYPES.GLORY_BE]: `Sláva Otci i Synu i Duchu Svatému, jako byla na počátku, i nyní, i vždycky, a na věky věků. Amen.`,
+  [PRAYER_TYPES.GLORY_BE]: GLORIA_PATRI_CS,
 
   [PRAYER_TYPES.FATIMA]: `Ó můj Ježíši, odpusť nám naše hříchy, uchraň nás pekelného ohně a přiveď do nebe všechny duše, zvláště ty, které tvého milosrdenství nejvíce potřebují.`,
 
@@ -1934,6 +1969,21 @@ Všemohoucí věčný Bože, ty vládneš živým i mrtvým a smilováváš se n
   [PRAYER_TYPES.CHAPLET_CLOSING]: `Věčný Bože, jehož milosrdenství je nevyčerpatelné a poklad slitování nepřeberný, shlédni na nás s laskavostí a rozhojni v nás své milosrdenství, abychom v těžkých chvílích nezoufali a neklesali na duchu, ale poddali se s velkou důvěrou tvé svaté vůli, která je láska a milosrdenství samo.`,
 
   [PRAYER_TYPES.CHAPLET_TRUST]: `Ježíši, důvěřuji ti.`,
+
+  // Sedm bolestí a radostí svatého Josefa. The seven headings are OUR OWN
+  // TRANSLATION of the Latin: the one Czech text in circulation (FATYM,
+  // farnost Čáslav) is a modern paraphrase with its own petitions, not the
+  // Latin. Vírginum custos follows spolcs.cz (2016), with lower-case pronouns
+  // as elsewhere here.
+  [PRAYER_TYPES.IOSEPH_1]: ioseph("I. Pochybnost o Marii a andělovo poselství.", GLORIA_PATRI_CS),
+  [PRAYER_TYPES.IOSEPH_2]: ioseph("II. Chudoba Kristova narození a narození samo.", GLORIA_PATRI_CS),
+  [PRAYER_TYPES.IOSEPH_3]: ioseph("III. Kristova obřízka a dání jména Ježíš.", GLORIA_PATRI_CS),
+  [PRAYER_TYPES.IOSEPH_4]: ioseph("IV. Simeonovo proroctví o pádu a povstání mnohých v Izraeli.", GLORIA_PATRI_CS),
+  [PRAYER_TYPES.IOSEPH_5]: ioseph("V. Útěk do Egypta a pád model.", GLORIA_PATRI_CS),
+  [PRAYER_TYPES.IOSEPH_6]: ioseph("VI. Návrat z Egypta a život s Ježíšem a Marií.", GLORIA_PATRI_CS),
+  [PRAYER_TYPES.IOSEPH_7]: ioseph("VII. Ztráta Ježíše a jeho nalezení v chrámě.", GLORIA_PATRI_CS),
+
+  [PRAYER_TYPES.IOSEPH_VIRGINUM_CUSTOS]: `Ó strážce a otče panen, svatý Josefe, jehož věrné stráži samotná nevinnost Ježíš Kristus a Panna všech panen Maria svěřeni byli! Tebe skrze tento dvojí nejdražší tobě svěřený poklad, skrze Ježíše a Marii, snažně prosím, abys mne od vší nečistoty uchránil a učinil, abych neposkvrněnou myslí, nevinným srdcem a čistým tělem Ježíši a Marii vždy v co největší čistotě sloužil(a). Amen.`,
 };
 
 // English counterpart of the shared Salve Regína antiphon (see SALVE_REGINA_ANTIPHON).
@@ -1998,6 +2048,8 @@ const SALVE_REGINA_ANTIPHON_EN = `Hail, holy Queen, Mother of mercy, our life, o
 // House style throughout: "Holy Spirit" (not "Holy Ghost") and lower-case
 // thee/thy/thou, where the printed witnesses capitalize divine pronouns.
 // ---------------------------------------------------------------------------
+const GLORIA_PATRI_EN = `Glory be to the Father, and to the Son, and to the Holy Spirit. As it was in the beginning, is now, and ever shall be, world without end. Amen.`;
+
 export const PRAYERS_EN: Record<StaticPrayerType, string> = {
   [PRAYER_TYPES.SIGN_OF_CROSS]: `In the name ☩ of the Father, and of the Son, and of the Holy Spirit. Amen.`,
 
@@ -2005,7 +2057,7 @@ export const PRAYERS_EN: Record<StaticPrayerType, string> = {
 
   [PRAYER_TYPES.OUR_FATHER]: `Our Father, who art in heaven, hallowed be thy name. Thy kingdom come. Thy will be done, on earth as it is in heaven. Give us this day our daily bread, and forgive us our trespasses, as we forgive those who trespass against us. And lead us not into temptation, but deliver us from evil. Amen.`,
 
-  [PRAYER_TYPES.GLORY_BE]: `Glory be to the Father, and to the Son, and to the Holy Spirit. As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
+  [PRAYER_TYPES.GLORY_BE]: GLORIA_PATRI_EN,
 
   [PRAYER_TYPES.FATIMA]: `O my Jesus, forgive us our sins, save us from the fires of hell, and lead all souls to heaven, especially those most in need of thy mercy.`,
 
@@ -2760,6 +2812,19 @@ Almighty and everlasting God, who hast dominion over the living and the dead, an
   [PRAYER_TYPES.CHAPLET_CLOSING]: `Eternal God, in whom mercy is endless and the treasury of compassion inexhaustible, look kindly upon us and increase your mercy in us, that in difficult moments we might not despair nor become despondent, but with great confidence submit ourselves to your holy will, which is Love and Mercy itself.`,
 
   [PRAYER_TYPES.CHAPLET_TRUST]: `Jesus, I trust in you.`,
+
+  // The Seven Sorrows and Joys of St. Joseph. The headings are our own
+  // rendering of the Latin. Vírginum custos follows preces-latinae.org, less
+  // its "all the days of my life", which the Latin does not have.
+  [PRAYER_TYPES.IOSEPH_1]: ioseph("I. The doubt about Mary, and the message of the Angel.", GLORIA_PATRI_EN),
+  [PRAYER_TYPES.IOSEPH_2]: ioseph("II. The poverty of Christ's birth, and the Nativity itself.", GLORIA_PATRI_EN),
+  [PRAYER_TYPES.IOSEPH_3]: ioseph("III. The Circumcision of Christ, and the naming of Jesus.", GLORIA_PATRI_EN),
+  [PRAYER_TYPES.IOSEPH_4]: ioseph("IV. Simeon's prophecy of the fall and the rising of many in Israel.", GLORIA_PATRI_EN),
+  [PRAYER_TYPES.IOSEPH_5]: ioseph("V. The flight into Egypt, and the overthrow of the idols.", GLORIA_PATRI_EN),
+  [PRAYER_TYPES.IOSEPH_6]: ioseph("VI. The return from Egypt, and the life with Jesus and Mary.", GLORIA_PATRI_EN),
+  [PRAYER_TYPES.IOSEPH_7]: ioseph("VII. The loss of Jesus, and his finding in the Temple.", GLORIA_PATRI_EN),
+
+  [PRAYER_TYPES.IOSEPH_VIRGINUM_CUSTOS]: `Guardian of virgins and father, Saint Joseph, to whose faithful custody Innocence itself, Christ Jesus, and Mary, Virgin of virgins, were committed: I pray and beseech thee by each of these dear pledges, Jesus and Mary, that, being preserved from all uncleanness, I may with spotless mind, pure heart and chaste body ever serve Jesus and Mary most chastely. Amen.`,
 };
 
 // The prayer body the card shows when the LA↔<language> toggle is on the

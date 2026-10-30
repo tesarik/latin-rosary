@@ -202,6 +202,20 @@ describe("chaplet of Divine Mercy", () => {
   });
 });
 
+describe("St. Joseph's seven sorrows and joys", () => {
+  const seq = OTHER_PRAYER_SETS.ioseph.build();
+
+  it("is eight sections: seven headings with a Glória Patri, then Vírginum custos", () => {
+    expect(seq.length).toBe(8);
+    expect(seq.every((i) => i.section)).toBe(true);
+    for (const item of seq.slice(0, 7)) {
+      expect(latinText(item.type)).toMatch(/^\{r\}[IVX]+\. .+\{\/r\}\n\nGlória Patri/);
+      for (const locale of SUPPORTED_LOCALES) expect(translatedText(locale, item.type)).toMatch(/^\{r\}[IVX]+\. /);
+    }
+    expect(seq[7]!.type).toBe(PRAYER_TYPES.IOSEPH_VIRGINUM_CUSTOS);
+  });
+});
+
 describe("ordinary prayers", () => {
   it("each builds exactly one step", () => {
     for (const [key, set] of Object.entries(ORDINARY_PRAYERS)) {

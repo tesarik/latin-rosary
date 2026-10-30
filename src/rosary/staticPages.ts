@@ -115,6 +115,10 @@ const NOTES: Record<string, Partial<Localized>> = {
     cs: "Latinské znění těchto modliteb je náš vlastní překlad: autoritativní latinský originál není znám.",
     en: "The Latin of these prayers is our own translation: no authoritative Latin original is known.",
   },
+  ioseph: {
+    cs: "Krátká latinská podoba pobožnosti: sedm nadpisů, každý se Sláva Otci, a modlitba Vírginum custos. Český překlad nadpisů je náš vlastní.",
+    en: "The short Latin form of the devotion: seven headings, each with a Glory Be, and the prayer Vírginum custos. The English of the headings is our own.",
+  },
   humility: {
     cs: "Soukromá pobožnost z 19. století. Autoritativní latinský originál neexistuje; latinské znění jsme sestavili ze dvou latinských pramenů.",
     en: "A private devotion of the 19th century. No authoritative Latin original exists; this Latin is assembled from two Latin witnesses.",
