@@ -60,9 +60,9 @@ describe("isPlanItemKey", () => {
 });
 
 describe("PLAN_ITEM_GROUPS", () => {
-  it("offers every ordinary prayer, litany, the Leonine prayers and St. Joseph's sorrows exactly once", () => {
+  it("offers every ordinary prayer, litany and the Leonine prayers exactly once", () => {
     const offered = PLAN_ITEM_GROUPS.flatMap((g) => g.keys);
-    const expected = [...Object.keys(ORDINARY_PRAYERS), ...Object.keys(LITANIES), "leonine", "ioseph"];
+    const expected = [...Object.keys(ORDINARY_PRAYERS), ...Object.keys(LITANIES), "leonine"];
     expect(new Set(offered).size).toBe(offered.length);
     expect([...offered].sort()).toEqual([...expected].sort());
   });

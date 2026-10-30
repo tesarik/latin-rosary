@@ -194,8 +194,10 @@ export function buildBrigitPrayers(): SequenceItem[] {
 }
 
 // The Seven Sorrows and Joys of St. Joseph, short form: seven sections, each a
-// red heading with its Glória Patri, and Vírginum custos to close. Every step
-// is a section, so the strand has eight beads, and plans can inline it whole.
+// red heading over its Pater Noster, then an Ave María and a Glória Patri, and
+// Vírginum custos to close — 22 steps. As with St. Bridget, only the heading
+// step is a section (the strand keeps eight beads); the Ave and Glória are
+// unsectioned sub-steps, which is also why plans can't contain it.
 const IOSEPH_SECTIONS = [
   { type: PRAYER_TYPES.IOSEPH_1, section: "Núntium Angeli" },
   { type: PRAYER_TYPES.IOSEPH_2, section: "Natívitas" },
@@ -208,7 +210,14 @@ const IOSEPH_SECTIONS = [
 ] as const;
 
 export function buildIosephPrayers(): SequenceItem[] {
-  return IOSEPH_SECTIONS.map(({ type, section }) => ({ type, label: section, section }));
+  return IOSEPH_SECTIONS.flatMap(({ type, section }): SequenceItem[] =>
+    type === PRAYER_TYPES.IOSEPH_VIRGINUM_CUSTOS
+      ? [{ type, label: section, section }]
+      : [
+          { type, label: section, section },
+          { type: PRAYER_TYPES.HAIL_MARY, label: "Ave María" },
+          { type: PRAYER_TYPES.GLORY_BE, label: "Glória Patri" },
+        ]);
 }
 
 export type OtherPrayerKey = "leonine" | "brigit" | "ioseph";

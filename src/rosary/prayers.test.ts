@@ -205,14 +205,18 @@ describe("chaplet of Divine Mercy", () => {
 describe("St. Joseph's seven sorrows and joys", () => {
   const seq = OTHER_PRAYER_SETS.ioseph.build();
 
-  it("is eight sections: seven headings with a Glória Patri, then Vírginum custos", () => {
-    expect(seq.length).toBe(8);
-    expect(seq.every((i) => i.section)).toBe(true);
-    for (const item of seq.slice(0, 7)) {
-      expect(latinText(item.type)).toMatch(/^\{r\}[IVX]+\. .+\{\/r\}\n\nGlória Patri/);
-      for (const locale of SUPPORTED_LOCALES) expect(translatedText(locale, item.type)).toMatch(/^\{r\}[IVX]+\. /);
+  it("is seven headings over a Pater, each with an Ave and a Glória, then Vírginum custos", () => {
+    expect(seq.length).toBe(22);
+    expect(seq.filter((i) => i.section).length).toBe(8);
+    for (let n = 0; n < 7; n++) {
+      const [heading, ave, gloria] = seq.slice(n * 3, n * 3 + 3);
+      expect(heading!.section).toBeTruthy();
+      expect(latinText(heading!.type)).toMatch(/^\{r\}[IVX]+\. .+\{\/r\}\n\nPater noster/);
+      for (const locale of SUPPORTED_LOCALES) expect(translatedText(locale, heading!.type)).toMatch(/^\{r\}[IVX]+\. /);
+      expect([ave!.type, gloria!.type]).toEqual([PRAYER_TYPES.HAIL_MARY, PRAYER_TYPES.GLORY_BE]);
+      expect(ave!.section ?? gloria!.section).toBeUndefined();
     }
-    expect(seq[7]!.type).toBe(PRAYER_TYPES.IOSEPH_VIRGINUM_CUSTOS);
+    expect(seq[21]!.type).toBe(PRAYER_TYPES.IOSEPH_VIRGINUM_CUSTOS);
   });
 });
 

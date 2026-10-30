@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 - **The Chaplet of Divine Mercy** (*Coronula Divínæ Misericórdiæ*), under the rosary's mysteries on the start screen, prayed on the same ring of beads: *Pater ætérne* on the large beads, *Pro dolorósa* on the small ones, *Sanctus Deus* three times to close. A switch under it adds the optional prayers from St. Faustina's Diary: *Expirásti, Iesu* and three *O Sanguis et Aqua* to open, *Ætérne Deus* and *Iesu, in te confído* to close. The switch is remembered, and a chaplet left half-prayed resumes in the form it was started in. It has its own page with the texts on the web too.
-- **The Seven Sorrows and Joys of St. Joseph** (*Septem Dolóres et Gáudia Sancti Ioseph*), among the other devotions, in its short Latin form: seven headings, each with a Glory Be, and the prayer *Vírginum custos* for purity to close. It can be added to a prayer plan, and has its own page on the web.
+- **The Seven Sorrows and Joys of St. Joseph** (*Septem Dolóres et Gáudia Sancti Ioseph*), among the other devotions, in its short Latin form: seven headings, each with an Our Father, a Hail Mary and a Glory Be, and the prayer *Vírginum custos* for purity to close. It has its own page on the web.
 
 ## [0.19.0]
 
