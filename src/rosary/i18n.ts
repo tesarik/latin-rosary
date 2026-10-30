@@ -61,6 +61,9 @@ type Strings = {
   seasonBadge: string;
   // Under the Angelus in Eastertide, when the Regína Cæli takes its place.
   angelusEastertide: string;
+  // The switch under the Chaplet of Divine Mercy that adds its optional
+  // opening and closing prayers.
+  chapletOptional: string;
   ordinaryGroupName: string;
   litaniesGroupName: string;
   startRosaryAria: (mysteryName: string) => string;
@@ -169,6 +172,7 @@ export const STRINGS: Record<Locale, Strings> = {
     todayBadge: "dnes",
     seasonBadge: "nyní",
     angelusEastertide: "V době velikonoční se místo něj modlí Regína Cæli",
+    chapletOptional: "S nepovinnými modlitbami",
     ordinaryGroupName: "Základní modlitby",
     litaniesGroupName: "Litanie",
     startRosaryAria: (n) => `Začít růženec — ${n}`,
@@ -273,6 +277,7 @@ export const STRINGS: Record<Locale, Strings> = {
     todayBadge: "today",
     seasonBadge: "now",
     angelusEastertide: "In Eastertide the Regína Cæli is prayed instead",
+    chapletOptional: "With the optional prayers",
     ordinaryGroupName: "Essential prayers",
     litaniesGroupName: "Litanies",
     startRosaryAria: (n) => `Start rosary — ${n}`,

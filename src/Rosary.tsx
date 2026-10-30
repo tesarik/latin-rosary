@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { type SequenceItem } from "./rosary/sequence";
 import { loadSavedState, saveState } from "./rosary/storage";
-import { getPrayerSetMeta, buildSequence, isBuiltInKey, isPersistableKey, isRosaryKey, resolveSession, resumeStep, canGoToStep, type PrayerSetKey } from "./rosary/navigation";
+import { getPrayerSetMeta, buildSequence, isBuiltInKey, isChapletKey, isPersistableKey, isRosaryKey, resolveSession, resumeStep, canGoToStep, type PrayerSetKey } from "./rosary/navigation";
 import { MYSTERIES, PRAYER_TYPES } from "./rosary/prayers";
 import { STRINGS, detectLocale, loadSavedLocale, saveLocale, loadSavedShowTranslation, saveShowTranslation, type Locale } from "./rosary/i18n";
 import { DEFAULT_FONT_SCALE, clampFontScale, fontSizeClamp, loadSavedFontScale, saveFontScale } from "./rosary/fontSize";
@@ -249,9 +249,11 @@ export default function Rosary() {
   }, []);
 
   // A short tick on every step; a double pulse on reaching a decade's Gloria
-  // Patri, so the end of a decade can be felt without looking at the screen.
+  // Patri (the chaplet's tenth Pro dolorósa), so the end of a decade can be
+  // felt without looking at the screen.
   const buzz = (item: SequenceItem | undefined) => {
-    const decadeEnd = item?.type === PRAYER_TYPES.GLORY_BE && item.decade !== undefined;
+    const decadeEnd = item?.decade !== undefined &&
+      (item.type === PRAYER_TYPES.GLORY_BE || (item.type === PRAYER_TYPES.CHAPLET_PASSION && item.num === 10));
     try { navigator.vibrate?.(decadeEnd ? [35, 90, 35] : 25); } catch {}
   };
 
@@ -379,13 +381,16 @@ export default function Rosary() {
   // Latin just the number, as Latin prayer books head them ("II. quem, Virgo,
   // visitándo Elisabeth portásti"); translated, "2. desátek: s kterým jsi,
   // Panno, Alžbětu navštívila". The prayer itself is plain from the
-  // card. Everywhere else the chip names the current prayer or section.
+  // card. The chaplet's decades have no mystery: "III. Pro dolorósa".
+  // Everywhere else the chip names the current prayer or section.
   const decade = currentPrayer?.decade;
   const chipText = decade !== undefined && isRosaryKey(selectedSet)
     ? showTranslation
       ? t.decadeLabel(decade + 1, MYSTERIES[selectedSet].mysteriesTr[locale][decade]!)
       : `${ROMAN[decade]}. ${MYSTERIES[selectedSet].mysteries[decade]}`
-    : currentPrayer?.label;
+    : decade !== undefined && isChapletKey(selectedSet)
+      ? `${ROMAN[decade]}. ${currentPrayer!.label}`
+      : currentPrayer?.label;
 
   const labelChip = (
     <div style={{ textAlign: "center", marginTop: 8, marginBottom: 4 }}>

@@ -83,6 +83,15 @@ export const PRAYER_TYPES = {
   LITANY_SAINTS_PSALM: "litany_saints_psalm",
   LITANY_SAINTS_VERSICLES: "litany_saints_versicles",
   LITANY_SAINTS_COLLECTS: "litany_saints_collects",
+  // Chaplet of Divine Mercy (Coronula Divínæ Misericórdiæ), prayed on the
+  // rosary's beads. Its Pater Noster, Ave María and Credo reuse the rosary's.
+  CHAPLET_OPENING: "chaplet_opening",
+  CHAPLET_BLOOD_WATER: "chaplet_blood_water",
+  CHAPLET_ETERNAL_FATHER: "chaplet_eternal_father",
+  CHAPLET_PASSION: "chaplet_passion",
+  CHAPLET_TRISAGION: "chaplet_trisagion",
+  CHAPLET_CLOSING: "chaplet_closing",
+  CHAPLET_TRUST: "chaplet_trust",
 } as const;
 
 export type PrayerType = (typeof PRAYER_TYPES)[keyof typeof PRAYER_TYPES];
@@ -1020,6 +1029,31 @@ Omnípotens sempitérne Deus, qui vivórum domináris simul et mortuórum, omni�
 ℟ Amen.
 ℣ Et fidélium ánimæ per misericórdiam Dei requiéscant in pace.
 ℟ Amen.`,
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Chaplet of Divine Mercy (Diary of St. Faustina 476, 84, 1319, 950). The
+  // Diary is Polish, and no official Latin exists. The core prayers — Pater
+  // ætérne, Pro dolorósa, Sanctus Deus — are the Latin in common use, checked
+  // against prayinglatin.com (identical bar capitals). The OPTIONAL prayers
+  // (CHAPLET_OPENING, CHAPLET_BLOOD_WATER, CHAPLET_CLOSING) are OUR OWN
+  // TRANSLATION: the Latin versions in circulation disagree with each other
+  // and are in places ungrammatical. Like the BRIGIT_* entries, replace them
+  // verbatim if a trustworthy Latin source is obtained. Iesu, in te confído is
+  // the received Latin of the image's inscription.
+  // ─────────────────────────────────────────────────────────────────────────
+  [PRAYER_TYPES.CHAPLET_OPENING]: `Expirásti, Iesu, sed fons vitæ pro animábus scaturívit, et océanus misericórdiæ toti mundo apértus est. O fons vitæ, inscrutábilis Misericórdia Divína, invólve totum mundum et effúnde te super nos.`,
+
+  [PRAYER_TYPES.CHAPLET_BLOOD_WATER]: `O Sanguis et Aqua, quæ ex Corde Iesu ut fons misericórdiæ pro nobis scaturísti, in te confído.`,
+
+  [PRAYER_TYPES.CHAPLET_ETERNAL_FATHER]: `Pater ætérne, óffero tibi Corpus et Sánguinem, Ánimam et Divinitátem dilectíssimi Fílii tui, Dómini nostri Iesu Christi, in propitiatióne pro peccátis nostris et totíus mundi.`,
+
+  [PRAYER_TYPES.CHAPLET_PASSION]: `Pro dolorósa eius passióne, miserére nobis et totíus mundi.`,
+
+  [PRAYER_TYPES.CHAPLET_TRISAGION]: `Sanctus Deus, Sanctus fortis, Sanctus immortális, miserére nobis et totíus mundi.`,
+
+  [PRAYER_TYPES.CHAPLET_CLOSING]: `Ætérne Deus, in quo misericórdia est infiníta et thesáurus miseratiónis inexháustus, benígne réspice in nos et adáuge in nobis misericórdiam tuam, ut in diffícilibus moméntis non desperémus neque animo deficiámus, sed magna cum fidúcia voluntáti tuæ sanctæ nos subiciámus, quæ est ipse Amor et ipsa Misericórdia.`,
+
+  [PRAYER_TYPES.CHAPLET_TRUST]: `Iesu, in te confído.`,
 };
 
 // The Hail Mary is split so the per-decade mystery clause can be visually
@@ -1880,6 +1914,26 @@ Všemohoucí věčný Bože, ty vládneš živým i mrtvým a smilováváš se n
 ℟ Amen.
 ℣ A duše věřících ať pro Boží milosrdenství odpočívají v pokoji.
 ℟ Amen.`,
+
+  // Chaplet of Divine Mercy. The core prayers follow kmbm.cz and
+  // abcsvatych.com (the Kongregace Milosrdných bratří and a widely copied
+  // text; they differ only in capitals and "Duši i/a Božství"). The opening
+  // prayer and Ó Krvi a Vodo follow the Hour of Mercy service of the
+  // Augustinian abbey in Brno (Dn 1319, 84); the closing prayer the Minorites
+  // in Opava (Dn 950), without its added "Neboť ty žiješ…" ending.
+  [PRAYER_TYPES.CHAPLET_OPENING]: `Zemřel jsi, Ježíši, ale pro duše vytryskl pramen života a pro celý svět se otevřelo moře milosrdenství. Zřídlo života, nevyčerpatelné Boží milosrdenství, obejmi celý svět a vylej se na nás.`,
+
+  [PRAYER_TYPES.CHAPLET_BLOOD_WATER]: `Ó Krvi a Vodo, která jsi vytryskla ze Srdce Ježíšova jako zdroj milosrdenství pro nás, důvěřuji ti.`,
+
+  [PRAYER_TYPES.CHAPLET_ETERNAL_FATHER]: `Věčný Otče, obětuji ti Tělo a Krev, Duši i Božství tvého nejmilejšího Syna a našeho Pána Ježíše Krista na smír za hříchy naše i celého světa.`,
+
+  [PRAYER_TYPES.CHAPLET_PASSION]: `Pro jeho bolestné utrpení buď milosrdný k nám i k celému světu.`,
+
+  [PRAYER_TYPES.CHAPLET_TRISAGION]: `Svatý Bože, Svatý Silný, Svatý Nesmrtelný, smiluj se nad námi a nad celým světem.`,
+
+  [PRAYER_TYPES.CHAPLET_CLOSING]: `Věčný Bože, jehož milosrdenství je nevyčerpatelné a poklad slitování nepřeberný, shlédni na nás s laskavostí a rozhojni v nás své milosrdenství, abychom v těžkých chvílích nezoufali a neklesali na duchu, ale poddali se s velkou důvěrou tvé svaté vůli, která je láska a milosrdenství samo.`,
+
+  [PRAYER_TYPES.CHAPLET_TRUST]: `Ježíši, důvěřuji ti.`,
 };
 
 // English counterpart of the shared Salve Regína antiphon (see SALVE_REGINA_ANTIPHON).
@@ -2688,6 +2742,24 @@ Almighty and everlasting God, who hast dominion over the living and the dead, an
 ℟ Amen.
 ℣ May the souls of the faithful departed, through the mercy of God, rest in peace.
 ℟ Amen.`,
+
+  // Chaplet of Divine Mercy: the Marians of the Immaculate Conception's text,
+  // checked against EWTN and a catholic.com leaflet (the closing prayer and
+  // "fount of mercy" from the latter). A modern devotion, so "you" rather than
+  // "thee", as with the Liturgy of the Hours antiphons above.
+  [PRAYER_TYPES.CHAPLET_OPENING]: `You expired, Jesus, but the source of life gushed forth for souls, and the ocean of mercy opened up for the whole world. O Fount of Life, unfathomable Divine Mercy, envelop the whole world and empty yourself out upon us.`,
+
+  [PRAYER_TYPES.CHAPLET_BLOOD_WATER]: `O Blood and Water, which gushed forth from the Heart of Jesus as a fount of mercy for us, I trust in you!`,
+
+  [PRAYER_TYPES.CHAPLET_ETERNAL_FATHER]: `Eternal Father, I offer you the Body and Blood, Soul and Divinity of your dearly beloved Son, our Lord Jesus Christ, in atonement for our sins and those of the whole world.`,
+
+  [PRAYER_TYPES.CHAPLET_PASSION]: `For the sake of his sorrowful Passion, have mercy on us and on the whole world.`,
+
+  [PRAYER_TYPES.CHAPLET_TRISAGION]: `Holy God, Holy Mighty One, Holy Immortal One, have mercy on us and on the whole world.`,
+
+  [PRAYER_TYPES.CHAPLET_CLOSING]: `Eternal God, in whom mercy is endless and the treasury of compassion inexhaustible, look kindly upon us and increase your mercy in us, that in difficult moments we might not despair nor become despondent, but with great confidence submit ourselves to your holy will, which is Love and Mercy itself.`,
+
+  [PRAYER_TYPES.CHAPLET_TRUST]: `Jesus, I trust in you.`,
 };
 
 // The prayer body the card shows when the LA↔<language> toggle is on the

@@ -27,6 +27,11 @@ describe("isPersistableKey", () => {
     for (const k of Object.keys(MYSTERIES)) expect(isPersistableKey(k)).toBe(true);
   });
 
+  it("accepts both forms of the chaplet", () => {
+    expect(isPersistableKey("misericordia")).toBe(true);
+    expect(isPersistableKey("misericordia-plena")).toBe(true);
+  });
+
   it("accepts every linear devotion", () => {
     for (const k of Object.keys(OTHER_PRAYER_SETS)) expect(isPersistableKey(k)).toBe(true);
   });
@@ -164,6 +169,8 @@ describe("canGoToStep", () => {
 describe("getPrayerSetMeta", () => {
   it("classifies each registry into the right kind", () => {
     expect(getPrayerSetMeta("radostny").kind).toBe("rosary");
+    expect(getPrayerSetMeta("misericordia").kind).toBe("rosary");
+    expect(getPrayerSetMeta("misericordia-plena").kind).toBe("rosary");
     expect(getPrayerSetMeta("leonine").kind).toBe("linear");
     expect(getPrayerSetMeta("brigit").kind).toBe("linear");
     expect(getPrayerSetMeta("pater_noster").kind).toBe("single");

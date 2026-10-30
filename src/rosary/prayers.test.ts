@@ -11,7 +11,7 @@ import {
   type PrayerType,
   type MysteryKey,
 } from "./prayers";
-import { buildRosarySequence, sliceLines, OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type SequenceItem } from "./sequence";
+import { buildChaplet, buildRosarySequence, sliceLines, CHAPLETS, OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type SequenceItem } from "./sequence";
 import { parseLitany } from "./litany";
 import { SUPPORTED_LOCALES, type Locale } from "./i18n";
 import { STATE_VERSION } from "./storage";
@@ -34,6 +34,9 @@ function allSequences(): { label: string; seq: SequenceItem[] }[] {
   const out: { label: string; seq: SequenceItem[] }[] = [];
   for (const key of Object.keys(MYSTERIES) as MysteryKey[]) {
     out.push({ label: `rosary:${key}`, seq: buildRosarySequence(MYSTERIES[key]) });
+  }
+  for (const [key, set] of Object.entries(CHAPLETS)) {
+    out.push({ label: `chaplet:${key}`, seq: set.build() });
   }
   for (const [key, set] of Object.entries(OTHER_PRAYER_SETS)) {
     out.push({ label: `linear:${key}`, seq: set.build() });
@@ -93,6 +96,7 @@ describe("every prayer in every set resolves to Latin + a text in every locale",
 describe("display names", () => {
   const registries = {
     mystery: MYSTERIES,
+    chaplet: CHAPLETS,
     linear: OTHER_PRAYER_SETS,
     ordinary: ORDINARY_PRAYERS,
     litany: LITANIES,
@@ -155,6 +159,46 @@ describe("rosary sequence structure", () => {
     const beadIds = seq.map((s) => s.beadId).filter((b): b is string => !!b);
     expect(new Set(beadIds).size, "bead IDs are unique").toBe(beadIds.length);
     expect(new Set(beadIds)).toEqual(expected);
+  });
+});
+
+describe("chaplet of Divine Mercy", () => {
+  const core = buildChaplet(false);
+  const full = buildChaplet(true);
+
+  it("is 63 steps, or 69 with the optional prayers", () => {
+    expect(core.length).toBe(63);
+    expect(full.length).toBe(69);
+  });
+
+  it("adds only the optional prayers, around an unchanged core", () => {
+    const optional = new Set<PrayerType>([
+      PRAYER_TYPES.CHAPLET_OPENING, PRAYER_TYPES.CHAPLET_BLOOD_WATER,
+      PRAYER_TYPES.CHAPLET_CLOSING, PRAYER_TYPES.CHAPLET_TRUST,
+    ]);
+    expect(core.some((i) => optional.has(i.type))).toBe(false);
+    expect(full.filter((i) => !optional.has(i.type))).toEqual(core);
+  });
+
+  it("has five decades of Pater ætérne + ten Pro dolorósa, counted 1–10", () => {
+    for (let d = 0; d < 5; d++) {
+      const items = core.filter((i) => i.decade === d);
+      expect(items.map((i) => i.type)).toEqual([
+        PRAYER_TYPES.CHAPLET_ETERNAL_FATHER,
+        ...Array(10).fill(PRAYER_TYPES.CHAPLET_PASSION),
+      ]);
+      expect(items.slice(1).map((i) => i.num)).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+    }
+  });
+
+  it("uses the rosary's bead IDs, once each, leaving two tail beads blank", () => {
+    const rosaryBeads = new Set(buildRosarySequence(MYSTERIES.radostny).map((i) => i.beadId).filter(Boolean));
+    for (const seq of [core, full]) {
+      const beadIds = seq.map((i) => i.beadId).filter((b): b is string => !!b);
+      expect(new Set(beadIds).size).toBe(beadIds.length);
+      for (const b of beadIds) expect(rosaryBeads.has(b), b).toBe(true);
+      expect(beadIds.length).toBe(rosaryBeads.size - 2);
+    }
   });
 });
 
