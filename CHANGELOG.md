@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.20.1]
+
+### Changed
+- **The chaplet's Latin name is now *Corona Divínæ Misericórdiæ*,** the title the Latin prayer collections use, instead of *Coronula*. Its page on the web moves with it, before ever having been published.
+- **The switch for the chaplet's optional prayers sits inside the chaplet's box,** under a thin line, instead of below it.
+
 ## [0.20.0]
 
 ### Added

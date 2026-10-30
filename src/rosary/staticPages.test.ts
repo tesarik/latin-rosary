@@ -24,7 +24,7 @@ describe("static prayer pages", () => {
     for (const locale of SUPPORTED_LOCALES) {
       expect(byName.has(`${locale}/index.html`)).toBe(true);
       expect(byName.has(`${locale}/rosarium/index.html`)).toBe(true);
-      expect(byName.has(`${locale}/coronula-divinae-misericordiae/index.html`)).toBe(true);
+      expect(byName.has(`${locale}/corona-divinae-misericordiae/index.html`)).toBe(true);
       expect(byName.has(`${locale}/litaniae-lauretanae/index.html`)).toBe(true);
     }
   });

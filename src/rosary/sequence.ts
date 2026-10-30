@@ -123,7 +123,7 @@ export type ChapletKey = "misericordia" | "misericordia-plena";
 
 export const CHAPLET_COLOR = "#1E6FB8";
 
-const CHAPLET_NAME = "Coronula Divínæ Misericórdiæ";
+const CHAPLET_NAME = "Corona Divínæ Misericórdiæ";
 const CHAPLET_NAME_TR: Localized = { cs: "Korunka k Božímu milosrdenství", en: "The Chaplet of Divine Mercy" };
 
 export const CHAPLETS: Record<ChapletKey, {

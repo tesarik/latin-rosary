@@ -83,7 +83,7 @@ export const PRAYER_TYPES = {
   LITANY_SAINTS_PSALM: "litany_saints_psalm",
   LITANY_SAINTS_VERSICLES: "litany_saints_versicles",
   LITANY_SAINTS_COLLECTS: "litany_saints_collects",
-  // Chaplet of Divine Mercy (Coronula Divínæ Misericórdiæ), prayed on the
+  // Chaplet of Divine Mercy (Corona Divínæ Misericórdiæ), prayed on the
   // rosary's beads. Its Pater Noster, Ave María and Credo reuse the rosary's.
   CHAPLET_OPENING: "chaplet_opening",
   CHAPLET_BLOOD_WATER: "chaplet_blood_water",
@@ -1051,7 +1051,8 @@ Omnípotens sempitérne Deus, qui vivórum domináris simul et mortuórum, omni�
   // Chaplet of Divine Mercy (Diary of St. Faustina 476, 84, 1319, 950). The
   // Diary is Polish, and no official Latin exists. The core prayers — Pater
   // ætérne, Pro dolorósa, Sanctus Deus — are the Latin in common use, checked
-  // against prayinglatin.com (identical bar capitals). The OPTIONAL prayers
+  // against prayinglatin.com, preces-latinae.org and the Latin Wikisource
+  // (identical bar capitals and a comma); the title follows the last two. The OPTIONAL prayers
   // (CHAPLET_OPENING, CHAPLET_BLOOD_WATER, CHAPLET_CLOSING) are OUR OWN
   // TRANSLATION: the Latin versions in circulation disagree with each other
   // and are in places ungrammatical. Like the BRIGIT_* entries, replace them

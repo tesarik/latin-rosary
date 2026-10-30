@@ -385,23 +385,23 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
           />
         ))}
 
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <PrayerSetButton
-            name={chapletEntry.name}
-            subtitle={chapletEntry.nameTr[locale]}
-            color={chapletEntry.color}
-            ariaLabel={t.startPrayerAria(chapletEntry.nameTr[locale])}
-            icon="rosary"
-            resume={<ResumeLine info={resume[chaplet]} color={chapletEntry.color} theme={theme} locale={locale} />}
-            onClick={() => onStart(chaplet)}
-          />
-          <OptionSwitch
-            label={t.chapletOptional}
-            checked={chapletFull}
-            color={chapletEntry.color}
-            onChange={(full) => { setChapletFull(full); saveChapletFull(full); }}
-          />
-        </div>
+        <PrayerSetButton
+          name={chapletEntry.name}
+          subtitle={chapletEntry.nameTr[locale]}
+          color={chapletEntry.color}
+          ariaLabel={t.startPrayerAria(chapletEntry.nameTr[locale])}
+          icon="rosary"
+          resume={<ResumeLine info={resume[chaplet]} color={chapletEntry.color} theme={theme} locale={locale} />}
+          onClick={() => onStart(chaplet)}
+          footer={
+            <OptionSwitch
+              label={t.chapletOptional}
+              checked={chapletFull}
+              color={chapletEntry.color}
+              onChange={(full) => { setChapletFull(full); saveChapletFull(full); }}
+            />
+          }
+        />
 
         <h2 style={sectionHeading}>
           {t.otherPrayersHeading}
@@ -477,7 +477,10 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
 // Shared button used for both rosary mystery sets and the linear prayer block.
 // The icon variant tells the rosary buttons apart from the linear ones at a
 // glance — circle-with-cross for rosary, plain cross for linear prayers.
-function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon, onClick }: {
+// A `footer` (the chaplet's switch) goes inside the same box, under a rule:
+// the box becomes a plain container holding two controls side by side in the
+// tree, since a button can't contain another one.
+function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon, onClick, footer }: {
   name: string;
   subtitle?: string;
   badge?: React.ReactNode;
@@ -486,8 +489,28 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
   ariaLabel: string;
   icon: "rosary" | "cross" | "plan" | "continue";
   onClick: () => void;
+  footer?: React.ReactNode;
 }) {
-  return (
+  const box: React.CSSProperties = {
+    background: "var(--surface)",
+    border: "1px solid var(--border)",
+    borderRadius: 16,
+    transition: "all 0.2s ease",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+  };
+  const hover = {
+    onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
+      e.currentTarget.style.transform = "translateY(-2px)";
+      e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.08)";
+      e.currentTarget.style.borderColor = color;
+    },
+    onMouseLeave: (e: React.MouseEvent<HTMLElement>) => {
+      e.currentTarget.style.transform = "translateY(0)";
+      e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.04)";
+      e.currentTarget.style.borderColor = "var(--border)";
+    },
+  };
+  const button = (
     <button
       onClick={onClick}
       aria-label={ariaLabel}
@@ -495,24 +518,13 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
         display: "flex",
         alignItems: "center",
         gap: 16,
-        padding: "18px 24px",
-        background: "var(--surface)",
-        border: "1px solid var(--border)",
-        borderRadius: 16,
+        padding: footer ? "18px 24px 14px" : "18px 24px",
         cursor: "pointer",
-        transition: "all 0.2s ease",
-        boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+        ...(footer
+          ? { width: "100%", background: "transparent", border: "none", borderRadius: "16px 16px 0 0" }
+          : box),
       }}
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = "translateY(-2px)";
-        e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.08)";
-        e.currentTarget.style.borderColor = color;
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = "translateY(0)";
-        e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.04)";
-        e.currentTarget.style.borderColor = "var(--border)";
-      }}
+      {...(footer ? {} : hover)}
     >
       <div style={{
         width: 40,
@@ -553,11 +565,20 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
       </div>
     </button>
   );
+  if (!footer) return button;
+  return (
+    <div style={{ ...box, display: "flex", flexDirection: "column" }} {...hover}>
+      {button}
+      <div style={{ borderTop: "1px solid var(--border)", display: "flex", justifyContent: "flex-end", padding: "0 12px" }}>
+        {footer}
+      </div>
+    </div>
+  );
 }
 
-// A small labelled on/off switch under a start-screen row — the chaplet's
-// optional prayers. Its own control rather than part of the row's button, so
-// the two taps can't be confused.
+// A small labelled on/off switch in a start-screen row's footer — the
+// chaplet's optional prayers. Its own control rather than part of the row's
+// button, so the two taps can't be confused.
 function OptionSwitch({ label, checked, color, onChange }: {
   label: string;
   checked: boolean;
@@ -573,9 +594,7 @@ function OptionSwitch({ label, checked, color, onChange }: {
         display: "flex",
         alignItems: "center",
         gap: 10,
-        alignSelf: "flex-end",
-        marginTop: 2,
-        padding: "8px 8px",
+        padding: "8px 4px",
         minHeight: 40,
         background: "transparent",
         border: "none",
