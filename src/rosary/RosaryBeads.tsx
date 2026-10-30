@@ -113,7 +113,15 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
   // Tail beads
   tailPositions.forEach(({ y, beadId, rad, jumpable }) => {
     const idx = beadIdx[beadId];
-    if (idx === undefined) return;
+    // A bead the sequence says nothing on (the chaplet's Credo bead and third
+    // Ave) is still on the string: drawn faint, never lit.
+    if (idx === undefined) {
+      elements.push(
+        <circle key={`tail-${beadId}`} cx={cx} cy={y} r={rad}
+          style={{ fill: "var(--bead-future)", opacity: 0.45 }} />
+      );
+      return;
+    }
     const bs = beadStyle(idx, currentStep, accentColor);
     elements.push(
       <circle key={`tail-${beadId}`} cx={cx} cy={y} r={rad}

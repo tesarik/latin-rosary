@@ -18,12 +18,13 @@ describe("static prayer pages", () => {
   });
 
   it("has an index and a page for every prayer set, in every locale", () => {
-    const sets = 1 + Object.keys(ORDINARY_PRAYERS).length + Object.keys(LITANIES).length + Object.keys(OTHER_PRAYER_SETS).length;
+    const sets = 2 + Object.keys(ORDINARY_PRAYERS).length + Object.keys(LITANIES).length + Object.keys(OTHER_PRAYER_SETS).length;
     expect(pages).toHaveLength(SUPPORTED_LOCALES.length * (sets + 1));
     expect(new Set(pages.map((p) => p.fileName)).size).toBe(pages.length);
     for (const locale of SUPPORTED_LOCALES) {
       expect(byName.has(`${locale}/index.html`)).toBe(true);
       expect(byName.has(`${locale}/rosarium/index.html`)).toBe(true);
+      expect(byName.has(`${locale}/coronula-divinae-misericordiae/index.html`)).toBe(true);
       expect(byName.has(`${locale}/litaniae-lauretanae/index.html`)).toBe(true);
     }
   });

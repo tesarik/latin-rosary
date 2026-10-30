@@ -11,6 +11,7 @@ import { MYSTERIES, PRAYERS, PRAYER_TRANSLATIONS, PRAYER_TYPES, getHailMary, get
 import {
   buildRosarySequence,
   sliceLines,
+  CHAPLETS,
   LITANIES,
   ORDINARY_PRAYERS,
   OTHER_PRAYER_SETS,
@@ -54,6 +55,7 @@ const PAGE_STRINGS: Record<Locale, {
   rosaryMysteries: string;
   rosaryMysteriesIntro: string;
   rosaryOpening: string;
+  chapletOrder: string;
   appBlurb: string;
 }> = {
   cs: {
@@ -68,13 +70,14 @@ const PAGE_STRINGS: Record<Locale, {
     indexTitle: "Latinské modlitby s českým překladem",
     indexIntro: "Růženec, litanie a další modlitby v latině, každá s českým překladem. Všechny se dají modlit v aplikaci Rosarium, i bez připojení.",
     indexDescription: "Růženec, litanie a modlitby v latině s českým překladem: Salve Regína, Angelus, Loretánské litanie a další.",
-    groups: { rosary: "Růženec", ordinary: "Orationes utilissimæ", litany: "Litaníæ", other: "Aliæ preces" },
+    groups: { rosary: "Růženec a korunka", ordinary: "Orationes utilissimæ", litany: "Litaníæ", other: "Aliæ preces" },
     rosaryIntro: "Růženec v latině, jak se modlí v aplikaci: v každém Zdrávas se za jménem Ježíš vkládá tajemství desátku.",
     rosaryOrder: "Znamení kříže, Věřím v Boha, Otčenáš, tři Zdrávas (za víru, naději a lásku), Sláva Otci. Pak pět desátků: Otčenáš, deset Zdrávas s tajemstvím, Sláva Otci a „Ó můj Ježíši“. Na závěr Zdrávas Královno a znamení kříže.",
     rosaryPrayers: "Modlitby růžence",
     rosaryMysteries: "Tajemství",
     rosaryMysteriesIntro: "Tajemství se vkládá do každého Zdrávas za slovo Iesus.",
     rosaryOpening: "Úvodní tři Zdrávas",
+    chapletOrder: "Korunka se modlí na růženci (Deníček sv. Faustyny 476). Znamení kříže, Otčenáš, Zdrávas a Věřím v Boha. Pak pět desátků: na velkém zrnu „Věčný Otče“, na deseti malých „Pro jeho bolestné utrpení“. Na závěr třikrát „Svatý Bože“ a znamení kříže. Nepovinně se po úvodním znamení kříže přidává modlitba „Zemřel jsi, Ježíši“ a třikrát „Ó Krvi a Vodo“, na konci modlitba „Věčný Bože“ a „Ježíši, důvěřuji ti“. V aplikaci je zapíná přepínač pod korunkou.",
     appBlurb: "Rosarium je bezplatná aplikace pro modlitbu v latině s překladem na jedno klepnutí. Funguje i bez připojení.",
   },
   en: {
@@ -89,13 +92,14 @@ const PAGE_STRINGS: Record<Locale, {
     indexTitle: "Latin prayers with English translation",
     indexIntro: "The rosary, litanies and other prayers in Latin, each with an English translation. All of them can be prayed in the Rosarium app, offline too.",
     indexDescription: "The rosary, litanies and prayers in Latin with an English translation: Salve Regina, the Angelus, the Litany of Loreto and more.",
-    groups: { rosary: "The Rosary", ordinary: "Orationes utilissimæ", litany: "Litaníæ", other: "Aliæ preces" },
+    groups: { rosary: "The Rosary and the Chaplet", ordinary: "Orationes utilissimæ", litany: "Litaníæ", other: "Aliæ preces" },
     rosaryIntro: "The rosary in Latin as the app prays it: in every Hail Mary, the mystery of the decade is added after the name of Jesus.",
     rosaryOrder: "The Sign of the Cross, the Apostles’ Creed, the Our Father, three Hail Marys (for faith, hope and charity), the Glory Be. Then five decades: the Our Father, ten Hail Marys with the mystery, the Glory Be and “O my Jesus”. Finally, the Hail, Holy Queen and the Sign of the Cross.",
     rosaryPrayers: "The prayers of the rosary",
     rosaryMysteries: "The mysteries",
     rosaryMysteriesIntro: "The mystery is added to every Hail Mary after the word Iesus.",
     rosaryOpening: "The three opening Hail Marys",
+    chapletOrder: "The chaplet is prayed on rosary beads (Diary of St. Faustina 476). The Sign of the Cross, the Our Father, the Hail Mary and the Apostles’ Creed. Then five decades: “Eternal Father” on the large bead, “For the sake of his sorrowful Passion” on the ten small ones. Finally “Holy God” three times and the Sign of the Cross. Optionally, “You expired, Jesus” and three times “O Blood and Water” follow the opening Sign of the Cross, and the prayer “Eternal God” and “Jesus, I trust in you” close the chaplet. In the app, the switch under the chaplet turns them on.",
     appBlurb: "Rosarium is a free app for praying in Latin, with the translation one tap away. It works offline.",
   },
 };
@@ -103,9 +107,17 @@ const PAGE_STRINGS: Record<Locale, {
 // Texts that are ours rather than transcribed (see the banners in prayers.ts).
 // The pages say so, as the source comments do.
 const NOTES: Record<string, Partial<Localized>> = {
+  "misericordia-plena": {
+    cs: "Latinské znění nepovinných modliteb (Expirásti, O Sanguis et Aqua, Ætérne Deus) je náš vlastní překlad: Deníček je psán polsky a oficiální latinské znění neexistuje.",
+    en: "The Latin of the optional prayers (Expirásti, O Sanguis et Aqua, Ætérne Deus) is our own translation: the Diary was written in Polish, and no official Latin exists.",
+  },
   brigit: {
     cs: "Latinské znění těchto modliteb je náš vlastní překlad: autoritativní latinský originál není znám.",
     en: "The Latin of these prayers is our own translation: no authoritative Latin original is known.",
+  },
+  ioseph: {
+    cs: "Krátká latinská podoba pobožnosti: sedm nadpisů, ke každému Otče náš, Zdrávas a Sláva Otci, a modlitba Vírginum custos. Český překlad nadpisů je náš vlastní.",
+    en: "The short Latin form of the devotion: seven headings, each with an Our Father, a Hail Mary and a Glory Be, and the prayer Vírginum custos. The English of the headings is our own.",
   },
   humility: {
     cs: "Soukromá pobožnost z 19. století. Autoritativní latinský originál neexistuje; latinské znění jsme sestavili ze dvou latinských pramenů.",
@@ -166,6 +178,17 @@ function entries(): Entry[] {
       list.push({ key, slug: slugify(e.name), name: e.name, nameTr: e.nameTr, group, items: e.build() });
     }
   };
+  // The chaplet's page gives the full form, optional prayers included, and its
+  // first decade only: the other four repeat it (chapletOrder says so).
+  const chaplet = CHAPLETS["misericordia-plena"];
+  list.push({
+    key: "misericordia-plena",
+    slug: slugify(chaplet.name),
+    name: chaplet.name,
+    nameTr: chaplet.nameTr,
+    group: "rosary",
+    items: chaplet.build().filter((i) => (i.decade ?? 0) === 0),
+  });
   add("ordinary", ORDINARY_PRAYERS);
   add("litany", LITANIES);
   add("other", OTHER_PRAYER_SETS);
@@ -343,13 +366,17 @@ function setPage(entry: Entry, locale: Locale, base: string, appUrl: string): St
   const nameTr = entry.nameTr[locale];
   const path = `${locale}/${entry.slug}/`;
   const other = SUPPORTED_LOCALES.find((l) => l !== locale)!;
-  const first = entry.key ? plainText(itemText(entry.items[0]!, null)) : plainText(itemText({ type: PRAYER_TYPES.HAIL_MARY, label: "" }, null));
+  // The description quotes the set's first prayer, or the first of its decades
+  // (the chaplet's Pater ætérne, not its Sign of the Cross).
+  const lead = entry.items.find((i) => i.decade !== undefined) ?? entry.items[0]!;
+  const first = entry.key ? plainText(itemText(lead, null)) : plainText(itemText({ type: PRAYER_TYPES.HAIL_MARY, label: "" }, null));
   const snippet = first.length > 90 ? first.slice(0, first.lastIndexOf(" ", 90)).replace(/[,;:.]$/, "") : first.replace(/[.]$/, "");
   const note = entry.key ? NOTES[entry.key]?.[locale] : undefined;
   const body = `
       <h1>${escape(entry.name)}</h1>
       <p class="subtitle">${escape(nameTr)} · ${escape(s.latin)} / ${escape(s.languageName)}</p>
       ${entry.key ? `<a class="button" href="${base}#pray=${entry.key}">${escape(s.prayInApp)}</a>` : `<a class="button" href="#mysteria">${escape(s.rosaryMysteries)}</a>`}
+      ${entry.key && entry.group === "rosary" ? `<p class="intro">${escape(s.chapletOrder)}</p>` : ""}
       ${note ? `<p class="note">${escape(note)}</p>` : ""}${entry.key ? setBody(entry, locale) : rosaryBody(locale, base)}`;
   return {
     fileName: `${path}index.html`,

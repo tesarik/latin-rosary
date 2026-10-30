@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { MYSTERIES, type Localized, type MysteryKey } from "./prayers";
-import { OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type OtherPrayerKey } from "./sequence";
+import { CHAPLETS, OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type OtherPrayerKey } from "./sequence";
+import { chapletToOpen, loadSavedChapletFull, saveChapletFull } from "./chaplet";
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
 import type { PrayerSetKey } from "./navigation";
 import { accentText, type Theme } from "./theme";
@@ -317,6 +318,9 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
   const todaysMysteries = mysteriesOfDay(now);
   const antiphon = marianAntiphon(now);
   const eastertide = seasonOf(now) === "easter";
+  const [chapletFull, setChapletFull] = useState(loadSavedChapletFull);
+  const chaplet = chapletToOpen(chapletFull, Object.keys(resume));
+  const chapletEntry = CHAPLETS[chaplet];
 
   return (
     <div style={{
@@ -380,6 +384,24 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
             onClick={() => onStart(key)}
           />
         ))}
+
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <PrayerSetButton
+            name={chapletEntry.name}
+            subtitle={chapletEntry.nameTr[locale]}
+            color={chapletEntry.color}
+            ariaLabel={t.startPrayerAria(chapletEntry.nameTr[locale])}
+            icon="rosary"
+            resume={<ResumeLine info={resume[chaplet]} color={chapletEntry.color} theme={theme} locale={locale} />}
+            onClick={() => onStart(chaplet)}
+          />
+          <OptionSwitch
+            label={t.chapletOptional}
+            checked={chapletFull}
+            color={chapletEntry.color}
+            onChange={(full) => { setChapletFull(full); saveChapletFull(full); }}
+          />
+        </div>
 
         <h2 style={sectionHeading}>
           {t.otherPrayersHeading}
@@ -529,6 +551,62 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
         )}
         {resume}
       </div>
+    </button>
+  );
+}
+
+// A small labelled on/off switch under a start-screen row — the chaplet's
+// optional prayers. Its own control rather than part of the row's button, so
+// the two taps can't be confused.
+function OptionSwitch({ label, checked, color, onChange }: {
+  label: string;
+  checked: boolean;
+  color: string;
+  onChange: (checked: boolean) => void;
+}) {
+  return (
+    <button
+      role="switch"
+      aria-checked={checked}
+      onClick={() => onChange(!checked)}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 10,
+        alignSelf: "flex-end",
+        marginTop: 2,
+        padding: "8px 8px",
+        minHeight: 40,
+        background: "transparent",
+        border: "none",
+        cursor: "pointer",
+        fontFamily: "Arial, sans-serif",
+        fontSize: 13,
+        color: "var(--text-muted)",
+      }}
+    >
+      {label}
+      <span aria-hidden="true" style={{
+        position: "relative",
+        width: 34,
+        height: 20,
+        borderRadius: 10,
+        background: checked ? color : "var(--border-strong)",
+        transition: "background 0.2s ease",
+        flexShrink: 0,
+      }}>
+        <span style={{
+          position: "absolute",
+          top: 2,
+          left: checked ? 16 : 2,
+          width: 16,
+          height: 16,
+          borderRadius: "50%",
+          background: "white",
+          boxShadow: "0 1px 2px rgba(0,0,0,0.2)",
+          transition: "left 0.2s ease",
+        }} />
+      </span>
     </button>
   );
 }

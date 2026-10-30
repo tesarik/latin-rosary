@@ -78,6 +78,64 @@ export function buildRosarySequence(mysterySet: MysterySet): SequenceItem[] {
   return seq;
 }
 
+// Chaplet of Divine Mercy, prayed on the rosary's beads (Diary of St. Faustina
+// 476): the Sign of the Cross, the Pater Noster, Ave María and Credo on the
+// tail, five decades of one Pater ætérne (the large bead) and ten Pro dolorósa
+// (the small ones), then Sanctus Deus three times at the junction. Same
+// beadIds as the rosary, so RosaryBeads draws it unchanged; the tail's Credo
+// bead and its third Ave bead have nothing to say and stay blank.
+//
+// `full` adds the optional prayers: Expirásti, Iesu and three O Sanguis et
+// Aqua after the Sign of the Cross, the Ætérne Deus collect and Iesu, in te
+// confído after the Sanctus Deus. 63 steps, or 69 with them.
+export function buildChaplet(full: boolean): SequenceItem[] {
+  const seq: SequenceItem[] = [];
+  seq.push({ type: PRAYER_TYPES.SIGN_OF_CROSS, label: "Signum Crucis" });
+  if (full) {
+    seq.push({ type: PRAYER_TYPES.CHAPLET_OPENING, label: "Expirásti, Iesu" });
+    for (let i = 0; i < 3; i++) seq.push({ type: PRAYER_TYPES.CHAPLET_BLOOD_WATER, label: "O Sanguis et Aqua" });
+  }
+  seq.push({ type: PRAYER_TYPES.OUR_FATHER, label: "Pater Noster", beadId: "tail-of" });
+  seq.push({ type: PRAYER_TYPES.HAIL_MARY,  label: "Ave María",    beadId: "tail-hm-0" });
+  seq.push({ type: PRAYER_TYPES.CREED,      label: "Credo",        beadId: "tail-hm-1" });
+
+  for (let d = 0; d < 5; d++) {
+    seq.push({ type: PRAYER_TYPES.CHAPLET_ETERNAL_FATHER, label: "Pater ætérne", decade: d, beadId: `ring-of-${d}` });
+    for (let h = 1; h <= 10; h++) {
+      seq.push({ type: PRAYER_TYPES.CHAPLET_PASSION, label: "Pro dolorósa", decade: d, num: h, beadId: `ring-hm-${d}-${h - 1}` });
+    }
+  }
+
+  for (let i = 0; i < 3; i++) seq.push({ type: PRAYER_TYPES.CHAPLET_TRISAGION, label: "Sanctus Deus" });
+  if (full) {
+    seq.push({ type: PRAYER_TYPES.CHAPLET_CLOSING, label: "Ætérne Deus" });
+    seq.push({ type: PRAYER_TYPES.CHAPLET_TRUST,   label: "Iesu, in te confído" });
+  }
+  seq.push({ type: PRAYER_TYPES.SIGN_OF_CROSS, label: "Signum Crucis" });
+  return seq;
+}
+
+// The chaplet in its two forms: with only the prayers the Diary prescribes,
+// and with the optional ones. Two keys rather than one with a setting, so a
+// kept place always belongs to the sequence it was counted in; the start
+// screen's switch picks which one a tap opens (see chaplet.ts).
+export type ChapletKey = "misericordia" | "misericordia-plena";
+
+export const CHAPLET_COLOR = "#1E6FB8";
+
+const CHAPLET_NAME = "Coronula Divínæ Misericórdiæ";
+const CHAPLET_NAME_TR: Localized = { cs: "Korunka k Božímu milosrdenství", en: "The Chaplet of Divine Mercy" };
+
+export const CHAPLETS: Record<ChapletKey, {
+  name: string;
+  nameTr: Localized;
+  color: string;
+  build: () => SequenceItem[];
+}> = {
+  misericordia: { name: CHAPLET_NAME, nameTr: CHAPLET_NAME_TR, color: CHAPLET_COLOR, build: () => buildChaplet(false) },
+  "misericordia-plena": { name: CHAPLET_NAME, nameTr: CHAPLET_NAME_TR, color: CHAPLET_COLOR, build: () => buildChaplet(true) },
+};
+
 // Section labels for the Leonine post-Mass prayers. These drive the circular
 // stepper above the prayer card; tap a node to jump to its first step.
 const LEO_SECTIONS = {
@@ -135,7 +193,34 @@ export function buildBrigitPrayers(): SequenceItem[] {
   return seq;
 }
 
-export type OtherPrayerKey = "leonine" | "brigit";
+// The Seven Sorrows and Joys of St. Joseph, short form: seven sections, each a
+// red heading over its Pater Noster, then an Ave María and a Glória Patri, and
+// Vírginum custos to close — 22 steps. As with St. Bridget, only the heading
+// step is a section (the strand keeps eight beads); the Ave and Glória are
+// unsectioned sub-steps, which is also why plans can't contain it.
+const IOSEPH_SECTIONS = [
+  { type: PRAYER_TYPES.IOSEPH_1, section: "Núntium Angeli" },
+  { type: PRAYER_TYPES.IOSEPH_2, section: "Natívitas" },
+  { type: PRAYER_TYPES.IOSEPH_3, section: "Circumcísio" },
+  { type: PRAYER_TYPES.IOSEPH_4, section: "Prophétia Simeónis" },
+  { type: PRAYER_TYPES.IOSEPH_5, section: "Fuga in Ægýptum" },
+  { type: PRAYER_TYPES.IOSEPH_6, section: "Réditus" },
+  { type: PRAYER_TYPES.IOSEPH_7, section: "Invéntio in Templo" },
+  { type: PRAYER_TYPES.IOSEPH_VIRGINUM_CUSTOS, section: "Vírginum custos" },
+] as const;
+
+export function buildIosephPrayers(): SequenceItem[] {
+  return IOSEPH_SECTIONS.flatMap(({ type, section }): SequenceItem[] =>
+    type === PRAYER_TYPES.IOSEPH_VIRGINUM_CUSTOS
+      ? [{ type, label: section, section }]
+      : [
+          { type, label: section, section },
+          { type: PRAYER_TYPES.HAIL_MARY, label: "Ave María" },
+          { type: PRAYER_TYPES.GLORY_BE, label: "Glória Patri" },
+        ]);
+}
+
+export type OtherPrayerKey = "leonine" | "brigit" | "ioseph";
 
 // Linear prayer sets (no beads, not persisted). Keyed by `OtherPrayerKey`,
 // rendered as a separate block on the start screen.
@@ -156,6 +241,12 @@ export const OTHER_PRAYER_SETS: Record<OtherPrayerKey, {
     nameTr: { cs: "Modlitby svaté Brigity", en: "The Prayers of Saint Bridget" },
     color: "#8E1B1B",
     build: buildBrigitPrayers,
+  },
+  ioseph: {
+    name: "Septem Dolóres et Gáudia Sancti Ioseph",
+    nameTr: { cs: "Sedm bolestí a radostí svatého Josefa", en: "The Seven Sorrows and Joys of St. Joseph" },
+    color: "#6D4C41",
+    build: buildIosephPrayers,
   },
 };
 
