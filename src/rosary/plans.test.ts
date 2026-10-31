@@ -68,12 +68,13 @@ describe("PLAN_ITEM_GROUPS", () => {
 
   it("follows the start screen's groups, keeping only what a plan may hold", () => {
     expect(PLAN_ITEM_GROUPS.map((g) => g.title)).toEqual(
-      ["Orationes cotidiánæ", "Ad Beátam Maríam Vírginem", "Missa", "Litaníæ", "Pro defúnctis"]);
+      ["Orationes cotidiánæ", "Ad Beátam Maríam Vírginem", "Missa", "Litaníæ", "Pro defúnctis", "Devotiónes"]);
     const missa = PLAN_ITEM_GROUPS.find((g) => g.title === "Missa")!;
-    expect(missa.keys.slice(0, 3)).toEqual(["confiteor", "kyrie", "gloria_in_excelsis"]);
+    expect(missa.keys.slice(0, 3)).toEqual(["iudica_me", "confiteor", "kyrie"]);
     expect(missa.keys).toContain("leonine");
-    // St. Bridget and St. Joseph may not be in a plan, so Devotiónes drops out.
-    expect(PLAN_ITEM_GROUPS.flatMap((g) => g.keys)).not.toContain("brigit");
+    // St. Bridget's and St. Joseph's step-by-step devotions may not be in a
+    // plan; Devotiónes keeps only the single prayer to St. Joseph.
+    expect(PLAN_ITEM_GROUPS.find((g) => g.title === "Devotiónes")!.keys).toEqual(["ad_te_ioseph"]);
   });
 });
 

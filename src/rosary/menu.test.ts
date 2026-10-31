@@ -34,7 +34,7 @@ describe("inSeason", () => {
     expect(inSeason(new Date(2026, 5, 4))).toEqual(["salve_regina", "lauda_sion", "sacred_heart"]);
     expect(inSeason(new Date(2026, 8, 15))).toEqual(["salve_regina", "stabat_mater"]);
     // The Friday before Palm Sunday, 27 March 2026: in Lent and St. Joseph's month too.
-    expect(inSeason(new Date(2026, 2, 27))).toEqual(["ave_regina_caelorum", "stabat_mater", "st_joseph", "ioseph", "brigit"]);
+    expect(inSeason(new Date(2026, 2, 27))).toEqual(["ave_regina_caelorum", "stabat_mater", "st_joseph", "ioseph", "ad_te_ioseph", "brigit"]);
   });
 
   it("adds the prayers for the dead through November, and All Saints' litany on its day", () => {
