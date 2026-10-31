@@ -62,7 +62,8 @@ export const MENU_GROUPS: readonly MenuGroup[] = [
     sections: [{ keys: [
       "signum_crucis", "pater_noster", "ave_maria", "gloria_patri",
       "symbolum_apostolorum", "symbolum_nicenum", "symbolum_athanasianum",
-      "angelus", "anima_christi", "angele_dei", "sancte_michael", "decalogue",
+      "angelus", "benedictio_mensae", "gratiarum_actio", "anima_christi", "suscipe", "creator_ineffabilis",
+      "angele_dei", "sancte_michael", "nunc_dimittis", "decalogue",
     ] }],
   },
   {
@@ -74,7 +75,7 @@ export const MENU_GROUPS: readonly MenuGroup[] = [
     color: "#3A6EA5",
     sections: [{ keys: [
       "alma_redemptoris", "ave_regina_caelorum", "regina_caeli", "salve_regina",
-      "sub_tuum", "stabat_mater",
+      "sub_tuum", "memorare", "magnificat", "stabat_mater",
     ] }],
   },
   {
@@ -85,7 +86,7 @@ export const MENU_GROUPS: readonly MenuGroup[] = [
     color: "#B8860B",
     sections: [
       { heading: "Ordo Missæ", keys: [
-        "confiteor", "kyrie", "gloria_in_excelsis", "praefatio_dialog", "sanctus",
+        "iudica_me", "confiteor", "kyrie", "gloria_in_excelsis", "praefatio_dialog", "sanctus",
         "agnus_dei", "ante_communionem", "domine_non_sum_dignus", "post_communionem",
       ] },
       { heading: "Sequéntiæ", keys: ["victimae_paschali", "veni_sancte_spiritus", "lauda_sion"] },
@@ -114,7 +115,7 @@ export const MENU_GROUPS: readonly MenuGroup[] = [
     subtitle: { cs: "Pobožnosti", en: "Devotions" },
     icon: "heart",
     color: "#C62828",
-    sections: [{ keys: ["brigit", "ioseph"] }],
+    sections: [{ keys: ["brigit", "ioseph", "ad_te_ioseph"] }],
   },
 ];
 
@@ -127,7 +128,7 @@ const OCCASION_PRAYERS: Record<Occasion, readonly MenuKey[]> = {
   seven_sorrows: ["stabat_mater"],
   november: ["requiem", "de_profundis", "dies_irae", "defuncti"],
   all_saints: ["saints"],
-  st_joseph: ["st_joseph", "ioseph"],
+  st_joseph: ["st_joseph", "ioseph", "ad_te_ioseph"],
   sacred_heart: ["sacred_heart"],
   precious_blood: ["precious_blood"],
   holy_name: ["holy_name"],

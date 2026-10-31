@@ -301,6 +301,15 @@ export type OrdinaryPrayerKey =
   | "praefatio_dialog"
   | "ante_communionem"
   | "post_communionem"
+  | "benedictio_mensae"
+  | "gratiarum_actio"
+  | "memorare"
+  | "ad_te_ioseph"
+  | "magnificat"
+  | "nunc_dimittis"
+  | "iudica_me"
+  | "suscipe"
+  | "creator_ineffabilis"
   | "victimae_paschali"
   | "veni_sancte_spiritus"
   | "lauda_sion"
@@ -362,6 +371,15 @@ export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, OrdinaryEntry> = {
   lauda_sion:           ordinary("Lauda Sion", { cs: "Chval, Sione, Spasitele (Boží Tělo)", en: "Sion, Lift Thy Voice (Corpus Christi)" }, PRAYER_TYPES.LAUDA_SION),
   stabat_mater:         ordinary("Stabat Mater", { cs: "Stojí Matka zarmoucená (Panny Marie Bolestné)", en: "At the Cross Her Station Keeping (Our Lady of Sorrows)" }, PRAYER_TYPES.STABAT_MATER),
   dies_irae:            ordinary("Dies iræ", { cs: "Den hněvu (za zemřelé)", en: "Day of Wrath (for the Dead)" }, PRAYER_TYPES.DIES_IRAE),
+  benedictio_mensae: ordinary("Benedíctio mensæ", { cs: "Modlitba před jídlem", en: "Grace before Meals" }, PRAYER_TYPES.BENEDICTIO_MENSAE),
+  gratiarum_actio: ordinary("Gratiárum áctio", { cs: "Modlitba po jídle", en: "Grace after Meals" }, PRAYER_TYPES.GRATIARUM_ACTIO),
+  memorare: ordinary("Memoráre", { cs: "Pomni, nejdobrotivější Panno Maria", en: "Remember, O Most Gracious Virgin Mary" }, PRAYER_TYPES.MEMORARE),
+  ad_te_ioseph: ordinary("Ad te, beáte Ioseph", { cs: "K tobě, svatý Josefe", en: "To Thee, O Blessed Joseph" }, PRAYER_TYPES.AD_TE_IOSEPH),
+  magnificat: ordinary("Magníficat", { cs: "Velebí duše má Hospodina", en: "The Canticle of Mary" }, PRAYER_TYPES.MAGNIFICAT),
+  nunc_dimittis: ordinary("Nunc dimíttis", { cs: "Nyní propouštíš, Pane (večer)", en: "The Canticle of Simeon (Night Prayer)" }, PRAYER_TYPES.NUNC_DIMITTIS),
+  iudica_me: ordinary("Iúdica me", { cs: "Žalm 42 u stupňů oltáře", en: "Psalm 42 at the Foot of the Altar" }, PRAYER_TYPES.IUDICA_ME),
+  creator_ineffabilis: ordinary("Creátor ineffábilis", { cs: "Modlitba sv. Tomáše Akvinského před studiem", en: "St. Thomas Aquinas's Prayer before Study" }, PRAYER_TYPES.CREATOR_INEFFABILIS),
+  suscipe: ordinary("Súscipe", { cs: "Přijmi, Pane (sv. Ignác)", en: "Take, O Lord (St. Ignatius)" }, PRAYER_TYPES.SUSCIPE),
 };
 
 export type LitanyKey =

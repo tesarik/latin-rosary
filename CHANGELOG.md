@@ -6,15 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
-### Changed
-- **A new app icon: the Immaculate Heart** with its flames, the sword and white roses, in a glory of rays, which also heads the link preview beside *Rosarium Latinum*. It replaces the drawn rosary.
-- **Each group on the start screen has its own symbol and colour:** a calendar for *In season*, a sun for the daily prayers, the Marian M, the IHS monogram for the Mass, a cross for the dead, a heart for the devotions.
-
-### Changed
-- **The start screen is regrouped by occasion.** Below the rosary and the chaplet: *Orationes cotidiánæ* (daily prayers), *Ad Beátam Maríam Vírginem* (the Marian antiphons, Sub tuum, Stabat Mater), *Missa* (the Ordo Missæ in the order of the Mass, the sequences, the Leonine prayers after Mass), *Litaníæ*, *Pro defúnctis* (all the prayers for the dead together) and *Devotiónes* (St. Bridget, St. Joseph). The separate tiles for the devotions are gone, and every prayer is in exactly one place. The plan editor and the prayer pages' index follow the same groups. Links, saved places and plans are unchanged.
+## [0.23.0]
 
 ### Added
+- **More prayers**, with Latin, Czech and English:
+  - **Daily prayers:** grace before and after meals (*Benedíctio mensæ*, *Gratiárum áctio*), St. Ignatius's *Súscipe*, St. Thomas Aquinas's prayer before study *Creátor ineffábilis* (its Czech is our own translation), and *Nunc dimíttis* for the night.
+  - **To Our Lady:** the *Memoráre* and the *Magníficat*.
+  - **The Mass:** Psalm 42 *Iúdica me*, which now opens the *Ordo Missæ*.
+  - **Devotions:** the prayer to St. Joseph *Ad te, beáte Ioseph*, also in season through March.
+  - **Sources:** the Czech is from *Příručka katolických pobožností* (1935), *Katechismus modliteb* (1937) and *Cesta k věčné spáse* (1915), and *Iúdica me* from Schaller. The Latin was checked against preces-latinae.
 - **An *In season* card** on top of the groups with what the day calls for: the Marian antiphon of the season, *Víctimæ pascháli* in the Easter octave, *Veni, Sancte Spíritus* in the Pentecost octave, *Lauda Sion* in Corpus Christi week, *Stabat Mater* on the two feasts of Our Lady of Sorrows, the Litany of the Saints on All Saints, the prayers for the dead through November, the litany of the month's devotion (St. Joseph with his sorrows and joys in March, the Sacred Heart in June and on first Fridays, the Precious Blood in July, the Holy Name in January, Loreto in May and October) and the St. Bridget prayers in Lent. Each is also marked *nyní* in its group.
+
+### Changed
+- **Czech capitals follow the Latin:** *Duch Svatý* everywhere (the Creed, the Angelus, the Loreto litany, the canticles), and pronouns for God in lower case where the Latin has them so (*tě prosíme, uslyš nás* in the Litany of the Saints, the Súscipe, the Holy Name collect). The Salve Regína keeps *k Tobě*.
+- **A new app icon: the Immaculate Heart** with its flames, the sword and white roses, in a glory of rays, which also heads the link preview beside *Rosarium Latinum*. It replaces the drawn rosary.
+- **Each group on the start screen has its own symbol and colour:** a calendar for *In season*, a sun for the daily prayers, the Marian M, the IHS monogram for the Mass, a cross for the dead, a heart for the devotions.
+- **The start screen is regrouped by occasion.** Below the rosary and the chaplet: *Orationes cotidiánæ* (daily prayers), *Ad Beátam Maríam Vírginem* (the Marian antiphons, Sub tuum, Stabat Mater), *Missa* (the Ordo Missæ in the order of the Mass, the sequences, the Leonine prayers after Mass), *Litaníæ*, *Pro defúnctis* (all the prayers for the dead together) and *Devotiónes* (St. Bridget, St. Joseph). The separate tiles for the devotions are gone, and every prayer is in exactly one place. The plan editor and the prayer pages' index follow the same groups. Links, saved places and plans are unchanged.
 
 ## [0.22.0]
 

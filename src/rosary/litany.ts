@@ -25,9 +25,9 @@ export const LITANY_RESPONSES = [
   // not just their tails, so the earliest-match rule picks the whole response.
   "oráte pro nobis", "intercédite pro nobis", "te rogámus, audi nos",
   "orodujte za nás", "přimlouvejte se za nás", "prosíme tě, vyslyš nás",
-  // Schaller's Czech (Římský misál, 1931): "Tě prosíme, uslyš nás" and
+  // Schaller's Czech (Římský misál, 1931): "tě prosíme, uslyš nás" and
   // "Milostiv buď, uslyš nás, Pane".
-  "Tě prosíme, uslyš nás", "uslyš nás",
+  "tě prosíme, uslyš nás", "uslyš nás",
   // English. Bare "hear us" is deliberately NOT listed: it also occurs inside
   // petitions ("…vouchsafe to hear us, we beseech thee, hear us."), where the
   // earliest-match rule would cut the line at the wrong place. The two phrases

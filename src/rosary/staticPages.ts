@@ -131,6 +131,9 @@ const NOTES: Record<string, Partial<Localized>> = {
     cs: "Soukromá pobožnost z 19. století. Autoritativní latinský originál neexistuje; latinské znění jsme sestavili ze dvou latinských pramenů.",
     en: "A private devotion of the 19th century. No authoritative Latin original exists; this Latin is assembled from two Latin witnesses.",
   },
+  creator_ineffabilis: {
+    cs: "Český překlad je náš vlastní: v modlitebních knihách, které jsme prošli, se tato modlitba česky nenašla.",
+  },
   saints: {
     cs: "Český text podle Schallerova Římského misálu (1931). Světce, které tamější tradiční podoba nemá (Abrahám, pozdější mučedníci, učitelé, zakladatelé a světice), jsme přeložili sami.",
   },

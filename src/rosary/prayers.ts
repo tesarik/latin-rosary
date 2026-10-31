@@ -68,6 +68,16 @@ export const PRAYER_TYPES = {
   PRAEFATIO_DIALOG: "praefatio_dialog",
   ANTE_COMMUNIONEM: "ante_communionem",
   POST_COMMUNIONEM: "post_communionem",
+  // Everyday prayers, canticles and devotions.
+  BENEDICTIO_MENSAE: "benedictio_mensae",
+  GRATIARUM_ACTIO: "gratiarum_actio",
+  MEMORARE: "memorare",
+  AD_TE_IOSEPH: "ad_te_ioseph",
+  MAGNIFICAT: "magnificat",
+  NUNC_DIMITTIS: "nunc_dimittis",
+  IUDICA_ME: "iudica_me",
+  SUSCIPE: "suscipe",
+  CREATOR_INEFFABILIS: "creator_ineffabilis",
   VICTIMAE_PASCHALI: "victimae_paschali",
   VENI_SANCTE_SPIRITUS: "veni_sancte_spiritus",
   LAUDA_SION: "lauda_sion",
@@ -469,6 +479,57 @@ Panem cæléstem accípiam, et nomen Dómini invocábo.`,
   [PRAYER_TYPES.POST_COMMUNIONEM]: `Quod ore súmpsimus, Dómine, pura mente capiámus: et de múnere temporáli fiat nobis remédium sempitérnum.
 
 Corpus tuum, Dómine, quod sumpsi, et Sanguis, quem potávi, adhǽreat viscéribus meis: et præsta; ut in me non remáneat scélerum mácula, quem pura et sancta refecérunt sacraménta: qui vivis et regnas in sǽcula sæculórum. Amen.`,
+
+  // Everyday prayers, canticles and devotions. Latin as in preces-latinae
+  // (checked against it word by word: grace at meals, Memoráre, Ad te beáte
+  // Ioseph with Leo XIII's "súbolem" and "omnem"), the canticles from the
+  // Vulgate as in the Breviary, Iúdica me from the Ordo Missæ (Schaller).
+  [PRAYER_TYPES.BENEDICTIO_MENSAE]: `Bénedic, Dómine, nos et hæc tua dona, quæ de tua largitáte sumus sumptúri. Per Christum Dóminum nostrum. Amen.`,
+
+  [PRAYER_TYPES.GRATIARUM_ACTIO]: `Agimus tibi grátias, omnípotens Deus, pro univérsis benefíciis tuis: qui vivis et regnas in sǽcula sæculórum. Amen.`,
+
+  [PRAYER_TYPES.MEMORARE]: `Memoráre, o piíssima Virgo María, non esse audítum a sǽculo, quemquam ad tua curréntem præsídia, tua implorántem auxília, tua peténtem suffrágia, esse derelíctum. Ego tali animátus confidéntia, ad te, Virgo Vírginum, Mater, curro, ad te vénio, coram te gemens peccátor assísto. Noli, Mater Verbi, verba mea despícere; sed áudi propítia et exáudi. Amen.`,
+
+  [PRAYER_TYPES.AD_TE_IOSEPH]: `Ad te, beáte Ioseph, in tribulatióne nostra confúgimus, atque, imploráto Sponsæ tuæ sanctíssimæ auxílio, patrocínium quoque tuum fidénter expóscimus. Per eam, quæsumus, quæ te cum immaculáta Vírgine Dei Genetríce coniúnxit, caritátem, perque patérnum, quo Púerum Iesum ampléxus es, amórem, súpplices deprecámur, ut ad hereditátem, quam Iesus Christus acquisívit Sánguine suo, benígnus respícias, ac necessitátibus nostris tua virtúte et ope succúrras. Tuére, o Custos providentíssime divínæ Famíliæ, Iesu Christi súbolem eléctam; próhibe a nobis, amantíssime Pater, omnem errórum ac corruptelárum luem; propítius nobis, sospitátor noster fortíssime, in hoc cum potestáte tenebrárum certámine e cælo adésto; et sicut olim Púerum Iesum e summo eripuísti vitæ discrímine, ita nunc Ecclésiam sanctam Dei ab hostílibus insídiis atque ab omni adversitáte defénde: nosque síngulos perpétuo tege patrocínio, ut ad tui exémplar et ope tua suffúlti, sancte vívere, pie émori, sempiternámque in cælis beatitúdinem ássequi possímus. Amen.`,
+
+  [PRAYER_TYPES.MAGNIFICAT]: `Magníficat ánima mea Dóminum,
+et exsultávit spíritus meus in Deo salutári meo.
+Quia respéxit humilitátem ancíllæ suæ: ecce enim ex hoc beátam me dicent omnes generatiónes.
+Quia fecit mihi magna qui potens est: et sanctum nomen eius.
+Et misericórdia eius a progénie in progénies timéntibus eum.
+Fecit poténtiam in bráchio suo: dispérsit supérbos mente cordis sui.
+Depósuit poténtes de sede, et exaltávit húmiles.
+Esuriéntes implévit bonis: et dívites dimísit inánes.
+Suscépit Israël púerum suum, recordátus misericórdiæ suæ.
+Sicut locútus est ad patres nostros, Ábraham et sémini eius in sǽcula.
+Glória Patri, et Fílio, et Spirítui Sancto.
+Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.`,
+
+  [PRAYER_TYPES.NUNC_DIMITTIS]: `Nunc dimíttis servum tuum, Dómine, secúndum verbum tuum in pace:
+Quia vidérunt óculi mei salutáre tuum,
+Quod parásti ante fáciem ómnium populórum,
+Lumen ad revelatiónem géntium, et glóriam plebis tuæ Israël.
+Glória Patri, et Fílio, et Spirítui Sancto.
+Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.`,
+
+  [PRAYER_TYPES.IUDICA_ME]: `℣ Introíbo ad altáre Dei.
+℟ Ad Deum, qui lætíficat iuventútem meam.
+℣ Iúdica me, Deus, et discérne causam meam de gente non sancta: ab hómine iníquo et dolóso érue me.
+℟ Quia tu es, Deus, fortitúdo mea: quare me repulísti, et quare tristis incédo, dum afflígit me inimícus?
+℣ Emítte lucem tuam, et veritátem tuam: ipsa me deduxérunt, et adduxérunt in montem sanctum tuum, et in tabernácula tua.
+℟ Et introíbo ad altáre Dei: ad Deum, qui lætíficat iuventútem meam.
+℣ Confitébor tibi in cíthara, Deus, Deus meus: quare tristis es, ánima mea, et quare contúrbas me?
+℟ Spera in Deo, quóniam adhuc confitébor illi: salutáre vultus mei, et Deus meus.
+℣ Glória Patri, et Fílio, et Spirítui Sancto.
+℟ Sicut erat in princípio, et nunc, et semper: et in sǽcula sæculórum. Amen.
+℣ Introíbo ad altáre Dei.
+℟ Ad Deum, qui lætíficat iuventútem meam.`,
+
+  [PRAYER_TYPES.SUSCIPE]: `Súscipe, Dómine, univérsam meam libertátem. Accipe memóriam, intelléctum atque voluntátem omnem. Quidquid hábeo vel possídeo mihi largítus es; id tibi totum restítuo, ac tuæ prorsus voluntáti trado gubernándum. Amórem tui solum cum grátia tua mihi dones, et dives sum satis, nec áliud quidquam ultra posco. Amen.`,
+
+  // St. Thomas Aquinas's prayer before study: Latin from preces-latinae
+  // (checked word by word; the accents are ours).
+  [PRAYER_TYPES.CREATOR_INEFFABILIS]: `Creátor ineffábilis, qui de thesáuris sapiéntiæ tuæ tres Angelórum hierarchías designásti et eas super cælum empýreum miro órdine collocásti atque univérsi partes elegantíssime distribuísti: Tu, inquam, qui verus fons lúminis et sapiéntiæ díceris ac superéminens princípium, infúndere dignéris super intelléctus mei ténebras tuæ rádium claritátis, dúplices, in quibus natus sum, a me rémovens ténebras, peccátum scílicet et ignorántiam. Tu, qui linguas infántium facis disértas, linguam meam erúdias atque in lábiis meis grátiam tuæ benedictiónis infúndas. Da mihi intelligéndi ácumen, retinéndi capacitátem, addiscéndi modum et facilitátem, interpretándi subtilitátem, loquéndi grátiam copiósam. Ingréssum instrúas, progréssum dírigas, egréssum cómpleas. Tu, qui es verus Deus et homo, qui vivis et regnas in sǽcula sæculórum. Amen.`,
 
   // The sequences, as in Schallerův Římský misál (1931): Easter, Pentecost,
   // Corpus Christi, and the Friday of Passion Week / 15 September.
@@ -1596,7 +1657,7 @@ Bože, jehož jednorozený Syn nám svým životem, smrtí a vzkříšením zís
   [PRAYER_TYPES.BRIGIT_PIERCING]: `Ó Ježíši, božský milovníku našich duší, ke cti oné Krve a vody, které vytryskly z tvého otevřeného boku a Srdce, přijmi mě do svého nejsvětějšího Srdce a skrze toto poslední vylití doveď mě i všechny duše do věčné slávy. Amen.`,
 
   // Orationes utilissimæ additions. Czech sourced verbatim from orationes.pdf.
-  [PRAYER_TYPES.NICENE_CREED]: `Věřím v jednoho Boha, Otce všemohoucího, Stvořitele nebe i země, všeho viditelného i neviditelného. Věřím v jednoho Pána, Ježíše Krista, jednorozeného Syna Božího, který se zrodil z Otce přede všemi věky: Bůh z Boha, Světlo ze Světla, pravý Bůh z pravého Boha, zrozený, nestvořený, jedné podstaty s Otcem: skrze něho všechno je stvořeno. On pro nás lidi a pro naši spásu sestoupil z nebe. Skrze Ducha svatého přijal tělo z Marie Panny a stal se člověkem. Byl za nás ukřižován, za dnů Poncia Piláta byl umučen a pohřben. Třetího dne vstal z mrtvých podle Písma. Vstoupil do nebe, sedí po pravici Otce. A znovu přijde, ve slávě, soudit živé i mrtvé a jeho království bude bez konce. Věřím v Ducha svatého, Pána a dárce života, který z Otce i Syna vychází, s Otcem i Synem je zároveň uctíván a oslavován a mluvil ústy proroků. Věřím v jednu, svatou, všeobecnou, apoštolskou církev. Vyznávám jeden křest na odpuštění hříchů. Očekávám vzkříšení mrtvých a život budoucího věku. Amen.`,
+  [PRAYER_TYPES.NICENE_CREED]: `Věřím v jednoho Boha, Otce všemohoucího, Stvořitele nebe i země, všeho viditelného i neviditelného. Věřím v jednoho Pána, Ježíše Krista, jednorozeného Syna Božího, který se zrodil z Otce přede všemi věky: Bůh z Boha, Světlo ze Světla, pravý Bůh z pravého Boha, zrozený, nestvořený, jedné podstaty s Otcem: skrze něho všechno je stvořeno. On pro nás lidi a pro naši spásu sestoupil z nebe. Skrze Ducha Svatého přijal tělo z Marie Panny a stal se člověkem. Byl za nás ukřižován, za dnů Poncia Piláta byl umučen a pohřben. Třetího dne vstal z mrtvých podle Písma. Vstoupil do nebe, sedí po pravici Otce. A znovu přijde, ve slávě, soudit živé i mrtvé a jeho království bude bez konce. Věřím v Ducha Svatého, Pána a dárce života, který z Otce i Syna vychází, s Otcem i Synem je zároveň uctíván a oslavován a mluvil ústy proroků. Věřím v jednu, svatou, všeobecnou, apoštolskou církev. Vyznávám jeden křest na odpuštění hříchů. Očekávám vzkříšení mrtvých a život budoucího věku. Amen.`,
 
   [PRAYER_TYPES.SUB_TUUM]: `Pod ochranu tvou se utíkáme, svatá Boží Rodičko. Neodmítej naše prosby v našich potřebách, ale ode všeho nebezpečí vysvoboď nás vždycky, Panno slavná a požehnaná. Paní naše, prostřednice naše, orodovnice naše, u Syna nám smilování vypros, Synu svému nás doporuč, k Synu svému nás doprovoď.`,
 
@@ -1780,6 +1841,61 @@ Chléb nebeský přijmu a jméno Páně vzývati budu.`,
   [PRAYER_TYPES.POST_COMMUNIONEM]: `Čeho jsme ústy požili, Pane, kéž čistou myslí pojmeme a nechť z daru časného stane se nám lék věčný.
 
 Nechť Tělo tvé, Pane, jež jsem požil, a Krev, kterou jsem pil, utkví v útrobách mých, a dej, ať nezůstane poskvrna hříchů ve mně, jejž čisté a svaté občerstvily Svátosti, jenž žiješ a kraluješ na věky věkův. Amen.`,
+
+  // Czech: grace at meals from Katechismus modliteb (Miklík, 1937); Pomni,
+  // K tobě, svatý Josefe, Velebí duše má and Nyní propouštíš from Příručka
+  // katolických pobožností (Minařík, 1935); Súscipe from Cesta k věčné spáse
+  // (Brno, 1915); Iúdica me from Schaller's Římský misál (1931). Spelling as
+  // printed.
+  [PRAYER_TYPES.BENEDICTIO_MENSAE]: `Žehnej, Hospodine, nás i tyto dary, jichž chceme požívati z tvé štědrosti. Skrze Krista, našeho Pána. Amen.`,
+
+  [PRAYER_TYPES.GRATIARUM_ACTIO]: `Děkujeme ti, všemohoucí Bože, za všecka tvoje dobrodiní. Jenž jsi živ a kraluješ na věky věkův. Amen.`,
+
+  [PRAYER_TYPES.MEMORARE]: `Pomni, nejdobrotivější Panno Maria, že od věků není slýcháno, že bys byla někoho opustila, kdo se pod ochranu tvou utíkal, neb o pomoc tě vzýval, anebo za přímluvu tě žádal. Tou důvěrou jsa posilněn, k tobě, Panno panen a Matko, spěchám, k tobě přicházím a jako kající hříšník stojím před tebou. Ó Matko Slova, mými slovy nepohrdej, nýbrž milostivě slyš a vyslyš mne. Amen.`,
+
+  [PRAYER_TYPES.AD_TE_IOSEPH]: `K tobě, svatý Josefe, v soužení svém se utíkáme a jako jsme vzývali o pomoc nejsvětější tvoji Nevěstu, tak důvěrně žádáme i za tvou ochranu. Pro lásku, která tebe spojovala s neposkvrněnou Pannou, Bohorodičkou, a pro otcovskou lásku, se kterou jsi dítě Ježíše objímal, pokorně prosíme, abys na dědictví, kterého Ježíš Kristus dobyl svou krví, dobrotivě shlédl, a našim potřebám mocí a silou svou na pomoc přispěl. Nejpečlivější Strážce božské rodiny, ochraňuj vyvolené potomstvo Ježíše Krista: Odvrať od nás, nejmilejší Otče, všecku nákazu bludů a nepravostí. Buď nám s nebe milostiv, nejsilnější Spomocníku náš, v boji proti mocnosti temností. A jako jsi druhdy vysvobodil dítě Ježíše z největšího nebezpečí života, tak nyní braň Církev svatou proti nepřátelským úkladům, proti všemu protivenství; a zastři nás všecky stráží ustavičnou, abychom podle tvého příkladu a tvou pomocí opatřeni, mohli svatě žíti, nábožně zemříti a věčné blaženosti dosíci. Amen.`,
+
+  [PRAYER_TYPES.MAGNIFICAT]: `Velebí duše má Hospodina
+a duch můj plesá v Bohu, Spasiteli mém,
+že shlédnul na ponížení služebnice své; hle, od této chvíle blahoslavit mě budou všecka pokolení!
+Neboť veliké věci učinil mi ten, jenž jest mocný a jehož jméno svaté.
+Milosrdenství jeho trvá od pokolení do pokolení, pro ty, kdo se ho bojí.
+On činí mocné věci ramenem svým; rozptyluje ty, kdož jsou pyšného smýšlení v srdci svém.
+Sesazuje mocné s trůnu a povyšuje nízké.
+Lačné naplňuje dobrými věcmi a bohaté propouští prázdné.
+Ujímá se Izraele, služebníka svého, pamětliv jsa svého milosrdenství,
+jakož byl mluvil k otcům našim, k Abrahamovi a jeho potomstvu na věky.
+Sláva Bohu Otci, i Synu, i Duchu Svatému:
+jakož byla na počátku, nyní vždy i na věky. Amen.`,
+
+  [PRAYER_TYPES.NUNC_DIMITTIS]: `Nyní propouštíš, Pane, služebníka svého podle slova svého v pokoji.
+Neboť viděly oči mé spásu tvou,
+kterou jsi připravil před očima všech národů.
+Světlo k osvícení pohanův a k slávě lidu svého israelského.
+Sláva Bohu Otci, i Synu, i Duchu Svatému:
+jakož byla na počátku, nyní vždy i na věky. Amen.`,
+
+  [PRAYER_TYPES.IUDICA_ME]: `℣ Vstoupím k oltáři Božímu.
+℟ Před Boha, jenž je původcem radosti mé od mladosti mojí.
+℣ Zjednej mi právo, Bože, a rozhodni při mou proti bezbožnému lidu; od člověka nespravedlivého a lstivého vysvoboď mne.
+℟ Neboť tys, Bože, síla má! Proč mne zapuzuješ, a proč smuten chodím, když mne souží nepřítel?
+℣ Sešli světlo své a pravdu svou; ty mne povedou a dovedou ke svaté hoře tvé a do stánků tvých.
+℟ I vstoupím k oltáři Božímu; před Boha, jenž je původcem radosti mé od mladosti mojí.
+℣ Oslavovati tě budu na citeře, Bože, Bože můj. Proč se rmoutíš, duše má, a proč mne znepokojuješ?
+℟ Doufej v Boha, neboť opět budu jej oslavovati — spasitele svého a Boha svého.
+℣ Sláva Otci i Synu i Duchu Svatému.
+℟ Jakož bylo na počátku, i nyní i vždycky, a na věky věkův. Amen.
+℣ Vstoupím k oltáři Božímu.
+℟ Před Boha, jenž je původcem radosti mé od mladosti mojí.`,
+
+  [PRAYER_TYPES.SUSCIPE]: `Přijmi, ó Pane, a přivlastni sobě všecku mou svobodu, paměť, rozum a vůli! Cokoli zovu svým, všecko dals mi ty; tobě, ó Pane, opět všecko vracím; vše náleží tobě; nalož s tím, jak se ti zalíbí. Daruj mi toliko lásku a milost svou, a budu s dostatek bohat, aniž sobě čeho více žádati budu.`,
+
+  // ---------------------------------------------------------------------------
+  // Creátor ineffábilis (St. Thomas Aquinas, before study): OUR OWN TRANSLATION
+  // of the Latin — no Czech version was found in the prayer books searched.
+  // Replace it verbatim if a printed one turns up.
+  // ---------------------------------------------------------------------------
+  [PRAYER_TYPES.CREATOR_INEFFABILIS]: `Nevýslovný Stvořiteli, jenž jsi z pokladů své moudrosti ustanovil tři kůry andělů, podivuhodným řádem jsi je postavil nad nejvyšší nebe a části vesmíru jsi nanejvýš krásně uspořádal: ty, pravím, jenž se nazýváš pravým pramenem světla a moudrosti a svrchovaným počátkem, rač vlít do temnot mého rozumu paprsek své jasnosti a odejmi ode mne dvojí temnotu, v níž jsem se narodil, totiž hřích a nevědomost. Ty, jenž jazyky nemluvňat činíš výmluvnými, vyuč můj jazyk a vlij do mých rtů milost svého požehnání. Dej mi bystrost k chápání, schopnost k zapamatování, způsob a snadnost k učení, důvtip k vykládání a hojnou milost v mluvení. Začátek uspořádej, postup řiď, konec završ. Ty, jenž jsi pravý Bůh a člověk, jenž žiješ a kraluješ na věky věků. Amen.`,
 
   [PRAYER_TYPES.VICTIMAE_PASCHALI]: `Oběti velikonoční chvály ať křesťané obětují.
 Beránek ovce vykoupil; Kristus nevinný Otce se hříšníky smířil.
@@ -2016,7 +2132,7 @@ slávu Ráje blaženou! Amen.`,
 
   // Czech sourced verbatim from angelus-domini-anima-christi.pdf.
   [PRAYER_TYPES.ANGELUS]: `℣ Anděl Páně zvěstoval Panně Marii.
-℟ A ona počala z Ducha svatého.
+℟ A ona počala z Ducha Svatého.
 
 Zdrávas, Maria, milosti plná, Pán s tebou; požehnaná ty mezi ženami a požehnaný plod života tvého Ježíš. Svatá Maria, Matko Boží, pros za nás hříšné nyní i v hodinu smrti naší. Amen.
 
@@ -2077,7 +2193,7 @@ K věčné spáse je však pro člověka potřebné, aby pevně věřil i ve vt�
 
 {r}V době adventní:{/r}
 ℣ Anděl Páně zvěstoval Panně Marii.
-℟ A ona počala z Ducha svatého.
+℟ A ona počala z Ducha Svatého.
 Modleme se: Pane, poznali jsme andělské poselství o vtělení Krista, tvého Syna; vlej nám, prosíme, do duše svou milost, ať nás jeho umučení a kříž přivede ke slávě vzkříšení. Skrze Krista, našeho Pána. Amen.
 
 {r}Od Narození Páně do Hromnic:{/r}
@@ -2114,7 +2230,7 @@ Kriste, uslyš nás.
 Kriste, vyslyš nás.
 Bože, náš nebeský Otče, smiluj se nad námi.
 Bože Synu, Vykupiteli světa, smiluj se nad námi.
-Bože Duchu svatý, smiluj se nad námi.
+Bože Duchu Svatý, smiluj se nad námi.
 Bože v Trojici jediný, smiluj se nad námi.
 
 Svatá Maria, oroduj za nás.
@@ -2143,7 +2259,7 @@ Panno věrná, oroduj za nás.
 Zrcadlo spravedlnosti, oroduj za nás.
 Trůne moudrosti, oroduj za nás.
 Příčino naší radosti, oroduj za nás.
-Stánku Ducha svatého, oroduj za nás.
+Stánku Ducha Svatého, oroduj za nás.
 Stánku vyvolený, oroduj za nás.
 Stánku zbožnosti, oroduj za nás.
 Růže tajemná, oroduj za nás.
@@ -2182,7 +2298,7 @@ Modleme se: Všemohoucí, věčný Bože, dej nám, svým služebníkům, stál�
 
 {r}V době adventní:{/r}
 ℣ Anděl Páně zvěstoval Panně Marii
-℟ a ona počala z Ducha svatého.
+℟ a ona počala z Ducha Svatého.
 Modleme se: Bože, tvé věčné Slovo se při andělově zvěstování stalo v lůně Panny Marie člověkem; vyslyš naše pokorné prosby a dej všem, kdo ji s vírou uctívají jako Bohorodičku, aby jim její přímluva u tebe stále pomáhala. Skrze Krista, našeho Pána. Amen.
 
 {r}V době vánoční:{/r}
@@ -2337,7 +2453,7 @@ Beránku Boží, který snímáš hříchy světa, smiluj se nad námi, Ježíš
 
 ℣ Ježíši, uslyš nás.
 ℟ Ježíši, vyslyš nás.
-Modleme se: Pane Ježíši Kriste, jenž jsi řekl: Proste a obdržíte, hledejte a naleznete, tlucte a bude vám otevřeno, prosíme, uděl nám žádajícím vroucnost božské lásky tvé, abychom tebe celým srdcem, ústy i skutkem milovali a tebe chváliti nikdy nepřestávali. Uděl nám, Pane, abychom svaté jméno Tvé ustavičně ctili a je zároveň i milovali, poněvadž nikdy vedení svého neodnímáš těm, které v pevnosti milování svého vzděláváš. Jenž žiješ a kraluješ na věky věkův. Amen.`,
+Modleme se: Pane Ježíši Kriste, jenž jsi řekl: Proste a obdržíte, hledejte a naleznete, tlucte a bude vám otevřeno, prosíme, uděl nám žádajícím vroucnost božské lásky tvé, abychom tebe celým srdcem, ústy i skutkem milovali a tebe chváliti nikdy nepřestávali. Uděl nám, Pane, abychom svaté jméno tvé ustavičně ctili a je zároveň i milovali, poněvadž nikdy vedení svého neodnímáš těm, které v pevnosti milování svého vzděláváš. Jenž žiješ a kraluješ na věky věkův. Amen.`,
 
   // Czech: the standard Merry del Val translation, sourced from
   // ikatolici.cz/kardinal-merry-del-val-litanie-za-pokoru (which matches the
@@ -2651,25 +2767,25 @@ Pro podivuhodné nanebevstoupení své, vysvoboď nás, Pane.
 Pro příchod Utěšitele Ducha Svatého, vysvoboď nás, Pane.
 V den soudný, vysvoboď nás, Pane.`,
 
-  [PRAYER_TYPES.LITANY_SAINTS_NECESSITIES]: `My hříšníci, Tě prosíme, uslyš nás.
-Abys nás ušetřil, Tě prosíme, uslyš nás.
-Abys nám odpustil, Tě prosíme, uslyš nás.
-Abys nás k pravému pokání přivésti ráčil, Tě prosíme, uslyš nás.
-Abys svatou Církev svou říditi a zachovati ráčil, Tě prosíme, uslyš nás.
-Abys náměstka Apoštolského a veškeren církevní stav ve svatém náboženství zachovati ráčil, Tě prosíme, uslyš nás.
-Abys nepřátele Církve svaté pokořiti ráčil, Tě prosíme, uslyš nás.
-Abys králům a knížatům křesťanským pokoje a svornosti dáti ráčil, Tě prosíme, uslyš nás.
-Abys všemu lidu křesťanskému pokoje a jednoty uděliti ráčil, Tě prosíme, uslyš nás.
-Abys všecky bloudící k jednotě Církve nazpět povolati a veškeré pohany k světlu Evangelia přivésti ráčil, Tě prosíme, uslyš nás.
-Abys nás ve svaté službě své posilniti a zachovati ráčil, Tě prosíme, uslyš nás.
-Abys mysli naše k nebeským žádostem pozdvihnul, Tě prosíme, uslyš nás.
-Abys všem dobrodincům našim věčnými statky odplatil, Tě prosíme, uslyš nás.
-Abys duše naše, bratří, příbuzných a dobrodinců našich od věčného zatracení vytrhl, Tě prosíme, uslyš nás.
-Abys úrodu zemskou dáti a zachovati ráčil, Tě prosíme, uslyš nás.
-Abys všem věřícím zemřelým odpočinutí věčné dáti ráčil, Tě prosíme, uslyš nás.
-Abys nás vyslyšeti ráčil, Tě prosíme, uslyš nás.`,
+  [PRAYER_TYPES.LITANY_SAINTS_NECESSITIES]: `My hříšníci, tě prosíme, uslyš nás.
+Abys nás ušetřil, tě prosíme, uslyš nás.
+Abys nám odpustil, tě prosíme, uslyš nás.
+Abys nás k pravému pokání přivésti ráčil, tě prosíme, uslyš nás.
+Abys svatou Církev svou říditi a zachovati ráčil, tě prosíme, uslyš nás.
+Abys náměstka Apoštolského a veškeren církevní stav ve svatém náboženství zachovati ráčil, tě prosíme, uslyš nás.
+Abys nepřátele Církve svaté pokořiti ráčil, tě prosíme, uslyš nás.
+Abys králům a knížatům křesťanským pokoje a svornosti dáti ráčil, tě prosíme, uslyš nás.
+Abys všemu lidu křesťanskému pokoje a jednoty uděliti ráčil, tě prosíme, uslyš nás.
+Abys všecky bloudící k jednotě Církve nazpět povolati a veškeré pohany k světlu Evangelia přivésti ráčil, tě prosíme, uslyš nás.
+Abys nás ve svaté službě své posilniti a zachovati ráčil, tě prosíme, uslyš nás.
+Abys mysli naše k nebeským žádostem pozdvihnul, tě prosíme, uslyš nás.
+Abys všem dobrodincům našim věčnými statky odplatil, tě prosíme, uslyš nás.
+Abys duše naše, bratří, příbuzných a dobrodinců našich od věčného zatracení vytrhl, tě prosíme, uslyš nás.
+Abys úrodu zemskou dáti a zachovati ráčil, tě prosíme, uslyš nás.
+Abys všem věřícím zemřelým odpočinutí věčné dáti ráčil, tě prosíme, uslyš nás.
+Abys nás vyslyšeti ráčil, tě prosíme, uslyš nás.`,
 
-  [PRAYER_TYPES.LITANY_SAINTS_CONCLUSION]: `Synu Boží, Tě prosíme, uslyš nás.
+  [PRAYER_TYPES.LITANY_SAINTS_CONCLUSION]: `Synu Boží, tě prosíme, uslyš nás.
 Beránku Boží, který snímáš hříchy světa, odpusť nám, Pane.
 Beránku Boží, který snímáš hříchy světa, uslyš nás, Pane.
 Beránku Boží, který snímáš hříchy světa, smiluj se nad námi.
@@ -3064,6 +3180,56 @@ I will take the bread of heaven, and call upon the name of the Lord.`,
   [PRAYER_TYPES.POST_COMMUNIONEM]: `Grant, O Lord, that what we have taken with our mouth, we may receive with a pure mind: and that from a temporal gift it may become for us an eternal remedy.
 
 May Thy Body, O Lord, which I have received, and Thy Blood which I have drunk, cleave to my inmost parts, and grant that no stain of sin may remain in me, whom these pure and holy sacraments have refreshed. Who livest and reignest world without end. Amen.`,
+
+  // English: the Memoráre, the canticles and Iúdica me from the Saint Andrew
+  // Daily Missal (thee/thou in lower case, as elsewhere in this table); Ad te
+  // beáte Ioseph from preces-latinae; grace at meals and the Súscipe in their
+  // received forms.
+  [PRAYER_TYPES.BENEDICTIO_MENSAE]: `Bless us, O Lord, and these thy gifts, which we are about to receive from thy bounty. Through Christ our Lord. Amen.`,
+
+  [PRAYER_TYPES.GRATIARUM_ACTIO]: `We give thee thanks, almighty God, for all thy benefits, who livest and reignest world without end. Amen.`,
+
+  [PRAYER_TYPES.MEMORARE]: `Remember, O most gracious Virgin Mary, that never was it known that anyone who fled to thy protection, implored thy help, and sought thy intercession, was left unaided. Inspired with this confidence, I fly unto thee, O Virgin of virgins, my Mother. To thee I come; before thee I stand, sinful and sorrowful. O Mother of the Word Incarnate, despise not my petitions, but graciously hear and answer me. Amen.`,
+
+  [PRAYER_TYPES.AD_TE_IOSEPH]: `To thee, O blessed Joseph, do we come in our tribulation, and having implored the help of thy most holy Spouse, we confidently invoke thy patronage also. Through that charity which bound thee to the immaculate Virgin Mother of God and through the paternal love with which thou embraced the Child Jesus, we humbly beg thee to graciously regard the inheritance which Jesus Christ has purchased by his Blood, and with thy power and strength to aid us in our necessities. O most watchful Guardian of the Holy Family, defend the chosen children of Jesus Christ; O most loving father, ward off from us every contagion of error and corrupting influence; O our most mighty protector, be propitious to us and from heaven assist us in our struggle with the power of darkness; and, as once thou rescued the Child Jesus from deadly peril, so now protect God's Holy Church from the snares of the enemy and from all adversity; shield, too, each one of us by thy constant protection, so that, supported by thy example and thy aid, we may be able to live piously, to die holy, and to obtain eternal happiness in heaven. Amen.`,
+
+  [PRAYER_TYPES.MAGNIFICAT]: `My soul doth magnify the Lord,
+and my spirit hath rejoiced in God my Saviour.
+For he hath regarded the lowliness of his handmaid: for behold from henceforth all generations shall call me blessed.
+For he that is mighty hath done great things to me: and holy is his name.
+And his mercy is from generation unto generations, unto them that fear him.
+He hath showed strength with his arm: he hath scattered the proud in the imagination of their heart.
+He hath put down the mighty from their seat, and hath exalted the humble.
+He hath filled the hungry with good things: and the rich he hath sent empty away.
+He hath received Israel his servant, being mindful of his mercy.
+As he spoke to our fathers, to Abraham and to his seed for ever.
+Glory be to the Father, and to the Son, and to the Holy Ghost.
+As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
+
+  [PRAYER_TYPES.NUNC_DIMITTIS]: `Now thou dost dismiss thy servant, O Lord, according to thy word in peace:
+Because my eyes have seen thy salvation,
+Which thou hast prepared before the face of all peoples:
+A light to the revelation of the Gentiles, and the glory of thy people Israel.
+Glory be to the Father, and to the Son, and to the Holy Ghost.
+As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
+
+  [PRAYER_TYPES.IUDICA_ME]: `℣ I will go in unto the altar of God.
+℟ Unto God, who giveth joy to my youth.
+℣ Judge me, O God, and distinguish my cause against an ungodly nation: O deliver me from the unjust and deceitful man.
+℟ For thou, O God, art my strength: why hast thou cast me from thee, and why go I sorrowful while the enemy afflicteth me?
+℣ Send out thy light and thy truth: they have led me and brought me unto thy holy hill, even unto thy tabernacles.
+℟ Then will I go unto the altar of God, unto God, who giveth joy to my youth.
+℣ I will praise thee upon the harp, O God, my God: why art thou cast down, O my soul? and why art thou disquieted within me?
+℟ Hope thou in God: for yet will I praise him, who is the health of my countenance, and my God.
+℣ Glory be to the Father, and to the Son, and to the Holy Ghost.
+℟ As it was in the beginning, is now, and ever shall be, world without end. Amen.
+℣ I will go in unto the altar of God.
+℟ Unto God, who giveth joy to my youth.`,
+
+  [PRAYER_TYPES.SUSCIPE]: `Take, O Lord, and receive all my liberty, my memory, my understanding and my whole will. Whatever I have or hold, thou hast given me; I give it all back to thee and surrender it wholly to be governed by thy will. Give me only thy love and thy grace, and I am rich enough and ask for nothing more. Amen.`,
+
+  // Creátor ineffábilis: the English of preces-latinae.
+  [PRAYER_TYPES.CREATOR_INEFFABILIS]: `O infinite Creator, who in the riches of Thy wisdom didst appoint three hierarchies of Angels and didst set them in wondrous order over the highest heavens, and who didst apportion the elements of the world most wisely: do Thou, who art in truth the fountain of light and wisdom, deign to shed upon the darkness of my understanding the rays of Thine infinite brightness, and remove far from me the twofold darkness in which I was born, namely, sin and ignorance. Do Thou, who givest speech to the tongues of little children, instruct my tongue and pour into my lips the grace of Thy benediction. Give me keenness of apprehension, capacity for remembering, method and ease in learning, insight-in interpretation, and copious eloquence in speech. Instruct my beginning, direct my progress, and set Thy seal upon the finished work, Thou, who art true God and true Man, who livest and reignest world without end. Amen.`,
 
   [PRAYER_TYPES.VICTIMAE_PASCHALI]: `Forth to the paschal Victim, Christians, bring Your sacrifice of praise:
 The Lamb redeems the sheep; And Christ the sinless one, Hath to the Father sinners reconciled.
