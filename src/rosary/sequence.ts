@@ -268,7 +268,9 @@ export type OrdinaryPrayerKey =
   | "angele_dei"
   | "sancte_michael"
   | "requiem"
-  | "decalogue";
+  | "decalogue"
+  | "de_profundis"
+  | "dies_irae";
 
 // Shared accent for the standalone "ordinary" prayers (no liturgical color of
 // their own) — the app's brand blue.
@@ -311,6 +313,8 @@ export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, OrdinaryEntry> = {
   sancte_michael:       ordinary("Sancte Míchael", { cs: "Svatý Michaeli", en: "Saint Michael the Archangel" },       PRAYER_TYPES.ST_MICHAEL),
   requiem:              ordinary("Pro defunctis (Réquiem)", { cs: "Za zemřelé", en: "Eternal Rest" }, PRAYER_TYPES.REQUIEM),
   decalogue:            ordinary("Decálogus", { cs: "Desatero", en: "The Ten Commandments" },            PRAYER_TYPES.DECALOGUE),
+  de_profundis:         ordinary("De profúndis", { cs: "Z hlubin (za zemřelé)", en: "Out of the Depths (for the Dead)" }, PRAYER_TYPES.DE_PROFUNDIS),
+  dies_irae:            ordinary("Dies iræ", { cs: "Den hněvu", en: "Day of Wrath" },                    PRAYER_TYPES.DIES_IRAE),
 };
 
 export type LitanyKey =

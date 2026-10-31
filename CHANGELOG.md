@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- **Prayers for the dead**, in time for All Souls: *De profúndis* (Psalm 129, with the versicles and the prayer *Fidélium, Deus* it is said with for the dead) and the sequence *Dies iræ* from the Requiem Mass, among the *Orationes utilissimæ*. Through November, the month of the holy souls, the start screen marks them, and the Réquiem, as in season.
+
 ## [0.20.1]
 
 ### Changed

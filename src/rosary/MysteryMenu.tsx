@@ -5,7 +5,7 @@ import { chapletToOpen, loadSavedChapletFull, saveChapletFull } from "./chaplet"
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
 import type { PrayerSetKey } from "./navigation";
 import { accentText, type Theme } from "./theme";
-import { marianAntiphon, mysteriesOfDay, seasonOf } from "./liturgy";
+import { marianAntiphon, monthOfTheDead, mysteriesOfDay, seasonOf } from "./liturgy";
 import ResumeLine, { type ResumeInfo } from "./ResumeLine";
 import { PLAN_COLOR } from "./plans";
 import Flag from "./Flag";
@@ -318,6 +318,11 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
   const todaysMysteries = mysteriesOfDay(now);
   const antiphon = marianAntiphon(now);
   const eastertide = seasonOf(now) === "easter";
+  // In November the prayers for the dead are in season too.
+  const seasonBadges: Record<string, string> = { [antiphon]: t.seasonBadge };
+  if (monthOfTheDead(now)) {
+    for (const k of ["de_profundis", "dies_irae", "requiem"]) seasonBadges[k] = t.seasonBadge;
+  }
   const [chapletFull, setChapletFull] = useState(loadSavedChapletFull);
   const chaplet = chapletToOpen(chapletFull, Object.keys(resume));
   const chapletEntry = CHAPLETS[chaplet];
@@ -412,7 +417,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
           subtitle={t.ordinaryGroupName}
           entries={Object.entries(ORDINARY_PRAYERS) as GroupEntry[]}
           onStart={onStart}
-          badges={{ [antiphon]: t.seasonBadge }}
+          badges={seasonBadges}
           notes={eastertide ? { angelus: t.angelusEastertide } : {}}
           resume={resume}
           theme={theme}

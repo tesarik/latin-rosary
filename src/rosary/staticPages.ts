@@ -115,6 +115,13 @@ const NOTES: Record<string, Partial<Localized>> = {
     cs: "Latinské znění těchto modliteb je náš vlastní překlad: autoritativní latinský originál není znám.",
     en: "The Latin of these prayers is our own translation: no authoritative Latin original is known.",
   },
+  dies_irae: {
+    cs: "Český překlad je náš vlastní, doslovný, řádek po řádku podle latiny.",
+    en: "The English is our own literal translation, line for line with the Latin.",
+  },
+  de_profundis: {
+    cs: "Žalm podle Liturgie hodin; verše a závěrečná modlitba jsou v češtině naše vlastní znění.",
+  },
   ioseph: {
     cs: "Krátká latinská podoba pobožnosti: sedm nadpisů, ke každému Otče náš, Zdrávas a Sláva Otci, a modlitba Vírginum custos. Český překlad nadpisů je náš vlastní.",
     en: "The short Latin form of the devotion: seven headings, each with an Our Father, a Hail Mary and a Glory Be, and the prayer Vírginum custos. The English of the headings is our own.",
