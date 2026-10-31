@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+- **The Czech Litany of the Saints now follows Schaller's *Římský misál* (1931)**, the traditional Czech text, instead of our own translation: the Kyrie, every saint the traditional form names, the deprecations and intercessions (*Tě prosíme, uslyš nás*), Psalm 69, the versicles and all ten collects. Only the saints our fuller Latin adds to that form (Abraham, the later martyrs, doctors, founders and holy women) remain in our own Czech.
+- **The closing prayer of the Czech Litany of the Holy Name** is now Schaller's, so the whole litany is sourced.
+
 ## [0.21.0]
 
 ### Added

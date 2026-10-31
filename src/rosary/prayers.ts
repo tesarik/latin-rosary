@@ -1674,9 +1674,8 @@ Beránku Boží, který snímáš hříchy světa, smiluj se nad námi.
 Modleme se: Všemohoucí věčný Bože, pohleď na Srdce svého milovaného Syna, shlédni na chvály a dostiučinění, které ti přináší za nás hříšníky; usmiř se a odpusť nám, když skrze ně prosíme o tvé milosrdenství. Neboť on s tebou žije a kraluje na věky věků. Amen.`,
 
   // Czech: line list sourced from prayerbook.weebly.com (Litanie k nejsvětějšímu
-  // jménu Ježíš), which maps 1:1 onto the Latin above; the wording of the closing
-  // collect is ours, guided by that source and vojtechkodet.cz (both fetches
-  // refused a verbatim closing prayer). NOT Kancionál-verified — unlike the other
+  // jménu Ježíš), which maps 1:1 onto the Latin above; the closing collect is
+  // Schaller's (Římský misál, 1931, appendix). NOT Kancionál-verified — unlike the other
   // two litanies. The source gives the Agnus Dei as "smiluj se nad námi" ×3; it is
   // rendered here with the three distinct responses to match the Latin, as in the
   // other two litanies. Worth checking against the Kancionál.
@@ -1761,7 +1760,7 @@ Beránku Boží, který snímáš hříchy světa, smiluj se nad námi, Ježíš
 
 ℣ Ježíši, uslyš nás.
 ℟ Ježíši, vyslyš nás.
-Modleme se: Pane Ježíši Kriste, tys řekl: Proste, a bude vám dáno; hledejte, a naleznete; tlucte, a bude vám otevřeno. Prosíme tě, dej nám vroucnost své božské lásky, abychom tě milovali celým srdcem, slovy i skutky a nikdy tě nepřestali chválit. Dej nám, Pane, ať máme tvé svaté jméno stále v úctě i v lásce, neboť ty nikdy nepřestáváš chránit ty, které utvrzuješ ve své lásce. Neboť ty žiješ a kraluješ na věky věků. Amen.`,
+Modleme se: Pane Ježíši Kriste, jenž jsi řekl: Proste a obdržíte, hledejte a naleznete, tlucte a bude vám otevřeno, prosíme, uděl nám žádajícím vroucnost božské lásky tvé, abychom tebe celým srdcem, ústy i skutkem milovali a tebe chváliti nikdy nepřestávali. Uděl nám, Pane, abychom svaté jméno Tvé ustavičně ctili a je zároveň i milovali, poněvadž nikdy vedení svého neodnímáš těm, které v pevnosti milování svého vzděláváš. Jenž žiješ a kraluješ na věky věkův. Amen.`,
 
   // Czech: the standard Merry del Val translation, sourced from
   // ikatolici.cz/kardinal-merry-del-val-litanie-za-pokoru (which matches the
@@ -1919,42 +1918,43 @@ Beránku Boží, tys na sebe vzal hříchy světa, smiluj se nad námi.
 Modleme se: Všemohoucí věčný Bože, ustanovil jsi svého jednorozeného Syna Vykupitelem světa a chtěl jsi být usmířen jeho krví; prosíme tě proto: dej, ať tak uctíváme tuto cenu své spásy a její mocí jsme uchráněni všeho zla v životě časném, abychom se mohli radovat z jejích plodů v nebi. Neboť on s tebou žije a kraluje na věky věků. Amen.`,
 
   // ---------------------------------------------------------------------------
-  // Czech for the Litany of the Saints: OUR OWN TRANSLATION, not a sourced text.
-  // The Czech liturgical books carry only the modern short form (Kancionál 068A/B),
-  // so there is nothing to transcribe for the traditional one. Treat exactly like
-  // the BRIGIT_* entries: if a Czech edition of the traditional litany is ever
-  // obtained, replace this verbatim. Saint names use their standard Czech forms;
-  // the deprecations, intercessions, psalm and collects follow the Latin closely
-  // in the usual Czech liturgical register.
-  // One exception: the Fidélium, Deus collect is Schaller's (Římský misál,
-  // 1931), the same as in De profúndis.
+  // Czech for the Litany of the Saints: Schallerův Římský misál (1931),
+  // appendix, wherever its traditional form has the line — the Kyrie, the
+  // deprecations, intercessions, Agnus Dei, Psalm 69, the versicles and all the
+  // collects, and every saint it names (asterisks, marking what Holy Saturday
+  // omits, dropped; its response, printed once per group, written on each line;
+  // the Glória Patri, which it abbreviates, written out). One evident misprint
+  // corrected: "Abys myslí našich" → "mysli naše". Its Jakub (one name for both
+  // Jacobs) keeps our "Starší" / "Mladší". The saints our fuller Latin adds
+  // (Abraham, Moses, Elijah, the later martyrs, doctors, founders and women,
+  // Leo, Anne, Louis, …) are OUR OWN rendering, in standard Czech name forms.
   // ---------------------------------------------------------------------------
 
-  [PRAYER_TYPES.LITANY_SAINTS_SUPPLICATIO]: `Pane, smiluj se. 2×
-Kriste, smiluj se. 2×
-Pane, smiluj se. 2×
+  [PRAYER_TYPES.LITANY_SAINTS_SUPPLICATIO]: `Pane, smiluj se nad námi. 2×
+Kriste, smiluj se nad námi. 2×
+Pane, smiluj se nad námi. 2×
 Kriste, uslyš nás.
 Kriste, vyslyš nás.
-Bože, náš nebeský Otče, smiluj se nad námi.
-Bože Synu, Vykupiteli světa, smiluj se nad námi.
-Bože Duchu Svatý, smiluj se nad námi.
-Bože v Trojici jediný, smiluj se nad námi.`,
+Otče s nebes, Bože, smiluj se nad námi.
+Synu, Vykupiteli světa, Bože, smiluj se nad námi.
+Duše Svatý, Bože, smiluj se nad námi.
+Svatá Trojice, jeden Bože, smiluj se nad námi.`,
 
   [PRAYER_TYPES.LITANY_SAINTS_MARY]: `Svatá Maria, oroduj za nás.
 Svatá Boží Rodičko, oroduj za nás.
-Svatá Panno panen, oroduj za nás.
+Svatá Panno Panen, oroduj za nás.
 Svatý Michaeli, oroduj za nás.
 Svatý Gabrieli, oroduj za nás.
 Svatý Rafaeli, oroduj za nás.
-Všichni svatí andělé a archandělé, orodujte za nás.
-Všechny svaté řády blažených duchů, orodujte za nás.`,
+Všichni svatí Andělé i Archandělé, orodujte za nás.
+Všichni svatí blahoslavených Duchů řádové, orodujte za nás.`,
 
   [PRAYER_TYPES.LITANY_SAINTS_PATRIARCHS]: `Svatý Abraháme, oroduj za nás.
 Svatý Mojžíši, oroduj za nás.
 Svatý Eliáši, oroduj za nás.
 Svatý Jene Křtiteli, oroduj za nás.
 Svatý Josefe, oroduj za nás.
-Všichni svatí patriarchové a proroci, orodujte za nás.`,
+Všichni svatí Patriarchové a Proroci, orodujte za nás.`,
 
   [PRAYER_TYPES.LITANY_SAINTS_APOSTLES]: `Svatý Petře, oroduj za nás.
 Svatý Pavle, oroduj za nás.
@@ -1972,20 +1972,20 @@ Svatý Matěji, oroduj za nás.
 Svatý Barnabáši, oroduj za nás.
 Svatý Lukáši, oroduj za nás.
 Svatý Marku, oroduj za nás.
-Všichni svatí apoštolové a evangelisté, orodujte za nás.
-Všichni svatí učedníci Páně, orodujte za nás.`,
+Všichni svatí Apoštolové a Evangelisté, orodujte za nás.
+Všichni svatí Učedníci Páně, orodujte za nás.`,
 
-  [PRAYER_TYPES.LITANY_SAINTS_MARTYRS]: `Všechna svatá Neviňátka, orodujte za nás.
+  [PRAYER_TYPES.LITANY_SAINTS_MARTYRS]: `Všecka svatá Neviňátka, orodujte za nás.
 Svatý Štěpáne, oroduj za nás.
 Svatý Ignáci z Antiochie, oroduj za nás.
 Svatý Polykarpe, oroduj za nás.
 Svatý Justine, oroduj za nás.
 Svatý Vavřinče, oroduj za nás.
 Svatý Vincenci, oroduj za nás.
-Svatí Fabiáne a Šebestiáne, orodujte za nás.
-Svatí Jane a Pavle, orodujte za nás.
+Svatí Fabiáne a Šebastiáne, orodujte za nás.
+Svatí Jene a Pavle, orodujte za nás.
 Svatí Kosmo a Damiáne, orodujte za nás.
-Svatí Gervasi a Protasi, orodujte za nás.
+Svatí Gervási a Protási, orodujte za nás.
 Svatý Cypriáne, oroduj za nás.
 Svatý Bonifáci, oroduj za nás.
 Svatý Stanislave, oroduj za nás.
@@ -1997,14 +1997,14 @@ Svatý Petře Chanele, oroduj za nás.
 Svatý Karle Lwango, oroduj za nás.
 Svaté Perpetuo a Felicito, orodujte za nás.
 Svatá Marie Goretti, oroduj za nás.
-Všichni svatí mučedníci, orodujte za nás.`,
+Všichni svatí Mučedníci, orodujte za nás.`,
 
   [PRAYER_TYPES.LITANY_SAINTS_BISHOPS]: `Svatý Silvestře, oroduj za nás.
 Svatý Lve, oroduj za nás.
 Svatý Řehoři, oroduj za nás.
 Svatý Ambroži, oroduj za nás.
 Svatý Augustine, oroduj za nás.
-Svatý Jeronýme, oroduj za nás.
+Svatý Jeronyme, oroduj za nás.
 Svatý Athanasie, oroduj za nás.
 Svatí Bazile a Řehoři Naziánský, orodujte za nás.
 Svatý Jane Zlatoústý, oroduj za nás.
@@ -2015,8 +2015,8 @@ Svatí Cyrile a Metoději, orodujte za nás.
 Svatý Karle Boromejský, oroduj za nás.
 Svatý Františku Saleský, oroduj za nás.
 Svatý Pie Desátý, oroduj za nás.
-Všichni svatí papežové a vyznavači, orodujte za nás.
-Všichni svatí učitelé církve, orodujte za nás.`,
+Všichni svatí Biskupové a Vyznavači, orodujte za nás.
+Všichni svatí Učitelové, orodujte za nás.`,
 
   [PRAYER_TYPES.LITANY_SAINTS_RELIGIOUS]: `Svatý Antoníne, oroduj za nás.
 Svatý Benedikte, oroduj za nás.
@@ -2029,145 +2029,145 @@ Svatý Františku Xaverský, oroduj za nás.
 Svatý Vincenci de Paul, oroduj za nás.
 Svatý Jene Maria Vianneyi, oroduj za nás.
 Svatý Jane Bosco, oroduj za nás.
-Všichni svatí kněží a levité, orodujte za nás.
-Všichni svatí mniši a poustevníci, orodujte za nás.`,
+Všichni svatí Kněží a Levité, orodujte za nás.
+Všichni svatí Mnichové a Poustevníci, orodujte za nás.`,
 
   [PRAYER_TYPES.LITANY_SAINTS_WOMEN]: `Svatá Anno, oroduj za nás.
-Svatá Maří Magdaléno, oroduj za nás.
-Svatá Agáto, oroduj za nás.
+Svatá Maří Magdaleno, oroduj za nás.
+Svatá Háto, oroduj za nás.
 Svatá Lucie, oroduj za nás.
 Svatá Anežko, oroduj za nás.
-Svatá Cecílie, oroduj za nás.
+Svatá Cecilie, oroduj za nás.
 Svatá Kateřino, oroduj za nás.
-Svatá Anastázie, oroduj za nás.
+Svatá Anastasie, oroduj za nás.
 Svatá Kateřino Sienská, oroduj za nás.
 Svatá Terezie z Avily, oroduj za nás.
 Svatá Růženo z Limy, oroduj za nás.
-Všechny svaté panny a vdovy, orodujte za nás.`,
+Všechny svaté Panny a Vdovy, orodujte za nás.`,
 
   [PRAYER_TYPES.LITANY_SAINTS_LAITY]: `Svatý Ludvíku, oroduj za nás.
 Svatá Moniko, oroduj za nás.
 Svatá Alžběto Uherská, oroduj za nás.
-Všichni svatí a světice Boží, přimlouvejte se za nás.`,
+Všichni Svatí a Světice Boží, přimlouvejte se za nás.`,
 
-  [PRAYER_TYPES.LITANY_SAINTS_CHRIST]: `Měj s námi slitování, odpusť nám, Pane.
-Měj s námi slitování, vyslyš nás, Pane.
+  [PRAYER_TYPES.LITANY_SAINTS_CHRIST]: `Milostiv buď, odpusť nám, Pane.
+Milostiv buď, uslyš nás, Pane.
 Ode všeho zlého, vysvoboď nás, Pane.
-Ode všeho hříchu, vysvoboď nás, Pane.
-Od svého hněvu, vysvoboď nás, Pane.
+Od všelikého hříchu, vysvoboď nás, Pane.
+Od hněvu svého, vysvoboď nás, Pane.
 Od náhlé a nenadálé smrti, vysvoboď nás, Pane.
-Od ďáblových úkladů, vysvoboď nás, Pane.
-Od hněvu, nenávisti a vší zlé vůle, vysvoboď nás, Pane.
-Od ducha smilstva, vysvoboď nás, Pane.
+Od úkladů ďáblových, vysvoboď nás, Pane.
+Od hněvu, nenávisti i ode vší zlé vůle, vysvoboď nás, Pane.
+Od ducha smilného, vysvoboď nás, Pane.
 Od blesku a bouře, vysvoboď nás, Pane.
-Od pohromy zemětřesení, vysvoboď nás, Pane.
+Od metly zemětřesení, vysvoboď nás, Pane.
 Od moru, hladu a války, vysvoboď nás, Pane.
-Od smrti věčné, vysvoboď nás, Pane.
-Pro tajemství svého svatého vtělení, vysvoboď nás, Pane.
-Pro svůj příchod, vysvoboď nás, Pane.
-Pro své narození, vysvoboď nás, Pane.
-Pro svůj křest a svatý post, vysvoboď nás, Pane.
-Pro svůj kříž a umučení, vysvoboď nás, Pane.
-Pro svou smrt a pohřeb, vysvoboď nás, Pane.
-Pro své svaté vzkříšení, vysvoboď nás, Pane.
-Pro své podivuhodné nanebevstoupení, vysvoboď nás, Pane.
-Pro příchod Ducha Svatého Utěšitele, vysvoboď nás, Pane.
-V den soudu, vysvoboď nás, Pane.`,
+Od věčné smrti, vysvoboď nás, Pane.
+Pro tajemství svatého vtělení svého, vysvoboď nás, Pane.
+Pro příchod svůj, vysvoboď nás, Pane.
+Pro narození své, vysvoboď nás, Pane.
+Pro křest a svatý půst svůj, vysvoboď nás, Pane.
+Pro kříž a umučení své, vysvoboď nás, Pane.
+Pro smrt a pohřeb svůj, vysvoboď nás, Pane.
+Pro svaté vzkříšení své, vysvoboď nás, Pane.
+Pro podivuhodné nanebevstoupení své, vysvoboď nás, Pane.
+Pro příchod Utěšitele Ducha Svatého, vysvoboď nás, Pane.
+V den soudný, vysvoboď nás, Pane.`,
 
-  [PRAYER_TYPES.LITANY_SAINTS_NECESSITIES]: `I když jsme hříšníci, prosíme tě, vyslyš nás.
-Abys nás ušetřil, prosíme tě, vyslyš nás.
-Abys nám prominul, prosíme tě, vyslyš nás.
-Abys nás přivedl k pravému pokání, prosíme tě, vyslyš nás.
-Abys svou svatou církev vedl a chránil, prosíme tě, vyslyš nás.
-Abys Svatého otce a všechny stavy církve zachoval ve svaté službě, prosíme tě, vyslyš nás.
-Abys pokořil nepřátele své svaté církve, prosíme tě, vyslyš nás.
-Abys křesťanským vládcům a knížatům daroval mír a pravou svornost, prosíme tě, vyslyš nás.
-Abys všemu křesťanskému lidu udělil mír a jednotu, prosíme tě, vyslyš nás.
-Abys všechny bloudící přivedl zpět k jednotě církve a všechny nevěřící ke světlu evangelia, prosíme tě, vyslyš nás.
-Abys nás samé posílil a zachoval ve své svaté službě, prosíme tě, vyslyš nás.
-Abys naše mysli povznesl k touze po nebeském, prosíme tě, vyslyš nás.
-Abys všem našim dobrodincům odplatil věčnými dary, prosíme tě, vyslyš nás.
-Abys naše duše i duše našich bratří, příbuzných a dobrodinců vytrhl z věčného zavržení, prosíme tě, vyslyš nás.
-Abys dal a zachoval plody země, prosíme tě, vyslyš nás.
-Abys všem věrným zemřelým daroval věčné odpočinutí, prosíme tě, vyslyš nás.
-Abys nás vyslyšel, prosíme tě, vyslyš nás.`,
+  [PRAYER_TYPES.LITANY_SAINTS_NECESSITIES]: `My hříšníci, Tě prosíme, uslyš nás.
+Abys nás ušetřil, Tě prosíme, uslyš nás.
+Abys nám odpustil, Tě prosíme, uslyš nás.
+Abys nás k pravému pokání přivésti ráčil, Tě prosíme, uslyš nás.
+Abys svatou Církev svou říditi a zachovati ráčil, Tě prosíme, uslyš nás.
+Abys náměstka Apoštolského a veškeren církevní stav ve svatém náboženství zachovati ráčil, Tě prosíme, uslyš nás.
+Abys nepřátele Církve svaté pokořiti ráčil, Tě prosíme, uslyš nás.
+Abys králům a knížatům křesťanským pokoje a svornosti dáti ráčil, Tě prosíme, uslyš nás.
+Abys všemu lidu křesťanskému pokoje a jednoty uděliti ráčil, Tě prosíme, uslyš nás.
+Abys všecky bloudící k jednotě Církve nazpět povolati a veškeré pohany k světlu Evangelia přivésti ráčil, Tě prosíme, uslyš nás.
+Abys nás ve svaté službě své posilniti a zachovati ráčil, Tě prosíme, uslyš nás.
+Abys mysli naše k nebeským žádostem pozdvihnul, Tě prosíme, uslyš nás.
+Abys všem dobrodincům našim věčnými statky odplatil, Tě prosíme, uslyš nás.
+Abys duše naše, bratří, příbuzných a dobrodinců našich od věčného zatracení vytrhl, Tě prosíme, uslyš nás.
+Abys úrodu zemskou dáti a zachovati ráčil, Tě prosíme, uslyš nás.
+Abys všem věřícím zemřelým odpočinutí věčné dáti ráčil, Tě prosíme, uslyš nás.
+Abys nás vyslyšeti ráčil, Tě prosíme, uslyš nás.`,
 
-  [PRAYER_TYPES.LITANY_SAINTS_CONCLUSION]: `Synu Boží, prosíme tě, vyslyš nás.
+  [PRAYER_TYPES.LITANY_SAINTS_CONCLUSION]: `Synu Boží, Tě prosíme, uslyš nás.
 Beránku Boží, který snímáš hříchy světa, odpusť nám, Pane.
-Beránku Boží, který snímáš hříchy světa, vyslyš nás, Pane.
+Beránku Boží, který snímáš hříchy světa, uslyš nás, Pane.
 Beránku Boží, který snímáš hříchy světa, smiluj se nad námi.
 Kriste, uslyš nás.
 Kriste, vyslyš nás.
-Pane, smiluj se. 2×
-Kriste, smiluj se. 2×
-Pane, smiluj se. 2×`,
+Pane, smiluj se nad námi. 2×
+Kriste, smiluj se nad námi. 2×
+Pane, smiluj se nad námi. 2×`,
 
   [PRAYER_TYPES.LITANY_SAINTS_PSALM]: `{r}Otče náš (potichu){/r}
 ℣ A neuveď nás v pokušení.
 ℟ Ale zbav nás od zlého.
 
 {r}Žalm 69{/r}
-℣ Bože, shlédni a pomoz mi:
-℟ Pane, pospěš mi na pomoc.
-℣ Ať jsou zahanbeni a zmateni,
-℟ kdo mi ukládají o život.
-℣ Ať musí s hanbou odejít,
-℟ kdo mi chtějí zlé.
-℣ Ať se ihned zahanbeni odvrátí,
-℟ kdo mi říkají: Cha, cha!
-℣ Ať se veselí a radují v tobě,
-℟ všichni, kdo tě hledají.
-℣ Ať stále říkají: Veliký je Pán,
-℟ všichni, kdo milují tvou spásu.
-℣ Já jsem však ubohý a nuzný:
-℟ Bože, pomoz mi.
-℣ Tys má pomoc a můj osvoboditel:
+℣ Bože, k pomoci mé shlédni;
+℟ Hospodine, přispěj mi na pomoc.
+℣ Zahanbeni ať jsou a zastydí se,
+℟ kteří hledají bezživotí mého.
+℣ Ustupte nazpět a zarděte se,
+℟ kteří si žádají neštěstí mého.
+℣ Ať se ihned odvrátí, zardívajíce se,
+℟ kteří se mi posmívají.
+℣ Nechať plesají a radují se nad tebou,
+℟ kteří hledají tebe.
+℣ Nechať říkají vždy: „Veleslaven budiž Pán!“
+℟ ti, kteří touží po pomoci tvé.
+℣ Já pak chudý a nuzný jsem,
+℟ Bože, spomoziž mi.
+℣ Pomocník můj a vysvoboditel můj jsi ty.
 ℟ Pane, neprodlévej.
 ℣ Sláva Otci i Synu i Duchu Svatému.
 ℟ Jako byla na počátku, i nyní i vždycky a na věky věků. Amen.`,
 
-  [PRAYER_TYPES.LITANY_SAINTS_VERSICLES]: `℣ Zachraň své služebníky.
-℟ Bože můj, kteří v tebe doufají.
-℣ Buď nám, Pane, pevnou tvrzí.
-℟ Před tváří nepřítele.
-℣ Ať proti nám nepřítel nic nezmůže.
-℟ A syn nepravosti ať nám neuškodí.
-℣ Pane, nenakládej s námi podle našich hříchů.
-℟ Ani nám neodplácej podle našich nepravostí.
-℣ Modleme se za našeho papeže N.
-℟ Ať ho Pán zachová a dá mu život, ať ho učiní blaženým na zemi a nevydá ho zvůli jeho nepřátel.
-℣ Modleme se za naše dobrodince.
-℟ Odplať, Pane, pro své jméno životem věčným všem, kdo nám prokazují dobro. Amen.
-℣ Modleme se za věrné zemřelé.
-℟ Odpočinutí věčné dej jim, Pane, a světlo věčné ať jim svítí.
+  [PRAYER_TYPES.LITANY_SAINTS_VERSICLES]: `℣ Spasiž služebníky své.
+℟ Bože můj, doufající v tebe.
+℣ Budiž nám, Pane, věží mocnou.
+℟ Proti tváři nepřítele.
+℣ Nic neprospívej nepřítel nad námi.
+℟ A syn nepravosti nepřičiniž nám škody.
+℣ Pane, nečiň nám podle hříchů našich.
+℟ Aniž podle nepravostí našich odplácej nám.
+℣ Modleme se za nejvyššího biskupa svého N.
+℟ Hospodin zachovejž a oživuj ho, a blaženým učiň ho na zemi a nevydávej ho v ruce nepřátel jeho.
+℣ Modleme se za dobrodince své.
+℟ Odplatiti rač, Pane, všem dobře nám činícím pro jméno tvé životem věčným. Amen.
+℣ Modleme se za zemřelé věřící.
+℟ Odpočinutí věčné dejž jim, Pane, a světlo věčné ať jim svítí.
 ℣ Ať odpočívají v pokoji.
 ℟ Amen.
-℣ Za naše vzdálené bratry.
-℟ Zachraň své služebníky, Bože můj, kteří v tebe doufají.
-℣ Sešli jim, Pane, pomoc ze svatyně.
-℟ A ze Siónu je ochraňuj.
-℣ Pane, vyslyš mou modlitbu.
-℟ A mé volání ať k tobě dojde.
+℣ Modleme se za své bratry nepřítomné.
+℟ Spasiž služebníky své, Bože můj, doufající v tebe.
+℣ Sešli jim, Pane, pomoc se svatyně.
+℟ A se Sionu ochraňuj je.
+℣ Pane, vyslyš modlitbu mou.
+℟ A volání mé k tobě přijď.
 ℣ Pán s vámi.
-℟ I s tebou.`,
+℟ I s duchem tvým.`,
 
   [PRAYER_TYPES.LITANY_SAINTS_COLLECTS]: `Modleme se.
-Bože, tobě je vlastní stále se smilovávat a odpouštět: přijmi naši pokornou prosbu, a nás i všechny své služebníky, které svazuje řetěz hříchů, ať milosrdně rozváže soucit tvé dobroty.
-Vyslyš, prosíme, Pane, modlitby těch, kdo tě pokorně vzývají, a odpusť hříchy těm, kdo se ti vyznávají: abys nám ve své dobrotě daroval zároveň prominutí i pokoj.
-Prokaž nám, Pane, milostivě své nevýslovné milosrdenství: abys nás zároveň zbavil všech hříchů a vytrhl z trestů, které jsme si za ně zasloužili.
-Bože, tebe vina zarmucuje a pokání usmiřuje: shlédni milostivě na prosby svého lidu a odvrať rány svého hněvu, které jsme si svými hříchy zasloužili.
-Všemohoucí věčný Bože, smiluj se nad svým služebníkem, naším papežem N., a veď ho ve své dobrotě po cestě věčné spásy: ať z tvé milosti touží po tom, co se ti líbí, a plní to ze všech svých sil.
-Bože, od tebe pocházejí svatá přání, správná rozhodnutí a spravedlivé činy: dej svým služebníkům onen pokoj, který svět dát nemůže; ať jsou naše srdce oddána tvým příkazům a ať jsou naše časy pod tvou ochranou pokojné, zbavené strachu z nepřátel.
-Rozněť, Pane, ohněm Ducha Svatého naše nitro i naše srdce: ať ti sloužíme s čistým tělem a líbíme se ti čistým srdcem.
+Bože, jehož vlastností je smilovávati se vždycky a odpouštěti, přijmi úpěnlivou modlitbu naši, aby nás a všecky služebníky tvé, které pouto hříchů svírá, slitování tvé dobrotivosti milostivě vyprostilo.
+Vyslyš, prosíme, Pane, prosby pokorně tě žádajících a vyznávajícím se tobě hříchy promiň, abys zároveň nám odpuštění daroval i pokoj.
+Nevýslovné milosrdenství své nám, Pane, laskavě prokaž, abys nás spolu i z hříchů všech vyprostil i od trestů za ně zasloužených vytrhl.
+Bože, jenž vinou urážen, pokáním však usmířen býváš, na prosby snažně prosícího lidu svého milostivě shlédni a metly hněvu svého, jichž za hříchy své zasluhujeme, odvrať.
+Všemohoucí věčný Bože, smiluj se nad služebníkem svým, Papežem naším N., a řiď jej podle laskavosti své na cestu věčné spásy, aby s tvou milostí, co se ti líbí, žádal a s veškerou silou dokonal.
+Bože, od něhož svaté touhy, pravé rady a spravedliví skutkové pocházejí, dej služebníkům svým ten pokoj, jehož svět dáti nemůže, aby i srdce naše přikázáním tvým oddána, i časy naše pod ochranou tvou po odvrácení strachu nepřátelského klidny byly.
+Spaluj ohněm Ducha Svatého ledví naše a srdce naše, Pane, abychom ti cudným tělem sloužili a čistým srdcem se líbili.
 Bože, všech věřících Stvořiteli a Vykupiteli, uděl duším svých služebníků a služebnic odpuštění všech hříchů, aby prominutí, kterého si vždycky žádali, pokornými prosbami dosáhli.
-Předcházej, prosíme, Pane, naše konání svým vnuknutím a provázej je svou pomocí: ať každá naše modlitba i každý náš čin od tebe vždy začíná a skrze tebe je dokončen.
-Všemohoucí věčný Bože, ty vládneš živým i mrtvým a smilováváš se nad všemi, o nichž předvídáš, že budou tvoji vírou a činy: pokorně tě vzýváme, ať ti, za které jsme se rozhodli vylévat prosby, ať je tento svět ještě zadržuje v těle nebo je onen budoucí už přijal zbavené těla, dosáhnou na přímluvu všech tvých svatých z milosti tvé dobrotivosti odpuštění všech svých vin. Skrze našeho Pána Ježíše Krista. Amen.
+Činy naše, prosíme, Pane, vnukáním svým předcházej a pomocí provázej, aby všecka naše modlitba a práce od tebe vždy se začínala a začata, tebou skončena byla.
+Všemohoucí věčný Bože, jenž nad živými vládneš zároveň i nad mrtvými a smilováváš se nade všemi, jež věrou a skutky jednou svými býti předvídáš: pokorně tebe vzýváme, aby ti, za něž vysílati modlitby jsme si umínili, a které buď časný věk v těle dosud zdržuje, nebo budoucí zbavené těla již přijal, na přímluvu všech Svatých tvých z milostivé dobrotivosti tvé dosáhli odpuštění všech hříchů. Skrze Pána našeho Ježíše Krista. Amen.
 
 ℣ Pán s vámi.
-℟ I s tebou.
-℣ Ať nás vyslyší všemohoucí a milosrdný Pán.
+℟ I s duchem tvým.
+℣ Vyslyš nás všemohoucí a milosrdný Hospodin.
 ℟ Amen.
-℣ A duše věřících ať pro Boží milosrdenství odpočívají v pokoji.
+℣ A duše věrných zemřelých nechť pro milosrdenství Boží odpočívají v pokoji.
 ℟ Amen.`,
 
   // Chaplet of Divine Mercy. The core prayers follow kmbm.cz and

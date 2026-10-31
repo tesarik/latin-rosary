@@ -134,10 +134,7 @@ const NOTES: Record<string, Partial<Localized>> = {
     en: "A private devotion of the 19th century. No authoritative Latin original exists; this Latin is assembled from two Latin witnesses.",
   },
   saints: {
-    cs: "Český překlad tradiční latinské podoby je náš vlastní: české liturgické knihy obsahují jen novou, kratší podobu.",
-  },
-  holy_name: {
-    cs: "Závěrečná modlitba je v češtině naše vlastní znění.",
+    cs: "Český text podle Schallerova Římského misálu (1931). Světce, které tamější tradiční podoba nemá (Abrahám, pozdější mučedníci, učitelé, zakladatelé a světice), jsme přeložili sami.",
   },
 };
 
