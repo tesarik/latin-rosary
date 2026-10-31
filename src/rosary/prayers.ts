@@ -1926,6 +1926,8 @@ Modleme se: Všemohoucí věčný Bože, ustanovil jsi svého jednorozeného Syn
   // obtained, replace this verbatim. Saint names use their standard Czech forms;
   // the deprecations, intercessions, psalm and collects follow the Latin closely
   // in the usual Czech liturgical register.
+  // One exception: the Fidélium, Deus collect is Schaller's (Římský misál,
+  // 1931), the same as in De profúndis.
   // ---------------------------------------------------------------------------
 
   [PRAYER_TYPES.LITANY_SAINTS_SUPPLICATIO]: `Pane, smiluj se. 2×
@@ -2157,7 +2159,7 @@ Bože, tebe vina zarmucuje a pokání usmiřuje: shlédni milostivě na prosby s
 Všemohoucí věčný Bože, smiluj se nad svým služebníkem, naším papežem N., a veď ho ve své dobrotě po cestě věčné spásy: ať z tvé milosti touží po tom, co se ti líbí, a plní to ze všech svých sil.
 Bože, od tebe pocházejí svatá přání, správná rozhodnutí a spravedlivé činy: dej svým služebníkům onen pokoj, který svět dát nemůže; ať jsou naše srdce oddána tvým příkazům a ať jsou naše časy pod tvou ochranou pokojné, zbavené strachu z nepřátel.
 Rozněť, Pane, ohněm Ducha Svatého naše nitro i naše srdce: ať ti sloužíme s čistým tělem a líbíme se ti čistým srdcem.
-Bože, Stvořiteli a Vykupiteli všech věřících, dej duším svých služebníků a služebnic odpuštění všech hříchů: ať skrze zbožné prosby dosáhnou prominutí, po němž vždy toužily.
+Bože, všech věřících Stvořiteli a Vykupiteli, uděl duším svých služebníků a služebnic odpuštění všech hříchů, aby prominutí, kterého si vždycky žádali, pokornými prosbami dosáhli.
 Předcházej, prosíme, Pane, naše konání svým vnuknutím a provázej je svou pomocí: ať každá naše modlitba i každý náš čin od tebe vždy začíná a skrze tebe je dokončen.
 Všemohoucí věčný Bože, ty vládneš živým i mrtvým a smilováváš se nad všemi, o nichž předvídáš, že budou tvoji vírou a činy: pokorně tě vzýváme, ať ti, za které jsme se rozhodli vylévat prosby, ať je tento svět ještě zadržuje v těle nebo je onen budoucí už přijal zbavené těla, dosáhnou na přímluvu všech tvých svatých z milosti tvé dobrotivosti odpuštění všech svých vin. Skrze našeho Pána Ježíše Krista. Amen.
 
