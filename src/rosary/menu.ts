@@ -100,10 +100,17 @@ const OCCASION_PRAYERS: Record<Occasion, readonly MenuKey[]> = {
   corpus_christi: ["lauda_sion"],
   seven_sorrows: ["stabat_mater"],
   november: ["requiem", "de_profundis", "dies_irae", "defuncti"],
+  all_saints: ["saints"],
+  st_joseph: ["st_joseph", "ioseph"],
+  sacred_heart: ["sacred_heart"],
+  precious_blood: ["precious_blood"],
+  holy_name: ["holy_name"],
+  marian_month: ["loreto"],
+  lent: ["brigit"],
 };
 
 // What belongs to the day, for the start screen's "in season" card and the
 // "now" pills: the Marian antiphon of the season, then the prayers of any
-// feast or season the day falls in.
+// feast, season or month the day falls in (each once).
 export const inSeason = (date: Date): MenuKey[] =>
-  [marianAntiphon(date), ...occasionsOf(date).flatMap((o) => OCCASION_PRAYERS[o])];
+  [...new Set<MenuKey>([marianAntiphon(date), ...occasionsOf(date).flatMap((o) => OCCASION_PRAYERS[o])])];
