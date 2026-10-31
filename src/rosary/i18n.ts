@@ -65,6 +65,8 @@ type Strings = {
   // opening and closing prayers.
   chapletOptional: string;
   ordinaryGroupName: string;
+  missaGroupName: string;
+  sequencesGroupName: string;
   litaniesGroupName: string;
   startRosaryAria: (mysteryName: string) => string;
   startPrayerAria: (prayerName: string) => string;
@@ -174,6 +176,8 @@ export const STRINGS: Record<Locale, Strings> = {
     angelusEastertide: "V době velikonoční se místo něj modlí Regína Cæli",
     chapletOptional: "S nepovinnými modlitbami",
     ordinaryGroupName: "Základní modlitby",
+    missaGroupName: "Mešní řád",
+    sequencesGroupName: "Sekvence",
     litaniesGroupName: "Litanie",
     startRosaryAria: (n) => `Začít růženec — ${n}`,
     startPrayerAria: (n) => `Začít modlitbu — ${n}`,
@@ -279,6 +283,8 @@ export const STRINGS: Record<Locale, Strings> = {
     angelusEastertide: "In Eastertide the Regína Cæli is prayed instead",
     chapletOptional: "With the optional prayers",
     ordinaryGroupName: "Essential prayers",
+    missaGroupName: "The Order of Mass",
+    sequencesGroupName: "Sequences",
     litaniesGroupName: "Litanies",
     startRosaryAria: (n) => `Start rosary — ${n}`,
     startPrayerAria: (n) => `Start prayer — ${n}`,
