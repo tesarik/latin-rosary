@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+- **The start screen is regrouped by occasion.** Below the rosary and the chaplet: *Orationes cotidiánæ* (daily prayers), *Ad Beátam Maríam Vírginem* (the Marian antiphons, Sub tuum, Stabat Mater), *Missa* (the Ordo Missæ in the order of the Mass, the sequences, the Leonine prayers after Mass), *Litaníæ*, *Pro defúnctis* (all the prayers for the dead together) and *Devotiónes* (St. Bridget, St. Joseph). The separate tiles for the devotions are gone, and every prayer is in exactly one place. The plan editor and the prayer pages' index follow the same groups. Links, saved places and plans are unchanged.
+
+### Added
+- **An *In season* card** on top of the groups with what the day calls for: the Marian antiphon of the season, *Víctimæ pascháli* in the Easter octave, *Veni, Sancte Spíritus* in the Pentecost octave, *Lauda Sion* in Corpus Christi week, *Stabat Mater* on the two feasts of Our Lady of Sorrows, the Litany of the Saints on All Saints, the prayers for the dead through November, the litany of the month's devotion (St. Joseph with his sorrows and joys in March, the Sacred Heart in June and on first Fridays, the Precious Blood in July, the Holy Name in January, Loreto in May and October) and the St. Bridget prayers in Lent. Each is also marked *nyní* in its group.
+
 ## [0.22.0]
 
 ### Added

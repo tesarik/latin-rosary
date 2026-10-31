@@ -3,7 +3,6 @@ import {
   sanitizePlan,
   buildPlanSequence,
   planLength,
-  planItemName,
   encodePlan,
   decodePlan,
   readSharedPlanFromHash,
@@ -67,20 +66,14 @@ describe("PLAN_ITEM_GROUPS", () => {
     expect([...offered].sort()).toEqual([...expected].sort());
   });
 
-  it("sorts each group by name, bar the Mass parts and sequences", () => {
-    for (const group of PLAN_ITEM_GROUPS) {
-      if (group.title === "Ordo Missæ" || group.title === "Sequéntiæ") continue;
-      const names = group.keys.map(planItemName);
-      expect(names).toEqual([...names].sort((a, b) => a.localeCompare(b)));
-    }
-  });
-
-  it("keeps the Mass parts in the order of the Mass", () => {
-    const missa = PLAN_ITEM_GROUPS.find((g) => g.title === "Ordo Missæ")!;
-    expect(missa.keys).toEqual(["confiteor", "kyrie", "gloria_in_excelsis", "praefatio_dialog", "sanctus", "agnus_dei", "ante_communionem", "domine_non_sum_dignus", "post_communionem"]);
-    const seq = PLAN_ITEM_GROUPS.find((g) => g.title === "Sequéntiæ")!;
-    expect(seq.keys).toContain("dies_irae");
-    expect(PLAN_ITEM_GROUPS[0]!.keys).not.toContain("dies_irae");
+  it("follows the start screen's groups, keeping only what a plan may hold", () => {
+    expect(PLAN_ITEM_GROUPS.map((g) => g.title)).toEqual(
+      ["Orationes cotidiánæ", "Ad Beátam Maríam Vírginem", "Missa", "Litaníæ", "Pro defúnctis"]);
+    const missa = PLAN_ITEM_GROUPS.find((g) => g.title === "Missa")!;
+    expect(missa.keys.slice(0, 3)).toEqual(["confiteor", "kyrie", "gloria_in_excelsis"]);
+    expect(missa.keys).toContain("leonine");
+    // St. Bridget and St. Joseph may not be in a plan, so Devotiónes drops out.
+    expect(PLAN_ITEM_GROUPS.flatMap((g) => g.keys)).not.toContain("brigit");
   });
 });
 

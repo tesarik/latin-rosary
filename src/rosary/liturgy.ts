@@ -101,3 +101,40 @@ export function marianAntiphon(date: Date): MarianAntiphon {
 // November, the month the Church gives to the holy souls (All Souls on
 // 2 November opens it): the start screen tags the prayers for the dead.
 export const monthOfTheDead = (date: Date): boolean => date.getMonth() === 10;
+
+export type Occasion =
+  | "easter_octave" | "pentecost_octave" | "corpus_christi" | "seven_sorrows" | "november"
+  | "all_saints" | "st_joseph" | "sacred_heart" | "precious_blood" | "holy_name" | "marian_month" | "lent";
+
+// The feasts, seasons and months a day falls in that have prayers of their own
+// on the start screen (see inSeason in menu.ts), in the order shown:
+// - the octaves of Easter and Pentecost (the Sunday to the following Saturday);
+// - Corpus Christi (the Thursday after Trinity Sunday) and its week;
+// - both feasts of Our Lady of Sorrows (the Friday before Palm Sunday, 15 September);
+// - All Saints (1 November), and November, the month of the holy souls;
+// - the months the Church gives to a devotion: March to St. Joseph, June to
+//   the Sacred Heart (with its feast, the Friday after the Corpus Christi
+//   octave, and every first Friday), July to the Precious Blood, January to
+//   the Holy Name, May and October to Our Lady;
+// - Lent.
+export function occasionsOf(date: Date): Occasion[] {
+  const n = dayNumber(date);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const easter = easterSunday(year);
+  const out: Occasion[] = [];
+  if (n >= easter && n <= easter + 6) out.push("easter_octave");
+  if (n >= easter + 49 && n <= easter + 55) out.push("pentecost_octave");
+  if (n >= easter + 60 && n <= easter + 66) out.push("corpus_christi");
+  if (n === easter - 9 || n === day(year, 9, 15)) out.push("seven_sorrows");
+  if (n === day(year, 11, 1)) out.push("all_saints");
+  if (monthOfTheDead(date)) out.push("november");
+  if (month === 3) out.push("st_joseph");
+  const firstFriday = date.getDay() === 5 && date.getDate() <= 7;
+  if (month === 6 || n === easter + 68 || firstFriday) out.push("sacred_heart");
+  if (month === 7) out.push("precious_blood");
+  if (month === 1) out.push("holy_name");
+  if (month === 5 || month === 10) out.push("marian_month");
+  if (seasonOf(date) === "lent") out.push("lent");
+  return out;
+}

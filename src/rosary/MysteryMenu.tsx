@@ -1,21 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import { MYSTERIES, type Localized, type MysteryKey } from "./prayers";
-import { CHAPLETS, OTHER_PRAYER_SETS, ORDINARY_GROUPS, ordinaryGroupEntries, LITANIES, type OrdinaryGroup, type OtherPrayerKey } from "./sequence";
+import { MYSTERIES, type MysteryKey } from "./prayers";
+import { CHAPLETS } from "./sequence";
+import { MENU_GROUPS, inSeason, menuEntry, type MenuSection } from "./menu";
 import { chapletToOpen, loadSavedChapletFull, saveChapletFull } from "./chaplet";
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
 import type { PrayerSetKey } from "./navigation";
 import { accentText, type Theme } from "./theme";
-import { marianAntiphon, monthOfTheDead, mysteriesOfDay, seasonOf } from "./liturgy";
+import { mysteriesOfDay, seasonOf } from "./liturgy";
 import ResumeLine, { type ResumeInfo } from "./ResumeLine";
 import { PLAN_COLOR } from "./plans";
 import Flag from "./Flag";
 import ThemeIcon from "./ThemeIcon";
 import AboutDialog from "./AboutDialog";
 import { PlanIcon } from "./PlansScreen";
-
-// Registry rows the collapsible groups render: a Latin name, its translations,
-// and the accent used for the group's icon.
-type GroupEntry = [PrayerSetKey, { name: string; nameTr: Localized; color: string }];
 
 type Props = {
   onStart: (key: PrayerSetKey) => void;
@@ -197,17 +194,17 @@ function Badge({ label, color, theme }: { label: string; color: string; theme: T
 // own state would reset; this keeps it open for the return, for the session.
 const openGroups = new Set<string>();
 
-// Collapsible group: a card whose header rolls down small links to standalone
-// single prayers, sorted alphabetically unless told otherwise. Used for every
-// single-prayer group and "Litaníæ"; tapping a link starts that one-prayer "set". Every row shows
-// the Latin name with its name in the UI language as a muted subtitle — the
-// same two-line shape the prayer-plan tile uses.
-function CollapsiblePrayers({ title, subtitle, entries, sorted: sortByName = true, onStart, resume, badges = {}, notes = {}, theme, locale }: {
+// Collapsible group: a card whose header rolls down small links to prayers,
+// section by section in menu.ts's order (a section's heading, if it has one,
+// as a small caption). Tapping a link starts that set. Every row shows the
+// Latin name with its name in the UI language as a muted subtitle — the same
+// two-line shape the prayer-plan tile uses. The "in season" card is one too,
+// held open (collapsible={false}).
+function CollapsiblePrayers({ title, subtitle, sections, collapsible = true, onStart, resume, badges = {}, notes = {}, theme, locale }: {
   title: string;
   subtitle: string;
-  entries: [PrayerSetKey, { name: string; nameTr: Localized; color: string }][];
-  // By name, or as given (the Mass parts in the order of the Mass).
-  sorted?: boolean;
+  sections: readonly MenuSection[];
+  collapsible?: boolean;
   onStart: (key: PrayerSetKey) => void;
   resume: ResumeInfo;
   // Per-row pill after the name, and an extra muted line under it.
@@ -217,15 +214,16 @@ function CollapsiblePrayers({ title, subtitle, entries, sorted: sortByName = tru
   locale: Locale;
 }) {
   const t = STRINGS[locale];
+  const keys = sections.flatMap((s) => s.keys);
   // A group holding an unfinished set starts open, so its place is visible; so
   // does one left open before a prayer was opened from it (openGroups).
-  const [open, setOpen] = useState(() => openGroups.has(title) || entries.some(([k]) => Object.hasOwn(resume, k)));
+  const [isOpen, setOpen] = useState(() => openGroups.has(title) || keys.some((k) => Object.hasOwn(resume, k)));
+  const open = isOpen || !collapsible;
   const toggle = () => setOpen((o) => {
     if (o) openGroups.delete(title); else openGroups.add(title);
     return !o;
   });
-  const sorted = sortByName ? [...entries].sort((a, b) => a[1].name.localeCompare(b[1].name)) : entries;
-  const accent = sorted[0]?.[1].color ?? "#1565C0";
+  const accent = keys[0] ? menuEntry(keys[0]).color : "#1565C0";
 
   return (
     <div style={{
@@ -236,8 +234,9 @@ function CollapsiblePrayers({ title, subtitle, entries, sorted: sortByName = tru
       overflow: "hidden",
     }}>
       <button
-        onClick={toggle}
-        aria-expanded={open}
+        onClick={collapsible ? toggle : undefined}
+        aria-expanded={collapsible ? open : undefined}
+        tabIndex={collapsible ? undefined : -1}
         style={{
           width: "100%",
           display: "flex",
@@ -246,7 +245,7 @@ function CollapsiblePrayers({ title, subtitle, entries, sorted: sortByName = tru
           padding: "18px 24px",
           background: "transparent",
           border: "none",
-          cursor: "pointer",
+          cursor: collapsible ? "pointer" : "default",
           textAlign: "left",
         }}
       >
@@ -271,45 +270,59 @@ function CollapsiblePrayers({ title, subtitle, entries, sorted: sortByName = tru
             {subtitle}
           </div>
         </div>
-        <span aria-hidden="true" style={{
+        {collapsible && <span aria-hidden="true" style={{
           fontSize: 14,
           color: "var(--text-muted)",
           transform: open ? "rotate(180deg)" : "none",
           transition: "transform 0.2s ease",
-        }}>▾</span>
+        }}>▾</span>}
       </button>
 
       {open && (
         <div style={{ borderTop: "1px solid var(--border)", padding: "4px 0", animation: "rolldown 0.22s ease" }}>
-          {sorted.map(([key, val]) => (
-            <button
-              key={key}
-              onClick={() => onStart(key)}
-              aria-label={t.startPrayerAria(val.nameTr[locale])}
-              style={{
-                width: "100%",
-                display: "block",
-                textAlign: "left",
-                padding: "11px 24px 11px 80px",
-                background: "transparent",
-                border: "none",
-                cursor: "pointer",
-                fontFamily: "Arial, sans-serif",
-                fontSize: 16,
-                color: "var(--text)",
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
-            >
-              <div>{val.name}{badges[key] && <Badge label={badges[key]} color={val.color} theme={theme} />}</div>
-              <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 1 }}>
-                {val.nameTr[locale]}
-              </div>
-              {notes[key] && (
-                <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 2, fontStyle: "italic" }}>{notes[key]}</div>
+          {sections.map((section, i) => (
+            <div key={section.heading ?? i}>
+              {section.heading && (
+                <div style={{
+                  padding: "10px 24px 2px 80px",
+                  fontSize: 12,
+                  fontWeight: 600,
+                  letterSpacing: 0.4,
+                  textTransform: "uppercase",
+                  color: "var(--text-muted)",
+                }}>{section.heading}</div>
               )}
-              <ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />
-            </button>
+              {section.keys.map((key) => { const val = menuEntry(key); return (
+              <button
+                key={key}
+                onClick={() => onStart(key)}
+                aria-label={t.startPrayerAria(val.nameTr[locale])}
+                style={{
+                  width: "100%",
+                  display: "block",
+                  textAlign: "left",
+                  padding: "11px 24px 11px 80px",
+                  background: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  fontFamily: "Arial, sans-serif",
+                  fontSize: 16,
+                  color: "var(--text)",
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+              >
+                <div>{val.name}{badges[key] && <Badge label={badges[key]} color={val.color} theme={theme} />}</div>
+                <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 1 }}>
+                  {val.nameTr[locale]}
+                </div>
+                {notes[key] && (
+                  <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 2, fontStyle: "italic" }}>{notes[key]}</div>
+                )}
+                <ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />
+              </button>
+              ); })}
+            </div>
           ))}
         </div>
       )}
@@ -323,22 +336,15 @@ function CollapsiblePrayers({ title, subtitle, entries, sorted: sortByName = tru
 export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans, planCount, locale, onLocaleChange, theme, onToggleTheme }: Props) {
   const t = STRINGS[locale];
   const [aboutOpen, setAboutOpen] = useState(false);
-  // Today's place in the calendar: which mysteries to pray, which Marian
-  // antiphon is in season, and whether Eastertide replaces the Angelus.
+  // Today's place in the calendar: which mysteries to pray, what else is in
+  // season (the Marian antiphon, a feast's sequence, November's prayers for
+  // the dead), and whether Eastertide replaces the Angelus.
   const now = new Date();
   const todaysMysteries = mysteriesOfDay(now);
-  const antiphon = marianAntiphon(now);
+  const seasonal = inSeason(now);
   const eastertide = seasonOf(now) === "easter";
-  // In November the prayers for the dead are in season too.
-  const seasonBadges: Record<string, string> = { [antiphon]: t.seasonBadge };
-  if (monthOfTheDead(now)) {
-    for (const k of ["de_profundis", "dies_irae", "requiem", "defuncti"]) seasonBadges[k] = t.seasonBadge;
-  }
-  const groupSubtitle: Record<OrdinaryGroup, string> = {
-    orationes: t.ordinaryGroupName,
-    missa: t.missaGroupName,
-    sequentiae: t.sequencesGroupName,
-  };
+  const seasonBadges: Record<string, string> = Object.fromEntries(seasonal.map((k) => [k, t.seasonBadge]));
+  const angelusNote: Record<string, string> = eastertide ? { angelus: t.angelusEastertide } : {};
   const [chapletFull, setChapletFull] = useState(loadSavedChapletFull);
   const chaplet = chapletToOpen(chapletFull, Object.keys(resume));
   const chapletEntry = CHAPLETS[chaplet];
@@ -428,43 +434,31 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
           {t.otherPrayersHeading}
         </h2>
 
-        {ORDINARY_GROUPS.map(({ group, title, sorted }) => (
-          <CollapsiblePrayers
-            key={group}
-            title={title}
-            subtitle={groupSubtitle[group]}
-            entries={ordinaryGroupEntries(group) as GroupEntry[]}
-            sorted={sorted}
-            onStart={onStart}
-            badges={seasonBadges}
-            notes={eastertide ? { angelus: t.angelusEastertide } : {}}
-            resume={resume}
-            theme={theme}
-            locale={locale}
-          />
-        ))}
-
+        {/* What the day calls for, held open above the groups; each prayer is
+            also in its own group further down, with the same pill. */}
         <CollapsiblePrayers
-          title="Litaníæ"
-          subtitle={t.litaniesGroupName}
-          entries={Object.entries(LITANIES) as GroupEntry[]}
+          title={t.inSeasonHeading}
+          subtitle={t.inSeasonSubtitle}
+          sections={[{ keys: seasonal }]}
+          collapsible={false}
           onStart={onStart}
           resume={resume}
           theme={theme}
           locale={locale}
         />
 
-        {(Object.entries(OTHER_PRAYER_SETS) as [OtherPrayerKey, typeof OTHER_PRAYER_SETS[OtherPrayerKey]][]).map(([key, val]) => (
-          <PrayerSetButton
-            key={key}
-            name={val.name}
-            subtitle={val.nameTr[locale]}
-            badge={seasonBadges[key] ? <Badge label={seasonBadges[key]} color={val.color} theme={theme} /> : undefined}
-            color={val.color}
-            ariaLabel={t.startPrayerAria(val.nameTr[locale])}
-            icon="cross"
-            resume={<ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />}
-            onClick={() => onStart(key)}
+        {MENU_GROUPS.map((g) => (
+          <CollapsiblePrayers
+            key={g.key}
+            title={g.title}
+            subtitle={g.subtitle[locale]}
+            sections={g.sections}
+            onStart={onStart}
+            badges={seasonBadges}
+            notes={angelusNote}
+            resume={resume}
+            theme={theme}
+            locale={locale}
           />
         ))}
 
