@@ -62,7 +62,7 @@ export const MENU_GROUPS: readonly MenuGroup[] = [
     sections: [{ keys: [
       "signum_crucis", "pater_noster", "ave_maria", "gloria_patri",
       "symbolum_apostolorum", "symbolum_nicenum", "symbolum_athanasianum",
-      "angelus", "benedictio_mensae", "gratiarum_actio", "anima_christi", "suscipe",
+      "angelus", "benedictio_mensae", "gratiarum_actio", "anima_christi", "suscipe", "creator_ineffabilis",
       "angele_dei", "sancte_michael", "nunc_dimittis", "decalogue",
     ] }],
   },

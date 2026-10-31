@@ -309,6 +309,7 @@ export type OrdinaryPrayerKey =
   | "nunc_dimittis"
   | "iudica_me"
   | "suscipe"
+  | "creator_ineffabilis"
   | "victimae_paschali"
   | "veni_sancte_spiritus"
   | "lauda_sion"
@@ -377,6 +378,7 @@ export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, OrdinaryEntry> = {
   magnificat: ordinary("Magníficat", { cs: "Velebí duše má Hospodina", en: "The Canticle of Mary" }, PRAYER_TYPES.MAGNIFICAT),
   nunc_dimittis: ordinary("Nunc dimíttis", { cs: "Nyní propouštíš, Pane (večer)", en: "The Canticle of Simeon (Night Prayer)" }, PRAYER_TYPES.NUNC_DIMITTIS),
   iudica_me: ordinary("Iúdica me", { cs: "Žalm 42 u stupňů oltáře", en: "Psalm 42 at the Foot of the Altar" }, PRAYER_TYPES.IUDICA_ME),
+  creator_ineffabilis: ordinary("Creátor ineffábilis", { cs: "Modlitba sv. Tomáše Akvinského před studiem", en: "St. Thomas Aquinas's Prayer before Study" }, PRAYER_TYPES.CREATOR_INEFFABILIS),
   suscipe: ordinary("Súscipe", { cs: "Přijmi, Pane (sv. Ignác)", en: "Take, O Lord (St. Ignatius)" }, PRAYER_TYPES.SUSCIPE),
 };
 

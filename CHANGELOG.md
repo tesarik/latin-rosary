@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 - **More prayers**, with Latin, Czech and English:
-  - **Daily prayers:** grace before and after meals (*Benedíctio mensæ*, *Gratiárum áctio*), St. Ignatius's *Súscipe*, and *Nunc dimíttis* for the night.
+  - **Daily prayers:** grace before and after meals (*Benedíctio mensæ*, *Gratiárum áctio*), St. Ignatius's *Súscipe*, St. Thomas Aquinas's prayer before study *Creátor ineffábilis* (its Czech is our own translation), and *Nunc dimíttis* for the night.
   - **To Our Lady:** the *Memoráre* and the *Magníficat*.
   - **The Mass:** Psalm 42 *Iúdica me*, which now opens the *Ordo Missæ*.
   - **Devotions:** the prayer to St. Joseph *Ad te, beáte Ioseph*, also in season through March.

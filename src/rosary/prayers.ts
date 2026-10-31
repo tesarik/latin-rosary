@@ -77,6 +77,7 @@ export const PRAYER_TYPES = {
   NUNC_DIMITTIS: "nunc_dimittis",
   IUDICA_ME: "iudica_me",
   SUSCIPE: "suscipe",
+  CREATOR_INEFFABILIS: "creator_ineffabilis",
   VICTIMAE_PASCHALI: "victimae_paschali",
   VENI_SANCTE_SPIRITUS: "veni_sancte_spiritus",
   LAUDA_SION: "lauda_sion",
@@ -525,6 +526,10 @@ Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.`,
 ℟ Ad Deum, qui lætíficat iuventútem meam.`,
 
   [PRAYER_TYPES.SUSCIPE]: `Súscipe, Dómine, univérsam meam libertátem. Accipe memóriam, intelléctum atque voluntátem omnem. Quidquid hábeo vel possídeo mihi largítus es; id tibi totum restítuo, ac tuæ prorsus voluntáti trado gubernándum. Amórem tui solum cum grátia tua mihi dones, et dives sum satis, nec áliud quidquam ultra posco. Amen.`,
+
+  // St. Thomas Aquinas's prayer before study: Latin from preces-latinae
+  // (checked word by word; the accents are ours).
+  [PRAYER_TYPES.CREATOR_INEFFABILIS]: `Creátor ineffábilis, qui de thesáuris sapiéntiæ tuæ tres Angelórum hierarchías designásti et eas super cælum empýreum miro órdine collocásti atque univérsi partes elegantíssime distribuísti: Tu, inquam, qui verus fons lúminis et sapiéntiæ díceris ac superéminens princípium, infúndere dignéris super intelléctus mei ténebras tuæ rádium claritátis, dúplices, in quibus natus sum, a me rémovens ténebras, peccátum scílicet et ignorántiam. Tu, qui linguas infántium facis disértas, linguam meam erúdias atque in lábiis meis grátiam tuæ benedictiónis infúndas. Da mihi intelligéndi ácumen, retinéndi capacitátem, addiscéndi modum et facilitátem, interpretándi subtilitátem, loquéndi grátiam copiósam. Ingréssum instrúas, progréssum dírigas, egréssum cómpleas. Tu, qui es verus Deus et homo, qui vivis et regnas in sǽcula sæculórum. Amen.`,
 
   // The sequences, as in Schallerův Římský misál (1931): Easter, Pentecost,
   // Corpus Christi, and the Friday of Passion Week / 15 September.
@@ -1885,6 +1890,13 @@ jakož byla na počátku, nyní vždy i na věky. Amen.`,
 
   [PRAYER_TYPES.SUSCIPE]: `Přijmi, ó Pane, a přivlastni sobě všecku mou svobodu, paměť, rozum a vůli! Cokoli zovu svým, všecko dals mi Ty; Tobě, ó Pane, opět všecko vracím; vše náleží Tobě; nalož s tím, jak se Ti zalíbí. Daruj mi toliko lásku a milost svou, a budu s dostatek bohat, aniž sobě čeho více žádati budu.`,
 
+  // ---------------------------------------------------------------------------
+  // Creátor ineffábilis (St. Thomas Aquinas, before study): OUR OWN TRANSLATION
+  // of the Latin — no Czech version was found in the prayer books searched.
+  // Replace it verbatim if a printed one turns up.
+  // ---------------------------------------------------------------------------
+  [PRAYER_TYPES.CREATOR_INEFFABILIS]: `Nevýslovný Stvořiteli, jenž jsi z pokladů své moudrosti ustanovil tři kůry andělů, podivuhodným řádem jsi je postavil nad nejvyšší nebe a části vesmíru jsi nanejvýš krásně uspořádal: ty, pravím, jenž se nazýváš pravým pramenem světla a moudrosti a svrchovaným počátkem, rač vlít do temnot mého rozumu paprsek své jasnosti a odejmi ode mne dvojí temnotu, v níž jsem se narodil, totiž hřích a nevědomost. Ty, jenž jazyky nemluvňat činíš výmluvnými, vyuč můj jazyk a vlij do mých rtů milost svého požehnání. Dej mi bystrost k chápání, schopnost k zapamatování, způsob a snadnost k učení, důvtip k vykládání a hojnou milost v mluvení. Začátek uspořádej, postup řiď, konec dovrš. Ty, jenž jsi pravý Bůh a člověk, jenž žiješ a kraluješ na věky věků. Amen.`,
+
   [PRAYER_TYPES.VICTIMAE_PASCHALI]: `Oběti velikonoční chvály ať křesťané obětují.
 Beránek ovce vykoupil; Kristus nevinný Otce se hříšníky smířil.
 Smrt a život soubojem utkaly se podivným; kníže života zemřev, vládne živý.
@@ -3215,6 +3227,9 @@ As it was in the beginning, is now, and ever shall be, world without end. Amen.`
 ℟ Unto God, who giveth joy to my youth.`,
 
   [PRAYER_TYPES.SUSCIPE]: `Take, O Lord, and receive all my liberty, my memory, my understanding and my whole will. Whatever I have or hold, thou hast given me; I give it all back to thee and surrender it wholly to be governed by thy will. Give me only thy love and thy grace, and I am rich enough and ask for nothing more. Amen.`,
+
+  // Creátor ineffábilis: the English of preces-latinae.
+  [PRAYER_TYPES.CREATOR_INEFFABILIS]: `O infinite Creator, who in the riches of Thy wisdom didst appoint three hierarchies of Angels and didst set them in wondrous order over the highest heavens, and who didst apportion the elements of the world most wisely: do Thou, who art in truth the fountain of light and wisdom, deign to shed upon the darkness of my understanding the rays of Thine infinite brightness, and remove far from me the twofold darkness in which I was born, namely, sin and ignorance. Do Thou, who givest speech to the tongues of little children, instruct my tongue and pour into my lips the grace of Thy benediction. Give me keenness of apprehension, capacity for remembering, method and ease in learning, insight-in interpretation, and copious eloquence in speech. Instruct my beginning, direct my progress, and set Thy seal upon the finished work, Thou, who art true God and true Man, who livest and reignest world without end. Amen.`,
 
   [PRAYER_TYPES.VICTIMAE_PASCHALI]: `Forth to the paschal Victim, Christians, bring Your sacrifice of praise:
 The Lamb redeems the sheep; And Christ the sinless one, Hath to the Father sinners reconciled.
