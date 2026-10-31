@@ -16,10 +16,9 @@
 
 import type { Locale } from "./i18n";
 import { PRAYER_TYPES } from "./prayers";
+import { MENU_GROUPS, groupKeys } from "./menu";
 import {
   ORDINARY_PRAYERS,
-  ORDINARY_GROUPS,
-  ordinaryGroupEntries,
   LITANIES,
   OTHER_PRAYER_SETS,
   type OrdinaryPrayerKey,
@@ -121,25 +120,12 @@ const stepCost = (k: PlanStepKey): number => (isCustomKey(k) ? 1 : planEntry(k).
 export const planItemNameTr = (k: PlanItemKey, locale: Locale): string =>
   planEntry(k).nameTr[locale];
 
-// The groups the editor's prayer picker offers: the start screen's single-prayer
-// groups in their own order (ordinaryGroupEntries), then the rest by name.
-const byName = <K extends PlanItemKey>(keys: K[], reg: Record<K, { name: string }>): K[] =>
-  [...keys].sort((a, b) => reg[a].name.localeCompare(reg[b].name));
-
-export const PLAN_ITEM_GROUPS: { title: string; keys: PlanItemKey[] }[] = [
-  ...ORDINARY_GROUPS.map(({ group, title }) => ({
-    title,
-    keys: ordinaryGroupEntries(group).map(([k]) => k) as PlanItemKey[],
-  })),
-  {
-    title: "Litaníæ",
-    keys: byName(Object.keys(LITANIES) as LitanyKey[], LITANIES),
-  },
-  {
-    title: "Aliæ preces",
-    keys: byName(Object.keys(PLAN_DEVOTIONS) as PlanDevotionKey[], PLAN_DEVOTIONS),
-  },
-];
+// The groups the editor's prayer picker offers: the start screen's groups
+// (menu.ts), in their order, keeping only what a plan may hold — so the
+// devotions group, holding only St. Bridget and St. Joseph, drops out.
+export const PLAN_ITEM_GROUPS: { title: string; keys: PlanItemKey[] }[] = MENU_GROUPS
+  .map((g) => ({ title: g.title, keys: groupKeys(g).filter((k): k is PlanItemKey => isPlanItemKey(k)) }))
+  .filter((g) => g.keys.length > 0);
 
 export const isPlanKey = (k: string): k is PlanSetKey => k.startsWith(PLAN_PREFIX);
 export const planKeyOf = (id: string): PlanSetKey => `${PLAN_PREFIX}${id}`;

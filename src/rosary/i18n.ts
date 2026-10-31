@@ -59,15 +59,13 @@ type Strings = {
   // Tag on the mysteries prayed today, and on the Marian antiphon of the season.
   todayBadge: string;
   seasonBadge: string;
+  inSeasonHeading: string;
+  inSeasonSubtitle: string;
   // Under the Angelus in Eastertide, when the Regína Cæli takes its place.
   angelusEastertide: string;
   // The switch under the Chaplet of Divine Mercy that adds its optional
   // opening and closing prayers.
   chapletOptional: string;
-  ordinaryGroupName: string;
-  missaGroupName: string;
-  sequencesGroupName: string;
-  litaniesGroupName: string;
   startRosaryAria: (mysteryName: string) => string;
   startPrayerAria: (prayerName: string) => string;
   stepXofY: (step: number, total: number) => string;
@@ -173,12 +171,10 @@ export const STRINGS: Record<Locale, Strings> = {
     otherPrayersHeading: "Další latinské modlitby",
     todayBadge: "dnes",
     seasonBadge: "nyní",
+    inSeasonHeading: "V tuto dobu",
+    inSeasonSubtitle: "Antifona doby, svátky, listopad za zemřelé",
     angelusEastertide: "V době velikonoční se místo něj modlí Regína Cæli",
     chapletOptional: "S nepovinnými modlitbami",
-    ordinaryGroupName: "Základní modlitby",
-    missaGroupName: "Mešní řád",
-    sequencesGroupName: "Sekvence",
-    litaniesGroupName: "Litanie",
     startRosaryAria: (n) => `Začít růženec — ${n}`,
     startPrayerAria: (n) => `Začít modlitbu — ${n}`,
     stepXofY: (s, t) => `krok ${s} z ${t}`,
@@ -280,12 +276,10 @@ export const STRINGS: Record<Locale, Strings> = {
     otherPrayersHeading: "Other Latin prayers",
     todayBadge: "today",
     seasonBadge: "now",
+    inSeasonHeading: "In season",
+    inSeasonSubtitle: "The antiphon of the season, feasts, November for the dead",
     angelusEastertide: "In Eastertide the Regína Cæli is prayed instead",
     chapletOptional: "With the optional prayers",
-    ordinaryGroupName: "Essential prayers",
-    missaGroupName: "The Order of Mass",
-    sequencesGroupName: "Sequences",
-    litaniesGroupName: "Litanies",
     startRosaryAria: (n) => `Start rosary — ${n}`,
     startPrayerAria: (n) => `Start prayer — ${n}`,
     stepXofY: (s, t) => `step ${s} of ${t}`,

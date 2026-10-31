@@ -101,3 +101,24 @@ export function marianAntiphon(date: Date): MarianAntiphon {
 // November, the month the Church gives to the holy souls (All Souls on
 // 2 November opens it): the start screen tags the prayers for the dead.
 export const monthOfTheDead = (date: Date): boolean => date.getMonth() === 10;
+
+export type Occasion = "easter_octave" | "pentecost_octave" | "corpus_christi" | "seven_sorrows" | "november";
+
+// The feasts and seasons a day falls in that have prayers of their own on the
+// start screen (see inSeason in menu.ts): the octaves of Easter and Pentecost
+// (Easter Sunday and Pentecost to the following Saturday), Corpus Christi
+// (the Thursday after Trinity Sunday) and its week, the two feasts of Our
+// Lady of Sorrows (the Friday before Palm Sunday and 15 September), and
+// November.
+export function occasionsOf(date: Date): Occasion[] {
+  const n = dayNumber(date);
+  const year = date.getFullYear();
+  const easter = easterSunday(year);
+  const out: Occasion[] = [];
+  if (n >= easter && n <= easter + 6) out.push("easter_octave");
+  if (n >= easter + 49 && n <= easter + 55) out.push("pentecost_octave");
+  if (n >= easter + 60 && n <= easter + 66) out.push("corpus_christi");
+  if (n === easter - 9 || n === day(year, 9, 15)) out.push("seven_sorrows");
+  if (monthOfTheDead(date)) out.push("november");
+  return out;
+}
