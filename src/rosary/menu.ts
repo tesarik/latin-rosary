@@ -36,7 +36,7 @@ export const menuEntry = (k: MenuKey): MenuEntry =>
 export type MenuSection = { heading?: string; keys: readonly MenuKey[] };
 export type MenuGroupKey = "cotidianae" | "mariales" | "missa" | "litaniae" | "defuncti" | "devotiones";
 // The symbol drawn in a group's header (GroupIcon in MysteryMenu.tsx).
-export type GroupIconName = "calendar" | "hands" | "marian" | "chalice" | "list" | "candle" | "heart";
+export type GroupIconName = "calendar" | "sun" | "marian" | "ihs" | "list" | "cross" | "heart";
 export type MenuGroup = {
   key: MenuGroupKey;
   title: string;
@@ -57,7 +57,7 @@ export const MENU_GROUPS: readonly MenuGroup[] = [
     key: "cotidianae",
     title: "Orationes cotidiánæ",
     subtitle: { cs: "Každodenní modlitby", en: "Daily prayers" },
-    icon: "hands",
+    icon: "sun",
     color: "#1565C0",
     sections: [{ keys: [
       "signum_crucis", "pater_noster", "ave_maria", "gloria_patri",
@@ -81,7 +81,7 @@ export const MENU_GROUPS: readonly MenuGroup[] = [
     key: "missa",
     title: "Missa",
     subtitle: { cs: "Mše svatá", en: "Holy Mass" },
-    icon: "chalice",
+    icon: "ihs",
     color: "#B8860B",
     sections: [
       { heading: "Ordo Missæ", keys: [
@@ -104,7 +104,7 @@ export const MENU_GROUPS: readonly MenuGroup[] = [
     key: "defuncti",
     title: "Pro defúnctis",
     subtitle: { cs: "Za zemřelé", en: "For the dead" },
-    icon: "candle",
+    icon: "cross",
     color: "#546E7A",
     sections: [{ keys: ["requiem", "de_profundis", "dies_irae", "defuncti"] }],
   },

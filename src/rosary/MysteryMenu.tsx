@@ -204,28 +204,20 @@ function GroupIcon({ name, color }: { name: GroupIconName; color: string }) {
           <line x1="13" y1="2.5" x2="13" y2="6" {...line} />
           <circle cx="10" cy="12.75" r="1.4" fill={color} />
         </>;
-      case "hands":
-        // Two palms joined in prayer, fingertips up: one smooth pointed
-        // outline, the line where the palms meet, and the cuffs below.
+      case "sun":
+        // The daily prayers: the sun, for morning and evening.
         return <>
-          <path d="M10 2.5 C12.4 4.6 14 7.8 14 11.2 C14 13.2 13.4 14.6 12.6 15.6 H7.4 C6.6 14.6 6 13.2 6 11.2 C6 7.8 7.6 4.6 10 2.5 Z" {...line} />
-          <line x1="10" y1="5" x2="10" y2="15.6" {...line} />
-          <path d="M6.8 15.6 L5.8 17.6 H14.2 L13.2 15.6" {...line} />
+          <circle cx="10" cy="10" r="3.6" {...line} />
+          {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
+            <line key={deg} x1="10" y1="3" x2="10" y2="4.6" {...line} transform={`rotate(${deg} 10 10)`} />
+          ))}
         </>;
       case "marian":
-        // The Marian monogram under a crown.
-        return <>
-          <path d="M4.5 17 V9 L10 14.5 L15.5 9 V17" {...line} />
-          <path d="M6 6.5 L6.5 3 L8.5 5 L10 2.5 L11.5 5 L13.5 3 L14 6.5 Z" {...line} />
-        </>;
-      case "chalice":
-        // A chalice with the host above it.
-        return <>
-          <circle cx="10" cy="4" r="2.4" {...line} />
-          <path d="M5 8 H15 C15 11.5 12.8 13 10 13 C7.2 13 5 11.5 5 8 Z" {...line} />
-          <line x1="10" y1="13" x2="10" y2="16.5" {...line} />
-          <line x1="6.5" y1="17.5" x2="13.5" y2="17.5" {...line} />
-        </>;
+        // The Marian M.
+        return <text x="10" y="16.5" textAnchor="middle" fontFamily="'EB Garamond', Georgia, serif" fontSize="20" fontWeight="600" fill={color}>M</text>;
+      case "ihs":
+        // The Holy Name's monogram, for the Mass.
+        return <text x="10" y="14.2" textAnchor="middle" fontFamily="'EB Garamond', Georgia, serif" fontSize="11" fontWeight="600" letterSpacing="0.3" fill={color}>IHS</text>;
       case "list":
         return <>
           <circle cx="4" cy="6" r="1" fill={color} />
@@ -235,18 +227,13 @@ function GroupIcon({ name, color }: { name: GroupIconName; color: string }) {
           <line x1="8" y1="10" x2="16" y2="10" {...line} />
           <line x1="8" y1="14" x2="16" y2="14" {...line} />
         </>;
-      case "candle":
+      case "cross":
         return <>
-          <path d="M10 2 C11.6 4 11.6 5.6 10 6.6 C8.4 5.6 8.4 4 10 2 Z" fill={color} />
-          <rect x="7.5" y="8.5" width="5" height="8.5" rx="0.8" {...line} />
-          <line x1="5.5" y1="17.5" x2="14.5" y2="17.5" {...line} />
+          <line x1="10" y1="2.5" x2="10" y2="17.5" {...line} />
+          <line x1="5.5" y1="7" x2="14.5" y2="7" {...line} />
         </>;
       case "heart":
-        // A heart with a flame rising from it.
-        return <>
-          <path d="M10 2 C11.5 3.6 11.5 5 10 6 C8.5 5 8.5 3.6 10 2 Z" fill={color} />
-          <path d="M10 17.5 C4.5 13.5 3.5 10.5 5 8.7 C6.6 6.9 8.8 7.6 10 9.3 C11.2 7.6 13.4 6.9 15 8.7 C16.5 10.5 15.5 13.5 10 17.5 Z" {...line} />
-        </>;
+        return <path d="M10 16.5 C4 12.2 2.6 9 4.2 6.6 C5.9 4.2 8.6 4.8 10 7 C11.4 4.8 14.1 4.2 15.8 6.6 C17.4 9 16 12.2 10 16.5 Z" {...line} />;
     }
   })();
   return <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">{shape}</svg>;
