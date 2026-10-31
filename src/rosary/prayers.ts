@@ -1657,7 +1657,7 @@ Bože, jehož jednorozený Syn nám svým životem, smrtí a vzkříšením zís
   [PRAYER_TYPES.BRIGIT_PIERCING]: `Ó Ježíši, božský milovníku našich duší, ke cti oné Krve a vody, které vytryskly z tvého otevřeného boku a Srdce, přijmi mě do svého nejsvětějšího Srdce a skrze toto poslední vylití doveď mě i všechny duše do věčné slávy. Amen.`,
 
   // Orationes utilissimæ additions. Czech sourced verbatim from orationes.pdf.
-  [PRAYER_TYPES.NICENE_CREED]: `Věřím v jednoho Boha, Otce všemohoucího, Stvořitele nebe i země, všeho viditelného i neviditelného. Věřím v jednoho Pána, Ježíše Krista, jednorozeného Syna Božího, který se zrodil z Otce přede všemi věky: Bůh z Boha, Světlo ze Světla, pravý Bůh z pravého Boha, zrozený, nestvořený, jedné podstaty s Otcem: skrze něho všechno je stvořeno. On pro nás lidi a pro naši spásu sestoupil z nebe. Skrze Ducha svatého přijal tělo z Marie Panny a stal se člověkem. Byl za nás ukřižován, za dnů Poncia Piláta byl umučen a pohřben. Třetího dne vstal z mrtvých podle Písma. Vstoupil do nebe, sedí po pravici Otce. A znovu přijde, ve slávě, soudit živé i mrtvé a jeho království bude bez konce. Věřím v Ducha svatého, Pána a dárce života, který z Otce i Syna vychází, s Otcem i Synem je zároveň uctíván a oslavován a mluvil ústy proroků. Věřím v jednu, svatou, všeobecnou, apoštolskou církev. Vyznávám jeden křest na odpuštění hříchů. Očekávám vzkříšení mrtvých a život budoucího věku. Amen.`,
+  [PRAYER_TYPES.NICENE_CREED]: `Věřím v jednoho Boha, Otce všemohoucího, Stvořitele nebe i země, všeho viditelného i neviditelného. Věřím v jednoho Pána, Ježíše Krista, jednorozeného Syna Božího, který se zrodil z Otce přede všemi věky: Bůh z Boha, Světlo ze Světla, pravý Bůh z pravého Boha, zrozený, nestvořený, jedné podstaty s Otcem: skrze něho všechno je stvořeno. On pro nás lidi a pro naši spásu sestoupil z nebe. Skrze Ducha Svatého přijal tělo z Marie Panny a stal se člověkem. Byl za nás ukřižován, za dnů Poncia Piláta byl umučen a pohřben. Třetího dne vstal z mrtvých podle Písma. Vstoupil do nebe, sedí po pravici Otce. A znovu přijde, ve slávě, soudit živé i mrtvé a jeho království bude bez konce. Věřím v Ducha Svatého, Pána a dárce života, který z Otce i Syna vychází, s Otcem i Synem je zároveň uctíván a oslavován a mluvil ústy proroků. Věřím v jednu, svatou, všeobecnou, apoštolskou církev. Vyznávám jeden křest na odpuštění hříchů. Očekávám vzkříšení mrtvých a život budoucího věku. Amen.`,
 
   [PRAYER_TYPES.SUB_TUUM]: `Pod ochranu tvou se utíkáme, svatá Boží Rodičko. Neodmítej naše prosby v našich potřebách, ale ode všeho nebezpečí vysvoboď nás vždycky, Panno slavná a požehnaná. Paní naše, prostřednice naše, orodovnice naše, u Syna nám smilování vypros, Synu svému nás doporuč, k Synu svému nás doprovoď.`,
 
@@ -1865,14 +1865,14 @@ Sesazuje mocné s trůnu a povyšuje nízké.
 Lačné naplňuje dobrými věcmi a bohaté propouští prázdné.
 Ujímá se Izraele, služebníka svého, pamětliv jsa svého milosrdenství,
 jakož byl mluvil k otcům našim, k Abrahamovi a jeho potomstvu na věky.
-Sláva Bohu Otci, i Synu, i Duchu svatému:
+Sláva Bohu Otci, i Synu, i Duchu Svatému:
 jakož byla na počátku, nyní vždy i na věky. Amen.`,
 
   [PRAYER_TYPES.NUNC_DIMITTIS]: `Nyní propouštíš, Pane, služebníka svého podle slova svého v pokoji.
 Neboť viděly oči mé spásu tvou,
 kterou jsi připravil před očima všech národů.
 Světlo k osvícení pohanův a k slávě lidu svého israelského.
-Sláva Bohu Otci, i Synu, i Duchu svatému:
+Sláva Bohu Otci, i Synu, i Duchu Svatému:
 jakož byla na počátku, nyní vždy i na věky. Amen.`,
 
   [PRAYER_TYPES.IUDICA_ME]: `℣ Vstoupím k oltáři Božímu.
@@ -1888,7 +1888,7 @@ jakož byla na počátku, nyní vždy i na věky. Amen.`,
 ℣ Vstoupím k oltáři Božímu.
 ℟ Před Boha, jenž je původcem radosti mé od mladosti mojí.`,
 
-  [PRAYER_TYPES.SUSCIPE]: `Přijmi, ó Pane, a přivlastni sobě všecku mou svobodu, paměť, rozum a vůli! Cokoli zovu svým, všecko dals mi Ty; Tobě, ó Pane, opět všecko vracím; vše náleží Tobě; nalož s tím, jak se Ti zalíbí. Daruj mi toliko lásku a milost svou, a budu s dostatek bohat, aniž sobě čeho více žádati budu.`,
+  [PRAYER_TYPES.SUSCIPE]: `Přijmi, ó Pane, a přivlastni sobě všecku mou svobodu, paměť, rozum a vůli! Cokoli zovu svým, všecko dals mi ty; tobě, ó Pane, opět všecko vracím; vše náleží tobě; nalož s tím, jak se ti zalíbí. Daruj mi toliko lásku a milost svou, a budu s dostatek bohat, aniž sobě čeho více žádati budu.`,
 
   // ---------------------------------------------------------------------------
   // Creátor ineffábilis (St. Thomas Aquinas, before study): OUR OWN TRANSLATION
@@ -2132,7 +2132,7 @@ slávu Ráje blaženou! Amen.`,
 
   // Czech sourced verbatim from angelus-domini-anima-christi.pdf.
   [PRAYER_TYPES.ANGELUS]: `℣ Anděl Páně zvěstoval Panně Marii.
-℟ A ona počala z Ducha svatého.
+℟ A ona počala z Ducha Svatého.
 
 Zdrávas, Maria, milosti plná, Pán s tebou; požehnaná ty mezi ženami a požehnaný plod života tvého Ježíš. Svatá Maria, Matko Boží, pros za nás hříšné nyní i v hodinu smrti naší. Amen.
 
@@ -2193,7 +2193,7 @@ K věčné spáse je však pro člověka potřebné, aby pevně věřil i ve vt�
 
 {r}V době adventní:{/r}
 ℣ Anděl Páně zvěstoval Panně Marii.
-℟ A ona počala z Ducha svatého.
+℟ A ona počala z Ducha Svatého.
 Modleme se: Pane, poznali jsme andělské poselství o vtělení Krista, tvého Syna; vlej nám, prosíme, do duše svou milost, ať nás jeho umučení a kříž přivede ke slávě vzkříšení. Skrze Krista, našeho Pána. Amen.
 
 {r}Od Narození Páně do Hromnic:{/r}
@@ -2230,7 +2230,7 @@ Kriste, uslyš nás.
 Kriste, vyslyš nás.
 Bože, náš nebeský Otče, smiluj se nad námi.
 Bože Synu, Vykupiteli světa, smiluj se nad námi.
-Bože Duchu svatý, smiluj se nad námi.
+Bože Duchu Svatý, smiluj se nad námi.
 Bože v Trojici jediný, smiluj se nad námi.
 
 Svatá Maria, oroduj za nás.
@@ -2259,7 +2259,7 @@ Panno věrná, oroduj za nás.
 Zrcadlo spravedlnosti, oroduj za nás.
 Trůne moudrosti, oroduj za nás.
 Příčino naší radosti, oroduj za nás.
-Stánku Ducha svatého, oroduj za nás.
+Stánku Ducha Svatého, oroduj za nás.
 Stánku vyvolený, oroduj za nás.
 Stánku zbožnosti, oroduj za nás.
 Růže tajemná, oroduj za nás.
@@ -2298,7 +2298,7 @@ Modleme se: Všemohoucí, věčný Bože, dej nám, svým služebníkům, stál�
 
 {r}V době adventní:{/r}
 ℣ Anděl Páně zvěstoval Panně Marii
-℟ a ona počala z Ducha svatého.
+℟ a ona počala z Ducha Svatého.
 Modleme se: Bože, tvé věčné Slovo se při andělově zvěstování stalo v lůně Panny Marie člověkem; vyslyš naše pokorné prosby a dej všem, kdo ji s vírou uctívají jako Bohorodičku, aby jim její přímluva u tebe stále pomáhala. Skrze Krista, našeho Pána. Amen.
 
 {r}V době vánoční:{/r}
@@ -2453,7 +2453,7 @@ Beránku Boží, který snímáš hříchy světa, smiluj se nad námi, Ježíš
 
 ℣ Ježíši, uslyš nás.
 ℟ Ježíši, vyslyš nás.
-Modleme se: Pane Ježíši Kriste, jenž jsi řekl: Proste a obdržíte, hledejte a naleznete, tlucte a bude vám otevřeno, prosíme, uděl nám žádajícím vroucnost božské lásky tvé, abychom tebe celým srdcem, ústy i skutkem milovali a tebe chváliti nikdy nepřestávali. Uděl nám, Pane, abychom svaté jméno Tvé ustavičně ctili a je zároveň i milovali, poněvadž nikdy vedení svého neodnímáš těm, které v pevnosti milování svého vzděláváš. Jenž žiješ a kraluješ na věky věkův. Amen.`,
+Modleme se: Pane Ježíši Kriste, jenž jsi řekl: Proste a obdržíte, hledejte a naleznete, tlucte a bude vám otevřeno, prosíme, uděl nám žádajícím vroucnost božské lásky tvé, abychom tebe celým srdcem, ústy i skutkem milovali a tebe chváliti nikdy nepřestávali. Uděl nám, Pane, abychom svaté jméno tvé ustavičně ctili a je zároveň i milovali, poněvadž nikdy vedení svého neodnímáš těm, které v pevnosti milování svého vzděláváš. Jenž žiješ a kraluješ na věky věkův. Amen.`,
 
   // Czech: the standard Merry del Val translation, sourced from
   // ikatolici.cz/kardinal-merry-del-val-litanie-za-pokoru (which matches the
@@ -2767,25 +2767,25 @@ Pro podivuhodné nanebevstoupení své, vysvoboď nás, Pane.
 Pro příchod Utěšitele Ducha Svatého, vysvoboď nás, Pane.
 V den soudný, vysvoboď nás, Pane.`,
 
-  [PRAYER_TYPES.LITANY_SAINTS_NECESSITIES]: `My hříšníci, Tě prosíme, uslyš nás.
-Abys nás ušetřil, Tě prosíme, uslyš nás.
-Abys nám odpustil, Tě prosíme, uslyš nás.
-Abys nás k pravému pokání přivésti ráčil, Tě prosíme, uslyš nás.
-Abys svatou Církev svou říditi a zachovati ráčil, Tě prosíme, uslyš nás.
-Abys náměstka Apoštolského a veškeren církevní stav ve svatém náboženství zachovati ráčil, Tě prosíme, uslyš nás.
-Abys nepřátele Církve svaté pokořiti ráčil, Tě prosíme, uslyš nás.
-Abys králům a knížatům křesťanským pokoje a svornosti dáti ráčil, Tě prosíme, uslyš nás.
-Abys všemu lidu křesťanskému pokoje a jednoty uděliti ráčil, Tě prosíme, uslyš nás.
-Abys všecky bloudící k jednotě Církve nazpět povolati a veškeré pohany k světlu Evangelia přivésti ráčil, Tě prosíme, uslyš nás.
-Abys nás ve svaté službě své posilniti a zachovati ráčil, Tě prosíme, uslyš nás.
-Abys mysli naše k nebeským žádostem pozdvihnul, Tě prosíme, uslyš nás.
-Abys všem dobrodincům našim věčnými statky odplatil, Tě prosíme, uslyš nás.
-Abys duše naše, bratří, příbuzných a dobrodinců našich od věčného zatracení vytrhl, Tě prosíme, uslyš nás.
-Abys úrodu zemskou dáti a zachovati ráčil, Tě prosíme, uslyš nás.
-Abys všem věřícím zemřelým odpočinutí věčné dáti ráčil, Tě prosíme, uslyš nás.
-Abys nás vyslyšeti ráčil, Tě prosíme, uslyš nás.`,
+  [PRAYER_TYPES.LITANY_SAINTS_NECESSITIES]: `My hříšníci, tě prosíme, uslyš nás.
+Abys nás ušetřil, tě prosíme, uslyš nás.
+Abys nám odpustil, tě prosíme, uslyš nás.
+Abys nás k pravému pokání přivésti ráčil, tě prosíme, uslyš nás.
+Abys svatou Církev svou říditi a zachovati ráčil, tě prosíme, uslyš nás.
+Abys náměstka Apoštolského a veškeren církevní stav ve svatém náboženství zachovati ráčil, tě prosíme, uslyš nás.
+Abys nepřátele Církve svaté pokořiti ráčil, tě prosíme, uslyš nás.
+Abys králům a knížatům křesťanským pokoje a svornosti dáti ráčil, tě prosíme, uslyš nás.
+Abys všemu lidu křesťanskému pokoje a jednoty uděliti ráčil, tě prosíme, uslyš nás.
+Abys všecky bloudící k jednotě Církve nazpět povolati a veškeré pohany k světlu Evangelia přivésti ráčil, tě prosíme, uslyš nás.
+Abys nás ve svaté službě své posilniti a zachovati ráčil, tě prosíme, uslyš nás.
+Abys mysli naše k nebeským žádostem pozdvihnul, tě prosíme, uslyš nás.
+Abys všem dobrodincům našim věčnými statky odplatil, tě prosíme, uslyš nás.
+Abys duše naše, bratří, příbuzných a dobrodinců našich od věčného zatracení vytrhl, tě prosíme, uslyš nás.
+Abys úrodu zemskou dáti a zachovati ráčil, tě prosíme, uslyš nás.
+Abys všem věřícím zemřelým odpočinutí věčné dáti ráčil, tě prosíme, uslyš nás.
+Abys nás vyslyšeti ráčil, tě prosíme, uslyš nás.`,
 
-  [PRAYER_TYPES.LITANY_SAINTS_CONCLUSION]: `Synu Boží, Tě prosíme, uslyš nás.
+  [PRAYER_TYPES.LITANY_SAINTS_CONCLUSION]: `Synu Boží, tě prosíme, uslyš nás.
 Beránku Boží, který snímáš hříchy světa, odpusť nám, Pane.
 Beránku Boží, který snímáš hříchy světa, uslyš nás, Pane.
 Beránku Boží, který snímáš hříchy světa, smiluj se nad námi.
