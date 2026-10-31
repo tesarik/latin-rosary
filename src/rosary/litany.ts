@@ -25,6 +25,9 @@ export const LITANY_RESPONSES = [
   // not just their tails, so the earliest-match rule picks the whole response.
   "oráte pro nobis", "intercédite pro nobis", "te rogámus, audi nos",
   "orodujte za nás", "přimlouvejte se za nás", "prosíme tě, vyslyš nás",
+  // Schaller's Czech (Římský misál, 1931): "Tě prosíme, uslyš nás" and
+  // "Milostiv buď, uslyš nás, Pane".
+  "Tě prosíme, uslyš nás", "uslyš nás",
   // English. Bare "hear us" is deliberately NOT listed: it also occurs inside
   // petitions ("…vouchsafe to hear us, we beseech thee, hear us."), where the
   // earliest-match rule would cut the line at the wrong place. The two phrases
@@ -65,7 +68,7 @@ export function responseStart(line: string): number {
 // litany. Matched on the full phrase, since every Holy Name invocation also opens
 // with "Iesu," / "Ježíši," and those do take a response.
 export const LITANY_ACCLAMATION =
-  /^(Kyrie|Christe|Pane|Kriste), (eléison|smiluj se)\.|^(Christe|Iesu|Kriste|Ježíši), (ex)?(áudi|audi|slyš|uslyš|vyslyš) (nos|nás)\.|^(Lord|Christ), have mercy\.|^(Christ|Jesus), (graciously )?hear us\./;
+  /^(Kyrie|Christe|Pane|Kriste), (eléison|smiluj se( nad námi)?)\.|^(Christe|Iesu|Kriste|Ježíši), (ex)?(áudi|audi|slyš|uslyš|vyslyš) (nos|nás)\.|^(Lord|Christ), have mercy\.|^(Christ|Jesus), (graciously )?hear us\./;
 
 // A known response, as the line carries it, minus closing punctuation
 // ("ora pro nobis.", "ora pro nobis" → same).

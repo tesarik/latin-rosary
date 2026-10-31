@@ -326,4 +326,13 @@ describe("litany responses", () => {
     expect(plain).toContain("Kyrie, eléison. 2×");
     expect(plain.some((l) => l && l.startsWith("℣"))).toBe(true);
   });
+
+  // Schaller's Czech: "Pane, smiluj se nad námi" is still the Kyrie, and the
+  // intercessions answer "Tě prosíme, uslyš nás" — one band, not a split at "uslyš nás".
+  it("reads Schaller's Czech Litany of the Saints", () => {
+    const kyrie = parseLitany(translatedText("cs", PRAYER_TYPES.LITANY_SAINTS_SUPPLICATIO)!);
+    expect(kyrie[0]).toEqual({ kind: "plain", line: "Pane, smiluj se nad námi. 2×" });
+    const runs = runsOf(PRAYER_TYPES.LITANY_SAINTS_NECESSITIES, "cs");
+    expect(runs.map((r) => r.kind === "run" && r.response)).toEqual(["Tě prosíme, uslyš nás"]);
+  });
 });
