@@ -115,7 +115,7 @@ export const MENU_GROUPS: readonly MenuGroup[] = [
     subtitle: { cs: "Pobožnosti", en: "Devotions" },
     icon: "heart",
     color: "#C62828",
-    sections: [{ keys: ["brigit", "ioseph", "ad_te_ioseph"] }],
+    sections: [{ keys: ["spiritus", "brigit", "ioseph", "ad_te_ioseph"] }],
   },
 ];
 
@@ -123,7 +123,7 @@ export const groupKeys = (g: MenuGroup): MenuKey[] => g.sections.flatMap((s) => 
 
 const OCCASION_PRAYERS: Record<Occasion, readonly MenuKey[]> = {
   easter_octave: ["victimae_paschali"],
-  pentecost_octave: ["veni_sancte_spiritus"],
+  pentecost_octave: ["veni_sancte_spiritus", "spiritus"],
   corpus_christi: ["lauda_sion"],
   seven_sorrows: ["stabat_mater"],
   november: ["requiem", "de_profundis", "dies_irae", "defuncti"],

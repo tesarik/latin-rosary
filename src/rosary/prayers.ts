@@ -78,6 +78,15 @@ export const PRAYER_TYPES = {
   IUDICA_ME: "iudica_me",
   SUSCIPE: "suscipe",
   CREATOR_INEFFABILIS: "creator_ineffabilis",
+  // The Chaplet of the Holy Spirit: its opening, the Veni Creator, and the
+  // five mysteries (each followed by a Pater, an Ave and seven Glórias).
+  CORONA_SS_INITIUM: "corona_ss_initium",
+  CORONA_SS_HYMNUS: "corona_ss_hymnus",
+  CORONA_SS_1: "corona_ss_1",
+  CORONA_SS_2: "corona_ss_2",
+  CORONA_SS_3: "corona_ss_3",
+  CORONA_SS_4: "corona_ss_4",
+  CORONA_SS_5: "corona_ss_5",
   VICTIMAE_PASCHALI: "victimae_paschali",
   VENI_SANCTE_SPIRITUS: "veni_sancte_spiritus",
   LAUDA_SION: "lauda_sion",
@@ -530,6 +539,88 @@ Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.`,
   // St. Thomas Aquinas's prayer before study: Latin from preces-latinae
   // (checked word by word; the accents are ours).
   [PRAYER_TYPES.CREATOR_INEFFABILIS]: `Creátor ineffábilis, qui de thesáuris sapiéntiæ tuæ tres Angelórum hierarchías designásti et eas super cælum empýreum miro órdine collocásti atque univérsi partes elegantíssime distribuísti: Tu, inquam, qui verus fons lúminis et sapiéntiæ díceris ac superéminens princípium, infúndere dignéris super intelléctus mei ténebras tuæ rádium claritátis, dúplices, in quibus natus sum, a me rémovens ténebras, peccátum scílicet et ignorántiam. Tu, qui linguas infántium facis disértas, linguam meam erúdias atque in lábiis meis grátiam tuæ benedictiónis infúndas. Da mihi intelligéndi ácumen, retinéndi capacitátem, addiscéndi modum et facilitátem, interpretándi subtilitátem, loquéndi grátiam copiósam. Ingréssum instrúas, progréssum dírigas, egréssum cómpleas. Tu, qui es verus Deus et homo, qui vivis et regnas in sǽcula sæculórum. Amen.`,
+
+  // Corona Spíritus Sancti, from Preces et pia opera (Rome, 1929), no. 135
+  // (checked word by word against the scan; the accents are ours).
+  [PRAYER_TYPES.CORONA_SS_INITIUM]: `In nómine Patris, et Fílii, et Spíritus Sancti. Amen.
+
+{r}Actus contritiónis{/r}
+Dóleo, mi Deus, me contra te peccásse, quia tam bonus es; grátia tua adiuvánte non ámplius peccábo.`,
+
+  [PRAYER_TYPES.CORONA_SS_HYMNUS]: `Veni, Creátor Spíritus,
+mentes tuórum vísita,
+imple supérna grátia,
+quæ tu creásti péctora.
+
+Qui díceris Paráclitus,
+Altíssimi donum Dei,
+fons vivus, ignis, cáritas,
+et spiritális únctio.
+
+Tu septifórmis múnere,
+dígitus patérnæ déxteræ,
+tu rite promíssum Patris,
+sermóne ditans gúttura.
+
+Accénde lumen sénsibus,
+infúnde amórem córdibus,
+infírma nostri córporis
+virtúte firmans pérpeti.
+
+Hostem repéllas lóngius,
+pacémque dones prótinus:
+ductóre sic te prǽvio
+vitémus omne nóxium.
+
+Per te sciámus da Patrem,
+noscámus atque Fílium,
+teque utriúsque Spíritum
+credámus omni témpore.
+
+Deo Patri sit glória,
+et Fílio, qui a mórtuis
+surréxit, ac Paráclito,
+in sæculórum sǽcula. Amen.
+
+℣ Emítte Spíritum tuum et creabúntur.
+℟ Et renovábis fáciem terræ.
+
+Orémus. Deus, qui corda fidélium Sancti Spíritus illustratióne docuísti: da nobis in eódem Spíritu recta sápere; et de eius semper consolatióne gaudére. Per Christum Dóminum nostrum. Amen.`,
+
+  [PRAYER_TYPES.CORONA_SS_1]: `{r}Mystérium primum{/r}
+De Spíritu Sancto ex María Vírgine Iesus concéptus est.
+
+{r}Meditátio.{/r} Spíritus Sanctus supervéniet in te, et virtus Altíssimi obumbrábit tibi. Ideóque et quod nascétur ex te Sanctum, vocábitur Fílius Dei (Luc. 1, 35).
+
+{r}Exercitátio.{/r} Precáre veheménter divíni Spíritus auxílium et Maríæ intercessiónem ad imitándas virtútes Iesu Christi, qui est exemplar virtútum, ut confórmis fias imágini Fílii Dei.`,
+
+  [PRAYER_TYPES.CORONA_SS_2]: `{r}Mystérium secúndum{/r}
+Spíritus Dómini requiévit super Iesum.
+
+{r}Meditátio.{/r} Baptizátus autem Iesus, conféstim ascéndit de aqua, et ecce apérti sunt ei cæli: et vidit Spíritum Dei descendéntem sicut colúmbam, et veniéntem super se (Matth. 3, 16).
+
+{r}Exercitátio.{/r} In summo prétio habe inæstimábilem grátiam sanctificántem per Spíritum Sanctum in Baptísmo cordi tuo infúsam. Tene promíssa, ad quæ servánda tunc te obstrinxísti. Contínua exercitatióne auge fidem, spem, caritátem. Semper vive ut decet fílios Dei et veræ Dei Ecclésiæ membra, ut post hanc vitam accípias cæli hereditátem.`,
+
+  [PRAYER_TYPES.CORONA_SS_3]: `{r}Mystérium tértium{/r}
+A Spíritu ductus est Iesus in desértum.
+
+{r}Meditátio.{/r} Iesus autem plenus Spíritu Sancto regréssus est a Iordáne: et agebátur a Spíritu in desértum diébus quadragínta, et tentabátur a diábolo (Luc. 4, 1-2).
+
+{r}Exercitátio.{/r} Semper esto gratus pro septifórmi múnere Spíritus Sancti in Confirmatióne tibi dato, pro Spíritu sapiéntiæ et intelléctus, consílii et fortitúdinis, sciéntiæ et pietátis, timóris Dómini. Fidéliter obséquere divíno Duci ut in ómnibus perículis huius vitæ et tentatiónibus viríliter agas, sicut decet perféctum christiánum et fortem Iesu Christi athlétam.`,
+
+  [PRAYER_TYPES.CORONA_SS_4]: `{r}Mystérium quartum{/r}
+Spíritus Sanctus in Ecclésia.
+
+{r}Meditátio.{/r} Factus est repénte de cælo sonus tamquam adveniéntis spíritus veheméntis, ubi erant sedéntes; et repléti sunt omnes Spíritu Sancto loquéntes magnália Dei (Act. 2, 2. 4. 11).
+
+{r}Exercitátio.{/r} Grátias age Deo quod te fecit Ecclésiæ suæ fílium, quam divínus Spíritus, Pentecóstes die in mundum missus, semper vivíficat et regit. Audi et séquere Summum Pontíficem, qui per Spíritum Sanctum infallibíliter docet, atque Ecclésiam quæ est colúmna et firmaméntum veritátis. Dógmata eius tuére, eius partes tene, eius iura defénde.`,
+
+  [PRAYER_TYPES.CORONA_SS_5]: `{r}Mystérium quintum{/r}
+Spíritus Sanctus in ánima iusti.
+
+{r}Meditátio.{/r} An nescítis quóniam membra vestra templum sunt Spíritus Sancti, qui in vobis est? (1 Cor. 6, 19). Spíritum nolíte exstínguere (1 Thess. 5, 19). Et nolíte contristáre Spíritum Sanctum Dei, in quo signáti estis in diem redemptiónis (Eph. 4, 30).
+
+{r}Exercitátio.{/r} Semper recordáre de Spíritu Sancto qui est in te, et puritáti ánimæ et córporis omnem da óperam. Fidéliter obédi divínis eius inspiratiónibus, ut fácias fructus Spíritus: caritátem, gáudium, pacem, patiéntiam, benignitátem, bonitátem, longanimitátem, mansuetúdinem, fidem, modéstiam, continéntiam, castitátem.`,
 
   // The sequences, as in Schallerův Římský misál (1931): Easter, Pentecost,
   // Corpus Christi, and the Friday of Passion Week / 15 September.
@@ -1897,6 +1988,90 @@ jakož byla na počátku, nyní vždy i na věky. Amen.`,
   // ---------------------------------------------------------------------------
   [PRAYER_TYPES.CREATOR_INEFFABILIS]: `Nevýslovný Stvořiteli, jenž jsi z pokladů své moudrosti ustanovil tři kůry andělů, podivuhodným řádem jsi je postavil nad nejvyšší nebe a části vesmíru jsi nanejvýš krásně uspořádal: ty, pravím, jenž se nazýváš pravým pramenem světla a moudrosti a svrchovaným počátkem, rač vlít do temnot mého rozumu paprsek své jasnosti a odejmi ode mne dvojí temnotu, v níž jsem se narodil, totiž hřích a nevědomost. Ty, jenž jazyky nemluvňat činíš výmluvnými, vyuč můj jazyk a vlij do mých rtů milost svého požehnání. Dej mi bystrost k chápání, schopnost k zapamatování, způsob a snadnost k učení, důvtip k vykládání a hojnou milost v mluvení. Začátek uspořádej, postup řiď, konec završ. Ty, jenž jsi pravý Bůh a člověk, jenž žiješ a kraluješ na věky věků. Amen.`,
 
+  // Korunka k úctě Ducha Svatého: Příručka katolických pobožností (Minařík,
+  // 1935), p. 237 f., a translation of the Latin above; the Veni Creator from
+  // p. 236. Spelling as printed, bar the misprint "Nejvyšího" and capitals
+  // brought into line with the Latin.
+  [PRAYER_TYPES.CORONA_SS_INITIUM]: `Ve jménu Otce i Syna i Ducha Svatého. Amen.
+
+{r}Krátký projev lítosti{/r}
+Ó Bože můj! Lituji, že jsem tebe, své nejvyšší Dobro, urazil; s milostí tvou činím pevné předsevzetí, že nikdy již nebudu hřešiti.`,
+
+  [PRAYER_TYPES.CORONA_SS_HYMNUS]: `Přijď, Duchu Stvořiteli, k nám
+a navštiv myslí našich chrám,
+vlij milost nadehvězdnou v hruď,
+již ty jsi stvořil, a v ní buď!
+
+Ty's Utěšitel právem zván,
+ty's dar, jenž Bohem věčným dán,
+ty's láska, oheň, živý zdroj,
+ty's síla v tuhý s hříchem boj!
+
+Ty's sedmi darů studnice,
+ty's Otcovy prst pravice,
+ty's vyplněný Otcův slib,
+jenž skýtáš řeči dar a vtip.
+
+Ty mysli světlo rozžehej,
+ty lásku v srdce naše lej,
+a všecky těla nemoci
+svou nauč trpět pomocí.
+
+Dál nepřítele zapudiž,
+svým mírem stále u nás dliž,
+veď jistou cestou ctnosti nás,
+ať zlému vyhnem v každý čas!
+
+Ať tebou Otce poznáme,
+ať Syna v srdci vítáme,
+i v tebe, Duchu, věříme,
+tě s úctou zbožnou slavíme.
+
+Duch každý Boha Otce chval,
+i Syna, který z mrtvých vstal!
+Buď s nimi slaven svatý Duch,
+touž podstatou jim rovný Bůh! Amen.
+
+℣ Sešli Ducha svého a nově stvořeni budou.
+℟ A obnovíš tvářnost země.
+
+Modleme se: Bože, který jsi srdce věřících osvícením Ducha Svatého vyučil: dopřej nám, ať v témž Duchu dobré poznáváme a z jeho útěchy se povždy radujeme. Skrze Krista, Pána našeho. Amen.`,
+
+  [PRAYER_TYPES.CORONA_SS_1]: `{r}První tajemství{/r}
+Ježíš počat od Panny Marie zastíněním Ducha Svatého.
+
+{r}Rozjímání.{/r} „Duch Svatý sestoupí v tebe, a moc Nejvyššího zastíní tě; proto také to svaté, co se z tebe narodí, slouti bude Syn Boží.“ (Luk. 1, 35.)
+
+{r}Cvičení.{/r} Pros vroucně za pomoc Ducha Svatého a za přímluvu Panny Marie, abys následoval ctností Ježíše Krista, který jest vzorem ctnosti, a abys byl podoben obrazu Syna Božího.`,
+
+  [PRAYER_TYPES.CORONA_SS_2]: `{r}Druhé tajemství{/r}
+Duch Hospodinův spočinul na Ježíši.
+
+{r}Rozjímání.{/r} „A když byl Ježíš pokřtěn, vyšel ihned z vody; a hle, otevřela se mu nebesa, i viděl Ducha Božího sestupovati jako holubici a přicházeti na něj.“ (Mat. 3, 16.)
+
+{r}Cvičení.{/r} Važ si co nejvíce neocenitelné milosti posvěcující, kterou ti Duch Svatý na křtu svatém do srdce vlil. Zachovávej slib, k němuž jsi se tehdy byl zavázal. Neustálým cvičením rozmnožuj v sobě víru, naději a lásku. Žij vždy tak, jak se sluší na dítky Boží a na údy pravé Církve Boží, abys po pouti časného života mohl dosíci nebeského dědictví.`,
+
+  [PRAYER_TYPES.CORONA_SS_3]: `{r}Třetí tajemství{/r}
+Ježíš veden jest od Ducha na poušť.
+
+{r}Rozjímání.{/r} „Ježíš pak jsa pln Ducha Svatého vrátil se od Jordánu a byl veden Duchem na poušť po čtyřicet dní, a pokoušen byl od ďábla.“ (Luk. 4, 1.)
+
+{r}Cvičení.{/r} Buď povždy vděčen za sedm darů Ducha Svatého, které ti byly uděleny ve svatém biřmování: za ducha moudrosti a rozumu, rady a síly, umění a pobožnost a bázeň Boží. Poslouchej věrně svého božského Vůdce, abys zmužile jednal ve všelikých nebezpečenstvích života, jakož i v pokušeních, jak se sluší na dokonalého křesťana a statečného bojovníka Ježíše Krista.`,
+
+  [PRAYER_TYPES.CORONA_SS_4]: `{r}Čtvrté tajemství{/r}
+Duch Svatý v Církvi.
+
+{r}Rozjímání.{/r} „I stal se rychle zvuk s nebe jako přicházejícího prudkého větru, a naplnil veškeren dům, kde byli sedíce; a naplněni jsou všichni Duchem Svatým a mluvili veliké skutky Boží.“ (Skp. ap. 2, 2. 4. 11.)
+
+{r}Cvičení.{/r} Děkuj Pánu Bohu, že tě učinil dítkem své Církve, kterou Duch Svatý o letnicích na svět seslaný oživuje a spravuje. Poslouchej a následuj sv. Otce, který skrze Ducha Svatého nauce křesťanské neomylně učí, jakož i církve svaté, která jest sloupem a základem pravdy. Zachovávej její učení, zastávej se jí a haj jejích práv.`,
+
+  [PRAYER_TYPES.CORONA_SS_5]: `{r}Páté tajemství{/r}
+Duch Svatý v duši spravedlivého.
+
+{r}Rozjímání.{/r} „Zdaliž nevíte, že údové vaši jsou chrámem Ducha Svatého, jenž ve vás jest?“ „Ducha neuhášejte!“ (I. Thes. 5, 19.) „A nezarmucujte Ducha Svatého Božího, jímžto znamenáni jste ke dni vykoupení.“
+
+{r}Cvičení.{/r} Buď vždy pamětliv Ducha Svatého, který v tobě přebývá, a dbej se vší pečlivostí čistoty duševní i tělesné. Poslouchej věrně jeho božských vnuknutí, abys vydával dvanáctero ovoce Ducha Svatého: lásku, radost, klid, trpělivost, mírnost, dobrotivost, velkodušnost, tichost, věrnost, střídmost, zdrželivost, čistotu.`,
+
   [PRAYER_TYPES.VICTIMAE_PASCHALI]: `Oběti velikonoční chvály ať křesťané obětují.
 Beránek ovce vykoupil; Kristus nevinný Otce se hříšníky smířil.
 Smrt a život soubojem utkaly se podivným; kníže života zemřev, vládne živý.
@@ -3230,6 +3405,91 @@ As it was in the beginning, is now, and ever shall be, world without end. Amen.`
 
   // Creátor ineffábilis: the English of preces-latinae.
   [PRAYER_TYPES.CREATOR_INEFFABILIS]: `O infinite Creator, who in the riches of Thy wisdom didst appoint three hierarchies of Angels and didst set them in wondrous order over the highest heavens, and who didst apportion the elements of the world most wisely: do Thou, who art in truth the fountain of light and wisdom, deign to shed upon the darkness of my understanding the rays of Thine infinite brightness, and remove far from me the twofold darkness in which I was born, namely, sin and ignorance. Do Thou, who givest speech to the tongues of little children, instruct my tongue and pour into my lips the grace of Thy benediction. Give me keenness of apprehension, capacity for remembering, method and ease in learning, insight-in interpretation, and copious eloquence in speech. Instruct my beginning, direct my progress, and set Thy seal upon the finished work, Thou, who art true God and true Man, who livest and reignest world without end. Amen.`,
+
+  // ---------------------------------------------------------------------------
+  // Chaplet of the Holy Spirit: OUR OWN TRANSLATION of the Latin (the English
+  // Raccolta could not be consulted). Scripture in the Douay-Rheims wording; the
+  // Veni Creator rendered line for line, not after a hymnal version.
+  // ---------------------------------------------------------------------------
+  [PRAYER_TYPES.CORONA_SS_INITIUM]: `In the name of the Father, and of the Son, and of the Holy Ghost. Amen.
+
+{r}Act of contrition{/r}
+I am sorry, my God, that I have sinned against thee, because thou art so good; with the help of thy grace I will sin no more.`,
+
+  [PRAYER_TYPES.CORONA_SS_HYMNUS]: `Come, Creator Spirit,
+visit the minds of thy faithful,
+fill with grace from on high
+the hearts which thou hast made.
+
+Thou who art called the Paraclete,
+the gift of God most high,
+the living fountain, fire, charity,
+and the anointing of the soul.
+
+Thou sevenfold in thy gifts,
+finger of the Father's right hand,
+thou the Father's true promise,
+enriching our tongues with speech.
+
+Kindle a light in our senses,
+pour love into our hearts,
+the weakness of our bodies
+strengthen with thy lasting power.
+
+Drive the enemy far from us,
+and grant us peace without delay:
+so, with thee leading before us,
+may we shun all that is harmful.
+
+Through thee may we know the Father,
+and come to know the Son,
+and in thee, the Spirit of them both,
+may we believe for all time.
+
+To God the Father be glory,
+and to the Son, who rose
+from the dead, and to the Paraclete,
+for ever and ever. Amen.
+
+℣ Send forth thy Spirit, and they shall be created.
+℟ And thou shalt renew the face of the earth.
+
+Let us pray. O God, who didst teach the hearts of the faithful by the light of the Holy Spirit: grant us by the same Spirit to relish what is right, and ever to rejoice in his consolation. Through Christ our Lord. Amen.`,
+
+  [PRAYER_TYPES.CORONA_SS_1]: `{r}The first mystery{/r}
+Jesus was conceived of the Virgin Mary by the Holy Ghost.
+
+{r}Meditation.{/r} The Holy Ghost shall come upon thee, and the power of the most High shall overshadow thee. And therefore also the Holy which shall be born of thee shall be called the Son of God (Luke 1, 35).
+
+{r}Exercise.{/r} Pray earnestly for the help of the Holy Spirit and the intercession of Mary, that you may imitate the virtues of Jesus Christ, the pattern of all virtue, and be made like to the image of the Son of God.`,
+
+  [PRAYER_TYPES.CORONA_SS_2]: `{r}The second mystery{/r}
+The Spirit of the Lord rested upon Jesus.
+
+{r}Meditation.{/r} And Jesus being baptized, forthwith came out of the water: and lo, the heavens were opened to him: and he saw the Spirit of God descending as a dove, and coming upon him (Matt. 3, 16).
+
+{r}Exercise.{/r} Hold in the highest esteem the priceless sanctifying grace which the Holy Spirit poured into your heart at Baptism. Keep the promises you then bound yourself to keep. Grow in faith, hope and charity by constant practice. Live always as befits children of God and members of the true Church of God, that after this life you may receive the inheritance of heaven.`,
+
+  [PRAYER_TYPES.CORONA_SS_3]: `{r}The third mystery{/r}
+Jesus was led by the Spirit into the desert.
+
+{r}Meditation.{/r} And Jesus being full of the Holy Ghost, returned from the Jordan, and was led by the Spirit into the desert for forty days, and was tempted by the devil (Luke 4, 1-2).
+
+{r}Exercise.{/r} Be ever grateful for the sevenfold gift of the Holy Spirit given you in Confirmation: the spirit of wisdom and understanding, of counsel and fortitude, of knowledge and piety, and of the fear of the Lord. Faithfully obey your divine Guide, that in all the dangers and temptations of this life you may act manfully, as befits a perfect Christian and a valiant soldier of Jesus Christ.`,
+
+  [PRAYER_TYPES.CORONA_SS_4]: `{r}The fourth mystery{/r}
+The Holy Spirit in the Church.
+
+{r}Meditation.{/r} And suddenly there came a sound from heaven, as of a mighty wind coming, where they were sitting; and they were all filled with the Holy Ghost, speaking the wonderful works of God (Acts 2, 2. 4. 11).
+
+{r}Exercise.{/r} Give thanks to God that he has made you a child of his Church, which the divine Spirit, sent into the world on the day of Pentecost, ever quickens and governs. Hear and follow the Sovereign Pontiff, who by the Holy Spirit teaches infallibly, and the Church, which is the pillar and ground of truth. Uphold her teaching, take her part, defend her rights.`,
+
+  [PRAYER_TYPES.CORONA_SS_5]: `{r}The fifth mystery{/r}
+The Holy Spirit in the soul of the just.
+
+{r}Meditation.{/r} Know you not, that your members are the temple of the Holy Ghost, who is in you? (1 Cor. 6, 19). Extinguish not the spirit (1 Thess. 5, 19). And grieve not the Holy Spirit of God, whereby you are sealed unto the day of redemption (Eph. 4, 30).
+
+{r}Exercise.{/r} Remember always the Holy Spirit who dwells in you, and give all diligence to purity of soul and body. Faithfully obey his divine inspirations, that you may bring forth the fruits of the Spirit: charity, joy, peace, patience, benignity, goodness, longanimity, mildness, faith, modesty, continency, chastity.`,
 
   [PRAYER_TYPES.VICTIMAE_PASCHALI]: `Forth to the paschal Victim, Christians, bring Your sacrifice of praise:
 The Lamb redeems the sheep; And Christ the sinless one, Hath to the Father sinners reconciled.

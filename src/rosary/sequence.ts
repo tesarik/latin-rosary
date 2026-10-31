@@ -235,7 +235,32 @@ export function buildDefunctiPrayers(): SequenceItem[] {
   ];
 }
 
-export type OtherPrayerKey = "leonine" | "brigit" | "ioseph" | "defuncti";
+// Corona Spíritus Sancti — the Chaplet of the Holy Spirit (Preces et pia opera,
+// 1929): the sign of the cross with an act of contrition, the Veni Creator with
+// its versicle and collect, then five mysteries, each a heading with its
+// meditation and exercise, followed by a Pater, an Ave and seven Glórias
+// (unsectioned, like St. Bridget's), and the Apostles' Creed to close. 53 steps.
+const CORONA_SS_MYSTERIES = [
+  PRAYER_TYPES.CORONA_SS_1, PRAYER_TYPES.CORONA_SS_2, PRAYER_TYPES.CORONA_SS_3,
+  PRAYER_TYPES.CORONA_SS_4, PRAYER_TYPES.CORONA_SS_5,
+] as const;
+const ROMAN = ["I", "II", "III", "IV", "V"] as const;
+
+export function buildCoronaSpiritusSancti(): SequenceItem[] {
+  return [
+    { type: PRAYER_TYPES.CORONA_SS_INITIUM, label: "Inítium", section: "Inítium" },
+    { type: PRAYER_TYPES.CORONA_SS_HYMNUS, label: "Veni, Creátor", section: "Veni, Creátor" },
+    ...CORONA_SS_MYSTERIES.flatMap((type, i): SequenceItem[] => [
+      { type, label: `Mystérium ${ROMAN[i]}`, section: `Mystérium ${ROMAN[i]}` },
+      { type: PRAYER_TYPES.OUR_FATHER, label: "Pater Noster" },
+      { type: PRAYER_TYPES.HAIL_MARY, label: "Ave María" },
+      ...Array.from({ length: 7 }, (_, g): SequenceItem => ({ type: PRAYER_TYPES.GLORY_BE, label: `Glória Patri ${g + 1}/7` })),
+    ]),
+    { type: PRAYER_TYPES.CREED, label: "Credo", section: "Credo" },
+  ];
+}
+
+export type OtherPrayerKey = "leonine" | "brigit" | "ioseph" | "defuncti" | "spiritus";
 
 // Linear prayer sets (no beads, not persisted). Keyed by `OtherPrayerKey`,
 // rendered as a separate block on the start screen.
@@ -262,6 +287,12 @@ export const OTHER_PRAYER_SETS: Record<OtherPrayerKey, {
     nameTr: { cs: "Sedm bolestí a radostí svatého Josefa", en: "The Seven Sorrows and Joys of St. Joseph" },
     color: "#6D4C41",
     build: buildIosephPrayers,
+  },
+  spiritus: {
+    name: "Corona Spíritus Sancti",
+    nameTr: { cs: "Korunka k úctě Ducha Svatého", en: "The Chaplet of the Holy Spirit" },
+    color: "#B71C1C",
+    build: buildCoronaSpiritusSancti,
   },
   defuncti: {
     name: "Preces pro defunctis",
