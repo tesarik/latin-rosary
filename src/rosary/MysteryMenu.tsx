@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { MYSTERIES, type MysteryKey } from "./prayers";
 import { CHAPLETS } from "./sequence";
-import { MENU_GROUPS, inSeason, menuEntry, type MenuSection } from "./menu";
+import { IN_SEASON_COLOR, IN_SEASON_ICON, MENU_GROUPS, inSeason, menuEntry, type GroupIconName, type MenuSection } from "./menu";
 import { chapletToOpen, loadSavedChapletFull, saveChapletFull } from "./chaplet";
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
 import type { PrayerSetKey } from "./navigation";
@@ -190,6 +190,66 @@ function Badge({ label, color, theme }: { label: string; color: string; theme: T
   );
 }
 
+// The symbol in a group header, drawn in the group's colour on a 20×20 grid
+// in the same thin-line style as the tiles' icons.
+function GroupIcon({ name, color }: { name: GroupIconName; color: string }) {
+  const line = { stroke: color, strokeWidth: 1.5, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, fill: "none" };
+  const shape = (() => {
+    switch (name) {
+      case "calendar":
+        return <>
+          <rect x="3" y="4.5" width="14" height="12.5" rx="2" {...line} />
+          <line x1="3" y1="8.5" x2="17" y2="8.5" {...line} />
+          <line x1="7" y1="2.5" x2="7" y2="6" {...line} />
+          <line x1="13" y1="2.5" x2="13" y2="6" {...line} />
+          <circle cx="10" cy="12.75" r="1.4" fill={color} />
+        </>;
+      case "hands":
+        // Two palms joined in prayer, fingertips up.
+        return <>
+          <path d="M10 2.5 C8.4 4.5 6.5 8 6.5 11 V14 L4.5 17.5 H10 Z" {...line} />
+          <path d="M10 2.5 C11.6 4.5 13.5 8 13.5 11 V14 L15.5 17.5 H10 Z" {...line} />
+        </>;
+      case "marian":
+        // The Marian monogram under a crown.
+        return <>
+          <path d="M4.5 17 V9 L10 14.5 L15.5 9 V17" {...line} />
+          <path d="M6 6.5 L6.5 3 L8.5 5 L10 2.5 L11.5 5 L13.5 3 L14 6.5 Z" {...line} />
+        </>;
+      case "chalice":
+        // A chalice with the host above it.
+        return <>
+          <circle cx="10" cy="4" r="2.4" {...line} />
+          <path d="M5 8 H15 C15 11.5 12.8 13 10 13 C7.2 13 5 11.5 5 8 Z" {...line} />
+          <line x1="10" y1="13" x2="10" y2="16.5" {...line} />
+          <line x1="6.5" y1="17.5" x2="13.5" y2="17.5" {...line} />
+        </>;
+      case "list":
+        return <>
+          <circle cx="4" cy="6" r="1" fill={color} />
+          <circle cx="4" cy="10" r="1" fill={color} />
+          <circle cx="4" cy="14" r="1" fill={color} />
+          <line x1="8" y1="6" x2="16" y2="6" {...line} />
+          <line x1="8" y1="10" x2="16" y2="10" {...line} />
+          <line x1="8" y1="14" x2="16" y2="14" {...line} />
+        </>;
+      case "candle":
+        return <>
+          <path d="M10 2 C11.6 4 11.6 5.6 10 6.6 C8.4 5.6 8.4 4 10 2 Z" fill={color} />
+          <rect x="7.5" y="8.5" width="5" height="8.5" rx="0.8" {...line} />
+          <line x1="5.5" y1="17.5" x2="14.5" y2="17.5" {...line} />
+        </>;
+      case "heart":
+        // A heart with a flame rising from it.
+        return <>
+          <path d="M10 2 C11.5 3.6 11.5 5 10 6 C8.5 5 8.5 3.6 10 2 Z" fill={color} />
+          <path d="M10 17.5 C4.5 13.5 3.5 10.5 5 8.7 C6.6 6.9 8.8 7.6 10 9.3 C11.2 7.6 13.4 6.9 15 8.7 C16.5 10.5 15.5 13.5 10 17.5 Z" {...line} />
+        </>;
+    }
+  })();
+  return <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">{shape}</svg>;
+}
+
 // Groups left open, by title. Opening a prayer unmounts the menu, so a group's
 // own state would reset; this keeps it open for the return, for the session.
 const openGroups = new Set<string>();
@@ -200,9 +260,11 @@ const openGroups = new Set<string>();
 // Latin name with its name in the UI language as a muted subtitle — the same
 // two-line shape the prayer-plan tile uses. The "in season" card is one too,
 // held open (collapsible={false}).
-function CollapsiblePrayers({ title, subtitle, sections, collapsible = true, onStart, resume, badges = {}, notes = {}, theme, locale }: {
+function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, collapsible = true, onStart, resume, badges = {}, notes = {}, theme, locale }: {
   title: string;
   subtitle: string;
+  icon: GroupIconName;
+  color: string;
   sections: readonly MenuSection[];
   collapsible?: boolean;
   onStart: (key: PrayerSetKey) => void;
@@ -223,7 +285,6 @@ function CollapsiblePrayers({ title, subtitle, sections, collapsible = true, onS
     if (o) openGroups.delete(title); else openGroups.add(title);
     return !o;
   });
-  const accent = keys[0] ? menuEntry(keys[0]).color : "#1565C0";
 
   return (
     <div style={{
@@ -253,14 +314,7 @@ function CollapsiblePrayers({ title, subtitle, sections, collapsible = true, onS
           width: 40, height: 40, borderRadius: 12, background: accent + "18",
           display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
         }}>
-          <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
-            <circle cx="4" cy="6" r="1" fill={accent} />
-            <circle cx="4" cy="10" r="1" fill={accent} />
-            <circle cx="4" cy="14" r="1" fill={accent} />
-            <line x1="8" y1="6" x2="16" y2="6" stroke={accent} strokeWidth="1.5" strokeLinecap="round" />
-            <line x1="8" y1="10" x2="16" y2="10" stroke={accent} strokeWidth="1.5" strokeLinecap="round" />
-            <line x1="8" y1="14" x2="16" y2="14" stroke={accent} strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
+<GroupIcon name={icon} color={accent} />
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
@@ -439,6 +493,8 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
         <CollapsiblePrayers
           title={t.inSeasonHeading}
           subtitle={t.inSeasonSubtitle}
+          icon={IN_SEASON_ICON}
+          color={IN_SEASON_COLOR}
           sections={[{ keys: seasonal }]}
           collapsible={false}
           onStart={onStart}
@@ -452,6 +508,8 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
             key={g.key}
             title={g.title}
             subtitle={g.subtitle[locale]}
+            icon={g.icon}
+            color={g.color}
             sections={g.sections}
             onStart={onStart}
             badges={seasonBadges}

@@ -35,7 +35,21 @@ export const menuEntry = (k: MenuKey): MenuEntry =>
 // the prayers after it); a section without a heading is shown plain.
 export type MenuSection = { heading?: string; keys: readonly MenuKey[] };
 export type MenuGroupKey = "cotidianae" | "mariales" | "missa" | "litaniae" | "defuncti" | "devotiones";
-export type MenuGroup = { key: MenuGroupKey; title: string; subtitle: Localized; sections: readonly MenuSection[] };
+// The symbol drawn in a group's header (GroupIcon in MysteryMenu.tsx).
+export type GroupIconName = "calendar" | "hands" | "marian" | "chalice" | "list" | "candle" | "heart";
+export type MenuGroup = {
+  key: MenuGroupKey;
+  title: string;
+  subtitle: Localized;
+  // The header's symbol and its colour (liturgical where there is one).
+  icon: GroupIconName;
+  color: string;
+  sections: readonly MenuSection[];
+};
+
+// The "in season" card's symbol and colour (liturgical green).
+export const IN_SEASON_ICON: GroupIconName = "calendar";
+export const IN_SEASON_COLOR = "#2E7D32";
 
 // Listed in the order they are prayed or learned, not alphabetically.
 export const MENU_GROUPS: readonly MenuGroup[] = [
@@ -43,6 +57,8 @@ export const MENU_GROUPS: readonly MenuGroup[] = [
     key: "cotidianae",
     title: "Orationes cotidiánæ",
     subtitle: { cs: "Každodenní modlitby", en: "Daily prayers" },
+    icon: "hands",
+    color: "#1565C0",
     sections: [{ keys: [
       "signum_crucis", "pater_noster", "ave_maria", "gloria_patri",
       "symbolum_apostolorum", "symbolum_nicenum", "symbolum_athanasianum",
@@ -54,6 +70,8 @@ export const MENU_GROUPS: readonly MenuGroup[] = [
     title: "Ad Beátam Maríam Vírginem",
     subtitle: { cs: "K Panně Marii", en: "To Our Lady" },
     // The four seasonal antiphons in the order of the year.
+    icon: "marian",
+    color: "#3A6EA5",
     sections: [{ keys: [
       "alma_redemptoris", "ave_regina_caelorum", "regina_caeli", "salve_regina",
       "sub_tuum", "stabat_mater",
@@ -63,6 +81,8 @@ export const MENU_GROUPS: readonly MenuGroup[] = [
     key: "missa",
     title: "Missa",
     subtitle: { cs: "Mše svatá", en: "Holy Mass" },
+    icon: "chalice",
+    color: "#B8860B",
     sections: [
       { heading: "Ordo Missæ", keys: [
         "confiteor", "kyrie", "gloria_in_excelsis", "praefatio_dialog", "sanctus",
@@ -76,18 +96,24 @@ export const MENU_GROUPS: readonly MenuGroup[] = [
     key: "litaniae",
     title: "Litaníæ",
     subtitle: { cs: "Litanie", en: "Litanies" },
+    icon: "list",
+    color: "#3949AB",
     sections: [{ keys: ["loreto", "sacred_heart", "holy_name", "st_joseph", "precious_blood", "saints", "humility"] }],
   },
   {
     key: "defuncti",
     title: "Pro defúnctis",
     subtitle: { cs: "Za zemřelé", en: "For the dead" },
+    icon: "candle",
+    color: "#546E7A",
     sections: [{ keys: ["requiem", "de_profundis", "dies_irae", "defuncti"] }],
   },
   {
     key: "devotiones",
     title: "Devotiónes",
     subtitle: { cs: "Pobožnosti", en: "Devotions" },
+    icon: "heart",
+    color: "#C62828",
     sections: [{ keys: ["brigit", "ioseph"] }],
   },
 ];

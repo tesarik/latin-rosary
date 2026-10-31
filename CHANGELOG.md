@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Changed
+- **A new app icon: the Immaculate Heart** with its flames, the sword and white roses, in a glory of rays, which also heads the link preview beside *Rosarium Latinum*. It replaces the drawn rosary.
+- **Each group on the start screen has its own symbol and colour:** a calendar for *In season*, joined hands for the daily prayers, the crowned Marian monogram, a chalice with the host for the Mass, a candle for the dead, a flaming heart for the devotions.
+
+### Changed
 - **The start screen is regrouped by occasion.** Below the rosary and the chaplet: *Orationes cotidiánæ* (daily prayers), *Ad Beátam Maríam Vírginem* (the Marian antiphons, Sub tuum, Stabat Mater), *Missa* (the Ordo Missæ in the order of the Mass, the sequences, the Leonine prayers after Mass), *Litaníæ*, *Pro defúnctis* (all the prayers for the dead together) and *Devotiónes* (St. Bridget, St. Joseph). The separate tiles for the devotions are gone, and every prayer is in exactly one place. The plan editor and the prayer pages' index follow the same groups. Links, saved places and plans are unchanged.
 
 ### Added

@@ -39,7 +39,7 @@ A small, offline-friendly web app for praying the rosary and other prayers in La
 **On the web**
 
 - **Every prayer has its own page**, in English and Czech: the Latin beside the translation, generated from the app's own texts, so search engines can find them. A button on each page opens the prayer straight in the app (`#pray=<key>`). *About* links to the index.
-- **Link previews**: a shared link shows a picture of the rosary with *Rosarium Latinum* and a short description.
+- **Link previews**: a shared link shows the Immaculate Heart, the app's icon, with *Rosarium Latinum* and a short description.
 
 ## Run locally
 
@@ -91,7 +91,7 @@ On the PR branch, commit `chore: release X.Y.Z`: `npm version X.Y.Z --no-git-tag
   - The components: `MysteryMenu`, `PrayerCard`, `RosaryBeads`, `PrayerSections`, `PlansScreen`, and the header controls.
   - Unit tests: `*.test.ts`.
 - `src/main.tsx`: the entry point, with an error boundary around the app.
-- `public/manifest.webmanifest`, `public/sw.js`, `public/icon.svg`: PWA assets, with PNG renders `icon-180/192/512.png` for iOS and Android (`inkscape icon.svg --export-type=png --export-filename=icon-512.png -w 512 -h 512`).
+- `public/manifest.webmanifest`, `public/sw.js` and the icons `public/icon-48/180/192/512.png`: PWA assets. The icons are rendered from `art/icon-source.png` by `python3 scripts/render-icons.py` (needs Pillow).
 - `public/og-image.svg`: the link-preview image, rendered to `og-image.png` (1200×630) the same way; EB Garamond must be installed.
 - `index.html`: title, description, link-preview tags, theme colour, and the pre-paint theme script.
 - `vite.config.ts`: reads `BASE_PATH` and `SITE_URL`, stamps the version, build date and SW cache version, fills in the link-preview URLs, and writes the prayer pages and sitemap.
