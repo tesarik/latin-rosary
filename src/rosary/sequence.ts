@@ -298,6 +298,9 @@ export type OrdinaryPrayerKey =
   | "sanctus"
   | "agnus_dei"
   | "domine_non_sum_dignus"
+  | "praefatio_dialog"
+  | "ante_communionem"
+  | "post_communionem"
   | "victimae_paschali"
   | "veni_sancte_spiritus"
   | "lauda_sion"
@@ -371,9 +374,12 @@ export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, OrdinaryEntry> = {
   confiteor:            ordinary("Confíteor", { cs: "Vyznávám se", en: "I Confess" }, PRAYER_TYPES.CONFITEOR, "missa"),
   kyrie:                ordinary("Kýrie", { cs: "Pane, smiluj se", en: "Lord, Have Mercy" }, PRAYER_TYPES.KYRIE, "missa"),
   gloria_in_excelsis:   ordinary("Glória in excélsis", { cs: "Sláva na výsostech Bohu", en: "Glory to God in the Highest" }, PRAYER_TYPES.GLORIA_IN_EXCELSIS, "missa"),
+  praefatio_dialog:     ordinary("Sursum corda", { cs: "Vzhůru srdce (před prefací)", en: "Lift Up Your Hearts (before the Preface)" }, PRAYER_TYPES.PRAEFATIO_DIALOG, "missa"),
   sanctus:              ordinary("Sanctus", { cs: "Svatý", en: "Holy, Holy, Holy" }, PRAYER_TYPES.SANCTUS, "missa"),
   agnus_dei:            ordinary("Agnus Dei", { cs: "Beránku Boží", en: "Lamb of God" }, PRAYER_TYPES.AGNUS_DEI, "missa"),
+  ante_communionem:     ordinary("Oratiónes ante Communiónem", { cs: "Modlitby kněze před přijímáním", en: "The Priest's Prayers before Communion" }, PRAYER_TYPES.ANTE_COMMUNIONEM, "missa"),
   domine_non_sum_dignus:ordinary("Dómine, non sum dignus", { cs: "Pane, nejsem hoden", en: "Lord, I Am Not Worthy" }, PRAYER_TYPES.DOMINE_NON_SUM_DIGNUS, "missa"),
+  post_communionem:     ordinary("Oratiónes post Communiónem", { cs: "Modlitby kněze po přijímání", en: "The Priest's Prayers after Communion" }, PRAYER_TYPES.POST_COMMUNIONEM, "missa"),
   victimae_paschali:    ordinary("Víctimæ pascháli laudes", { cs: "Oběti velikonoční (Velikonoce)", en: "To the Paschal Victim (Easter)" }, PRAYER_TYPES.VICTIMAE_PASCHALI, "sequentiae"),
   veni_sancte_spiritus: ordinary("Veni, Sancte Spíritus", { cs: "Duše Svatý, sestup v nás (Letnice)", en: "Come, Holy Ghost (Pentecost)" }, PRAYER_TYPES.VENI_SANCTE_SPIRITUS, "sequentiae"),
   lauda_sion:           ordinary("Lauda Sion", { cs: "Chval, Sione, Spasitele (Boží Tělo)", en: "Sion, Lift Thy Voice (Corpus Christi)" }, PRAYER_TYPES.LAUDA_SION, "sequentiae"),

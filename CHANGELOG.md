@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
-- **Ordo Missæ**, a new group on the start screen with the people's parts of the traditional Latin Mass in the order of the Mass: *Confíteor* (with the *Misereátur* and *Indulgéntiam*), *Kýrie*, *Glória in excélsis*, *Sanctus* with the *Benedíctus*, *Agnus Dei* and *Dómine, non sum dignus*.
+- **Ordo Missæ**, a new group on the start screen with the people's parts of the traditional Latin Mass in the order of the Mass: *Confíteor* (with the *Misereátur* and *Indulgéntiam*), *Kýrie*, *Glória in excélsis*, the dialogue before the Preface (*Sursum corda*), *Sanctus* with the *Benedíctus*, *Agnus Dei*, the priest's prayers before Communion (with *Panem cæléstem accípiam*), *Dómine, non sum dignus*, and the priest's prayers after Communion (*Quod ore súmpsimus*, *Corpus tuum*).
 - **Sequéntiæ**, a group with the missal's sequences: *Víctimæ pascháli laudes*, *Veni, Sancte Spíritus*, *Lauda Sion* and *Stabat Mater*, joined by *Dies iræ*, which moves here from the *Orationes utilissimæ* (its page and plan steps are unchanged).
 - All of them in Czech from Schaller's *Římský misál* (1931) and in English from the *Saint Andrew Daily Missal*. Each has its own web page, and both groups are offered in the plan editor.
 

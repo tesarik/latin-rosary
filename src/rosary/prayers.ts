@@ -65,6 +65,9 @@ export const PRAYER_TYPES = {
   SANCTUS: "sanctus",
   AGNUS_DEI: "agnus_dei",
   DOMINE_NON_SUM_DIGNUS: "domine_non_sum_dignus",
+  PRAEFATIO_DIALOG: "praefatio_dialog",
+  ANTE_COMMUNIONEM: "ante_communionem",
+  POST_COMMUNIONEM: "post_communionem",
   VICTIMAE_PASCHALI: "victimae_paschali",
   VENI_SANCTE_SPIRITUS: "veni_sancte_spiritus",
   LAUDA_SION: "lauda_sion",
@@ -443,6 +446,29 @@ Agnus Dei, qui tollis peccáta mundi, miserére nobis.
 Agnus Dei, qui tollis peccáta mundi, dona nobis pacem.`,
 
   [PRAYER_TYPES.DOMINE_NON_SUM_DIGNUS]: `Dómine, non sum dignus, ut intres sub tectum meum: sed tantum dic verbo, et sanábitur ánima mea. 3×`,
+
+  // The dialogue before the Preface, and the priest's prayers before and
+  // after his Communion (Schallerův Římský misál, 1931).
+  [PRAYER_TYPES.PRAEFATIO_DIALOG]: `℣ Per ómnia sǽcula sæculórum.
+℟ Amen.
+℣ Dóminus vobíscum.
+℟ Et cum spíritu tuo.
+℣ Sursum corda.
+℟ Habémus ad Dóminum.
+℣ Grátias agámus Dómino, Deo nostro.
+℟ Dignum et iustum est.`,
+
+  [PRAYER_TYPES.ANTE_COMMUNIONEM]: `Dómine Iesu Christe, qui dixísti Apóstolis tuis: Pacem relínquo vobis, pacem meam do vobis: ne respícias peccáta mea, sed fidem Ecclésiæ tuæ: eámque secúndum voluntátem tuam pacificáre et coadunáre dignéris: qui vivis et regnas Deus, per ómnia sǽcula sæculórum. Amen.
+
+Dómine Iesu Christe, Fili Dei vivi, qui ex voluntáte Patris, cooperánte Spíritu Sancto, per mortem tuam mundum vivificásti: líbera me per hoc sacrosánctum Corpus et Sánguinem tuum ab ómnibus iniquitátibus meis, et univérsis malis: et fac me tuis semper inhærére mandátis, et a te numquam separári permíttas: qui cum eódem Deo Patre et Spíritu Sancto vivis et regnas Deus, in sǽcula sæculórum. Amen.
+
+Percéptio Córporis tui, Dómine Iesu Christe, quod ego indígnus súmere præsúmo, non mihi provéniat in iudícium et condemnatiónem: sed pro tua pietáte prosit mihi ad tutaméntum mentis et córporis, et ad medélam percipiéndam: qui vivis et regnas cum Deo Patre in unitáte Spíritus Sancti Deus, per ómnia sǽcula sæculórum. Amen.
+
+Panem cæléstem accípiam, et nomen Dómini invocábo.`,
+
+  [PRAYER_TYPES.POST_COMMUNIONEM]: `Quod ore súmpsimus, Dómine, pura mente capiámus: et de múnere temporáli fiat nobis remédium sempitérnum.
+
+Corpus tuum, Dómine, quod sumpsi, et Sanguis, quem potávi, adhǽreat viscéribus meis: et præsta; ut in me non remáneat scélerum mácula, quem pura et sancta refecérunt sacraménta: qui vivis et regnas in sǽcula sæculórum. Amen.`,
 
   // The sequences, as in Schallerův Římský misál (1931): Easter, Pentecost,
   // Corpus Christi, and the Friday of Passion Week / 15 September.
@@ -1734,6 +1760,27 @@ Beránku Boží, který snímáš hříchy světa, uděl nám pokoje.`,
 
   [PRAYER_TYPES.DOMINE_NON_SUM_DIGNUS]: `Pane, nejsem hoden, abys vešel pod střechu mou, ale toliko rci slovem, a uzdravena bude duše má. 3×`,
 
+  [PRAYER_TYPES.PRAEFATIO_DIALOG]: `℣ Po všecky věky věkův.
+℟ Amen.
+℣ Pán s vámi.
+℟ I s duchem tvým.
+℣ Vzhůru srdce.
+℟ Máme k Hospodinu.
+℣ Díky vzdejme Hospodinu, Bohu svému.
+℟ Hodno a spravedlivo jest.`,
+
+  [PRAYER_TYPES.ANTE_COMMUNIONEM]: `Pane Ježíši Kriste, jenž jsi pravil Apoštolům svým: Pokoj zůstavuji vám, pokoj svůj dávám vám, nehleď na hříchy mé, nýbrž na víru Církve své a rač jí podle vůle své uděliti mír a jednotu, jenž žiješ a kraluješ Bůh, po všecky věky věkův. Amen.
+
+Pane Ježíši Kriste, Synu Boha živého, jenž jsi z vůle Otce spolupůsobením Ducha Svatého smrtí svou svět oživil, sprosť mne tímto svatosvatým Tělem a Krví svou všech nepravostí mých a veškerých běd a učiň, abych lnul vždy ke tvým přikázáním, a nedopusť, abych se kdy od tebe odloučil, jenž s týmž Otcem a Duchem Svatým žiješ a kraluješ Bůh, na věky věkův. Amen.
+
+Požití Těla tvého, Pane Ježíši Kriste, jež já nehodný odvažuji se přijmouti, nebudiž mi k odsouzení a zatracení, nýbrž pro dobrotivost tvou prospívejž mi k ochraně duše a těla a k vyléčení, jenž žiješ a kraluješ s Bohem Otcem v jednotě Ducha Svatého Bůh, po všecky věky věkův. Amen.
+
+Chléb nebeský přijmu a jméno Páně vzývati budu.`,
+
+  [PRAYER_TYPES.POST_COMMUNIONEM]: `Čeho jsme ústy požili, Pane, kéž čistou myslí pojmeme a nechť z daru časného stane se nám lék věčný.
+
+Nechť Tělo tvé, Pane, jež jsem požil, a Krev, kterou jsem pil, utkví v útrobách mých, a dej, ať nezůstane poskvrna hříchů ve mně, jejž čisté a svaté občerstvily Svátosti, jenž žiješ a kraluješ na věky věkův. Amen.`,
+
   [PRAYER_TYPES.VICTIMAE_PASCHALI]: `Oběti velikonoční chvály ať křesťané obětují.
 Beránek ovce vykoupil; Kristus nevinný Otce se hříšníky smířil.
 Smrt a život soubojem utkaly se podivným; kníže života zemřev, vládne živý.
@@ -2995,6 +3042,28 @@ Lamb of God, who takest away the sins of the world, have mercy on us.
 Lamb of God, who takest away the sins of the world, grant us peace.`,
 
   [PRAYER_TYPES.DOMINE_NON_SUM_DIGNUS]: `Lord, I am not worthy that Thou shouldst enter under my roof: say but the word and my soul shall be healed. 3×`,
+
+  // The priest's Communion prayers: OCR of the Saint Andrew missal, joined.
+  [PRAYER_TYPES.PRAEFATIO_DIALOG]: `℣ World without end.
+℟ Amen.
+℣ The Lord be with you.
+℟ And with thy spirit.
+℣ Lift up your hearts.
+℟ We lift them up unto the Lord.
+℣ Let us give thanks to the Lord our God.
+℟ It is meet and right.`,
+
+  [PRAYER_TYPES.ANTE_COMMUNIONEM]: `O Lord Jesus Christ, who saidst to Thy Apostles, Peace I leave with you, My peace I give unto you; look not upon my sins, but upon the faith of Thy Church; and vouchsafe to grant her peace and unity according to Thy will: O God, who livest and reignest world without end. Amen.
+
+O Lord Jesus Christ, Son of the living God, who according to the will of the Father, through the co-operation of the Holy Ghost, hast by Thy death given life to the world: deliver me by this Thy most holy Body and Blood from all my transgressions and from all evils; make me always adhere to Thy commandments and suffer me never to be separated from Thee; Who with the same God the Father and the Holy Ghost livest and reignest, God, for ever and ever. Amen.
+
+Let not the partaking of Thy Body, O Lord Jesus Christ, which I, though unworthy, presume to receive, turn to my judgment and condemnation; but through Thy goodness may it be unto me for a safeguard and a healing remedy both of soul and body; who livest and reignest with God the Father in the unity of the Holy Ghost, God, world without end. Amen.
+
+I will take the bread of heaven, and call upon the name of the Lord.`,
+
+  [PRAYER_TYPES.POST_COMMUNIONEM]: `Grant, O Lord, that what we have taken with our mouth, we may receive with a pure mind: and that from a temporal gift it may become for us an eternal remedy.
+
+May Thy Body, O Lord, which I have received, and Thy Blood which I have drunk, cleave to my inmost parts, and grant that no stain of sin may remain in me, whom these pure and holy sacraments have refreshed. Who livest and reignest world without end. Amen.`,
 
   [PRAYER_TYPES.VICTIMAE_PASCHALI]: `Forth to the paschal Victim, Christians, bring Your sacrifice of praise:
 The Lamb redeems the sheep; And Christ the sinless one, Hath to the Father sinners reconciled.
