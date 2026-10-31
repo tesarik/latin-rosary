@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.23.0]
+
 ### Added
 - **More prayers**, with Latin, Czech and English:
   - **Daily prayers:** grace before and after meals (*Benedíctio mensæ*, *Gratiárum áctio*), St. Ignatius's *Súscipe*, St. Thomas Aquinas's prayer before study *Creátor ineffábilis* (its Czech is our own translation), and *Nunc dimíttis* for the night.
