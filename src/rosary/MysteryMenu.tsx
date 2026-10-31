@@ -205,10 +205,12 @@ function GroupIcon({ name, color }: { name: GroupIconName; color: string }) {
           <circle cx="10" cy="12.75" r="1.4" fill={color} />
         </>;
       case "hands":
-        // Two palms joined in prayer, fingertips up.
+        // Two palms joined in prayer, fingertips up: one smooth pointed
+        // outline, the line where the palms meet, and the cuffs below.
         return <>
-          <path d="M10 2.5 C8.4 4.5 6.5 8 6.5 11 V14 L4.5 17.5 H10 Z" {...line} />
-          <path d="M10 2.5 C11.6 4.5 13.5 8 13.5 11 V14 L15.5 17.5 H10 Z" {...line} />
+          <path d="M10 2.5 C12.4 4.6 14 7.8 14 11.2 C14 13.2 13.4 14.6 12.6 15.6 H7.4 C6.6 14.6 6 13.2 6 11.2 C6 7.8 7.6 4.6 10 2.5 Z" {...line} />
+          <line x1="10" y1="5" x2="10" y2="15.6" {...line} />
+          <path d="M6.8 15.6 L5.8 17.6 H14.2 L13.2 15.6" {...line} />
         </>;
       case "marian":
         // The Marian monogram under a crown.
