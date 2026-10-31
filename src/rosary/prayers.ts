@@ -1330,26 +1330,26 @@ Ať odpočívají v pokoji. Amen.`,
 9. Nepožádáš manželky bližního svého.
 10. Aniž požádáš statku jeho.`,
 
-  // Žalm 130 follows the Czech Liturgy of the Hours (ČBK 2018, Wednesday
-  // Compline), which translates the Hebrew, so its lines only roughly match
-  // the Vulgate's (Schaller's missal prints only verses 1–4, as a tract).
-  // The versicles and the collect are Schaller's (the collect from 2
-  // November, its abbreviated ending completed; the versicles from the
-  // Litany of the Saints in its appendix), except "A porta ínferi", which
-  // the missal lacks: that pair is ours.
-  [PRAYER_TYPES.DE_PROFUNDIS]: `Z hlubin volám k tobě, Hospodine, Pane, vyslyš můj hlas!
-Tvůj sluch ať je nakloněn k mé snažné prosbě!
-Budeš-li uchovávat v paměti viny, Hospodine, Pane, kdo obstojí?
-Ale u tebe je odpuštění, abychom ti mohli v úctě sloužit.
-Doufám v Hospodina, duše má doufá v jeho slovo,
-má duše čeká na Pána více než stráže na svítání. Více než stráže na svítání ať čeká Izrael na Hospodina,
-neboť u Hospodina je slitování, hojné je u něho vykoupení.
-On vykoupí Izraele ze všech jeho provinění.
+  // The psalm follows the Czech burial rite (Manuale rituum in cura animarum,
+  // 1955, p. 98–99: "podle nového Psalteria", the 1945 Latin psalter, so a
+  // few lines word it differently from the Vulgate), its verses 6–7 joined to
+  // keep the Latin's line structure. "A porta ínferi" is from the same rite
+  // (p. 120). The other versicles and the collect are Schaller's (Římský
+  // misál, 1931: the collect from 2 November, its abbreviated ending
+  // completed; the versicles from the Litany of the Saints in its appendix).
+  [PRAYER_TYPES.DE_PROFUNDIS]: `Z hlubin volám k tobě, Hospodine, Hospodine, vyslyš hlas můj!
+Nakloň sluch svůj milostivě k hlasu úpěnlivé modlitby mé.
+Budeš-li, ó Pane, viny vážit, Hospodine, kdož obstojí?
+Ale u tebe je hříchů odpuštění, aby sloužilo se tobě s uctivostí.
+Proto důvěřuji v Hospodina, duše moje doufá v slovo jeho.
+Na Pána má duše více čeká nežli noční stráže na svítání. Více nežli stráže na svítání na Pána ty čekej, lide věrný.
+Neboť u Pána je slitování, hojné u něho je vykoupení.
+A on vysvobodí lid svůj věrný ze všelikých jeho nepravostí.
 
 ℣ Odpočinutí věčné dejž jim, Pane.
 ℟ A světlo věčné ať jim svítí.
-℣ Od brány pekelné
-℟ vysvoboď, Pane, jejich duše.
+℣ Od moci temnoty
+℟ Vysvoboď, Pane, duše jejich.
 ℣ Ať odpočívají v pokoji.
 ℟ Amen.
 ℣ Pane, vyslyš modlitbu mou.

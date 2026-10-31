@@ -120,10 +120,10 @@ const NOTES: Record<string, Partial<Localized>> = {
     en: "The English is our own literal translation, line for line with the Latin.",
   },
   de_profundis: {
-    cs: "Žalm podle Liturgie hodin, verše a závěrečná modlitba podle Schallerova Římského misálu (1931); jen verš „Od brány pekelné“ je naše vlastní znění.",
+    cs: "Žalm a verš „Od moci temnoty“ podle českého pohřebního obřadu (Manuale rituum, 1955), ostatní verše a závěrečná modlitba podle Schallerova Římského misálu (1931).",
   },
   defuncti: {
-    cs: "Žalm podle Liturgie hodin, verše a závěrečná modlitba podle Schallerova Římského misálu (1931); jen verš „Od brány pekelné“ je naše vlastní znění.",
+    cs: "Žalm a verš „Od moci temnoty“ podle českého pohřebního obřadu (Manuale rituum, 1955), ostatní verše a závěrečná modlitba podle Schallerova Římského misálu (1931).",
   },
   ioseph: {
     cs: "Krátká latinská podoba pobožnosti: sedm nadpisů, ke každému Otče náš, Zdrávas a Sláva Otci, a modlitba Vírginum custos. Český překlad nadpisů je náš vlastní.",
