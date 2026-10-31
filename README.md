@@ -101,7 +101,7 @@ React 18, Vite 6, TypeScript (strict mode), Vitest. No CSS framework, no router,
 
 ## Sources
 
-The Latin and most of the Czech prayer texts are transcribed from `Posvátný růženec latinsko – česky.pdf` (not included in the repo) and other printed and liturgical sources. The English texts follow the received traditional English forms and were checked against published witnesses. A few texts have no authoritative original and are our own, such as the St. Bridget prayers, the Latin of the chaplet's optional prayers, the Czech and English of the *Dies iræ*, and the Czech and English headings of St. Joseph's sorrows and joys. `src/rosary/prayers.ts` records where each text comes from.
+The Latin and most of the Czech prayer texts are transcribed from `Posvátný růženec latinsko – česky.pdf` (not included in the repo) and other printed and liturgical sources; the Czech *Dies iræ* and most of the Czech prayers for the dead come from Schaller's *Římský misál* (1931). The English texts follow the received traditional English forms and were checked against published witnesses. A few texts have no authoritative original and are our own, such as the St. Bridget prayers, the Latin of the chaplet's optional prayers, the English of the *Dies iræ*, and the Czech and English headings of St. Joseph's sorrows and joys. `src/rosary/prayers.ts` records where each text comes from.
 
 ## License
 

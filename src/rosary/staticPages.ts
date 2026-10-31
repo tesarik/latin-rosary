@@ -116,14 +116,14 @@ const NOTES: Record<string, Partial<Localized>> = {
     en: "The Latin of these prayers is our own translation: no authoritative Latin original is known.",
   },
   dies_irae: {
-    cs: "Český překlad je náš vlastní, doslovný, řádek po řádku podle latiny.",
+    cs: "Český překlad podle Schallerova Římského misálu (1931).",
     en: "The English is our own literal translation, line for line with the Latin.",
   },
   de_profundis: {
-    cs: "Žalm podle Liturgie hodin; verše a závěrečná modlitba jsou v češtině naše vlastní znění.",
+    cs: "Žalm podle Liturgie hodin, verše a závěrečná modlitba podle Schallerova Římského misálu (1931); jen verš „Od brány pekelné“ je naše vlastní znění.",
   },
   defuncti: {
-    cs: "Žalm podle Liturgie hodin; verše a závěrečná modlitba jsou v češtině naše vlastní znění.",
+    cs: "Žalm podle Liturgie hodin, verše a závěrečná modlitba podle Schallerova Římského misálu (1931); jen verš „Od brány pekelné“ je naše vlastní znění.",
   },
   ioseph: {
     cs: "Krátká latinská podoba pobožnosti: sedm nadpisů, ke každému Otče náš, Zdrávas a Sláva Otci, a modlitba Vírginum custos. Český překlad nadpisů je náš vlastní.",

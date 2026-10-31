@@ -1332,8 +1332,11 @@ Ať odpočívají v pokoji. Amen.`,
 
   // Žalm 130 follows the Czech Liturgy of the Hours (ČBK 2018, Wednesday
   // Compline), which translates the Hebrew, so its lines only roughly match
-  // the Vulgate's. The versicles are ours; the collect is ours as in the
-  // Litany of the Saints.
+  // the Vulgate's (Schaller's missal prints only verses 1–4, as a tract).
+  // The versicles and the collect are Schaller's (the collect from 2
+  // November, its abbreviated ending completed; the versicles from the
+  // Litany of the Saints in its appendix), except "A porta ínferi", which
+  // the missal lacks: that pair is ours.
   [PRAYER_TYPES.DE_PROFUNDIS]: `Z hlubin volám k tobě, Hospodine, Pane, vyslyš můj hlas!
 Tvůj sluch ať je nakloněn k mé snažné prosbě!
 Budeš-li uchovávat v paměti viny, Hospodine, Pane, kdo obstojí?
@@ -1343,96 +1346,96 @@ má duše čeká na Pána více než stráže na svítání. Více než stráže
 neboť u Hospodina je slitování, hojné je u něho vykoupení.
 On vykoupí Izraele ze všech jeho provinění.
 
-℣ Odpočinutí věčné dej jim, Pane.
+℣ Odpočinutí věčné dejž jim, Pane.
 ℟ A světlo věčné ať jim svítí.
 ℣ Od brány pekelné
 ℟ vysvoboď, Pane, jejich duše.
 ℣ Ať odpočívají v pokoji.
 ℟ Amen.
-℣ Pane, vyslyš mou modlitbu.
-℟ A mé volání ať k tobě dojde.
+℣ Pane, vyslyš modlitbu mou.
+℟ A volání mé k tobě přijď.
 
 Modleme se.
-Bože, Stvořiteli a Vykupiteli všech věřících, dej duším svých služebníků a služebnic odpuštění všech hříchů: ať skrze zbožné prosby dosáhnou prominutí, po němž vždy toužily. Neboť ty žiješ a kraluješ na věky věků.
+Bože, všech věřících Stvořiteli a Vykupiteli, uděl duším svých služebníků a služebnic odpuštění všech hříchů, aby prominutí, kterého si vždycky žádali, pokornými prosbami dosáhli. Jenž žiješ a kraluješ na věky věkův.
 ℟ Amen.`,
 
-  // Dies iræ — OUR OWN literal translation, line for line with the Latin. The
-  // classic Czech version (Schaller's missal) is a rhymed rendering still
-  // under copyright.
-  [PRAYER_TYPES.DIES_IRAE]: `Den hněvu, onen den
-obrátí svět v popel,
-jak svědčí David se Sibylou.
+  // Dies iræ — Czech from Schallerův Římský misál (1931), 2 November, the
+  // rhymed rendering printed beside the Latin, split into lines by its rhymes
+  // so it keeps the Latin's line structure. Spelling as printed (Jesu, že's).
+  [PRAYER_TYPES.DIES_IRAE]: `„Onen den, den hněvu lkavý
+zruší čas, dým vzejde tmavý,“
+David, Sibylla tak praví.
 
-Jaké chvění nastane,
-až přijde Soudce,
-aby vše přísně rozsoudil!
+Strašné chvění, bázeň hrozná,
+až se tvorstvo Soudci přizná,
+jenž hned řeší vše a pozná.
 
-Polnice, šířící podivuhodný zvuk
-hroby všech krajů,
-svolá všechny před trůn.
+Zní hlas trouby divně duně,
+volá spáče v hrobu lůně,
+Pán kde sedí na svém trůně.
 
-Smrt i příroda užasnou,
-až stvoření vstane,
-aby se zodpovídalo Soudci.
+Smrt a příroda tu trnou,
+když se těla z hrobu hrnou
+k Soudci, každý s hříšnou skvrnou.
 
-Bude přinesena psaná kniha,
-v níž je obsaženo vše,
-podle čeho bude svět souzen.
+Přinesena psaná kniha,
+je v ní všecka hříchů tíha,
+z ní pak Soudce viny stíhá.
 
-Až tedy Soudce usedne,
-vyjde najevo vše, co je skryto:
-nic nezůstane nepotrestáno.
+Soudce zasedat až bude,
+zjeví se, co skryto všude.
+Bez pomsty zda něco zbude?
 
-Co tehdy řeknu já ubohý?
-Kterého zastánce poprosím,
-když sotva spravedlivý bude v bezpečí?
+Co mám, běda, promluviti?
+Obhájcem kdo má mi býti,
+když i dobrý hrůzu cítí?
 
-Králi hrozné velebnosti,
-jenž ty, kdo mají být spaseni, spasíš darem,
-spas mne, prameni dobroty.
+Hrůzné Velebnosti Králi!
+Spasiž, kdož si spásy přáli.
+Spas mne, Lásky zdroji stálý!
 
-Pamatuj, dobrotivý Ježíši,
-že jsem příčinou tvé cesty:
-nezatrať mne v onen den.
+Vzpomeň si, o Jesu milý,
+že's šel pro mě k svému cíli.
+Nezatrať mne v oné chvíli!
 
-Hledaje mne, usedl jsi znaven,
-vykoupil jsi mne, trpě na kříži:
-ať tolik námahy není nadarmo.
+Klesl's, hledaje mne, znaven.
+Pro mne byl kůl Kříže vstaven.
+Nebuď čin ten plodů zbaven!
 
-Spravedlivý Soudce trestu,
-daruj mi odpuštění
-přede dnem zúčtování.
+Soudce pomsty spravedlivé,
+dej dar odpuštění dříve,
+nežli sečteš viny křivé!
 
-Lkám jako provinilec,
-vina mi rdí tvář:
-ušetři prosícího, Bože.
+Sténám pod vinami svými,
+líce hříchy rumění mi.
+Slituj se nad vzdechy mými!
 
-Ty, jenž jsi Marii rozhřešil
-a lotra vyslyšel,
-i mně jsi dal naději.
+Marii's dal rozhřešení,
+lotr hříšníkem již není,
+já též čekám vykoupení.
 
-Mé prosby nejsou hodny,
-ale ty, dobrý, učiň laskavě,
-ať nehořím ve věčném ohni.
+Nehodně tě prosím, Pane,
+dobrotou však tvou se stane:
+kol mne oheň nezaplane.
 
-Dej mi místo mezi ovcemi,
-odděl mne od kozlů
-a postav mne po své pravici.
+Rač mne mezi ovce vzíti,
+od kozlů mne odděliti,
+dej mi po pravici dlíti!
 
-Až budou zlořečení zahanbeni
-a vydáni prudkým plamenům,
-povolej mne s požehnanými.
+Až se zachvějí kdys klatí,
+až je ostrý plamen schvátí,
+rač mne k sobě povolati!
 
-Prosím pokorně a skloněn,
-srdce zkroušené jako popel:
-postarej se o můj konec.
+Duše prosí, lká, se rmoutí,
+v popel mé se srdce hroutí,
+rač smrt dobrou poskytnouti!
 
-Slzavý bude onen den,
-kdy z popela vstane
-provinilý člověk k soudu.
-Jemu tedy odpusť, Bože:
-dobrotivý Pane Ježíši,
-dej jim odpočinutí. Amen.`,
+Slzavým dnem bude, Pane,
+o němž vinník k Soudu vstane
+z hrobového svého lože!
+Tohoto pak šetři, Bože!
+Milý Pane Ježíši,
+dej jim odpočinutí! Amen.`,
 
   // Czech sourced verbatim from angelus-domini-anima-christi.pdf.
   [PRAYER_TYPES.ANGELUS]: `℣ Anděl Páně zvěstoval Panně Marii.
