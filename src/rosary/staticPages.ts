@@ -117,7 +117,7 @@ const NOTES: Record<string, Partial<Localized>> = {
   },
   dies_irae: {
     cs: "Český překlad podle Schallerova Římského misálu (1931).",
-    en: "The English is our own literal translation, line for line with the Latin.",
+    en: "The English is W. J. Irons' verse translation, as printed in the Saint Andrew Daily Missal.",
   },
   de_profundis: {
     cs: "Žalm a verš „Od moci temnoty“ podle českého pohřebního obřadu (Manuale rituum, 1955), ostatní verše a závěrečná modlitba podle Schallerova Římského misálu (1931).",

@@ -2361,83 +2361,82 @@ Let us pray.
 O God, the Creator and Redeemer of all the faithful, give to the souls of thy servants departed the remission of all their sins: that, through pious supplication, they may obtain the pardon which they have always desired. Who livest and reignest world without end.
 ℟ Amen.`,
 
-  // Dies iræ — OUR OWN literal translation, line for line with the Latin.
-  // Irons' 1849 verse translation exists in several altered hymnal versions,
-  // none of which we could check against his original.
-  [PRAYER_TYPES.DIES_IRAE]: `Day of wrath, that day
-will dissolve the world in ashes,
-as David bears witness with the Sibyl.
+  // Dies iræ — W. J. Irons' verse translation as printed in the Saint Andrew
+  // Daily Missal (Lefebvre), Mass for the Dead, beside the Latin line by line.
+  [PRAYER_TYPES.DIES_IRAE]: `Day of wrath! O day of mourning,
+See fulfilled the prophets' warning;
+Heaven and earth in ashes burning.
 
-How great a trembling there will be,
-when the Judge shall come
-to weigh all things strictly!
+Oh, what fear man's bosom rendeth
+When from heaven the Judge descendeth,
+On whose sentence all dependeth!
 
-The trumpet, spreading its wondrous sound
-through the tombs of every land,
-will gather all before the throne.
+Wondrous sound the trumpet flingeth,
+Through earth's sepulchres it ringeth,
+All before the throne it bringeth.
 
-Death and nature will stand amazed,
-when creation rises again
-to answer to the Judge.
+Death is struck, and nature quaking,
+All creation is awaking,
+To its Judge an answer making.
 
-The written book will be brought forth,
-in which all is contained,
-by which the world shall be judged.
+Lo! the book exactly worded,
+Wherein all hath been recorded;
+Thence shall judgment be awarded.
 
-When therefore the Judge is seated,
-whatever is hidden will appear:
-nothing will remain unpunished.
+When the Judge His seat attaineth,
+And each hidden deed arraigneth,
+Nothing unavenged remaineth.
 
-What shall I, wretched, say then?
-What patron shall I entreat,
-when even the just is scarcely safe?
+What shall I, frail man, be pleading?
+Who for me be interceding,
+When the just are mercy needing?
 
-King of tremendous majesty,
-who freely savest those who are saved,
-save me, fount of mercy.
+King of majesty tremendous,
+Who dost free salvation send us,
+Fount of pity, then befriend us!
 
-Remember, kind Jesus,
-that I am the cause of thy journey:
-do not lose me on that day.
+Think, good Jesus, my salvation
+Caused Thy wondrous Incarnation;
+Leave me not to reprobation.
 
-Seeking me, thou didst sit down weary;
-thou didst redeem me, suffering the Cross:
-let not such labour be in vain.
+Faint and weary Thou hast sought me,
+On the cross of suffering bought me;
+Shall such grace be vainly brought me?
 
-Just Judge of vengeance,
-grant the gift of remission
-before the day of reckoning.
+Righteous Judge! for sin's pollution
+Grant Thy gift of absolution,
+Ere that day of retribution.
 
-I groan, as one guilty;
-my face reddens with my fault:
-spare thy suppliant, O God.
+Guilty, now I pour my moaning,
+All my shame with anguish owning;
+Spare, O God, Thy suppliant groaning.
 
-Thou who didst absolve Mary,
-and didst hear the thief,
-hast given hope to me as well.
+Thou the sinful woman savedst;
+Thou the dying thief forgavest;
+And to me a hope vouchsafest.
 
-My prayers are not worthy,
-but thou, good Lord, in kindness grant
-that I burn not in the everlasting fire.
+Worthless are my prayers and sighing;
+Yet, good Lord, in grace complying,
+Rescue me from fires undying.
 
-Grant me a place among the sheep,
-and set me apart from the goats,
-placing me on thy right hand.
+With Thy favored sheep O place me,
+Nor among the goats abase me,
+But to Thy right hand upraise me.
 
-When the accursed are confounded
-and given over to bitter flames,
-call me with the blessed.
+While the wicked are confounded,
+Doomed to flames of woe unbounded,
+Call me with Thy saints surrounded.
 
-I pray, suppliant and bowed down,
-my heart contrite as ashes:
-take thou care of my end.
+Low I kneel, with heart-submission,
+See, like ashes, my contrition;
+Help me in my last condition.
 
-Tearful will be that day,
-on which from the ashes shall rise
-guilty man to be judged.
-Spare him therefore, O God:
-merciful Lord Jesus,
-grant them rest. Amen.`,
+Ah! that day of tears and mourning!
+From the dust of earth returning
+Man for judgment must prepare him.
+Spare, O God, in mercy spare him!
+Lord, all pitying, Jesu blest,
+Grant them Thine eternal rest. Amen.`,
 
   [PRAYER_TYPES.ANGELUS]: `℣ The Angel of the Lord declared unto Mary.
 ℟ And she conceived of the Holy Spirit.
