@@ -54,6 +54,10 @@ export const PRAYER_TYPES = {
   ANGELE_DEI: "angele_dei",
   REQUIEM: "requiem",
   DECALOGUE: "decalogue",
+  // For the dead: Psalm 129 with the versicles and collect it is prayed with,
+  // and the sequence of the Requiem Mass.
+  DE_PROFUNDIS: "de_profundis",
+  DIES_IRAE: "dies_irae",
   ANGELUS: "angelus",
   REGINA_CAELI: "regina_caeli",
   ANIMA_CHRISTI: "anima_christi",
@@ -299,6 +303,109 @@ Requiéscant in pace. Amen.`,
 8. Non loquéris contra próximum tuum falsum testimónium.
 9. Non desiderábis uxórem eius.
 10. Non concupísces eius bona.`,
+
+  // De profúndis (Ps 129, Vulgate, checked against drbo.org) with the
+  // versicles and the Fidélium, Deus collect it is traditionally said with for
+  // the dead (the collect as in the Litany of the Saints above, with its
+  // long ending).
+  [PRAYER_TYPES.DE_PROFUNDIS]: `De profúndis clamávi ad te, Dómine: Dómine, exáudi vocem meam.
+Fiant aures tuæ intendéntes in vocem deprecatiónis meæ.
+Si iniquitátes observáveris, Dómine: Dómine, quis sustinébit?
+Quia apud te propitiátio est: et propter legem tuam sustínui te, Dómine.
+Sustínuit ánima mea in verbo eius: sperávit ánima mea in Dómino.
+A custódia matutína usque ad noctem: speret Israël in Dómino.
+Quia apud Dóminum misericórdia: et copiósa apud eum redémptio.
+Et ipse rédimet Israël ex ómnibus iniquitátibus eius.
+
+℣ Réquiem ætérnam dona eis, Dómine.
+℟ Et lux perpétua lúceat eis.
+℣ A porta ínferi.
+℟ Erue, Dómine, ánimas eórum.
+℣ Requiéscant in pace.
+℟ Amen.
+℣ Dómine, exáudi oratiónem meam.
+℟ Et clamor meus ad te véniat.
+
+Orémus.
+Fidélium, Deus ómnium Cónditor et Redémptor, animábus famulórum famularúmque tuárum remissiónem cunctórum tríbue peccatórum: ut indulgéntiam, quam semper optavérunt, piis supplicatiónibus consequántur. Qui vivis et regnas in sǽcula sæculórum.
+℟ Amen.`,
+
+  // Dies iræ, the sequence of the Requiem Mass (Missale Romanum 1962),
+  // checked word for word against the Latin at ikatolici.cz.
+  [PRAYER_TYPES.DIES_IRAE]: `Dies iræ, dies illa,
+solvet sæclum in favílla:
+teste David cum Sibýlla.
+
+Quantus tremor est futúrus,
+quando iudex est ventúrus,
+cuncta stricte discussúrus!
+
+Tuba, mirum spargens sonum
+per sepúlchra regiónum,
+coget omnes ante thronum.
+
+Mors stupébit et natúra,
+cum resúrget creatúra,
+iudicánti responsúra.
+
+Liber scriptus proferétur,
+in quo totum continétur,
+unde mundus iudicétur.
+
+Iudex ergo cum sedébit,
+quidquid latet, apparébit:
+nil inúltum remanébit.
+
+Quid sum miser tunc dictúrus?
+Quem patrónum rogatúrus,
+cum vix iustus sit secúrus?
+
+Rex treméndæ maiestátis,
+qui salvándos salvas gratis,
+salva me, fons pietátis.
+
+Recordáre, Iesu pie,
+quod sum causa tuæ viæ:
+ne me perdas illa die.
+
+Quærens me, sedísti lassus:
+redemísti Crucem passus:
+tantus labor non sit cassus.
+
+Iuste iudex ultiónis,
+donum fac remissiónis
+ante diem ratiónis.
+
+Ingemísco, tamquam reus:
+culpa rubet vultus meus:
+supplicánti parce, Deus.
+
+Qui Maríam absolvísti,
+et latrónem exaudísti,
+mihi quoque spem dedísti.
+
+Preces meæ non sunt dignæ:
+sed tu bonus fac benígne,
+ne perénni cremer igne.
+
+Inter oves locum præsta,
+et ab hædis me sequéstra,
+státuens in parte dextra.
+
+Confutátis maledíctis,
+flammis ácribus addíctis:
+voca me cum benedíctis.
+
+Oro supplex et acclínis,
+cor contrítum quasi cinis:
+gere curam mei finis.
+
+Lacrimósa dies illa,
+qua resúrget ex favílla
+iudicándus homo reus.
+Huic ergo parce, Deus:
+pie Iesu Dómine,
+dona eis réquiem. Amen.`,
 
   // Source: angelus-domini-anima-christi.pdf.
   [PRAYER_TYPES.ANGELUS]: `℣ Angelus Dómini nuntiávit Maríæ.
@@ -1223,6 +1330,113 @@ Ať odpočívají v pokoji. Amen.`,
 9. Nepožádáš manželky bližního svého.
 10. Aniž požádáš statku jeho.`,
 
+  // The psalm follows the Czech burial rite (Manuale rituum in cura animarum,
+  // 1955, p. 98–99: "podle nového Psalteria", the 1945 Latin psalter, so a
+  // few lines word it differently from the Vulgate), its verses 6–7 joined to
+  // keep the Latin's line structure. "A porta ínferi" is from the same rite
+  // (p. 120). The other versicles and the collect are Schaller's (Římský
+  // misál, 1931: the collect from 2 November, its abbreviated ending
+  // completed; the versicles from the Litany of the Saints in its appendix).
+  [PRAYER_TYPES.DE_PROFUNDIS]: `Z hlubin volám k tobě, Hospodine, Hospodine, vyslyš hlas můj!
+Nakloň sluch svůj milostivě k hlasu úpěnlivé modlitby mé.
+Budeš-li, ó Pane, viny vážit, Hospodine, kdož obstojí?
+Ale u tebe je hříchů odpuštění, aby sloužilo se tobě s uctivostí.
+Proto důvěřuji v Hospodina, duše moje doufá v slovo jeho.
+Na Pána má duše více čeká nežli noční stráže na svítání. Více nežli stráže na svítání na Pána ty čekej, lide věrný.
+Neboť u Pána je slitování, hojné u něho je vykoupení.
+A on vysvobodí lid svůj věrný ze všelikých jeho nepravostí.
+
+℣ Odpočinutí věčné dejž jim, Pane.
+℟ A světlo věčné ať jim svítí.
+℣ Od moci temnoty
+℟ Vysvoboď, Pane, duše jejich.
+℣ Ať odpočívají v pokoji.
+℟ Amen.
+℣ Pane, vyslyš modlitbu mou.
+℟ A volání mé k tobě přijď.
+
+Modleme se.
+Bože, všech věřících Stvořiteli a Vykupiteli, uděl duším svých služebníků a služebnic odpuštění všech hříchů, aby prominutí, kterého si vždycky žádali, pokornými prosbami dosáhli. Jenž žiješ a kraluješ na věky věkův.
+℟ Amen.`,
+
+  // Dies iræ — Czech from Schallerův Římský misál (1931), 2 November, the
+  // rhymed rendering printed beside the Latin, split into lines by its rhymes
+  // so it keeps the Latin's line structure. Spelling as printed (Jesu, že's).
+  [PRAYER_TYPES.DIES_IRAE]: `„Onen den, den hněvu lkavý
+zruší čas, dým vzejde tmavý,“
+David, Sibylla tak praví.
+
+Strašné chvění, bázeň hrozná,
+až se tvorstvo Soudci přizná,
+jenž hned řeší vše a pozná.
+
+Zní hlas trouby divně duně,
+volá spáče v hrobu lůně,
+Pán kde sedí na svém trůně.
+
+Smrt a příroda tu trnou,
+když se těla z hrobu hrnou
+k Soudci, každý s hříšnou skvrnou.
+
+Přinesena psaná kniha,
+je v ní všecka hříchů tíha,
+z ní pak Soudce viny stíhá.
+
+Soudce zasedat až bude,
+zjeví se, co skryto všude.
+Bez pomsty zda něco zbude?
+
+Co mám, běda, promluviti?
+Obhájcem kdo má mi býti,
+když i dobrý hrůzu cítí?
+
+Hrůzné Velebnosti Králi!
+Spasiž, kdož si spásy přáli.
+Spas mne, Lásky zdroji stálý!
+
+Vzpomeň si, o Jesu milý,
+že's šel pro mě k svému cíli.
+Nezatrať mne v oné chvíli!
+
+Klesl's, hledaje mne, znaven.
+Pro mne byl kůl Kříže vstaven.
+Nebuď čin ten plodů zbaven!
+
+Soudce pomsty spravedlivé,
+dej dar odpuštění dříve,
+nežli sečteš viny křivé!
+
+Sténám pod vinami svými,
+líce hříchy rumění mi.
+Slituj se nad vzdechy mými!
+
+Marii's dal rozhřešení,
+lotr hříšníkem již není,
+já též čekám vykoupení.
+
+Nehodně tě prosím, Pane,
+dobrotou však tvou se stane:
+kol mne oheň nezaplane.
+
+Rač mne mezi ovce vzíti,
+od kozlů mne odděliti,
+dej mi po pravici dlíti!
+
+Až se zachvějí kdys klatí,
+až je ostrý plamen schvátí,
+rač mne k sobě povolati!
+
+Duše prosí, lká, se rmoutí,
+v popel mé se srdce hroutí,
+rač smrt dobrou poskytnouti!
+
+Slzavým dnem bude, Pane,
+o němž vinník k Soudu vstane
+z hrobového svého lože!
+Tohoto pak šetři, Bože!
+Milý Pane Ježíši,
+dej jim odpočinutí! Amen.`,
+
   // Czech sourced verbatim from angelus-domini-anima-christi.pdf.
   [PRAYER_TYPES.ANGELUS]: `℣ Anděl Páně zvěstoval Panně Marii.
 ℟ A ona počala z Ducha svatého.
@@ -1712,6 +1926,8 @@ Modleme se: Všemohoucí věčný Bože, ustanovil jsi svého jednorozeného Syn
   // obtained, replace this verbatim. Saint names use their standard Czech forms;
   // the deprecations, intercessions, psalm and collects follow the Latin closely
   // in the usual Czech liturgical register.
+  // One exception: the Fidélium, Deus collect is Schaller's (Římský misál,
+  // 1931), the same as in De profúndis.
   // ---------------------------------------------------------------------------
 
   [PRAYER_TYPES.LITANY_SAINTS_SUPPLICATIO]: `Pane, smiluj se. 2×
@@ -1943,7 +2159,7 @@ Bože, tebe vina zarmucuje a pokání usmiřuje: shlédni milostivě na prosby s
 Všemohoucí věčný Bože, smiluj se nad svým služebníkem, naším papežem N., a veď ho ve své dobrotě po cestě věčné spásy: ať z tvé milosti touží po tom, co se ti líbí, a plní to ze všech svých sil.
 Bože, od tebe pocházejí svatá přání, správná rozhodnutí a spravedlivé činy: dej svým služebníkům onen pokoj, který svět dát nemůže; ať jsou naše srdce oddána tvým příkazům a ať jsou naše časy pod tvou ochranou pokojné, zbavené strachu z nepřátel.
 Rozněť, Pane, ohněm Ducha Svatého naše nitro i naše srdce: ať ti sloužíme s čistým tělem a líbíme se ti čistým srdcem.
-Bože, Stvořiteli a Vykupiteli všech věřících, dej duším svých služebníků a služebnic odpuštění všech hříchů: ať skrze zbožné prosby dosáhnou prominutí, po němž vždy toužily.
+Bože, všech věřících Stvořiteli a Vykupiteli, uděl duším svých služebníků a služebnic odpuštění všech hříchů, aby prominutí, kterého si vždycky žádali, pokornými prosbami dosáhli.
 Předcházej, prosíme, Pane, naše konání svým vnuknutím a provázej je svou pomocí: ať každá naše modlitba i každý náš čin od tebe vždy začíná a skrze tebe je dokončen.
 Všemohoucí věčný Bože, ty vládneš živým i mrtvým a smilováváš se nad všemi, o nichž předvídáš, že budou tvoji vírou a činy: pokorně tě vzýváme, ať ti, za které jsme se rozhodli vylévat prosby, ať je tento svět ještě zadržuje v těle nebo je onen budoucí už přijal zbavené těla, dosáhnou na přímluvu všech tvých svatých z milosti tvé dobrotivosti odpuštění všech svých vin. Skrze našeho Pána Ježíše Krista. Amen.
 
@@ -2120,6 +2336,107 @@ May they rest in peace. Amen.`,
 8. Thou shalt not bear false witness against thy neighbour.
 9. Thou shalt not covet thy neighbour's wife.
 10. Thou shalt not covet thy neighbour's goods.`,
+
+  // De profúndis: the Douay-Rheims psalm (drbo.org); the versicles and
+  // collect as in the Litany of the Saints.
+  [PRAYER_TYPES.DE_PROFUNDIS]: `Out of the depths I have cried to thee, O Lord: Lord, hear my voice.
+Let thy ears be attentive to the voice of my supplication.
+If thou, O Lord, wilt mark iniquities: Lord, who shall stand it?
+For with thee there is merciful forgiveness: and by reason of thy law, I have waited for thee, O Lord.
+My soul hath relied on his word: my soul hath hoped in the Lord.
+From the morning watch even until night, let Israel hope in the Lord.
+Because with the Lord there is mercy: and with him plentiful redemption.
+And he shall redeem Israel from all his iniquities.
+
+℣ Eternal rest grant unto them, O Lord.
+℟ And let perpetual light shine upon them.
+℣ From the gate of hell.
+℟ Deliver their souls, O Lord.
+℣ May they rest in peace.
+℟ Amen.
+℣ O Lord, hear my prayer.
+℟ And let my cry come unto thee.
+
+Let us pray.
+O God, the Creator and Redeemer of all the faithful, give to the souls of thy servants departed the remission of all their sins: that, through pious supplication, they may obtain the pardon which they have always desired. Who livest and reignest world without end.
+℟ Amen.`,
+
+  // Dies iræ — W. J. Irons' verse translation as printed in the Saint Andrew
+  // Daily Missal (Lefebvre), Mass for the Dead, beside the Latin line by line.
+  [PRAYER_TYPES.DIES_IRAE]: `Day of wrath! O day of mourning,
+See fulfilled the prophets' warning;
+Heaven and earth in ashes burning.
+
+Oh, what fear man's bosom rendeth
+When from heaven the Judge descendeth,
+On whose sentence all dependeth!
+
+Wondrous sound the trumpet flingeth,
+Through earth's sepulchres it ringeth,
+All before the throne it bringeth.
+
+Death is struck, and nature quaking,
+All creation is awaking,
+To its Judge an answer making.
+
+Lo! the book exactly worded,
+Wherein all hath been recorded;
+Thence shall judgment be awarded.
+
+When the Judge His seat attaineth,
+And each hidden deed arraigneth,
+Nothing unavenged remaineth.
+
+What shall I, frail man, be pleading?
+Who for me be interceding,
+When the just are mercy needing?
+
+King of majesty tremendous,
+Who dost free salvation send us,
+Fount of pity, then befriend us!
+
+Think, good Jesus, my salvation
+Caused Thy wondrous Incarnation;
+Leave me not to reprobation.
+
+Faint and weary Thou hast sought me,
+On the cross of suffering bought me;
+Shall such grace be vainly brought me?
+
+Righteous Judge! for sin's pollution
+Grant Thy gift of absolution,
+Ere that day of retribution.
+
+Guilty, now I pour my moaning,
+All my shame with anguish owning;
+Spare, O God, Thy suppliant groaning.
+
+Thou the sinful woman savedst;
+Thou the dying thief forgavest;
+And to me a hope vouchsafest.
+
+Worthless are my prayers and sighing;
+Yet, good Lord, in grace complying,
+Rescue me from fires undying.
+
+With Thy favored sheep O place me,
+Nor among the goats abase me,
+But to Thy right hand upraise me.
+
+While the wicked are confounded,
+Doomed to flames of woe unbounded,
+Call me with Thy saints surrounded.
+
+Low I kneel, with heart-submission,
+See, like ashes, my contrition;
+Help me in my last condition.
+
+Ah! that day of tears and mourning!
+From the dust of earth returning
+Man for judgment must prepare him.
+Spare, O God, in mercy spare him!
+Lord, all pitying, Jesu blest,
+Grant them Thine eternal rest. Amen.`,
 
   [PRAYER_TYPES.ANGELUS]: `℣ The Angel of the Lord declared unto Mary.
 ℟ And she conceived of the Holy Spirit.

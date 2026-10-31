@@ -220,7 +220,22 @@ export function buildIosephPrayers(): SequenceItem[] {
         ]);
 }
 
-export type OtherPrayerKey = "leonine" | "brigit" | "ioseph";
+// Preces pro defunctis — the prayers for the dead as a set of five: a Pater
+// Noster and an Ave María, then De profúndis cut into its psalm, versicles
+// and collect by line range (as the litanies are; the translations keep the
+// Latin's line structure). Every step is a section, so plans can inline it.
+export function buildDefunctiPrayers(): SequenceItem[] {
+  const dp = PRAYER_TYPES.DE_PROFUNDIS;
+  return [
+    { type: PRAYER_TYPES.OUR_FATHER, label: "Pater Noster", section: "Pater Noster" },
+    { type: PRAYER_TYPES.HAIL_MARY, label: "Ave María", section: "Ave María" },
+    { type: dp, label: "De profúndis", section: "De profúndis", lines: [0, 8] },
+    { type: dp, label: "Versículi", section: "Versículi", lines: [8, 17] },
+    { type: dp, label: "Orémus", section: "Orémus", lines: [17, 21] },
+  ];
+}
+
+export type OtherPrayerKey = "leonine" | "brigit" | "ioseph" | "defuncti";
 
 // Linear prayer sets (no beads, not persisted). Keyed by `OtherPrayerKey`,
 // rendered as a separate block on the start screen.
@@ -248,6 +263,12 @@ export const OTHER_PRAYER_SETS: Record<OtherPrayerKey, {
     color: "#6D4C41",
     build: buildIosephPrayers,
   },
+  defuncti: {
+    name: "Preces pro defunctis",
+    nameTr: { cs: "Modlitby za zemřelé", en: "Prayers for the Dead" },
+    color: "#455A64",
+    build: buildDefunctiPrayers,
+  },
 };
 
 export type OrdinaryPrayerKey =
@@ -268,7 +289,9 @@ export type OrdinaryPrayerKey =
   | "angele_dei"
   | "sancte_michael"
   | "requiem"
-  | "decalogue";
+  | "decalogue"
+  | "de_profundis"
+  | "dies_irae";
 
 // Shared accent for the standalone "ordinary" prayers (no liturgical color of
 // their own) — the app's brand blue.
@@ -311,6 +334,8 @@ export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, OrdinaryEntry> = {
   sancte_michael:       ordinary("Sancte Míchael", { cs: "Svatý Michaeli", en: "Saint Michael the Archangel" },       PRAYER_TYPES.ST_MICHAEL),
   requiem:              ordinary("Pro defunctis (Réquiem)", { cs: "Za zemřelé", en: "Eternal Rest" }, PRAYER_TYPES.REQUIEM),
   decalogue:            ordinary("Decálogus", { cs: "Desatero", en: "The Ten Commandments" },            PRAYER_TYPES.DECALOGUE),
+  de_profundis:         ordinary("De profúndis", { cs: "Z hlubin (za zemřelé)", en: "Out of the Depths (for the Dead)" }, PRAYER_TYPES.DE_PROFUNDIS),
+  dies_irae:            ordinary("Dies iræ", { cs: "Den hněvu", en: "Day of Wrath" },                    PRAYER_TYPES.DIES_IRAE),
 };
 
 export type LitanyKey =

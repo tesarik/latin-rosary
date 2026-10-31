@@ -220,6 +220,21 @@ describe("St. Joseph's seven sorrows and joys", () => {
   });
 });
 
+describe("prayers for the dead", () => {
+  it("cuts De profúndis into psalm, versicles and collect in every language", () => {
+    const n = PRAYERS[PRAYER_TYPES.DE_PROFUNDIS].split("\n").length;
+    for (const locale of SUPPORTED_LOCALES) {
+      expect(translatedText(locale, PRAYER_TYPES.DE_PROFUNDIS).split("\n").length, locale).toBe(n);
+    }
+    const parts = OTHER_PRAYER_SETS.defuncti.build().filter((i) => i.lines);
+    expect(parts.map((i) => sliceLines(latinText(i.type), i.lines!).split("\n")[0])).toEqual([
+      expect.stringMatching(/^De profúndis/),
+      expect.stringMatching(/^℣ Réquiem/),
+      "Orémus.",
+    ]);
+  });
+});
+
 describe("ordinary prayers", () => {
   it("each builds exactly one step", () => {
     for (const [key, set] of Object.entries(ORDINARY_PRAYERS)) {

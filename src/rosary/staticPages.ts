@@ -115,6 +115,16 @@ const NOTES: Record<string, Partial<Localized>> = {
     cs: "Latinské znění těchto modliteb je náš vlastní překlad: autoritativní latinský originál není znám.",
     en: "The Latin of these prayers is our own translation: no authoritative Latin original is known.",
   },
+  dies_irae: {
+    cs: "Český překlad podle Schallerova Římského misálu (1931).",
+    en: "The English is W. J. Irons' verse translation, as printed in the Saint Andrew Daily Missal.",
+  },
+  de_profundis: {
+    cs: "Žalm a verš „Od moci temnoty“ podle českého pohřebního obřadu (Manuale rituum, 1955), ostatní verše a závěrečná modlitba podle Schallerova Římského misálu (1931).",
+  },
+  defuncti: {
+    cs: "Žalm a verš „Od moci temnoty“ podle českého pohřebního obřadu (Manuale rituum, 1955), ostatní verše a závěrečná modlitba podle Schallerova Římského misálu (1931).",
+  },
   ioseph: {
     cs: "Krátká latinská podoba pobožnosti: sedm nadpisů, ke každému Otče náš, Zdrávas a Sláva Otci, a modlitba Vírginum custos. Český překlad nadpisů je náš vlastní.",
     en: "The short Latin form of the devotion: seven headings, each with an Our Father, a Hail Mary and a Glory Be, and the prayer Vírginum custos. The English of the headings is our own.",

@@ -7,12 +7,12 @@ A small, offline-friendly web app for praying the rosary and other prayers in La
 **Prayers**
 
 - The rosary in all three traditional mystery sets: **Mysteria Gaudiosa**, **Mysteria Dolorosa**, **Mysteria Gloriosa**. The opening Hail Marys carry the `qui adaúgeat nobis fidem` / `corróboret nobis spem` / `perfíciat nobis caritátem` clauses, each decade's mystery clause is set into its Hail Marys, and the Fatima prayer (`O mi Iesu`) follows each Gloria Patri.
-- **Orationes utilissimæ**: the everyday prayers, both Creeds and the Athanasian Creed, the four seasonal Marian antiphons, the Angelus, Ánima Christi, Sub tuum præsídium, and more.
+- **Orationes utilissimæ**: the everyday prayers, both Creeds and the Athanasian Creed, the four seasonal Marian antiphons, the Angelus, Ánima Christi, Sub tuum præsídium, and more. For the dead: Réquiem, *De profúndis* (Psalm 129 with its versicles and collect) and the sequence *Dies iræ*.
 - **Seven litanies**: Loreto, the Sacred Heart, the Holy Name, St. Joseph, the Precious Blood, All Saints (traditional form) and the Litany of Humility.
 - The **Chaplet of Divine Mercy** (*Corona Divínæ Misericórdiæ*), prayed on the same ring of beads as the rosary. A switch on its tile adds the optional prayers from St. Faustina's Diary.
-- The **Leonine prayers** (after Low Mass), the **prayers of St. Bridget**, and the **Seven Sorrows and Joys of St. Joseph** in its short Latin form.
-- **Prayer plans**: build your own named sequence of prayers, litanies, the Leonine prayers and **prayers of your own** (Latin text plus an optional translation), with repeats. Share a plan as a link, or **back up** all plans to a file and load them back, on another device too. Plans are stored only in the browser.
-- The start screen marks **today's mysteries**, by weekday and on Sunday by liturgical season, and the **Marian antiphon of the season**.
+- The **Leonine prayers** (after Low Mass), the **prayers of St. Bridget**, the **Seven Sorrows and Joys of St. Joseph** in its short Latin form, and the **prayers for the dead** (*Preces pro defunctis*: Pater Noster, Ave María, *De profúndis*, its versicles and collect, step by step).
+- **Prayer plans**: build your own named sequence of prayers, litanies, the Leonine prayers, the prayers for the dead and **prayers of your own** (Latin text plus an optional translation), with repeats. Share a plan as a link, or **back up** all plans to a file and load them back, on another device too. Plans are stored only in the browser.
+- The start screen marks **today's mysteries**, by weekday and on Sunday by liturgical season, and the **Marian antiphon of the season**; in November, the month of the holy souls, it marks the prayers for the dead.
 
 **Praying**
 
@@ -101,7 +101,7 @@ React 18, Vite 6, TypeScript (strict mode), Vitest. No CSS framework, no router,
 
 ## Sources
 
-The Latin and most of the Czech prayer texts are transcribed from `Posvátný růženec latinsko – česky.pdf` (not included in the repo) and other printed and liturgical sources. The English texts follow the received traditional English forms and were checked against published witnesses. A few texts have no authoritative original and are our own, such as the St. Bridget prayers, the Latin of the chaplet's optional prayers, and the Czech and English headings of St. Joseph's sorrows and joys. `src/rosary/prayers.ts` records where each text comes from.
+The Latin and most of the Czech prayer texts are transcribed from `Posvátný růženec latinsko – česky.pdf` (not included in the repo) and other printed and liturgical sources; the Czech *Dies iræ* and the Czech prayers for the dead come from Schaller's *Římský misál* (1931) and the Czech burial rite (*Manuale rituum*, 1955). The English texts follow the received traditional English forms and were checked against published witnesses. A few texts have no authoritative original and are our own, such as the St. Bridget prayers, the Latin of the chaplet's optional prayers, and the Czech and English headings of St. Joseph's sorrows and joys. `src/rosary/prayers.ts` records where each text comes from.
 
 ## License
 

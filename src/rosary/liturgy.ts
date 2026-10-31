@@ -97,3 +97,7 @@ export function marianAntiphon(date: Date): MarianAntiphon {
   if (n <= easter + 55) return "regina_caeli";
   return "salve_regina";
 }
+
+// November, the month the Church gives to the holy souls (All Souls on
+// 2 November opens it): the start screen tags the prayers for the dead.
+export const monthOfTheDead = (date: Date): boolean => date.getMonth() === 10;

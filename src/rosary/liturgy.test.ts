@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { easterSunday, adventSunday, seasonOf, mysteriesOfDay, marianAntiphon } from "./liturgy";
+import { easterSunday, adventSunday, seasonOf, mysteriesOfDay, marianAntiphon, monthOfTheDead } from "./liturgy";
 
 const d = (y: number, m: number, day: number) => new Date(y, m - 1, day, 12);
 const iso = (n: number) => new Date(n * 86_400_000).toISOString().slice(0, 10);
@@ -65,5 +65,14 @@ describe("marianAntiphon", () => {
     expect(marianAntiphon(d(2026, 4, 5))).toBe("regina_caeli"); // Easter
     expect(marianAntiphon(d(2026, 5, 30))).toBe("regina_caeli"); // Saturday after Pentecost
     expect(marianAntiphon(d(2026, 5, 31))).toBe("salve_regina"); // Trinity Sunday
+  });
+});
+
+describe("monthOfTheDead", () => {
+  it("is November, the whole of it, and nothing else", () => {
+    expect(monthOfTheDead(d(2026, 11, 1))).toBe(true);
+    expect(monthOfTheDead(d(2026, 11, 30))).toBe(true);
+    expect(monthOfTheDead(d(2026, 10, 31))).toBe(false);
+    expect(monthOfTheDead(d(2026, 12, 1))).toBe(false);
   });
 });

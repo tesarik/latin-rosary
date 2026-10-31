@@ -27,11 +27,11 @@ import {
 
 // The linear devotions a plan may include — each step of theirs already is a
 // section, so they inline cleanly.
-const PLAN_DEVOTIONS = { leonine: OTHER_PRAYER_SETS.leonine } as const;
+const PLAN_DEVOTIONS = { leonine: OTHER_PRAYER_SETS.leonine, defuncti: OTHER_PRAYER_SETS.defuncti } as const;
 type PlanDevotionKey = keyof typeof PLAN_DEVOTIONS;
 
-// What a plan may contain: any ordinary prayer, any litany, or the Leonine
-// prayers.
+// What a plan may contain: any ordinary prayer, any litany, the Leonine
+// prayers or the prayers for the dead.
 export type PlanItemKey = OrdinaryPrayerKey | LitanyKey | PlanDevotionKey;
 
 // A prayer the user writes into a plan: a title, its Latin text, and
