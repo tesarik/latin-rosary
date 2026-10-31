@@ -343,7 +343,7 @@ function layout(opts: {
 <meta property="og:image" content="${abs("og-image.png")}" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="theme-color" content="#1565C0" />
-<link rel="icon" type="image/svg+xml" href="${base}icon.svg" />
+<link rel="icon" type="image/png" sizes="48x48" href="${base}icon-48.png" />
 <script>${THEME_SCRIPT}</script>
 <style>${STYLE}</style>
 </head>
