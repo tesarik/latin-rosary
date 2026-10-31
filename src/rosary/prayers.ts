@@ -58,6 +58,20 @@ export const PRAYER_TYPES = {
   // and the sequence of the Requiem Mass.
   DE_PROFUNDIS: "de_profundis",
   DIES_IRAE: "dies_irae",
+  // Ordo Missæ — the people's parts of the Mass — and the sequences.
+  CONFITEOR: "confiteor",
+  KYRIE: "kyrie",
+  GLORIA_IN_EXCELSIS: "gloria_in_excelsis",
+  SANCTUS: "sanctus",
+  AGNUS_DEI: "agnus_dei",
+  DOMINE_NON_SUM_DIGNUS: "domine_non_sum_dignus",
+  PRAEFATIO_DIALOG: "praefatio_dialog",
+  ANTE_COMMUNIONEM: "ante_communionem",
+  POST_COMMUNIONEM: "post_communionem",
+  VICTIMAE_PASCHALI: "victimae_paschali",
+  VENI_SANCTE_SPIRITUS: "veni_sancte_spiritus",
+  LAUDA_SION: "lauda_sion",
+  STABAT_MATER: "stabat_mater",
   ANGELUS: "angelus",
   REGINA_CAELI: "regina_caeli",
   ANIMA_CHRISTI: "anima_christi",
@@ -406,6 +420,290 @@ iudicándus homo reus.
 Huic ergo parce, Deus:
 pie Iesu Dómine,
 dona eis réquiem. Amen.`,
+
+  // Confíteor with the Misereátur and Indulgéntiam, in the server's (the
+  // people's) form, from the Ordo Missæ (Schallerův Římský misál, 1931).
+  [PRAYER_TYPES.CONFITEOR]: `Confíteor Deo omnipoténti, beátæ Maríæ semper Vírgini, beáto Michaéli Archángelo, beáto Ioánni Baptístæ, sanctis Apóstolis Petro et Paulo, ómnibus Sanctis, et tibi, pater: quia peccávi nimis cogitatióne, verbo et ópere: mea culpa, mea culpa, mea máxima culpa. Ideo precor beátam Maríam semper Vírginem, beátum Michaélem Archángelum, beátum Ioánnem Baptístam, sanctos Apóstolos Petrum et Paulum, omnes Sanctos, et te, pater, oráre pro me ad Dóminum Deum nostrum.
+
+℣ Misereátur vestri omnípotens Deus, et dimíssis peccátis vestris, perdúcat vos ad vitam ætérnam.
+℟ Amen.
+℣ Indulgéntiam, absolutiónem et remissiónem peccatórum nostrórum tríbuat nobis omnípotens et miséricors Dóminus.
+℟ Amen.`,
+
+  // Ordo Missæ: the Kýrie, Glória, Sanctus, Agnus Dei and Dómine, non sum
+  // dignus as in Schallerův Římský misál (1931).
+  [PRAYER_TYPES.KYRIE]: `Kýrie, eléison. 3×
+Christe, eléison. 3×
+Kýrie, eléison. 3×`,
+
+  [PRAYER_TYPES.GLORIA_IN_EXCELSIS]: `Glória in excélsis Deo. Et in terra pax homínibus bonæ voluntátis. Laudámus te. Benedícimus te. Adorámus te. Glorificámus te. Grátias ágimus tibi propter magnam glóriam tuam. Dómine Deus, Rex cæléstis, Deus Pater omnípotens. Dómine Fili unigénite, Iesu Christe. Dómine Deus, Agnus Dei, Fílius Patris. Qui tollis peccáta mundi, miserére nobis. Qui tollis peccáta mundi, súscipe deprecatiónem nostram. Qui sedes ad déxteram Patris, miserére nobis. Quóniam tu solus Sanctus. Tu solus Dóminus. Tu solus Altíssimus, Iesu Christe. Cum Sancto Spíritu, in glória Dei Patris. Amen.`,
+
+  [PRAYER_TYPES.SANCTUS]: `Sanctus, Sanctus, Sanctus Dóminus, Deus Sábaoth. Pleni sunt cæli et terra glória tua. Hosánna in excélsis.
+Benedíctus qui venit in nómine Dómini. Hosánna in excélsis.`,
+
+  [PRAYER_TYPES.AGNUS_DEI]: `Agnus Dei, qui tollis peccáta mundi, miserére nobis.
+Agnus Dei, qui tollis peccáta mundi, miserére nobis.
+Agnus Dei, qui tollis peccáta mundi, dona nobis pacem.`,
+
+  [PRAYER_TYPES.DOMINE_NON_SUM_DIGNUS]: `Dómine, non sum dignus, ut intres sub tectum meum: sed tantum dic verbo, et sanábitur ánima mea. 3×`,
+
+  // The dialogue before the Preface, and the priest's prayers before and
+  // after his Communion (Schallerův Římský misál, 1931).
+  [PRAYER_TYPES.PRAEFATIO_DIALOG]: `℣ Per ómnia sǽcula sæculórum.
+℟ Amen.
+℣ Dóminus vobíscum.
+℟ Et cum spíritu tuo.
+℣ Sursum corda.
+℟ Habémus ad Dóminum.
+℣ Grátias agámus Dómino, Deo nostro.
+℟ Dignum et iustum est.`,
+
+  [PRAYER_TYPES.ANTE_COMMUNIONEM]: `Dómine Iesu Christe, qui dixísti Apóstolis tuis: Pacem relínquo vobis, pacem meam do vobis: ne respícias peccáta mea, sed fidem Ecclésiæ tuæ: eámque secúndum voluntátem tuam pacificáre et coadunáre dignéris: qui vivis et regnas Deus, per ómnia sǽcula sæculórum. Amen.
+
+Dómine Iesu Christe, Fili Dei vivi, qui ex voluntáte Patris, cooperánte Spíritu Sancto, per mortem tuam mundum vivificásti: líbera me per hoc sacrosánctum Corpus et Sánguinem tuum ab ómnibus iniquitátibus meis, et univérsis malis: et fac me tuis semper inhærére mandátis, et a te numquam separári permíttas: qui cum eódem Deo Patre et Spíritu Sancto vivis et regnas Deus, in sǽcula sæculórum. Amen.
+
+Percéptio Córporis tui, Dómine Iesu Christe, quod ego indígnus súmere præsúmo, non mihi provéniat in iudícium et condemnatiónem: sed pro tua pietáte prosit mihi ad tutaméntum mentis et córporis, et ad medélam percipiéndam: qui vivis et regnas cum Deo Patre in unitáte Spíritus Sancti Deus, per ómnia sǽcula sæculórum. Amen.
+
+Panem cæléstem accípiam, et nomen Dómini invocábo.`,
+
+  [PRAYER_TYPES.POST_COMMUNIONEM]: `Quod ore súmpsimus, Dómine, pura mente capiámus: et de múnere temporáli fiat nobis remédium sempitérnum.
+
+Corpus tuum, Dómine, quod sumpsi, et Sanguis, quem potávi, adhǽreat viscéribus meis: et præsta; ut in me non remáneat scélerum mácula, quem pura et sancta refecérunt sacraménta: qui vivis et regnas in sǽcula sæculórum. Amen.`,
+
+  // The sequences, as in Schallerův Římský misál (1931): Easter, Pentecost,
+  // Corpus Christi, and the Friday of Passion Week / 15 September.
+  [PRAYER_TYPES.VICTIMAE_PASCHALI]: `Víctimæ pascháli laudes ímmolent Christiáni.
+Agnus redémit oves: Christus ínnocens Patri reconciliávit peccatóres.
+Mors et vita duéllo conflixére mirándo: dux vitæ mórtuus, regnat vivus.
+Dic nobis, María, quid vidísti in via?
+Sepúlchrum Christi vivéntis: et glóriam vidi resurgéntis.
+Angélicos testes, sudárium, et vestes.
+Surréxit Christus spes mea: præcédet vos in Galilǽam.
+Scimus Christum surrexísse a mórtuis vere: tu nobis, victor Rex, miserére. Amen. Allelúia.`,
+
+  [PRAYER_TYPES.VENI_SANCTE_SPIRITUS]: `Veni, Sancte Spíritus,
+et emítte cǽlitus
+lucis tuæ rádium.
+
+Veni, pater páuperum,
+veni, dator múnerum,
+veni, lumen córdium.
+
+Consolátor óptime,
+dulcis hospes ánimæ,
+dulce refrigérium.
+
+In labóre réquies,
+in æstu tempéries,
+in fletu solátium.
+
+O lux beatíssima,
+reple cordis íntima
+tuórum fidélium.
+
+Sine tuo númine,
+nihil est in hómine,
+nihil est innóxium.
+
+Lava quod est sórdidum,
+riga quod est áridum,
+sana quod est sáucium.
+
+Flecte quod est rígidum,
+fove quod est frígidum,
+rege quod est dévium.
+
+Da tuis fidélibus,
+in te confidéntibus,
+sacrum septenárium.
+
+Da virtútis méritum,
+da salútis éxitum,
+da perénne gáudium. Amen. Allelúia.`,
+
+  [PRAYER_TYPES.LAUDA_SION]: `Lauda, Sion, Salvatórem,
+lauda ducem et pastórem
+in hymnis et cánticis.
+
+Quantum potes, tantum aude:
+quia maior omni laude,
+nec laudáre súfficis.
+
+Laudis thema speciális,
+panis vivus et vitális
+hódie propónitur.
+
+Quem in sacræ mensa cenæ,
+turbæ fratrum duodénæ
+datum non ambígitur.
+
+Sit laus plena, sit sonóra,
+sit iucúnda, sit decóra
+mentis iubilátio.
+
+Dies enim solémnis ágitur,
+in qua mensæ prima recólitur
+huius institútio.
+
+In hac mensa novi Regis,
+novum Pascha novæ legis,
+Phase vetus términat.
+
+Vetustátem nóvitas,
+umbram fugat véritas,
+noctem lux elíminat.
+
+Quod in cena Christus gessit,
+faciéndum hoc expréssit
+in sui memóriam.
+
+Docti sacris institútis,
+panem, vinum in salútis
+consecrámus hóstiam.
+
+Dogma datur Christiánis,
+quod in carnem transit panis,
+et vinum in sánguinem.
+
+Quod non capis, quod non vides,
+animósa firmat fides,
+præter rerum órdinem.
+
+Sub divérsis speciébus,
+signis tantum, et non rebus,
+latent res exímiæ.
+
+Caro cibus, sanguis potus:
+manet tamen Christus totus
+sub utráque spécie.
+
+A suménte non concísus,
+non confráctus, non divísus:
+ínteger accípitur.
+
+Sumit unus, sumunt mille:
+quantum isti, tantum ille:
+nec sumptus consúmitur.
+
+Sumunt boni, sumunt mali:
+sorte tamen inæquáli,
+vitæ vel intéritus.
+
+Mors est malis, vita bonis:
+vide paris sumptiónis
+quam sit dispar éxitus.
+
+Fracto demum Sacraménto,
+ne vacílles, sed meménto,
+tantum esse sub fragménto,
+quantum toto tégitur.
+
+Nulla rei fit scissúra:
+signi tantum fit fractúra:
+qua nec status nec statúra
+signáti minúitur.
+
+Ecce panis Angelórum,
+factus cibus viatórum:
+vere panis filiórum,
+non mittendus cánibus.
+
+In figúris præsignátur,
+cum Isaac immolátur:
+agnus Paschæ deputátur:
+datur manna pátribus.
+
+Bone pastor, panis vere,
+Iesu, nostri miserére:
+tu nos pasce, nos tuére:
+tu nos bona fac vidére
+in terra vivéntium.
+
+Tu, qui cuncta scis et vales:
+qui nos pascis hic mortáles:
+tuos ibi commensáles,
+coherédes et sodáles
+fac sanctórum cívium. Amen. Allelúia.`,
+
+  [PRAYER_TYPES.STABAT_MATER]: `Stabat Mater dolorósa
+iuxta crucem lacrimósa,
+dum pendébat Fílius.
+
+Cuius ánimam geméntem,
+contristátam et doléntem
+pertransívit gládius.
+
+O quam tristis et afflícta
+fuit illa benedícta
+Mater Unigéniti!
+
+Quæ mærébat, et dolébat,
+pia Mater, dum vidébat
+nati pœnas ínclyti.
+
+Quis est homo, qui non fleret,
+Matrem Christi si vidéret
+in tanto supplício?
+
+Quis non posset contristári,
+Christi Matrem contemplári
+doléntem cum Fílio?
+
+Pro peccátis suæ gentis
+vidit Iesum in torméntis,
+et flagéllis súbditum.
+
+Vidit suum dulcem natum
+moriéndo desolátum,
+dum emísit spíritum.
+
+Eia, Mater, fons amóris,
+me sentíre vim dolóris
+fac, ut tecum lúgeam.
+
+Fac, ut árdeat cor meum
+in amándo Christum Deum,
+ut sibi compláceam.
+
+Sancta Mater, istud agas,
+crucifíxi fige plagas
+cordi meo válide.
+
+Tui nati vulneráti,
+tam dignáti pro me pati,
+pœnas mecum dívide.
+
+Fac me tecum pie flere,
+crucifíxo condolére,
+donec ego víxero.
+
+Iuxta crucem tecum stare,
+et me tibi sociáre
+in planctu desídero.
+
+Virgo vírginum præclára,
+mihi iam non sis amára:
+fac me tecum plángere.
+
+Fac, ut portem Christi mortem,
+passiónis fac consórtem,
+et plagas recólere.
+
+Fac me plagis vulnerári,
+fac me cruce inebriári,
+et cruóre Fílii.
+
+Flammis ne urar succénsus,
+per te, Virgo, sim defénsus
+in die iudícii.
+
+Christe, cum sit hinc exíre,
+da per Matrem me veníre
+ad palmam victóriæ.
+
+Quando corpus moriétur,
+fac, ut ánimæ donétur
+paradísi glória. Amen.`,
 
   // Source: angelus-domini-anima-christi.pdf.
   [PRAYER_TYPES.ANGELUS]: `℣ Angelus Dómini nuntiávit Maríæ.
@@ -1437,6 +1735,285 @@ Tohoto pak šetři, Bože!
 Milý Pane Ježíši,
 dej jim odpočinutí! Amen.`,
 
+  // Ordo Missæ and the sequences: Schallerův Římský misál (1931), as printed
+  // beside the Latin. The rhymed sequences are split into lines by their
+  // rhymes, stanza for stanza with the Latin; spelling as printed.
+  [PRAYER_TYPES.CONFITEOR]: `Vyznávám se Bohu všemohoucímu, blahoslavené Marii, vždy Panně, svatému Michaeli Archandělu, svatému Janu Křtiteli, svatým Apoštolům Petru a Pavlu, všem Svatým a tobě, otče, že jsem zhřešil převelice myšlením, slovy a skutky: svou vinou, svou vinou, svou převelkou vinou! Proto prosím blahoslavenou Marii, vždy Pannu, svatého Michaela Archanděla, svatého Jana Křtitele, svaté Apoštoly Petra a Pavla, všecky Svaté a tebe, otče, orodujte za mne u Pána, Boha našeho.
+
+℣ Smilujž se nad vámi všemohoucí Bůh a odpustě hříchy vaše, uvediž vás do života věčného.
+℟ Amen.
+℣ Prominutí, rozhřešení a odpuštění hříchů našich nechť udělí nám všemohoucí a milosrdný Hospodin.
+℟ Amen.`,
+
+  [PRAYER_TYPES.KYRIE]: `Pane, smiluj se nad námi. 3×
+Kriste, smiluj se nad námi. 3×
+Pane, smiluj se nad námi. 3×`,
+
+  [PRAYER_TYPES.GLORIA_IN_EXCELSIS]: `Sláva na výsostech Bohu a na zemi pokoj lidem dobré vůle! Chválíme tě. Dobrořečíme tobě. Klaníme se tobě. Oslavujeme tě. Díky vzdáváme tobě pro velikou slávu tvou. Pane Bože, Králi nebeský, Bože Otče všemohoucí! Pane, Synu jednorozený, Ježíši Kriste! Pane Bože, Beránku Boží, Synu Otce! Jenž snímáš hříchy světa, smiluj se nad námi. Jenž snímáš hříchy světa, přijmi prosbu naši. Jenž sedíš po pravici Otce, smiluj se nad námi. Neboť ty jediný jsi Svatý. Ty jediný jsi Pán. Ty jediný jsi Svrchovaný, Ježíši Kriste, se Svatým Duchem ve slávě Boha Otce. Amen.`,
+
+  [PRAYER_TYPES.SANCTUS]: `Svatý, Svatý, Svatý Pán, Bůh zástupů. Plna jsou nebesa i země slávy tvé. Hosanna na výsostech.
+Požehnaný, jenž přichází ve jménu Páně. Hosanna na výsostech.`,
+
+  [PRAYER_TYPES.AGNUS_DEI]: `Beránku Boží, který snímáš hříchy světa, smiluj se nad námi.
+Beránku Boží, který snímáš hříchy světa, smiluj se nad námi.
+Beránku Boží, který snímáš hříchy světa, uděl nám pokoje.`,
+
+  [PRAYER_TYPES.DOMINE_NON_SUM_DIGNUS]: `Pane, nejsem hoden, abys vešel pod střechu mou, ale toliko rci slovem, a uzdravena bude duše má. 3×`,
+
+  [PRAYER_TYPES.PRAEFATIO_DIALOG]: `℣ Po všecky věky věkův.
+℟ Amen.
+℣ Pán s vámi.
+℟ I s duchem tvým.
+℣ Vzhůru srdce.
+℟ Máme k Hospodinu.
+℣ Díky vzdejme Hospodinu, Bohu svému.
+℟ Hodno a spravedlivo jest.`,
+
+  [PRAYER_TYPES.ANTE_COMMUNIONEM]: `Pane Ježíši Kriste, jenž jsi pravil Apoštolům svým: Pokoj zůstavuji vám, pokoj svůj dávám vám, nehleď na hříchy mé, nýbrž na víru Církve své a rač jí podle vůle své uděliti mír a jednotu, jenž žiješ a kraluješ Bůh, po všecky věky věkův. Amen.
+
+Pane Ježíši Kriste, Synu Boha živého, jenž jsi z vůle Otce spolupůsobením Ducha Svatého smrtí svou svět oživil, sprosť mne tímto svatosvatým Tělem a Krví svou všech nepravostí mých a veškerých běd a učiň, abych lnul vždy ke tvým přikázáním, a nedopusť, abych se kdy od tebe odloučil, jenž s týmž Otcem a Duchem Svatým žiješ a kraluješ Bůh, na věky věkův. Amen.
+
+Požití Těla tvého, Pane Ježíši Kriste, jež já nehodný odvažuji se přijmouti, nebudiž mi k odsouzení a zatracení, nýbrž pro dobrotivost tvou prospívejž mi k ochraně duše a těla a k vyléčení, jenž žiješ a kraluješ s Bohem Otcem v jednotě Ducha Svatého Bůh, po všecky věky věkův. Amen.
+
+Chléb nebeský přijmu a jméno Páně vzývati budu.`,
+
+  [PRAYER_TYPES.POST_COMMUNIONEM]: `Čeho jsme ústy požili, Pane, kéž čistou myslí pojmeme a nechť z daru časného stane se nám lék věčný.
+
+Nechť Tělo tvé, Pane, jež jsem požil, a Krev, kterou jsem pil, utkví v útrobách mých, a dej, ať nezůstane poskvrna hříchů ve mně, jejž čisté a svaté občerstvily Svátosti, jenž žiješ a kraluješ na věky věkův. Amen.`,
+
+  [PRAYER_TYPES.VICTIMAE_PASCHALI]: `Oběti velikonoční chvály ať křesťané obětují.
+Beránek ovce vykoupil; Kristus nevinný Otce se hříšníky smířil.
+Smrt a život soubojem utkaly se podivným; kníže života zemřev, vládne živý.
+Marie, o řekni nám, co jsi uviděla tam?
+Hrob Krista živého a slávu viděla jsem zmrtvýchvstalého.
+Svědky jeho, Anděly, rouška, šat tam ležely.
+Vstalť Kristus, moje naděje; svoje předejde do Galileje.
+Víme nyní o pravdivém zmrtvýchvstání; Vítězný ty Králi ukaž nám své smilování. Amen. Aleluja!`,
+
+  [PRAYER_TYPES.VENI_SANCTE_SPIRITUS]: `Duše Svatý, sestup v nás,
+vyšli k nám svůj nebes jas,
+paprskem rač ozářit!
+
+Otče chudých, sestup k nám,
+dárce darů, přijď ty sám,
+ty, kterýž jsi srdce svit!
+
+Těšiteli ve strastech,
+sladký hosti duší všech,
+sladký's okřívání klid!
+
+Odpočinek je tvůj dar,
+chládkem jsi, když pálí žár,
+v pláči umíš potěšit.
+
+Světla zář tvá přeblahá
+ve hloub srdce zasahá —
+naplň jí svůj věrný lid!
+
+Božstvím svým nám vyjdi vstříc,
+jinak v lidech není nic,
+všecko může uškodit.
+
+Kalné očisť od kalu,
+zavlaž, co schne v úpalu,
+raněné rač vyléčit!
+
+Ztuhlé račiž ohýbat,
+zahřej tam, kde studí chlad,
+na scestí rač vůdcem být!
+
+Račiž v tebe věřícím,
+Duše Svatý, věrným svým
+Sedmero své udělit!
+
+Ctnosti zásluhu rač dát,
+spasně dej nám umírat,
+ve věčné dej slasti žít! Amen. Aleluja.`,
+
+  [PRAYER_TYPES.LAUDA_SION]: `Chval, Sione, Spasitele,
+chval Pastýře, vůdce vřele,
+zpěvy, písně, hymny pěj!
+
+Odvažuj se, jak jen možné,
+větší je, než chvály zbožné,
+nepostačíš chválit jej!
+
+Zcela zvláštní látka chvály —
+živý chléb, zdroj žití stálý —
+pro den dnešní nastala.
+
+Chléb, jejž v hodech za večera
+bratří četa dvanáctera
+zcela jistě dostala.
+
+Buď zpěv plný, buď zpěv jasný,
+budiž libý, budiž hlasný
+jásot mysli, ples a vděk.
+
+Dnes je slavnost, o níž se vzpomíná,
+kterak povstala prvně ta hostina,
+hodu toho počátek.
+
+Oběť nové smlouvy vzniká.
+Stůl nového Panovníka
+odděluje starý čas.
+
+Staré ničí novota,
+prchla Pravdou Temnota,
+noc, již zahnal denní jas.
+
+Kristus při hostině svaté
+děl: Co činím, činit máte,
+na Mne vzpomínajíce.
+
+Svatá stanovení ctíme.
+Chléb a víno přinášíme,
+oběť spásy světíce.
+
+Dogma křesťanům se dává,
+že se z chleba Tělo stává,
+z vína že se stává Krev.
+
+Nechápe duch, nedozírá,
+horlivá však sílí víra,
+ač je jiný věci zjev.
+
+Pod různými vzezřeními
+věcmi ne, leč znameními
+výborný je Předmět skryt.
+
+Nápoj Krve, pokrm Těla,
+v obou Kristus je však zcela,
+nepřestává celý být.
+
+Přijímáš-li, zůstal celý,
+nezláme se, nerozdělí,
+nikdy pranic neschází.
+
+Bere jeden, tisíc bere.
+Jako jeden, davy steré,
+aniž množství dochází.
+
+Dobří, špatní přijímají,
+nestejný však osud mají:
+Život — smrti objetí.
+
+Smrt je zlým a dobrým žití.
+Zříš, jak různý může býti
+účin téhož přijetí.
+
+Když se potom Svátost láme,
+nechť se věrou nevikláme,
+pod úlomkem tolik máme,
+kolik celek uhostí.
+
+Netrpí věc těmi ději,
+způsobu jen rozbíjejí,
+ale věc a stavy její
+potrvají v Svátosti.
+
+Chléb, jenž blaží Nebešťany,
+poutníkům, hle, v pokrm daný,
+v pravdě synům uchystaný,
+není pokrm štěňátek.
+
+Oběť v předobrazech známá:
+Isak, žertva Abrahama,
+velkonoční oběť sama,
+manna Otcům v onen věk.
+
+Dobrý's Pastýř, Chléb jsi pravý!
+Smiluj se, slyš hlas náš lkavý:
+Pasiž, hlídej naše davy,
+dobro dej nám, Přelaskavý,
+v zemi živých dej nám zřít!
+
+Vševědoucí, Převeliký,
+jenž nás paseš, smrtelníky,
+Svými spolustolovníky,
+dědici a účastníky
+svatých rač nás učinit! Amen. Aleluja.`,
+
+  [PRAYER_TYPES.STABAT_MATER]: `Stojí Matka zarmoucená,
+slzy prolévá a sténá
+u Kříže, kde Syn jí pněl.
+
+Její duši bědující,
+plnou smutku, bolestící,
+pronik' meč a v hrudi tkvěl.
+
+Kterak sklácena je Panna,
+jak je smutná požehnaná,
+která Boží Matkou jest!
+
+Jak jen lkala, naříkala,
+Rodička když nazírala
+na slavného Syna trest!
+
+Kdož by mohl neplakati,
+kdyby viděl Krista Máti
+v tomto ponížení zlém!
+
+Komu srdce nerozdírá,
+na Matku když Boží zírá,
+kterak truchlí se Synem!
+
+Pro hřích z rodu svého lidí
+Syna na mučidlech vidí,
+vidí metly, příval ran.
+
+Zří jej zmírat oko Matky,
+zří, jak opuštěn Syn sladký,
+zří, jak pustil duši Pán.
+
+Eja, Matko, Lásky zdroji,
+dej mi cítit bolest tvoji,
+dej, bych s tebou zaplakal!
+
+Dej, by srdce moje plálo,
+dej, by Boha milovalo,
+bych si Krista oblíbil!
+
+Prosím o to, Matko milá,
+bys mi rány v srdce vryla,
+dej by můj byl Kristův Kříž,
+
+každá rána, jež mu dána!
+Muka Pána požehnaná
+se mnou Matko rozděliž!
+
+Dej mi s tebou slzy líti,
+se Synem dej soustrast míti,
+dokud budu žíti jen!
+
+Dej mi místo vedle Kříže,
+společenství svojí tíže,
+dej, ať sdílím bol a sten!
+
+Panno Panen, v celém žití
+nemáš mi již trpkou býti,
+se mnou Matko sdílej pláč!
+
+Dej, bych snesl, Pán že klesl,
+k účastenství muk se vznesl,
+sčítat rány — dáti rač,
+
+bych byl ranou Syna zraněn,
+Křížem opojen a chráněn,
+krví Syna očištěn,
+
+zbaven věčných žárů trudu.
+Skrze tebe chráněn budu
+Matko Páně v soudný den!
+
+Až mi bude odtud jíti,
+Kriste, rač mi uděliti
+Matkou palmu vítěznou!
+
+Tělo bude umírati,
+duši mé pak račiž dáti
+slávu Ráje blaženou! Amen.`,
+
   // Czech sourced verbatim from angelus-domini-anima-christi.pdf.
   [PRAYER_TYPES.ANGELUS]: `℣ Anděl Páně zvěstoval Panně Marii.
 ℟ A ona počala z Ducha svatého.
@@ -2437,6 +3014,289 @@ Man for judgment must prepare him.
 Spare, O God, in mercy spare him!
 Lord, all pitying, Jesu blest,
 Grant them Thine eternal rest. Amen.`,
+
+  // Ordo Missæ and the sequences: the Saint Andrew Daily Missal (Lefebvre),
+  // as printed beside the Latin. Its sequences are the received verse
+  // translations (Caswall's Stabat Mater, Veni Sancte Spíritus and Lauda Sion),
+  // kept stanza for stanza with the Latin; the Easter sequence's lines are
+  // joined to match the Latin's eight. The Kyrie drops the missal's
+  // explanatory "(God the Father)" glosses.
+  [PRAYER_TYPES.CONFITEOR]: `I confess to almighty God, to blessed Mary ever Virgin, to blessed Michael the archangel, to blessed John the Baptist, to the holy apostles Peter and Paul, to all the saints, and to you, Father, that I have sinned exceedingly in thought, word and deed, through my fault, through my fault, through my most grievous fault. Therefore I beseech blessed Mary ever Virgin, blessed Michael the archangel, blessed John the Baptist, the holy apostles Peter and Paul, all the saints, and you, Father, to pray to the Lord our God for me.
+
+℣ May almighty God have mercy upon you, forgive you your sins, and bring you to life everlasting.
+℟ Amen.
+℣ May the almighty and merciful Lord grant us pardon, absolution, and remission of our sins.
+℟ Amen.`,
+
+  [PRAYER_TYPES.KYRIE]: `Lord, have mercy on us. 3×
+Christ, have mercy on us. 3×
+Lord, have mercy on us. 3×`,
+
+  [PRAYER_TYPES.GLORIA_IN_EXCELSIS]: `Glory to God in the highest. And on earth peace to men of good will. We praise Thee. We bless Thee. We adore Thee. We glorify Thee. We give thanks to Thee for Thy great glory. O Lord God, heavenly King, God the Father almighty. O Lord, the only-begotten Son, Jesus Christ. O Lord God, Lamb of God, Son of the Father. Thou who takest away the sins of the world, have mercy upon us. Thou who takest away the sins of the world, receive our prayer. Thou who sittest at the right hand of the Father, have mercy upon us. For Thou only art holy. Thou only art the Lord. Thou only, O Jesus Christ, art most high. With the Holy Ghost, in the glory of God the Father. Amen.`,
+
+  [PRAYER_TYPES.SANCTUS]: `Holy, holy, holy, Lord God of hosts. Heaven and earth are full of Thy glory. Hosanna in the highest.
+Blessed is He that cometh in the name of the Lord. Hosanna in the highest.`,
+
+  [PRAYER_TYPES.AGNUS_DEI]: `Lamb of God, who takest away the sins of the world, have mercy on us.
+Lamb of God, who takest away the sins of the world, have mercy on us.
+Lamb of God, who takest away the sins of the world, grant us peace.`,
+
+  [PRAYER_TYPES.DOMINE_NON_SUM_DIGNUS]: `Lord, I am not worthy that Thou shouldst enter under my roof: say but the word and my soul shall be healed. 3×`,
+
+  // The priest's Communion prayers: OCR of the Saint Andrew missal, joined.
+  [PRAYER_TYPES.PRAEFATIO_DIALOG]: `℣ World without end.
+℟ Amen.
+℣ The Lord be with you.
+℟ And with thy spirit.
+℣ Lift up your hearts.
+℟ We lift them up unto the Lord.
+℣ Let us give thanks to the Lord our God.
+℟ It is meet and right.`,
+
+  [PRAYER_TYPES.ANTE_COMMUNIONEM]: `O Lord Jesus Christ, who saidst to Thy Apostles, Peace I leave with you, My peace I give unto you; look not upon my sins, but upon the faith of Thy Church; and vouchsafe to grant her peace and unity according to Thy will: O God, who livest and reignest world without end. Amen.
+
+O Lord Jesus Christ, Son of the living God, who according to the will of the Father, through the co-operation of the Holy Ghost, hast by Thy death given life to the world: deliver me by this Thy most holy Body and Blood from all my transgressions and from all evils; make me always adhere to Thy commandments and suffer me never to be separated from Thee; Who with the same God the Father and the Holy Ghost livest and reignest, God, for ever and ever. Amen.
+
+Let not the partaking of Thy Body, O Lord Jesus Christ, which I, though unworthy, presume to receive, turn to my judgment and condemnation; but through Thy goodness may it be unto me for a safeguard and a healing remedy both of soul and body; who livest and reignest with God the Father in the unity of the Holy Ghost, God, world without end. Amen.
+
+I will take the bread of heaven, and call upon the name of the Lord.`,
+
+  [PRAYER_TYPES.POST_COMMUNIONEM]: `Grant, O Lord, that what we have taken with our mouth, we may receive with a pure mind: and that from a temporal gift it may become for us an eternal remedy.
+
+May Thy Body, O Lord, which I have received, and Thy Blood which I have drunk, cleave to my inmost parts, and grant that no stain of sin may remain in me, whom these pure and holy sacraments have refreshed. Who livest and reignest world without end. Amen.`,
+
+  [PRAYER_TYPES.VICTIMAE_PASCHALI]: `Forth to the paschal Victim, Christians, bring Your sacrifice of praise:
+The Lamb redeems the sheep; And Christ the sinless one, Hath to the Father sinners reconciled.
+Together, death and life In a strange conflict strove. The Prince of life, who died, Now lives and reigns.
+What thou sawest, Mary, say, As thou wentest on the way.
+I saw the tomb wherein the living one had lain, I saw His glory as He rose again;
+Napkin and linen clothes, and angels twain:
+Yea, Christ is risen, my hope, and He Will go before you into Galilee.
+We know that Christ indeed has risen from the grave: Hail, thou King of Victory, Have mercy, Lord, and save. Amen. Alleluia.`,
+
+  [PRAYER_TYPES.VENI_SANCTE_SPIRITUS]: `Come, Holy Ghost, send down those beams,
+Which sweetly flow in silent streams
+From Thy bright throne above.
+
+O, come, Thou Father of the poor,
+O, come, Thou source of all our store,
+Come fill our hearts with love.
+
+O Thou of comforters the best,
+O Thou the soul’s delightful guest,
+The pilgrim’s sweet relief,
+
+Rest art Thou in our toil, most sweet
+Refreshment in the noon-day heat,
+And solace in our grief.
+
+O blessed Light of Life Thou art,
+Fill with Thy Light the inmost hearts
+Of those that hope in Thee.
+
+Without Thy Godhead nothing can
+Have any price or worth in man,
+Nothing can harmless be.
+
+Lord, wash our sinful stains away,
+Water from heaven our barren clay,
+Our wounds and bruises heal.
+
+To Thy sweet yoke our stiff necks bow,
+Warm with Thy love our hearts of snow,
+Our wandering feet recall.
+
+Grant to Thy faithful, dearest Lord,
+Whose only hope is in Thy Word,
+Thy sevenfold gift of grace.
+
+Grant us in life Thy grace that we
+In peace may die and ever be
+In joy before Thy face. Amen. Alleluia.`,
+
+  [PRAYER_TYPES.LAUDA_SION]: `Sion, lift thy voice and sing;
+Praise thy Saviour and thy King;
+Praise with hymns thy Shepherd true.
+
+Strive thy best to praise Him well,
+Yet doth He all praise excel;
+None can ever reach His due.
+
+See to-day before us laid
+The living and life-giving Bread,
+Theme for praise and joy profound.
+
+The same which at the sacred board
+Was by our incarnate Lord,
+Giv’n to His apostles round.
+
+Let the praise be loud and high;
+Sweet and tranquil be the joy
+Felt to-day in every breast
+
+On this festival divine,
+Which records the origin
+Of the glorious Eucharist.
+
+On this table of the King,
+Our new paschal offering
+Brings to end the olden rite.
+
+Here for empty shadows fled,
+Is reality instead;
+Here, instead of darkness, light.
+
+His own act, at supper seated,
+Christ ordained to be repeated,
+In His memory divine;
+
+Wherefore now, with adoration,
+We the Host of our salvation
+Consecrate from bread and wine.
+
+Hear what holy Church maintaineth,
+That the bread its substance changeth
+Into flesh, the wine to blood.
+
+Doth it pass thy comprehending?
+Faith, the law of sight transcending,
+Leaps to things not understood.
+
+Here, beneath these signs are hidden
+Priceless things, to sense forbidden;
+Signs, not things, are all we see
+
+Flesh from bread, and blood from wine,
+Yet is Christ in either sign
+All entire, confessed to be.
+
+They too who of Him partake,
+Sever not, nor rend, nor break,
+But entire their Lord receive.
+
+Whether one or thousands eat,
+All receive the selfsame meat,
+Nor the less for others leave.
+
+Both the wicked and the good
+Eat of this celestial food;
+But with ends how opposite!
+
+Here 'tis life, and there 'tis death;
+The same, yet issuing to each,
+In a difference infinite.
+
+Nor a single doubt retain,
+When they break the host in twain,
+But that in each part remain,
+What was in the whole before.
+
+Since the simple sign alone
+Suffers change in state or form,
+The signified remaining one
+And the same for evermore.
+
+Lo! upon the altar lies,
+Hidden deep from human eyes,
+Bread of angels from the skies,
+Made the food of mortal man:
+Children’s meat, to dogs denied:
+
+In old types foresignified:
+In the manna heav’n-supplied,
+Isaac, and the paschal Lamb.
+
+Jesu! Shepherd of the sheep!
+Thou Thy flock in safety keep.
+Living Bread! thy life supply;
+Strengthen us, or else we die;
+Fill us with celestial grace:
+
+Thou, who feedest us below!
+Source of all we have or know!
+Grant that with Thy saints above,
+Sitting at the feast of love,
+We may see Thee face to face. Amen. Alleluia.`,
+
+  [PRAYER_TYPES.STABAT_MATER]: `At the cross her station keeping,
+Stood the mournful Mother weeping
+Close to Jesus to the last.
+
+Through her heart, His sorrow sharing,
+All His bitter anguish bearing,
+Now at length the sword has passed.
+
+Oh, how sad and sore distress’d
+Was that Mother, highly blest
+Of the sole-begotten One!
+
+Christ above in torment hangs;
+She beneath beholds the pangs
+Of her dying glorious Son.
+
+Is there one who would not weep
+Whelm’d in miseries so deep
+Christ’s dear Mother to behold?
+
+Can the human heart refrain
+From partaking in her pain,
+In that Mother’s pain untold?
+
+Bruis’d, derided, curs’d, defil’d,
+She beheld her tender child:
+All with bloody scourges rent.
+
+For the sins of His own nation,
+Saw Him hang in desolation,
+Till His spirit forth He sent.
+
+O Thou Mother! fount of love!
+Touch my spirit from above;
+Make my heart with thine accord.
+
+Make me feel as thou hast felt;
+Make my soul to glow and melt
+With the love of Christ our Lord.
+
+Holy Mother! pierce me through;
+In my heart each wound renew
+Of my Saviour crucified.
+
+Let me share with thee His pain,
+Who for all my sins was slain,
+Who for me in torments died.
+
+Let me mingle tears with thee,
+Mourning Him who mourn’d for me,
+All the days that I may live.
+
+By the cross with thee so stay,
+There with thee to weep and pray,
+Is all I ask of thee to give.
+
+Virgin of all virgins best,
+Listen to my fond request:
+Let me share thy grief divine.
+
+Let me, to my latest breath,
+In my body bear the death
+Of that dying Son of thine.
+
+Wounded with His every wound,
+Steep my soul till it hath swoon’d
+In His very blood away.
+
+Be to me, O Virgin, nigh,
+Lest in flames I burn and die,
+In His awful Judgment day.
+
+Christ, when Thou shalt call me hence,
+Be Thy Mother my defense,
+Be Thy cross my victory.
+
+While my body here decays,
+May my soul Thy goodness praise,
+Safe in Paradise with Thee. Amen.`,
 
   [PRAYER_TYPES.ANGELUS]: `℣ The Angel of the Lord declared unto Mary.
 ℟ And she conceived of the Holy Spirit.

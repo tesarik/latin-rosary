@@ -291,7 +291,20 @@ export type OrdinaryPrayerKey =
   | "requiem"
   | "decalogue"
   | "de_profundis"
-  | "dies_irae";
+  | "dies_irae"
+  | "confiteor"
+  | "kyrie"
+  | "gloria_in_excelsis"
+  | "sanctus"
+  | "agnus_dei"
+  | "domine_non_sum_dignus"
+  | "praefatio_dialog"
+  | "ante_communionem"
+  | "post_communionem"
+  | "victimae_paschali"
+  | "veni_sancte_spiritus"
+  | "lauda_sion"
+  | "stabat_mater";
 
 // Shared accent for the standalone "ordinary" prayers (no liturgical color of
 // their own) — the app's brand blue.
@@ -300,20 +313,43 @@ const ORDINARY_COLOR = "#1565C0";
 // Orationes utilissimæ — standalone single prayers, shown as expandable links
 // on the start screen. Each builds a one-step sequence: no beads, no stepper,
 // not persisted. Prayers the app already had reuse their existing type; the
-// rest use the types added in prayers.ts. The start-screen menu sorts these
-// alphabetically by name, so registry order here doesn't matter. Salve Regína
+// rest use the types added in prayers.ts. Each carries its start-screen group
+// (ORDINARY_GROUPS): the Orationes are sorted by name there, so their registry
+// order doesn't matter; the Mass parts and the sequences keep registry order. Salve Regína
 // reuses the Leonine antiphon (which also carries the ℣/℟ versicle).
 // The Latin `name` titles the entry; `nameTr` is the localized subtitle under it
 // on the start screen and in the plan editor's picker.
-const ordinary = (name: string, nameTr: Localized, type: PrayerType): OrdinaryEntry =>
-  ({ name, nameTr, color: ORDINARY_COLOR, build: () => [{ type, label: name }] });
+const ordinary = (name: string, nameTr: Localized, type: PrayerType, group: OrdinaryGroup = "orationes"): OrdinaryEntry =>
+  ({ name, nameTr, color: ORDINARY_COLOR, group, build: () => [{ type, label: name }] });
+
+// The start-screen group a single prayer is listed under. One registry for all
+// three keeps every key, page and plan step valid when a prayer moves group
+// (Dies iræ moved from the Orationes to the sequences).
+export type OrdinaryGroup = "orationes" | "missa" | "sequentiae";
 
 type OrdinaryEntry = {
   name: string;
   nameTr: Localized;
   color: string;
+  group: OrdinaryGroup;
   build: () => SequenceItem[];
 };
+
+// The groups in start-screen order. The Orationes are sorted by name; the
+// Mass parts keep the order of the Mass, and the sequences that of the year.
+export const ORDINARY_GROUPS: readonly { group: OrdinaryGroup; title: string; sorted: boolean }[] = [
+  { group: "orationes", title: "Orationes utilissimæ", sorted: true },
+  { group: "missa", title: "Ordo Missæ", sorted: false },
+  { group: "sequentiae", title: "Sequéntiæ", sorted: false },
+];
+
+// One group's entries, in the group's order.
+export function ordinaryGroupEntries(group: OrdinaryGroup): [OrdinaryPrayerKey, OrdinaryEntry][] {
+  const entries = (Object.entries(ORDINARY_PRAYERS) as [OrdinaryPrayerKey, OrdinaryEntry][]).filter(([, e]) => e.group === group);
+  return ORDINARY_GROUPS.find((g) => g.group === group)!.sorted
+    ? entries.sort((a, b) => a[1].name.localeCompare(b[1].name))
+    : entries;
+}
 
 export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, OrdinaryEntry> = {
   alma_redemptoris:     ordinary("Alma Redemptóris Mater", { cs: "Slavná Matko Spasitele", en: "Loving Mother of the Redeemer" }, PRAYER_TYPES.ALMA_REDEMPTORIS),
@@ -335,7 +371,20 @@ export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, OrdinaryEntry> = {
   requiem:              ordinary("Pro defunctis (Réquiem)", { cs: "Za zemřelé", en: "Eternal Rest" }, PRAYER_TYPES.REQUIEM),
   decalogue:            ordinary("Decálogus", { cs: "Desatero", en: "The Ten Commandments" },            PRAYER_TYPES.DECALOGUE),
   de_profundis:         ordinary("De profúndis", { cs: "Z hlubin (za zemřelé)", en: "Out of the Depths (for the Dead)" }, PRAYER_TYPES.DE_PROFUNDIS),
-  dies_irae:            ordinary("Dies iræ", { cs: "Den hněvu", en: "Day of Wrath" },                    PRAYER_TYPES.DIES_IRAE),
+  confiteor:            ordinary("Confíteor", { cs: "Vyznávám se", en: "I Confess" }, PRAYER_TYPES.CONFITEOR, "missa"),
+  kyrie:                ordinary("Kýrie", { cs: "Pane, smiluj se", en: "Lord, Have Mercy" }, PRAYER_TYPES.KYRIE, "missa"),
+  gloria_in_excelsis:   ordinary("Glória in excélsis", { cs: "Sláva na výsostech Bohu", en: "Glory to God in the Highest" }, PRAYER_TYPES.GLORIA_IN_EXCELSIS, "missa"),
+  praefatio_dialog:     ordinary("Sursum corda", { cs: "Vzhůru srdce (před prefací)", en: "Lift Up Your Hearts (before the Preface)" }, PRAYER_TYPES.PRAEFATIO_DIALOG, "missa"),
+  sanctus:              ordinary("Sanctus", { cs: "Svatý", en: "Holy, Holy, Holy" }, PRAYER_TYPES.SANCTUS, "missa"),
+  agnus_dei:            ordinary("Agnus Dei", { cs: "Beránku Boží", en: "Lamb of God" }, PRAYER_TYPES.AGNUS_DEI, "missa"),
+  ante_communionem:     ordinary("Oratiónes ante Communiónem", { cs: "Modlitby kněze před přijímáním", en: "The Priest's Prayers before Communion" }, PRAYER_TYPES.ANTE_COMMUNIONEM, "missa"),
+  domine_non_sum_dignus:ordinary("Dómine, non sum dignus", { cs: "Pane, nejsem hoden", en: "Lord, I Am Not Worthy" }, PRAYER_TYPES.DOMINE_NON_SUM_DIGNUS, "missa"),
+  post_communionem:     ordinary("Oratiónes post Communiónem", { cs: "Modlitby kněze po přijímání", en: "The Priest's Prayers after Communion" }, PRAYER_TYPES.POST_COMMUNIONEM, "missa"),
+  victimae_paschali:    ordinary("Víctimæ pascháli laudes", { cs: "Oběti velikonoční (Velikonoce)", en: "To the Paschal Victim (Easter)" }, PRAYER_TYPES.VICTIMAE_PASCHALI, "sequentiae"),
+  veni_sancte_spiritus: ordinary("Veni, Sancte Spíritus", { cs: "Duše Svatý, sestup v nás (Letnice)", en: "Come, Holy Ghost (Pentecost)" }, PRAYER_TYPES.VENI_SANCTE_SPIRITUS, "sequentiae"),
+  lauda_sion:           ordinary("Lauda Sion", { cs: "Chval, Sione, Spasitele (Boží Tělo)", en: "Sion, Lift Thy Voice (Corpus Christi)" }, PRAYER_TYPES.LAUDA_SION, "sequentiae"),
+  stabat_mater:         ordinary("Stabat Mater", { cs: "Stojí Matka zarmoucená (Panny Marie Bolestné)", en: "At the Cross Her Station Keeping (Our Lady of Sorrows)" }, PRAYER_TYPES.STABAT_MATER, "sequentiae"),
+  dies_irae:            ordinary("Dies iræ", { cs: "Den hněvu (za zemřelé)", en: "Day of Wrath (for the Dead)" }, PRAYER_TYPES.DIES_IRAE, "sequentiae"),
 };
 
 export type LitanyKey =

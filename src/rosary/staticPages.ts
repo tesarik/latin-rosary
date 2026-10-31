@@ -13,15 +13,17 @@ import {
   sliceLines,
   CHAPLETS,
   LITANIES,
-  ORDINARY_PRAYERS,
+  ORDINARY_GROUPS,
+  ordinaryGroupEntries,
   OTHER_PRAYER_SETS,
+  type OrdinaryGroup,
   type SequenceItem,
 } from "./sequence";
 import { SUPPORTED_LOCALES, type Locale } from "./i18n";
 
 export type StaticPage = { fileName: string; html: string };
 
-type Group = "rosary" | "ordinary" | "litany" | "other";
+type Group = "rosary" | OrdinaryGroup | "litany" | "other";
 
 type Entry = {
   // The app's prayer-set key the page opens (`#pray=<key>`); the rosary page
@@ -70,7 +72,7 @@ const PAGE_STRINGS: Record<Locale, {
     indexTitle: "Latinské modlitby s českým překladem",
     indexIntro: "Růženec, litanie a další modlitby v latině, každá s českým překladem. Všechny se dají modlit v aplikaci Rosarium, i bez připojení.",
     indexDescription: "Růženec, litanie a modlitby v latině s českým překladem: Salve Regína, Angelus, Loretánské litanie a další.",
-    groups: { rosary: "Růženec a korunka", ordinary: "Orationes utilissimæ", litany: "Litaníæ", other: "Aliæ preces" },
+    groups: { rosary: "Růženec a korunka", orationes: "Orationes utilissimæ", missa: "Ordo Missæ", sequentiae: "Sequéntiæ", litany: "Litaníæ", other: "Aliæ preces" },
     rosaryIntro: "Růženec v latině, jak se modlí v aplikaci: v každém Zdrávas se za jménem Ježíš vkládá tajemství desátku.",
     rosaryOrder: "Znamení kříže, Věřím v Boha, Otčenáš, tři Zdrávas (za víru, naději a lásku), Sláva Otci. Pak pět desátků: Otčenáš, deset Zdrávas s tajemstvím, Sláva Otci a „Ó můj Ježíši“. Na závěr Zdrávas Královno a znamení kříže.",
     rosaryPrayers: "Modlitby růžence",
@@ -92,7 +94,7 @@ const PAGE_STRINGS: Record<Locale, {
     indexTitle: "Latin prayers with English translation",
     indexIntro: "The rosary, litanies and other prayers in Latin, each with an English translation. All of them can be prayed in the Rosarium app, offline too.",
     indexDescription: "The rosary, litanies and prayers in Latin with an English translation: Salve Regina, the Angelus, the Litany of Loreto and more.",
-    groups: { rosary: "The Rosary and the Chaplet", ordinary: "Orationes utilissimæ", litany: "Litaníæ", other: "Aliæ preces" },
+    groups: { rosary: "The Rosary and the Chaplet", orationes: "Orationes utilissimæ", missa: "Ordo Missæ", sequentiae: "Sequéntiæ", litany: "Litaníæ", other: "Aliæ preces" },
     rosaryIntro: "The rosary in Latin as the app prays it: in every Hail Mary, the mystery of the decade is added after the name of Jesus.",
     rosaryOrder: "The Sign of the Cross, the Apostles’ Creed, the Our Father, three Hail Marys (for faith, hope and charity), the Glory Be. Then five decades: the Our Father, ten Hail Marys with the mystery, the Glory Be and “O my Jesus”. Finally, the Hail, Holy Queen and the Sign of the Cross.",
     rosaryPrayers: "The prayers of the rosary",
@@ -196,7 +198,7 @@ function entries(): Entry[] {
     group: "rosary",
     items: chaplet.build().filter((i) => (i.decade ?? 0) === 0),
   });
-  add("ordinary", ORDINARY_PRAYERS);
+  for (const { group } of ORDINARY_GROUPS) add(group, Object.fromEntries(ordinaryGroupEntries(group)));
   add("litany", LITANIES);
   add("other", OTHER_PRAYER_SETS);
   return list;
@@ -399,10 +401,9 @@ function setPage(entry: Entry, locale: Locale, base: string, appUrl: string): St
 function indexPage(list: Entry[], locale: Locale, base: string, appUrl: string): StaticPage {
   const s = PAGE_STRINGS[locale];
   const other = SUPPORTED_LOCALES.find((l) => l !== locale)!;
-  const groups = (["rosary", "ordinary", "litany", "other"] as const).map((g) => {
+  const groups = (["rosary", ...ORDINARY_GROUPS.map((o) => o.group), "litany", "other"] as const).map((g) => {
+    // In the menu's order: ordinaryGroupEntries already sorted the Orationes.
     const members = list.filter((e) => e.group === g);
-    // The menu lists the ordinary prayers alphabetically; so does this.
-    if (g === "ordinary") members.sort((a, b) => a.name.localeCompare(b.name, "en"));
     return `
       <h2>${escape(s.groups[g])}</h2>
       <ul>${members.map((e) => `

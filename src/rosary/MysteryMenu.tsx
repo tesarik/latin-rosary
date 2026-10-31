@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { MYSTERIES, type Localized, type MysteryKey } from "./prayers";
-import { CHAPLETS, OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type OtherPrayerKey } from "./sequence";
+import { CHAPLETS, OTHER_PRAYER_SETS, ORDINARY_GROUPS, ordinaryGroupEntries, LITANIES, type OrdinaryGroup, type OtherPrayerKey } from "./sequence";
 import { chapletToOpen, loadSavedChapletFull, saveChapletFull } from "./chaplet";
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
 import type { PrayerSetKey } from "./navigation";
@@ -193,15 +193,21 @@ function Badge({ label, color, theme }: { label: string; color: string; theme: T
   );
 }
 
+// Groups left open, by title. Opening a prayer unmounts the menu, so a group's
+// own state would reset; this keeps it open for the return, for the session.
+const openGroups = new Set<string>();
+
 // Collapsible group: a card whose header rolls down small links to standalone
-// single prayers, sorted alphabetically. Used for both "Orationes utilissimæ"
-// and "Litaníæ"; tapping a link starts that one-prayer "set". Every row shows
+// single prayers, sorted alphabetically unless told otherwise. Used for every
+// single-prayer group and "Litaníæ"; tapping a link starts that one-prayer "set". Every row shows
 // the Latin name with its name in the UI language as a muted subtitle — the
 // same two-line shape the prayer-plan tile uses.
-function CollapsiblePrayers({ title, subtitle, entries, onStart, resume, badges = {}, notes = {}, theme, locale }: {
+function CollapsiblePrayers({ title, subtitle, entries, sorted: sortByName = true, onStart, resume, badges = {}, notes = {}, theme, locale }: {
   title: string;
   subtitle: string;
   entries: [PrayerSetKey, { name: string; nameTr: Localized; color: string }][];
+  // By name, or as given (the Mass parts in the order of the Mass).
+  sorted?: boolean;
   onStart: (key: PrayerSetKey) => void;
   resume: ResumeInfo;
   // Per-row pill after the name, and an extra muted line under it.
@@ -211,9 +217,14 @@ function CollapsiblePrayers({ title, subtitle, entries, onStart, resume, badges 
   locale: Locale;
 }) {
   const t = STRINGS[locale];
-  // A group holding an unfinished set starts open, so its place is visible.
-  const [open, setOpen] = useState(() => entries.some(([k]) => Object.hasOwn(resume, k)));
-  const sorted = [...entries].sort((a, b) => a[1].name.localeCompare(b[1].name));
+  // A group holding an unfinished set starts open, so its place is visible; so
+  // does one left open before a prayer was opened from it (openGroups).
+  const [open, setOpen] = useState(() => openGroups.has(title) || entries.some(([k]) => Object.hasOwn(resume, k)));
+  const toggle = () => setOpen((o) => {
+    if (o) openGroups.delete(title); else openGroups.add(title);
+    return !o;
+  });
+  const sorted = sortByName ? [...entries].sort((a, b) => a[1].name.localeCompare(b[1].name)) : entries;
   const accent = sorted[0]?.[1].color ?? "#1565C0";
 
   return (
@@ -225,7 +236,7 @@ function CollapsiblePrayers({ title, subtitle, entries, onStart, resume, badges 
       overflow: "hidden",
     }}>
       <button
-        onClick={() => setOpen((o) => !o)}
+        onClick={toggle}
         aria-expanded={open}
         style={{
           width: "100%",
@@ -323,6 +334,11 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
   if (monthOfTheDead(now)) {
     for (const k of ["de_profundis", "dies_irae", "requiem", "defuncti"]) seasonBadges[k] = t.seasonBadge;
   }
+  const groupSubtitle: Record<OrdinaryGroup, string> = {
+    orationes: t.ordinaryGroupName,
+    missa: t.missaGroupName,
+    sequentiae: t.sequencesGroupName,
+  };
   const [chapletFull, setChapletFull] = useState(loadSavedChapletFull);
   const chaplet = chapletToOpen(chapletFull, Object.keys(resume));
   const chapletEntry = CHAPLETS[chaplet];
@@ -412,17 +428,21 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
           {t.otherPrayersHeading}
         </h2>
 
-        <CollapsiblePrayers
-          title="Orationes utilissimæ"
-          subtitle={t.ordinaryGroupName}
-          entries={Object.entries(ORDINARY_PRAYERS) as GroupEntry[]}
-          onStart={onStart}
-          badges={seasonBadges}
-          notes={eastertide ? { angelus: t.angelusEastertide } : {}}
-          resume={resume}
-          theme={theme}
-          locale={locale}
-        />
+        {ORDINARY_GROUPS.map(({ group, title, sorted }) => (
+          <CollapsiblePrayers
+            key={group}
+            title={title}
+            subtitle={groupSubtitle[group]}
+            entries={ordinaryGroupEntries(group) as GroupEntry[]}
+            sorted={sorted}
+            onStart={onStart}
+            badges={seasonBadges}
+            notes={eastertide ? { angelus: t.angelusEastertide } : {}}
+            resume={resume}
+            theme={theme}
+            locale={locale}
+          />
+        ))}
 
         <CollapsiblePrayers
           title="Litaníæ"
