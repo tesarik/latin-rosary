@@ -217,7 +217,7 @@ function GroupIcon({ name, color }: { name: GroupIconName; color: string }) {
         return <text x="10" y="16.5" textAnchor="middle" fontFamily="'EB Garamond', Georgia, serif" fontSize="20" fontWeight="600" fill={color}>M</text>;
       case "ihs":
         // The Holy Name's monogram, for the Mass.
-        return <text x="10" y="14.2" textAnchor="middle" fontFamily="'EB Garamond', Georgia, serif" fontSize="11" fontWeight="600" letterSpacing="0.3" fill={color}>IHS</text>;
+        return <text x="10" y="14.8" textAnchor="middle" fontFamily="'EB Garamond', Georgia, serif" fontSize="13.5" fontWeight="600" letterSpacing="0" fill={color}>IHS</text>;
       case "list":
         return <>
           <circle cx="4" cy="6" r="1" fill={color} />
