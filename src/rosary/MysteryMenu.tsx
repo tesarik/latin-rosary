@@ -321,7 +321,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
   // In November the prayers for the dead are in season too.
   const seasonBadges: Record<string, string> = { [antiphon]: t.seasonBadge };
   if (monthOfTheDead(now)) {
-    for (const k of ["de_profundis", "dies_irae", "requiem"]) seasonBadges[k] = t.seasonBadge;
+    for (const k of ["de_profundis", "dies_irae", "requiem", "defuncti"]) seasonBadges[k] = t.seasonBadge;
   }
   const [chapletFull, setChapletFull] = useState(loadSavedChapletFull);
   const chaplet = chapletToOpen(chapletFull, Object.keys(resume));
@@ -439,6 +439,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
             key={key}
             name={val.name}
             subtitle={val.nameTr[locale]}
+            badge={seasonBadges[key] ? <Badge label={seasonBadges[key]} color={val.color} theme={theme} /> : undefined}
             color={val.color}
             ariaLabel={t.startPrayerAria(val.nameTr[locale])}
             icon="cross"

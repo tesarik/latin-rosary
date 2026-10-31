@@ -122,6 +122,9 @@ const NOTES: Record<string, Partial<Localized>> = {
   de_profundis: {
     cs: "Žalm podle Liturgie hodin; verše a závěrečná modlitba jsou v češtině naše vlastní znění.",
   },
+  defuncti: {
+    cs: "Žalm podle Liturgie hodin; verše a závěrečná modlitba jsou v češtině naše vlastní znění.",
+  },
   ioseph: {
     cs: "Krátká latinská podoba pobožnosti: sedm nadpisů, ke každému Otče náš, Zdrávas a Sláva Otci, a modlitba Vírginum custos. Český překlad nadpisů je náš vlastní.",
     en: "The short Latin form of the devotion: seven headings, each with an Our Father, a Hail Mary and a Glory Be, and the prayer Vírginum custos. The English of the headings is our own.",
