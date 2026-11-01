@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.24.0]
 
 ### Added
 - **The Chaplet of the Holy Spirit** (*Corona Spíritus Sancti*) among the devotions, prayed step by step: the sign of the cross and an act of contrition, the *Veni, Creátor*, five mysteries with a meditation and an exercise, each followed by an Our Father, a Hail Mary and seven Glory Bes, and the Creed. Latin from *Preces et pia opera* (1929), Czech from *Příručka katolických pobožností* (1935); the English is our own translation. In season through the Pentecost octave.
