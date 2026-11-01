@@ -127,6 +127,7 @@ const OCCASION_PRAYERS: Record<Occasion, readonly MenuKey[]> = {
   corpus_christi: ["lauda_sion"],
   seven_sorrows: ["stabat_mater", "septem_dolores"],
   november: ["requiem", "de_profundis", "dies_irae", "defuncti"],
+  st_michael: ["angelica"],
   all_saints: ["saints"],
   st_joseph: ["st_joseph", "ioseph", "ad_te_ioseph"],
   sacred_heart: ["sacred_heart", "cor_iesu"],

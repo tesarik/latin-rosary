@@ -43,6 +43,11 @@ describe("inSeason", () => {
     expect(inSeason(new Date(2026, 10, 2))).toEqual(["salve_regina", "requiem", "de_profundis", "dies_irae", "defuncti"]);
   });
 
+  it("adds St. Michael's chaplet on his feast", () => {
+    expect(inSeason(new Date(2026, 8, 29))).toEqual(["salve_regina", "angelica"]);
+    expect(inSeason(new Date(2026, 8, 30))).toEqual(["salve_regina"]);
+  });
+
   it("adds the litany of the month's devotion", () => {
     expect(inSeason(new Date(2026, 0, 14))).toEqual(["alma_redemptoris", "holy_name"]);
     expect(inSeason(new Date(2026, 6, 14))).toEqual(["salve_regina", "precious_blood", "sanguis"]);
