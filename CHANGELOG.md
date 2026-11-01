@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **St. Michael's chaplet is in season on his feast**, 29 September.
 
 ### Changed
-- **The start screen shows the app icon**, the Immaculate Heart, above the title instead of the plain cross.
+- **The start screen shows the app icon**, the Immaculate Heart, above the title instead of the plain cross, and a line under the title: *a jiné modlitby* / *and other prayers*.
 - **The English Chaplet of the Holy Spirit is now the Raccolta's** (1910): the act of contrition, the collect, and each mystery's meditation and application. Only the sign of the cross and the line-for-line *Veni Creator* remain our own.
 
 ## [0.24.0]

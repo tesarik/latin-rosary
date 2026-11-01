@@ -419,11 +419,14 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
         fontSize: 36,
         fontWeight: 700,
         color: "var(--text-strong)",
-        marginBottom: 6,
+        marginBottom: 2,
         letterSpacing: -0.5,
       }}>
         {t.appTitle}
       </h1>
+      <div style={{ fontSize: 17, color: "var(--text-muted)", marginBottom: 16 }}>
+        {t.appSubtitle}
+      </div>
 
       <div style={{ width: "100%", maxWidth: 380, display: "flex", flexDirection: "column", gap: 12 }}>
         {/* The last unfinished prayer, one tap away — otherwise it may sit

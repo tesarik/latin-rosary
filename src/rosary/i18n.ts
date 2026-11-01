@@ -16,6 +16,8 @@ const LOCALE_FALLBACKS: Record<string, Locale> = { sk: "cs" };
 
 type Strings = {
   appTitle: string;
+  // The start screen's line under the title.
+  appSubtitle: string;
   back: string;
   previous: string;
   next: string;
@@ -136,6 +138,7 @@ type Strings = {
 export const STRINGS: Record<Locale, Strings> = {
   cs: {
     appTitle: "Latinský růženec",
+    appSubtitle: "a jiné modlitby",
     back: "Zpět",
     previous: "Předchozí",
     next: "Další",
@@ -241,6 +244,7 @@ export const STRINGS: Record<Locale, Strings> = {
   },
   en: {
     appTitle: "Latin Rosary",
+    appSubtitle: "and other prayers",
     back: "Back",
     previous: "Previous",
     next: "Next",
