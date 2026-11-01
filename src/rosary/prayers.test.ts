@@ -220,6 +220,31 @@ describe("St. Joseph's seven sorrows and joys", () => {
   });
 });
 
+describe("the Chaplet of the Holy Spirit", () => {
+  const seq = OTHER_PRAYER_SETS.spiritus.build();
+
+  it("is the opening, the Veni Creator, five mysteries of Pater, Ave and seven Glórias, then the Creed", () => {
+    expect(seq.length).toBe(53);
+    expect(seq.filter((i) => i.section).map((i) => i.section)).toEqual(
+      ["Inítium", "Veni, Creátor", "Mystérium I", "Mystérium II", "Mystérium III", "Mystérium IV", "Mystérium V", "Credo"]);
+    for (let n = 0; n < 5; n++) {
+      const block = seq.slice(2 + n * 10, 12 + n * 10);
+      expect(block[0]!.section).toBe(`Mystérium ${["I", "II", "III", "IV", "V"][n]}`);
+      expect(block.slice(1).map((i) => i.type)).toEqual(
+        [PRAYER_TYPES.OUR_FATHER, PRAYER_TYPES.HAIL_MARY, ...Array(7).fill(PRAYER_TYPES.GLORY_BE)]);
+      expect(block.slice(1).every((i) => !i.section)).toBe(true);
+    }
+    expect(seq[52]!.type).toBe(PRAYER_TYPES.CREED);
+  });
+
+  it("keeps each mystery's heading, meditation and exercise in every language", () => {
+    for (const t of [PRAYER_TYPES.CORONA_SS_1, PRAYER_TYPES.CORONA_SS_5]) {
+      expect(latinText(t)!.split("\n\n").length).toBe(3);
+      for (const locale of SUPPORTED_LOCALES) expect(translatedText(locale, t)!.split("\n\n").length, locale).toBe(3);
+    }
+  });
+});
+
 describe("prayers for the dead", () => {
   it("cuts De profúndis into psalm, versicles and collect in every language", () => {
     const n = PRAYERS[PRAYER_TYPES.DE_PROFUNDIS].split("\n").length;

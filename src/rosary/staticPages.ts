@@ -131,6 +131,9 @@ const NOTES: Record<string, Partial<Localized>> = {
     cs: "Soukromá pobožnost z 19. století. Autoritativní latinský originál neexistuje; latinské znění jsme sestavili ze dvou latinských pramenů.",
     en: "A private devotion of the 19th century. No authoritative Latin original exists; this Latin is assembled from two Latin witnesses.",
   },
+  spiritus: {
+    en: "The English is our own translation of the Latin, with the Scripture in the Douay-Rheims wording.",
+  },
   creator_ineffabilis: {
     cs: "Český překlad je náš vlastní: v modlitebních knihách, které jsme prošli, se tato modlitba česky nenašla.",
   },
