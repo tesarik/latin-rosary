@@ -3736,14 +3736,15 @@ As it was in the beginning, is now, and ever shall be, world without end. Amen.`
   [PRAYER_TYPES.CREATOR_INEFFABILIS]: `O infinite Creator, who in the riches of Thy wisdom didst appoint three hierarchies of Angels and didst set them in wondrous order over the highest heavens, and who didst apportion the elements of the world most wisely: do Thou, who art in truth the fountain of light and wisdom, deign to shed upon the darkness of my understanding the rays of Thine infinite brightness, and remove far from me the twofold darkness in which I was born, namely, sin and ignorance. Do Thou, who givest speech to the tongues of little children, instruct my tongue and pour into my lips the grace of Thy benediction. Give me keenness of apprehension, capacity for remembering, method and ease in learning, insight-in interpretation, and copious eloquence in speech. Instruct my beginning, direct my progress, and set Thy seal upon the finished work, Thou, who art true God and true Man, who livest and reignest world without end. Amen.`,
 
   // ---------------------------------------------------------------------------
-  // Chaplet of the Holy Spirit: OUR OWN TRANSLATION of the Latin (the English
-  // Raccolta could not be consulted). Scripture in the Douay-Rheims wording; the
-  // Veni Creator rendered line for line, not after a hymnal version.
+  // Chaplet of the Holy Spirit: the English of the Raccolta (1910), no. 52,
+  // checked against the scan. Two parts are ours: the sign of the cross, which
+  // the Raccolta lacks, and the Veni Creator, rendered line for line — the
+  // Raccolta prints Caswall's metrical version, which doesn't follow the Latin.
   // ---------------------------------------------------------------------------
   [PRAYER_TYPES.CORONA_SS_INITIUM]: `In the name of the Father, and of the Son, and of the Holy Ghost. Amen.
 
-{r}Act of contrition{/r}
-I am sorry, my God, that I have sinned against thee, because thou art so good; with the help of thy grace I will sin no more.`,
+{r}Short Act of Contrition{/r}
+I grieve, O my God, for having sinned against Thee, because Thou art so good; and with the assistance of thy grace I will never sin again.`,
 
   [PRAYER_TYPES.CORONA_SS_HYMNUS]: `Come, Creator Spirit,
 visit the minds of thy faithful,
@@ -3781,44 +3782,44 @@ from the dead, and to the Paraclete,
 for ever and ever. Amen.
 
 ℣ Send forth thy Spirit, and they shall be created.
-℟ And thou shalt renew the face of the earth.
+℟ And Thou shalt renew the face of the earth.
 
-Let us pray. O God, who didst teach the hearts of the faithful by the light of the Holy Spirit: grant us by the same Spirit to relish what is right, and ever to rejoice in his consolation. Through Christ our Lord. Amen.`,
+Let us pray. O God, who didst instruct the hearts of the faithful by the light of the Holy Spirit, grant us in the same Spirit to be truly wise and ever to rejoice in His consolation, through Jesus Christ our Lord. Amen.`,
 
-  [PRAYER_TYPES.CORONA_SS_1]: `{r}The first mystery{/r}
-Jesus was conceived of the Virgin Mary by the Holy Ghost.
+  [PRAYER_TYPES.CORONA_SS_1]: `{r}First Mystery{/r}
+Jesus was conceived of the Virgin Mary by the power of the Holy Ghost.
 
-{r}Meditation.{/r} The Holy Ghost shall come upon thee, and the power of the most High shall overshadow thee. And therefore also the Holy which shall be born of thee shall be called the Son of God (Luke 1, 35).
+{r}Meditation.{/r} “The Holy Spirit shall descend upon thee, and the power of the most high shall overshadow thee, and therefore the Holy one that shall be born of thee shall be called the Son of God” (St Luke i, 35).
 
-{r}Exercise.{/r} Pray earnestly for the help of the Holy Spirit and the intercession of Mary, that you may imitate the virtues of Jesus Christ, the pattern of all virtue, and be made like to the image of the Son of God.`,
+{r}Application.{/r} Pray earnestly for the help of the divine Spirit and, through the intercession of Mary, for grace to imitate the virtues of Jesus Christ, who is the example of all virtue, and so to be conformed to the image of the Son of God.`,
 
-  [PRAYER_TYPES.CORONA_SS_2]: `{r}The second mystery{/r}
-The Spirit of the Lord rested upon Jesus.
+  [PRAYER_TYPES.CORONA_SS_2]: `{r}Second Mystery{/r}
+The Spirit of God rests upon Jesus.
 
-{r}Meditation.{/r} And Jesus being baptized, forthwith came out of the water: and lo, the heavens were opened to him: and he saw the Spirit of God descending as a dove, and coming upon him (Matt. 3, 16).
+{r}Meditation.{/r} “Jesus being baptized came forth immediately from the water, and behold the Heavens were opened, and He saw the Spirit of God descend like a dove, and coming, stand over Him” (St Matt. iii, 16).
 
-{r}Exercise.{/r} Hold in the highest esteem the priceless sanctifying grace which the Holy Spirit poured into your heart at Baptism. Keep the promises you then bound yourself to keep. Grow in faith, hope and charity by constant practice. Live always as befits children of God and members of the true Church of God, that after this life you may receive the inheritance of heaven.`,
+{r}Application.{/r} Hold in the highest esteem the priceless gift of sanctifying grace, which the Holy Spirit infused into your heart in Baptism. Keep the promises to the observance of which you have bound yourself. By continual exercise, increase Faith, Hope and Charity. Live always as becomes children of God, and members of his true Church, in order that after this life has run its course, you may be worthy to receive your heavenly inheritance.`,
 
-  [PRAYER_TYPES.CORONA_SS_3]: `{r}The third mystery{/r}
-Jesus was led by the Spirit into the desert.
+  [PRAYER_TYPES.CORONA_SS_3]: `{r}Third Mystery{/r}
+Jesus was conducted by the Spirit into the desert.
 
-{r}Meditation.{/r} And Jesus being full of the Holy Ghost, returned from the Jordan, and was led by the Spirit into the desert for forty days, and was tempted by the devil (Luke 4, 1-2).
+{r}Meditation.{/r} “But Jesus, full of the Holy Spirit, retired from the Jordan, and was conducted by the Spirit into the desert for forty days; and was tempted by the Devil” (St Luke iv, 1, 2).
 
-{r}Exercise.{/r} Be ever grateful for the sevenfold gift of the Holy Spirit given you in Confirmation: the spirit of wisdom and understanding, of counsel and fortitude, of knowledge and piety, and of the fear of the Lord. Faithfully obey your divine Guide, that in all the dangers and temptations of this life you may act manfully, as befits a perfect Christian and a valiant soldier of Jesus Christ.`,
+{r}Application.{/r} Be always grateful for the seven gifts given to you by the Holy Spirit in Confirmation; for the spirit of wisdom and understanding, of counsel and fortitude, of knowledge and piety, and of the fear of the Lord. Faithfully adhere to your divine Guide, acting manfully in all the dangers of this life and in temptation, as becomes a perfect Christian and a brave athlete of Jesus Christ.`,
 
-  [PRAYER_TYPES.CORONA_SS_4]: `{r}The fourth mystery{/r}
+  [PRAYER_TYPES.CORONA_SS_4]: `{r}Fourth Mystery{/r}
 The Holy Spirit in the Church.
 
-{r}Meditation.{/r} And suddenly there came a sound from heaven, as of a mighty wind coming, where they were sitting; and they were all filled with the Holy Ghost, speaking the wonderful works of God (Acts 2, 2. 4. 11).
+{r}Meditation.{/r} “And suddenly there was a sound from Heaven as of a mighty wind coming where they were assembled; and they were all filled with the Holy Spirit, and began to discourse of the wonderful works of God” (Acts ii, 2, 4, 11).
 
-{r}Exercise.{/r} Give thanks to God that he has made you a child of his Church, which the divine Spirit, sent into the world on the day of Pentecost, ever quickens and governs. Hear and follow the Sovereign Pontiff, who by the Holy Spirit teaches infallibly, and the Church, which is the pillar and ground of truth. Uphold her teaching, take her part, defend her rights.`,
+{r}Application.{/r} Thank God for making you a child of his Church which the divine Spirit, sent into the world on the day of Pentecost, ever vivifies and rules. Hear and obey the Supreme Pontiff, who by the assistance of the Holy Spirit is the infallible teacher, and the Church, which is the pillar and foundation of truth. Hold fast her doctrines, maintain her cause, defend her rights.`,
 
-  [PRAYER_TYPES.CORONA_SS_5]: `{r}The fifth mystery{/r}
-The Holy Spirit in the soul of the just.
+  [PRAYER_TYPES.CORONA_SS_5]: `{r}Fifth Mystery{/r}
+The Holy Spirit in the soul of the just man.
 
-{r}Meditation.{/r} Know you not, that your members are the temple of the Holy Ghost, who is in you? (1 Cor. 6, 19). Extinguish not the spirit (1 Thess. 5, 19). And grieve not the Holy Spirit of God, whereby you are sealed unto the day of redemption (Eph. 4, 30).
+{r}Meditation.{/r} “Do you not know that your members are the temple of the Holy Spirit, who is in you” (1 Cor. vi, 19). “Do not extinguish the Spirit” (1 Thess. v, 19). “And grieve not the Holy Spirit of God, whereby you are sealed unto the day of redemption” (Ephes. iv, 30).
 
-{r}Exercise.{/r} Remember always the Holy Spirit who dwells in you, and give all diligence to purity of soul and body. Faithfully obey his divine inspirations, that you may bring forth the fruits of the Spirit: charity, joy, peace, patience, benignity, goodness, longanimity, mildness, faith, modesty, continency, chastity.`,
+{r}Application.{/r} Be ever mindful of the Holy Spirit who is in you, and watch with all possible care over purity of soul and body. Faithfully obey his divine inspirations, so as to gather therefrom the fruits of the Spirit: Charity, joy, peace, benignity, goodness, longanimity, mildness, faith, modesty, continency, chastity.`,
 
   // The four chaplets, from the Raccolta (1910; the Sacred Heart from the 1878
   // edition, with its capitals for the Heart). The headings are ours.

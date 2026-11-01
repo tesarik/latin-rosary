@@ -404,10 +404,15 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
       <ThemeToggle theme={theme} onToggle={onToggleTheme} locale={locale} />
       <LanguagePicker locale={locale} onChange={onLocaleChange} />
 
-      <svg width="48" height="48" viewBox="0 0 48 48" aria-hidden="true" style={{ marginBottom: 16 }}>
-        <line x1="24" y1="6" x2="24" y2="42" stroke="#1565C0" strokeWidth="4" strokeLinecap="round" />
-        <line x1="12" y1="18" x2="36" y2="18" stroke="#1565C0" strokeWidth="4" strokeLinecap="round" />
-      </svg>
+      {/* The app icon, the Immaculate Heart (192 px, sharp at 2× density). */}
+      <img
+        src={`${import.meta.env.BASE_URL}icon-192.png`}
+        alt=""
+        aria-hidden="true"
+        width={88}
+        height={88}
+        style={{ marginBottom: 16, borderRadius: 20, boxShadow: "0 2px 8px rgba(0,0,0,0.12)" }}
+      />
 
       <h1 style={{
         fontFamily: "Arial, sans-serif",

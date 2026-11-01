@@ -132,7 +132,7 @@ const NOTES: Record<string, Partial<Localized>> = {
     en: "A private devotion of the 19th century. No authoritative Latin original exists; this Latin is assembled from two Latin witnesses.",
   },
   spiritus: {
-    en: "The English is our own translation of the Latin, with the Scripture in the Douay-Rheims wording.",
+    en: "The English is the Raccolta's (1910), bar the sign of the cross and the Veni Creator, which we render line for line with the Latin.",
   },
   angelica: {
     cs: "Latinské znění je náš vlastní překlad: korunka vznikla italsky a v latinských sbírkách se nenašla. Český text podle Cesty k věčné spáse (1915), anglický podle Raccolty (1910).",
