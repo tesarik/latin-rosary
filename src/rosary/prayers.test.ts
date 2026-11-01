@@ -245,6 +245,48 @@ describe("the Chaplet of the Holy Spirit", () => {
   });
 });
 
+describe("the Raccolta chaplets", () => {
+  const types = (key: keyof typeof OTHER_PRAYER_SETS) => OTHER_PRAYER_SETS[key].build().map((i) => i.type);
+  const count = (key: keyof typeof OTHER_PRAYER_SETS, type: string) => types(key).filter((t) => t === type).length;
+  const sections = (key: keyof typeof OTHER_PRAYER_SETS) =>
+    OTHER_PRAYER_SETS[key].build().filter((i) => i.section).map((i) => i.section);
+
+  it("gives St. Michael's nine choirs a Pater and three Aves, then four Paters", () => {
+    expect(types("angelica").length).toBe(52);
+    expect(count("angelica", PRAYER_TYPES.OUR_FATHER)).toBe(13);
+    expect(count("angelica", PRAYER_TYPES.HAIL_MARY)).toBe(27);
+    expect(sections("angelica")).toHaveLength(13);
+  });
+
+  it("gives the Seven Sorrows a Pater and seven Aves each, and three Aves for the tears", () => {
+    expect(types("septem_dolores").length).toBe(69);
+    expect(count("septem_dolores", PRAYER_TYPES.OUR_FATHER)).toBe(7);
+    expect(count("septem_dolores", PRAYER_TYPES.HAIL_MARY)).toBe(52);
+    expect(sections("septem_dolores")).toEqual(["Inítium", "Prophétia Simeónis", "Fuga in Ægýptum", "Iesus amíssus",
+      "Via Crucis", "Crucifíxio", "Deposítio", "Sepultúra", "Lácrimæ", "Orémus"]);
+  });
+
+  it("counts 33 Paters in the Precious Blood, a Glória and Te ergo after each mystery", () => {
+    expect(types("sanguis").length).toBe(57);
+    expect(count("sanguis", PRAYER_TYPES.OUR_FATHER)).toBe(33);
+    expect(count("sanguis", PRAYER_TYPES.GLORY_BE)).toBe(7);
+    expect(count("sanguis", PRAYER_TYPES.CORONA_SANG_TE_ERGO)).toBe(7);
+  });
+
+  it("gives each of the Sacred Heart's five considerations a Pater, five Glórias and the aspiration", () => {
+    expect(types("cor_iesu").length).toBe(43);
+    expect(count("cor_iesu", PRAYER_TYPES.GLORY_BE)).toBe(25);
+    expect(count("cor_iesu", PRAYER_TYPES.CORONA_COR_IACULATORIA)).toBe(5);
+  });
+
+  it("never makes a counted Ave or Glória a section, so the strand keeps one bead per part", () => {
+    const counted: string[] = [PRAYER_TYPES.HAIL_MARY, PRAYER_TYPES.GLORY_BE];
+    for (const key of ["angelica", "septem_dolores", "sanguis", "cor_iesu"] as const) {
+      expect(OTHER_PRAYER_SETS[key].build().filter((i) => i.section && counted.includes(i.type)), key).toEqual([]);
+    }
+  });
+});
+
 describe("prayers for the dead", () => {
   it("cuts De profúndis into psalm, versicles and collect in every language", () => {
     const n = PRAYERS[PRAYER_TYPES.DE_PROFUNDIS].split("\n").length;

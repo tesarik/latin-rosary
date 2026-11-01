@@ -134,6 +134,22 @@ const NOTES: Record<string, Partial<Localized>> = {
   spiritus: {
     en: "The English is our own translation of the Latin, with the Scripture in the Douay-Rheims wording.",
   },
+  angelica: {
+    cs: "Latinské znění je náš vlastní překlad: korunka vznikla italsky a v latinských sbírkách se nenašla. Český text podle Cesty k věčné spáse (1915), anglický podle Raccolty (1910).",
+    en: "The Latin is our own translation: the chaplet was written in Italian and no Latin collection we searched has it. The English is the Raccolta's (1910).",
+  },
+  septem_dolores: {
+    cs: "Latinské znění je náš vlastní překlad, kromě verše a modlitby Intervéniat z misálu. Český text podle Poutní knihy (1893), anglický podle Raccolty (1910).",
+    en: "The Latin is our own translation, except the versicle and the Missal's collect Intervéniat. The English is the Raccolta's (1910).",
+  },
+  sanguis: {
+    cs: "Latinské znění rozjímání a modlitby je náš vlastní překlad; verše a závěrečná modlitba jsou z misálu. Český text podle Cesty k věčné spáse (1915), anglický podle Raccolty (1910).",
+    en: "The Latin of the meditations and the prayer is our own translation; the versicles and the collect are the Missal's. The English is the Raccolta's (1910).",
+  },
+  cor_iesu: {
+    cs: "Latinské znění rozjímání a modliteb je náš vlastní překlad; verš a závěrečná modlitba jsou z Raccolty. Český text podle Cesty k věčné spáse (1915), anglický podle Raccolty (1878).",
+    en: "The Latin of the considerations and prayers is our own translation; the versicle and the collect are the Raccolta's. The English is the Raccolta's (1878).",
+  },
   creator_ineffabilis: {
     cs: "Český překlad je náš vlastní: v modlitebních knihách, které jsme prošli, se tato modlitba česky nenašla.",
   },

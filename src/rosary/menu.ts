@@ -115,7 +115,7 @@ export const MENU_GROUPS: readonly MenuGroup[] = [
     subtitle: { cs: "Pobožnosti", en: "Devotions" },
     icon: "heart",
     color: "#C62828",
-    sections: [{ keys: ["spiritus", "brigit", "ioseph", "ad_te_ioseph"] }],
+    sections: [{ keys: ["spiritus", "sanguis", "brigit", "cor_iesu", "septem_dolores", "angelica", "ioseph", "ad_te_ioseph"] }],
   },
 ];
 
@@ -125,15 +125,15 @@ const OCCASION_PRAYERS: Record<Occasion, readonly MenuKey[]> = {
   easter_octave: ["victimae_paschali"],
   pentecost_octave: ["veni_sancte_spiritus", "spiritus"],
   corpus_christi: ["lauda_sion"],
-  seven_sorrows: ["stabat_mater"],
+  seven_sorrows: ["stabat_mater", "septem_dolores"],
   november: ["requiem", "de_profundis", "dies_irae", "defuncti"],
   all_saints: ["saints"],
   st_joseph: ["st_joseph", "ioseph", "ad_te_ioseph"],
-  sacred_heart: ["sacred_heart"],
-  precious_blood: ["precious_blood"],
+  sacred_heart: ["sacred_heart", "cor_iesu"],
+  precious_blood: ["precious_blood", "sanguis"],
   holy_name: ["holy_name"],
   marian_month: ["loreto"],
-  lent: ["brigit"],
+  lent: ["brigit", "septem_dolores"],
 };
 
 // What belongs to the day, for the start screen's "in season" card and the

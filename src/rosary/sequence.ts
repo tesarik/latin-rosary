@@ -260,7 +260,113 @@ export function buildCoronaSpiritusSancti(): SequenceItem[] {
   ];
 }
 
-export type OtherPrayerKey = "leonine" | "brigit" | "ioseph" | "defuncti" | "spiritus";
+// The Raccolta chaplets below share one shape: a sectioned heading step, then
+// its prayers as unsectioned sub-steps counted in the label ("Ave María 2/3"),
+// as St. Bridget's and the Chaplet of the Holy Spirit's are.
+function counted(type: SequenceItem["type"], label: string, n: number): SequenceItem[] {
+  return Array.from({ length: n }, (_, i): SequenceItem => ({ type, label: n > 1 ? `${label} ${i + 1}/${n}` : label }));
+}
+const P = PRAYER_TYPES;
+
+// Corona Angélica — St. Michael's chaplet (Raccolta, no. 291): nine
+// salutations to the choirs of angels, each with a Pater and three Aves, then
+// four Paters (to St. Michael, St. Gabriel, St. Raphael and the guardian
+// angel), the antiphon and the collect. 52 steps.
+const CORONA_ANG_CHOIRS = [
+  [P.CORONA_ANG_1, "Séraphim"], [P.CORONA_ANG_2, "Chérubim"], [P.CORONA_ANG_3, "Throni"],
+  [P.CORONA_ANG_4, "Dominatiónes"], [P.CORONA_ANG_5, "Potestátes"], [P.CORONA_ANG_6, "Virtútes"],
+  [P.CORONA_ANG_7, "Principátus"], [P.CORONA_ANG_8, "Archángeli"], [P.CORONA_ANG_9, "Angeli"],
+] as const;
+
+export function buildCoronaAngelica(): SequenceItem[] {
+  return [
+    { type: P.CORONA_ANG_INITIUM, label: "Inítium", section: "Inítium" },
+    ...CORONA_ANG_CHOIRS.flatMap(([type, choir]): SequenceItem[] => [
+      { type, label: choir, section: choir },
+      { type: P.OUR_FATHER, label: "Pater Noster" },
+      ...counted(P.HAIL_MARY, "Ave María", 3),
+    ]),
+    { type: P.OUR_FATHER, label: "Pater Noster · S. Míchael", section: "Quattuor Pater" },
+    { type: P.OUR_FATHER, label: "Pater Noster · S. Gábriel" },
+    { type: P.OUR_FATHER, label: "Pater Noster · S. Ráphael" },
+    { type: P.OUR_FATHER, label: "Pater Noster · Angelus Custos" },
+    { type: P.CORONA_ANG_ANTIPHONA, label: "Antíphona", section: "Antíphona" },
+    { type: P.CORONA_ANG_OREMUS, label: "Orémus", section: "Orémus" },
+  ];
+}
+
+// Corona Septem Dolórum — the Servite rosary of the Seven Sorrows (Raccolta,
+// no. 230): an act of contrition, seven sorrows of a Pater and seven Aves,
+// three Aves for Our Lady's tears, and the collect. 69 steps.
+const CORONA_DOL_SORROWS = [
+  [P.CORONA_DOL_1, "Prophétia Simeónis"], [P.CORONA_DOL_2, "Fuga in Ægýptum"], [P.CORONA_DOL_3, "Iesus amíssus"],
+  [P.CORONA_DOL_4, "Via Crucis"], [P.CORONA_DOL_5, "Crucifíxio"], [P.CORONA_DOL_6, "Deposítio"], [P.CORONA_DOL_7, "Sepultúra"],
+] as const;
+
+export function buildCoronaSeptemDolorum(): SequenceItem[] {
+  return [
+    { type: P.CORONA_DOL_INITIUM, label: "Actus contritiónis", section: "Inítium" },
+    ...CORONA_DOL_SORROWS.flatMap(([type, sorrow]): SequenceItem[] => [
+      { type, label: sorrow, section: sorrow },
+      { type: P.OUR_FATHER, label: "Pater Noster" },
+      ...counted(P.HAIL_MARY, "Ave María", 7),
+    ]),
+    { type: P.CORONA_DOL_LACRIMAE, label: "Lácrimæ", section: "Lácrimæ" },
+    ...counted(P.HAIL_MARY, "Ave María", 3),
+    { type: P.CORONA_DOL_OREMUS, label: "Orémus", section: "Orémus" },
+  ];
+}
+
+// Corona Pretiosíssimi Sánguinis — the Chaplet of the Precious Blood
+// (Raccolta, no. 138): seven mysteries of five Paters and a Glória (three
+// Paters in the last, 33 in all for the years of Our Lord's life), each closed
+// by the versicle Te ergo; then the prayer and the collect. 57 steps.
+const CORONA_SANG_MYSTERIES = [
+  P.CORONA_SANG_1, P.CORONA_SANG_2, P.CORONA_SANG_3, P.CORONA_SANG_4,
+  P.CORONA_SANG_5, P.CORONA_SANG_6, P.CORONA_SANG_7,
+] as const;
+const ROMAN7 = ["I", "II", "III", "IV", "V", "VI", "VII"] as const;
+
+export function buildCoronaSanguinis(): SequenceItem[] {
+  return [
+    { type: P.CORONA_SANG_INITIUM, label: "Inítium", section: "Inítium" },
+    ...CORONA_SANG_MYSTERIES.flatMap((type, i): SequenceItem[] => [
+      { type, label: `Mystérium ${ROMAN7[i]}`, section: `Mystérium ${ROMAN7[i]}` },
+      ...counted(P.OUR_FATHER, "Pater Noster", i < 6 ? 5 : 3),
+      { type: P.GLORY_BE, label: "Glória Patri" },
+      { type: P.CORONA_SANG_TE_ERGO, label: "Te ergo" },
+    ]),
+    { type: P.CORONA_SANG_ORATIO, label: "Orátio", section: "Orátio" },
+    { type: P.CORONA_SANG_OREMUS, label: "Orémus", section: "Orémus" },
+  ];
+}
+
+// Corona Sacratíssimi Cordis Iesu — the little chaplet of the Sacred Heart
+// (Raccolta 1878, no. 80): five considerations of the Heart, each with a
+// Pater, five Glórias and the aspiration, then a prayer to Our Lady and the
+// collect. 43 steps.
+const CORONA_COR_HEARTS = [
+  [P.CORONA_COR_1, "Cor benígnum"], [P.CORONA_COR_2, "Cor húmile"], [P.CORONA_COR_3, "Cor pátiens"],
+  [P.CORONA_COR_4, "Cor mite"], [P.CORONA_COR_5, "Cor generósum"],
+] as const;
+
+export function buildCoronaCordis(): SequenceItem[] {
+  return [
+    { type: P.CORONA_COR_INITIUM, label: "Inítium", section: "Inítium" },
+    ...CORONA_COR_HEARTS.flatMap(([type, heart]): SequenceItem[] => [
+      { type, label: heart, section: heart },
+      { type: P.OUR_FATHER, label: "Pater Noster" },
+      ...counted(P.GLORY_BE, "Glória Patri", 5),
+      { type: P.CORONA_COR_IACULATORIA, label: "O dulcíssimum Cor" },
+    ]),
+    { type: P.CORONA_COR_MARIA, label: "Ad Maríam", section: "Ad Maríam" },
+    { type: P.CORONA_COR_OREMUS, label: "Orémus", section: "Orémus" },
+  ];
+}
+
+export type OtherPrayerKey =
+  | "leonine" | "brigit" | "ioseph" | "defuncti" | "spiritus"
+  | "angelica" | "septem_dolores" | "sanguis" | "cor_iesu";
 
 // Linear prayer sets (no beads, not persisted). Keyed by `OtherPrayerKey`,
 // rendered as a separate block on the start screen.
@@ -293,6 +399,30 @@ export const OTHER_PRAYER_SETS: Record<OtherPrayerKey, {
     nameTr: { cs: "Korunka k úctě Ducha Svatého", en: "The Chaplet of the Holy Spirit" },
     color: "#B71C1C",
     build: buildCoronaSpiritusSancti,
+  },
+  angelica: {
+    name: "Corona Angélica",
+    nameTr: { cs: "Andělská korunka ke cti svatého Michaela", en: "The Chaplet of St. Michael" },
+    color: "#1565C0",
+    build: buildCoronaAngelica,
+  },
+  septem_dolores: {
+    name: "Corona Septem Dolórum",
+    nameTr: { cs: "Růženec sedmibolestné Panny Marie", en: "The Rosary of the Seven Sorrows" },
+    color: "#6A1B9A",
+    build: buildCoronaSeptemDolorum,
+  },
+  sanguis: {
+    name: "Corona Pretiosíssimi Sánguinis",
+    nameTr: { cs: "Korunka ke cti předrahé Krve Páně", en: "The Chaplet of the Precious Blood" },
+    color: "#8B0000",
+    build: buildCoronaSanguinis,
+  },
+  cor_iesu: {
+    name: "Corona Sacratíssimi Cordis Iesu",
+    nameTr: { cs: "Korunka k nejsvětějšímu Srdci Ježíšovu", en: "The Chaplet of the Sacred Heart" },
+    color: "#C62828",
+    build: buildCoronaCordis,
   },
   defuncti: {
     name: "Preces pro defunctis",
