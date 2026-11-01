@@ -112,10 +112,15 @@ export default function AboutDialog({ locale, onClose }: Props) {
           ×
         </button>
 
-        <svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true" style={{ display: "block", margin: "0 auto 10px" }}>
-          <line x1="24" y1="6" x2="24" y2="42" stroke="#1565C0" strokeWidth="4" strokeLinecap="round" />
-          <line x1="12" y1="18" x2="36" y2="18" stroke="#1565C0" strokeWidth="4" strokeLinecap="round" />
-        </svg>
+        {/* The app icon, as on the start screen. */}
+        <img
+          src={`${import.meta.env.BASE_URL}icon-192.png`}
+          alt=""
+          aria-hidden="true"
+          width={64}
+          height={64}
+          style={{ display: "block", margin: "0 auto 10px", borderRadius: 14, boxShadow: "0 2px 8px rgba(0,0,0,0.12)" }}
+        />
 
         <div style={{ textAlign: "center", fontSize: 22, fontWeight: 700, color: "var(--text-strong)" }}>{t.appTitle}</div>
         <div style={{ textAlign: "center", fontSize: 12, color: "var(--text-muted)", marginTop: 2 }}>
