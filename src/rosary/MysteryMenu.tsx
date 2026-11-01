@@ -248,14 +248,13 @@ const openGroups = new Set<string>();
 // as a small caption). Tapping a link starts that set. Every row shows the
 // Latin name with its name in the UI language as a muted subtitle — the same
 // two-line shape the prayer-plan tile uses. The "in season" card is one too,
-// held open (collapsible={false}).
-function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, collapsible = true, onStart, resume, badges = {}, notes = {}, theme, locale }: {
+// closed like the rest until tapped.
+function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, onStart, resume, badges = {}, notes = {}, theme, locale }: {
   title: string;
   subtitle: string;
   icon: GroupIconName;
   color: string;
   sections: readonly MenuSection[];
-  collapsible?: boolean;
   onStart: (key: PrayerSetKey) => void;
   resume: ResumeInfo;
   // Per-row pill after the name, and an extra muted line under it.
@@ -268,8 +267,7 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, co
   const keys = sections.flatMap((s) => s.keys);
   // A group holding an unfinished set starts open, so its place is visible; so
   // does one left open before a prayer was opened from it (openGroups).
-  const [isOpen, setOpen] = useState(() => openGroups.has(title) || keys.some((k) => Object.hasOwn(resume, k)));
-  const open = isOpen || !collapsible;
+  const [open, setOpen] = useState(() => openGroups.has(title) || keys.some((k) => Object.hasOwn(resume, k)));
   const toggle = () => setOpen((o) => {
     if (o) openGroups.delete(title); else openGroups.add(title);
     return !o;
@@ -284,9 +282,8 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, co
       overflow: "hidden",
     }}>
       <button
-        onClick={collapsible ? toggle : undefined}
-        aria-expanded={collapsible ? open : undefined}
-        tabIndex={collapsible ? undefined : -1}
+        onClick={toggle}
+        aria-expanded={open}
         style={{
           width: "100%",
           display: "flex",
@@ -295,7 +292,7 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, co
           padding: "18px 24px",
           background: "transparent",
           border: "none",
-          cursor: collapsible ? "pointer" : "default",
+          cursor: "pointer",
           textAlign: "left",
         }}
       >
@@ -313,12 +310,12 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, co
             {subtitle}
           </div>
         </div>
-        {collapsible && <span aria-hidden="true" style={{
+        <span aria-hidden="true" style={{
           fontSize: 14,
           color: "var(--text-muted)",
           transform: open ? "rotate(180deg)" : "none",
           transition: "transform 0.2s ease",
-        }}>▾</span>}
+        }}>▾</span>
       </button>
 
       {open && (
@@ -477,15 +474,14 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
           {t.otherPrayersHeading}
         </h2>
 
-        {/* What the day calls for, held open above the groups; each prayer is
-            also in its own group further down, with the same pill. */}
+        {/* What the day calls for, above the groups and closed like them; each
+            prayer is also in its own group further down, with the same pill. */}
         <CollapsiblePrayers
           title={t.inSeasonHeading}
           subtitle={t.inSeasonSubtitle}
           icon={IN_SEASON_ICON}
           color={IN_SEASON_COLOR}
           sections={[{ keys: seasonal }]}
-          collapsible={false}
           onStart={onStart}
           resume={resume}
           theme={theme}

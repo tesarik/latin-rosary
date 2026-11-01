@@ -87,6 +87,50 @@ export const PRAYER_TYPES = {
   CORONA_SS_3: "corona_ss_3",
   CORONA_SS_4: "corona_ss_4",
   CORONA_SS_5: "corona_ss_5",
+  // The chaplets of St. Michael (the Angelic Crown), the Seven Sorrows, the
+  // Precious Blood and the Sacred Heart: their headings, prayers and collects.
+  CORONA_ANG_INITIUM: "corona_ang_initium",
+  CORONA_ANG_1: "corona_ang_1",
+  CORONA_ANG_2: "corona_ang_2",
+  CORONA_ANG_3: "corona_ang_3",
+  CORONA_ANG_4: "corona_ang_4",
+  CORONA_ANG_5: "corona_ang_5",
+  CORONA_ANG_6: "corona_ang_6",
+  CORONA_ANG_7: "corona_ang_7",
+  CORONA_ANG_8: "corona_ang_8",
+  CORONA_ANG_9: "corona_ang_9",
+  CORONA_ANG_ANTIPHONA: "corona_ang_antiphona",
+  CORONA_ANG_OREMUS: "corona_ang_oremus",
+  CORONA_DOL_INITIUM: "corona_dol_initium",
+  CORONA_DOL_1: "corona_dol_1",
+  CORONA_DOL_2: "corona_dol_2",
+  CORONA_DOL_3: "corona_dol_3",
+  CORONA_DOL_4: "corona_dol_4",
+  CORONA_DOL_5: "corona_dol_5",
+  CORONA_DOL_6: "corona_dol_6",
+  CORONA_DOL_7: "corona_dol_7",
+  CORONA_DOL_LACRIMAE: "corona_dol_lacrimae",
+  CORONA_DOL_OREMUS: "corona_dol_oremus",
+  CORONA_SANG_INITIUM: "corona_sang_initium",
+  CORONA_SANG_1: "corona_sang_1",
+  CORONA_SANG_2: "corona_sang_2",
+  CORONA_SANG_3: "corona_sang_3",
+  CORONA_SANG_4: "corona_sang_4",
+  CORONA_SANG_5: "corona_sang_5",
+  CORONA_SANG_6: "corona_sang_6",
+  CORONA_SANG_7: "corona_sang_7",
+  CORONA_SANG_TE_ERGO: "corona_sang_te_ergo",
+  CORONA_SANG_ORATIO: "corona_sang_oratio",
+  CORONA_SANG_OREMUS: "corona_sang_oremus",
+  CORONA_COR_INITIUM: "corona_cor_initium",
+  CORONA_COR_1: "corona_cor_1",
+  CORONA_COR_2: "corona_cor_2",
+  CORONA_COR_3: "corona_cor_3",
+  CORONA_COR_4: "corona_cor_4",
+  CORONA_COR_5: "corona_cor_5",
+  CORONA_COR_IACULATORIA: "corona_cor_iaculatoria",
+  CORONA_COR_MARIA: "corona_cor_maria",
+  CORONA_COR_OREMUS: "corona_cor_oremus",
   VICTIMAE_PASCHALI: "victimae_paschali",
   VENI_SANCTE_SPIRITUS: "veni_sancte_spiritus",
   LAUDA_SION: "lauda_sion",
@@ -621,6 +665,151 @@ Spíritus Sanctus in ánima iusti.
 {r}Meditátio.{/r} An nescítis quóniam membra vestra templum sunt Spíritus Sancti, qui in vobis est? (1 Cor. 6, 19). Spíritum nolíte exstínguere (1 Thess. 5, 19). Et nolíte contristáre Spíritum Sanctum Dei, in quo signáti estis in diem redemptiónis (Eph. 4, 30).
 
 {r}Exercitátio.{/r} Semper recordáre de Spíritu Sancto qui est in te, et puritáti ánimæ et córporis omnem da óperam. Fidéliter obédi divínis eius inspiratiónibus, ut fácias fructus Spíritus: caritátem, gáudium, pacem, patiéntiam, benignitátem, bonitátem, longanimitátem, mansuetúdinem, fidem, modéstiam, continéntiam, castitátem.`,
+
+  // The four chaplets below are Raccolta devotions with no Latin text in any
+  // collection we could find (Preces et pia opera, Coeleste palmetum): THEIR
+  // LATIN IS OUR OWN TRANSLATION, made from the Raccolta (1910; 1878 for the
+  // Sacred Heart) beside the Czech of Cesta k věčné spáse (1915) and Poutní
+  // kniha (1893). Sourced exceptions: the versicles Deus in adiutórium (Ps. 69)
+  // and Te ergo quǽsumus (Te Deum), and the collects and versicles printed in
+  // Latin in the Raccolta or taken from the Missal — Intervéniat (Seven
+  // Sorrows), Omnípotens sempitérne Deus, qui unigénitum (Precious Blood) and
+  // Illo nos igne (Sacred Heart). Replace the rest verbatim if a sourced Latin
+  // text is ever found.
+  [PRAYER_TYPES.CORONA_ANG_INITIUM]: `℣ Deus, in adiutórium meum inténde.
+℟ Dómine, ad adiuvándum me festína.
+
+Glória Patri, et Fílio, et Spirítui Sancto. Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_1]: `{r}Salutátio prima{/r}
+Intercedénte sancto Michaéle et cælésti choro Séraphim, dignos nos effíciat Dóminus, qui igne perféctæ caritátis inflammémur. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_2]: `{r}Salutátio secúnda{/r}
+Intercedénte sancto Michaéle et cælésti choro Chérubim, det nobis Dóminus grátiam, ut viam peccáti relinquámus et sémitam christiánæ perfectiónis sequámur. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_3]: `{r}Salutátio tértia{/r}
+Intercedénte sancto Michaéle et sacro choro Thronórum, infúndat Dóminus in corda nostra spíritum veræ et sincéræ humilitátis. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_4]: `{r}Salutátio quarta{/r}
+Intercedénte sancto Michaéle et cælésti choro Dominatiónum, det nobis Dóminus grátiam, ut sénsibus nostris dominémur et pravas passiónes nostras corrigámus. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_5]: `{r}Salutátio quinta{/r}
+Intercedénte sancto Michaéle et cælésti choro Potestátum, dignétur Dóminus ánimas nostras ab insídiis et tentatiónibus diáboli custodíre. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_6]: `{r}Salutátio sexta{/r}
+Intercedénte sancto Michaéle et choro admirabílium cæléstium Virtútum, non sinat nos Dóminus in tentatiónem incídere, sed líberet nos a malo. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_7]: `{r}Salutátio séptima{/r}
+Intercedénte sancto Michaéle et cælésti choro Principátuum, répleat Dóminus ánimas nostras spíritu veræ et sincéræ obœdiéntiæ. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_8]: `{r}Salutátio octáva{/r}
+Intercedénte sancto Michaéle et cælésti choro Archangelórum, det nobis Dóminus donum perseverántiæ in fide et in opéribus bonis, ut ad glóriam paradísi perveníre valeámus. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_9]: `{r}Salutátio nona{/r}
+Intercedénte sancto Michaéle et cælésti choro ómnium Angelórum, concédat nobis Dóminus, ut ab ipsis in hac vita custodiámur et post mortem ad ætérnam cæli glóriam perducámur. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_ANTIPHONA]: `{r}Antíphona{/r}
+Princeps gloriosíssime, sancte Míchael, caput et dux cæléstis milítiæ, custos animárum, debellátor spirítuum rebéllium, domus Dei præpósite, admirábilis post Christum ductor noster, superhumána excelléntia et virtúte prǽdite: líbera nos ab omni malo, qui ad te cum fidúcia confúgimus, et incomparábili tua protectióne fac, ut in servítio Dei cotídie proficiámus.
+
+℣ Ora pro nobis, beatíssime Míchael, princeps Ecclésiæ Iesu Christi.
+℟ Ut digni efficiámur promissiónibus eius.`,
+
+  [PRAYER_TYPES.CORONA_ANG_OREMUS]: `Orémus. Omnípotens sempitérne Deus, qui mirábili bonitáte et misericórdia tua, ad commúnem hóminum salútem, gloriosíssimum Archángelum Michaélem Ecclésiæ tuæ príncipem elegísti: fac nos, quǽsumus, eius salutári protectióne ab ómnibus inimícis nostris liberári, ut in hora mortis nostræ nullus eórum nobis nocére possit, sed ab eódem Archángelo Michaéle in conspéctum excélsæ et divínæ maiestátis tuæ introducámur. Per mérita Iesu Christi, Dómini nostri. Amen.`,
+
+  [PRAYER_TYPES.CORONA_DOL_INITIUM]: `{r}Actus contritiónis{/r}
+Dómine mi, qui solus amóre meo dignus es, ecce coram divína tua præséntia consísto, totus confúsus recordatióne tot grávium iniuriárum, quibus te offéndi. Véniam eárum toto corde a te peto, eásque dóleo pure ob amórem tui, et propter summam bonitátem tuam super omne huius vitæ malum detéstor et abhórreo. Et sicut mallem mílies mórtuus esse quam te offendísse, ita nunc firmíssime propóno mílies pótius mori quam te íterum offéndere. Iesu mi crucifíxe, firmum propósitum fácio ánimam meam quam primum pretiosíssimo Sánguine tuo in sacraménto Pæniténtiæ mundándi. Tu vero, Virgo piíssima, Mater misericórdiæ et refúgium peccatórum, per amaríssimos dolóres tuos obtíne mihi peccatórum véniam, quam desídero; dum enim secúndum mentem tot sanctórum Pontíficum oro, ut indulgéntias huic sancto Rosário tuo concéssas lucrer, spero me per eas remissiónem pœnárum peccátis meis debitárum consecutúrum.`,
+
+  [PRAYER_TYPES.CORONA_DOL_1]: `{r}Dolor primus{/r}
+Hac fidúcia in corde prímum dolórem méditor, cum María, Virgo Mater Dei mei, Iesum, unigénitum Fílium suum, in templo præsentávit, in ulnas sancti senis Simeónis pósuit, et prophéticum eius verbum audívit: Tuam ipsíus ánimam pertransíbit gládius; quo Fílii sui Iesu pássio et mors prænuntiabátur.`,
+
+  [PRAYER_TYPES.CORONA_DOL_2]: `{r}Dolor secúndus{/r}
+Secúndus dolor beátæ Vírginis fuit, cum propter persecutiónem crudélis Heródis, qui dilectíssimum eius Fílium ímpie occídere quærébat, in Ægýptum fúgere coácta est.`,
+
+  [PRAYER_TYPES.CORONA_DOL_3]: `{r}Dolor tértius{/r}
+Tértius dolor beátæ Vírginis fuit, cum, postquam in festo Paschæ cum Ioseph sponso suo et Iesu dilécto Fílio suo Ierosólymam ascénderat, in réditu ad páuperem domum suam eum amísit et per tres dies únicum amórem suum flevit.`,
+
+  [PRAYER_TYPES.CORONA_DOL_4]: `{r}Dolor quartus{/r}
+Quartus dolor beátæ Vírginis fuit, cum dilécto Fílio suo Iesu óbviam facta est, gravem crucem, in qua pro salúte nostra crucifigéndus erat, téneris suis húmeris ad montem Calváriæ portánti.`,
+
+  [PRAYER_TYPES.CORONA_DOL_5]: `{r}Dolor quintus{/r}
+Quintus dolor beátæ Vírginis fuit, cum Fílium suum Iesum in duro ligno crucis elevátum et sánguinem ex ómnibus sacri córporis eius pártibus fluéntem vidit, eúmque post trium horárum agóniam exspirántem aspéxit.`,
+
+  [PRAYER_TYPES.CORONA_DOL_6]: `{r}Dolor sextus{/r}
+Sextus dolor beátæ Vírginis fuit, cum sacrum latus Iesu, dilécti Fílii sui, láncea aperíri, clavos evélli, et sanctum eius corpus in puríssimo suo gremio repóni vidit.`,
+
+  [PRAYER_TYPES.CORONA_DOL_7]: `{r}Dolor séptimus{/r}
+Séptimus et últimus dolor beátæ Vírginis, Regínæ et Advocátæ nostræ, servórum suórum miserórum peccatórum, fuit, cum sanctum corpus Fílii sui in sepúlcro cóndi vidit.`,
+
+  [PRAYER_TYPES.CORONA_DOL_LACRIMAE]: `{r}Ter Ave María in honórem lacrimárum, quas María in dolóribus suis effúdit, ut verum peccatórum dolórem et sanctas indulgéntias huic pio exercítio adnéxas consequámur.{/r}`,
+
+  [PRAYER_TYPES.CORONA_DOL_OREMUS]: `℣ Ora pro nobis, Virgo dolorosíssima.
+℟ Ut digni efficiámur promissiónibus Christi.
+
+Orémus. Intervéniat pro nobis, quǽsumus, Dómine Iesu Christe, nunc et in hora mortis nostræ, apud tuam cleméntiam beáta Virgo María, Mater tua, cuius sacratíssimam ánimam in hora tuæ passiónis dolóris gládius pertransívit. Per te, Iesu Christe, Salvátor mundi, qui cum Patre et Spíritu Sancto vivis et regnas in sǽcula sæculórum. Amen.`,
+
+  [PRAYER_TYPES.CORONA_SANG_INITIUM]: `℣ Deus, in adiutórium meum inténde.
+℟ Dómine, ad adiuvándum me festína.
+℣ Glória Patri, et Fílio, et Spirítui Sancto.
+℟ Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.`,
+
+  [PRAYER_TYPES.CORONA_SANG_1]: `{r}Mystérium primum{/r}
+Prima vice amantíssimus Salvátor noster pretiósum Sánguinem suum pro nobis effúdit octávo die post nativitátem suam, cum circumcísus est, ut legem Móysi impléret. Dum ígitur considerámus Iesum hoc fecísse, ut divínæ iustítiæ pro lascívia nostra satisfáceret, dolórem de ea in nobis excitémus, et promittámus nos, omnipoténtis eius grátiæ auxílio, deínceps córpore et ánima vere castos futúros esse.`,
+
+  [PRAYER_TYPES.CORONA_SANG_2]: `{r}Mystérium secúndum{/r}
+Deínde in horto Olivárum tanta cópia Iesus Sánguinem suum pro nobis effúdit, ut terram circa se perfúnderet; idque fecit, cum ingratitúdinem prævidéret, qua hómines amóri eius responsúri erant. Ex ánimo ígitur doleámus, quod innúmeris Dei benefíciis tam male hucúsque respóndimus, et propónamus grátiis et inspiratiónibus eius bene uti.`,
+
+  [PRAYER_TYPES.CORONA_SANG_3]: `{r}Mystérium tértium{/r}
+Deínde in crudéli flagellatióne Iesus Sánguinem fudit, cum caro eius ita lacerarétur, ut ex omni córporis parte rivi Sánguinis flúerent; quem totum Patri ætérno óbtulit in satisfactiónem pro impatiéntia et mollítie nostra. Quómodo ígitur iram nostram et amórem nostri non coërcémus? Deínceps adversitátes patiénter ferre, nosmetípsos contémnere et iniúrias nobis illátas plácide sustinére studeámus.`,
+
+  [PRAYER_TYPES.CORONA_SANG_4]: `{r}Mystérium quartum{/r}
+Deínde ex sacro cápite Iesu, cum spinis coronarétur, Sanguis prófluxit in pœnam supérbiæ et pravárum cogitatiónum nostrárum. Num ígitur supérbiam álere, turpes imaginatiónes fovére et pravam voluntátem nostram páscere pergémus? Deínceps níhilum, misériam et infirmitátem nostram semper ante óculos habeámus, et ómnibus diáboli tentatiónibus generóso corde resistámus.`,
+
+  [PRAYER_TYPES.CORONA_SANG_5]: `{r}Mystérium quintum{/r}
+Quantum pretiósi Sánguinis amantíssimus Dóminus noster e venis suis effúdit, cum gravi cruce onústus dolorosíssimum iter ad Calváriam confíceret! Ipsæ viæ et platéæ Ierúsalem, per quas transíbat, eo irrigátæ sunt. Hoc autem fecit in satisfactiónem pro scándalis et pravis exémplis, quibus creatúræ eius álios in perditiónem induxérunt. Quis scit, quot ex nobis in hoc infelíci número sint? Quis scit, quot ipse solus pravo exémplo suo ad inférnum perdúxerit? Et quid ad hoc malum reparándum fécimus? Deínceps saltem verbo et exémplo ánimas salváre, quantum póssumus, studeámus, ómnibus nos bonitátis et sanctæ vitæ exémplar præbéntes.`,
+
+  [PRAYER_TYPES.CORONA_SANG_6]: `{r}Mystérium sextum{/r}
+Plus adhuc pretiósi Sánguinis humáni géneris Redémptor in crudéli crucifixióne sua effúdit, cum venis disrúptis ex mánibus et pédibus eius torréntis instar prorúpit salutáre illud vitæ ætérnæ bálsamum, ut pro ómnibus críminibus et sceléribus mundi pérditi satisfáceret. Quis post hæc in peccáto perseveráre velit, et sic crudélem Fílii Dei crucifixiónem renováre? Fleámus amáre peccáta nostra, eáque ad pedes sacri Dei minístri detestémur; emendémus vias nostras pravas, et deínceps vere christiánam vitam incipiámus, semper in corde memóres, quanti Sánguinis salus nostra Salvatóri hóminum constíterit.`,
+
+  [PRAYER_TYPES.CORONA_SANG_7]: `{r}Mystérium séptimum{/r}
+Postrémo, post mortem eius, cum sacrum latus láncea apértum et amantíssimum Cor eius vulnerátum est, Iesus Sánguinem fudit, et cum eo aqua exívit, ut nobis ostenderétur Sánguinem eius pro salúte nostra usque ad últimam guttam effúsum esse. O magna bónitas Redemptóris nostri! Quis te non amábit, Salvátor ánimæ meæ? Quod cor non tabéscet amóre tui, qui tanta pro redemptióne nostra fecísti? Déficit lingua ad te laudándum; ídeo invitémus omnes creatúras in terra, omnes Angelos et Sanctos in paradíso, et præsértim caríssimam Matrem nostram Maríam, ut pretiosíssimum Sánguinem tuum benedícant, laudent et célebrent. Glória Sánguini Iesu, nunc et semper et per ómnia sǽcula. Amen.`,
+
+  [PRAYER_TYPES.CORONA_SANG_TE_ERGO]: `℣ Te ergo, quǽsumus, tuis fámulis súbveni, quos pretióso Sánguine redemísti.`,
+
+  [PRAYER_TYPES.CORONA_SANG_ORATIO]: `{r}Orátio{/r}
+O pretiosíssime Sanguis vitæ ætérnæ, prétium et redémptio mundi, potus et lavácrum ánimæ, qui causam hóminum apud thronum misericórdiæ semper tuéris: te profundíssime adóro, et vellem, si possem, tibi áliquam compensatiónem præstáre pro contuméliis et iniúriis, quas ab homínibus contínuo páteris, ac præsértim ab iis, qui te témere blasphemáre audent. Quis non benedícet huic Sánguini infiníti prétii? Quis non amóre Iesu inflammábitur, qui illum totum pro nobis effúdit? Quid essem sine hoc Sánguine, qui me redémit? Et quid te, pretióse Sanguis, e venis Dómini mei usque ad últimam guttam extráxit? Amor útique. O imménse amor, qui hoc salutáre bálsamum nobis donásti! O bálsamum inæstimábile, ex fonte imménsi amóris prófluens! Da ómnibus córdibus, ómnibus linguis, ut te laudáre, celebráre et tibi grátias ágere possint, nunc et semper et in omnem æternitátem. Amen.`,
+
+  [PRAYER_TYPES.CORONA_SANG_OREMUS]: `℣ Redemísti nos, Dómine, in Sánguine tuo.
+℟ Et fecísti nos Deo nostro regnum.
+
+Orémus. Omnípotens sempitérne Deus, qui unigénitum Fílium tuum mundi Redemptórem constituísti, ac eius Sánguine placári voluísti: concéde, quǽsumus, salútis nostræ prétium ita venerári, atque a præséntis vitæ malis eius virtúte deféndi in terris; ut fructu perpétuo lætémur in cælis. Qui tecum vivit et regnat in unitáte Spíritus Sancti Deus, per ómnia sǽcula sæculórum. Amen.`,
+
+  [PRAYER_TYPES.CORONA_COR_INITIUM]: `℣ Deus, in adiutórium meum inténde.
+℟ Dómine, ad adiuvándum me festína.`,
+
+  [PRAYER_TYPES.CORONA_COR_1]: `{r}I. Cor benígnum{/r}
+Amantíssime Iesu, cum benígnum Cor tuum méditor, amóris et dulcédinis erga peccatóres plenum, cor meum gáudio exsúltat et firma fidúcia, quod me benígne suscípies. Heu, quot et quanta peccáta commísi! Sed nunc ea cum Petro et Magdaléna défleo et detéstor, quia te, summum bonum meum, offendérunt. O da mihi ómnium véniam! Per sacratíssimum Cor tuum te óbsecro: móriar pótius quam te íterum offéndam, et vivam tantum, ut amóri tuo respóndeam.`,
+
+  [PRAYER_TYPES.CORONA_COR_2]: `{r}II. Cor húmile{/r}
+Benedíco, Iesu mi, humíllimum Cor tuum, et grátias tibi ago, quod illud mihi exemplar dans non solum me ad imitatiónem eius veheménter hortáris, sed tot humiliatiónibus tuis viam mihi osténdis et sternis, ut te sequar. Stultus et ingrátus, quam longe a te errávi! Misericórdiam, Iesu mi, misericórdiam! Procul supérbia et mundánæ glóriæ amor! Húmili corde te, Iesu mi, per humiliatiónes et crucem sequi volo, ut pacem et salútem invéniam. Tu tantum adésto mihi et róbora me, et sacratíssimum Cor tuum semper benedícam.`,
+
+  [PRAYER_TYPES.CORONA_COR_3]: `{r}III. Cor pátiens{/r}
+Admíror, Iesu mi, patientíssimum Cor tuum, et grátias tibi ago pro tot mirabílibus exémplis invíctæ patiéntiæ, quæ mihi reliquísti. Dóleo, quod nímiam mollítiem meam, quæ vel mínimum dolórem refúgit, mihi adhuc exprobráre débeo. Infúnde ígitur in cor meum, dulcis Iesu, ardéntem et constántem amórem passiónum et crucis, mortificatiónis et pæniténtiæ, ut te ad Calváriam sequens tecum ad glóriam et gáudia paradísi pervéniam.`,
+
+  [PRAYER_TYPES.CORONA_COR_4]: `{r}IV. Cor mite{/r}
+Ad conspéctum mitíssimi Cordis tui, dulcis Iesu, contrémisco, cum vídeam, quam dissímile sit cor meum tuo, quod ad umbram, ad nutum, ad verbum contradictiónis turbátur et quéritur. Ignósce ígitur excéssibus meis, et da mihi grátiam, ut in omni contradictióne immutábilis mansuetúdinis tuæ exémplum sequar, et sic perpétua sancta pace fruar.`,
+
+  [PRAYER_TYPES.CORONA_COR_5]: `{r}V. Cor generósum{/r}
+Laudes sint, Iesu, generosíssimo Cordi tuo, quod mortem et inférnum vicit et omni laude dignum est. Plus quam umquam confúndor, cum cor meum tam pusillánimum aspício, quod ob respéctum humánum vel levem sermónem refórmidat. Sed deínceps non ita erit. Óbsecro te, Iesu mi, da mihi talem fortitúdinem, ut in terra pugnans et vincens, olim tecum in cælo triúmphans gáudeam.`,
+
+  [PRAYER_TYPES.CORONA_COR_IACULATORIA]: `O dulcíssimum Cor Iesu mei, fac, ut te magis magísque amem!`,
+
+  [PRAYER_TYPES.CORONA_COR_MARIA]: `{r}Convertámur ad Maríam, ei nos magis magísque consecrántes, et matérno eius Cordi fidéntes dicámus:{/r}
+Per pretiósas dotes dulcíssimi Cordis tui, magna Mater Dei mei et Mater mea María, obtíne mihi veram et constántem devotiónem erga sacratíssimum Cor Iesu, dilectíssimi Fílii tui, ut omni cogitatióne et afféctu illi Cordi coniúnctus ómnia status mei offícia prompto corde ádimpleam, Iesu meo semper magis sérviens, hódie autem præsértim.`,
+
+  [PRAYER_TYPES.CORONA_COR_OREMUS]: `℣ Cor Iesu, flagrans amóre nostri,
+℟ Inflámma cor nostrum amóre tui.
+
+Orémus. Illo nos igne, quǽsumus, Dómine, Spíritus Sanctus inflámmet, quem Dóminus noster Iesus Christus e penetrálibus Cordis sui misit in terram, et vóluit veheménter accéndi. Qui tecum vivit et regnat in unitáte eiúsdem Spíritus Sancti Deus, per ómnia sǽcula sæculórum. Amen.`,
 
   // The sequences, as in Schallerův Římský misál (1931): Easter, Pentecost,
   // Corpus Christi, and the Friday of Passion Week / 15 September.
@@ -2072,6 +2261,146 @@ Duch Svatý v duši spravedlivého.
 
 {r}Cvičení.{/r} Buď vždy pamětliv Ducha Svatého, který v tobě přebývá, a dbej se vší pečlivostí čistoty duševní i tělesné. Poslouchej věrně jeho božských vnuknutí, abys vydával dvanáctero ovoce Ducha Svatého: lásku, radost, klid, trpělivost, mírnost, dobrotivost, velkodušnost, tichost, věrnost, střídmost, zdrželivost, čistotu.`,
 
+  // The four chaplets: St. Michael and the Precious Blood and Sacred Heart from
+  // Cesta k věčné spáse (1915, vols. III and I), the Seven Sorrows from Poutní
+  // kniha (1893), its Raccolta form. OCR checked against the scans; spelling
+  // modernised only where the source itself wavers (bolesť/bolest), and capitals
+  // per the Latin. The Czech headings are ours.
+  [PRAYER_TYPES.CORONA_ANG_INITIUM]: `℣ Bože, ku pomoci mé vzezři.
+℟ Hospodine, ku pomoci mé pospěš.
+
+Sláva Otci i Synu i Duchu Svatému. Jako byla na počátku, i nyní, i vždycky, a na věky věků. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_1]: `{r}Pozdravení prvního kůru andělského{/r}
+Na přímluvu svatého Michaele a nebeského kůru serafů učiň nás, Bože, hodnými, abychom ohněm dokonalé lásky rozníceni byli. Tak se staň!`,
+
+  [PRAYER_TYPES.CORONA_ANG_2]: `{r}Pozdravení druhého kůru andělského{/r}
+Na přímluvu svatého Michaele a nebeského kůru cherubů uděliž nám, Bože, milosti, bychom cestu hříchů opustili a cestou křesťanské dokonalosti kráčeli. Tak se staň!`,
+
+  [PRAYER_TYPES.CORONA_ANG_3]: `{r}Pozdravení třetího kůru andělského{/r}
+Na přímluvu svatého Michaele a nebeského kůru trůnů, vlej, Bože, v srdce naše ducha pravé a upřímné pokory. Tak se staň!`,
+
+  [PRAYER_TYPES.CORONA_ANG_4]: `{r}Pozdravení čtvrtého kůru andělského{/r}
+Na přímluvu svatého Michaele a nebeského kůru panstev, propůjč nám, Bože, milosti, abychom smysly své a nezřízené žádosti na uzdě měli. Tak se staň!`,
+
+  [PRAYER_TYPES.CORONA_ANG_5]: `{r}Pozdravení pátého kůru andělského{/r}
+Na přímluvu svatého Michaele a nebeského kůru mocností račiž, Bože, duše naše proti úkladům a pokušením ducha zlého ochraňovati. Tak se staň!`,
+
+  [PRAYER_TYPES.CORONA_ANG_6]: `{r}Pozdravení šestého kůru andělského{/r}
+Na přímluvu svatého Michaele a podivuhodných sil nebeských nedopouštěj, Bože, nikdy, abychom v pokušeních poklesli, nýbrž račiž nás ode všeho zlého zbaviti. Tak se staň!`,
+
+  [PRAYER_TYPES.CORONA_ANG_7]: `{r}Pozdravení sedmého kůru andělského{/r}
+Na přímluvu svatého Michaele a nebeského kůru knížat, naplniž, Bože, duše naše duchem pravé a upřímné poslušnosti. Tak se staň!`,
+
+  [PRAYER_TYPES.CORONA_ANG_8]: `{r}Pozdravení osmého kůru andělského{/r}
+Na přímluvu svatého Michaele a nebeského kůru archandělů propůjčiž nám, Bože, daru setrvalosti ve víře a v dobrých skutcích, abychom slávy nebeské dosáhli. Tak se staň!`,
+
+  [PRAYER_TYPES.CORONA_ANG_9]: `{r}Pozdravení devátého kůru andělského{/r}
+Na přímluvu svatého Michaele a nebeského kůru všech andělů račiž nám, Bože, propůjčiti milosti, abychom od nich v tomto životě ochraňováni a po smrti k věčné slávě přivedeni byli. Tak se staň!`,
+
+  [PRAYER_TYPES.CORONA_ANG_ANTIPHONA]: `{r}Antifona{/r}
+Svatý Michaeli, přeslavné kníže, hlavo a vůdce nebeských zástupů, vůdce duší, vítězi nad odbojnými duchy, dvořeníne v paláci Božím, po Ježíši náš podivuhodný vůdce, nadlidskou mocí a dokonalostí obdařený: račiž nás všecky, ježto k tobě důvěry plni útočiště své béřeme, ode všeho zlého vysvoboditi, a pomoz nám svou přemocnou ochranou, abychom každodenně na duchu prospívali.
+
+℣ Oroduj za nás, přeblahoslavený Michaeli, kníže Církve Ježíše Krista.
+℟ Abychom hodni učiněni byli zaslíbení jeho.`,
+
+  [PRAYER_TYPES.CORONA_ANG_OREMUS]: `Modleme se. Všemohoucí, věčný Bože, jenž jsi v přepodivné dobrotě a milosrdnosti své k všeobecnému spasení lidu slavného a svatého archanděla Michala knížetem Církve své vyvoliti ráčil: prosíme tebe, učiň nás hodny, abychom jeho dobrotivou ochranou ode všech nepřátel svých osvobozeni byli, tak, aby žádný z nich v hodinu smrti nás neznepokojoval, nýbrž abychom milosti účastní se stali, od něho samého před tvář tvé vznešené velebnosti Boží přivedenu býti. Pro zásluhy Ježíše Krista, Pána našeho. Tak se staň!`,
+
+  [PRAYER_TYPES.CORONA_DOL_INITIUM]: `{r}Vzbuzení lítosti{/r}
+Ó jediný a nejlaskavější Pane můj, viz mne, jenž rozjímaje velké urážky, jimiž jsem tě rozhněval, všecek zahanben před tebou klečím. Prosím tě vroucně, račiž mi je odpustiti, protože jich z pouhé lásky k tobě lituji, a poněvadž jsi neskonalé dobro, je nade všecko zlo v ošklivosti mám a je zavrhuji. A jako bych si přál, abych tisíckrát byl raději zemřel, než tebe urazil, tak jsem též pevně odhodlán raději tisíckrát život svůj ztratiti, než tebe opět urazit. Ó můj ukřižovaný Ježíši, činím opravdové předsevzetí co nejdříve duši svou předrahou krví svou ve svátosti pokání očistit. Tebe však, nejmilostivější Panno, Matko milosrdenství a útočiště hříšníků, prosím, račiž mi pro své přehořké bolesti zjednati přežádoucí odpuštění mých hříchův; a modle se dle úmyslu náměstků Kristových, abych odpustků růženci tvému udělených účastným se stal, doufám zároveň, že jimi dosáhnu odpuštění trestů, za hříchy své zasloužených.`,
+
+  [PRAYER_TYPES.CORONA_DOL_1]: `{r}První bolest{/r}
+Touto důvěrou v srdci jsa oživen rozjímám první bolest, kterou blahoslavená Panna a Matka Boží pocítila, když ve chrámě jednorozeného Syna svého, Ježíše, starci Simeonovi na lokty vložila a od něho slova uslyšela: Meč bolesti pronikne duši tvou; čímž bylo naznačeno utrpení a smrt jejího Syna Ježíše.`,
+
+  [PRAYER_TYPES.CORONA_DOL_2]: `{r}Druhá bolest{/r}
+Druhou bolest pocítila blahoslavená Panna, když utíkala do Egypta, by unikla pronásledování ukrutného Herodesa, jenž ve své bezbožnosti milého Synáčka jejího zahubiti chtěl.`,
+
+  [PRAYER_TYPES.CORONA_DOL_3]: `{r}Třetí bolest{/r}
+Třetí bolest pocítila blahoslavená Panna, když o slavnosti velikonoční se svým ženichem, svatým Josefem, a s milým Synem svým, Ježíšem, do Jerusaléma přišla a vracejíc se do chudičkého domu svého, přemilého jedináčka svého ztratila a po tři dni ztráty Jeho oplakávala.`,
+
+  [PRAYER_TYPES.CORONA_DOL_4]: `{r}Čtvrtá bolest{/r}
+Čtvrtou bolest pocítila blahoslavená Panna, když potkala přemilého Syna svého, nesoucího těžký kříž na útlých ramenech svých na horu Kalvaru, by tam pro spásu naši ukřižován byl.`,
+
+  [PRAYER_TYPES.CORONA_DOL_5]: `{r}Pátá bolest{/r}
+Pátou bolest pocítila blahoslavená Panna, když viděla, kterak Syn její na tvrdém dřevě kříže povýšen byl, kterak krev ze všech údů jeho svatého těla tekla a On konečně po tříhodinné smrtelné úzkosti ducha vypustil.`,
+
+  [PRAYER_TYPES.CORONA_DOL_6]: `{r}Šestá bolest{/r}
+Šestou bolest pocítila blahoslavená Panna, když přemilému Synu jejímu, Ježíši, bok kopím proklán, On pak s kříže sňat a na její nejčistší klín položen byl.`,
+
+  [PRAYER_TYPES.CORONA_DOL_7]: `{r}Sedmá bolest{/r}
+Sedmou a poslední bolest pocítila blahoslavená Panna Maria, panovnice naše a obzvláštní orodovnice všech svých sluhův a duší v očistci, když přesvaté tělo Syna svého Ježíše do hrobu klásti viděla.`,
+
+  [PRAYER_TYPES.CORONA_DOL_LACRIMAE]: `{r}Nyní modlí se ještě třikrát „Zdrávas Maria“ k uctění slz, jež Panna Maria ve svých bolestech vyronila, a na úmysl, abychom dosáhli milosti zkroušeně hříchů svých litovati, jakož i abychom odpustkův účastnými se stali.{/r}`,
+
+  [PRAYER_TYPES.CORONA_DOL_OREMUS]: `℣ Oroduj za nás, bolestná Panno Maria.
+℟ Abychom hodni učiněni byli zaslíbení Kristových.
+
+Modleme se. Prosíme tě, ó Pane Ježíši Kriste, nechať blahoslavená Panna Maria, Matka tvá, jejíž přesvatou duši v hodině utrpení tvého meč bolesti pronikl, pro milosrdenství tvé nyní i v hodině smrti za nás se přimlouvá; skrze tebe, Ježíši Kriste, Spasitel světa, jenž s Otcem i Duchem Svatým žiješ a kraluješ na věky věkův. Amen.`,
+
+  [PRAYER_TYPES.CORONA_SANG_INITIUM]: `℣ Bože, ku pomoci mé vzezři.
+℟ Hospodine, ku pomoci mé pospěš.
+℣ Sláva Otci i Synu i Duchu Svatému.
+℟ Jako byla na počátku, i nyní, i vždycky, a na věky věků. Amen.`,
+
+  [PRAYER_TYPES.CORONA_SANG_1]: `{r}První tajemství{/r}
+Ponejprv prolil náš nejlaskavější Spasitel Krev svou osmého dne po svém narození, když podle zákona Mojžíšova byl obřezán. Rozvažujíce, že Ježíš se tomu podvolil, aby zadost učinil božské spravedlnosti za naše prostopášnosti, vzbuďme upřímnou lítost nad nimi a slibme, že budoucně pomocí jeho mocné milosti zachováme čistotu těla i duše.`,
+
+  [PRAYER_TYPES.CORONA_SANG_2]: `{r}Druhé tajemství{/r}
+Předrahou Krev svou prolil Ježíš na hoře Olivetské v takové hojnosti, že země vůkol něho svlažena byla, a to předvídaje nevděčnost, s kterou lidé lásku jeho odměňovati budou. Proto tedy srdečně litujme, že jsme i my za nesčíslná dobrodiní Páně tak špatně se odvděčili, a učiňme předsevzetí, že budeme lépe užívati jeho milosti a svatých vnuknutí.`,
+
+  [PRAYER_TYPES.CORONA_SANG_3]: `{r}Třetí tajemství{/r}
+Svou předrahou Krev prolil Ježíš při ukrutném bičování svém, když z rozedrané kůže a z otevřených ran z celého těla potokem se řinula ona drahocenná Krev, kterou on obětoval věčnému Otci za naši netrpělivost a choulostivost. A my bychom neměli krotiti hněvu a chtíčů svých? Ano, vynasnažme se, abychom budoucně byli trpělivější v protivenstvích, sebou opovrhovali a křivdy nám učiněné tiše snášeli.`,
+
+  [PRAYER_TYPES.CORONA_SANG_4]: `{r}Čtvrté tajemství{/r}
+Předrahá Krev Ježíšova tekla z jeho nejsvětější hlavy, když byl trním korunován, aby trpěl za naši pýchu a za naše zlé myšlenky. A my bychom mohli i na dále libovati si ve své pýše a kochati se v nečistých obrazech a hříšných myšlenkách? Nikoliv! Mějme budoucně na mysli svou nicotu, svou bídu, svou křehkost a statečně odporujme všemu vnuknutí zlého ducha.`,
+
+  [PRAYER_TYPES.CORONA_SANG_5]: `{r}Páté tajemství{/r}
+Ó jak mnoho předrahé Krve prolil náš nejlaskavější Ježíš na oné bolestné cestě, kterou konal na horu Kalvarii obtížen jsa těžkým dřevem kříže, skrápěje touto svou drahou Krví ulice jerusalemské a všecka místa, kudy se ubíral. A to stalo se na zadostučinění za pohoršení a zlé příklady, jimiž jeho tvorové jiné na cesty záhuby svádějí. Ach, kdo ví, zdali i my nenáležíme do počtu těchto nešťastníků; kdo ví, jak mnohé náš zlý příklad do pekla přivedl? A my bychom tomu zlu nezabránili? Učiňme tedy předsevzetí, že ke spáse duší budoucně budeme přispívati, jich napomínajíce, povzbuzujíce a jim příklad dobrých skutků dávajíce.`,
+
+  [PRAYER_TYPES.CORONA_SANG_6]: `{r}Šesté tajemství{/r}
+Svou předrahou Krev prolil Spasitel hojněji při svém ukrutném ukřižování, když z rozedraných žil a ze zraněných údů rukou a nohou jeho jako proud vyprýštil onen spasitelný balsám života věčného, kterým by za hříchy a nepravosti celého světa zadost učiněno bylo. A nalezl by se člověk, jenž by ještě stále hřešil a tak obnovoval ukrutné ukřižování Syna Božího? Ach, oplakávejme hořce svých spáchaných poklesků, vzbuďme ošklivost nad nimi a u nohou zpovědníkových napravme své mravy, začněme od této chvíle pravý křesťanský život a mějme bez přestání před očima, jak mnoho Krve Spasitel za naši věčnou spásu prolít ráčil.`,
+
+  [PRAYER_TYPES.CORONA_SANG_7]: `{r}Sedmé tajemství{/r}
+Konečně prolil Ježíš Krev při své smrti, když mu kopím otevřen byl bok jeho a milování nejhodnější Srdce probodeno bylo. Ano, spolu s Krví vyšla tenkrát i voda na důkaz, že všechna Krev byla vycezena, bývši prolita až do poslední krůpěje za naše spasení. Ó nekonečné dobroty Spasitele našeho! Kdož by tě nemiloval? Kdož by se nerozplýval láskou k tobě, jenž jsi tolik učinil, abys nás vykoupil? Poněvadž se nám nedostává slov, chceme vyzvati všecky tvory na zemi, chceme vyzvati všecky anděly a svaté na nebi, a zvláště svou drahou Matku Marii, aby tvou předrahou Krev chválili, velebili a blahoslavili. Ano, zdráva budiž Krev Ježíšova nyní i vždycky a po všecky věky. Amen.`,
+
+  [PRAYER_TYPES.CORONA_SANG_TE_ERGO]: `℣ Tebe tedy prosíme, přispěj ku pomoci svým služebníkům, které jsi drahou Krví vykoupil.`,
+
+  [PRAYER_TYPES.CORONA_SANG_ORATIO]: `{r}Modlitba{/r}
+Ó předrahá Krvi života věčného, ceno spásy celého světa, nápoji a lázni duší našich, jež ustavičně se zastáváš potřeb lidí před trůnem Nejvyššího! Klaním se tobě s nejhlubší pokorou a rád bych, pokud mi možno, nahradil urážky a křivdy, které se ti bez přestání od tvorů tvých dějí, zvláště od těch, kteří se opovažují zlořečením tě zneuctívati. A kdož by nevelebil této Krve ceny nekonečné? Kdož by nebyl roznícen láskou k Ježíši, jenž ji prolil? Co by ze mne bylo, kdybych nebyl vykoupen touto božskou Krví? Kdo ji vycedil ze žil Pána mého až do poslední krůpěje? Ach, byla to zajisté láska Ó nesmírná lásko, která jsi nám dala tento balsám spásy! Ó neocenitelný balsáme, který jsi vyprýštil z pramene nesmírné lásky, učiň, aby všechna srdce a všecky jazyky tě mohly chváliti, velebiti a díky tobě vzdávati nyní i vždycky a po všecky věky. Amen.`,
+
+  [PRAYER_TYPES.CORONA_SANG_OREMUS]: `℣ Vykoupil jsi nás, ó Pane, v Krvi své.
+℟ A učinil jsi nás Bohu našemu královstvím.
+
+Modleme se. Všemohoucí věčný Bože, kterýž jsi jednorozeného Syna svého Vykupitelem světa ustanovil, a jeho Krví smířen býti chtěl: propůjč, prosíme; abychom cenu naší spásy slavnou službou tak ctili, a od zla přítomného života její silou tak byli chráněni na zemi, abychom z užitku věčného se radovali na nebi. Jenž s tebou živ jest a kraluje v jednotě Ducha Svatého, Bůh po všechny věky věků. Amen.`,
+
+  [PRAYER_TYPES.CORONA_COR_INITIUM]: `℣ Bože, ku pomoci mé vzezři.
+℟ Hospodine, ku pomoci mé pospěš.`,
+
+  [PRAYER_TYPES.CORONA_COR_1]: `{r}I. Dobrotivé Srdce{/r}
+Ó můj nejlaskavější Ježíši! Když rozjímám o tvém dobrotivém Srdci a vidím je plné lásky a sladkosti ke hříšníkům, naplňuje se srdce mé radostí a nezvratnou důvěrou, že mne milostivě přijmeš. Ach, jak mnoho hříchů jsem spáchal! Avšak nyní je oplakávám a v ošklivosti mám jako Petr a kající Magdalena, poněvadž jsem jimi urazil tebe, nejvyšší dobré. Ó popřej i mně odpuštění všech hříchů mých! Ó kéž, o to tě prosím pro tvé nejsvětější Srdce, raději umru, než abych tě zase urazil; žil bych však rád jediné proto, abych mohl tvou lásku opětovati.`,
+
+  [PRAYER_TYPES.CORONA_COR_2]: `{r}II. Pokorné Srdce{/r}
+Velebím, ó Ježíši, tvé nejpokornější Srdce a děkuji ti, že dávaje mi je za příklad nejen mocně mne vybízíš, abych ho následoval, nýbrž i svým tolikerým pokořením mně cestu k tomu ukazuješ a urovnáváš. Ó jak jsem byl nemoudrým a nevděčným! Ó jak daleko jsem zabloudil! Odpusť mi! Pryč se vší pýchou! Chci tebe od této chvíle s pokorným srdcem a pokořován následovati, abych nalezl pokoj a spásu. Posilni mne a budu tvé nejsvětější Srdce věčně chváliti a velebiti.`,
+
+  [PRAYER_TYPES.CORONA_COR_3]: `{r}III. Trpělivé Srdce{/r}
+Podivuji se, ó můj Ježíši, tvému nejtrpělivějšímu Srdci a děkuji ti za tak mnohé podivuhodné příklady nepřemožitelné trpělivosti, jež jsi nám zanechal. Lituji, že mně tyto příklady až dosud marně vytýkaly mou neobyčejnou choulostivost, kteráž i nejmenší utrpení snášeti se zpěčuje. Ach, můj laskavý Ježíši, vlij do srdce mého horlivou a stálou lásku k protivenství, ke kříži, k sebemrtvení a k pokání, abych následuje tě na horu Kalvarskou došel s tebou radosti nebeské.`,
+
+  [PRAYER_TYPES.CORONA_COR_4]: `{r}IV. Mírné Srdce{/r}
+Před tvým nejmírnějším Srdcem, ó můj laskavý Ježíši, hrozím se svého tvému tak nepodobného srdce. Jediným slovem, jediným posuňkem, jediným stínem nějakého odporu jsem rozčilen a běduji. Ach, odpusť mi výbuchy náruživosti a propůjč mi milosti, abych budoucně v každém protivenství tvé stálé tichosti následoval a tak ustavičného svatého pokoje požíval.`,
+
+  [PRAYER_TYPES.CORONA_COR_5]: `{r}V. Velkomyslné Srdce{/r}
+Buďtež pěny chvály, ó Ježíši, tvému velkomyslnému Srdci, jež nad smrtí a peklem zvítězilo a všech chval zasluhuje. Já však jsem více než kdy zahanben, vida srdce své tak malomyslné, že se bojí každé zpozdilé řeči a zastrašeno bývá bázní lidskou. Avšak od nynějška tak nebude. Prosím tě vroucně, dej mi zmužilosti a síly, abych s tebou bojoval a zvítězil na zemi a pak radostné vítězství s tebou slavil na nebi.`,
+
+  [PRAYER_TYPES.CORONA_COR_IACULATORIA]: `Ó přesladké Srdce mého Ježíše, dej, abych tě miloval víc a více!`,
+
+  [PRAYER_TYPES.CORONA_COR_MARIA]: `{r}Obraťme se k Marii, víc a více se jí zasvěcujíce, a důvěřujíce v její mateřské Srdce, rceme jí:{/r}
+Prosím tebe, ó vznešená Matko Boží a Matko má, Maria, pro veliké přednosti svého nejsladšího Srdce vyžádej mi pravé a stálé pobožnosti k nejsvětějšímu Srdci Ježíše, Syna svého, abych se všemi myšlenkami a city svými do tohoto Srdce ukryt všecky povinnosti své plnil a povždy, zvláště však tohoto dne, Ježíši ochotně a pilně sloužil.`,
+
+  [PRAYER_TYPES.CORONA_COR_OREMUS]: `℣ Srdce Ježíšovo, planoucí láskou k nám.
+℟ Rozžehni srdce naše láskou k tobě.
+
+Modleme se. Oním ohněm, prosíme, Pane, Duch Svatý nás rozněť, jejž Pán náš, Ježíš Kristus, z hlubokosti Srdce svého poslal na svět a chtěl, aby mocně se zapálil. Jenž s tebou žije a kraluje v jednotě téhož Ducha Svatého Bůh po všecky věky věkův. Amen.`,
+
   [PRAYER_TYPES.VICTIMAE_PASCHALI]: `Oběti velikonoční chvály ať křesťané obětují.
 Beránek ovce vykoupil; Kristus nevinný Otce se hříšníky smířil.
 Smrt a život soubojem utkaly se podivným; kníže života zemřev, vládne živý.
@@ -3490,6 +3819,144 @@ The Holy Spirit in the soul of the just.
 {r}Meditation.{/r} Know you not, that your members are the temple of the Holy Ghost, who is in you? (1 Cor. 6, 19). Extinguish not the spirit (1 Thess. 5, 19). And grieve not the Holy Spirit of God, whereby you are sealed unto the day of redemption (Eph. 4, 30).
 
 {r}Exercise.{/r} Remember always the Holy Spirit who dwells in you, and give all diligence to purity of soul and body. Faithfully obey his divine inspirations, that you may bring forth the fruits of the Spirit: charity, joy, peace, patience, benignity, goodness, longanimity, mildness, faith, modesty, continency, chastity.`,
+
+  // The four chaplets, from the Raccolta (1910; the Sacred Heart from the 1878
+  // edition, with its capitals for the Heart). The headings are ours.
+  [PRAYER_TYPES.CORONA_ANG_INITIUM]: `℣ O God, come to my assistance.
+℟ O Lord, make haste to help me.
+
+Glory be to the Father, and to the Son, and to the Holy Spirit. As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_1]: `{r}First Salutation{/r}
+At the intercession of St Michael and the heavenly choir of the Seraphim, may it please God to make us worthy to receive into our hearts the fire of his perfect charity. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_2]: `{r}Second Salutation{/r}
+At the intercession of St Michael and the heavenly choir of the Cherubim, may God grant us grace to abandon the ways of sin, and follow the path of Christian perfection. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_3]: `{r}Third Salutation{/r}
+At the intercession of St Michael and the sacred choir of the Thrones, may it please God to infuse into our hearts a true and earnest spirit of humility. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_4]: `{r}Fourth Salutation{/r}
+At the intercession of St Michael and the heavenly choir of the Dominations, may it please God to grant us grace to have dominion over our senses, and to correct our depraved passions. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_5]: `{r}Fifth Salutation{/r}
+At the intercession of St Michael and the heavenly choir of the Powers, may God vouchsafe to keep our souls from the wiles and temptations of the devil. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_6]: `{r}Sixth Salutation{/r}
+At the intercession of St Michael and the choir of the admirable celestial Virtues, may our Lord keep us from falling into temptations and deliver us from evil. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_7]: `{r}Seventh Salutation{/r}
+At the intercession of St Michael and the heavenly choir of the Principalities, may it please God to fill our souls with the spirit of true and hearty obedience. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_8]: `{r}Eighth Salutation{/r}
+At the intercession of St Michael and the heavenly choir of Archangels, may it please God to grant us the gift of perseverance in the faith and in all good works, that we may thereby be enabled to attain unto the glory of Paradise. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_9]: `{r}Ninth Salutation{/r}
+At the intercession of St Michael and the heavenly choir of Angels, may God vouchsafe to grant that the Holy Angels may protect us during life, and after death may lead us into the everlasting glory of heaven. Amen.`,
+
+  [PRAYER_TYPES.CORONA_ANG_ANTIPHONA]: `{r}Antiphon{/r}
+Michael, glorious Prince, chief and champion of the heavenly host, guardian of the souls of men, conqueror of the rebel angels, who art set over the palace of God, our worthy captain under Jesus Christ, endowed with superhuman excellence and virtue; vouchsafe to free us from every evil, who with full confidence have recourse to thee; and by thy powerful protection enable us to make progress every day in the faithful service of our God.
+
+℣ Pray for us, most blessed Michael, Prince of the Church of Jesus Christ.
+℟ That we may be made worthy of his promises.`,
+
+  [PRAYER_TYPES.CORONA_ANG_OREMUS]: `Let us pray. Almighty and eternal God, who in thy own marvellous goodness and pity didst, for the common salvation of man, choose the glorious Archangel Michael to be the Prince of thy Church; make us worthy, we pray Thee, to be delivered by his beneficent protection from all our enemies, that at the hour of our death no one of them may approach to harm us, and that by the same Archangel Michael we may be introduced into the presence of thy high and heavenly Majesty. Through the merits of Jesus Christ our Lord, Amen.`,
+
+  [PRAYER_TYPES.CORONA_DOL_INITIUM]: `{r}Act of Contrition{/r}
+My Lord, Thou who alone art most worthy of my love, behold me standing before thy Divine Presence utterly overwhelmed by the thought of the many grievous injuries I have done Thee. I ask thy pardon for them with my whole heart, repenting of them purely for love of Thee, and at the thought of thy great goodness hating and loathing them above every evil of this life. As I would rather have died a thousand times than have offended Thee, so now I am most firmly resolved to die a thousand deaths rather than offend Thee again. My crucified Jesus, I firmly purpose to cleanse my soul as soon as possible by thy most Precious Blood in the Sacrament of Penance. And thou, most tender Virgin, Mother of mercy and Refuge of sinners, do thou obtain for me by virtue of thy bitter pains, the pardon of sin which I desire; whilst, praying according to the mind of so many holy Pontiffs in order to obtain the Indulgences granted to this thy holy Rosary, I hope thereby to obtain remission of all pains due to my sins.`,
+
+  [PRAYER_TYPES.CORONA_DOL_1]: `{r}The First Sorrow{/r}
+With this confidence in my heart, I meditate on the First Sorrow, when Mary, Virgin Mother of my God, presented Jesus her only Son in the Temple, laid Him in the arms of holy and aged Simeon, and heard his prophetic word, ‘The sword of grief shall pierce thy soul,’ foretelling thereby the Passion and Death of her Son Jesus.`,
+
+  [PRAYER_TYPES.CORONA_DOL_2]: `{r}The Second Sorrow{/r}
+The Second Sorrow of the Blessed Virgin was when she was obliged to fly into Egypt by reason of the persecution of cruel Herod, who impiously sought to slay her well beloved Son.`,
+
+  [PRAYER_TYPES.CORONA_DOL_3]: `{r}The Third Sorrow{/r}
+The Third Sorrow of the Blessed Virgin was when, after having gone up to Jerusalem at the Paschal Feast with Joseph her spouse and Jesus her beloved Son, she lost Him on the way back to her poor house, and for three days bewailed the loss of her only Love.`,
+
+  [PRAYER_TYPES.CORONA_DOL_4]: `{r}The Fourth Sorrow{/r}
+The Fourth Sorrow of the Blessed Virgin was when she met her dear Son Jesus carrying to Mount Calvary on his tender shoulders the heavy Cross whereon He was to be crucified for our salvation.`,
+
+  [PRAYER_TYPES.CORONA_DOL_5]: `{r}The Fifth Sorrow{/r}
+The Fifth Sorrow of the Blessed Virgin was when she saw her Son Jesus raised upon the hard tree of the Cross, and blood flowing from every part of his sacred Body, and then beheld Him die after three hours’ agony.`,
+
+  [PRAYER_TYPES.CORONA_DOL_6]: `{r}The Sixth Sorrow{/r}
+The Sixth Sorrow of the Blessed Virgin was when she saw the lance pierce the sacred Side of Jesus, her beloved Son, the nails withdrawn, and his holy Body laid in her purest bosom.`,
+
+  [PRAYER_TYPES.CORONA_DOL_7]: `{r}The Seventh Sorrow{/r}
+The Seventh and last Sorrow of the Blessed Virgin, Queen and Advocate of us, her servants, miserable sinners, was when she saw the holy Body of her Son buried in the grave.`,
+
+  [PRAYER_TYPES.CORONA_DOL_LACRIMAE]: `{r}Then say Ave thrice in veneration of the tears which Mary shed in her sorrows, to obtain thereby true sorrow for sins and the holy Indulgences attached to this pious exercise.{/r}`,
+
+  [PRAYER_TYPES.CORONA_DOL_OREMUS]: `℣ Pray for us, Virgin most sorrowful.
+℟ That we may be made worthy of the promises of Christ.
+
+Let us pray. Grant, we beseech Thee, O Lord Jesus Christ, that the most blessed Virgin Mary, thy Mother, may intercede for us before the throne of thy mercy, now and at the hour of our death, whose most holy soul was transfixed with the sword of sorrow in the hour of thine own Passion. Through Thee, Jesus Christ, Saviour of the world, who livest and reignest for ever and ever. Amen.`,
+
+  [PRAYER_TYPES.CORONA_SANG_INITIUM]: `℣ O God, come to my assistance.
+℟ O Lord, make haste to help me.
+℣ Glory be to the Father, and to the Son, and to the Holy Spirit.
+℟ As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
+
+  [PRAYER_TYPES.CORONA_SANG_1]: `{r}First Mystery{/r}
+The first time our loving Saviour shed his Precious Blood for us was on the eighth day after his birth, when he was circumcised in order to fulfil the law of Moses. While, then, we reflect that Jesus did this to satisfy the justice of God for our lax ways, let us rouse ourselves to sorrow for them, and promise, with the help of his all-powerful grace, to be henceforth truly chaste in body and in soul.`,
+
+  [PRAYER_TYPES.CORONA_SANG_2]: `{r}Second Mystery{/r}
+Next, in the Garden of Olives, Jesus shed his Blood for us in such quantity that it bathed the earth around. He did this at the sight of the ingratitude with which men would meet his love. Let us, then, repent sincerely that we have hitherto corresponded so ill with the countless blessings of God, and resolve to make good use of his graces and inspirations.`,
+
+  [PRAYER_TYPES.CORONA_SANG_3]: `{r}Third Mystery{/r}
+Next, in his cruel scourging, Jesus shed his Blood when his flesh was so torn that streams of Blood flowed from every part of his body, all of which he offered all the time to his Eternal Father in payment of our impatience and our softness. How comes it, then, that we do not curb our anger and love of self? Henceforth we will try our best to bear our troubles well, and, despising self, take peacefully the injuries which men may do us.`,
+
+  [PRAYER_TYPES.CORONA_SANG_4]: `{r}Fourth Mystery{/r}
+Again, from the sacred Head of Jesus, Blood poured down when it was crowned with thorns, in punishment of our pride and evil thoughts. Shall we, then, continue to nurture haughtiness, foster foul imaginations, and feed the wayward will within us? Henceforth let there be ever before our eyes our utter nothingness, our misery, and our weakness; and with generous hearts let us resist all the temptations of the devil.`,
+
+  [PRAYER_TYPES.CORONA_SANG_5]: `{r}Fifth Mystery{/r}
+What streams of Precious Blood did not our loving Lord pour forth from his veins when laden with the heavy Cross on that most grievous journey to Calvary! The very streets and ways of Jerusalem, through which He passed, were watered with it! This He did in satisfaction for the scandals and bad example by which his own creatures had led others astray. Who can tell how many of us are of this unhappy number? Who knows how many he himself alone has, by his own bad example, brought down to hell? And what have we done to remedy this evil? Henceforth let us at least do all we can to save souls by word and by example, making ourselves a pattern to all of goodness and a holy life.`,
+
+  [PRAYER_TYPES.CORONA_SANG_6]: `{r}Sixth Mystery{/r}
+More, and still more Precious Blood did the Redeemer of mankind shed in his barbarous Crucifixion; when, his veins being rent and arteries burst, there rushed forth in a torrent, from his hands and his feet, that saving balm of life eternal, to pay for all the crimes and enormities of a lost world. Who, after this, would continue in sin, and so renew the cruel crucifixion of the Son of God? Let us weep bitterly for our bad deeds done, and detest them before the feet of the sacred minister of God; let us amend our evil ways, and henceforth begin a truly Christian life, with the remembrance ever in our hearts of all the Blood which our salvation cost the Saviour of men.`,
+
+  [PRAYER_TYPES.CORONA_SANG_7]: `{r}Seventh Mystery{/r}
+Last of all, after his death, when his sacred Side was opened by the lance, and his loving Heart was wounded, Jesus shed Blood, and with it there came forth water, to show us how his Blood was all poured out to the last drop for our salvation. Oh, the great goodness of our redeeming Lord! Who will not love Thee, Saviour of my soul? What heart will not consume itself away for love of Thee, who hast done all this for our redemption? The tongue wants words to praise Thee; so let us invite all creatures upon earth, all angels and all saints in Paradise, and most of all our dear Mother Mary, to bless, praise, and celebrate thy most Precious Blood. Glory to the Blood of Jesus! Now and ever throughout all ages. Amen.`,
+
+  [PRAYER_TYPES.CORONA_SANG_TE_ERGO]: `℣ We beseech Thee, therefore, help thy servants, whom Thou hast redeemed with thy Precious Blood.`,
+
+  [PRAYER_TYPES.CORONA_SANG_ORATIO]: `{r}Prayer{/r}
+Most Precious Blood of life eternal! price and ransom of the world! drink and bath of the soul! ever pleading the cause of man before the throne of Mercy; I adore Thee most profoundly; I would, if I were able, make Thee some compensation for the outrages and wrongs Thou dost ever suffer from men, and especially from those who dare in their rashness to blaspheme Thee. Who will not bless this Blood of value infinite? who does not feel himself on fire with the love of Jesus, who shed it all for us? What should I be but for this Blood, which hath redeemed me? And what drew Thee, Thou Precious Blood, from the veins of my Lord, even to the last drop? It was love. O boundless love, which gave to us this saving balsam! O balsam beyond all price, streaming forth from the fount of immeasurable love! Give to all hearts, all tongues, power to praise, celebrate, and thank Thee, now and ever, and throughout all eternity. Amen.`,
+
+  [PRAYER_TYPES.CORONA_SANG_OREMUS]: `℣ Thou hast redeemed us, O Lord, with thy Blood.
+℟ And hast made us a kingdom to our God.
+
+Let us pray. Almighty and everlasting God, who hast appointed thine only-begotten Son the Saviour of the world, and hast willed to be appeased by his Blood; grant us, we beseech Thee, so to venerate this Blood, the price of our salvation, and so to be defended on earth by its power from the evils of this present life, that in heaven we may be made glad by its everlasting fruit. Who liveth and reigneth for ever and ever. Amen.`,
+
+  [PRAYER_TYPES.CORONA_COR_INITIUM]: `℣ Incline unto mine aid, O God.
+℟ O Lord, make haste to help me.`,
+
+  [PRAYER_TYPES.CORONA_COR_1]: `{r}I. The Loving Heart{/r}
+Most loving Jesus! my heart leaps for joy in thinking on thy loving Sacred Heart, all tenderness and sweetness for sinful man; and, with trust unbounded, it never doubts thy ready welcome. Ah me! my sins! how many and how great! With Peter and Magdalen, in tears, I bewail and abhor them, because they are an offence to thee, my sole and chief good. Grant me, O grant me pardon for them all! O may I die, I beseech thee, by thy loving heart, may I die rather than offend thee, and may I live only to correspond to thy love!`,
+
+  [PRAYER_TYPES.CORONA_COR_2]: `{r}II. The Humble Heart{/r}
+My Jesus! I bless thy most humble heart; and I give thanks to thee, who, in making it my model, not only dost urge me, with much pressing, to imitate it, but, at the cost of so many humiliations, dost thyself stoop to point me out the path, and smooth for me the way to follow thee. Foolish and ungrateful that I am, how have I wandered far away from thee! Mercy, my Jesus, mercy! Away, hateful pride and love of worldly honor! With lowly heart I wish to follow thee, my Jesus, through humiliations and the cross, and thus to gain peace and salvation. Only be thou at hand to strengthen me, and I will ever bless thy Sacred Heart.`,
+
+  [PRAYER_TYPES.CORONA_COR_3]: `{r}III. The Patient Heart{/r}
+My Jesus! I marvel at thy most patient heart, and I thank thee for all those wondrous examples of unwearied patience which thou didst leave me to guide me on my way. It grieves me that I have still to reproach myself with my extravagant delicacy, shrinking from the slightest pain. O pour, then, into my heart, dear Jesus, eager and enduring love of suffering and of the cross, of mortification and of penance, that, following thee to Calvary, I may with thee attain to glory, and to the joys of paradise!`,
+
+  [PRAYER_TYPES.CORONA_COR_4]: `{r}IV. The Gentle Heart{/r}
+Dear Jesus! at the sight of thy most gentle heart, I shudder to see how unlike mine is to thine, since at a shadow, at a look, at a word of opposition, I fret and grieve. O, then, pardon my excesses, and give me grace that, in every contradiction, I may follow the example of thy unchangeable meekness, and so enjoy an everlasting holy peace.`,
+
+  [PRAYER_TYPES.CORONA_COR_5]: `{r}V. The Generous Heart{/r}
+Sing praise to Jesus for his most generous heart, the conqueror of death and hell; yet never wilt thou reach its due with all thy praise. More than ever am I confounded, looking upon my coward heart, which, through human respect, dreads even a passing word. Courage, my soul! it shall be so with thee no more. My Jesus, I pray thee for such strength that, fighting and conquering on earth, I may one day rejoice triumphantly with thee in heaven.`,
+
+  [PRAYER_TYPES.CORONA_COR_IACULATORIA]: `O sweetest Heart of Jesus! I implore
+That I may ever love thee more and more.`,
+
+  [PRAYER_TYPES.CORONA_COR_MARIA]: `{r}Let us turn to Mary, consecrating ourselves to her more and more, and, trusting in her maternal heart, let us say to her:{/r}
+By the precious gifts of thy sweetest heart, obtain for me, great mother of my God, and my mother Mary, a true and lasting devotion to the Sacred Heart of Jesus, thy well-beloved Son, that, united in every thought and affection with that heart, I may fulfil all the duties of my state of life with ready heart, serving my Jesus ever more, but especially on this day.`,
+
+  [PRAYER_TYPES.CORONA_COR_OREMUS]: `℣ Heart of Jesus burning with love for us.
+℟ Inflame our hearts with love of thee.
+
+Let us pray. Lord, we beseech thee, let thy Holy Spirit kindle in our hearts that fire of charity which our Lord Jesus Christ, thy Son, sent forth from his inmost heart upon this earth, and willed that it should burn with vehemence. Who liveth and reigneth with thee, in the unity of the same Holy Spirit, God, forever and ever. Amen.`,
 
   [PRAYER_TYPES.VICTIMAE_PASCHALI]: `Forth to the paschal Victim, Christians, bring Your sacrifice of praise:
 The Lamb redeems the sheep; And Christ the sinless one, Hath to the Father sinners reconciled.

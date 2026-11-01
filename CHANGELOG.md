@@ -8,6 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 - **The Chaplet of the Holy Spirit** (*Corona Spíritus Sancti*) among the devotions, prayed step by step: the sign of the cross and an act of contrition, the *Veni, Creátor*, five mysteries with a meditation and an exercise, each followed by an Our Father, a Hail Mary and seven Glory Bes, and the Creed. Latin from *Preces et pia opera* (1929), Czech from *Příručka katolických pobožností* (1935); the English is our own translation. In season through the Pentecost octave.
+- **Four chaplets from the Raccolta** among the devotions, each prayed step by step with its prayers counted in the label:
+  - **The Chaplet of St. Michael** (*Corona Angélica*): nine salutations to the choirs of angels, each with an Our Father and three Hail Marys, four Our Fathers, the antiphon and the collect.
+  - **The Rosary of the Seven Sorrows** (*Corona Septem Dolórum*), the Servite form: an act of contrition, seven sorrows of an Our Father and seven Hail Marys, three Hail Marys for Our Lady's tears, and the collect. In season on the feasts of Our Lady of Sorrows and in Lent.
+  - **The Chaplet of the Precious Blood** (*Corona Pretiosíssimi Sánguinis*): seven mysteries with 33 Our Fathers in all, then the prayer and the collect. In season in July.
+  - **The Chaplet of the Sacred Heart** (*Corona Sacratíssimi Cordis Iesu*): five considerations of the Heart, each with an Our Father, five Glory Bes and the aspiration, a prayer to Our Lady and the collect. In season in June and on first Fridays.
+  - **Sources:** the Czech is from *Cesta k věčné spáse* (1915) and, for the Seven Sorrows, *Poutní kniha* (1893); the English is the Raccolta's (1910, the Sacred Heart 1878). No Latin text could be found, so **the Latin is our own translation**, except the versicles and collects, which are the Missal's or the Raccolta's.
+
+### Changed
+- **The *In season* card starts closed**, like the groups below it; tap it to see what the day calls for.
 
 ## [0.23.0]
 
