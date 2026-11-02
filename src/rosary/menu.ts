@@ -26,6 +26,12 @@ export type MenuEntry = { name: string; nameTr: Localized; color: string; build:
 
 const has = (obj: object, k: string): boolean => Object.prototype.hasOwnProperty.call(obj, k);
 
+// A key the menu's groups can list: an ordinary prayer, a litany or a linear
+// devotion (not a mystery set, the chaplet or a plan). Own-property checks, so
+// a stored "toString" is no key.
+export const isMenuKey = (k: string): k is MenuKey =>
+  has(ORDINARY_PRAYERS, k) || has(LITANIES, k) || has(OTHER_PRAYER_SETS, k);
+
 export const menuEntry = (k: MenuKey): MenuEntry =>
   has(ORDINARY_PRAYERS, k) ? ORDINARY_PRAYERS[k as OrdinaryPrayerKey]
   : has(LITANIES, k) ? LITANIES[k as LitanyKey]
@@ -36,7 +42,7 @@ export const menuEntry = (k: MenuKey): MenuEntry =>
 export type MenuSection = { heading?: string; keys: readonly MenuKey[] };
 export type MenuGroupKey = "cotidianae" | "mariales" | "missa" | "litaniae" | "defuncti" | "devotiones";
 // The symbol drawn in a group's header (GroupIcon in MysteryMenu.tsx).
-export type GroupIconName = "calendar" | "sun" | "marian" | "ihs" | "list" | "cross" | "heart";
+export type GroupIconName = "calendar" | "sun" | "marian" | "ihs" | "list" | "cross" | "heart" | "star";
 export type MenuGroup = {
   key: MenuGroupKey;
   title: string;
@@ -50,6 +56,10 @@ export type MenuGroup = {
 // The "in season" card's symbol and colour (liturgical green).
 export const IN_SEASON_ICON: GroupIconName = "calendar";
 export const IN_SEASON_COLOR = "#2E7D32";
+
+// The Favourites card's symbol and colour (a gold star).
+export const FAVORITES_ICON: GroupIconName = "star";
+export const FAVORITES_COLOR = "#B7791F";
 
 // Listed in the order they are prayed or learned, not alphabetically.
 export const MENU_GROUPS: readonly MenuGroup[] = [

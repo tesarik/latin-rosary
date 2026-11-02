@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { MYSTERIES, type MysteryKey } from "./prayers";
 import { CHAPLETS } from "./sequence";
-import { IN_SEASON_COLOR, IN_SEASON_ICON, MENU_GROUPS, inSeason, menuEntry, type GroupIconName, type MenuSection } from "./menu";
+import { FAVORITES_COLOR, FAVORITES_ICON, IN_SEASON_COLOR, IN_SEASON_ICON, MENU_GROUPS, inSeason, menuEntry, type GroupIconName, type MenuKey, type MenuSection } from "./menu";
 import { chapletToOpen, loadSavedChapletFull, saveChapletFull } from "./chaplet";
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
 import type { PrayerSetKey } from "./navigation";
@@ -13,6 +13,7 @@ import Flag from "./Flag";
 import ThemeIcon from "./ThemeIcon";
 import AboutDialog from "./AboutDialog";
 import { PlanIcon } from "./PlansScreen";
+import { STAR_PATH } from "./StarIcon";
 
 type Props = {
   onStart: (key: PrayerSetKey) => void;
@@ -21,6 +22,8 @@ type Props = {
   continueWith: { key: PrayerSetKey; name: string; color: string; step: number; total: number } | null;
   onOpenPlans: () => void;
   planCount: number;
+  // The starred prayers, in the order they were starred.
+  favorites: readonly MenuKey[];
   locale: Locale;
   onLocaleChange: (locale: Locale) => void;
   theme: Theme;
@@ -234,6 +237,8 @@ function GroupIcon({ name, color }: { name: GroupIconName; color: string }) {
         </>;
       case "heart":
         return <path d="M10 16.5 C4 12.2 2.6 9 4.2 6.6 C5.9 4.2 8.6 4.8 10 7 C11.4 4.8 14.1 4.2 15.8 6.6 C17.4 9 16 12.2 10 16.5 Z" {...line} />;
+      case "star":
+        return <path d={STAR_PATH} {...line} />;
     }
   })();
   return <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">{shape}</svg>;
@@ -256,7 +261,9 @@ function TileImage({ name }: { name: string }) {
 
 // Groups left open, by title. Opening a prayer unmounts the menu, so a group's
 // own state would reset; this keeps it open for the return, for the session.
+// A group that starts open (the Favourites) is tracked by closing instead.
 const openGroups = new Set<string>();
+const closedGroups = new Set<string>();
 
 // Collapsible group: a card whose header rolls down small links to prayers,
 // section by section in menu.ts's order (a section's heading, if it has one,
@@ -264,7 +271,7 @@ const openGroups = new Set<string>();
 // Latin name with its name in the UI language as a muted subtitle — the same
 // two-line shape the prayer-plan tile uses. The "in season" card is one too,
 // closed like the rest until tapped.
-function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, onStart, resume, badges = {}, notes = {}, theme, locale }: {
+function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, onStart, resume, badges = {}, notes = {}, startOpen = false, theme, locale }: {
   title: string;
   subtitle: string;
   icon: GroupIconName;
@@ -275,6 +282,8 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
   // Per-row pill after the name, and an extra muted line under it.
   badges?: Record<string, string>;
   notes?: Record<string, string>;
+  // Open unless closed this session, rather than closed unless opened.
+  startOpen?: boolean;
   theme: Theme;
   locale: Locale;
 }) {
@@ -282,9 +291,10 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
   const keys = sections.flatMap((s) => s.keys);
   // A group holding an unfinished set starts open, so its place is visible; so
   // does one left open before a prayer was opened from it (openGroups).
-  const [open, setOpen] = useState(() => openGroups.has(title) || keys.some((k) => Object.hasOwn(resume, k)));
+  const [open, setOpen] = useState(() =>
+    startOpen ? !closedGroups.has(title) : openGroups.has(title) || keys.some((k) => Object.hasOwn(resume, k)));
   const toggle = () => setOpen((o) => {
-    if (o) openGroups.delete(title); else openGroups.add(title);
+    if (o) { openGroups.delete(title); closedGroups.add(title); } else { openGroups.add(title); closedGroups.delete(title); }
     return !o;
   });
 
@@ -388,7 +398,7 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
 // Start screen: title + one button per mystery set. Also hosts the language
 // picker — language is locked in once a rosary starts.
 // onStart(key) hands the chosen mystery key back to the parent.
-export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans, planCount, locale, onLocaleChange, theme, onToggleTheme }: Props) {
+export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans, planCount, favorites, locale, onLocaleChange, theme, onToggleTheme }: Props) {
   const t = STRINGS[locale];
   const [aboutOpen, setAboutOpen] = useState(false);
   // Today's place in the calendar: which mysteries to pray, what else is in
@@ -498,6 +508,25 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
         <h2 style={sectionHeading}>
           {t.otherPrayersHeading}
         </h2>
+
+        {/* The prayers starred in the prayer header, open from the start;
+            each is also in its own group further down. */}
+        {favorites.length > 0 && (
+          <CollapsiblePrayers
+            title={t.favoritesHeading}
+            subtitle={t.favoritesSubtitle}
+            icon={FAVORITES_ICON}
+            color={FAVORITES_COLOR}
+            sections={[{ keys: favorites }]}
+            onStart={onStart}
+            resume={resume}
+            badges={seasonBadges}
+            notes={angelusNote}
+            startOpen
+            theme={theme}
+            locale={locale}
+          />
+        )}
 
         {/* What the day calls for, above the groups and closed like them; each
             prayer is also in its own group further down, with the same pill. */}

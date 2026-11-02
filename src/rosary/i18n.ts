@@ -62,6 +62,10 @@ type Strings = {
   todayBadge: string;
   seasonBadge: string;
   inSeasonHeading: string;
+  favoritesHeading: string;
+  favoritesSubtitle: string;
+  favoriteAdd: string;
+  favoriteRemove: string;
   inSeasonSubtitle: string;
   // Under the Angelus in Eastertide, when the Regína Cæli takes its place.
   angelusEastertide: string;
@@ -175,6 +179,10 @@ export const STRINGS: Record<Locale, Strings> = {
     todayBadge: "dnes",
     seasonBadge: "nyní",
     inSeasonHeading: "V tuto dobu",
+    favoritesHeading: "Oblíbené",
+    favoritesSubtitle: "Modlitby označené hvězdičkou",
+    favoriteAdd: "Přidat do oblíbených",
+    favoriteRemove: "Odebrat z oblíbených",
     inSeasonSubtitle: "Antifona doby, svátky a měsíce",
     angelusEastertide: "V době velikonoční se místo něj modlí Regína Cæli",
     chapletOptional: "S nepovinnými modlitbami",
@@ -281,6 +289,10 @@ export const STRINGS: Record<Locale, Strings> = {
     todayBadge: "today",
     seasonBadge: "now",
     inSeasonHeading: "In season",
+    favoritesHeading: "Favourites",
+    favoritesSubtitle: "The prayers you starred",
+    favoriteAdd: "Add to favourites",
+    favoriteRemove: "Remove from favourites",
     inSeasonSubtitle: "The antiphon of the season, feasts and months",
     angelusEastertide: "In Eastertide the Regína Cæli is prayed instead",
     chapletOptional: "With the optional prayers",

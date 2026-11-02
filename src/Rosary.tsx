@@ -25,6 +25,9 @@ import PrayerSections from "./rosary/PrayerSections";
 import FontSizeControl from "./rosary/FontSizeControl";
 import LanguageToggle from "./rosary/LanguageToggle";
 import ThemeIcon from "./rosary/ThemeIcon";
+import StarIcon from "./rosary/StarIcon";
+import { loadFavorites, saveFavorites, toggleFavorite } from "./rosary/favorites";
+import { isMenuKey, type MenuKey } from "./rosary/menu";
 import MysteryMenu from "./rosary/MysteryMenu";
 import PlansScreen from "./rosary/PlansScreen";
 import UpdateToast from "./rosary/UpdateToast";
@@ -57,6 +60,8 @@ export default function Rosary() {
   // helpers take the live list rather than reading storage themselves.
   const [plans, setPlansState] = useState<Plan[]>(loadPlans);
   const [plansOpen, setPlansOpen] = useState(false);
+  // The starred prayers (favorites.ts), user data under their own key.
+  const [favorites, setFavoritesState] = useState<MenuKey[]>(loadFavorites);
   const saved = useRef(resolveSession(loadSavedState(), plans));
 
   const [selectedSet, setSelectedSet] = useState<PrayerSetKey | null>(saved.current.active?.key ?? null);
@@ -97,6 +102,14 @@ export default function Rosary() {
     });
     setPlansState(next);
   }, [plans]);
+
+  const toggleFavoriteKey = useCallback((key: MenuKey) => {
+    setFavoritesState((prev) => {
+      const next = toggleFavorite(prev, key);
+      saveFavorites(next);
+      return next;
+    });
+  }, []);
 
   const setLocale = useCallback((next: Locale) => {
     setLocaleState(next);
@@ -360,6 +373,7 @@ export default function Rosary() {
             continueWith={continueWith}
             onOpenPlans={() => setPlansOpen(true)}
             planCount={plans.length}
+            favorites={favorites}
             locale={locale}
             onLocaleChange={setLocale}
             theme={theme}
@@ -504,6 +518,34 @@ export default function Rosary() {
             </button>
           )}
           <div style={{ flex: 1 }} />
+          {isMenuKey(selectedSet) && (() => {
+            const starred = favorites.includes(selectedSet);
+            const label = starred ? t.favoriteRemove : t.favoriteAdd;
+            return (
+              <button
+                onClick={() => toggleFavoriteKey(selectedSet)}
+                aria-label={label}
+                aria-pressed={starred}
+                title={label}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                  width: 44,
+                  height: 40,
+                  padding: 0,
+                  background: starred ? "white" : "rgba(255,255,255,0.2)",
+                  border: "none",
+                  borderRadius: 10,
+                  cursor: "pointer",
+                  color: starred ? accentColor : "white",
+                }}
+              >
+                <StarIcon filled={starred} size={18} />
+              </button>
+            );
+          })()}
           <button
             onClick={toggleTheme}
             aria-label={t.themeToggleAria}
