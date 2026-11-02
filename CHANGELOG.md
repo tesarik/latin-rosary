@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.28.0]
 
 ### Added
 - **Favourites.** A star in the prayer header (☆) adds the open prayer, litany or devotion to a *Favourites* card on the start screen, open at the top of the other prayers; tap it again to remove it. The list is kept in the browser and survives updates and resets.
