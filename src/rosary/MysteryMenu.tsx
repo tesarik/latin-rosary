@@ -253,8 +253,8 @@ function CollapsiblePrayers({ title, subtitle, icon, sections, onStart, resume, 
           width: "100%",
           display: "flex",
           alignItems: "center",
-          gap: 16,
-          padding: "18px 24px",
+          gap: 12,
+          padding: "12px 16px",
           background: "transparent",
           border: "none",
           cursor: "pointer",
@@ -263,7 +263,7 @@ function CollapsiblePrayers({ title, subtitle, icon, sections, onStart, resume, 
       >
         <TileImage name={icon} />
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
+          <div style={{ fontFamily: "Arial, sans-serif", fontSize: 17, fontWeight: 600, color: "var(--text-strong)" }}>
             {title}
           </div>
           <div style={{ fontFamily: "Arial, sans-serif", fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>
@@ -284,7 +284,7 @@ function CollapsiblePrayers({ title, subtitle, icon, sections, onStart, resume, 
             <div key={section.heading ?? i}>
               {section.heading && (
                 <div style={{
-                  padding: "10px 24px 2px 80px",
+                  padding: "8px 16px 2px 68px",
                   fontSize: 12,
                   fontWeight: 600,
                   letterSpacing: 0.4,
@@ -301,12 +301,12 @@ function CollapsiblePrayers({ title, subtitle, icon, sections, onStart, resume, 
                   width: "100%",
                   display: "block",
                   textAlign: "left",
-                  padding: "11px 24px 11px 80px",
+                  padding: "8px 16px 8px 68px",
                   background: "transparent",
                   border: "none",
                   cursor: "pointer",
                   fontFamily: "Arial, sans-serif",
-                  fontSize: 16,
+                  fontSize: 15,
                   color: "var(--text)",
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
@@ -388,7 +388,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
         {t.appSubtitle}
       </div>
 
-      <div style={{ width: "100%", maxWidth: 380, display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ width: "100%", maxWidth: 380, display: "flex", flexDirection: "column", gap: 8 }}>
         {/* The last unfinished prayer, one tap away — otherwise it may sit
             inside a collapsed group (a litany) or in the plans screen. Its own
             row further down still shows its place too. */}
@@ -551,8 +551,8 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
       style={{
         display: "flex",
         alignItems: "center",
-        gap: 16,
-        padding: footer ? "18px 24px 14px" : "18px 24px",
+        gap: 12,
+        padding: footer ? "12px 16px 8px" : "12px 16px",
         cursor: "pointer",
         ...(footer
           ? { width: "100%", background: "transparent", border: "none", borderRadius: "16px 16px 0 0" }
@@ -589,7 +589,7 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
         </div>
       )}
       <div style={{ textAlign: "left", minWidth: 0 }}>
-        <div style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
+        <div style={{ fontFamily: "Arial, sans-serif", fontSize: 17, fontWeight: 600, color: "var(--text-strong)" }}>
           {name}{badge}
         </div>
         {subtitle && (
