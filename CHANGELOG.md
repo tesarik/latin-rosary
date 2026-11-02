@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
+- **Favourites.** A star in the prayer header (☆) adds the open prayer, litany or devotion to a *Favourites* card on the start screen, open at the top of the other prayers; tap it again to remove it. The list is kept in the browser and survives updates and resets.
 - **Five more prayers to St. Joseph**, with *Ad te, beáte Ioseph* and his sorrows and joys under a new *Ad sanctum Ioseph* heading among the devotions: his *Memoráre*, St. Bernardine's *Meménto nostri*, *O Ioseph, virgo Pater Iesu*, the invocation *Fac nos innócuam* and his commemoration (*Ecce fidélis servus* with its versicle and collect). The Latin and English are from the *Raccolta* (1910) and *Preces et pia opera* (1929), the Czech from *Příručka katolických pobožností* (1935) and *Cesta k věčné spáse* (1915). The Latin of the *Memoráre* is ours, since the prayer is Italian and no printed Latin was found.
 
 ## [0.27.0]
