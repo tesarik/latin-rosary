@@ -91,6 +91,7 @@ On the PR branch, commit `chore: release X.Y.Z`: `npm version X.Y.Z --no-git-tag
   - The components: `MysteryMenu`, `PrayerCard`, `RosaryBeads`, `PrayerSections`, `PlansScreen`, and the header controls.
   - Unit tests: `*.test.ts`.
 - `src/main.tsx`: the entry point, with an error boundary around the app.
+- `public/icons/*.webp`: the start screen's tile paintings, rendered from `art/menu-icons/` by `python3 scripts/render-menu-icons.py`.
 - `public/manifest.webmanifest`, `public/sw.js` and the icons `public/icon-48/180/192/512.png`: PWA assets. The icons are rendered from `art/icon-source.png` by `python3 scripts/render-icons.py` (needs Pillow).
 - `public/og-image.svg`: the link-preview image, rendered to `og-image.png` (1200×630) the same way; EB Garamond must be installed.
 - `index.html`: title, description, link-preview tags, theme colour, and the pre-paint theme script.
