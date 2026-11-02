@@ -16,8 +16,8 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parent.parent
 ART = ROOT / "art" / "icon-heart.png"
 SCALE = 0.8  # of the canvas: keeps the flames' tips and the sword's pommel in the safe zone
-EDGE = np.array([36, 48, 68])     # #243044, the corners
-CENTRE = np.array([84, 100, 124])  # #54647C, behind the heart
+EDGE = np.array([30, 44, 74])     # #1E2C4A, the corners
+CENTRE = np.array([76, 98, 138])   # #4C628A, behind the heart
 
 art = Image.open(ART).convert("RGBA")
 for size in (48, 180, 192, 512):

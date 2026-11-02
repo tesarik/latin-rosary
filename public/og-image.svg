@@ -4,9 +4,9 @@
        on the icon's blue-grey field, lightening behind the heart. -->
   <defs>
     <radialGradient id="field" gradientUnits="userSpaceOnUse" cx="315" cy="315" r="900">
-      <stop offset="0" stop-color="#54647C"/>
-      <stop offset="0.6" stop-color="#243044"/>
-      <stop offset="1" stop-color="#243044"/>
+      <stop offset="0" stop-color="#4C628A"/>
+      <stop offset="0.6" stop-color="#1E2C4A"/>
+      <stop offset="1" stop-color="#1E2C4A"/>
     </radialGradient>
   </defs>
   <rect width="1200" height="630" fill="url(#field)"/>
