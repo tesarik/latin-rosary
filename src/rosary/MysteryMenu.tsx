@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { MYSTERIES, type MysteryKey } from "./prayers";
 import { CHAPLETS } from "./sequence";
-import { IN_SEASON_ICON, MENU_GROUPS, inSeason, menuEntry, type GroupIconName, type MenuSection } from "./menu";
+import { IN_SEASON_COLOR, IN_SEASON_ICON, MENU_GROUPS, inSeason, menuEntry, type GroupIconName, type MenuSection } from "./menu";
 import { chapletToOpen, loadSavedChapletFull, saveChapletFull } from "./chaplet";
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
 import type { PrayerSetKey } from "./navigation";
@@ -190,7 +190,56 @@ function Badge({ label, color, theme }: { label: string; color: string; theme: T
   );
 }
 
-// A tile's picture: one of the paintings in public/icons (rendered from
+// The symbol in a group header, drawn in the group's colour on a 20×20 grid
+// in the same thin-line style as the tiles' icons.
+function GroupIcon({ name, color }: { name: GroupIconName; color: string }) {
+  const line = { stroke: color, strokeWidth: 1.5, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, fill: "none" };
+  const shape = (() => {
+    switch (name) {
+      case "calendar":
+        return <>
+          <rect x="3" y="4.5" width="14" height="12.5" rx="2" {...line} />
+          <line x1="3" y1="8.5" x2="17" y2="8.5" {...line} />
+          <line x1="7" y1="2.5" x2="7" y2="6" {...line} />
+          <line x1="13" y1="2.5" x2="13" y2="6" {...line} />
+          <circle cx="10" cy="12.75" r="1.4" fill={color} />
+        </>;
+      case "sun":
+        // The daily prayers: the sun, for morning and evening.
+        return <>
+          <circle cx="10" cy="10" r="3.6" {...line} />
+          {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
+            <line key={deg} x1="10" y1="3" x2="10" y2="4.6" {...line} transform={`rotate(${deg} 10 10)`} />
+          ))}
+        </>;
+      case "marian":
+        // The Marian M.
+        return <text x="10" y="16.5" textAnchor="middle" fontFamily="'EB Garamond', Georgia, serif" fontSize="20" fontWeight="600" fill={color}>M</text>;
+      case "ihs":
+        // The Holy Name's monogram, for the Mass.
+        return <text x="10" y="14.8" textAnchor="middle" fontFamily="'EB Garamond', Georgia, serif" fontSize="13.5" fontWeight="600" letterSpacing="0" fill={color}>IHS</text>;
+      case "list":
+        return <>
+          <circle cx="4" cy="6" r="1" fill={color} />
+          <circle cx="4" cy="10" r="1" fill={color} />
+          <circle cx="4" cy="14" r="1" fill={color} />
+          <line x1="8" y1="6" x2="16" y2="6" {...line} />
+          <line x1="8" y1="10" x2="16" y2="10" {...line} />
+          <line x1="8" y1="14" x2="16" y2="14" {...line} />
+        </>;
+      case "cross":
+        return <>
+          <line x1="10" y1="2.5" x2="10" y2="17.5" {...line} />
+          <line x1="5.5" y1="7" x2="14.5" y2="7" {...line} />
+        </>;
+      case "heart":
+        return <path d="M10 16.5 C4 12.2 2.6 9 4.2 6.6 C5.9 4.2 8.6 4.8 10 7 C11.4 4.8 14.1 4.2 15.8 6.6 C17.4 9 16 12.2 10 16.5 Z" {...line} />;
+    }
+  })();
+  return <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">{shape}</svg>;
+}
+
+// A mystery set's or the chaplet's picture: one of the paintings in public/icons (rendered from
 // art/menu-icons by scripts/render-menu-icons.py), 96 px drawn at 40.
 function TileImage({ name }: { name: string }) {
   return (
@@ -215,10 +264,11 @@ const openGroups = new Set<string>();
 // Latin name with its name in the UI language as a muted subtitle — the same
 // two-line shape the prayer-plan tile uses. The "in season" card is one too,
 // closed like the rest until tapped.
-function CollapsiblePrayers({ title, subtitle, icon, sections, onStart, resume, badges = {}, notes = {}, theme, locale }: {
+function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, onStart, resume, badges = {}, notes = {}, theme, locale }: {
   title: string;
   subtitle: string;
   icon: GroupIconName;
+  color: string;
   sections: readonly MenuSection[];
   onStart: (key: PrayerSetKey) => void;
   resume: ResumeInfo;
@@ -261,7 +311,12 @@ function CollapsiblePrayers({ title, subtitle, icon, sections, onStart, resume, 
           textAlign: "left",
         }}
       >
-        <TileImage name={icon} />
+        <div style={{
+          width: 40, height: 40, borderRadius: 12, background: accent + "18",
+          display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+        }}>
+          <GroupIcon name={icon} color={accent} />
+        </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontFamily: "Arial, sans-serif", fontSize: 17, fontWeight: 600, color: "var(--text-strong)" }}>
             {title}
@@ -450,6 +505,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
           title={t.inSeasonHeading}
           subtitle={t.inSeasonSubtitle}
           icon={IN_SEASON_ICON}
+          color={IN_SEASON_COLOR}
           sections={[{ keys: seasonal }]}
           onStart={onStart}
           resume={resume}
@@ -463,6 +519,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
             title={g.title}
             subtitle={g.subtitle[locale]}
             icon={g.icon}
+            color={g.color}
             sections={g.sections}
             onStart={onStart}
             badges={seasonBadges}
@@ -479,7 +536,6 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
           color={PLAN_COLOR}
           ariaLabel={t.plansOpenAria}
           icon="plan"
-          image="plan"
           onClick={onOpenPlans}
         />
 

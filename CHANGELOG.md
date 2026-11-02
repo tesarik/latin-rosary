@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Changed
-- **Painted icons on the start screen.** Each mystery set, the Divine Mercy chaplet, every prayer group and the prayer plans have their own picture instead of the line symbol: the Annunciation, the Man of Sorrows, the Resurrection, the Divine Mercy image, a calendar, a sunrise for the daily prayers, the crowned Marian M, a chalice with the host for the Mass, an open book for the litanies, a stone cross for the dead, the Sacred Heart for the devotions, and a list for the plans.
+- **Painted icons for the rosary and the chaplet.** The three mystery sets and the Chaplet of Divine Mercy have a picture instead of the line symbol: the Annunciation, the Man of Sorrows, the Resurrection and the Divine Mercy image. The prayer groups keep their symbols.
 - **A more compact start screen.** The tiles are lower, with smaller padding, titles and gaps, so more of the menu fits on a phone screen.
 
 ## [0.25.1]

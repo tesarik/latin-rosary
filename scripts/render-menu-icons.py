@@ -2,9 +2,8 @@
 
     python3 scripts/render-menu-icons.py
 
-The sources are 506 px paintings, one per mystery set, the Divine Mercy
-chaplet, each prayer group (named by its GroupIconName in menu.ts) and the
-prayer plans. The tiles draw them at 40 px, so they are written at 96 px
+The sources are 506 px paintings, one per mystery set and one for the
+Divine Mercy chaplet. The tiles draw them at 40 px, so they are written at 96 px
 (sharp up to 2.4× density) to public/icons/<name>.webp. Needs Pillow.
 """
 from pathlib import Path
