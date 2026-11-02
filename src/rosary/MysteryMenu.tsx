@@ -239,6 +239,21 @@ function GroupIcon({ name, color }: { name: GroupIconName; color: string }) {
   return <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">{shape}</svg>;
 }
 
+// A mystery set's or the chaplet's picture: one of the paintings in public/icons (rendered from
+// art/menu-icons by scripts/render-menu-icons.py), 96 px drawn at 40.
+function TileImage({ name }: { name: string }) {
+  return (
+    <img
+      src={`${import.meta.env.BASE_URL}icons/${name}.webp`}
+      alt=""
+      aria-hidden="true"
+      width={40}
+      height={40}
+      style={{ display: "block", flexShrink: 0, borderRadius: 12, objectFit: "cover" }}
+    />
+  );
+}
+
 // Groups left open, by title. Opening a prayer unmounts the menu, so a group's
 // own state would reset; this keeps it open for the return, for the session.
 const openGroups = new Set<string>();
@@ -288,8 +303,8 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
           width: "100%",
           display: "flex",
           alignItems: "center",
-          gap: 16,
-          padding: "18px 24px",
+          gap: 12,
+          padding: "12px 16px",
           background: "transparent",
           border: "none",
           cursor: "pointer",
@@ -300,10 +315,10 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
           width: 40, height: 40, borderRadius: 12, background: accent + "18",
           display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
         }}>
-<GroupIcon name={icon} color={accent} />
+          <GroupIcon name={icon} color={accent} />
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
+          <div style={{ fontFamily: "Arial, sans-serif", fontSize: 17, fontWeight: 600, color: "var(--text-strong)" }}>
             {title}
           </div>
           <div style={{ fontFamily: "Arial, sans-serif", fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>
@@ -324,7 +339,7 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
             <div key={section.heading ?? i}>
               {section.heading && (
                 <div style={{
-                  padding: "10px 24px 2px 80px",
+                  padding: "8px 16px 2px 68px",
                   fontSize: 12,
                   fontWeight: 600,
                   letterSpacing: 0.4,
@@ -341,12 +356,12 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
                   width: "100%",
                   display: "block",
                   textAlign: "left",
-                  padding: "11px 24px 11px 80px",
+                  padding: "8px 16px 8px 68px",
                   background: "transparent",
                   border: "none",
                   cursor: "pointer",
                   fontFamily: "Arial, sans-serif",
-                  fontSize: 16,
+                  fontSize: 15,
                   color: "var(--text)",
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
@@ -428,7 +443,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
         {t.appSubtitle}
       </div>
 
-      <div style={{ width: "100%", maxWidth: 380, display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ width: "100%", maxWidth: 380, display: "flex", flexDirection: "column", gap: 8 }}>
         {/* The last unfinished prayer, one tap away — otherwise it may sit
             inside a collapsed group (a litany) or in the plans screen. Its own
             row further down still shows its place too. */}
@@ -455,6 +470,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
             color={val.color}
             ariaLabel={key === todaysMysteries ? `${t.startRosaryAria(val.nameTr[locale])}, ${t.todayBadge}` : t.startRosaryAria(val.nameTr[locale])}
             icon="rosary"
+            image={key}
             resume={<ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />}
             onClick={() => onStart(key)}
           />
@@ -466,6 +482,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
           color={chapletEntry.color}
           ariaLabel={t.startPrayerAria(chapletEntry.nameTr[locale])}
           icon="rosary"
+          image="misericordia"
           resume={<ResumeLine info={resume[chaplet]} color={chapletEntry.color} theme={theme} locale={locale} />}
           onClick={() => onStart(chaplet)}
           footer={
@@ -551,7 +568,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
 // A `footer` (the chaplet's switch) goes inside the same box, under a rule:
 // the box becomes a plain container holding two controls side by side in the
 // tree, since a button can't contain another one.
-function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon, onClick, footer }: {
+function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon, image, onClick, footer }: {
   name: string;
   subtitle?: string;
   badge?: React.ReactNode;
@@ -559,6 +576,8 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
   color: string;
   ariaLabel: string;
   icon: "rosary" | "cross" | "plan" | "continue";
+  // A painting from public/icons, drawn instead of the line icon.
+  image?: string;
   onClick: () => void;
   footer?: React.ReactNode;
 }) {
@@ -588,8 +607,8 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
       style={{
         display: "flex",
         alignItems: "center",
-        gap: 16,
-        padding: footer ? "18px 24px 14px" : "18px 24px",
+        gap: 12,
+        padding: footer ? "12px 16px 8px" : "12px 16px",
         cursor: "pointer",
         ...(footer
           ? { width: "100%", background: "transparent", border: "none", borderRadius: "16px 16px 0 0" }
@@ -597,34 +616,36 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
       }}
       {...(footer ? {} : hover)}
     >
-      <div style={{
-        width: 40,
-        height: 40,
-        borderRadius: 12,
-        background: color + "18",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexShrink: 0,
-      }}>
-        {icon === "plan" ? (
-          <PlanIcon color={color} />
-        ) : icon === "continue" ? (
-          <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
-            <path d="M7 4.5 L15.5 10 L7 15.5 Z" fill={color} />
-          </svg>
-        ) : (
-          <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
-            {icon === "rosary" && (
-              <circle cx="10" cy="10" r="8" fill="none" stroke={color} strokeWidth="1.5" />
-            )}
-            <line x1="10" y1={icon === "rosary" ? 5 : 3} x2="10" y2={icon === "rosary" ? 15 : 17} stroke={color} strokeWidth="1.5" strokeLinecap="round" />
-            <line x1={icon === "rosary" ? 6 : 5} y1={icon === "rosary" ? 9 : 8} x2={icon === "rosary" ? 14 : 15} y2={icon === "rosary" ? 9 : 8} stroke={color} strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-        )}
-      </div>
+      {image ? <TileImage name={image} /> : (
+        <div style={{
+          width: 40,
+          height: 40,
+          borderRadius: 12,
+          background: color + "18",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flexShrink: 0,
+        }}>
+          {icon === "plan" ? (
+            <PlanIcon color={color} />
+          ) : icon === "continue" ? (
+            <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M7 4.5 L15.5 10 L7 15.5 Z" fill={color} />
+            </svg>
+          ) : (
+            <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+              {icon === "rosary" && (
+                <circle cx="10" cy="10" r="8" fill="none" stroke={color} strokeWidth="1.5" />
+              )}
+              <line x1="10" y1={icon === "rosary" ? 5 : 3} x2="10" y2={icon === "rosary" ? 15 : 17} stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+              <line x1={icon === "rosary" ? 6 : 5} y1={icon === "rosary" ? 9 : 8} x2={icon === "rosary" ? 14 : 15} y2={icon === "rosary" ? 9 : 8} stroke={color} strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          )}
+        </div>
+      )}
       <div style={{ textAlign: "left", minWidth: 0 }}>
-        <div style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
+        <div style={{ fontFamily: "Arial, sans-serif", fontSize: 17, fontWeight: 600, color: "var(--text-strong)" }}>
           {name}{badge}
         </div>
         {subtitle && (

@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.26.0]
+
+### Changed
+- **Painted icons for the rosary and the chaplet.** The three mystery sets and the Chaplet of Divine Mercy have a picture instead of the line symbol: the Annunciation, the Man of Sorrows, the Resurrection and the Divine Mercy image. The prayer groups keep their symbols.
+- **A more compact start screen.** The tiles are lower, with smaller padding, titles and gaps, so more of the menu fits on a phone screen.
+
 ## [0.25.1]
 
 ### Changed
