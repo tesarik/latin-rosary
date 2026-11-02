@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Changed
+- **The app icon on a blue-grey background.** The Immaculate Heart no longer sits on a white square: the icon, the favicon and the link preview have a blue-grey field lightening behind the heart.
+
 ## [0.26.0]
 
 ### Changed
