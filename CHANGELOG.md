@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Changed
-- **The app icon on a blue-grey background.** The Immaculate Heart no longer sits on a white square: the icon, the favicon and the link preview have a blue-grey field lightening behind the heart.
+- **A new app icon.** The Immaculate Heart is painted on a blue field instead of a white square, in the icon, the favicon and the link preview. Android gets its own maskable icon, so its round crop no longer cuts the flames or the sword.
 
 ## [0.26.0]
 

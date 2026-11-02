@@ -92,7 +92,7 @@ On the PR branch, commit `chore: release X.Y.Z`: `npm version X.Y.Z --no-git-tag
   - Unit tests: `*.test.ts`.
 - `src/main.tsx`: the entry point, with an error boundary around the app.
 - `public/icons/*.webp`: the paintings on the start screen's mystery-set and chaplet tiles, rendered from `art/menu-icons/` by `python3 scripts/render-menu-icons.py`.
-- `public/manifest.webmanifest`, `public/sw.js` and the icons `public/icon-48/180/192/512.png`: PWA assets. The icons are rendered from `art/icon-source.png`: `python3 scripts/cut-icon.py` cuts the heart out of its white field into `art/icon-heart.png`, then `python3 scripts/render-icons.py` lays it on the blue-grey background (both need Pillow and NumPy).
+- `public/manifest.webmanifest`, `public/sw.js` and the icons `public/icon-48/180/192/512.png` and `public/icon-maskable-192/512.png`: PWA assets. The icons are rendered from `art/icon-source.png` by `python3 scripts/render-icons.py` (needs Pillow and NumPy).
 - `public/og-image.svg`: the link-preview image, rendered to `og-image.png` (1200×630) the same way; EB Garamond must be installed.
 - `index.html`: title, description, link-preview tags, theme colour, and the pre-paint theme script.
 - `vite.config.ts`: reads `BASE_PATH` and `SITE_URL`, stamps the version, build date and SW cache version, fills in the link-preview URLs, and writes the prayer pages and sitemap.
