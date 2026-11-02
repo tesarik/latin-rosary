@@ -466,6 +466,11 @@ export type OrdinaryPrayerKey =
   | "gratiarum_actio"
   | "memorare"
   | "ad_te_ioseph"
+  | "memorare_ioseph"
+  | "memento_ioseph"
+  | "o_ioseph_virgo"
+  | "fac_nos_innocuam"
+  | "commemoratio_ioseph"
   | "magnificat"
   | "nunc_dimittis"
   | "iudica_me"
@@ -536,6 +541,11 @@ export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, OrdinaryEntry> = {
   gratiarum_actio: ordinary("Gratiárum áctio", { cs: "Modlitba po jídle", en: "Grace after Meals" }, PRAYER_TYPES.GRATIARUM_ACTIO),
   memorare: ordinary("Memoráre", { cs: "Pomni, nejdobrotivější Panno Maria", en: "Remember, O Most Gracious Virgin Mary" }, PRAYER_TYPES.MEMORARE),
   ad_te_ioseph: ordinary("Ad te, beáte Ioseph", { cs: "K tobě, svatý Josefe", en: "To Thee, O Blessed Joseph" }, PRAYER_TYPES.AD_TE_IOSEPH),
+  memorare_ioseph: ordinary("Memoráre, o puríssime Sponse", { cs: "Vzpomeň, svatý Josefe", en: "Remember, Most Pure Spouse of Mary" }, PRAYER_TYPES.MEMORARE_IOSEPH),
+  memento_ioseph: ordinary("Meménto nostri, beáte Ioseph", { cs: "Pamatuj na nás, blahoslavený Josefe (sv. Bernardin)", en: "Be Mindful of Us, O Blessed Joseph (St. Bernardine)" }, PRAYER_TYPES.MEMENTO_IOSEPH),
+  o_ioseph_virgo: ordinary("O Ioseph, virgo Pater Iesu", { cs: "Josefe, panický Pěstoune Ježíšův", en: "O Joseph, Virgin Father of Jesus" }, PRAYER_TYPES.O_IOSEPH_VIRGO),
+  fac_nos_innocuam: ordinary("Fac nos innócuam, Ioseph", { cs: "Dej, Josefe blažený (povzdech)", en: "Grant, O Holy Joseph (Invocation)" }, PRAYER_TYPES.FAC_NOS_INNOCUAM),
+  commemoratio_ioseph: ordinary("Commemorátio sancti Ioseph", { cs: "Antifona a modlitba k sv. Josefu", en: "Commemoration of St. Joseph" }, PRAYER_TYPES.COMMEMORATIO_IOSEPH),
   magnificat: ordinary("Magníficat", { cs: "Velebí duše má Hospodina", en: "The Canticle of Mary" }, PRAYER_TYPES.MAGNIFICAT),
   nunc_dimittis: ordinary("Nunc dimíttis", { cs: "Nyní propouštíš, Pane (večer)", en: "The Canticle of Simeon (Night Prayer)" }, PRAYER_TYPES.NUNC_DIMITTIS),
   iudica_me: ordinary("Iúdica me", { cs: "Žalm 42 u stupňů oltáře", en: "Psalm 42 at the Foot of the Altar" }, PRAYER_TYPES.IUDICA_ME),

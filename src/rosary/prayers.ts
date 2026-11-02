@@ -73,6 +73,11 @@ export const PRAYER_TYPES = {
   GRATIARUM_ACTIO: "gratiarum_actio",
   MEMORARE: "memorare",
   AD_TE_IOSEPH: "ad_te_ioseph",
+  MEMORARE_IOSEPH: "memorare_ioseph",
+  MEMENTO_IOSEPH: "memento_ioseph",
+  O_IOSEPH_VIRGO: "o_ioseph_virgo",
+  FAC_NOS_INNOCUAM: "fac_nos_innocuam",
+  COMMEMORATIO_IOSEPH: "commemoratio_ioseph",
   MAGNIFICAT: "magnificat",
   NUNC_DIMITTIS: "nunc_dimittis",
   IUDICA_ME: "iudica_me",
@@ -544,6 +549,30 @@ Corpus tuum, Dómine, quod sumpsi, et Sanguis, quem potávi, adhǽreat viscérib
   [PRAYER_TYPES.MEMORARE]: `Memoráre, o piíssima Virgo María, non esse audítum a sǽculo, quemquam ad tua curréntem præsídia, tua implorántem auxília, tua peténtem suffrágia, esse derelíctum. Ego tali animátus confidéntia, ad te, Virgo Vírginum, Mater, curro, ad te vénio, coram te gemens peccátor assísto. Noli, Mater Verbi, verba mea despícere; sed áudi propítia et exáudi. Amen.`,
 
   [PRAYER_TYPES.AD_TE_IOSEPH]: `Ad te, beáte Ioseph, in tribulatióne nostra confúgimus, atque, imploráto Sponsæ tuæ sanctíssimæ auxílio, patrocínium quoque tuum fidénter expóscimus. Per eam, quæsumus, quæ te cum immaculáta Vírgine Dei Genetríce coniúnxit, caritátem, perque patérnum, quo Púerum Iesum ampléxus es, amórem, súpplices deprecámur, ut ad hereditátem, quam Iesus Christus acquisívit Sánguine suo, benígnus respícias, ac necessitátibus nostris tua virtúte et ope succúrras. Tuére, o Custos providentíssime divínæ Famíliæ, Iesu Christi súbolem eléctam; próhibe a nobis, amantíssime Pater, omnem errórum ac corruptelárum luem; propítius nobis, sospitátor noster fortíssime, in hoc cum potestáte tenebrárum certámine e cælo adésto; et sicut olim Púerum Iesum e summo eripuísti vitæ discrímine, ita nunc Ecclésiam sanctam Dei ab hostílibus insídiis atque ab omni adversitáte defénde: nosque síngulos perpétuo tege patrocínio, ut ad tui exémplar et ope tua suffúlti, sancte vívere, pie émori, sempiternámque in cælis beatitúdinem ássequi possímus. Amen.`,
+
+  // Prayers to St. Joseph. Meménto nostri (St. Bernardine), Fac nos innócuam
+  // and the commemoration (the antiphon, versicle and collect after the hymn
+  // Quicúmque sanus) are the Raccolta's Latin (1910, nos. 309, 310, 298); O
+  // Ioseph, virgo Pater is Preces et pia opera (1929, no. 216). The accents
+  // are ours. OUR OWN TEXT: the Latin of the Memoráre of St. Joseph — an
+  // Italian devotion (Pius IX, 1863) that the Raccolta prints in English only
+  // and Preces et pia opera not at all; it follows the Latin in circulation
+  // (prayinglatin.com), with its misprints corrected.
+  [PRAYER_TYPES.MEMORARE_IOSEPH]: `Memoráre, o puríssime Sponse Vírginis Maríæ, o dulcis protéctor mi, sancte Ioseph, non esse audítum a sǽculo, quemquam ad tua implorántem auxília, tua peténtem suffrágia, esse derelíctum. Ego tali animátus confidéntia ad te vénio, tibíque férvide me comméndo. Noli, quæso, o Pater putatíve Redemptóris, verba mea despícere, sed audi propítius. Amen.`,
+
+  [PRAYER_TYPES.MEMENTO_IOSEPH]: `Meménto nostri, beáte Ioseph, et tuæ oratiónis suffrágio apud tuum putatívum Fílium intercéde; sed et beatíssimam Vírginem Sponsam tuam nobis propítiam redde, quæ Mater est eius, qui cum Patre et Spíritu Sancto vivit et regnat per infiníta sǽcula sæculórum. Amen.`,
+
+  [PRAYER_TYPES.O_IOSEPH_VIRGO]: `O Ioseph, virgo Pater Iesu, puríssime Sponse Vírginis Maríæ, quotídie deprecáre pro nobis ipsum Iesum, Fílium Dei, ut, armis suæ grátiæ muníti, legítime certántes in vita, ab eódem coronémur in morte.`,
+
+  [PRAYER_TYPES.FAC_NOS_INNOCUAM]: `Fac nos innócuam, Ioseph, decúrrere vitam, sitque tuo semper tuta patrocínio.`,
+
+  [PRAYER_TYPES.COMMEMORATIO_IOSEPH]: `{r}Antíphona{/r}
+Ecce fidélis servus et prudens, quem constítuit Dóminus super famíliam suam.
+
+℣ Ora pro nobis, beáte Ioseph.
+℟ Ut digni efficiámur promissiónibus Christi.
+
+Orémus. Deus, qui ineffábili providéntia beátum Ioseph sanctíssimæ Genitrícis tuæ sponsum elígere dignátus es: præsta, quǽsumus, ut quem protectórem venerámur in terris, intercessórem habére mereámur in cælis: qui vivis et regnas in sǽcula sæculórum. Amen.`,
 
   [PRAYER_TYPES.MAGNIFICAT]: `Magníficat ánima mea Dóminum,
 et exsultávit spíritus meus in Deo salutári meo.
@@ -2135,6 +2164,26 @@ Nechť Tělo tvé, Pane, jež jsem požil, a Krev, kterou jsem pil, utkví v út
 
   [PRAYER_TYPES.AD_TE_IOSEPH]: `K tobě, svatý Josefe, v soužení svém se utíkáme a jako jsme vzývali o pomoc nejsvětější tvoji Nevěstu, tak důvěrně žádáme i za tvou ochranu. Pro lásku, která tebe spojovala s neposkvrněnou Pannou, Bohorodičkou, a pro otcovskou lásku, se kterou jsi dítě Ježíše objímal, pokorně prosíme, abys na dědictví, kterého Ježíš Kristus dobyl svou krví, dobrotivě shlédl, a našim potřebám mocí a silou svou na pomoc přispěl. Nejpečlivější Strážce božské rodiny, ochraňuj vyvolené potomstvo Ježíše Krista: Odvrať od nás, nejmilejší Otče, všecku nákazu bludů a nepravostí. Buď nám s nebe milostiv, nejsilnější Spomocníku náš, v boji proti mocnosti temností. A jako jsi druhdy vysvobodil dítě Ježíše z největšího nebezpečí života, tak nyní braň Církev svatou proti nepřátelským úkladům, proti všemu protivenství; a zastři nás všecky stráží ustavičnou, abychom podle tvého příkladu a tvou pomocí opatřeni, mohli svatě žíti, nábožně zemříti a věčné blaženosti dosíci. Amen.`,
 
+  // Prayers to St. Joseph: the Memoráre (Vzpomeň) and O Ioseph, virgo Pater
+  // from Příručka katolických pobožností (Minařík, 1935); Meménto nostri, Fac
+  // nos innócuam and the commemoration from Cesta k věčné spáse (Brno, 1915,
+  // vol. III). Capitals follow the Latin.
+  [PRAYER_TYPES.MEMORARE_IOSEPH]: `Vzpomeň, svatý Josefe, nejčistší Choti Panny Marie a laskavý náš ochránce, že nebylo slýcháno, že by zůstal bez útěchy, kdo tebe vzýval o pomoc a u tebe hledal ochrany. S touto důvěrou též já k tobě přicházím a tobě se poroučím se vší vroucností. Ach, nepohrdej mou prosbou, Pěstoune Spasitelův, ale přijmi ji milostivě. Amen.`,
+
+  [PRAYER_TYPES.MEMENTO_IOSEPH]: `Pamatuj na nás, blahoslavený Josefe, a přimlouvej se prosbou své modlitby u Syna Božího, svého schovance; učiň též, aby nejblahoslavenější Panna, Snoubenka tvá, nám byla milostivou, kteráž Matkou jest toho, jenž s Otcem a Duchem Svatým žije a kraluje po nekonečné věky věkův. Amen.`,
+
+  [PRAYER_TYPES.O_IOSEPH_VIRGO]: `Josefe, panický Pěstoune Ježíšův, nejčistší Snoubenče Panny Marie, pros za nás každodenně téhož Ježíše, Syna Božího, abychom podporováni jsouce jeho milostí, řádně bojovali v životě a od něho korunováni byli ve smrti.`,
+
+  [PRAYER_TYPES.FAC_NOS_INNOCUAM]: `Dej, Josefe blažený, bychom životem šli nevinně; kéž tvá stráž učiní pouť naši bezpečnou!`,
+
+  [PRAYER_TYPES.COMMEMORATIO_IOSEPH]: `{r}Antifona{/r}
+Aj hle, služebník věrný a opatrný, kteréhož ustanovil Pán jeho nad čeledí svou.
+
+℣ Oroduj za nás, svatý Josefe.
+℟ Abychom hodni učiněni byli zaslíbení Kristových.
+
+Modleme se: Bože, jenž jsi v nevýslovné prozřetelnosti blahoslaveného Josefa za snoubence nejsvětější Rodičky své vyvoliti ráčil: propůjč, prosíme, abychom, jehož jako ochránce ctíme na zemi, přímluvcem míti zasloužili na nebi: jenž žiješ a kraluješ na věky věkův. Amen.`,
+
   [PRAYER_TYPES.MAGNIFICAT]: `Velebí duše má Hospodina
 a duch můj plesá v Bohu, Spasiteli mém,
 že shlédnul na ponížení služebnice své; hle, od této chvíle blahoslavit mě budou všecka pokolení!
@@ -3696,6 +3745,24 @@ May Thy Body, O Lord, which I have received, and Thy Blood which I have drunk, c
   [PRAYER_TYPES.MEMORARE]: `Remember, O most gracious Virgin Mary, that never was it known that anyone who fled to thy protection, implored thy help, and sought thy intercession, was left unaided. Inspired with this confidence, I fly unto thee, O Virgin of virgins, my Mother. To thee I come; before thee I stand, sinful and sorrowful. O Mother of the Word Incarnate, despise not my petitions, but graciously hear and answer me. Amen.`,
 
   [PRAYER_TYPES.AD_TE_IOSEPH]: `To thee, O blessed Joseph, do we come in our tribulation, and having implored the help of thy most holy Spouse, we confidently invoke thy patronage also. Through that charity which bound thee to the immaculate Virgin Mother of God and through the paternal love with which thou embraced the Child Jesus, we humbly beg thee to graciously regard the inheritance which Jesus Christ has purchased by his Blood, and with thy power and strength to aid us in our necessities. O most watchful Guardian of the Holy Family, defend the chosen children of Jesus Christ; O most loving father, ward off from us every contagion of error and corrupting influence; O our most mighty protector, be propitious to us and from heaven assist us in our struggle with the power of darkness; and, as once thou rescued the Child Jesus from deadly peril, so now protect God's Holy Church from the snares of the enemy and from all adversity; shield, too, each one of us by thy constant protection, so that, supported by thy example and thy aid, we may be able to live piously, to die holy, and to obtain eternal happiness in heaven. Amen.`,
+
+  // Prayers to St. Joseph: the Raccolta (1910, nos. 303, 309, 314, 310, 298),
+  // its "etc." written out.
+  [PRAYER_TYPES.MEMORARE_IOSEPH]: `Remember, most pure spouse of Mary ever Virgin, my loving protector, St. Joseph, that never has it been heard that anyone ever invoked thy protection, or besought aid of thee, without being consoled. In this confidence I come before thee, I fervently recommend myself to thee. Despise not my prayer, foster-father of our Redeemer, but do thou in thy pity receive it. Amen.`,
+
+  [PRAYER_TYPES.MEMENTO_IOSEPH]: `Be mindful of us, O blessed Joseph, and intercede on our behalf with thy reputed Son; and secure for us the favour of thy most holy Virgin Spouse, the Mother of him who liveth and reigneth with the Father and the Holy Ghost, world without end. Amen.`,
+
+  [PRAYER_TYPES.O_IOSEPH_VIRGO]: `O Joseph, virgin father of Jesus, most pure spouse of the Virgin Mary, pray for us daily to the Son of God, that, armed with the weapons of his grace, we may fight as we ought in life, and be crowned by him in death.`,
+
+  [PRAYER_TYPES.FAC_NOS_INNOCUAM]: `Grant, O holy Joseph, that, ever secure under thy protection, we may pass our lives without guilt.`,
+
+  [PRAYER_TYPES.COMMEMORATIO_IOSEPH]: `{r}Antiphon{/r}
+Behold the faithful and prudent servant whom the Lord set over his house.
+
+℣ Pray for us, holy Joseph.
+℟ That we may be made worthy of the promises of Christ.
+
+Let us pray. O God, who in thine ineffable providence didst vouchsafe to choose blessed Joseph to be the spouse of thy most holy Mother, grant, we beseech thee, that we may have him for our intercessor in heaven, whom on earth we venerate as our most holy protector: who livest and reignest, world without end. Amen.`,
 
   [PRAYER_TYPES.MAGNIFICAT]: `My soul doth magnify the Lord,
 and my spirit hath rejoiced in God my Saviour.
