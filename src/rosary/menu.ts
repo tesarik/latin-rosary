@@ -115,7 +115,12 @@ export const MENU_GROUPS: readonly MenuGroup[] = [
     subtitle: { cs: "Pobožnosti", en: "Devotions" },
     icon: "heart",
     color: "#C62828",
-    sections: [{ keys: ["spiritus", "sanguis", "brigit", "cor_iesu", "septem_dolores", "angelica", "ioseph", "ad_te_ioseph"] }],
+    sections: [
+      { keys: ["spiritus", "sanguis", "brigit", "cor_iesu", "septem_dolores", "angelica"] },
+      { heading: "Ad sanctum Ioseph", keys: [
+        "ioseph", "ad_te_ioseph", "memorare_ioseph", "memento_ioseph", "o_ioseph_virgo", "fac_nos_innocuam", "commemoratio_ioseph",
+      ] },
+    ],
   },
 ];
 

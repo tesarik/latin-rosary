@@ -127,6 +127,10 @@ const NOTES: Record<string, Partial<Localized>> = {
     cs: "Krátká latinská podoba pobožnosti: sedm nadpisů, ke každému Otče náš, Zdrávas a Sláva Otci, a modlitba Vírginum custos. Český překlad nadpisů je náš vlastní.",
     en: "The short Latin form of the devotion: seven headings, each with an Our Father, a Hail Mary and a Glory Be, and the prayer Vírginum custos. The English of the headings is our own.",
   },
+  memorare_ioseph: {
+    cs: "Italská modlitba (Pius IX., 1863), kterou Raccolta tiskne jen anglicky. Tištěný latinský originál jsme nenašli; latinské znění se drží verze, která koluje, s opravenými tiskovými chybami. Český text podle Příručky katolických pobožností (1935), anglický podle Raccolty (1910).",
+    en: "An Italian prayer (Pius IX, 1863) that the Raccolta prints in English only. We found no printed Latin; this Latin follows the version in circulation, with its misprints corrected. The English is the Raccolta's (1910).",
+  },
   humility: {
     cs: "Soukromá pobožnost z 19. století. Autoritativní latinský originál neexistuje; latinské znění jsme sestavili ze dvou latinských pramenů.",
     en: "A private devotion of the 19th century. No authoritative Latin original exists; this Latin is assembled from two Latin witnesses.",
