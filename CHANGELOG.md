@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.28.1]
 
 ### Changed
 - **The start screen's type is back to its earlier size** (titles 20 px, prayer names 16 px); the tiles stay compact.
