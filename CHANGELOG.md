@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Changed
+- **The start screen's type is back to its earlier size** (titles 20 px, prayer names 16 px); the tiles stay compact.
+- **The heart is centred in the app icon.** In the painting the figure sat high, the flames touching the top edge; every icon now shows it a little smaller, centred, on the same blue field, the home-screen icons on Android and iOS too.
+
 ## [0.28.0]
 
 ### Added

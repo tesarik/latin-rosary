@@ -328,7 +328,7 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
           <GroupIcon name={icon} color={accent} />
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontFamily: "Arial, sans-serif", fontSize: 17, fontWeight: 600, color: "var(--text-strong)" }}>
+          <div style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
             {title}
           </div>
           <div style={{ fontFamily: "Arial, sans-serif", fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>
@@ -371,7 +371,7 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
                   border: "none",
                   cursor: "pointer",
                   fontFamily: "Arial, sans-serif",
-                  fontSize: 15,
+                  fontSize: 16,
                   color: "var(--text)",
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
@@ -674,7 +674,7 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
         </div>
       )}
       <div style={{ textAlign: "left", minWidth: 0 }}>
-        <div style={{ fontFamily: "Arial, sans-serif", fontSize: 17, fontWeight: 600, color: "var(--text-strong)" }}>
+        <div style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
           {name}{badge}
         </div>
         {subtitle && (
