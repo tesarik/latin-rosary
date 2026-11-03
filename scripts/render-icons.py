@@ -17,10 +17,11 @@ import numpy as np
 from PIL import Image, ImageDraw
 
 ROOT = Path(__file__).resolve().parent.parent
-# The figure (the flames' tip to the heart's point) spans these rows of the
-# source; each icon centres it, so it doesn't sit high with the flames at the
-# edge.
-FIGURE_TOP, FIGURE_BOTTOM = 15, 1145
+# The centre of the glory of rays round the heart, in source pixels (its rays
+# reach x 34-1216, y 98-1230). Each icon centres it: in the painting it sits
+# below the middle, and centring the flames-to-point figure instead would push
+# it lower still.
+GLORY_X, GLORY_Y = 625, 664
 SCALE_ANY = 0.88  # of the canvas, for the full icons
 SCALE_MASKABLE = 0.78  # inside Android's safe zone, a circle of 80% of the width
 FEATHER = 0.14  # of the scaled art's width, faded into the margin
@@ -44,7 +45,7 @@ def save(img, name):
 
 
 def compose(size, scale):
-    """The art scaled onto the field, its figure centred, its edge feathered in."""
+    """The art scaled onto the field, its glory centred, its edge feathered in."""
     canvas = field(size)
     inner = round(size * scale)
     art = src.resize((inner, inner), Image.LANCZOS)
@@ -53,8 +54,9 @@ def compose(size, scale):
     draw = ImageDraw.Draw(mask)
     for i in range(edge):  # a linear fade over the outer `edge` pixels
         draw.rectangle((i, i, inner - 1 - i, inner - 1 - i), fill=round(255 * (i + 1) / edge))
-    middle = (FIGURE_TOP + FIGURE_BOTTOM) / 2 / src.height * inner
-    canvas.paste(art, ((size - inner) // 2, round(size / 2 - middle)), mask)
+    x = round(size / 2 - GLORY_X / src.width * inner)
+    y = round(size / 2 - GLORY_Y / src.height * inner)
+    canvas.paste(art, (x, y), mask)
     return canvas
 
 
