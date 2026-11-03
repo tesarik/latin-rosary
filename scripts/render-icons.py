@@ -4,13 +4,14 @@
 
 The art is full-bleed: the heart in a glory of rays on a blue field, 1254 px
 square. Writes public/icon-48.png (favicon), icon-180.png (iOS, which rounds
-the corners) and icon-192.png / icon-512.png (manifest, "any") from the whole
-picture, and icon-maskable-192.png / icon-maskable-512.png (manifest,
-"maskable") with the picture scaled to 80%, so the flames' tips and the
-sword's pommel stay inside Android's safe zone (a circle of 80% of the
-width). The margin around it is the field's own blue, sampled from the
-picture's border and lightening towards the centre as the painting does, with
-the art's edge feathered into it, so no seam shows. Needs Pillow and NumPy.
+the corners) and icon-192.png / icon-512.png (manifest, "any") with the
+picture scaled to 88%, and icon-maskable-192.png / icon-maskable-512.png
+(manifest, "maskable") scaled to 78%, so the flames' tips and the sword's
+pommel stay inside Android's safe zone (a circle of 80% of the width). Each
+centres the glory of rays, which sits below the middle of the painting. The
+margin around it is the field's own blue, sampled from the picture's border
+and lightening towards the centre as the painting does, with the art's edge
+feathered into it, so no seam shows. Needs Pillow and NumPy.
 """
 from pathlib import Path
 import numpy as np
