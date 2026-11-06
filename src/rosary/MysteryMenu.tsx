@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { MYSTERIES, type MysteryKey } from "./prayers";
 import { CHAPLETS } from "./sequence";
-import { FAVORITES_COLOR, FAVORITES_ICON, IN_SEASON_COLOR, IN_SEASON_ICON, MENU_GROUPS, inSeason, menuEntry, type GroupIconName, type MenuKey, type MenuSection } from "./menu";
+import { FAVORITES_COLOR, FAVORITES_ICON, IN_SEASON_COLOR, IN_SEASON_ICON, MENU_GROUPS, inSeason, menuEntry, searchMenu, type GroupIconName, type MenuKey, type MenuSection } from "./menu";
 import { chapletToOpen, loadSavedChapletFull, saveChapletFull } from "./chaplet";
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
 import type { PrayerSetKey } from "./navigation";
@@ -246,15 +246,15 @@ function GroupIcon({ name, color }: { name: GroupIconName; color: string }) {
 
 // A mystery set's or the chaplet's picture: one of the paintings in public/icons (rendered from
 // art/menu-icons by scripts/render-menu-icons.py), 96 px drawn at 40.
-function TileImage({ name }: { name: string }) {
+function TileImage({ name, size = 40 }: { name: string; size?: number }) {
   return (
     <img
       src={`${import.meta.env.BASE_URL}icons/${name}.webp`}
       alt=""
       aria-hidden="true"
-      width={40}
-      height={40}
-      style={{ display: "block", flexShrink: 0, borderRadius: 12, objectFit: "cover" }}
+      width={size}
+      height={size}
+      style={{ display: "block", flexShrink: 0, borderRadius: size * 0.3, objectFit: "cover" }}
     />
   );
 }
@@ -287,7 +287,6 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
   theme: Theme;
   locale: Locale;
 }) {
-  const t = STRINGS[locale];
   const keys = sections.flatMap((s) => s.keys);
   // A group holding an unfinished set starts open, so its place is visible; so
   // does one left open before a prayer was opened from it (openGroups).
@@ -345,56 +344,78 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
 
       {open && (
         <div style={{ borderTop: "1px solid var(--border)", padding: "4px 0", animation: "rolldown 0.22s ease" }}>
-          {sections.map((section, i) => (
-            <div key={section.heading ?? i}>
-              {section.heading && (
-                <div style={{
-                  padding: "8px 16px 2px 68px",
-                  fontSize: 12,
-                  fontWeight: 600,
-                  letterSpacing: 0.4,
-                  textTransform: "uppercase",
-                  color: "var(--text-muted)",
-                }}>{section.heading}</div>
-              )}
-              {section.keys.map((key, j) => { const val = menuEntry(key); return (
-              <div key={key}>
-              {/* A rule between two prayers, across the whole card. */}
-              {j > 0 && <div aria-hidden="true" style={{ height: 1, background: "var(--divider)" }} />}
-              <button
-                onClick={() => onStart(key)}
-                aria-label={t.startPrayerAria(val.nameTr[locale])}
-                style={{
-                  width: "100%",
-                  display: "block",
-                  textAlign: "left",
-                  padding: "8px 16px 8px 68px",
-                  background: "transparent",
-                  border: "none",
-                  cursor: "pointer",
-                  fontFamily: "Arial, sans-serif",
-                  fontSize: 16,
-                  color: "var(--text)",
-                }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
-              >
-                <div>{val.name}{badges[key] && <Badge label={badges[key]} color={val.color} theme={theme} />}</div>
-                <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 1 }}>
-                  {val.nameTr[locale]}
-                </div>
-                {notes[key] && (
-                  <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 2, fontStyle: "italic" }}>{notes[key]}</div>
-                )}
-                <ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />
-              </button>
-              </div>
-              ); })}
-            </div>
-          ))}
+          <PrayerRows sections={sections} onStart={onStart} resume={resume} badges={badges} notes={notes} theme={theme} locale={locale} />
         </div>
       )}
     </div>
+  );
+}
+
+// The rows of prayers, section by section (a section's heading, if it has one,
+// as a small caption), a rule between two rows: the body of an open group, and
+// the search's results.
+function PrayerRows({ sections, onStart, resume, badges = {}, notes = {}, indent = 68, theme, locale }: {
+  sections: readonly MenuSection[];
+  // The rows' left padding: under a group's symbol, or flush in the search.
+  indent?: number;
+  onStart: (key: PrayerSetKey) => void;
+  resume: ResumeInfo;
+  badges?: Record<string, string>;
+  notes?: Record<string, string>;
+  theme: Theme;
+  locale: Locale;
+}) {
+  const t = STRINGS[locale];
+  return (
+    <>
+      {sections.map((section, i) => (
+        <div key={section.heading ?? i}>
+          {section.heading && (
+            <div style={{
+              padding: `8px 16px 2px ${indent}px`,
+              fontSize: 12,
+              fontWeight: 600,
+              letterSpacing: 0.4,
+              textTransform: "uppercase",
+              color: "var(--text-muted)",
+            }}>{section.heading}</div>
+          )}
+          {section.keys.map((key, j) => { const val = menuEntry(key); return (
+          <div key={key}>
+          {/* A rule between two prayers, across the whole card. */}
+          {j > 0 && <div aria-hidden="true" style={{ height: 1, background: "var(--divider)" }} />}
+          <button
+            onClick={() => onStart(key)}
+            aria-label={t.startPrayerAria(val.nameTr[locale])}
+            style={{
+              width: "100%",
+              display: "block",
+              textAlign: "left",
+              padding: `8px 16px 8px ${indent}px`,
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              fontFamily: "Arial, sans-serif",
+              fontSize: 16,
+              color: "var(--text)",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+          >
+            <div>{val.name}{badges[key] && <Badge label={badges[key]} color={val.color} theme={theme} />}</div>
+            <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 1 }}>
+              {val.nameTr[locale]}
+            </div>
+            {notes[key] && (
+              <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 2, fontStyle: "italic" }}>{notes[key]}</div>
+            )}
+            <ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />
+          </button>
+          </div>
+          ); })}
+        </div>
+      ))}
+    </>
   );
 }
 
@@ -403,6 +424,9 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
 // Recorded on every scroll while the menu is mounted: when it unmounts, the
 // listener is gone before the shorter page clamps the scroll to the top.
 let menuScrollY = 0;
+// The search typed on the start screen, kept the same way: back from a prayer
+// found by searching, the results are still there.
+let menuQuery = "";
 
 // Start screen: title + one button per mystery set. Also hosts the language
 // picker — language is locked in once a rosary starts.
@@ -422,6 +446,13 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
   const [chapletFull, setChapletFull] = useState(loadSavedChapletFull);
   const chaplet = chapletToOpen(chapletFull, Object.keys(resume));
   const chapletEntry = CHAPLETS[chaplet];
+  const [query, setQueryState] = useState(menuQuery);
+  const setQuery = (q: string) => { menuQuery = q; setQueryState(q); };
+  const searching = query.trim() !== "";
+  const found = searching ? searchMenu(query) : [];
+  // Today's mysteries lead, larger; the other two sit side by side under them.
+  const mysteryKeys = Object.keys(MYSTERIES) as MysteryKey[];
+  const otherMysteries = mysteryKeys.filter((k) => k !== todaysMysteries);
 
   // Back from a prayer: scroll to where the menu was left, before the first
   // paint (the groups left open are open again, so the page is as tall).
@@ -489,20 +520,40 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
             <div aria-hidden="true" style={{ height: 4 }} />
           </>
         )}
-        {(Object.entries(MYSTERIES) as [MysteryKey, typeof MYSTERIES[MysteryKey]][]).map(([key, val]) => (
-          <PrayerSetButton
-            key={key}
-            name={val.name}
-            subtitle={val.nameTr[locale]}
-            badge={key === todaysMysteries ? <Badge label={t.todayBadge} color={val.color} theme={theme} /> : undefined}
-            color={val.color}
-            ariaLabel={key === todaysMysteries ? `${t.startRosaryAria(val.nameTr[locale])}, ${t.todayBadge}` : t.startRosaryAria(val.nameTr[locale])}
-            icon="rosary"
-            image={key}
-            resume={<ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />}
-            onClick={() => onStart(key)}
-          />
-        ))}
+        {(() => {
+          const val = MYSTERIES[todaysMysteries];
+          return (
+            <PrayerSetButton
+              name={val.name}
+              subtitle={val.nameTr[locale]}
+              badge={<Badge label={t.todayBadge} color={val.color} theme={theme} />}
+              color={val.color}
+              ariaLabel={`${t.startRosaryAria(val.nameTr[locale])}, ${t.todayBadge}`}
+              icon="rosary"
+              image={todaysMysteries}
+              hero
+              resume={<ResumeLine info={resume[todaysMysteries]} color={val.color} theme={theme} locale={locale} />}
+              onClick={() => onStart(todaysMysteries)}
+            />
+          );
+        })()}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+          {otherMysteries.map((key) => {
+            const val = MYSTERIES[key];
+            return (
+              <CompactSetButton
+                key={key}
+                name={val.name}
+                subtitle={val.nameTr[locale]}
+                image={key}
+                color={val.color}
+                ariaLabel={t.startRosaryAria(val.nameTr[locale])}
+                resume={<ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />}
+                onClick={() => onStart(key)}
+              />
+            );
+          })}
+        </div>
 
         <PrayerSetButton
           name={chapletEntry.name}
@@ -561,6 +612,73 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
           {t.otherPrayersHeading}
         </h2>
 
+        {/* Search every listed prayer by its Latin or translated name; while
+            there is a query, its results stand in for the cards below. */}
+        <div role="search" style={{ position: "relative" }}>
+          <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}>
+            <circle cx="8.5" cy="8.5" r="5.5" fill="none" style={{ stroke: "var(--text-muted)" }} strokeWidth="2" />
+            <line x1="12.6" y1="12.6" x2="17" y2="17" style={{ stroke: "var(--text-muted)" }} strokeWidth="2" strokeLinecap="round" />
+          </svg>
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => { if (e.key === "Escape") setQuery(""); }}
+            placeholder={t.searchPlaceholder}
+            aria-label={t.searchPlaceholder}
+            enterKeyHint="search"
+            autoComplete="off"
+            spellCheck={false}
+            style={{
+              width: "100%",
+              height: 48,
+              padding: "0 44px 0 42px",
+              border: "1px solid var(--border-strong)",
+              borderRadius: 14,
+              background: "var(--surface)",
+              color: "var(--text-strong)",
+              fontFamily: "Arial, sans-serif",
+              fontSize: 16,
+              outlineColor: "var(--text-muted)",
+              WebkitAppearance: "none",
+              appearance: "none",
+            }}
+          />
+          {searching && (
+            <button
+              onClick={() => setQuery("")}
+              aria-label={t.searchClear}
+              title={t.searchClear}
+              style={{
+                position: "absolute", right: 4, top: 4, width: 40, height: 40,
+                border: "none", background: "transparent", borderRadius: 10,
+                color: "var(--text-muted)", fontSize: 20, lineHeight: 1, cursor: "pointer",
+              }}
+            >
+              ×
+            </button>
+          )}
+        </div>
+
+        {searching && (
+          <div aria-live="polite" style={{
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
+            borderRadius: 16,
+            boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+            overflow: "hidden",
+            padding: "4px 0",
+          }}>
+            {found.length > 0 ? (
+              <PrayerRows sections={[{ keys: found }]} onStart={onStart} resume={resume} badges={seasonBadges} notes={angelusNote} indent={16} theme={theme} locale={locale} />
+            ) : (
+              <div style={{ padding: "12px 16px", fontSize: 14, color: "var(--text-muted)" }}>{t.searchNoResults}</div>
+            )}
+          </div>
+        )}
+
+        {!searching && (<>
+
         {/* What the day calls for, above the groups and closed like them; each
             prayer is also in its own group further down, with the same pill. */}
         <CollapsiblePrayers
@@ -591,6 +709,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
             locale={locale}
           />
         ))}
+        </>)}
 
         <button
           onClick={() => setAboutOpen(true)}
@@ -621,7 +740,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
 // A `footer` (the chaplet's switch) goes inside the same box, under a rule:
 // the box becomes a plain container holding two controls side by side in the
 // tree, since a button can't contain another one.
-function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon, image, onClick, footer }: {
+function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon, image, hero = false, onClick, footer }: {
   name: string;
   subtitle?: string;
   badge?: React.ReactNode;
@@ -631,6 +750,8 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
   icon: "rosary" | "cross" | "plan" | "continue";
   // A painting from public/icons, drawn instead of the line icon.
   image?: string;
+  // Today's mysteries: a larger painting and name, the first thing to tap.
+  hero?: boolean;
   onClick: () => void;
   footer?: React.ReactNode;
 }) {
@@ -660,8 +781,8 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
       style={{
         display: "flex",
         alignItems: "center",
-        gap: 12,
-        padding: footer ? "12px 16px 8px" : "12px 16px",
+        gap: hero ? 14 : 12,
+        padding: footer ? "12px 16px 8px" : hero ? "16px 16px" : "12px 16px",
         cursor: "pointer",
         ...(footer
           ? { width: "100%", background: "transparent", border: "none", borderRadius: "16px 16px 0 0" }
@@ -669,7 +790,7 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
       }}
       {...(footer ? {} : hover)}
     >
-      {image ? <TileImage name={image} /> : (
+      {image ? <TileImage name={image} size={hero ? 64 : 40} /> : (
         <div style={{
           width: 40,
           height: 40,
@@ -698,8 +819,10 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
         </div>
       )}
       <div style={{ textAlign: "left", minWidth: 0 }}>
-        <div style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
-          {name}{badge}
+        {/* The hero's pill stands over its name, which needs the whole width. */}
+        {hero && badge && <div style={{ marginLeft: -8, marginBottom: 4 }}>{badge}</div>}
+        <div style={{ fontFamily: "Arial, sans-serif", fontSize: hero ? 22 : 20, fontWeight: hero ? 700 : 600, color: "var(--text-strong)" }}>
+          {name}{!hero && badge}
         </div>
         {subtitle && (
           <div style={{ fontFamily: "Arial, sans-serif", fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>
@@ -718,6 +841,49 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
         {footer}
       </div>
     </div>
+  );
+}
+
+// One of the two other mystery sets, half the width under today's: the
+// painting above the name, so the Latin name gets the tile's whole width.
+function CompactSetButton({ name, subtitle, image, color, ariaLabel, resume, onClick }: {
+  name: string;
+  subtitle: string;
+  image: string;
+  color: string;
+  ariaLabel: string;
+  resume?: React.ReactNode;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      aria-label={ariaLabel}
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        gap: 8,
+        minWidth: 0,
+        padding: "12px 14px",
+        textAlign: "left",
+        cursor: "pointer",
+        background: "var(--surface)",
+        border: "1px solid var(--border)",
+        borderRadius: 16,
+        boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+        transition: "all 0.2s ease",
+      }}
+      onMouseEnter={(e) => { e.currentTarget.style.borderColor = color; e.currentTarget.style.transform = "translateY(-2px)"; }}
+      onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border)"; e.currentTarget.style.transform = "translateY(0)"; }}
+    >
+      <TileImage name={image} />
+      <div style={{ minWidth: 0, width: "100%" }}>
+        <div style={{ fontFamily: "Arial, sans-serif", fontSize: 17, fontWeight: 600, color: "var(--text-strong)", lineHeight: 1.2 }}>{name}</div>
+        <div style={{ fontFamily: "Arial, sans-serif", fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>{subtitle}</div>
+        {resume}
+      </div>
+    </button>
   );
 }
 

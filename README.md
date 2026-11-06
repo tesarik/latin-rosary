@@ -15,6 +15,9 @@ A small, offline-friendly web app for praying the rosary and other prayers in La
 - The **Chaplet of Divine Mercy** (*Corona Divínæ Misericórdiæ*), prayed on the same ring of beads as the rosary. A switch on its tile adds the optional prayers from St. Faustina's Diary.
 - The **Leonine prayers** (after Low Mass), the **prayers of St. Bridget**, the **Seven Sorrows and Joys of St. Joseph** in its short Latin form, and the **prayers for the dead** (*Preces pro defunctis*: Pater Noster, Ave María, *De profúndis*, its versicles and collect, step by step).
 - **Favourites**: star any prayer, litany or devotion from its header (☆), and it appears in a *Favourites* card on the start screen, under *My prayers* beside the prayer plans. Kept in the browser, like the plans.
+- **Search** the prayers by their Latin, Czech or English name, accents optional (*memorare*, *pomni*, *credo*).
+- Today's mysteries lead the start screen as its largest tile.
+- While praying, the *Next* button names the next prayer, and a litany or devotion shows its step (*5 of 11*). Text size, dark mode, a **dimmed screen** for church and the **vibration** on each step are under the header's ⋯ button.
 - Coming back from a prayer, the start screen is where you left it: scrolled to the same place, with the same groups open.
 - The other prayers are grouped by occasion, each group in alphabetical order of the Latin names; the Mass keeps the order of the Mass.
 - **Prayer plans**: build your own named sequence of prayers, litanies, the Leonine prayers, the prayers for the dead and **prayers of your own** (Latin text plus an optional translation), with repeats. Share a plan as a link, or **back up** all plans to a file and load them back, on another device too. Plans are stored only in the browser.

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { MENU_GROUPS, groupKeys, inSeason, menuEntry, type MenuKey } from "./menu";
+import { MENU_GROUPS, groupKeys, inSeason, menuEntry, searchMenu, type MenuKey } from "./menu";
 import { LITANIES, ORDINARY_PRAYERS, OTHER_PRAYER_SETS } from "./sequence";
 
 describe("MENU_GROUPS", () => {
@@ -69,5 +69,33 @@ describe("inSeason", () => {
   it("adds the Sacred Heart on its feast and on first Fridays", () => {
     expect(inSeason(new Date(2026, 7, 7))).toEqual(["salve_regina", "sacred_heart", "cor_iesu"]);
     expect(inSeason(new Date(2026, 7, 14))).toEqual(["salve_regina"]);
+  });
+});
+
+describe("searchMenu", () => {
+  it("finds a prayer by its Latin name, accents and æ ignored", () => {
+    expect(searchMenu("memorare")).toEqual(expect.arrayContaining(["memorare", "memorare_ioseph"]));
+    expect(searchMenu("Victimae")).toEqual(["victimae_paschali"]);
+    expect(searchMenu("  DIES irae ")).toEqual(["dies_irae"]);
+  });
+
+  it("finds it by a translated name, in either language", () => {
+    expect(searchMenu("pomni")).toContain("memorare");
+    expect(searchMenu("Lamb of God")).toEqual(["agnus_dei"]);
+    expect(searchMenu("beránku")).toEqual(["agnus_dei"]);
+  });
+
+  it("finds the creeds by their first word", () => {
+    expect(searchMenu("credo")).toEqual(["symbolum_apostolorum", "symbolum_athanasianum", "symbolum_nicenum"]);
+  });
+
+  it("needs every word, sorts by Latin name, and finds nothing for nothing", () => {
+    const litanies = searchMenu("litaniae");
+    expect(litanies.length).toBe(7);
+    expect(litanies[0]).toBe("humility");
+    expect(searchMenu("litaniae ioseph")).toEqual(["st_joseph"]);
+    expect(searchMenu("")).toEqual([]);
+    expect(searchMenu(" ,. ")).toEqual([]);
+    expect(searchMenu("xyzzy")).toEqual([]);
   });
 });
