@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.29.0]
 
 ### Added
 - **The whole Mass to step through.** *Ordo Missæ* at the top of the *Missa* group opens the people's parts of the Mass as one sequence, in the order of the Mass and with the *Credo*: tap or swipe on to the next part, as in the rosary, without going back to the menu. It keeps its place like the other devotions. The parts can still be opened one by one below it.
