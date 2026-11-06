@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Changed
+- **The heart on the start screen stands on its own.** The app icon keeps its blue field on the home screen, but inside the app (the start screen and the About dialog) the heart, its flames, sword, roses and glory of rays are now shown on the page's own background, in the light and the dark theme alike.
+
 ## [0.28.1]
 
 ### Changed

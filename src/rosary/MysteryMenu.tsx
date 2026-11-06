@@ -429,14 +429,14 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
       <ThemeToggle theme={theme} onToggle={onToggleTheme} locale={locale} />
       <LanguagePicker locale={locale} onChange={onLocaleChange} />
 
-      {/* The app icon, the Immaculate Heart (192 px, sharp at 2× density). */}
+      {/* The Immaculate Heart, cut out of the app icon's blue field (192 px, sharp at 2× density). */}
       <img
-        src={`${import.meta.env.BASE_URL}icon-192.png`}
+        src={`${import.meta.env.BASE_URL}heart-192.webp`}
         alt=""
         aria-hidden="true"
         width={88}
         height={88}
-        style={{ marginBottom: 16, borderRadius: 20, boxShadow: "0 2px 8px rgba(0,0,0,0.12)" }}
+        style={{ marginBottom: 16 }}
       />
 
       <h1 style={{
