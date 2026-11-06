@@ -360,7 +360,7 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
               {section.keys.map((key, j) => { const val = menuEntry(key); return (
               <div key={key}>
               {/* A rule between two prayers, across the whole card. */}
-              {j > 0 && <div aria-hidden="true" style={{ height: 1, background: "var(--border-strong)" }} />}
+              {j > 0 && <div aria-hidden="true" style={{ height: 1, background: "var(--divider)" }} />}
               <button
                 onClick={() => onStart(key)}
                 aria-label={t.startPrayerAria(val.nameTr[locale])}

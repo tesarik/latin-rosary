@@ -24,6 +24,7 @@ html, body, #root {
   --surface-hover: #F5F7F8;
   --border: #ECEFF1;
   --border-strong: #CFD8DC;
+  --divider: #DFE5E8;
   --text: #37474F;
   --text-strong: #263238;
   --text-soft: #546E7A;
@@ -43,6 +44,7 @@ html, body, #root {
   --surface-hover: #262C35;
   --border: #2A313B;
   --border-strong: #3A434F;
+  --divider: #323A45;
   --text: #DDE2E7;
   --text-strong: #EEF1F4;
   --text-soft: #AEB8C2;
