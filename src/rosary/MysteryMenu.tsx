@@ -249,7 +249,7 @@ function GroupIcon({ name, color }: { name: GroupIconName; color: string }) {
 function TileImage({ name, size = 40 }: { name: string; size?: number }) {
   return (
     <img
-      src={`${import.meta.env.BASE_URL}icons/${name}.webp`}
+      src={`${import.meta.env.BASE_URL}icons/${name}.webp?v=${__ICON_VERSION__}`}
       alt=""
       aria-hidden="true"
       width={size}
@@ -480,7 +480,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
 
       {/* The Immaculate Heart, cut out of the app icon's blue field (192 px, sharp at 2× density). */}
       <img
-        src={`${import.meta.env.BASE_URL}heart-192.webp`}
+        src={`${import.meta.env.BASE_URL}heart-192.webp?v=${__ICON_VERSION__}`}
         alt=""
         aria-hidden="true"
         width={88}
