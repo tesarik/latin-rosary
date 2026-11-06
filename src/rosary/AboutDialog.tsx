@@ -114,7 +114,7 @@ export default function AboutDialog({ locale, onClose }: Props) {
 
         {/* The heart, as on the start screen. */}
         <img
-          src={`${import.meta.env.BASE_URL}heart-192.webp`}
+          src={`${import.meta.env.BASE_URL}heart-192.webp?v=${__ICON_VERSION__}`}
           alt=""
           aria-hidden="true"
           width={64}

@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.30.1]
+
+### Fixed
+- **The new app icon reaches every phone.** The server lets browsers keep pictures for a month, and Safari kept the old icon even when the app was removed from the home screen and added again. Every icon and picture is now linked with a fingerprint of its content, so a changed picture is fetched afresh.
+
 ## [0.30.0]
 
 ### Added
