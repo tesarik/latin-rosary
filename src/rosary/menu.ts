@@ -61,8 +61,16 @@ export const IN_SEASON_COLOR = "#2E7D32";
 export const FAVORITES_ICON: GroupIconName = "star";
 export const FAVORITES_COLOR = "#B7791F";
 
-// Listed in the order they are prayed or learned, not alphabetically.
-export const MENU_GROUPS: readonly MenuGroup[] = [
+// Sorts by the Latin name, as a prayer book's index would: accents ignored,
+// æ and œ read as ae and oe.
+const latinSortKey = (name: string): string =>
+  name.toLowerCase().replace(/æ/g, "ae").replace(/œ/g, "oe").normalize("NFD").replace(/\p{M}/gu, "");
+export const byLatinName = (a: MenuKey, b: MenuKey): number =>
+  latinSortKey(menuEntry(a).name).localeCompare(latinSortKey(menuEntry(b).name));
+
+// Each group's sections are listed alphabetically by Latin name (sorted below),
+// except the Mass's, which follow the order of the Mass.
+const GROUPS: readonly MenuGroup[] = [
   {
     key: "cotidianae",
     title: "Orationes cotidiánæ",
@@ -80,7 +88,6 @@ export const MENU_GROUPS: readonly MenuGroup[] = [
     key: "mariales",
     title: "Ad Beátam Maríam Vírginem",
     subtitle: { cs: "K Panně Marii", en: "To Our Lady" },
-    // The four seasonal antiphons in the order of the year.
     icon: "marian",
     color: "#3A6EA5",
     sections: [{ keys: [
@@ -133,6 +140,11 @@ export const MENU_GROUPS: readonly MenuGroup[] = [
     ],
   },
 ];
+
+const IN_ORDER: readonly MenuGroupKey[] = ["missa"];
+
+export const MENU_GROUPS: readonly MenuGroup[] = GROUPS.map((g) =>
+  IN_ORDER.includes(g.key) ? g : { ...g, sections: g.sections.map((sec) => ({ ...sec, keys: [...sec.keys].sort(byLatinName) })) });
 
 export const groupKeys = (g: MenuGroup): MenuKey[] => g.sections.flatMap((s) => s.keys);
 

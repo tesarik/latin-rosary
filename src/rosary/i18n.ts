@@ -58,6 +58,7 @@ type Strings = {
   // Two-letter code on the header language button (La ↔ this).
   prayerLanguageShort: string;
   otherPrayersHeading: string;
+  myPrayersHeading: string;
   // Tag on the mysteries prayed today, and on the Marian antiphon of the season.
   todayBadge: string;
   seasonBadge: string;
@@ -176,6 +177,7 @@ export const STRINGS: Record<Locale, Strings> = {
     localeName: "Čeština",
     prayerLanguageShort: "Cz",
     otherPrayersHeading: "Další latinské modlitby",
+    myPrayersHeading: "Moje modlitby",
     todayBadge: "dnes",
     seasonBadge: "nyní",
     inSeasonHeading: "V tuto dobu",
@@ -286,6 +288,7 @@ export const STRINGS: Record<Locale, Strings> = {
     localeName: "English",
     prayerLanguageShort: "En",
     otherPrayersHeading: "Other Latin prayers",
+    myPrayersHeading: "My prayers",
     todayBadge: "today",
     seasonBadge: "now",
     inSeasonHeading: "In season",

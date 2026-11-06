@@ -505,12 +505,14 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
           }
         />
 
+        {/* The user's own: the starred prayers and the prayer plans, under a
+            heading of their own, apart from the app's prayer groups. */}
         <h2 style={sectionHeading}>
-          {t.otherPrayersHeading}
+          {t.myPrayersHeading}
         </h2>
 
         {/* The prayers starred in the prayer header, open from the start;
-            each is also in its own group further down. */}
+            each is also in its own group below. */}
         {favorites.length > 0 && (
           <CollapsiblePrayers
             title={t.favoritesHeading}
@@ -527,6 +529,19 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
             locale={locale}
           />
         )}
+
+        <PrayerSetButton
+          name={t.plansTitle}
+          subtitle={planCount > 0 ? t.plansCount(planCount) : t.plansTileHint}
+          color={PLAN_COLOR}
+          ariaLabel={t.plansOpenAria}
+          icon="plan"
+          onClick={onOpenPlans}
+        />
+
+        <h2 style={sectionHeading}>
+          {t.otherPrayersHeading}
+        </h2>
 
         {/* What the day calls for, above the groups and closed like them; each
             prayer is also in its own group further down, with the same pill. */}
@@ -558,15 +573,6 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
             locale={locale}
           />
         ))}
-
-        <PrayerSetButton
-          name={t.plansTitle}
-          subtitle={planCount > 0 ? t.plansCount(planCount) : t.plansTileHint}
-          color={PLAN_COLOR}
-          ariaLabel={t.plansOpenAria}
-          icon="plan"
-          onClick={onOpenPlans}
-        />
 
         <button
           onClick={() => setAboutOpen(true)}

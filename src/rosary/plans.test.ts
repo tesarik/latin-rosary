@@ -75,7 +75,7 @@ describe("PLAN_ITEM_GROUPS", () => {
     // St. Bridget's and St. Joseph's step-by-step devotions may not be in a
     // plan; Devotiónes keeps only the single prayers to St. Joseph.
     expect(PLAN_ITEM_GROUPS.find((g) => g.title === "Devotiónes")!.keys).toEqual(
-      ["ad_te_ioseph", "memorare_ioseph", "memento_ioseph", "o_ioseph_virgo", "fac_nos_innocuam", "commemoratio_ioseph"]);
+      ["ad_te_ioseph", "commemoratio_ioseph", "fac_nos_innocuam", "memento_ioseph", "memorare_ioseph", "o_ioseph_virgo"]);
   });
 });
 
