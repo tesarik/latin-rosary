@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { MYSTERIES, type MysteryKey } from "./prayers";
 import { CHAPLETS } from "./sequence";
 import { FAVORITES_COLOR, FAVORITES_ICON, IN_SEASON_COLOR, IN_SEASON_ICON, MENU_GROUPS, inSeason, menuEntry, type GroupIconName, type MenuKey, type MenuSection } from "./menu";
@@ -398,6 +398,12 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
 // Start screen: title + one button per mystery set. Also hosts the language
 // picker — language is locked in once a rosary starts.
 // onStart(key) hands the chosen mystery key back to the parent.
+// How far the start screen was scrolled, kept across its unmounting (opening
+// a prayer or the plans replaces it), so coming back lands where you left.
+// Recorded on every scroll while the menu is mounted: when it unmounts, the
+// listener is gone before the shorter page clamps the scroll to the top.
+let menuScrollY = 0;
+
 export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans, planCount, favorites, locale, onLocaleChange, theme, onToggleTheme }: Props) {
   const t = STRINGS[locale];
   const [aboutOpen, setAboutOpen] = useState(false);
@@ -413,6 +419,15 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
   const [chapletFull, setChapletFull] = useState(loadSavedChapletFull);
   const chaplet = chapletToOpen(chapletFull, Object.keys(resume));
   const chapletEntry = CHAPLETS[chaplet];
+
+  // Back from a prayer: scroll to where the menu was left, before the first
+  // paint (the groups left open are open again, so the page is as tall).
+  useLayoutEffect(() => {
+    window.scrollTo({ top: menuScrollY, behavior: "instant" });
+    const record = () => { menuScrollY = window.scrollY; };
+    window.addEventListener("scroll", record, { passive: true });
+    return () => window.removeEventListener("scroll", record);
+  }, []);
 
   return (
     <div style={{
