@@ -102,6 +102,8 @@ const GROUPS: readonly MenuGroup[] = [
     icon: "ihs",
     color: "#B8860B",
     sections: [
+      // The whole Mass as one sequence to step through, then its parts one by one.
+      { keys: ["ordo_missae"] },
       { heading: "Ordo Missæ", keys: [
         "iudica_me", "confiteor", "kyrie", "gloria_in_excelsis", "praefatio_dialog", "sanctus",
         "agnus_dei", "ante_communionem", "domine_non_sum_dignus", "post_communionem",

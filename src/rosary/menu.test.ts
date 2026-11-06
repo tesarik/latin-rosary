@@ -17,7 +17,8 @@ describe("MENU_GROUPS", () => {
 
   it("keeps the Mass in its order and gathers the prayers for the dead", () => {
     const missa = MENU_GROUPS.find((g) => g.key === "missa")!;
-    expect(missa.sections.map((s) => s.heading)).toEqual(["Ordo Missæ", "Sequéntiæ", "Post Missam"]);
+    expect(missa.sections.map((s) => s.heading)).toEqual([undefined, "Ordo Missæ", "Sequéntiæ", "Post Missam"]);
+    expect(missa.sections[0]!.keys).toEqual(["ordo_missae"]);
     expect(groupKeys(MENU_GROUPS.find((g) => g.key === "defuncti")!)).toEqual(["de_profundis", "dies_irae", "defuncti", "requiem"]);
   });
 
@@ -29,7 +30,7 @@ describe("MENU_GROUPS", () => {
         expect(names, g.title).toEqual([...names].sort((a, b) => a.localeCompare(b)));
       }
     expect(groupKeys(MENU_GROUPS.find((g) => g.key === "cotidianae")!).slice(0, 3)).toEqual(["angele_dei", "angelus", "anima_christi"]);
-    expect(groupKeys(MENU_GROUPS.find((g) => g.key === "missa")!).slice(0, 3)).toEqual(["iudica_me", "confiteor", "kyrie"]);
+    expect(groupKeys(MENU_GROUPS.find((g) => g.key === "missa")!).slice(0, 4)).toEqual(["ordo_missae", "iudica_me", "confiteor", "kyrie"]);
   });
 });
 

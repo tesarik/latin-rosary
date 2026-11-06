@@ -364,9 +364,32 @@ export function buildCoronaCordis(): SequenceItem[] {
   ];
 }
 
+// The people's parts of the Mass in the order of the Mass, one step each, so
+// they can be followed at Mass without going back to the menu. The texts are
+// the single prayers of the Ordo Missæ (ORDINARY_PRAYERS), with the Creed
+// between the Glória and the Preface dialogue.
+const ORDO_MISSAE: readonly [OrdinaryPrayerKey, string][] = [
+  ["iudica_me", "Iúdica me"],
+  ["confiteor", "Confíteor"],
+  ["kyrie", "Kýrie"],
+  ["gloria_in_excelsis", "Glória"],
+  ["symbolum_nicenum", "Credo"],
+  ["praefatio_dialog", "Sursum corda"],
+  ["sanctus", "Sanctus"],
+  ["agnus_dei", "Agnus Dei"],
+  ["ante_communionem", "Ante Communiónem"],
+  ["domine_non_sum_dignus", "Dómine, non sum dignus"],
+  ["post_communionem", "Post Communiónem"],
+];
+
+export function buildOrdoMissae(): SequenceItem[] {
+  return ORDO_MISSAE.flatMap(([key, section]) =>
+    ORDINARY_PRAYERS[key].build().map((item) => ({ ...item, label: section, section })));
+}
+
 export type OtherPrayerKey =
   | "leonine" | "brigit" | "ioseph" | "defuncti" | "spiritus"
-  | "angelica" | "septem_dolores" | "sanguis" | "cor_iesu";
+  | "angelica" | "septem_dolores" | "sanguis" | "cor_iesu" | "ordo_missae";
 
 // Linear prayer sets (no beads, not persisted). Keyed by `OtherPrayerKey`,
 // rendered as a separate block on the start screen.
@@ -376,6 +399,12 @@ export const OTHER_PRAYER_SETS: Record<OtherPrayerKey, {
   color: string;
   build: () => SequenceItem[];
 }> = {
+  ordo_missae: {
+    name: "Ordo Missæ",
+    nameTr: { cs: "Celá mše krok za krokem", en: "The whole Mass, step by step" },
+    color: "#B8860B",
+    build: buildOrdoMissae,
+  },
   leonine: {
     name: "Orationes Leonis XIII",
     nameTr: { cs: "Modlitby Lva XIII.", en: "The Leonine Prayers" },

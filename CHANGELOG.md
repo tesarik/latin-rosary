@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+- **The whole Mass to step through.** *Ordo Missæ* at the top of the *Missa* group opens the people's parts of the Mass as one sequence, in the order of the Mass and with the *Credo*: tap or swipe on to the next part, as in the rosary, without going back to the menu. It keeps its place like the other devotions. The parts can still be opened one by one below it.
+
 ### Changed
 - **The heart on the start screen stands on its own.** The app icon keeps its blue field on the home screen, but inside the app (the start screen and the About dialog) the heart, its flames, sword, roses and glory of rays are now shown on the page's own background, in the light and the dark theme alike.
 - **Favourites and prayer plans under their own heading.** *My prayers*, right below the rosary and the chaplet, holds the Favourites card and the prayer plans, apart from the other Latin prayers.
