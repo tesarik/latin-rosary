@@ -357,9 +357,11 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
                   color: "var(--text-muted)",
                 }}>{section.heading}</div>
               )}
-              {section.keys.map((key) => { const val = menuEntry(key); return (
+              {section.keys.map((key, j) => { const val = menuEntry(key); return (
+              <div key={key}>
+              {/* A hairline between two prayers, aligned with their names. */}
+              {j > 0 && <div aria-hidden="true" style={{ height: 1, margin: "0 16px 0 68px", background: "var(--border)" }} />}
               <button
-                key={key}
                 onClick={() => onStart(key)}
                 aria-label={t.startPrayerAria(val.nameTr[locale])}
                 style={{
@@ -386,6 +388,7 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
                 )}
                 <ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />
               </button>
+              </div>
               ); })}
             </div>
           ))}
@@ -395,15 +398,15 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
   );
 }
 
-// Start screen: title + one button per mystery set. Also hosts the language
-// picker — language is locked in once a rosary starts.
-// onStart(key) hands the chosen mystery key back to the parent.
 // How far the start screen was scrolled, kept across its unmounting (opening
 // a prayer or the plans replaces it), so coming back lands where you left.
 // Recorded on every scroll while the menu is mounted: when it unmounts, the
 // listener is gone before the shorter page clamps the scroll to the top.
 let menuScrollY = 0;
 
+// Start screen: title + one button per mystery set. Also hosts the language
+// picker — language is locked in once a rosary starts.
+// onStart(key) hands the chosen mystery key back to the parent.
 export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans, planCount, favorites, locale, onLocaleChange, theme, onToggleTheme }: Props) {
   const t = STRINGS[locale];
   const [aboutOpen, setAboutOpen] = useState(false);

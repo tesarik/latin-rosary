@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **The heart on the start screen stands on its own.** The app icon keeps its blue field on the home screen, but inside the app (the start screen and the About dialog) the heart, its flames, sword, roses and glory of rays are now shown on the page's own background, in the light and the dark theme alike.
 - **Favourites and prayer plans under their own heading.** *My prayers*, right below the rosary and the chaplet, holds the Favourites card and the prayer plans, apart from the other Latin prayers.
 - **Prayers listed alphabetically.** Within each group the prayers are now in alphabetical order of their Latin names. The Mass keeps the order of the Mass.
+- **A thin line between the prayers** of an open group, so the rows are easier to tell apart.
 - **Back where you left the start screen.** Coming back from a prayer or the prayer plans, the start screen is scrolled to where you opened it, not to the top.
 - **Darker grey for the translated names.** The Czech or English name under each Latin one, and the other small grey captions, are darker in the light theme (and a little lighter in the dark one), so they read better.
 
