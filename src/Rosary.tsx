@@ -23,6 +23,7 @@ import RosaryBeads from "./rosary/RosaryBeads";
 import PrayerCard from "./rosary/PrayerCard";
 import PrayerSections from "./rosary/PrayerSections";
 import SettingsMenu from "./rosary/SettingsMenu";
+import { SERIF } from "./rosary/fonts";
 import { loadDim, loadHintSeen, loadVibrate, saveDim, saveHintSeen, saveVibrate } from "./rosary/prefs";
 import LanguageToggle from "./rosary/LanguageToggle";
 import StarIcon from "./rosary/StarIcon";
@@ -451,6 +452,12 @@ export default function Rosary() {
     </div>
   );
 
+  // The header sits on the page's paper, a rule of the set's colour under it;
+  // its buttons are tinted with that colour rather than white on a solid bar,
+  // quieter in a church.
+  const headerTint = accentColor + "1c";
+  const headerInk = accentText(accentColor, theme);
+
   // The next step's name, under "Next" on its button, so you know where a tap
   // leads (at Mass: which part comes next).
   const nextLabel = sequence[currentStep + 1]?.label;
@@ -487,7 +494,9 @@ export default function Rosary() {
             the ⋯ settings and the language right), the set's name across the full width
             below, so a long litany name never has to squeeze between buttons. */}
         <div style={{
-          background: accentColor,
+          background: "var(--surface)",
+          // The rosary's progress bar is its rule; other sets get a plain one.
+          borderBottom: setMeta.kind === "rosary" ? "none" : `3px solid ${accentColor}`,
           padding: "10px 14px 12px",
         }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -503,11 +512,11 @@ export default function Rosary() {
               width: 44,
               height: 40,
               padding: 0,
-              background: "rgba(255,255,255,0.2)",
+              background: headerTint,
               border: "none",
               borderRadius: 10,
               cursor: "pointer",
-              color: "white",
+              color: headerInk,
               fontSize: 18,
               fontFamily: "Arial, sans-serif",
             }}
@@ -531,8 +540,8 @@ export default function Rosary() {
                 border: "none",
                 borderRadius: 10,
                 cursor: "pointer",
-                background: "rgba(255,255,255,0.2)",
-                color: "white",
+                background: headerTint,
+                color: headerInk,
               }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
@@ -559,11 +568,11 @@ export default function Rosary() {
                   width: 44,
                   height: 40,
                   padding: 0,
-                  background: starred ? "white" : "rgba(255,255,255,0.2)",
+                  background: starred ? accentColor : headerTint,
                   border: "none",
                   borderRadius: 10,
                   cursor: "pointer",
-                  color: starred ? accentColor : "white",
+                  color: starred ? "white" : headerInk,
                 }}
               >
                 <StarIcon filled={starred} size={18} />
@@ -582,16 +591,16 @@ export default function Rosary() {
             accentColor={accentColor}
             locale={locale}
           />
-          <LanguageToggle showTranslation={showTranslation} onChange={setShowTranslation} accentColor={accentColor} locale={locale} />
+          <LanguageToggle showTranslation={showTranslation} onChange={setShowTranslation} accentColor={accentColor} theme={theme} locale={locale} />
         </div>
         <div style={{
           marginTop: 8,
           textAlign: "center",
-          color: "white",
-          fontFamily: "Arial, sans-serif",
-          fontSize: 20,
+          color: "var(--text-strong)",
+          fontFamily: SERIF,
+          fontSize: 25,
           fontWeight: 600,
-          lineHeight: 1.25,
+          lineHeight: 1.15,
         }}>
           {setMeta.name}
         </div>

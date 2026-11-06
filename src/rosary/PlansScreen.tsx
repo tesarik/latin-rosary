@@ -32,7 +32,7 @@ import {
   type PlanStep,
 } from "./plans";
 import type { PrayerSetKey } from "./navigation";
-import type { Theme } from "./theme";
+import { accentText, type Theme } from "./theme";
 import ResumeLine, { type ResumeInfo } from "./ResumeLine";
 import { askConfirm } from "./ConfirmDialog";
 
@@ -142,6 +142,7 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
   return (
     <div style={{ minHeight: "100dvh", background: "var(--bg)", fontFamily: "Arial, sans-serif" }}>
       <Header
+        theme={theme}
         title={draft ? (plans.some((p) => p.id === draft.id) ? t.planEdit : t.planNew) : t.plansTitle}
         backLabel={draft ? t.planCancel : t.back}
         backAria={draft ? t.planCancel : t.planBackAria}
@@ -244,15 +245,19 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
   );
 }
 
-function Header({ title, backLabel, backAria, onBack }: {
+// On the page's paper with a rule of the plans' colour under it, like the
+// prayer header.
+function Header({ title, backLabel, backAria, onBack, theme }: {
   title: string;
   backLabel: string;
   backAria: string;
   onBack: () => void;
+  theme: Theme;
 }) {
   return (
     <div style={{
-      background: PLAN_COLOR,
+      background: "var(--surface)",
+      borderBottom: `3px solid ${PLAN_COLOR}`,
       padding: "16px 20px",
       display: "flex",
       alignItems: "center",
@@ -275,18 +280,18 @@ function Header({ title, backLabel, backAria, onBack }: {
           width: 44,
           height: 40,
           padding: 0,
-          background: "rgba(255,255,255,0.2)",
+          background: PLAN_COLOR + "1c",
           border: "none",
-          borderRadius: 8,
+          borderRadius: 10,
           cursor: "pointer",
-          color: "white",
+          color: accentText(PLAN_COLOR, theme),
           fontSize: 18,
           fontFamily: "Arial, sans-serif",
         }}
       >
         ←
       </button>
-      <div style={{ flex: 1, textAlign: "center", color: "white", fontSize: 20, fontWeight: 600 }}>
+      <div style={{ flex: 1, textAlign: "center", color: "var(--text-strong)", fontSize: 20, fontWeight: 600 }}>
         {title}
       </div>
       {/* Spacer keeps the title optically centred against the back button. */}

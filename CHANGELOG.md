@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Changed
+- **The look of a missal.** The Latin names — of the rosary, the groups, every prayer and the open prayer's header — are set in the same Garamond as the prayers, their translations beneath in the plain face. The pages take warm paper tones instead of a cool grey (and candlelight ones in the dark theme), and each prayer opens with a red initial.
+- **A quieter prayer header.** Instead of a solid coloured bar, the header sits on the page with a line of the prayer's colour under it and softly tinted buttons; the plans screen's header too.
+
 ## [0.30.1]
 
 ### Fixed

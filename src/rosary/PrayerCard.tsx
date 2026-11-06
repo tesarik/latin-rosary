@@ -1,3 +1,4 @@
+import { SERIF } from "./fonts";
 import type { ReactNode, Ref } from "react";
 import { PRAYER_TYPES, PRAYERS, PRAYER_TRANSLATIONS, getHailMary, getHailMaryTr } from "./prayers";
 import { sliceLines, type SequenceItem } from "./sequence";
@@ -74,7 +75,7 @@ const isLitanyType = (type: string) => type.startsWith("litany_");
 const bodyStyle = {
   textAlign: "center" as const,
   lineHeight: 1.35,
-  fontFamily: "'EB Garamond', Georgia, serif",
+  fontFamily: SERIF,
 };
 
 function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontSizeClamp, theme }: { currentPrayer: SequenceItem | undefined; accentColor: string; locale: Locale; showTranslation: boolean; fontSizeClamp: string; theme: Theme }) {
@@ -101,7 +102,7 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
             {currentPrayer.num} / 10
           </div>
         )}
-        <div style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{hm.before}</div>
+        <div className="initial" style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{hm.before}</div>
         {hm.mystery && <div style={{ color: clauseColor, fontWeight: 600, margin: "4px 0" }}>{hm.mystery}.</div>}
         <div style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{hm.after}</div>
       </div>
@@ -117,7 +118,7 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
     const useTr = showTranslation && !!custom?.textTr;
     return (
       <div lang={useTr ? locale : undefined} style={sizedBodyStyle}>
-        <div style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{useTr ? custom!.textTr : custom?.text}</div>
+        <div className="initial" style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{useTr ? custom!.textTr : custom?.text}</div>
       </div>
     );
   }
@@ -135,7 +136,7 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
   }
   return (
     <div lang={bodyLang} style={sizedBodyStyle}>
-      <div style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{withRubrics(text)}</div>
+      <div className="initial" style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{withRubrics(text)}</div>
     </div>
   );
 }

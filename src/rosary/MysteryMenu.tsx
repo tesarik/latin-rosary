@@ -14,6 +14,7 @@ import ThemeIcon from "./ThemeIcon";
 import AboutDialog from "./AboutDialog";
 import { PlanIcon } from "./PlansScreen";
 import { STAR_PATH } from "./StarIcon";
+import { SANS, SERIF } from "./fonts";
 
 type Props = {
   onStart: (key: PrayerSetKey) => void;
@@ -271,8 +272,11 @@ const closedGroups = new Set<string>();
 // Latin name with its name in the UI language as a muted subtitle — the same
 // two-line shape the prayer-plan tile uses. The "in season" card is one too,
 // closed like the rest until tapped.
-function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, onStart, resume, badges = {}, notes = {}, startOpen = false, theme, locale }: {
+function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, onStart, resume, badges = {}, notes = {}, startOpen = false, latin = true, theme, locale }: {
   title: string;
+  // A Latin title is set in Garamond; the app's own cards (Favourites, In
+  // season) keep the UI face.
+  latin?: boolean;
   subtitle: string;
   icon: GroupIconName;
   color: string;
@@ -327,7 +331,9 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
           <GroupIcon name={icon} color={accent} />
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
+          <div style={latin
+            ? { fontFamily: SERIF, fontSize: 23, fontWeight: 600, lineHeight: 1.15, color: "var(--text-strong)" }
+            : { fontFamily: SANS, fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
             {title}
           </div>
           <div style={{ fontFamily: "Arial, sans-serif", fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>
@@ -402,7 +408,7 @@ function PrayerRows({ sections, onStart, resume, badges = {}, notes = {}, indent
             onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
             onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
           >
-            <div>{val.name}{badges[key] && <Badge label={badges[key]} color={val.color} theme={theme} />}</div>
+            <div style={{ fontFamily: SERIF, fontSize: 19, fontWeight: 500, color: "var(--text-strong)", lineHeight: 1.2 }}>{val.name}{badges[key] && <Badge label={badges[key]} color={val.color} theme={theme} />}</div>
             <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 1 }}>
               {val.nameTr[locale]}
             </div>
@@ -489,12 +495,12 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
       />
 
       <h1 style={{
-        fontFamily: "Arial, sans-serif",
-        fontSize: 36,
-        fontWeight: 700,
+        fontFamily: SERIF,
+        fontSize: 40,
+        fontWeight: 600,
+        lineHeight: 1.1,
         color: "var(--text-strong)",
         marginBottom: 2,
-        letterSpacing: -0.5,
       }}>
         {t.appTitle}
       </h1>
@@ -585,6 +591,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
         {favorites.length > 0 && (
           <CollapsiblePrayers
             title={t.favoritesHeading}
+            latin={false}
             subtitle={t.favoritesSubtitle}
             icon={FAVORITES_ICON}
             color={FAVORITES_COLOR}
@@ -601,6 +608,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
 
         <PrayerSetButton
           name={t.plansTitle}
+          latin={false}
           subtitle={planCount > 0 ? t.plansCount(planCount) : t.plansTileHint}
           color={PLAN_COLOR}
           ariaLabel={t.plansOpenAria}
@@ -683,6 +691,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
             prayer is also in its own group further down, with the same pill. */}
         <CollapsiblePrayers
           title={t.inSeasonHeading}
+          latin={false}
           subtitle={t.inSeasonSubtitle}
           icon={IN_SEASON_ICON}
           color={IN_SEASON_COLOR}
@@ -740,7 +749,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
 // A `footer` (the chaplet's switch) goes inside the same box, under a rule:
 // the box becomes a plain container holding two controls side by side in the
 // tree, since a button can't contain another one.
-function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon, image, hero = false, onClick, footer }: {
+function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon, image, hero = false, latin = true, onClick, footer }: {
   name: string;
   subtitle?: string;
   badge?: React.ReactNode;
@@ -752,6 +761,8 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
   image?: string;
   // Today's mysteries: a larger painting and name, the first thing to tap.
   hero?: boolean;
+  // A Latin name is set in Garamond; the plans tile's keeps the UI face.
+  latin?: boolean;
   onClick: () => void;
   footer?: React.ReactNode;
 }) {
@@ -821,7 +832,9 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
       <div style={{ textAlign: "left", minWidth: 0 }}>
         {/* The hero's pill stands over its name, which needs the whole width. */}
         {hero && badge && <div style={{ marginLeft: -8, marginBottom: 4 }}>{badge}</div>}
-        <div style={{ fontFamily: "Arial, sans-serif", fontSize: hero ? 22 : 20, fontWeight: hero ? 700 : 600, color: "var(--text-strong)" }}>
+        <div style={latin
+          ? { fontFamily: SERIF, fontSize: hero ? 27 : 23, fontWeight: 600, lineHeight: 1.15, color: "var(--text-strong)" }
+          : { fontFamily: SANS, fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
           {name}{!hero && badge}
         </div>
         {subtitle && (
@@ -879,7 +892,7 @@ function CompactSetButton({ name, subtitle, image, color, ariaLabel, resume, onC
     >
       <TileImage name={image} />
       <div style={{ minWidth: 0, width: "100%" }}>
-        <div style={{ fontFamily: "Arial, sans-serif", fontSize: 17, fontWeight: 600, color: "var(--text-strong)", lineHeight: 1.2 }}>{name}</div>
+        <div style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 600, color: "var(--text-strong)", lineHeight: 1.15 }}>{name}</div>
         <div style={{ fontFamily: "Arial, sans-serif", fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>{subtitle}</div>
         {resume}
       </div>

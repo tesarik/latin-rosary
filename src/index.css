@@ -19,46 +19,58 @@ html, body, #root {
    liturgical green/red/gold/etc. in both themes. */
 :root {
   color-scheme: light;
-  --bg: linear-gradient(160deg, #ECEFF1 0%, #FAFAFA 50%, #E8EAF6 100%);
-  --surface: #ffffff;
-  --surface-hover: #F5F7F8;
-  --border: #ECEFF1;
-  --border-strong: #CFD8DC;
-  --divider: #DFE5E8;
-  --text: #37474F;
-  --text-strong: #263238;
-  --text-soft: #546E7A;
-  --text-muted: #5D7785;
-  --bead-past: #90A4AE;
-  --bead-future: #CFD8DC;
-  --thread: #B0BEC5;
-  --track: rgba(0, 0, 0, 0.1);
-  --nav-fade: linear-gradient(transparent, #ECEFF1);
+  /* Warm paper, like a missal's page, rather than a cool grey. */
+  --bg: linear-gradient(160deg, #F2ECE0 0%, #FAF7F0 50%, #EFE8DA 100%);
+  --surface: #FFFDF8;
+  --surface-hover: #F7F2E8;
+  --border: #ECE5D7;
+  --border-strong: #D5CBB8;
+  --divider: #E5DDCD;
+  --text: #3D3830;
+  --text-strong: #2A2620;
+  --text-soft: #5C5548;
+  --text-muted: #6B6352;
+  --bead-past: #A69C8A;
+  --bead-future: #DCD3C1;
+  --thread: #C3B9A6;
+  --track: rgba(70, 50, 20, 0.1);
+  --nav-fade: linear-gradient(transparent, #F2ECE0);
   --rubric: #B3261E;
 }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: linear-gradient(160deg, #15181E 0%, #101216 55%, #161421 100%);
-  --surface: #1E232B;
-  --surface-hover: #262C35;
-  --border: #2A313B;
-  --border-strong: #3A434F;
-  --divider: #323A45;
-  --text: #DDE2E7;
-  --text-strong: #EEF1F4;
-  --text-soft: #AEB8C2;
-  --text-muted: #9AA5B0;
-  --bead-past: #6A7682;
-  --bead-future: #39414C;
-  --thread: #39414C;
-  --track: rgba(255, 255, 255, 0.14);
-  --nav-fade: linear-gradient(transparent, #101216);
+  /* The same paper by candlelight: warm near-blacks, not blue ones. */
+  --bg: linear-gradient(160deg, #1B1814 0%, #14120F 55%, #1C1915 100%);
+  --surface: #241F1A;
+  --surface-hover: #2C2620;
+  --border: #332C25;
+  --border-strong: #473E34;
+  --divider: #3B342C;
+  --text: #E6DFD3;
+  --text-strong: #F4EFE6;
+  --text-soft: #BEB4A4;
+  --text-muted: #AAA090;
+  --bead-past: #7B7163;
+  --bead-future: #423A30;
+  --thread: #423A30;
+  --track: rgba(255, 240, 220, 0.14);
+  --nav-fade: linear-gradient(transparent, #14120F);
   --rubric: #EC8E86;
 }
 
 body {
   background: var(--bg);
+}
+
+/* A prayer opens with a red initial, as in a missal (PrayerCard's "initial"
+   class): the first letter larger, in the rubric red. Not a dropped capital,
+   since the text is centred. Litanies, set line by line, have none. */
+.initial::first-letter {
+  color: var(--rubric);
+  font-size: 1.5em;
+  font-weight: 600;
+  line-height: 1;
 }
 
 /* Reveal for the collapsible "Ordinary prayers" group (MysteryMenu). */

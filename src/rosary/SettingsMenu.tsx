@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { FONT_SCALE_MIN, FONT_SCALE_MAX } from "./fontSize";
 import { STRINGS, type Locale } from "./i18n";
-import type { Theme } from "./theme";
+import { accentText, type Theme } from "./theme";
 
 type Props = {
   theme: Theme;
@@ -56,8 +56,8 @@ export default function SettingsMenu({ theme, onToggleTheme, fontScale, onFontSc
           border: "none",
           borderRadius: 10,
           cursor: "pointer",
-          background: open ? "var(--surface)" : "rgba(255,255,255,0.2)",
-          color: open ? accentColor : "white",
+          background: open ? accentColor : accentColor + "1c",
+          color: open ? "white" : accentText(accentColor, theme),
           transition: "background 0.2s ease, color 0.2s ease",
         }}
       >
