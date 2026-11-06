@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { MENU_GROUPS, groupKeys, inSeason, menuEntry } from "./menu";
+import { MENU_GROUPS, groupKeys, inSeason, menuEntry, type MenuKey } from "./menu";
 import { LITANIES, ORDINARY_PRAYERS, OTHER_PRAYER_SETS } from "./sequence";
 
 describe("MENU_GROUPS", () => {
@@ -17,8 +17,20 @@ describe("MENU_GROUPS", () => {
 
   it("keeps the Mass in its order and gathers the prayers for the dead", () => {
     const missa = MENU_GROUPS.find((g) => g.key === "missa")!;
-    expect(missa.sections.map((s) => s.heading)).toEqual(["Ordo Missæ", "Sequéntiæ", "Post Missam"]);
-    expect(groupKeys(MENU_GROUPS.find((g) => g.key === "defuncti")!)).toEqual(["requiem", "de_profundis", "dies_irae", "defuncti"]);
+    expect(missa.sections.map((s) => s.heading)).toEqual([undefined, "Ordo Missæ", "Sequéntiæ", "Post Missam"]);
+    expect(missa.sections[0]!.keys).toEqual(["ordo_missae"]);
+    expect(groupKeys(MENU_GROUPS.find((g) => g.key === "defuncti")!)).toEqual(["de_profundis", "dies_irae", "defuncti", "requiem"]);
+  });
+
+  it("sorts every section by Latin name, accents ignored, bar the Mass's", () => {
+    const fold = (k: MenuKey) => menuEntry(k).name.toLowerCase().replace(/æ/g, "ae").replace(/œ/g, "oe").normalize("NFD").replace(/\p{M}/gu, "");
+    for (const g of MENU_GROUPS.filter((g) => g.key !== "missa"))
+      for (const s of g.sections) {
+        const names = s.keys.map(fold);
+        expect(names, g.title).toEqual([...names].sort((a, b) => a.localeCompare(b)));
+      }
+    expect(groupKeys(MENU_GROUPS.find((g) => g.key === "cotidianae")!).slice(0, 3)).toEqual(["angele_dei", "angelus", "anima_christi"]);
+    expect(groupKeys(MENU_GROUPS.find((g) => g.key === "missa")!).slice(0, 4)).toEqual(["ordo_missae", "iudica_me", "confiteor", "kyrie"]);
   });
 });
 

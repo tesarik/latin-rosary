@@ -24,10 +24,11 @@ html, body, #root {
   --surface-hover: #F5F7F8;
   --border: #ECEFF1;
   --border-strong: #CFD8DC;
+  --divider: #DFE5E8;
   --text: #37474F;
   --text-strong: #263238;
   --text-soft: #546E7A;
-  --text-muted: #78909C;
+  --text-muted: #5D7785;
   --bead-past: #90A4AE;
   --bead-future: #CFD8DC;
   --thread: #B0BEC5;
@@ -43,10 +44,11 @@ html, body, #root {
   --surface-hover: #262C35;
   --border: #2A313B;
   --border-strong: #3A434F;
+  --divider: #323A45;
   --text: #DDE2E7;
   --text-strong: #EEF1F4;
   --text-soft: #AEB8C2;
-  --text-muted: #8995A1;
+  --text-muted: #9AA5B0;
   --bead-past: #6A7682;
   --bead-future: #39414C;
   --thread: #39414C;

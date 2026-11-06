@@ -112,14 +112,14 @@ export default function AboutDialog({ locale, onClose }: Props) {
           ×
         </button>
 
-        {/* The app icon, as on the start screen. */}
+        {/* The heart, as on the start screen. */}
         <img
-          src={`${import.meta.env.BASE_URL}icon-192.png`}
+          src={`${import.meta.env.BASE_URL}heart-192.webp`}
           alt=""
           aria-hidden="true"
           width={64}
           height={64}
-          style={{ display: "block", margin: "0 auto 10px", borderRadius: 14, boxShadow: "0 2px 8px rgba(0,0,0,0.12)" }}
+          style={{ display: "block", margin: "0 auto 10px" }}
         />
 
         <div style={{ textAlign: "center", fontSize: 22, fontWeight: 700, color: "var(--text-strong)" }}>{t.appTitle}</div>

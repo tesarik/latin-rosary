@@ -11,7 +11,9 @@ pommel stay inside Android's safe zone (a circle of 80% of the width). Each
 centres the glory of rays, which sits below the middle of the painting. The
 margin around it is the field's own blue, sampled from the picture's border
 and lightening towards the centre as the painting does, with the art's edge
-feathered into it, so no seam shows. Needs Pillow and NumPy.
+feathered into it, so no seam shows. Also writes public/heart-192.webp, the
+heart the app itself shows, from art/icon-heart.png (run scripts/cut-heart.py
+first). Needs Pillow and NumPy.
 """
 from pathlib import Path
 import numpy as np
@@ -66,3 +68,12 @@ for size in (48, 180, 192, 512):
 
 for size in (192, 512):
     save(compose(size, SCALE_MASKABLE), f"icon-maskable-{size}.png")
+
+# Inside the app (the start screen, the About dialog) the heart stands on the
+# page's own background: art/icon-heart.png, cut out by scripts/cut-heart.py,
+# cropped square round the glory of rays (as far as the bottom edge allows).
+heart = Image.open(ROOT / "art" / "icon-heart.png").convert("RGBA")
+half = min(GLORY_X, GLORY_Y, heart.width - GLORY_X, heart.height - GLORY_Y)
+heart = heart.crop((GLORY_X - half, GLORY_Y - half, GLORY_X + half, GLORY_Y + half))
+heart.resize((192, 192), Image.LANCZOS).save(ROOT / "public" / "heart-192.webp", quality=88, method=6)
+print("heart-192.webp")

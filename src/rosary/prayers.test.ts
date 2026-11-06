@@ -302,6 +302,20 @@ describe("prayers for the dead", () => {
   });
 });
 
+describe("Ordo Missæ", () => {
+  it("steps through the Mass in order, one section per part, the Creed after the Glória", () => {
+    const seq = OTHER_PRAYER_SETS.ordo_missae.build();
+    expect(seq.map((i) => i.section)).toEqual([
+      "Iúdica me", "Confíteor", "Kýrie", "Glória", "Credo", "Sursum corda", "Sanctus",
+      "Agnus Dei", "Ante Communiónem", "Dómine, non sum dignus", "Post Communiónem",
+    ]);
+    expect(seq.map((i) => i.type)).toEqual([
+      "iudica_me", "confiteor", "kyrie", "gloria_in_excelsis", "symbolum_nicenum", "praefatio_dialog", "sanctus",
+      "agnus_dei", "ante_communionem", "domine_non_sum_dignus", "post_communionem",
+    ].map((k) => ORDINARY_PRAYERS[k as keyof typeof ORDINARY_PRAYERS].build()[0]!.type));
+  });
+});
+
 describe("ordinary prayers", () => {
   it("each builds exactly one step", () => {
     for (const [key, set] of Object.entries(ORDINARY_PRAYERS)) {

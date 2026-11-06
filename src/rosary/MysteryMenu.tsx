@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { MYSTERIES, type MysteryKey } from "./prayers";
 import { CHAPLETS } from "./sequence";
 import { FAVORITES_COLOR, FAVORITES_ICON, IN_SEASON_COLOR, IN_SEASON_ICON, MENU_GROUPS, inSeason, menuEntry, type GroupIconName, type MenuKey, type MenuSection } from "./menu";
@@ -357,9 +357,11 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
                   color: "var(--text-muted)",
                 }}>{section.heading}</div>
               )}
-              {section.keys.map((key) => { const val = menuEntry(key); return (
+              {section.keys.map((key, j) => { const val = menuEntry(key); return (
+              <div key={key}>
+              {/* A rule between two prayers, across the whole card. */}
+              {j > 0 && <div aria-hidden="true" style={{ height: 1, background: "var(--divider)" }} />}
               <button
-                key={key}
                 onClick={() => onStart(key)}
                 aria-label={t.startPrayerAria(val.nameTr[locale])}
                 style={{
@@ -386,6 +388,7 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
                 )}
                 <ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />
               </button>
+              </div>
               ); })}
             </div>
           ))}
@@ -394,6 +397,12 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
     </div>
   );
 }
+
+// How far the start screen was scrolled, kept across its unmounting (opening
+// a prayer or the plans replaces it), so coming back lands where you left.
+// Recorded on every scroll while the menu is mounted: when it unmounts, the
+// listener is gone before the shorter page clamps the scroll to the top.
+let menuScrollY = 0;
 
 // Start screen: title + one button per mystery set. Also hosts the language
 // picker — language is locked in once a rosary starts.
@@ -414,6 +423,15 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
   const chaplet = chapletToOpen(chapletFull, Object.keys(resume));
   const chapletEntry = CHAPLETS[chaplet];
 
+  // Back from a prayer: scroll to where the menu was left, before the first
+  // paint (the groups left open are open again, so the page is as tall).
+  useLayoutEffect(() => {
+    window.scrollTo({ top: menuScrollY, behavior: "instant" });
+    const record = () => { menuScrollY = window.scrollY; };
+    window.addEventListener("scroll", record, { passive: true });
+    return () => window.removeEventListener("scroll", record);
+  }, []);
+
   return (
     <div style={{
       minHeight: "100vh",
@@ -429,14 +447,14 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
       <ThemeToggle theme={theme} onToggle={onToggleTheme} locale={locale} />
       <LanguagePicker locale={locale} onChange={onLocaleChange} />
 
-      {/* The app icon, the Immaculate Heart (192 px, sharp at 2× density). */}
+      {/* The Immaculate Heart, cut out of the app icon's blue field (192 px, sharp at 2× density). */}
       <img
-        src={`${import.meta.env.BASE_URL}icon-192.png`}
+        src={`${import.meta.env.BASE_URL}heart-192.webp`}
         alt=""
         aria-hidden="true"
         width={88}
         height={88}
-        style={{ marginBottom: 16, borderRadius: 20, boxShadow: "0 2px 8px rgba(0,0,0,0.12)" }}
+        style={{ marginBottom: 16 }}
       />
 
       <h1 style={{
@@ -505,12 +523,14 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
           }
         />
 
+        {/* The user's own: the starred prayers and the prayer plans, under a
+            heading of their own, apart from the app's prayer groups. */}
         <h2 style={sectionHeading}>
-          {t.otherPrayersHeading}
+          {t.myPrayersHeading}
         </h2>
 
         {/* The prayers starred in the prayer header, open from the start;
-            each is also in its own group further down. */}
+            each is also in its own group below. */}
         {favorites.length > 0 && (
           <CollapsiblePrayers
             title={t.favoritesHeading}
@@ -527,6 +547,19 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
             locale={locale}
           />
         )}
+
+        <PrayerSetButton
+          name={t.plansTitle}
+          subtitle={planCount > 0 ? t.plansCount(planCount) : t.plansTileHint}
+          color={PLAN_COLOR}
+          ariaLabel={t.plansOpenAria}
+          icon="plan"
+          onClick={onOpenPlans}
+        />
+
+        <h2 style={sectionHeading}>
+          {t.otherPrayersHeading}
+        </h2>
 
         {/* What the day calls for, above the groups and closed like them; each
             prayer is also in its own group further down, with the same pill. */}
@@ -558,15 +591,6 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
             locale={locale}
           />
         ))}
-
-        <PrayerSetButton
-          name={t.plansTitle}
-          subtitle={planCount > 0 ? t.plansCount(planCount) : t.plansTileHint}
-          color={PLAN_COLOR}
-          ariaLabel={t.plansOpenAria}
-          icon="plan"
-          onClick={onOpenPlans}
-        />
 
         <button
           onClick={() => setAboutOpen(true)}
