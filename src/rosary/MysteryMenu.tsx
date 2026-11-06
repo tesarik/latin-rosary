@@ -359,8 +359,8 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
               )}
               {section.keys.map((key, j) => { const val = menuEntry(key); return (
               <div key={key}>
-              {/* A hairline between two prayers, aligned with their names. */}
-              {j > 0 && <div aria-hidden="true" style={{ height: 1, margin: "0 16px 0 68px", background: "var(--border)" }} />}
+              {/* A rule between two prayers, across the whole card. */}
+              {j > 0 && <div aria-hidden="true" style={{ height: 1, background: "var(--border-strong)" }} />}
               <button
                 onClick={() => onStart(key)}
                 aria-label={t.startPrayerAria(val.nameTr[locale])}
