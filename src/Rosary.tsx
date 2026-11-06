@@ -22,9 +22,9 @@ import {
 import RosaryBeads from "./rosary/RosaryBeads";
 import PrayerCard from "./rosary/PrayerCard";
 import PrayerSections from "./rosary/PrayerSections";
-import FontSizeControl from "./rosary/FontSizeControl";
+import SettingsMenu from "./rosary/SettingsMenu";
+import { loadDim, loadHintSeen, loadVibrate, saveDim, saveHintSeen, saveVibrate } from "./rosary/prefs";
 import LanguageToggle from "./rosary/LanguageToggle";
-import ThemeIcon from "./rosary/ThemeIcon";
 import StarIcon from "./rosary/StarIcon";
 import { loadFavorites, saveFavorites, toggleFavorite } from "./rosary/favorites";
 import { isMenuKey, type MenuKey } from "./rosary/menu";
@@ -75,6 +75,11 @@ export default function Rosary() {
   const [locale, setLocaleState] = useState<Locale>(() => loadSavedLocale() ?? detectLocale());
   const [fontScale, setFontScaleState] = useState<number>(() => loadSavedFontScale() ?? DEFAULT_FONT_SCALE);
   const [theme, setThemeState] = useState<Theme>(() => resolveTheme());
+  // The prayer screen's quieter settings (prefs.ts), in the header's ⋯ menu.
+  const [vibrate, setVibrateState] = useState<boolean>(loadVibrate);
+  const [dim, setDimState] = useState<boolean>(loadDim);
+  // The one-time "tap or swipe" hint, until it is closed or a step is taken.
+  const [hintSeen, setHintSeenState] = useState<boolean>(loadHintSeen);
   const { updateReady, applyUpdate, dismissUpdate } = useServiceWorkerUpdate();
   const t = STRINGS[locale];
   const wide = useMediaQuery(WIDE_LAYOUT);
@@ -126,6 +131,10 @@ export default function Rosary() {
     setFontScaleState(c);
     saveFontScale(c);
   }, []);
+
+  const setVibrate = useCallback((on: boolean) => { setVibrateState(on); saveVibrate(on); }, []);
+  const setDim = useCallback((on: boolean) => { setDimState(on); saveDim(on); }, []);
+  const dismissHint = useCallback(() => { setHintSeenState(true); saveHintSeen(); }, []);
 
   const toggleTheme = useCallback(() => {
     setThemeState((prev) => {
@@ -267,6 +276,7 @@ export default function Rosary() {
   const buzz = (item: SequenceItem | undefined) => {
     const decadeEnd = item?.decade !== undefined &&
       (item.type === PRAYER_TYPES.GLORY_BE || (item.type === PRAYER_TYPES.CHAPLET_PASSION && item.num === 10));
+    if (!vibrate) return;
     try { navigator.vibrate?.(decadeEnd ? [35, 90, 35] : 25); } catch {}
   };
 
@@ -274,6 +284,8 @@ export default function Rosary() {
     if (canGoToStep(idx, currentStep, sequence.length)) {
       buzz(sequence[idx]);
       setCurrentStep(idx);
+      // Having stepped, the hint has done its job.
+      if (!hintSeen) dismissHint();
       const reduce = typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches;
       prayerRef.current?.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
     }
@@ -319,6 +331,8 @@ export default function Rosary() {
       // An open in-app dialog owns the keyboard (it also stops keys itself,
       // but only once its effect has run).
       if (document.querySelector('[role="alertdialog"]')) return;
+      // Nor do the header's settings, while focus is in them.
+      if (target?.closest('[role="dialog"]')) return;
       if (e.key === "ArrowRight" || e.key === " " || e.key === "Enter") { e.preventDefault(); next(); }
       else if (e.key === "ArrowLeft") { e.preventDefault(); prev(); }
     };
@@ -428,8 +442,18 @@ export default function Rosary() {
       >
         {chipText}
       </span>
+      {/* Where in a linear set you are, "5 z 11" (the rosary has its bar). */}
+      {setMeta.kind === "linear" && (
+        <span style={{ marginLeft: 8, fontSize: 12, color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+          {t.stepCount(currentStep + 1, sequence.length)}
+        </span>
+      )}
     </div>
   );
+
+  // The next step's name, under "Next" on its button, so you know where a tap
+  // leads (at Mass: which part comes next).
+  const nextLabel = sequence[currentStep + 1]?.label;
 
   const card = (
     <PrayerCard
@@ -459,8 +483,8 @@ export default function Rosary() {
 
       {/* Sticky top: header + progress bar move together */}
       <div style={{ position: "sticky", top: 0, zIndex: 10 }}>
-        {/* Two rows: the controls on top (back + restart left; theme, text
-            size and language right), the set's name across the full width
+        {/* Two rows: the controls on top (back + restart left; the star,
+            the ⋯ settings and the language right), the set's name across the full width
             below, so a long litany name never has to squeeze between buttons. */}
         <div style={{
           background: accentColor,
@@ -546,29 +570,18 @@ export default function Rosary() {
               </button>
             );
           })()}
-          <button
-            onClick={toggleTheme}
-            aria-label={t.themeToggleAria}
-            aria-pressed={theme === "dark"}
-            title={t.themeToggleAria}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-              width: 44,
-              height: 40,
-              padding: 0,
-              background: "rgba(255,255,255,0.2)",
-              border: "none",
-              borderRadius: 10,
-              cursor: "pointer",
-              color: "white",
-            }}
-          >
-            <ThemeIcon dark={theme === "dark"} size={18} />
-          </button>
-          <FontSizeControl value={fontScale} onChange={setFontScale} accentColor={accentColor} locale={locale} />
+          <SettingsMenu
+            theme={theme}
+            onToggleTheme={toggleTheme}
+            fontScale={fontScale}
+            onFontScale={setFontScale}
+            vibrate={vibrate}
+            onVibrate={setVibrate}
+            dim={dim}
+            onDim={setDim}
+            accentColor={accentColor}
+            locale={locale}
+          />
           <LanguageToggle showTranslation={showTranslation} onChange={setShowTranslation} accentColor={accentColor} locale={locale} />
         </div>
         <div style={{
@@ -642,6 +655,43 @@ export default function Rosary() {
         </div>
       </div>
 
+      {/* First time on a prayer: how to move on, once, until closed or used. */}
+      {!hintSeen && (
+        <div role="note" style={{
+          margin: "0 14px 2px",
+          padding: "8px 8px 8px 14px",
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          background: "var(--surface)",
+          border: "1px solid var(--border-strong)",
+          borderRadius: 12,
+          fontSize: 13,
+          lineHeight: 1.35,
+          color: "var(--text)",
+        }}>
+          <span style={{ flex: 1 }}>{t.hintText}</span>
+          <button
+            onClick={dismissHint}
+            style={{
+              flexShrink: 0,
+              minHeight: 36,
+              padding: "0 12px",
+              border: "none",
+              borderRadius: 10,
+              background: accentColor + "18",
+              color: accentText(accentColor, theme),
+              fontWeight: 600,
+              fontSize: 13,
+              cursor: "pointer",
+              fontFamily: "Arial, sans-serif",
+            }}
+          >
+            {t.hintDismiss}
+          </button>
+        </div>
+      )}
+
       {/* Navigation */}
       <nav aria-label={t.navAria} style={{
         padding: "10px 16px 16px",
@@ -674,9 +724,11 @@ export default function Rosary() {
         {currentStep < sequence.length - 1 ? (
           <button
             onClick={next}
-            aria-label={t.nextAria}
+            aria-label={nextLabel ? t.nextStepAria(nextLabel) : t.nextAria}
             style={{
-              padding: "14px 40px",
+              minWidth: 0,
+              maxWidth: 230,
+              padding: nextLabel ? "7px 28px" : "14px 40px",
               borderRadius: 14,
               border: "none",
               background: accentColor,
@@ -689,7 +741,12 @@ export default function Rosary() {
               transition: "all 0.2s ease",
             }}
           >
-            {t.next}
+            <div>{t.next}</div>
+            {nextLabel && (
+              <div style={{ fontSize: 12, fontWeight: 400, opacity: 0.9, marginTop: 2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                {nextLabel}
+              </div>
+            )}
           </button>
         ) : (
           <button
@@ -712,6 +769,11 @@ export default function Rosary() {
           </button>
         )}
       </nav>
+
+      {/* The dimmed screen: a dark veil over everything, letting taps through. */}
+      {dim && (
+        <div aria-hidden="true" style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.45)", pointerEvents: "none", zIndex: 50 }} />
+      )}
 
       {updateToast}
     </div>

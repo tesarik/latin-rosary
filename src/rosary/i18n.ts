@@ -44,6 +44,18 @@ type Strings = {
   textSizeAria: string;
   textSizeDecreaseAria: string;
   textSizeIncreaseAria: string;
+  settingsAria: string;
+  settingsDarkMode: string;
+  settingsVibrate: string;
+  settingsDim: string;
+  hintText: string;
+  hintDismiss: string;
+  nextStepAria: (name: string) => string;
+  stepCount: (step: number, total: number) => string;
+  searchPlaceholder: string;
+  searchClear: string;
+  searchNoResults: string;
+  searchResults: (n: number) => string;
   themeToggleAria: string;
   aboutTitle: string;
   aboutText: string;
@@ -165,6 +177,18 @@ export const STRINGS: Record<Locale, Strings> = {
     textSizeAria: "Velikost písma",
     textSizeDecreaseAria: "Zmenšit písmo",
     textSizeIncreaseAria: "Zvětšit písmo",
+    settingsAria: "Nastavení zobrazení",
+    settingsDarkMode: "Tmavý režim",
+    settingsVibrate: "Vibrace při každém kroku",
+    settingsDim: "Ztlumit obrazovku",
+    hintText: "Další modlitbu otevřete ťuknutím na text nebo přejetím prstem doleva, předchozí přejetím doprava.",
+    hintDismiss: "Rozumím",
+    nextStepAria: (name) => `Další modlitba: ${name}`,
+    stepCount: (step, total) => `${step} z ${total}`,
+    searchPlaceholder: "Hledat modlitbu",
+    searchClear: "Vymazat hledání",
+    searchNoResults: "Žádná modlitba neodpovídá hledání.",
+    searchResults: (n) => `Nalezeno: ${n}`,
     themeToggleAria: "Přepnout tmavý režim",
     aboutTitle: "O aplikaci",
     aboutText: "Modlitba růžence a dalších modliteb v latině s českým překladem.",
@@ -276,6 +300,18 @@ export const STRINGS: Record<Locale, Strings> = {
     textSizeAria: "Text size",
     textSizeDecreaseAria: "Decrease text size",
     textSizeIncreaseAria: "Increase text size",
+    settingsAria: "Display settings",
+    settingsDarkMode: "Dark mode",
+    settingsVibrate: "Vibrate on every step",
+    settingsDim: "Dim the screen",
+    hintText: "Tap the prayer or swipe left for the next one; swipe right to go back.",
+    hintDismiss: "Got it",
+    nextStepAria: (name) => `Next prayer: ${name}`,
+    stepCount: (step, total) => `${step} of ${total}`,
+    searchPlaceholder: "Search prayers",
+    searchClear: "Clear search",
+    searchNoResults: "No prayer matches the search.",
+    searchResults: (n) => `Found: ${n}`,
     themeToggleAria: "Toggle dark mode",
     aboutTitle: "About",
     aboutText: "Praying the rosary and other prayers in Latin, with an English translation.",

@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Added
+- **Search.** A search field above the other Latin prayers finds a prayer by its Latin, Czech or English name, with or without accents (*memorare*, *pomni*, the creeds by *credo*).
+- **The next prayer on the Next button.** Under *Další* / *Next* the button names the step it leads to (at Mass: *Sursum corda*, *Sanctus*…), and a litany or devotion shows where you are (*5 z 11*).
+- **Quiet settings for church.** *Dim the screen* lays a dark veil over the prayer, dimmer than the dark theme alone, and the vibration on each step can be switched off.
+- **A hint the first time.** The first prayer opened explains that a tap or a swipe moves on; it goes once closed or once you have stepped on.
+
+### Changed
+- **A tidier prayer header.** Text size and dark mode moved, with the new settings, under one ⋯ button; the header keeps back, restart, the star and the language.
+- **Today's mysteries first.** On the start screen today's mysteries are the large tile, the other two side by side under it.
+
 ## [0.29.0]
 
 ### Added

@@ -61,12 +61,12 @@ export const IN_SEASON_COLOR = "#2E7D32";
 export const FAVORITES_ICON: GroupIconName = "star";
 export const FAVORITES_COLOR = "#B7791F";
 
-// Sorts by the Latin name, as a prayer book's index would: accents ignored,
-// æ and œ read as ae and oe.
-const latinSortKey = (name: string): string =>
+// Folds a name for sorting and searching, as a prayer book's index would:
+// lower case, accents ignored, æ and œ read as ae and oe.
+export const foldName = (name: string): string =>
   name.toLowerCase().replace(/æ/g, "ae").replace(/œ/g, "oe").normalize("NFD").replace(/\p{M}/gu, "");
 export const byLatinName = (a: MenuKey, b: MenuKey): number =>
-  latinSortKey(menuEntry(a).name).localeCompare(latinSortKey(menuEntry(b).name));
+  foldName(menuEntry(a).name).localeCompare(foldName(menuEntry(b).name));
 
 // Each group's sections are listed alphabetically by Latin name (sorted below),
 // except the Mass's, which follow the order of the Mass.
@@ -171,3 +171,27 @@ const OCCASION_PRAYERS: Record<Occasion, readonly MenuKey[]> = {
 // feast, season or month the day falls in (each once).
 export const inSeason = (date: Date): MenuKey[] =>
   [...new Set<MenuKey>([marianAntiphon(date), ...occasionsOf(date).flatMap((o) => OCCASION_PRAYERS[o])])];
+
+// Words a prayer is searched by besides its names: what it is called aloud
+// rather than in the index (the creeds by their first word).
+const SEARCH_ALIASES: Partial<Record<MenuKey, string>> = {
+  symbolum_apostolorum: "Credo",
+  symbolum_nicenum: "Credo",
+  symbolum_athanasianum: "Credo Quicumque",
+};
+
+// The start screen's search: every listed prayer whose Latin name, one of its
+// translated names or an alias holds each word of the query (folded, so
+// "memorare" finds Memoráre and "pomni" its Czech name), sorted by Latin name.
+// An empty query finds nothing.
+export const searchMenu = (query: string): MenuKey[] => {
+  const words = foldName(query).split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+  if (words.length === 0) return [];
+  return MENU_GROUPS.flatMap(groupKeys)
+    .filter((k) => {
+      const e = menuEntry(k);
+      const hay = foldName([e.name, ...Object.values(e.nameTr), SEARCH_ALIASES[k] ?? ""].join(" "));
+      return words.every((w) => hay.includes(w));
+    })
+    .sort(byLatinName);
+};
