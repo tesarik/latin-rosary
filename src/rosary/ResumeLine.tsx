@@ -1,5 +1,6 @@
 import { STRINGS, type Locale } from "./i18n";
 import { accentText, type Theme } from "./theme";
+import { ink } from "./look";
 
 // Saved place of each unfinished set, 1-based for display ("Continue · 23/74").
 export type ResumeInfo = Record<string, { step: number; total: number }>;
@@ -14,7 +15,7 @@ export default function ResumeLine({ info, color, theme, locale }: {
 }) {
   if (!info) return null;
   return (
-    <div style={{ fontFamily: "Arial, sans-serif", fontSize: 13, fontWeight: 600, color: accentText(color, theme), marginTop: 3 }}>
+    <div style={{ fontFamily: "Arial, sans-serif", fontSize: 13, fontWeight: 600, color: accentText(ink(color), theme), marginTop: 3 }}>
       {STRINGS[locale].resumeAt(info.step, info.total)}
     </div>
   );

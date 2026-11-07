@@ -175,13 +175,14 @@ export default function PrayerCard({ currentPrayer, accentColor, currentStep, to
       aria-label={`${currentPrayer?.label ?? ""}, ${t.stepXofY(currentStep + 1, totalSteps)}`}
       style={{
         position: "relative",
-        background: "var(--surface)",
+        // A card in Základ and Papír; the bare page in Misál (index.css).
+        background: "var(--prayer-bg)",
         borderRadius: 18,
         ...(contained
           ? { display: "flex", flexDirection: "column", maxHeight: "100%", minHeight: 0, overflow: "hidden" }
           : { padding: "20px 18px", margin: "6px 0 12px" }),
-        boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
-        border: "1px solid var(--border)",
+        boxShadow: "var(--prayer-shadow)",
+        border: "var(--prayer-border)",
         cursor: "pointer",
         userSelect: "text",
         WebkitTapHighlightColor: "transparent",

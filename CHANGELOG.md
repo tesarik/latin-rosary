@@ -7,8 +7,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Changed
-- **The look of a missal.** The Latin names — of the rosary, the groups, every prayer and the open prayer's header — are set in the same Garamond as the prayers, their translations beneath in the plain face. The pages take warm paper tones instead of a cool grey (and candlelight ones in the dark theme), and each prayer opens with a red initial.
+- **„Nedokončená modlitba“.** The tile with the last unfinished prayer is now called *Nedokončená modlitba* rather than *Rozepsaná modlitba*.
+- **The look of a missal** (*Papír*, the new default look). The Latin names — of the rosary, the groups, every prayer and the open prayer's header — are set in the same Garamond as the prayers. The pages take warm paper tones instead of a cool grey (and candlelight ones in the dark theme), and each prayer opens with a red initial.
+- **Red headings, flat cards.** The start screen's headings are red small capitals, like a missal's rubrics, and the translations under the Latin names are in Garamond italic. The cards lie flat with a thin rule instead of a shadow.
 - **A quieter prayer header.** Instead of a solid coloured bar, the header sits on the page with a line of the prayer's colour under it and softly tinted buttons; the plans screen's header too.
+
+### Added
+- **Tabs at the bottom.** The start screen is split into three tabs: *Růženec* (the mysteries and the chaplet), *Modlitby* (search, *V tuto dobu* and the groups of prayers) and *Moje* (favourites, prayer plans and settings). Each tab keeps its own scroll, and coming back from a prayer opens the tab you left.
+- **Help.** A *Nápověda* page explains how to pray step by step, the beads, the translation, unfinished prayers, the tabs, favourites, plans and the settings. It and *O aplikaci* are at the foot of every tab.
+- **Three looks.** Choose how the app looks in a prayer's ⋯ settings or under *Moje*: **Papír**, the new missal look on warm paper; **Misál**, a white page in black and red only, with rules instead of boxes; or **Základ**, the look the app had until now. Each comes in light and dark. If you already use the app, it stays in Základ until you choose another; a new install starts in Papír.
+- **Forget an unfinished prayer.** The *Unfinished prayer* tile on the start screen has a × that, after a confirm, forgets where you left off.
+
+### Fixed
+- **The update prompt comes on time.** The server's CDN kept the old service worker for up to three days, so a new version often went unnoticed, or was offered days late. Each build now registers its worker under its own address, and the installed app checks for a new version whenever it comes back to the foreground.
 
 ## [0.30.1]
 

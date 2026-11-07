@@ -59,14 +59,164 @@ html, body, #root {
   --rubric: #EC8E86;
 }
 
+/* ── Looks ───────────────────────────────────────────────────────────────
+   Three looks (look.ts), each in both themes: the palette above is Papír
+   (paper), the default; Základ (base) and Misál (missal) override it under
+   `data-look` on <html>. Besides colours a look sets the type and the cards,
+   through the tokens below, read by inline styles as var(--…):
+     --name-font / --name-k      a Latin name's face and size factor
+     --caption-*                 the line under a name (its translation)
+     --heading-*                 a section heading
+     --card-*                    a start-screen card and the gap between
+                                 cards; --icon-box a line symbol's square; --card-px a card's
+                                 side padding; --heading-indent a section
+                                 heading's;
+                                 --prayer-* the prayer card
+   The look-specific rules come after the theme blocks and carry one more
+   attribute, so they win over them. */
+:root {
+  --name-font: 'EB Garamond', Georgia, serif;
+  --name-k: 1;
+  --caption-font: 'EB Garamond', Georgia, serif;
+  --caption-style: italic;
+  --caption-size: 16px;
+  --heading-font: 'EB Garamond', Georgia, serif;
+  --heading-variant: small-caps;
+  --heading-transform: none;
+  --heading-spacing: 1px;
+  --heading-color: var(--rubric);
+  --heading-k: 1;
+  --card-bg: var(--surface);
+  --card-border: 1px solid var(--border-strong);
+  --card-border-bottom: 1px solid var(--border-strong);
+  --card-radius: 16px;
+  --card-shadow: none;
+  --card-gap: 8px;
+  --icon-box: 40px;
+  --card-px: 16px;
+  --heading-indent: 4px;
+  --prayer-bg: var(--surface);
+  --prayer-border: 1px solid var(--border);
+  --prayer-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+/* Základ: the look up to 0.30 — cool greys, Arial throughout, grey
+   capitals for headings, cards with a soft shadow. */
+:root[data-look="base"] {
+  --bg: linear-gradient(160deg, #ECEFF1 0%, #FAFAFA 50%, #E8EAF6 100%);
+  --surface: #ffffff;
+  --surface-hover: #F5F7F8;
+  --border: #ECEFF1;
+  --border-strong: #CFD8DC;
+  --divider: #DFE5E8;
+  --text: #37474F;
+  --text-strong: #263238;
+  --text-soft: #546E7A;
+  --text-muted: #5D7785;
+  --bead-past: #90A4AE;
+  --bead-future: #CFD8DC;
+  --thread: #B0BEC5;
+  --track: rgba(0, 0, 0, 0.1);
+  --nav-fade: linear-gradient(transparent, #ECEFF1);
+  --name-font: Arial, sans-serif;
+  --name-k: 0.86;
+  --caption-font: Arial, sans-serif;
+  --caption-style: normal;
+  --caption-size: 13px;
+  --heading-font: Arial, sans-serif;
+  --heading-variant: normal;
+  --heading-transform: uppercase;
+  --heading-spacing: 0.5px;
+  --heading-color: var(--text-muted);
+  --heading-k: 0.78;
+  --card-border: 1px solid var(--border);
+  --card-border-bottom: 1px solid var(--border);
+  --card-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+:root[data-look="base"][data-theme="dark"] {
+  --bg: linear-gradient(160deg, #15181E 0%, #101216 55%, #161421 100%);
+  --surface: #1E232B;
+  --surface-hover: #262C35;
+  --border: #2A313B;
+  --border-strong: #3A434F;
+  --divider: #323A45;
+  --text: #DDE2E7;
+  --text-strong: #EEF1F4;
+  --text-soft: #AEB8C2;
+  --text-muted: #9AA5B0;
+  --bead-past: #6A7682;
+  --bead-future: #39414C;
+  --thread: #39414C;
+  --track: rgba(255, 255, 255, 0.14);
+  --nav-fade: linear-gradient(transparent, #101216);
+}
+
+/* Misál: a white page in black and red. Every set's colour is the red
+   (look.ts `ink`); the start screen's cards become a rule under each
+   entry, as in a book's table of contents, and the prayer stands on the page without a box.
+   Translations in upright Garamond. */
+:root[data-look="missal"] {
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-hover: #F4F4F4;
+  --border: #DADADA;
+  --border-strong: #1A1A1A;
+  --divider: #DADADA;
+  --text: #141414;
+  --text-strong: #000000;
+  --text-soft: #333333;
+  --text-muted: #4A4A4A;
+  --bead-past: #141414;
+  --bead-future: #CFCFCF;
+  --thread: #9A9A9A;
+  --track: rgba(0, 0, 0, 0.1);
+  --nav-fade: linear-gradient(transparent, #FFFFFF);
+  --rubric: #C0141C;
+  --caption-style: normal;
+  --card-bg: transparent;
+  --card-border: 0 solid transparent;
+  --card-border-bottom: 1px solid var(--divider);
+  --card-radius: 0;
+  --card-gap: 0px;
+  /* A line symbol stands bare on the page, so its box shrinks to it. */
+  --icon-box: 20px;
+  /* An entry's text and its section heading start at the same indent; the
+     rule under the entry runs from its edge, so a hovered entry is shaded
+     with room round its text. */
+  --card-px: 10px;
+  --heading-indent: 10px;
+  --prayer-bg: transparent;
+  --prayer-border: 0 solid transparent;
+  --prayer-shadow: none;
+}
+:root[data-look="missal"][data-theme="dark"] {
+  --bg: #0B0B0B;
+  --surface: #0B0B0B;
+  --surface-hover: #1A1A1A;
+  --border: #333333;
+  --border-strong: #E8E8E8;
+  --divider: #333333;
+  --text: #E8E8E8;
+  --text-strong: #FFFFFF;
+  --text-soft: #CCCCCC;
+  --text-muted: #B4B4B4;
+  --bead-past: #E8E8E8;
+  --bead-future: #3A3A3A;
+  --thread: #666666;
+  --track: rgba(255, 255, 255, 0.14);
+  --nav-fade: linear-gradient(transparent, #0B0B0B);
+  --rubric: #F0605A;
+}
+
 body {
   background: var(--bg);
 }
 
 /* A prayer opens with a red initial, as in a missal (PrayerCard's "initial"
    class): the first letter larger, in the rubric red. Not a dropped capital,
-   since the text is centred. Litanies, set line by line, have none. */
-.initial::first-letter {
+   since the text is centred. Litanies, set line by line, have none; nor has
+   the Základ look, which predates it. */
+:root:not([data-look="base"]) .initial::first-letter {
   color: var(--rubric);
   font-size: 1.5em;
   font-weight: 600;

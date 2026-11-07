@@ -28,14 +28,10 @@ export function saveTheme(theme: Theme): void {
   } catch {}
 }
 
-// The browser's bar (Android's status bar, the installed app's title bar)
-// takes the page's paper, so it runs on into the header. Keep in step with
-// --bg in index.css and theme-color in index.html and the manifest.
-export const THEME_BAR_COLOR: Record<Theme, string> = { light: "#F2ECE0", dark: "#14120F" };
-
+// Sets data-theme on <html>; the browser bar's colour follows from the look
+// as well (look.ts, `applyBarColor`), which `Rosary` applies beside this.
 export function applyTheme(theme: Theme): void {
   document.documentElement.dataset.theme = theme;
-  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", THEME_BAR_COLOR[theme]);
 }
 
 // Saved preference wins; otherwise follow the OS.

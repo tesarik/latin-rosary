@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { FONT_SCALE_MIN, FONT_SCALE_MAX } from "./fontSize";
 import { STRINGS, type Locale } from "./i18n";
-import { accentText, type Theme } from "./theme";
+import type { Theme } from "./theme";
+import { headerStyles, type Look } from "./look";
+import LookPicker from "./LookPicker";
 
 type Props = {
   theme: Theme;
@@ -12,6 +14,8 @@ type Props = {
   onVibrate: (on: boolean) => void;
   dim: boolean;
   onDim: (on: boolean) => void;
+  look: Look;
+  onLook: (look: Look) => void;
   accentColor: string;
   locale: Locale;
 };
@@ -21,7 +25,7 @@ type Props = {
 // the star, the language). A popover with the dark theme, the text size
 // (smaller-A / bigger-A, stays open for repeated taps), the haptic tick and
 // the dimmed screen. Outside click or Escape closes it.
-export default function SettingsMenu({ theme, onToggleTheme, fontScale, onFontScale, vibrate, onVibrate, dim, onDim, accentColor, locale }: Props) {
+export default function SettingsMenu({ theme, onToggleTheme, fontScale, onFontScale, vibrate, onVibrate, dim, onDim, look, onLook, accentColor, locale }: Props) {
   const t = STRINGS[locale];
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -35,6 +39,7 @@ export default function SettingsMenu({ theme, onToggleTheme, fontScale, onFontSc
     return () => { document.removeEventListener("pointerdown", onDown); document.removeEventListener("keydown", onKey); };
   }, [open]);
 
+  const hs = headerStyles(accentColor, theme, false);
   const atMin = fontScale <= FONT_SCALE_MIN;
   const atMax = fontScale >= FONT_SCALE_MAX;
 
@@ -56,8 +61,7 @@ export default function SettingsMenu({ theme, onToggleTheme, fontScale, onFontSc
           border: "none",
           borderRadius: 10,
           cursor: "pointer",
-          background: open ? accentColor : accentColor + "1c",
-          color: open ? "white" : accentText(accentColor, theme),
+          ...(open ? hs.buttonOn : hs.button),
           transition: "background 0.2s ease, color 0.2s ease",
         }}
       >
@@ -86,6 +90,9 @@ export default function SettingsMenu({ theme, onToggleTheme, fontScale, onFontSc
             fontFamily: "Arial, sans-serif",
           }}
         >
+          <div style={{ padding: "8px 14px 6px" }}>
+            <LookPicker look={look} onChange={onLook} locale={locale} />
+          </div>
           <Row label={t.textSizeAria}>
             <div role="group" aria-label={t.textSizeAria} style={{ display: "flex", gap: 6 }}>
               <button onClick={() => onFontScale(fontScale - 1)} disabled={atMin} aria-label={t.textSizeDecreaseAria} style={nudgeStyle(atMin, accentColor)}>

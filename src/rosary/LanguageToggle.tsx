@@ -1,5 +1,6 @@
 import { STRINGS, type Locale } from "./i18n";
-import { accentText, type Theme } from "./theme";
+import type { Theme } from "./theme";
+import { headerStyles } from "./look";
 
 // Header prayer-language switch: one button showing BOTH choices as two
 // segments, "La | Cz" (or "La | En"), with the active one filled in the set's colour — so
@@ -13,6 +14,8 @@ export default function LanguageToggle({ showTranslation, onChange, accentColor,
   locale: Locale;
 }) {
   const t = STRINGS[locale];
+  // Its colours are the header's, in the look's manner (look.ts).
+  const tg = headerStyles(accentColor, theme, false).toggle;
   const segment = (label: string, active: boolean, lang?: string) => (
     <span
       lang={lang}
@@ -23,8 +26,8 @@ export default function LanguageToggle({ showTranslation, onChange, accentColor,
         minWidth: 30,
         padding: "0 7px",
         borderRadius: 7,
-        background: active ? accentColor : "transparent",
-        color: active ? "white" : accentText(accentColor, theme),
+        background: active ? tg.on : "transparent",
+        color: active ? tg.onInk : tg.offInk,
         fontWeight: 700,
         transition: "background 0.2s ease, color 0.2s ease",
       }}
@@ -45,9 +48,9 @@ export default function LanguageToggle({ showTranslation, onChange, accentColor,
         gap: 2,
         height: 40,
         padding: 3,
-        border: "none",
+        border: tg.wrapBorder,
         borderRadius: 10,
-        background: accentColor + "1c",
+        background: tg.wrap,
         cursor: "pointer",
         fontFamily: "Arial, sans-serif",
         fontSize: 13,
