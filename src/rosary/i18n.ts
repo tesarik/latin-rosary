@@ -1,7 +1,8 @@
 // UI strings and the supported UI languages (Czech and English).
 //
 // The Latin prayer texts in prayers.ts are never localized; the *translations*
-// beside them (PRAYER_TRANSLATIONS) are keyed by exactly these locales, so
+// beside them (prayers.<locale>.ts, see translations.ts) are keyed by exactly
+// these locales, so
 // adding a locale here means adding a full translation of every prayer.
 
 export const SUPPORTED_LOCALES = ["cs", "en"] as const;

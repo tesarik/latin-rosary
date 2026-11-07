@@ -7,7 +7,8 @@
 // Pure: data in, HTML strings out, no DOM. Texts come straight from the same
 // registries the app uses, so the pages can't drift from it.
 
-import { MYSTERIES, PRAYERS, PRAYER_TRANSLATIONS, PRAYER_TYPES, getHailMary, getHailMaryTr, type Localized } from "./prayers";
+import { MYSTERIES, PRAYERS, PRAYER_TYPES, getHailMary, getHailMaryTr, type Localized } from "./prayers";
+import { PRAYER_TRANSLATIONS } from "./allTranslations";
 import {
   buildRosarySequence,
   sliceLines,

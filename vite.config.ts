@@ -109,6 +109,17 @@ export default defineConfig(({ mode }) => {
       __ICON_VERSION__: JSON.stringify(iconV),
       __SW_VERSION__: JSON.stringify(swV),
     },
+    build: {
+      rollupOptions: {
+        output: {
+          // React apart from the app: it changes far less often, so after an
+          // update the browser keeps it and fetches only the app's chunk.
+          // (The prayer translations are split by their dynamic imports, see
+          // src/rosary/translations.ts.)
+          manualChunks: { react: ["react", "react-dom", "react-dom/client"] },
+        },
+      },
+    },
     plugins: [react(), swVersion(swV), iconVersion(iconV), appUrl(env.SITE_URL, base), staticPages(env.SITE_URL, base, iconV)],
   };
 });

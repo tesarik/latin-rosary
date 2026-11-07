@@ -1,6 +1,7 @@
 import { SERIF } from "./fonts";
 import type { ReactNode, Ref } from "react";
-import { PRAYER_TYPES, PRAYERS, PRAYER_TRANSLATIONS, getHailMary, getHailMaryTr } from "./prayers";
+import { PRAYER_TYPES, PRAYERS, getHailMary, getHailMaryTr } from "./prayers";
+import { useTranslation } from "./translations";
 import { sliceLines, type SequenceItem } from "./sequence";
 import { STRINGS, type Locale } from "./i18n";
 import { accentText, type Theme } from "./theme";
@@ -79,6 +80,9 @@ const bodyStyle = {
 };
 
 function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontSizeClamp, theme }: { currentPrayer: SequenceItem | undefined; accentColor: string; locale: Locale; showTranslation: boolean; fontSizeClamp: string; theme: Theme }) {
+  // The shown language's table, loaded on demand (translations.ts); until it
+  // arrives a translated prayer shows its Latin.
+  const table = useTranslation(locale);
   if (!currentPrayer) return null;
   const sizedBodyStyle = { ...bodyStyle, fontSize: fontSizeClamp };
   const clauseColor = accentText(accentColor, theme);
@@ -123,19 +127,20 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
     );
   }
 
-  const full = showTranslation ? PRAYER_TRANSLATIONS[locale][currentPrayer.type] : PRAYERS[currentPrayer.type];
+  const tr = showTranslation ? table?.[currentPrayer.type] : undefined;
+  const full = tr ?? PRAYERS[currentPrayer.type];
   // A litany step may be one section of a longer text: the same line range in
   // every language, since the translations keep the Latin's line structure.
   const text = currentPrayer.lines ? sliceLines(full, currentPrayer.lines) : full;
   if (isLitanyType(currentPrayer.type)) {
     return (
-      <div lang={bodyLang} style={{ ...sizedBodyStyle, textAlign: "left" }}>
+      <div lang={tr ? locale : undefined} style={{ ...sizedBodyStyle, textAlign: "left" }}>
         <div style={{ color: "var(--text)" }}>{renderLitany(text, clauseColor)}</div>
       </div>
     );
   }
   return (
-    <div lang={bodyLang} style={sizedBodyStyle}>
+    <div lang={tr ? locale : undefined} style={sizedBodyStyle}>
       <div className="initial" style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{withRubrics(text)}</div>
     </div>
   );

@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Changed
+- **A faster first start.** The app loads the prayer translations only for the language it is shown in, the other one in the background, and keeps React apart from the app so an update downloads less.
 - **„Nedokončená modlitba“.** The tile with the last unfinished prayer is now called *Nedokončená modlitba* rather than *Rozepsaná modlitba*.
 - **The look of a missal** (*Papír*, the new default look). The Latin names — of the rosary, the groups, every prayer and the open prayer's header — are set in the same Garamond as the prayers. The pages take warm paper tones instead of a cool grey (and candlelight ones in the dark theme), and each prayer opens with a red initial.
 - **Red headings, flat cards.** The start screen's headings are red small capitals, like a missal's rubrics, and the translations under the Latin names are in Garamond italic. The cards lie flat with a thin rule instead of a shadow.
