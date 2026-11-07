@@ -1,4 +1,4 @@
-// __SW_VERSION__ is replaced at build time (see vite.config.js). In dev mode
+// The cache version is replaced at build time (see vite.config.js). In dev mode
 // the SW is not registered, so the literal placeholder never reaches a browser.
 const PREFIX = "ruzenec-";
 const CACHE = PREFIX + "__SW_VERSION__";

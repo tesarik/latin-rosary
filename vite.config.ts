@@ -7,8 +7,11 @@ import { buildStaticPages } from "./src/rosary/staticPages";
 
 // Stamps `__SW_VERSION__` in dist/sw.js with `<pkg.version>-<build-id>` so each
 // production build gets its own Cache Storage bucket and stale assets are
-// dropped on activate.
-function swVersion(): Plugin {
+// dropped on activate. The same version is defined for the app, which
+// registers `sw.js?v=<version>`: the hosting's CDN keeps sw.js for days
+// whatever the browser asks, so under one URL a new build went unseen (no
+// update prompt) until the CDN's copy expired. A new build is a new URL.
+function swVersion(version: string): Plugin {
   return {
     name: "sw-version",
     apply: "build",
@@ -16,8 +19,6 @@ function swVersion(): Plugin {
       const outDir = options.dir ?? "dist";
       const swPath = path.join(outDir, "sw.js");
       if (!fs.existsSync(swPath)) return;
-      const pkg = JSON.parse(fs.readFileSync("package.json", "utf-8")) as { version: string };
-      const version = `${pkg.version}-${Date.now().toString(36)}`;
       const content = fs.readFileSync(swPath, "utf-8").replace(/__SW_VERSION__/g, version);
       fs.writeFileSync(swPath, content);
     },
@@ -99,13 +100,15 @@ export default defineConfig(({ mode }) => {
   const pkg = JSON.parse(fs.readFileSync("package.json", "utf-8")) as { version: string };
   const base = env.BASE_PATH || "/";
   const iconV = iconFingerprint();
+  const swV = `${pkg.version}-${Date.now().toString(36)}`;
   return {
     base,
     define: {
       __APP_VERSION__: JSON.stringify(pkg.version),
       __BUILD_DATE__: JSON.stringify(new Date().toISOString()),
       __ICON_VERSION__: JSON.stringify(iconV),
+      __SW_VERSION__: JSON.stringify(swV),
     },
-    plugins: [react(), swVersion(), iconVersion(iconV), appUrl(env.SITE_URL, base), staticPages(env.SITE_URL, base, iconV)],
+    plugins: [react(), swVersion(swV), iconVersion(iconV), appUrl(env.SITE_URL, base), staticPages(env.SITE_URL, base, iconV)],
   };
 });
