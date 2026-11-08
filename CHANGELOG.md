@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.31.0]
+
 ### Changed
 - **A faster first start.** The app loads the prayer translations only for the language it is shown in, the other one in the background, and keeps React apart from the app so an update downloads less.
 - **„Nedokončená modlitba“.** The tile with the last unfinished prayer is now called *Nedokončená modlitba* rather than *Rozepsaná modlitba*.
