@@ -142,6 +142,12 @@ export const PRAYER_TYPES = {
   VENI_SANCTE_SPIRITUS: "veni_sancte_spiritus",
   LAUDA_SION: "lauda_sion",
   STABAT_MATER: "stabat_mater",
+  TE_DEUM: "te_deum",
+  ADORO_TE: "adoro_te",
+  AVE_VERUM: "ave_verum",
+  O_SALUTARIS: "o_salutaris",
+  PANGE_LINGUA: "pange_lingua",
+  TANTUM_ERGO: "tantum_ergo",
   ANGELUS: "angelus",
   REGINA_CAELI: "regina_caeli",
   ANIMA_CHRISTI: "anima_christi",
@@ -1076,6 +1082,156 @@ ad palmam victóriæ.
 Quando corpus moriétur,
 fac, ut ánimæ donétur
 paradísi glória. Amen.`,
+
+  // Te Deum: the Roman Breviary's text (as in Příručka katolických pobožností,
+  // 1935, p. 47), with the app's accent pointing.
+  [PRAYER_TYPES.TE_DEUM]: `Te Deum laudámus: te Dóminum confitémur.
+Te ætérnum Patrem omnis terra venerátur.
+Tibi omnes Ángeli, tibi cæli et univérsæ potestátes,
+tibi Chérubim et Séraphim incessábili voce proclámant:
+Sanctus, Sanctus, Sanctus Dóminus Deus Sábaoth.
+Pleni sunt cæli et terra maiestátis glóriæ tuæ.
+Te gloriósus Apostolórum chorus,
+te Prophetárum laudábilis númerus,
+te Mártyrum candidátus laudat exércitus.
+Te per orbem terrárum sancta confitétur Ecclésia:
+Patrem imménsæ maiestátis;
+venerándum tuum verum et únicum Fílium;
+Sanctum quoque Paráclitum Spíritum.
+Tu Rex glóriæ, Christe.
+Tu Patris sempitérnus es Fílius.
+Tu ad liberándum susceptúrus hóminem, non horruísti Vírginis úterum.
+Tu, devícto mortis acúleo, aperuísti credéntibus regna cælórum.
+Tu ad déxteram Dei sedes, in glória Patris.
+Iudex créderis esse ventúrus.
+Te ergo quǽsumus, tuis fámulis súbveni, quos pretióso sánguine redemísti.
+Ætérna fac cum Sanctis tuis in glória numerári.
+Salvum fac pópulum tuum, Dómine, et bénedic hereditáti tuæ.
+Et rege eos, et extólle illos usque in ætérnum.
+Per síngulos dies benedícimus te.
+Et laudámus nomen tuum in sǽculum, et in sǽculum sǽculi.
+Dignáre, Dómine, die isto sine peccáto nos custodíre.
+Miserére nostri, Dómine, miserére nostri.
+Fiat misericórdia tua, Dómine, super nos, quemádmodum sperávimus in te.
+In te, Dómine, sperávi: non confúndar in ætérnum.`,
+
+  // Adoro te devote, St Thomas Aquinas: the Roman Missal's text (Gratiarum actio post Missam).
+  [PRAYER_TYPES.ADORO_TE]: `Adóro te devóte, latens Déitas,
+quæ sub his figúris vere látitas:
+tibi se cor meum totum súbicit,
+quia te contémplans totum déficit.
+
+Visus, tactus, gustus in te fállitur,
+sed audítu solo tuto créditur:
+credo quidquid dixit Dei Fílius;
+nil hoc verbo veritátis vérius.
+
+In cruce latébat sola Déitas,
+at hic latet simul et humánitas:
+ambo tamen credens atque cónfitens,
+peto quod petívit latro pǽnitens.
+
+Plagas, sicut Thomas, non intúeor,
+Deum tamen meum te confíteor:
+fac me tibi semper magis crédere,
+in te spem habére, te dilígere.
+
+O memoriále mortis Dómini,
+panis vivus, vitam præstans hómini:
+præsta meæ menti de te vívere,
+et te illi semper dulce sápere.
+
+Pie pellicáne, Iesu Dómine,
+me immúndum munda tuo sánguine:
+cuius una stilla salvum fácere
+totum mundum quit ab omni scélere.
+
+Iesu, quem velátum nunc aspício,
+oro fiat illud quod tam sítio:
+ut te reveláta cernens fácie,
+visu sim beátus tuæ glóriæ. Amen.`,
+
+  // Ave verum Corpus: the received text, with the "miserére mei" ending.
+  [PRAYER_TYPES.AVE_VERUM]: `Ave, verum Corpus, natum de María Vírgine:
+vere passum, immolátum in cruce pro hómine;
+cuius latus perforátum fluxit aqua et sánguine:
+esto nobis prægustátum mortis in exámine.
+O dulcis, o pie, o Iesu, fili Maríæ, miserére mei. Amen.`,
+
+  // O salutaris Hostia: the last two stanzas of Verbum supernum (Lauds of Corpus Christi).
+  [PRAYER_TYPES.O_SALUTARIS]: `O salutáris Hóstia,
+quæ cæli pandis óstium:
+bella premunt hostília,
+da robur, fer auxílium.
+
+Uni trinóque Dómino
+sit sempitérna glória,
+qui vitam sine término
+nobis donet in pátria. Amen.`,
+
+  // Pange lingua, St Thomas Aquinas (Vespers of Corpus Christi), as in Příručka
+  // katolických pobožností (1935), p. 3–4.
+  [PRAYER_TYPES.PANGE_LINGUA]: `Pange, lingua, gloriósi
+Córporis mystérium,
+Sanguinísque pretiósi,
+quem in mundi prétium
+fructus ventris generósi
+Rex effúdit géntium.
+
+Nobis datus, nobis natus
+ex intácta Vírgine,
+et in mundo conversátus,
+sparso verbi sémine,
+sui moras incolátus
+miro clausit órdine.
+
+In suprémæ nocte cenæ
+recúmbens cum frátribus,
+observáta lege plene
+cibis in legálibus,
+cibum turbæ duodénæ
+se dat suis mánibus.
+
+Verbum caro, panem verum
+verbo carnem éfficit:
+fitque sanguis Christi merum,
+et si sensus déficit,
+ad firmándum cor sincérum
+sola fides súfficit.
+
+Tantum ergo Sacraméntum
+venerémur cérnui:
+et antíquum documéntum
+novo cedat rítui:
+præstet fides suppleméntum
+sénsuum deféctui.
+
+Genitóri, Genitóque
+laus et iubilátio,
+salus, honor, virtus quoque
+sit et benedíctio:
+procedénti ab utróque
+compar sit laudátio. Amen.`,
+
+  // Tantum ergo: Pange lingua's last two stanzas, with the versicle and collect
+  // before Benediction (Příručka katolických pobožností, 1935, p. 5).
+  [PRAYER_TYPES.TANTUM_ERGO]: `Tantum ergo Sacraméntum
+venerémur cérnui:
+et antíquum documéntum
+novo cedat rítui:
+præstet fides suppleméntum
+sénsuum deféctui.
+
+Genitóri, Genitóque
+laus et iubilátio,
+salus, honor, virtus quoque
+sit et benedíctio:
+procedénti ab utróque
+compar sit laudátio. Amen.
+
+℣ Panem de cælo præstitísti eis.
+℟ Omne delectaméntum in se habéntem.
+Orémus. Deus, qui nobis sub Sacraménto mirábili passiónis tuæ memóriam reliquísti: tríbue, quǽsumus, ita nos Córporis et Sánguinis tui sacra mystéria venerári, ut redemptiónis tuæ fructum in nobis iúgiter sentiámus. Qui vivis et regnas in sǽcula sæculórum. Amen.`,
 
   // Source: angelus-domini-anima-christi.pdf.
   [PRAYER_TYPES.ANGELUS]: `℣ Angelus Dómini nuntiávit Maríæ.

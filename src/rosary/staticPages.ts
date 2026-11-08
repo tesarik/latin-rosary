@@ -114,6 +114,10 @@ const NOTES: Record<string, Partial<Localized>> = {
     cs: "Latinské znění těchto modliteb je náš vlastní překlad: autoritativní latinský originál není znám.",
     en: "The Latin of these prayers is our own translation: no authoritative Latin original is known.",
   },
+  ave_verum: {
+    cs: "Současný český překlad Lenky Jeřábkové (Collegium Strahoviense); starší český překlad jsme v prohledaných modlitebních knihách nenašli.",
+    en: "The English is our own literal translation.",
+  },
   dies_irae: {
     cs: "Český překlad podle Schallerova Římského misálu (1931).",
     en: "The English is W. J. Irons' verse translation, as printed in the Saint Andrew Daily Missal.",

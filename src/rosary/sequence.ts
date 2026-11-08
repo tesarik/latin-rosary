@@ -508,7 +508,13 @@ export type OrdinaryPrayerKey =
   | "victimae_paschali"
   | "veni_sancte_spiritus"
   | "lauda_sion"
-  | "stabat_mater";
+  | "stabat_mater"
+  | "te_deum"
+  | "adoro_te"
+  | "ave_verum"
+  | "o_salutaris"
+  | "pange_lingua"
+  | "tantum_ergo";
 
 // Shared accent for the standalone "ordinary" prayers (no liturgical color of
 // their own) — the app's brand blue.
@@ -565,6 +571,12 @@ export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, OrdinaryEntry> = {
   veni_sancte_spiritus: ordinary("Veni, Sancte Spíritus", { cs: "Duše Svatý, sestup v nás (Letnice)", en: "Come, Holy Ghost (Pentecost)" }, PRAYER_TYPES.VENI_SANCTE_SPIRITUS),
   lauda_sion:           ordinary("Lauda Sion", { cs: "Chval, Sione, Spasitele (Boží Tělo)", en: "Sion, Lift Thy Voice (Corpus Christi)" }, PRAYER_TYPES.LAUDA_SION),
   stabat_mater:         ordinary("Stabat Mater", { cs: "Stojí Matka zarmoucená (Panny Marie Bolestné)", en: "At the Cross Her Station Keeping (Our Lady of Sorrows)" }, PRAYER_TYPES.STABAT_MATER),
+  te_deum:              ordinary("Te Deum", { cs: "Bože, tebe chválíme", en: "We Praise Thee, O God" }, PRAYER_TYPES.TE_DEUM),
+  adoro_te:             ordinary("Adóro te devóte", { cs: "Klaním se ti vroucně", en: "Godhead Here in Hiding" }, PRAYER_TYPES.ADORO_TE),
+  ave_verum:            ordinary("Ave, verum Corpus", { cs: "Buď pozdraveno, pravé Tělo", en: "Hail, True Body" }, PRAYER_TYPES.AVE_VERUM),
+  o_salutaris:          ordinary("O salutáris Hóstia", { cs: "Ó spasitelná oběti", en: "O Saving Victim" }, PRAYER_TYPES.O_SALUTARIS),
+  pange_lingua:         ordinary("Pange, lingua", { cs: "Chvalte, ústa (Boží Tělo)", en: "Sing, My Tongue (Corpus Christi)" }, PRAYER_TYPES.PANGE_LINGUA),
+  tantum_ergo:          ordinary("Tantum ergo", { cs: "Před Svátostí touto slavnou (před požehnáním)", en: "Down in Adoration Falling (before Benediction)" }, PRAYER_TYPES.TANTUM_ERGO),
   dies_irae:            ordinary("Dies iræ", { cs: "Den hněvu (za zemřelé)", en: "Day of Wrath (for the Dead)" }, PRAYER_TYPES.DIES_IRAE),
   benedictio_mensae: ordinary("Benedíctio mensæ", { cs: "Modlitba před jídlem", en: "Grace before Meals" }, PRAYER_TYPES.BENEDICTIO_MENSAE),
   gratiarum_actio: ordinary("Gratiárum áctio", { cs: "Modlitba po jídle", en: "Grace after Meals" }, PRAYER_TYPES.GRATIARUM_ACTIO),

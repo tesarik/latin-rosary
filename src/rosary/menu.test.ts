@@ -43,7 +43,7 @@ describe("inSeason", () => {
     // Easter 2026 is 5 April; Pentecost 24 May; Corpus Christi 4 June.
     expect(inSeason(new Date(2026, 3, 8))).toEqual(["regina_caeli", "victimae_paschali"]);
     expect(inSeason(new Date(2026, 4, 24))).toEqual(["regina_caeli", "veni_sancte_spiritus", "spiritus", "loreto"]);
-    expect(inSeason(new Date(2026, 5, 4))).toEqual(["salve_regina", "lauda_sion", "sacred_heart", "cor_iesu"]);
+    expect(inSeason(new Date(2026, 5, 4))).toEqual(["salve_regina", "lauda_sion", "pange_lingua", "sacred_heart", "cor_iesu"]);
     expect(inSeason(new Date(2026, 8, 15))).toEqual(["salve_regina", "stabat_mater", "septem_dolores"]);
     // The Friday before Palm Sunday, 27 March 2026: in Lent and St. Joseph's month too
     // (the Seven Sorrows chaplet, a Lenten devotion as well, is listed once).

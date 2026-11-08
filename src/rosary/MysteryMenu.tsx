@@ -230,6 +230,16 @@ function GroupIcon({ name, color }: { name: GroupIconName; color: string }) {
       case "ihs":
         // The Holy Name's monogram, for the Mass.
         return <text x="10" y="14.8" textAnchor="middle" fontFamily="'EB Garamond', Georgia, serif" fontSize="13.5" fontWeight="600" letterSpacing="0" fill={color}>IHS</text>;
+      case "monstrance":
+        // A monstrance: the Host in its rays, on a stem.
+        return <>
+          <circle cx="10" cy="8" r="2.8" {...line} />
+          {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
+            <line key={deg} x1="10" y1="2" x2="10" y2="3.6" {...line} transform={`rotate(${deg} 10 8)`} />
+          ))}
+          <line x1="10" y1="14" x2="10" y2="17.5" {...line} />
+          <line x1="6.5" y1="17.5" x2="13.5" y2="17.5" {...line} />
+        </>;
       case "list":
         return <>
           <circle cx="4" cy="6" r="1" fill={color} />

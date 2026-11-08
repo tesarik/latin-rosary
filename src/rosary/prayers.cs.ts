@@ -776,6 +776,160 @@ Tělo bude umírati,
 duši mé pak račiž dáti
 slávu Ráje blaženou! Amen.`,
 
+  // Dr. Hejčl's prose translation, Příručka katolických pobožností (1935), p. 47–48.
+  // It joins the last two verses ("Sestup milosrdenství… doufám na věky").
+  [PRAYER_TYPES.TE_DEUM]: `Bože, tebe chválíme, Pane, tebe slavíme.
+Tebe, Otče věčný, celá země velebí.
+Tobě všichni andělé, tobě nebesa a všecky moci,
+tobě cherubové i serafové neutuchajícím hlasem provolávají:
+Svatý, svatý, svatý jest Hospodin, Bůh zástupů.
+Plná jsou nebesa i země tvé slavné velebnosti.
+Tebe slavný sbor apoštolů,
+tebe ctihodných řada proroků,
+tebe chválí bělostné šiky mučedníků,
+tebe po širém světě slaví svatá církev,
+tebe, Otče nesmírné velebnosti,
+tvého vší cti hodného, pravého a jediného Syna,
+jakož i Ducha Svatého Utěšitele.
+Tys Král slávy, Kriste.
+Tys Otcův věčný Syn.
+Ty, hodlaje se státi člověkem, bys ho spasil, nehrozil ses lůna Panny.
+Ty, zlomiv osten smrti, otevřel jsi věřícím říše nebeské.
+Ty sedíš na pravici Boží ve slávě Otcově.
+Věříme, že přijdeš k soudu.
+Proto tě prosíme, bys přišel na pomoc svým služebníkům, které jsi předrahou krví vykoupil.
+Dej, bychom k tvým svatým ve slávě věčné byli připočteni.
+Dej dojíti spásy svému lidu a žehnej svému majetku.
+Spravuj jej a vyvyš ho na věky.
+Každý den ti dobrořečíme
+a chválíme tvé jméno na věky, až na věky věkův.
+Rač nás, Pane, tohoto dne hříchu chrániti.
+Smiluj se nad námi, Hospodine, smiluj se nad námi.
+Sestup milosrdenství tvé na nás.
+V tebe, Hospodine, doufám na věky.`,
+
+  // J. Pavelka's metrical translation (1906), stanza for stanza, as in Katechismus
+  // modliteb (1937), p. 116–118 (also Cesta k věčné spáse, 1915).
+  [PRAYER_TYPES.ADORO_TE]: `Klaním se ti vroucně, božství ukryté,
+jež se v pravdě tajíš ve způsobě mdlé:
+tobě se mé srdce všecko poddává,
+hledíc na tvou lásku zcela roztává.
+
+Oči, hmat i jazyk jsou tu šáleny,
+víra však a sluch jsou lépe zpraveny:
+věřím vše, co řekl kdysi Boží Syn;
+nic tak není pravda, jako tento čin!
+
+Na kříži se skrylo božství jediné,
+zde se však i lidství ztrácí nevinné:
+já vyznávám obé s duší věřící,
+žádaje, zač žádal lotr kající.
+
+Jizev jako Tomáš ovšem nevidím,
+že jsi však můj Pán a Bůh, to dobře vím:
+učiň, ať v tě věřím stále pevněji
+a ať mám vždy v tobě lásku s nadějí!
+
+Památko ty slavná smrti Kristovy,
+živý chlebe věčné v duchu obnovy:
+kéž má mysl žije ze tvé podstaty,
+pokrme ty sladký, rajsky bohatý!
+
+Dobrý Pelikáne, Pane Ježíši,
+očisť nečistého lázní nejvyšší:
+jednou kapkou krve můžeš obmýti
+vesmír od zločinů a jej spasiti!
+
+Ježíši, jejž nyní zřím jen v závoji,
+dej, ať se má žízeň jednou ukojí:
+ať tě spatřím zjevně, přímo tváří v tvář,
+a smím blažen zírat ve tvou slávozář!`,
+
+  // A modern translation by Lenka Jeřábková, from Collegium Strahoviense
+  // (sbor-strahov.cz, Latinské texty): no older Czech version was found in the
+  // prayer books searched.
+  [PRAYER_TYPES.AVE_VERUM]: `Buď pozdraveno, pravé Tělo narozené z Marie Panny:
+vskutku trpící a umučené na kříži pro člověka.
+Z jehož probodeného boku vytryskla krev a voda.
+Kéž je okusíme v okamžiku smrti.
+Ó sladký, dobrý Ježíši, synu Mariin, smiluj se nade mnou.
+Amen.`,
+
+  // Fr. Sušil's metrical translation, Cesta k věčné spáse (1915), I, p. 475.
+  [PRAYER_TYPES.O_SALUTARIS]: `Ó spasitelná oběti,
+jež bránu nebes otvírá,
+rač na pomoc nám přispěti,
+boj těžký na nás dotírá.
+
+Ó Pane, ve třech jediný,
+čest ustavičná se ti pěj;
+kdys v sídlech blahé otčiny
+nám život přeblažený dej. Amen.`,
+
+  // The metrical translation in Příručka katolických pobožností (1935), p. 4,
+  // "Hymnus před svátostným požehnáním", stanza for stanza with the Latin.
+  [PRAYER_TYPES.PANGE_LINGUA]: `Chvalte, ústa, písní vroucí
+Tělo Páně v průvodu,
+chvalte kalich Krve skvoucí,
+kterou k lidstva obrodu,
+výkvět Matky nehynoucí,
+prolil Král všech národů.
+
+Nám byl dán i zrozen z Panny,
+tělo čisté na se vzal,
+bydle mezi pozemšťany
+símě slova rozsíval,
+než se vrátil v rajské stany,
+divuhodný zákon dal.
+
+Za večeře sedá k stolu
+vposled s bratří družinou,
+po zákonu jedí spolu
+krmi svatou, povinnou,
+dvanácteru apoštolů
+sebe dává hostinou.
+
+Slovo z chleba Tělo chystá,
+jež má lidstvo k nebi vznést,
+víno mění ve krev Krista,
+a kde smysl zmaten jest,
+přesvědčiti srdce čistá
+stačí pouhá víry zvěst.
+
+Před Svátostí touto slavnou
+ve prach skloňme kolena,
+bohoslužbu starodávnou
+nahraď nová, vznešená;
+tam, kde lidské smysly slábnou,
+všechno víra znamená.
+
+Otci Tvůrci, Zrozenému
+zazní chvála, dík a ples,
+čest a spása, síla jemu,
+žehnáním se vznášej dnes,
+Duchu z obou vyslanému
+hlahol zpěv až do nebes! Staň se!`,
+
+  // Its last two stanzas and the versicle and collect, Příručka katolických
+  // pobožností (1935), p. 4–5.
+  [PRAYER_TYPES.TANTUM_ERGO]: `Před Svátostí touto slavnou
+ve prach skloňme kolena,
+bohoslužbu starodávnou
+nahraď nová, vznešená;
+tam, kde lidské smysly slábnou,
+všechno víra znamená.
+
+Otci Tvůrci, Zrozenému
+zazní chvála, dík a ples,
+čest a spása, síla jemu,
+žehnáním se vznášej dnes,
+Duchu z obou vyslanému
+hlahol zpěv až do nebes! Staň se!
+
+℣ Chléb s nebe udělil jsi jim.
+℟ Všelikou líbeznost v sobě mající.
+Modleme se: Bože, jenž jsi nám pozůstavil v zázračné Svátosti památku na své umučení, dejž nám, prosíme, ať tak uctíváme svatá tajemství tvého Těla a tvé Krve, abychom stále v sobě zakoušeli ovoce tvého vykoupení. Jenž žiješ a kraluješ na věky věkův. Amen.`,
+
   // Czech sourced verbatim from angelus-domini-anima-christi.pdf.
   [PRAYER_TYPES.ANGELUS]: `℣ Anděl Páně zvěstoval Panně Marii.
 ℟ A ona počala z Ducha Svatého.

@@ -68,7 +68,7 @@ describe("PLAN_ITEM_GROUPS", () => {
 
   it("follows the start screen's groups, keeping only what a plan may hold", () => {
     expect(PLAN_ITEM_GROUPS.map((g) => g.title)).toEqual(
-      ["Orationes cotidiánæ", "Ad Beátam Maríam Vírginem", "Missa", "Litaníæ", "Pro defúnctis", "Devotiónes"]);
+      ["Orationes cotidiánæ", "Ad Beátam Maríam Vírginem", "Missa", "Ad Sanctíssimum Sacraméntum", "Litaníæ", "Pro defúnctis", "Devotiónes"]);
     const missa = PLAN_ITEM_GROUPS.find((g) => g.title === "Missa")!;
     expect(missa.keys.slice(0, 3)).toEqual(["iudica_me", "confiteor", "kyrie"]);
     expect(missa.keys).toContain("leonine");

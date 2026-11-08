@@ -811,6 +811,160 @@ While my body here decays,
 May my soul Thy goodness praise,
 Safe in Paradise with Thee. Amen.`,
 
+  // The Book of Common Prayer (1662), with "Holy Spirit" for "Holy Ghost".
+  // NOT yet checked against a printed witness (the online copies were out of reach).
+  [PRAYER_TYPES.TE_DEUM]: `We praise thee, O God: we acknowledge thee to be the Lord.
+All the earth doth worship thee, the Father everlasting.
+To thee all Angels cry aloud, the Heavens, and all the Powers therein;
+to thee Cherubin and Seraphin continually do cry,
+Holy, Holy, Holy, Lord God of Sabaoth;
+Heaven and earth are full of the majesty of thy glory.
+The glorious company of the Apostles praise thee.
+The goodly fellowship of the Prophets praise thee.
+The noble army of Martyrs praise thee.
+The holy Church throughout all the world doth acknowledge thee:
+the Father of an infinite majesty;
+thine honourable, true and only Son;
+also the Holy Spirit, the Comforter.
+Thou art the King of glory, O Christ.
+Thou art the everlasting Son of the Father.
+When thou tookest upon thee to deliver man, thou didst not abhor the Virgin's womb.
+When thou hadst overcome the sharpness of death, thou didst open the kingdom of heaven to all believers.
+Thou sittest at the right hand of God, in the glory of the Father.
+We believe that thou shalt come to be our Judge.
+We therefore pray thee, help thy servants, whom thou hast redeemed with thy precious blood.
+Make them to be numbered with thy Saints in glory everlasting.
+O Lord, save thy people, and bless thine heritage.
+Govern them, and lift them up for ever.
+Day by day we magnify thee;
+and we worship thy name, ever world without end.
+Vouchsafe, O Lord, to keep us this day without sin.
+O Lord, have mercy upon us, have mercy upon us.
+O Lord, let thy mercy lighten upon us, as our trust is in thee.
+O Lord, in thee have I trusted: let me never be confounded.`,
+
+  // Gerard Manley Hopkins' translation ("Godhead here in hiding").
+  // NOT yet checked against a printed witness (the online copies were out of reach).
+  [PRAYER_TYPES.ADORO_TE]: `Godhead here in hiding, whom I do adore,
+masked by these bare shadows, shape and nothing more,
+see, Lord, at thy service low lies here a heart
+lost, all lost in wonder at the God thou art.
+
+Seeing, touching, tasting are in thee deceived;
+how says trusty hearing? that shall be believed;
+what God's Son has told me, take for truth I do;
+truth himself speaks truly or there's nothing true.
+
+On the cross thy godhead made no sign to men;
+here thy very manhood steals from human ken:
+both are my confession, both are my belief,
+and I pray the prayer of the dying thief.
+
+I am not like Thomas, wounds I cannot see,
+but can plainly call thee Lord and God as he:
+this faith each day deeper be my holding of,
+daily make me harder hope and dearer love.
+
+O thou our reminder of Christ crucified,
+living Bread, the life of us for whom he died,
+lend this life to me then: feed and feast my mind,
+there be thou the sweetness man was meant to find.
+
+Bring the tender tale true of the Pelican;
+bathe me, Jesu Lord, in what thy bosom ran,
+blood whereof a single drop has power to win
+all the world forgiveness of its world of sin.
+
+Jesu, whom I look at shrouded here below,
+I beseech thee send me what I thirst for so,
+some day to gaze on thee face to face in light
+and be blest for ever with thy glory's sight. Amen.`,
+
+  // OUR OWN literal translation: no traditional English prose version is in the
+  // sources used.
+  [PRAYER_TYPES.AVE_VERUM]: `Hail, true Body, born of the Virgin Mary,
+who truly suffered and was sacrificed on the cross for man;
+whose pierced side flowed with water and blood:
+be for us a foretaste in the trial of death.
+O sweet, O loving Jesus, Son of Mary, have mercy on me. Amen.`,
+
+  // Edward Caswall's translation (Lyra Catholica, 1849).
+  // NOT yet checked against a printed witness (the online copies were out of reach).
+  [PRAYER_TYPES.O_SALUTARIS]: `O saving Victim, opening wide
+the gate of heaven to man below,
+our foes press on from every side:
+thine aid supply, thy strength bestow.
+
+All praise and thanks to thee ascend
+for evermore, blest One in Three;
+O grant us life that shall not end
+in our true native land with thee. Amen.`,
+
+  // Edward Caswall's translation (Lyra Catholica, 1849); "Holy Ghost" kept, as the
+  // metre needs it.
+  // NOT yet checked against a printed witness (the online copies were out of reach).
+  [PRAYER_TYPES.PANGE_LINGUA]: `Sing, my tongue, the Saviour's glory,
+of his flesh the mystery sing;
+of the Blood, all price exceeding,
+shed by our immortal King,
+destined, for the world's redemption,
+from a noble womb to spring.
+
+Of a pure and spotless Virgin
+born for us on earth below,
+he, as Man, with man conversing,
+stayed, the seeds of truth to sow;
+then he closed in solemn order
+wondrously his life of woe.
+
+On the night of that Last Supper,
+seated with his chosen band,
+he the Paschal victim eating,
+first fulfils the Law's command;
+then as Food to all his brethren
+gives himself with his own hand.
+
+Word-made-Flesh, the bread of nature
+by his word to Flesh he turns;
+wine into his Blood he changes:
+what though sense no change discerns?
+Only be the heart in earnest,
+faith her lesson quickly learns.
+
+Down in adoration falling,
+lo! the sacred Host we hail;
+lo! o'er ancient forms departing,
+newer rites of grace prevail;
+faith for all defects supplying,
+where the feeble senses fail.
+
+To the everlasting Father,
+and the Son who reigns on high,
+with the Holy Ghost proceeding
+forth from each eternally,
+be salvation, honour, blessing,
+might and endless majesty. Amen.`,
+
+  // Caswall's last two stanzas of Pange lingua; the versicle and collect are the
+  // Missal's for Corpus Christi.
+  [PRAYER_TYPES.TANTUM_ERGO]: `Down in adoration falling,
+lo! the sacred Host we hail;
+lo! o'er ancient forms departing,
+newer rites of grace prevail;
+faith for all defects supplying,
+where the feeble senses fail.
+
+To the everlasting Father,
+and the Son who reigns on high,
+with the Holy Ghost proceeding
+forth from each eternally,
+be salvation, honour, blessing,
+might and endless majesty. Amen.
+
+℣ Thou didst give them bread from heaven.
+℟ Containing in itself all sweetness.
+Let us pray. O God, who under a wonderful Sacrament hast left us a memorial of thy Passion: grant us, we beseech thee, so to venerate the sacred mysteries of thy Body and Blood, that we may ever feel within us the fruit of thy redemption. Who livest and reignest world without end. Amen.`,
+
   [PRAYER_TYPES.ANGELUS]: `℣ The Angel of the Lord declared unto Mary.
 ℟ And she conceived of the Holy Spirit.
 

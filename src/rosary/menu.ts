@@ -40,9 +40,9 @@ export const menuEntry = (k: MenuKey): MenuEntry =>
 // A group may be cut into titled sections (the Mass: its order, the sequences,
 // the prayers after it); a section without a heading is shown plain.
 export type MenuSection = { heading?: string; keys: readonly MenuKey[] };
-export type MenuGroupKey = "cotidianae" | "mariales" | "missa" | "litaniae" | "defuncti" | "devotiones";
+export type MenuGroupKey = "cotidianae" | "mariales" | "missa" | "sacramentum" | "litaniae" | "defuncti" | "devotiones";
 // The symbol drawn in a group's header (GroupIcon in MysteryMenu.tsx).
-export type GroupIconName = "calendar" | "sun" | "marian" | "ihs" | "list" | "cross" | "heart" | "star";
+export type GroupIconName = "calendar" | "sun" | "marian" | "ihs" | "monstrance" | "list" | "cross" | "heart" | "star";
 export type MenuGroup = {
   key: MenuGroupKey;
   title: string;
@@ -81,7 +81,7 @@ const GROUPS: readonly MenuGroup[] = [
       "signum_crucis", "pater_noster", "ave_maria", "gloria_patri",
       "symbolum_apostolorum", "symbolum_nicenum", "symbolum_athanasianum",
       "angelus", "benedictio_mensae", "gratiarum_actio", "anima_christi", "suscipe", "creator_ineffabilis",
-      "angele_dei", "sancte_michael", "nunc_dimittis", "decalogue",
+      "angele_dei", "sancte_michael", "nunc_dimittis", "decalogue", "te_deum",
     ] }],
   },
   {
@@ -111,6 +111,14 @@ const GROUPS: readonly MenuGroup[] = [
       { heading: "Sequéntiæ", keys: ["victimae_paschali", "veni_sancte_spiritus", "lauda_sion"] },
       { heading: "Post Missam", keys: ["leonine"] },
     ],
+  },
+  {
+    key: "sacramentum",
+    title: "Ad Sanctíssimum Sacraméntum",
+    subtitle: { cs: "K Nejsvětější svátosti", en: "To the Blessed Sacrament" },
+    icon: "monstrance",
+    color: "#A87B12",
+    sections: [{ keys: ["adoro_te", "ave_verum", "o_salutaris", "pange_lingua", "tantum_ergo"] }],
   },
   {
     key: "litaniae",
@@ -153,7 +161,7 @@ export const groupKeys = (g: MenuGroup): MenuKey[] => g.sections.flatMap((s) => 
 const OCCASION_PRAYERS: Record<Occasion, readonly MenuKey[]> = {
   easter_octave: ["victimae_paschali"],
   pentecost_octave: ["veni_sancte_spiritus", "spiritus"],
-  corpus_christi: ["lauda_sion"],
+  corpus_christi: ["lauda_sion", "pange_lingua"],
   seven_sorrows: ["stabat_mater", "septem_dolores"],
   november: ["requiem", "de_profundis", "dies_irae", "defuncti"],
   st_michael: ["angelica"],
