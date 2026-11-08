@@ -1,4 +1,5 @@
 import { STRINGS, type Locale } from "./i18n";
+import { ink } from "./look";
 
 type Props = {
   locale: Locale;
@@ -38,7 +39,7 @@ export default function UpdateToast({ locale, onUpdate, onDismiss }: Props) {
         onClick={onUpdate}
         style={{
           border: "none",
-          background: "#1565C0",
+          background: ink("#1565C0"),
           color: "white",
           borderRadius: 10,
           padding: "8px 16px",

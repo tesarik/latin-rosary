@@ -1,5 +1,7 @@
+import { SERIF } from "./fonts";
 import type { ReactNode, Ref } from "react";
-import { PRAYER_TYPES, PRAYERS, PRAYER_TRANSLATIONS, getHailMary, getHailMaryTr } from "./prayers";
+import { PRAYER_TYPES, PRAYERS, getHailMary, getHailMaryTr } from "./prayers";
+import { useTranslation } from "./translations";
 import { sliceLines, type SequenceItem } from "./sequence";
 import { STRINGS, type Locale } from "./i18n";
 import { accentText, type Theme } from "./theme";
@@ -74,10 +76,13 @@ const isLitanyType = (type: string) => type.startsWith("litany_");
 const bodyStyle = {
   textAlign: "center" as const,
   lineHeight: 1.35,
-  fontFamily: "'EB Garamond', Georgia, serif",
+  fontFamily: SERIF,
 };
 
 function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontSizeClamp, theme }: { currentPrayer: SequenceItem | undefined; accentColor: string; locale: Locale; showTranslation: boolean; fontSizeClamp: string; theme: Theme }) {
+  // The shown language's table, loaded on demand (translations.ts); until it
+  // arrives a translated prayer shows its Latin.
+  const table = useTranslation(locale);
   if (!currentPrayer) return null;
   const sizedBodyStyle = { ...bodyStyle, fontSize: fontSizeClamp };
   const clauseColor = accentText(accentColor, theme);
@@ -101,7 +106,7 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
             {currentPrayer.num} / 10
           </div>
         )}
-        <div style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{hm.before}</div>
+        <div className="initial" style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{hm.before}</div>
         {hm.mystery && <div style={{ color: clauseColor, fontWeight: 600, margin: "4px 0" }}>{hm.mystery}.</div>}
         <div style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{hm.after}</div>
       </div>
@@ -117,25 +122,26 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
     const useTr = showTranslation && !!custom?.textTr;
     return (
       <div lang={useTr ? locale : undefined} style={sizedBodyStyle}>
-        <div style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{useTr ? custom!.textTr : custom?.text}</div>
+        <div className="initial" style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{useTr ? custom!.textTr : custom?.text}</div>
       </div>
     );
   }
 
-  const full = showTranslation ? PRAYER_TRANSLATIONS[locale][currentPrayer.type] : PRAYERS[currentPrayer.type];
+  const tr = showTranslation ? table?.[currentPrayer.type] : undefined;
+  const full = tr ?? PRAYERS[currentPrayer.type];
   // A litany step may be one section of a longer text: the same line range in
   // every language, since the translations keep the Latin's line structure.
   const text = currentPrayer.lines ? sliceLines(full, currentPrayer.lines) : full;
   if (isLitanyType(currentPrayer.type)) {
     return (
-      <div lang={bodyLang} style={{ ...sizedBodyStyle, textAlign: "left" }}>
+      <div lang={tr ? locale : undefined} style={{ ...sizedBodyStyle, textAlign: "left" }}>
         <div style={{ color: "var(--text)" }}>{renderLitany(text, clauseColor)}</div>
       </div>
     );
   }
   return (
-    <div lang={bodyLang} style={sizedBodyStyle}>
-      <div style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{withRubrics(text)}</div>
+    <div lang={tr ? locale : undefined} style={sizedBodyStyle}>
+      <div className="initial" style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{withRubrics(text)}</div>
     </div>
   );
 }
@@ -174,13 +180,14 @@ export default function PrayerCard({ currentPrayer, accentColor, currentStep, to
       aria-label={`${currentPrayer?.label ?? ""}, ${t.stepXofY(currentStep + 1, totalSteps)}`}
       style={{
         position: "relative",
-        background: "var(--surface)",
+        // A card in Základ and Papír; the bare page in Misál (index.css).
+        background: "var(--prayer-bg)",
         borderRadius: 18,
         ...(contained
           ? { display: "flex", flexDirection: "column", maxHeight: "100%", minHeight: 0, overflow: "hidden" }
           : { padding: "20px 18px", margin: "6px 0 12px" }),
-        boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
-        border: "1px solid var(--border)",
+        boxShadow: "var(--prayer-shadow)",
+        border: "var(--prayer-border)",
         cursor: "pointer",
         userSelect: "text",
         WebkitTapHighlightColor: "transparent",

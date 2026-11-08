@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { ink } from "./look";
 import { createRoot } from "react-dom/client";
 
 // In-app replacement for window.confirm / alert / prompt: a small themed
@@ -67,7 +68,7 @@ function ConfirmDialog({ message, detail, confirmLabel, cancelLabel, color, onCl
     padding: "10px 14px",
     borderRadius: 12,
     border: filled ? "none" : "1px solid var(--border-strong)",
-    background: filled ? color : "var(--surface)",
+    background: filled ? ink(color) : "var(--surface)",
     color: filled ? "white" : "var(--text-soft)",
     fontFamily: "Arial, sans-serif",
     fontSize: 15,

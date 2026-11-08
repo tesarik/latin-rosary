@@ -7,7 +7,8 @@
 // Pure: data in, HTML strings out, no DOM. Texts come straight from the same
 // registries the app uses, so the pages can't drift from it.
 
-import { MYSTERIES, PRAYERS, PRAYER_TRANSLATIONS, PRAYER_TYPES, getHailMary, getHailMaryTr, type Localized } from "./prayers";
+import { MYSTERIES, PRAYERS, PRAYER_TYPES, getHailMary, getHailMaryTr, type Localized } from "./prayers";
+import { PRAYER_TRANSLATIONS } from "./allTranslations";
 import {
   buildRosarySequence,
   sliceLines,
@@ -112,6 +113,10 @@ const NOTES: Record<string, Partial<Localized>> = {
   brigit: {
     cs: "Latinské znění těchto modliteb je náš vlastní překlad: autoritativní latinský originál není znám.",
     en: "The Latin of these prayers is our own translation: no authoritative Latin original is known.",
+  },
+  ave_verum: {
+    cs: "Současný český překlad Lenky Jeřábkové (Collegium Strahoviense); starší český překlad jsme v prohledaných modlitebních knihách nenašli.",
+    en: "The English is our own literal translation.",
   },
   dies_irae: {
     cs: "Český překlad podle Schallerova Římského misálu (1931).",

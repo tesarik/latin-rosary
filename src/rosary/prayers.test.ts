@@ -2,15 +2,15 @@ import { describe, it, expect } from "vitest";
 import {
   PRAYER_TYPES,
   PRAYERS,
-  PRAYERS_CS,
-  PRAYERS_EN,
-  PRAYER_TRANSLATIONS,
   MYSTERIES,
   getHailMary,
   getHailMaryTr,
   type PrayerType,
   type MysteryKey,
 } from "./prayers";
+import { PRAYERS_CS } from "./prayers.cs";
+import { PRAYERS_EN } from "./prayers.en";
+import { PRAYER_TRANSLATIONS } from "./allTranslations";
 import { buildChaplet, buildRosarySequence, sliceLines, CHAPLETS, OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type SequenceItem } from "./sequence";
 import { parseLitany } from "./litany";
 import { SUPPORTED_LOCALES, type Locale } from "./i18n";

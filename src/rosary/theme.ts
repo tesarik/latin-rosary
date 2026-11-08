@@ -28,6 +28,8 @@ export function saveTheme(theme: Theme): void {
   } catch {}
 }
 
+// Sets data-theme on <html>; the browser bar's colour follows from the look
+// as well (look.ts, `applyBarColor`), which `Rosary` applies beside this.
 export function applyTheme(theme: Theme): void {
   document.documentElement.dataset.theme = theme;
 }

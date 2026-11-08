@@ -1,7 +1,8 @@
 // UI strings and the supported UI languages (Czech and English).
 //
 // The Latin prayer texts in prayers.ts are never localized; the *translations*
-// beside them (PRAYER_TRANSLATIONS) are keyed by exactly these locales, so
+// beside them (prayers.<locale>.ts, see translations.ts) are keyed by exactly
+// these locales, so
 // adding a locale here means adding a full translation of every prayer.
 
 export const SUPPORTED_LOCALES = ["cs", "en"] as const;
@@ -29,6 +30,9 @@ type Strings = {
   resumeAt: (step: number, total: number) => string;
   // Small heading over the start screen's tile for the last unfinished prayer.
   continueHeading: string;
+  discardAria: (name: string) => string;
+  confirmDiscard: string;
+  discardLabel: string;
   // In-app dialogs.
   dialogOk: string;
   restartLabel: string;
@@ -47,6 +51,9 @@ type Strings = {
   settingsAria: string;
   settingsDarkMode: string;
   settingsVibrate: string;
+  lookHeading: string;
+  lookNames: Record<"base" | "paper" | "missal", string>;
+  settingsHeading: string;
   settingsDim: string;
   hintText: string;
   hintDismiss: string;
@@ -58,6 +65,7 @@ type Strings = {
   searchResults: (n: number) => string;
   themeToggleAria: string;
   aboutTitle: string;
+  helpTitle: string;
   aboutText: string;
   aboutCreator: string;
   aboutFeedback: string;
@@ -71,6 +79,12 @@ type Strings = {
   prayerLanguageShort: string;
   otherPrayersHeading: string;
   myPrayersHeading: string;
+  tabRosary: string;
+  tabPrayers: string;
+  tabMine: string;
+  tabsAria: string;
+  tabPrayersTitle: string;
+  favoritesEmpty: string;
   // Tag on the mysteries prayed today, and on the Marian antiphon of the season.
   todayBadge: string;
   seasonBadge: string;
@@ -164,7 +178,10 @@ export const STRINGS: Record<Locale, Strings> = {
     restartAria: "Začít modlitbu znovu",
     confirmRestart: "Začít modlitbu znovu od začátku?",
     resumeAt: (step, total) => `Pokračovat · ${step}/${total}`,
-    continueHeading: "Rozepsaná modlitba",
+    continueHeading: "Nedokončená modlitba",
+    discardAria: (name) => `Odebrat nedokončenou modlitbu ${name}`,
+    confirmDiscard: "Zapomenout, kde jste skončili? Modlitba pak začne od začátku.",
+    discardLabel: "Zapomenout",
     dialogOk: "OK",
     restartLabel: "Začít znovu",
     planImportAdd: "Přidat",
@@ -180,6 +197,9 @@ export const STRINGS: Record<Locale, Strings> = {
     settingsAria: "Nastavení zobrazení",
     settingsDarkMode: "Tmavý režim",
     settingsVibrate: "Vibrace při každém kroku",
+    lookHeading: "Vzhled",
+    lookNames: { base: "Základ", paper: "Papír", missal: "Misál" },
+    settingsHeading: "Nastavení",
     settingsDim: "Ztlumit obrazovku",
     hintText: "Další modlitbu otevřete ťuknutím na text nebo přejetím prstem doleva, předchozí přejetím doprava.",
     hintDismiss: "Rozumím",
@@ -191,6 +211,7 @@ export const STRINGS: Record<Locale, Strings> = {
     searchResults: (n) => `Nalezeno: ${n}`,
     themeToggleAria: "Přepnout tmavý režim",
     aboutTitle: "O aplikaci",
+    helpTitle: "Nápověda",
     aboutText: "Modlitba růžence a dalších modliteb v latině s českým překladem.",
     aboutCreator: "Tvůrce",
     aboutFeedback: "Chyby a návrhy posílejte na",
@@ -202,6 +223,12 @@ export const STRINGS: Record<Locale, Strings> = {
     prayerLanguageShort: "Cz",
     otherPrayersHeading: "Další latinské modlitby",
     myPrayersHeading: "Moje modlitby",
+    tabRosary: "Růženec",
+    tabPrayers: "Modlitby",
+    tabMine: "Moje",
+    tabsAria: "Části aplikace",
+    tabPrayersTitle: "Latinské modlitby",
+    favoritesEmpty: "Modlitbu přidáte do oblíbených hvězdičkou ☆ v její hlavičce. Najdete ji pak tady.",
     todayBadge: "dnes",
     seasonBadge: "nyní",
     inSeasonHeading: "V tuto dobu",
@@ -288,6 +315,9 @@ export const STRINGS: Record<Locale, Strings> = {
     confirmRestart: "Start this prayer again from the beginning?",
     resumeAt: (step, total) => `Continue · ${step}/${total}`,
     continueHeading: "Unfinished prayer",
+    discardAria: (name) => `Remove the unfinished ${name}`,
+    confirmDiscard: "Forget where you left off? The prayer will then start from the beginning.",
+    discardLabel: "Forget",
     dialogOk: "OK",
     restartLabel: "Start again",
     planImportAdd: "Add",
@@ -303,6 +333,9 @@ export const STRINGS: Record<Locale, Strings> = {
     settingsAria: "Display settings",
     settingsDarkMode: "Dark mode",
     settingsVibrate: "Vibrate on every step",
+    lookHeading: "Look",
+    lookNames: { base: "Basic", paper: "Paper", missal: "Missal" },
+    settingsHeading: "Settings",
     settingsDim: "Dim the screen",
     hintText: "Tap the prayer or swipe left for the next one; swipe right to go back.",
     hintDismiss: "Got it",
@@ -314,6 +347,7 @@ export const STRINGS: Record<Locale, Strings> = {
     searchResults: (n) => `Found: ${n}`,
     themeToggleAria: "Toggle dark mode",
     aboutTitle: "About",
+    helpTitle: "Help",
     aboutText: "Praying the rosary and other prayers in Latin, with an English translation.",
     aboutCreator: "Created by",
     aboutFeedback: "Send errors and improvements to",
@@ -325,6 +359,12 @@ export const STRINGS: Record<Locale, Strings> = {
     prayerLanguageShort: "En",
     otherPrayersHeading: "Other Latin prayers",
     myPrayersHeading: "My prayers",
+    tabRosary: "Rosary",
+    tabPrayers: "Prayers",
+    tabMine: "Mine",
+    tabsAria: "Sections of the app",
+    tabPrayersTitle: "Latin prayers",
+    favoritesEmpty: "Star a prayer with the ☆ in its header and it will appear here.",
     todayBadge: "today",
     seasonBadge: "now",
     inSeasonHeading: "In season",

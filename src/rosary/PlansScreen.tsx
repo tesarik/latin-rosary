@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import { CAPTION, CARD, RUBRIC_CAPS, headingSize, nameFont } from "./fonts";
+import { headerStyles, iconBg, ink } from "./look";
 import { STRINGS, type Locale } from "./i18n";
 import {
   MAX_PLANS,
@@ -94,7 +96,7 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
       setToast(long ? t.planShareLong : t.planShareCopied);
       return;
     } catch {}
-    void askConfirm({ message: t.planShareFallback, detail: url, confirmLabel: t.dialogOk, cancelLabel: null, color: PLAN_COLOR });
+    void askConfirm({ message: t.planShareFallback, detail: url, confirmLabel: t.dialogOk, cancelLabel: null, color: ink(PLAN_COLOR) });
   };
 
   const startNew = () => {
@@ -131,7 +133,7 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
       setToast(t.planImportNone);
       return;
     }
-    if (!(await askConfirm({ message: t.planImportBackupConfirm(take.length), confirmLabel: t.planImportAdd, cancelLabel: t.planCancel, color: PLAN_COLOR }))) return;
+    if (!(await askConfirm({ message: t.planImportBackupConfirm(take.length), confirmLabel: t.planImportAdd, cancelLabel: t.planCancel, color: ink(PLAN_COLOR) }))) return;
     const next = [...plans];
     for (const p of take) next.push({ ...p, id: newPlanId(next) });
     onChange(next);
@@ -142,6 +144,7 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
   return (
     <div style={{ minHeight: "100dvh", background: "var(--bg)", fontFamily: "Arial, sans-serif" }}>
       <Header
+        theme={theme}
         title={draft ? (plans.some((p) => p.id === draft.id) ? t.planEdit : t.planNew) : t.plansTitle}
         backLabel={draft ? t.planCancel : t.back}
         backAria={draft ? t.planCancel : t.planBackAria}
@@ -180,7 +183,7 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
                 borderRadius: 16,
                 border: "1.5px dashed var(--border-strong)",
                 background: "transparent",
-                color: PLAN_COLOR,
+                color: ink(PLAN_COLOR),
                 fontFamily: "Arial, sans-serif",
                 fontSize: 16,
                 fontWeight: 600,
@@ -244,15 +247,21 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
   );
 }
 
-function Header({ title, backLabel, backAria, onBack }: {
+// On the page's paper with a rule of the plans' colour under it, like the
+// prayer header.
+function Header({ title, backLabel, backAria, onBack, theme }: {
   title: string;
   backLabel: string;
   backAria: string;
   onBack: () => void;
+  theme: Theme;
 }) {
+  // The look's header (look.ts): the paper with a rule, the missal's double
+  // rule, or Základ's solid bar.
+  const hs = headerStyles(ink(PLAN_COLOR), theme, true);
   return (
     <div style={{
-      background: PLAN_COLOR,
+      ...hs.bar,
       padding: "16px 20px",
       display: "flex",
       alignItems: "center",
@@ -275,18 +284,17 @@ function Header({ title, backLabel, backAria, onBack }: {
           width: 44,
           height: 40,
           padding: 0,
-          background: "rgba(255,255,255,0.2)",
           border: "none",
-          borderRadius: 8,
+          borderRadius: 10,
           cursor: "pointer",
-          color: "white",
+          ...hs.button,
           fontSize: 18,
           fontFamily: "Arial, sans-serif",
         }}
       >
         ←
       </button>
-      <div style={{ flex: 1, textAlign: "center", color: "white", fontSize: 20, fontWeight: 600 }}>
+      <div style={{ flex: 1, textAlign: "center", color: hs.name.color, fontSize: 20, fontWeight: 600 }}>
         {title}
       </div>
       {/* Spacer keeps the title optically centred against the back button. */}
@@ -308,10 +316,7 @@ function PlanRow({ plan, resume, theme, locale, onStart, onEdit, onShare, onDele
   const t = STRINGS[locale];
   return (
     <div style={{
-      background: "var(--surface)",
-      border: "1px solid var(--border)",
-      borderRadius: 16,
-      boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+      ...CARD,
       overflow: "hidden",
     }}>
       <button
@@ -322,7 +327,7 @@ function PlanRow({ plan, resume, theme, locale, onStart, onEdit, onShare, onDele
           display: "flex",
           alignItems: "center",
           gap: 14,
-          padding: "16px 20px",
+          padding: "16px calc(var(--card-px) + 4px)",
           background: "transparent",
           border: "none",
           cursor: "pointer",
@@ -330,10 +335,10 @@ function PlanRow({ plan, resume, theme, locale, onStart, onEdit, onShare, onDele
         }}
       >
         <div style={{
-          width: 40, height: 40, borderRadius: 12, background: PLAN_COLOR + "18",
+          width: "var(--icon-box)", height: 40, borderRadius: 12, background: iconBg(PLAN_COLOR),
           display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
         }}>
-          <PlanIcon color={PLAN_COLOR} />
+          <PlanIcon color={ink(PLAN_COLOR)} />
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ fontSize: 18, fontWeight: 600, color: "var(--text-strong)", overflowWrap: "anywhere" }}>
@@ -342,7 +347,7 @@ function PlanRow({ plan, resume, theme, locale, onStart, onEdit, onShare, onDele
           <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>
             {t.planCount(planLength(plan.steps))}
           </div>
-          <ResumeLine info={resume} color={PLAN_COLOR} theme={theme} locale={locale} />
+          <ResumeLine info={resume} color={ink(PLAN_COLOR)} theme={theme} locale={locale} />
         </div>
       </button>
 
@@ -552,10 +557,10 @@ function PlanEditor({ draft, onDraftChange, onSave, onNotice, locale }: {
         <PrayerPicker onPick={add} onClose={() => setPickerOpen(false)} closeLabel={t.planCancel} locale={locale} />
       ) : (
         <div style={{ display: "flex", gap: 8 }}>
-          <button onClick={() => setPickerOpen(true)} style={addButton}>
+          <button onClick={() => setPickerOpen(true)} style={addButton()}>
             + {t.planAddPrayer}
           </button>
-          <button onClick={openCustomForm} style={addButton}>
+          <button onClick={openCustomForm} style={addButton()}>
             + {t.planCustomAdd}
           </button>
         </div>
@@ -572,7 +577,7 @@ function PlanEditor({ draft, onDraftChange, onSave, onNotice, locale }: {
             padding: "15px 20px",
             borderRadius: 14,
             border: "none",
-            background: draft.steps.length === 0 ? "var(--border-strong)" : PLAN_COLOR,
+            background: draft.steps.length === 0 ? "var(--border-strong)" : ink(PLAN_COLOR),
             color: "white",
             fontFamily: "Arial, sans-serif",
             fontSize: 16,
@@ -638,12 +643,9 @@ function PrayerPicker({ onPick, onClose, closeLabel, locale }: {
         {PLAN_ITEM_GROUPS.map((group) => (
           <div key={group.title}>
             <div style={{
+              ...RUBRIC_CAPS,
               padding: "10px 16px 6px",
-              fontSize: 12,
-              fontWeight: 700,
-              letterSpacing: 0.5,
-              textTransform: "uppercase",
-              color: "var(--text-muted)",
+              fontSize: headingSize(16),
               background: "var(--surface)",
               position: "sticky",
               top: 0,
@@ -669,8 +671,8 @@ function PrayerPicker({ onPick, onClose, closeLabel, locale }: {
                 onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
                 onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
               >
-                <div>{planItemName(key)}</div>
-                <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 1 }}>
+                <div style={{ ...nameFont(18), fontWeight: 500, color: "var(--text-strong)" }}>{planItemName(key)}</div>
+                <div style={{ ...CAPTION, marginTop: 1 }}>
                   {planItemNameTr(key, locale)}
                 </div>
               </button>
@@ -718,7 +720,7 @@ function backupButton(disabled: boolean): React.CSSProperties {
     borderRadius: 10,
     border: "1px solid var(--border-strong)",
     background: "var(--surface)",
-    color: disabled ? "var(--border-strong)" : PLAN_COLOR,
+    color: disabled ? "var(--border-strong)" : ink(PLAN_COLOR),
     fontFamily: "Arial, sans-serif",
     fontSize: 14,
     fontWeight: 600,
@@ -726,18 +728,18 @@ function backupButton(disabled: boolean): React.CSSProperties {
   };
 }
 
-const addButton: React.CSSProperties = {
+const addButton = (): React.CSSProperties => ({
   flex: 1,
   padding: "14px 12px",
   borderRadius: 14,
   border: "1.5px dashed var(--border-strong)",
   background: "transparent",
-  color: PLAN_COLOR,
+  color: ink(PLAN_COLOR),
   fontFamily: "Arial, sans-serif",
   fontSize: 15,
   fontWeight: 600,
   cursor: "pointer",
-};
+});
 
 const fieldStyle: React.CSSProperties = {
   width: "100%",
@@ -807,16 +809,16 @@ function CustomPrayerForm({ initial, onSave, onCancel, locale }: {
         <span style={{ display: "block", marginTop: 4, fontSize: 12, color: "var(--text-muted)" }}>{t.planCustomTextTrHint}</span>
       </label>
       <div style={{ display: "flex", gap: 8 }}>
-        <button onClick={onCancel} style={{ ...addButton, border: "1px solid var(--border-strong)", color: "var(--text-soft)" }}>
+        <button onClick={onCancel} style={{ ...addButton(), border: "1px solid var(--border-strong)", color: "var(--text-soft)" }}>
           {t.planCancel}
         </button>
         <button
           onClick={() => ready && onSave(form)}
           disabled={!ready}
           style={{
-            ...addButton,
+            ...addButton(),
             border: "none",
-            background: ready ? PLAN_COLOR : "var(--border-strong)",
+            background: ready ? ink(PLAN_COLOR) : "var(--border-strong)",
             color: "white",
             cursor: ready ? "pointer" : "default",
           }}

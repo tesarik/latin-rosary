@@ -23,6 +23,7 @@ import RosaryBeads from "./rosary/RosaryBeads";
 import PrayerCard from "./rosary/PrayerCard";
 import PrayerSections from "./rosary/PrayerSections";
 import SettingsMenu from "./rosary/SettingsMenu";
+import { applyLook, headerStyles, ink, loadSavedLook, saveLook, type Look } from "./rosary/look";
 import { loadDim, loadHintSeen, loadVibrate, saveDim, saveHintSeen, saveVibrate } from "./rosary/prefs";
 import LanguageToggle from "./rosary/LanguageToggle";
 import StarIcon from "./rosary/StarIcon";
@@ -75,6 +76,7 @@ export default function Rosary() {
   const [locale, setLocaleState] = useState<Locale>(() => loadSavedLocale() ?? detectLocale());
   const [fontScale, setFontScaleState] = useState<number>(() => loadSavedFontScale() ?? DEFAULT_FONT_SCALE);
   const [theme, setThemeState] = useState<Theme>(() => resolveTheme());
+  const [look, setLookState] = useState<Look>(() => loadSavedLook());
   // The prayer screen's quieter settings (prefs.ts), in the header's ⋯ menu.
   const [vibrate, setVibrateState] = useState<boolean>(loadVibrate);
   const [dim, setDimState] = useState<boolean>(loadDim);
@@ -145,11 +147,21 @@ export default function Rosary() {
     });
   }, []);
 
-  // Reflect the active theme on <html>, and follow OS changes until the user
-  // has made an explicit choice.
+  // The look is applied before the state changes, not in an effect: `ink`
+  // and `headerStyles` read it while the next render runs.
+  const setLook = useCallback((next: Look) => {
+    saveLook(next);
+    applyLook(next, theme);
+    setLookState(next);
+  }, [theme]);
+
+  // Reflect the active theme on <html> (and the browser bar's colour, which
+  // depends on the look too), and follow OS changes until the user has made
+  // an explicit choice.
   useEffect(() => {
     applyTheme(theme);
-  }, [theme]);
+    applyLook(look, theme);
+  }, [theme, look]);
 
   useEffect(() => {
     if (typeof matchMedia === "undefined") return;
@@ -304,6 +316,19 @@ export default function Rosary() {
     setSequence([]);
   };
 
+  // The start screen's × on the unfinished prayer: forget its place, after a
+  // confirm (the tile then offers the previous unfinished one, if any).
+  const discardProgress = async (key: PrayerSetKey) => {
+    const ok = await askConfirm({ message: t.confirmDiscard, confirmLabel: t.discardLabel, cancelLabel: t.planCancel, color: getPrayerSetMeta(key, plans).color });
+    if (!ok) return;
+    setProgress((prev) => {
+      if (!Object.hasOwn(prev, key)) return prev;
+      const next = { ...prev };
+      delete next[key];
+      return next;
+    });
+  };
+
   // Finishing a set forgets its progress; the next time it starts from the top.
   const finish = () => {
     if (selectedSet) {
@@ -385,6 +410,7 @@ export default function Rosary() {
             onStart={startSet}
             resume={resume}
             continueWith={continueWith}
+            onDiscard={discardProgress}
             onOpenPlans={() => setPlansOpen(true)}
             planCount={plans.length}
             favorites={favorites}
@@ -392,6 +418,8 @@ export default function Rosary() {
             onLocaleChange={setLocale}
             theme={theme}
             onToggleTheme={toggleTheme}
+            look={look}
+            onLook={setLook}
           />
         )}
         {updateToast}
@@ -401,7 +429,7 @@ export default function Rosary() {
 
   const setMeta = getPrayerSetMeta(selectedSet, plans);
   const currentPrayer = sequence[currentStep];
-  const accentColor = setMeta.color;
+  const accentColor = ink(setMeta.color);
   const progressPct = sequence.length > 0 ? ((currentStep + 1) / sequence.length) * 100 : 0;
 
   // Within a rosary decade the chip names the decade and quotes its mystery in
@@ -451,6 +479,12 @@ export default function Rosary() {
     </div>
   );
 
+  // The header in the look's manner (look.ts): on the paper with a rule of
+  // the set's colour and tinted buttons (Papír), a red double rule and
+  // outlined buttons (Misál), or a solid bar of the set's colour (Základ).
+  // The rosary's progress bar is its rule.
+  const hs = headerStyles(accentColor, theme, setMeta.kind !== "rosary");
+
   // The next step's name, under "Next" on its button, so you know where a tap
   // leads (at Mass: which part comes next).
   const nextLabel = sequence[currentStep + 1]?.label;
@@ -487,7 +521,7 @@ export default function Rosary() {
             the ⋯ settings and the language right), the set's name across the full width
             below, so a long litany name never has to squeeze between buttons. */}
         <div style={{
-          background: accentColor,
+          ...hs.bar,
           padding: "10px 14px 12px",
         }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -503,11 +537,10 @@ export default function Rosary() {
               width: 44,
               height: 40,
               padding: 0,
-              background: "rgba(255,255,255,0.2)",
               border: "none",
               borderRadius: 10,
               cursor: "pointer",
-              color: "white",
+              ...hs.button,
               fontSize: 18,
               fontFamily: "Arial, sans-serif",
             }}
@@ -531,8 +564,7 @@ export default function Rosary() {
                 border: "none",
                 borderRadius: 10,
                 cursor: "pointer",
-                background: "rgba(255,255,255,0.2)",
-                color: "white",
+                ...hs.button,
               }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
@@ -559,11 +591,10 @@ export default function Rosary() {
                   width: 44,
                   height: 40,
                   padding: 0,
-                  background: starred ? "white" : "rgba(255,255,255,0.2)",
                   border: "none",
                   borderRadius: 10,
                   cursor: "pointer",
-                  color: starred ? accentColor : "white",
+                  ...(starred ? hs.buttonOn : hs.button),
                 }}
               >
                 <StarIcon filled={starred} size={18} />
@@ -579,19 +610,18 @@ export default function Rosary() {
             onVibrate={setVibrate}
             dim={dim}
             onDim={setDim}
+            look={look}
+            onLook={setLook}
             accentColor={accentColor}
             locale={locale}
           />
-          <LanguageToggle showTranslation={showTranslation} onChange={setShowTranslation} accentColor={accentColor} locale={locale} />
+          <LanguageToggle showTranslation={showTranslation} onChange={setShowTranslation} accentColor={accentColor} theme={theme} locale={locale} />
         </div>
         <div style={{
           marginTop: 8,
           textAlign: "center",
-          color: "white",
-          fontFamily: "Arial, sans-serif",
-          fontSize: 20,
+          ...hs.name,
           fontWeight: 600,
-          lineHeight: 1.25,
         }}>
           {setMeta.name}
         </div>

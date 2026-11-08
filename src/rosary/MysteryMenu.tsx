@@ -12,14 +12,20 @@ import { PLAN_COLOR } from "./plans";
 import Flag from "./Flag";
 import ThemeIcon from "./ThemeIcon";
 import AboutDialog from "./AboutDialog";
+import HelpDialog from "./HelpDialog";
 import { PlanIcon } from "./PlansScreen";
 import { STAR_PATH } from "./StarIcon";
+import { CAPTION, CARD, RUBRIC_CAPS, headingSize, nameFont } from "./fonts";
+import { currentLook, iconBg, ink, type Look } from "./look";
+import LookPicker from "./LookPicker";
 
 type Props = {
   onStart: (key: PrayerSetKey) => void;
   resume: ResumeInfo;
   // The most recently prayed unfinished set, offered first.
   continueWith: { key: PrayerSetKey; name: string; color: string; step: number; total: number } | null;
+  // Forget the unfinished prayer's place (the tile's ×).
+  onDiscard: (key: PrayerSetKey) => void;
   onOpenPlans: () => void;
   planCount: number;
   // The starred prayers, in the order they were starred.
@@ -28,6 +34,8 @@ type Props = {
   onLocaleChange: (locale: Locale) => void;
   theme: Theme;
   onToggleTheme: () => void;
+  look: Look;
+  onLook: (look: Look) => void;
 };
 
 // Sun/moon toggle in the top-left of the start screen, mirroring the language
@@ -54,7 +62,6 @@ function ThemeToggle({ theme, onToggle, locale }: { theme: Theme; onToggle: () =
         background: "var(--surface)",
         color: "var(--text-soft)",
         cursor: "pointer",
-        boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
       }}
     >
       <ThemeIcon dark={dark} />
@@ -104,8 +111,7 @@ function LanguagePicker({ locale, onChange }: { locale: Locale; onChange: (l: Lo
           fontFamily: "Arial, sans-serif",
           fontSize: 13,
           color: "var(--text)",
-          boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
-        }}
+          }}
       >
         <Flag locale={locale} />
         <span lang={locale} style={{ fontWeight: 600 }}>{STRINGS[locale].localeName}</span>
@@ -172,14 +178,17 @@ function LanguagePicker({ locale, onChange }: { locale: Locale; onChange: (l: Lo
 
 // Small accent pill after a prayer's name: the mysteries prayed today, or the
 // Marian antiphon of the season.
-function Badge({ label, color, theme }: { label: string; color: string; theme: Theme }) {
+function Badge({ label, color: raw, theme }: { label: string; color: string; theme: Theme }) {
+  const color = ink(raw);
+  // In the missal a pill is just a red word, as a rubric would be.
+  const missal = currentLook() === "missal";
   return (
     <span style={{
       display: "inline-block",
       marginLeft: 8,
-      padding: "2px 8px",
+      padding: missal ? 0 : "2px 8px",
       borderRadius: 10,
-      background: color + "1f",
+      background: missal ? "transparent" : color + "1f",
       color: accentText(color, theme),
       fontFamily: "Arial, sans-serif",
       fontSize: 11,
@@ -221,6 +230,16 @@ function GroupIcon({ name, color }: { name: GroupIconName; color: string }) {
       case "ihs":
         // The Holy Name's monogram, for the Mass.
         return <text x="10" y="14.8" textAnchor="middle" fontFamily="'EB Garamond', Georgia, serif" fontSize="13.5" fontWeight="600" letterSpacing="0" fill={color}>IHS</text>;
+      case "monstrance":
+        // A monstrance: the Host in its rays, on a stem.
+        return <>
+          <circle cx="10" cy="8" r="2.8" {...line} />
+          {[0, 45, 90, 135, 180, 225, 270, 315].map((deg) => (
+            <line key={deg} x1="10" y1="2" x2="10" y2="3.6" {...line} transform={`rotate(${deg} 10 8)`} />
+          ))}
+          <line x1="10" y1="14" x2="10" y2="17.5" {...line} />
+          <line x1="6.5" y1="17.5" x2="13.5" y2="17.5" {...line} />
+        </>;
       case "list":
         return <>
           <circle cx="4" cy="6" r="1" fill={color} />
@@ -271,7 +290,7 @@ const closedGroups = new Set<string>();
 // Latin name with its name in the UI language as a muted subtitle — the same
 // two-line shape the prayer-plan tile uses. The "in season" card is one too,
 // closed like the rest until tapped.
-function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, onStart, resume, badges = {}, notes = {}, startOpen = false, theme, locale }: {
+function CollapsiblePrayers({ title, subtitle, icon, color: rawAccent, sections, onStart, resume, badges = {}, notes = {}, startOpen = false, theme, locale }: {
   title: string;
   subtitle: string;
   icon: GroupIconName;
@@ -287,6 +306,7 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
   theme: Theme;
   locale: Locale;
 }) {
+  const accent = ink(rawAccent);
   const keys = sections.flatMap((s) => s.keys);
   // A group holding an unfinished set starts open, so its place is visible; so
   // does one left open before a prayer was opened from it (openGroups).
@@ -299,10 +319,7 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
 
   return (
     <div style={{
-      background: "var(--surface)",
-      border: "1px solid var(--border)",
-      borderRadius: 16,
-      boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+      ...CARD,
       overflow: "hidden",
     }}>
       <button
@@ -313,7 +330,7 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
           display: "flex",
           alignItems: "center",
           gap: 12,
-          padding: "12px 16px",
+          padding: "12px var(--card-px)",
           background: "transparent",
           border: "none",
           cursor: "pointer",
@@ -321,16 +338,16 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
         }}
       >
         <div style={{
-          width: 40, height: 40, borderRadius: 12, background: accent + "18",
+          width: "var(--icon-box)", height: 40, borderRadius: 12, background: iconBg(accent),
           display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
         }}>
           <GroupIcon name={icon} color={accent} />
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontFamily: "Arial, sans-serif", fontSize: 20, fontWeight: 600, color: "var(--text-strong)" }}>
+          <div style={{ ...nameFont(23), fontWeight: 600, lineHeight: 1.15, color: "var(--text-strong)" }}>
             {title}
           </div>
-          <div style={{ fontFamily: "Arial, sans-serif", fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>
+          <div style={{ ...CAPTION, marginTop: 2 }}>
             {subtitle}
           </div>
         </div>
@@ -354,10 +371,10 @@ function CollapsiblePrayers({ title, subtitle, icon, color: accent, sections, on
 // The rows of prayers, section by section (a section's heading, if it has one,
 // as a small caption), a rule between two rows: the body of an open group, and
 // the search's results.
-function PrayerRows({ sections, onStart, resume, badges = {}, notes = {}, indent = 68, theme, locale }: {
+function PrayerRows({ sections, onStart, resume, badges = {}, notes = {}, indent, theme, locale }: {
   sections: readonly MenuSection[];
   // The rows' left padding: under a group's symbol, or flush in the search.
-  indent?: number;
+  indent?: string;
   onStart: (key: PrayerSetKey) => void;
   resume: ResumeInfo;
   badges?: Record<string, string>;
@@ -365,6 +382,9 @@ function PrayerRows({ sections, onStart, resume, badges = {}, notes = {}, indent
   theme: Theme;
   locale: Locale;
 }) {
+  // Under a group's header the rows line up with its title: past the
+  // symbol's box (16 + box + 12), narrower in the missal (index.css).
+  const pad = indent ?? "calc(var(--card-px) + 12px + var(--icon-box))";
   const t = STRINGS[locale];
   return (
     <>
@@ -372,12 +392,9 @@ function PrayerRows({ sections, onStart, resume, badges = {}, notes = {}, indent
         <div key={section.heading ?? i}>
           {section.heading && (
             <div style={{
-              padding: `8px 16px 2px ${indent}px`,
-              fontSize: 12,
-              fontWeight: 600,
-              letterSpacing: 0.4,
-              textTransform: "uppercase",
-              color: "var(--text-muted)",
+              ...RUBRIC_CAPS,
+              padding: `8px var(--card-px) 2px ${pad}`,
+              fontSize: headingSize(15),
             }}>{section.heading}</div>
           )}
           {section.keys.map((key, j) => { const val = menuEntry(key); return (
@@ -391,7 +408,7 @@ function PrayerRows({ sections, onStart, resume, badges = {}, notes = {}, indent
               width: "100%",
               display: "block",
               textAlign: "left",
-              padding: `8px 16px 8px ${indent}px`,
+              padding: `8px var(--card-px) 8px ${pad}`,
               background: "transparent",
               border: "none",
               cursor: "pointer",
@@ -402,8 +419,8 @@ function PrayerRows({ sections, onStart, resume, badges = {}, notes = {}, indent
             onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
             onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
           >
-            <div>{val.name}{badges[key] && <Badge label={badges[key]} color={val.color} theme={theme} />}</div>
-            <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 1 }}>
+            <div style={{ ...nameFont(19), fontWeight: 500, color: "var(--text-strong)", lineHeight: 1.2 }}>{val.name}{badges[key] && <Badge label={badges[key]} color={val.color} theme={theme} />}</div>
+            <div style={{ ...CAPTION, marginTop: 1 }}>
               {val.nameTr[locale]}
             </div>
             {notes[key] && (
@@ -419,11 +436,16 @@ function PrayerRows({ sections, onStart, resume, badges = {}, notes = {}, indent
   );
 }
 
-// How far the start screen was scrolled, kept across its unmounting (opening
-// a prayer or the plans replaces it), so coming back lands where you left.
-// Recorded on every scroll while the menu is mounted: when it unmounts, the
-// listener is gone before the shorter page clamps the scroll to the top.
-let menuScrollY = 0;
+// The start screen's three tabs (the bar at the bottom): the rosary and the
+// chaplet; the other prayers with the search; the user's own, favourites and
+// plans. Which one is open, and how far each was scrolled, are kept across
+// the menu's unmounting (opening a prayer or the plans replaces it), so coming
+// back lands where you left. The scroll is recorded on every scroll while the
+// menu is mounted: when it unmounts, the listener is gone before the shorter
+// page clamps the scroll to the top.
+type MenuTab = "rosary" | "prayers" | "mine";
+let menuTab: MenuTab = "rosary";
+const menuScroll: Record<MenuTab, number> = { rosary: 0, prayers: 0, mine: 0 };
 // The search typed on the start screen, kept the same way: back from a prayer
 // found by searching, the results are still there.
 let menuQuery = "";
@@ -431,9 +453,34 @@ let menuQuery = "";
 // Start screen: title + one button per mystery set. Also hosts the language
 // picker — language is locked in once a rosary starts.
 // onStart(key) hands the chosen mystery key back to the parent.
-export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans, planCount, favorites, locale, onLocaleChange, theme, onToggleTheme }: Props) {
+// A card's hover, in the look's manner: Základ lifts it, Papír rules it in
+// the set's colour, Misál shades the page behind it. Leaving puts the look's
+// own box back (the tokens, not a remembered value).
+function cardHover(raw: string) {
+  const color = ink(raw);
+  const look = currentLook();
+  return {
+    onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
+      const st = e.currentTarget.style;
+      if (look === "missal") { st.background = "var(--surface-hover)"; return; }
+      st.borderColor = color;
+      if (look === "base") { st.transform = "translateY(-2px)"; st.boxShadow = "0 4px 16px rgba(0,0,0,0.08)"; }
+    },
+    onMouseLeave: (e: React.MouseEvent<HTMLElement>) => {
+      const st = e.currentTarget.style;
+      st.background = CARD.background;
+      st.border = CARD.border;
+      st.borderBottom = CARD.borderBottom;
+      st.boxShadow = CARD.boxShadow;
+      st.transform = "";
+    },
+  };
+}
+
+export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, onOpenPlans, planCount, favorites, locale, onLocaleChange, theme, onToggleTheme, look, onLook }: Props) {
   const t = STRINGS[locale];
   const [aboutOpen, setAboutOpen] = useState(false);
+  const [helpOpen, setHelpOpen] = useState(false);
   // Today's place in the calendar: which mysteries to pray, what else is in
   // season (the Marian antiphon, a feast's sequence, November's prayers for
   // the dead), and whether Eastertide replaces the Angelus.
@@ -454,14 +501,31 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
   const mysteryKeys = Object.keys(MYSTERIES) as MysteryKey[];
   const otherMysteries = mysteryKeys.filter((k) => k !== todaysMysteries);
 
-  // Back from a prayer: scroll to where the menu was left, before the first
-  // paint (the groups left open are open again, so the page is as tall).
+  const [tab, setTab] = useState<MenuTab>(menuTab);
+  const selectTab = (next: MenuTab) => {
+    if (next === tab) { window.scrollTo({ top: 0, behavior: "smooth" }); return; }
+    menuTab = next;
+    setTab(next);
+  };
+
+  // On a tab's first paint — back from a prayer, or switched to — scroll to
+  // where it was left (the groups left open are open again, so the page is as
+  // tall), then keep recording.
   useLayoutEffect(() => {
-    window.scrollTo({ top: menuScrollY, behavior: "instant" });
-    const record = () => { menuScrollY = window.scrollY; };
+    window.scrollTo({ top: menuScroll[tab], behavior: "instant" });
+    const record = () => { menuScroll[tab] = window.scrollY; };
     window.addEventListener("scroll", record, { passive: true });
     return () => window.removeEventListener("scroll", record);
-  }, []);
+  }, [tab]);
+
+  // The gap between cards: none in the missal, where each entry runs from its
+  // rule to the next one (so a hovered entry is shaded rule to rule).
+  const column: React.CSSProperties = { width: "100%", maxWidth: 380, display: "flex", flexDirection: "column", gap: "var(--card-gap)" };
+  const tabTitle = (title: string) => (
+    <h1 style={{ ...nameFont(32), fontWeight: 600, lineHeight: 1.1, color: "var(--text-strong)", margin: "4px 0 16px", alignSelf: "center" }}>
+      {title}
+    </h1>
+  );
 
   return (
     <div style={{
@@ -470,266 +534,289 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      justifyContent: "center",
       fontFamily: "Arial, sans-serif",
-      padding: 24,
+      padding: "24px 24px calc(96px + env(safe-area-inset-bottom, 0px))",
       position: "relative",
     }}>
-      <ThemeToggle theme={theme} onToggle={onToggleTheme} locale={locale} />
-      <LanguagePicker locale={locale} onChange={onLocaleChange} />
+      {tab === "rosary" && (<>
+        <ThemeToggle theme={theme} onToggle={onToggleTheme} locale={locale} />
+        <LanguagePicker locale={locale} onChange={onLocaleChange} />
 
-      {/* The Immaculate Heart, cut out of the app icon's blue field (192 px, sharp at 2× density). */}
-      <img
-        src={`${import.meta.env.BASE_URL}heart-192.webp?v=${__ICON_VERSION__}`}
-        alt=""
-        aria-hidden="true"
-        width={88}
-        height={88}
-        style={{ marginBottom: 16 }}
-      />
+        {/* The Immaculate Heart, cut out of the app icon's blue field (192 px, sharp at 2× density). */}
+        <img
+          src={`${import.meta.env.BASE_URL}heart-192.webp?v=${__ICON_VERSION__}`}
+          alt=""
+          aria-hidden="true"
+          width={88}
+          height={88}
+          style={{ marginBottom: 16 }}
+        />
 
-      <h1 style={{
-        fontFamily: "Arial, sans-serif",
-        fontSize: 36,
-        fontWeight: 700,
-        color: "var(--text-strong)",
-        marginBottom: 2,
-        letterSpacing: -0.5,
-      }}>
-        {t.appTitle}
-      </h1>
-      <div style={{ fontSize: 17, color: "var(--text-muted)", marginBottom: 16 }}>
-        {t.appSubtitle}
-      </div>
+        <h1 style={{
+          ...nameFont(40),
+          fontWeight: 600,
+          lineHeight: 1.1,
+          color: "var(--text-strong)",
+          marginBottom: 2,
+        }}>
+          {t.appTitle}
+        </h1>
+        <div style={{ ...CAPTION, fontSize: "calc(var(--caption-size) * 1.3)", marginBottom: 16 }}>
+          {t.appSubtitle}
+        </div>
 
-      <div style={{ width: "100%", maxWidth: 380, display: "flex", flexDirection: "column", gap: 8 }}>
-        {/* The last unfinished prayer, one tap away — otherwise it may sit
-            inside a collapsed group (a litany) or in the plans screen. Its own
-            row further down still shows its place too. */}
-        {continueWith && (
-          <>
-            <h2 style={{ ...sectionHeading, margin: "4px 4px 0" }}>{t.continueHeading}</h2>
-            <PrayerSetButton
-              name={continueWith.name}
-              resume={<ResumeLine info={continueWith} color={continueWith.color} theme={theme} locale={locale} />}
-              color={continueWith.color}
-              ariaLabel={`${continueWith.name}, ${t.resumeAt(continueWith.step, continueWith.total)}`}
-              icon="continue"
-              onClick={() => onStart(continueWith.key)}
-            />
-            <div aria-hidden="true" style={{ height: 4 }} />
-          </>
-        )}
-        {(() => {
-          const val = MYSTERIES[todaysMysteries];
-          return (
-            <PrayerSetButton
-              name={val.name}
-              subtitle={val.nameTr[locale]}
-              badge={<Badge label={t.todayBadge} color={val.color} theme={theme} />}
-              color={val.color}
-              ariaLabel={`${t.startRosaryAria(val.nameTr[locale])}, ${t.todayBadge}`}
-              icon="rosary"
-              image={todaysMysteries}
-              hero
-              resume={<ResumeLine info={resume[todaysMysteries]} color={val.color} theme={theme} locale={locale} />}
-              onClick={() => onStart(todaysMysteries)}
-            />
-          );
-        })()}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
-          {otherMysteries.map((key) => {
-            const val = MYSTERIES[key];
+        <div style={column}>
+          {/* The last unfinished prayer, one tap away — otherwise it may sit
+              inside a collapsed group (a litany) or in the plans screen. Its own
+              row further down still shows its place too. */}
+          {continueWith && (
+            <>
+              <h2 style={{ ...sectionHeading, margin: "4px var(--heading-indent) 0" }}>{t.continueHeading}</h2>
+              {/* The × sits beside the tile's button, not in it (a button
+                  can't hold another); the button keeps room for it. */}
+              <div style={{ position: "relative" }}>
+                <PrayerSetButton
+                  name={continueWith.name}
+                  resume={<ResumeLine info={continueWith} color={continueWith.color} theme={theme} locale={locale} />}
+                  color={continueWith.color}
+                  ariaLabel={`${continueWith.name}, ${t.resumeAt(continueWith.step, continueWith.total)}`}
+                  icon="continue"
+                  padRight={52}
+                  onClick={() => onStart(continueWith.key)}
+                />
+                <button
+                  onClick={() => onDiscard(continueWith.key)}
+                  aria-label={t.discardAria(continueWith.name)}
+                  title={t.discardAria(continueWith.name)}
+                  style={{
+                    position: "absolute", top: "50%", right: 8, transform: "translateY(-50%)",
+                    width: 40, height: 40, border: "none", borderRadius: 10, padding: 0,
+                    background: "transparent", color: "var(--text-muted)",
+                    fontSize: 24, lineHeight: 1, cursor: "pointer",
+                  }}
+                >
+                  ×
+                </button>
+              </div>
+              {/* A little extra space under it; none in the missal, whose entries
+                  run rule to rule. */}
+              <div aria-hidden="true" style={{ height: "calc(var(--card-gap) / 2)" }} />
+            </>
+          )}
+          {(() => {
+            const val = MYSTERIES[todaysMysteries];
             return (
-              <CompactSetButton
-                key={key}
+              <PrayerSetButton
                 name={val.name}
                 subtitle={val.nameTr[locale]}
-                image={key}
+                badge={<Badge label={t.todayBadge} color={val.color} theme={theme} />}
                 color={val.color}
-                ariaLabel={t.startRosaryAria(val.nameTr[locale])}
-                resume={<ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />}
-                onClick={() => onStart(key)}
+                ariaLabel={`${t.startRosaryAria(val.nameTr[locale])}, ${t.todayBadge}`}
+                icon="rosary"
+                image={todaysMysteries}
+                hero
+                resume={<ResumeLine info={resume[todaysMysteries]} color={val.color} theme={theme} locale={locale} />}
+                onClick={() => onStart(todaysMysteries)}
               />
             );
-          })}
+          })()}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+            {otherMysteries.map((key) => {
+              const val = MYSTERIES[key];
+              return (
+                <CompactSetButton
+                  key={key}
+                  name={val.name}
+                  subtitle={val.nameTr[locale]}
+                  image={key}
+                  color={val.color}
+                  ariaLabel={t.startRosaryAria(val.nameTr[locale])}
+                  resume={<ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />}
+                  onClick={() => onStart(key)}
+                />
+              );
+            })}
+          </div>
+
+          <PrayerSetButton
+            name={chapletEntry.name}
+            subtitle={chapletEntry.nameTr[locale]}
+            color={chapletEntry.color}
+            ariaLabel={t.startPrayerAria(chapletEntry.nameTr[locale])}
+            icon="rosary"
+            image="misericordia"
+            resume={<ResumeLine info={resume[chaplet]} color={chapletEntry.color} theme={theme} locale={locale} />}
+            onClick={() => onStart(chaplet)}
+            footer={
+              <OptionSwitch
+                label={t.chapletOptional}
+                checked={chapletFull}
+                color={chapletEntry.color}
+                onChange={(full) => { setChapletFull(full); saveChapletFull(full); }}
+              />
+            }
+          />
         </div>
+      </>)}
 
-        <PrayerSetButton
-          name={chapletEntry.name}
-          subtitle={chapletEntry.nameTr[locale]}
-          color={chapletEntry.color}
-          ariaLabel={t.startPrayerAria(chapletEntry.nameTr[locale])}
-          icon="rosary"
-          image="misericordia"
-          resume={<ResumeLine info={resume[chaplet]} color={chapletEntry.color} theme={theme} locale={locale} />}
-          onClick={() => onStart(chaplet)}
-          footer={
-            <OptionSwitch
-              label={t.chapletOptional}
-              checked={chapletFull}
-              color={chapletEntry.color}
-              onChange={(full) => { setChapletFull(full); saveChapletFull(full); }}
-            />
-          }
-        />
+      {tab === "prayers" && (<>
+        {tabTitle(t.tabPrayersTitle)}
+        <div style={column}>
 
-        {/* The user's own: the starred prayers and the prayer plans, under a
-            heading of their own, apart from the app's prayer groups. */}
-        <h2 style={sectionHeading}>
-          {t.myPrayersHeading}
-        </h2>
-
-        {/* The prayers starred in the prayer header, open from the start;
-            each is also in its own group below. */}
-        {favorites.length > 0 && (
-          <CollapsiblePrayers
-            title={t.favoritesHeading}
-            subtitle={t.favoritesSubtitle}
-            icon={FAVORITES_ICON}
-            color={FAVORITES_COLOR}
-            sections={[{ keys: favorites }]}
-            onStart={onStart}
-            resume={resume}
-            badges={seasonBadges}
-            notes={angelusNote}
-            startOpen
-            theme={theme}
-            locale={locale}
-          />
-        )}
-
-        <PrayerSetButton
-          name={t.plansTitle}
-          subtitle={planCount > 0 ? t.plansCount(planCount) : t.plansTileHint}
-          color={PLAN_COLOR}
-          ariaLabel={t.plansOpenAria}
-          icon="plan"
-          onClick={onOpenPlans}
-        />
-
-        <h2 style={sectionHeading}>
-          {t.otherPrayersHeading}
-        </h2>
-
-        {/* Search every listed prayer by its Latin or translated name; while
-            there is a query, its results stand in for the cards below. */}
-        <div role="search" style={{ position: "relative" }}>
-          <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}>
-            <circle cx="8.5" cy="8.5" r="5.5" fill="none" style={{ stroke: "var(--text-muted)" }} strokeWidth="2" />
-            <line x1="12.6" y1="12.6" x2="17" y2="17" style={{ stroke: "var(--text-muted)" }} strokeWidth="2" strokeLinecap="round" />
-          </svg>
-          <input
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => { if (e.key === "Escape") setQuery(""); }}
-            placeholder={t.searchPlaceholder}
-            aria-label={t.searchPlaceholder}
-            enterKeyHint="search"
-            autoComplete="off"
-            spellCheck={false}
-            style={{
-              width: "100%",
-              height: 48,
-              padding: "0 44px 0 42px",
-              border: "1px solid var(--border-strong)",
-              borderRadius: 14,
-              background: "var(--surface)",
-              color: "var(--text-strong)",
-              fontFamily: "Arial, sans-serif",
-              fontSize: 16,
-              outlineColor: "var(--text-muted)",
-              WebkitAppearance: "none",
-              appearance: "none",
-            }}
-          />
-          {searching && (
-            <button
-              onClick={() => setQuery("")}
-              aria-label={t.searchClear}
-              title={t.searchClear}
+            {/* Search every listed prayer by its Latin or translated name; while
+              there is a query, its results stand in for the cards below. */}
+          <div role="search" style={{ position: "relative", marginBottom: "calc(8px - var(--card-gap))" /* keep it off the missal's first rule */ }}>
+            <svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true" style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", pointerEvents: "none" }}>
+              <circle cx="8.5" cy="8.5" r="5.5" fill="none" style={{ stroke: "var(--text-muted)" }} strokeWidth="2" />
+              <line x1="12.6" y1="12.6" x2="17" y2="17" style={{ stroke: "var(--text-muted)" }} strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(e) => { if (e.key === "Escape") setQuery(""); }}
+              placeholder={t.searchPlaceholder}
+              aria-label={t.searchPlaceholder}
+              enterKeyHint="search"
+              autoComplete="off"
+              spellCheck={false}
               style={{
-                position: "absolute", right: 4, top: 4, width: 40, height: 40,
-                border: "none", background: "transparent", borderRadius: 10,
-                color: "var(--text-muted)", fontSize: 20, lineHeight: 1, cursor: "pointer",
+                width: "100%",
+                height: 48,
+                padding: "0 44px 0 42px",
+                border: "1px solid var(--border-strong)",
+                borderRadius: 14,
+                background: "var(--surface)",
+                color: "var(--text-strong)",
+                fontFamily: "Arial, sans-serif",
+                fontSize: 16,
+                outlineColor: "var(--text-muted)",
+                WebkitAppearance: "none",
+                appearance: "none",
               }}
-            >
-              ×
-            </button>
-          )}
-        </div>
-
-        {searching && (
-          <div aria-live="polite" style={{
-            background: "var(--surface)",
-            border: "1px solid var(--border)",
-            borderRadius: 16,
-            boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-            overflow: "hidden",
-            padding: "4px 0",
-          }}>
-            {found.length > 0 ? (
-              <PrayerRows sections={[{ keys: found }]} onStart={onStart} resume={resume} badges={seasonBadges} notes={angelusNote} indent={16} theme={theme} locale={locale} />
-            ) : (
-              <div style={{ padding: "12px 16px", fontSize: 14, color: "var(--text-muted)" }}>{t.searchNoResults}</div>
+            />
+            {searching && (
+              <button
+                onClick={() => setQuery("")}
+                aria-label={t.searchClear}
+                title={t.searchClear}
+                style={{
+                  position: "absolute", right: 4, top: 4, width: 40, height: 40,
+                  border: "none", background: "transparent", borderRadius: 10,
+                  color: "var(--text-muted)", fontSize: 20, lineHeight: 1, cursor: "pointer",
+                }}
+              >
+                ×
+              </button>
             )}
           </div>
-        )}
 
-        {!searching && (<>
+          {searching && (
+            <div aria-live="polite" style={{
+              ...CARD,
+              overflow: "hidden",
+              padding: "4px 0",
+            }}>
+              {found.length > 0 ? (
+                <PrayerRows sections={[{ keys: found }]} onStart={onStart} resume={resume} badges={seasonBadges} notes={angelusNote} indent="var(--card-px)" theme={theme} locale={locale} />
+              ) : (
+                <div style={{ padding: "12px var(--card-px)", fontSize: 14, color: "var(--text-muted)" }}>{t.searchNoResults}</div>
+              )}
+            </div>
+          )}
 
-        {/* What the day calls for, above the groups and closed like them; each
-            prayer is also in its own group further down, with the same pill. */}
-        <CollapsiblePrayers
-          title={t.inSeasonHeading}
-          subtitle={t.inSeasonSubtitle}
-          icon={IN_SEASON_ICON}
-          color={IN_SEASON_COLOR}
-          sections={[{ keys: seasonal }]}
-          onStart={onStart}
-          resume={resume}
-          theme={theme}
-          locale={locale}
-        />
+          {!searching && (<>
 
-        {MENU_GROUPS.map((g) => (
+          {/* What the day calls for, above the groups and closed like them; each
+              prayer is also in its own group further down, with the same pill. */}
           <CollapsiblePrayers
-            key={g.key}
-            title={g.title}
-            subtitle={g.subtitle[locale]}
-            icon={g.icon}
-            color={g.color}
-            sections={g.sections}
+            title={t.inSeasonHeading}
+            subtitle={t.inSeasonSubtitle}
+            icon={IN_SEASON_ICON}
+            color={IN_SEASON_COLOR}
+            sections={[{ keys: seasonal }]}
             onStart={onStart}
-            badges={seasonBadges}
-            notes={angelusNote}
             resume={resume}
             theme={theme}
             locale={locale}
           />
-        ))}
-        </>)}
 
-        <button
-          onClick={() => setAboutOpen(true)}
-          style={{
-            marginTop: 12,
-            alignSelf: "center",
-            background: "transparent",
-            border: "none",
-            color: "var(--text-muted)",
-            fontFamily: "Arial, sans-serif",
-            fontSize: 13,
-            cursor: "pointer",
-            padding: 8,
-          }}
-        >
-          {t.aboutTitle}
-        </button>
+          {MENU_GROUPS.map((g) => (
+            <CollapsiblePrayers
+              key={g.key}
+              title={g.title}
+              subtitle={g.subtitle[locale]}
+              icon={g.icon}
+              color={g.color}
+              sections={g.sections}
+              onStart={onStart}
+              badges={seasonBadges}
+              notes={angelusNote}
+              resume={resume}
+              theme={theme}
+              locale={locale}
+            />
+          ))}
+          </>)}
+
+        </div>
+      </>)}
+
+      {tab === "mine" && (<>
+        {tabTitle(t.myPrayersHeading)}
+        <div style={column}>
+
+            {/* The prayers starred in the prayer header, open from the start;
+              each is also in its own group below. */}
+          {favorites.length === 0 && (
+            <p style={{ margin: "0 4px", fontSize: 14, lineHeight: 1.45, color: "var(--text-muted)" }}>{t.favoritesEmpty}</p>
+          )}
+          {favorites.length > 0 && (
+            <CollapsiblePrayers
+              title={t.favoritesHeading}
+              subtitle={t.favoritesSubtitle}
+              icon={FAVORITES_ICON}
+              color={FAVORITES_COLOR}
+              sections={[{ keys: favorites }]}
+              onStart={onStart}
+              resume={resume}
+              badges={seasonBadges}
+              notes={angelusNote}
+              startOpen
+              theme={theme}
+              locale={locale}
+            />
+          )}
+
+          <PrayerSetButton
+            name={t.plansTitle}
+            subtitle={planCount > 0 ? t.plansCount(planCount) : t.plansTileHint}
+            color={PLAN_COLOR}
+            ariaLabel={t.plansOpenAria}
+            icon="plan"
+            onClick={onOpenPlans}
+          />
+
+          {/* The look, chosen here as well as in a prayer's ⋯ settings. */}
+          <h2 style={{ ...sectionHeading, margin: "12px var(--heading-indent) 0" }}>{t.settingsHeading}</h2>
+          <div style={{ ...CARD, padding: "12px var(--card-px) 14px" }}>
+            <LookPicker look={look} onChange={onLook} locale={locale} />
+          </div>
+
+        </div>
+      </>)}
+
+      {/* Help and About under every tab, not only the rosary's. */}
+      <div style={{ marginTop: 20, display: "flex", alignItems: "center", gap: 4, color: "var(--text-muted)", fontSize: 13 }}>
+        <button onClick={() => setHelpOpen(true)} style={footerLink}>{t.helpTitle}</button>
+        <span aria-hidden="true">·</span>
+        <button onClick={() => setAboutOpen(true)} style={footerLink}>{t.aboutTitle}</button>
       </div>
 
+      <TabBar tab={tab} onChange={selectTab} locale={locale} />
+
       {aboutOpen && <AboutDialog locale={locale} onClose={() => setAboutOpen(false)} />}
+      {helpOpen && <HelpDialog locale={locale} onClose={() => setHelpOpen(false)} />}
     </div>
   );
 }
@@ -740,7 +827,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onOpenPlans
 // A `footer` (the chaplet's switch) goes inside the same box, under a rule:
 // the box becomes a plain container holding two controls side by side in the
 // tree, since a button can't contain another one.
-function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon, image, hero = false, onClick, footer }: {
+function PrayerSetButton({ name, subtitle, badge, resume, color: rawColor, ariaLabel, icon, image, hero = false, padRight, onClick, footer }: {
   name: string;
   subtitle?: string;
   badge?: React.ReactNode;
@@ -752,28 +839,14 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
   image?: string;
   // Today's mysteries: a larger painting and name, the first thing to tap.
   hero?: boolean;
+  // Room kept on the right for a control laid over the tile (the ×).
+  padRight?: number;
   onClick: () => void;
   footer?: React.ReactNode;
 }) {
-  const box: React.CSSProperties = {
-    background: "var(--surface)",
-    border: "1px solid var(--border)",
-    borderRadius: 16,
-    transition: "all 0.2s ease",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
-  };
-  const hover = {
-    onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
-      e.currentTarget.style.transform = "translateY(-2px)";
-      e.currentTarget.style.boxShadow = "0 4px 16px rgba(0,0,0,0.08)";
-      e.currentTarget.style.borderColor = color;
-    },
-    onMouseLeave: (e: React.MouseEvent<HTMLElement>) => {
-      e.currentTarget.style.transform = "translateY(0)";
-      e.currentTarget.style.boxShadow = "0 2px 8px rgba(0,0,0,0.04)";
-      e.currentTarget.style.borderColor = "var(--border)";
-    },
-  };
+  const color = ink(rawColor);
+  const box: React.CSSProperties = { ...CARD, transition: "all 0.2s ease" };
+  const hover = cardHover(color);
   const button = (
     <button
       onClick={onClick}
@@ -782,20 +855,23 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
         display: "flex",
         alignItems: "center",
         gap: hero ? 14 : 12,
-        padding: footer ? "12px 16px 8px" : hero ? "16px 16px" : "12px 16px",
+        padding: footer ? "12px var(--card-px) 8px" : hero ? "16px var(--card-px)" : "12px var(--card-px)",
+        ...(padRight ? { paddingRight: padRight } : {}),
         cursor: "pointer",
         ...(footer
           ? { width: "100%", background: "transparent", border: "none", borderRadius: "16px 16px 0 0" }
-          : box),
+          // The full width even when it sits in a wrapper (the unfinished
+          // prayer's, beside its ×), so a short name doesn't narrow the card.
+          : { ...box, width: "100%" }),
       }}
       {...(footer ? {} : hover)}
     >
       {image ? <TileImage name={image} size={hero ? 64 : 40} /> : (
         <div style={{
-          width: 40,
+          width: "var(--icon-box)",
           height: 40,
           borderRadius: 12,
-          background: color + "18",
+          background: iconBg(color),
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -821,11 +897,11 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
       <div style={{ textAlign: "left", minWidth: 0 }}>
         {/* The hero's pill stands over its name, which needs the whole width. */}
         {hero && badge && <div style={{ marginLeft: -8, marginBottom: 4 }}>{badge}</div>}
-        <div style={{ fontFamily: "Arial, sans-serif", fontSize: hero ? 22 : 20, fontWeight: hero ? 700 : 600, color: "var(--text-strong)" }}>
+        <div style={{ ...nameFont(hero ? 27 : 23), fontWeight: 600, lineHeight: 1.15, color: "var(--text-strong)" }}>
           {name}{!hero && badge}
         </div>
         {subtitle && (
-          <div style={{ fontFamily: "Arial, sans-serif", fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>
+          <div style={{ ...CAPTION, marginTop: 2 }}>
             {subtitle}
           </div>
         )}
@@ -837,7 +913,7 @@ function PrayerSetButton({ name, subtitle, badge, resume, color, ariaLabel, icon
   return (
     <div style={{ ...box, display: "flex", flexDirection: "column" }} {...hover}>
       {button}
-      <div style={{ borderTop: "1px solid var(--border)", display: "flex", justifyContent: "flex-end", padding: "0 12px" }}>
+      <div style={{ borderTop: "1px solid var(--border)", display: "flex", justifyContent: "flex-end", padding: "0 var(--card-px)" }}>
         {footer}
       </div>
     </div>
@@ -865,25 +941,85 @@ function CompactSetButton({ name, subtitle, image, color, ariaLabel, resume, onC
         alignItems: "flex-start",
         gap: 8,
         minWidth: 0,
-        padding: "12px 14px",
+        padding: "12px var(--card-px)",
         textAlign: "left",
         cursor: "pointer",
-        background: "var(--surface)",
-        border: "1px solid var(--border)",
-        borderRadius: 16,
-        boxShadow: "0 2px 8px rgba(0,0,0,0.04)",
+        ...CARD,
         transition: "all 0.2s ease",
       }}
-      onMouseEnter={(e) => { e.currentTarget.style.borderColor = color; e.currentTarget.style.transform = "translateY(-2px)"; }}
-      onMouseLeave={(e) => { e.currentTarget.style.borderColor = "var(--border)"; e.currentTarget.style.transform = "translateY(0)"; }}
+      {...cardHover(color)}
     >
       <TileImage name={image} />
       <div style={{ minWidth: 0, width: "100%" }}>
-        <div style={{ fontFamily: "Arial, sans-serif", fontSize: 17, fontWeight: 600, color: "var(--text-strong)", lineHeight: 1.2 }}>{name}</div>
-        <div style={{ fontFamily: "Arial, sans-serif", fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>{subtitle}</div>
+        <div style={{ ...nameFont(20), fontWeight: 600, color: "var(--text-strong)", lineHeight: 1.15 }}>{name}</div>
+        <div style={{ ...CAPTION, marginTop: 2 }}>{subtitle}</div>
         {resume}
       </div>
     </button>
+  );
+}
+
+// The bar at the foot of the start screen: one button per tab, the open one
+// in the rubric red. Fixed to the bottom edge, clear of the phone's home bar.
+function TabBar({ tab, onChange, locale }: { tab: MenuTab; onChange: (tab: MenuTab) => void; locale: Locale }) {
+  const t = STRINGS[locale];
+  const tabs: { key: MenuTab; label: string; icon: React.ReactNode }[] = [
+    { key: "rosary", label: t.tabRosary, icon: (
+      <>
+        <circle cx="12" cy="9" r="6" />
+        <line x1="12" y1="15" x2="12" y2="22" />
+        <line x1="9" y1="18.5" x2="15" y2="18.5" />
+      </>
+    ) },
+    { key: "prayers", label: t.tabPrayers, icon: <path d="M4 6h16M4 12h16M4 18h16" /> },
+    { key: "mine", label: t.tabMine, icon: <path d={STAR_PATH} transform="scale(1.2)" vectorEffect="non-scaling-stroke" strokeLinejoin="round" /> },
+  ];
+  return (
+    <nav aria-label={t.tabsAria} style={{
+      position: "fixed",
+      left: 0,
+      right: 0,
+      bottom: 0,
+      zIndex: 20,
+      display: "flex",
+      justifyContent: "center",
+      background: "var(--surface)",
+      borderTop: "1px solid var(--border-strong)",
+      paddingBottom: "env(safe-area-inset-bottom, 0px)",
+    }}>
+      <div style={{ width: "100%", maxWidth: 420, display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
+        {tabs.map(({ key, label, icon }) => {
+          const on = key === tab;
+          return (
+            <button
+              key={key}
+              onClick={() => onChange(key)}
+              aria-current={on ? "page" : undefined}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 3,
+                minHeight: 56,
+                padding: "8px 4px 6px",
+                background: "transparent",
+                border: "none",
+                cursor: "pointer",
+                fontFamily: "Arial, sans-serif",
+                fontSize: 12,
+                fontWeight: on ? 700 : 400,
+                color: on ? "var(--rubric)" : "var(--text-muted)",
+              }}
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth={on ? 2 : 1.6} strokeLinecap="round">
+                {icon}
+              </svg>
+              {label}
+            </button>
+          );
+        })}
+      </div>
+    </nav>
   );
 }
 
@@ -921,7 +1057,7 @@ function OptionSwitch({ label, checked, color, onChange }: {
         width: 34,
         height: 20,
         borderRadius: 10,
-        background: checked ? color : "var(--border-strong)",
+        background: checked ? ink(color) : "var(--border-strong)",
         transition: "background 0.2s ease",
         flexShrink: 0,
       }}>
@@ -941,13 +1077,24 @@ function OptionSwitch({ label, checked, color, onChange }: {
   );
 }
 
+// The muted text links at the foot of the start screen (Help · About).
+const footerLink: React.CSSProperties = {
+  background: "transparent",
+  border: "none",
+  color: "var(--text-muted)",
+  fontFamily: "Arial, sans-serif",
+  fontSize: 13,
+  cursor: "pointer",
+  padding: 8,
+  minHeight: 40,
+};
+
 // Small uppercase heading over a group of start-screen rows.
 const sectionHeading: React.CSSProperties = {
-  fontFamily: "Arial, sans-serif",
-  fontSize: 14,
-  fontWeight: 600,
-  color: "var(--text-muted)",
-  letterSpacing: 0.5,
-  textTransform: "uppercase",
-  margin: "16px 4px 0",
+  ...RUBRIC_CAPS,
+  fontSize: headingSize(18),
+  // A little air above the first entry where the cards have no gap (the
+  // missal, index.css).
+  paddingBottom: "calc(8px - var(--card-gap))",
+  margin: "16px var(--heading-indent) 0",
 };

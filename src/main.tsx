@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import Rosary from "./Rosary";
 import ErrorBoundary from "./rosary/ErrorBoundary";
 import { initAnalytics } from "./rosary/analytics";
+import { detectLocale, loadSavedLocale } from "./rosary/i18n";
+import { preloadTranslations } from "./rosary/translations";
 // EB Garamond for the prayer body, bundled with the app (@fontsource) rather
 // than fetched from Google Fonts: same-origin files are cached by the service
 // worker, so the font works offline, and no visitor's IP goes to a third party.
@@ -21,6 +23,10 @@ import "./index.css";
 for (const face of ["400", "italic 400", "500", "600"]) {
   document.fonts.load(`${face} 1em 'EB Garamond'`, "ǽ").catch(() => {});
 }
+
+// The prayer translations are loaded on demand (translations.ts): the shown
+// language's at once, the others when idle, so they are cached for offline.
+preloadTranslations(loadSavedLocale() ?? detectLocale());
 
 const root = document.getElementById("root");
 if (!root) throw new Error("#root element not found");

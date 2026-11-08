@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { STRINGS, type Locale } from "./i18n";
 import { analyticsConfigured } from "./analytics";
+import { SERIF } from "./fonts";
 
 // ─── Edit these to set what the About panel shows ──────────────────────────
 const CREATOR = {
@@ -122,7 +123,7 @@ export default function AboutDialog({ locale, onClose }: Props) {
           style={{ display: "block", margin: "0 auto 10px" }}
         />
 
-        <div style={{ textAlign: "center", fontSize: 22, fontWeight: 700, color: "var(--text-strong)" }}>{t.appTitle}</div>
+        <div style={{ textAlign: "center", fontFamily: SERIF, fontSize: 28, fontWeight: 600, color: "var(--text-strong)" }}>{t.appTitle}</div>
         <div style={{ textAlign: "center", fontSize: 12, color: "var(--text-muted)", marginTop: 2 }}>
           v{__APP_VERSION__}
           {buildDate && ` · ${t.aboutBuilt} ${buildDate}`}
