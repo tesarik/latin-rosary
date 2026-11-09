@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+- **Základ is the default look again.** A new install starts in Základ; Papír and Misál stay a tap away in the ⋯ settings or under *Moje*. A look already chosen (or given by 0.31.0) is kept.
+
 ## [0.31.0]
 
 ### Changed

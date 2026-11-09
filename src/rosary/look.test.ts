@@ -14,30 +14,18 @@ beforeEach(() => {
 });
 
 describe("look", () => {
-  it("defaults to Papír for a newcomer and round-trips each look", () => {
-    expect(loadSavedLook()).toBe(DEFAULT_LOOK);
-    expect(DEFAULT_LOOK).toBe("paper");
+  it("defaults to Základ and round-trips each look", () => {
+    expect(DEFAULT_LOOK).toBe("base");
+    expect(loadSavedLook()).toBe("base");
     for (const l of LOOKS) {
       saveLook(l);
       expect(loadSavedLook()).toBe(l);
     }
   });
 
-  it("treats a stray saved value as no choice (by someone who has used the app)", () => {
+  it("treats a stray saved value as no choice", () => {
     store.set("ruzenec_look", "toString");
     expect(loadSavedLook()).toBe("base");
-  });
-
-  it("gives Základ to someone who used the app before, and saves the choice", () => {
-    store.set("ruzenec_theme", "dark");
-    expect(loadSavedLook()).toBe("base");
-    expect(store.get("ruzenec_look")).toBe("base");
-  });
-
-  it("gives a newcomer Papír and saves it", () => {
-    store.set("other_app", "x");
-    expect(loadSavedLook()).toBe("paper");
-    expect(store.get("ruzenec_look")).toBe("paper");
   });
 
   it("has a browser-bar colour for every look and theme", () => {
