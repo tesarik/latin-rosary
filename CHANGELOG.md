@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.32.0]
+
+### Added
+- **Four more prayers.** *Ave, maris stella* joins the prayers to Our Lady; *O sacrum convívium* and *Panis angélicus* the hymns to the Blessed Sacrament (offered in Corpus Christi week too); and the *Miserére*, Psalm 50, the daily prayers (offered in Lent). Their Czech comes from prayer books in the Czech National Library's digital library: *Cesta k věčné spáse* ([1932]), *Modleme se!* (1916), *Posvátné zpěvy a modlitby* (1888) and *Malé hodinky k nejblahoslavenější Panně Marii* (1937).
+
 ## [0.31.1]
 
 ### Changed

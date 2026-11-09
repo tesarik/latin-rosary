@@ -81,7 +81,7 @@ const GROUPS: readonly MenuGroup[] = [
       "signum_crucis", "pater_noster", "ave_maria", "gloria_patri",
       "symbolum_apostolorum", "symbolum_nicenum", "symbolum_athanasianum",
       "angelus", "benedictio_mensae", "gratiarum_actio", "anima_christi", "suscipe", "creator_ineffabilis",
-      "angele_dei", "sancte_michael", "nunc_dimittis", "decalogue", "te_deum",
+      "angele_dei", "sancte_michael", "nunc_dimittis", "decalogue", "te_deum", "miserere",
     ] }],
   },
   {
@@ -92,7 +92,7 @@ const GROUPS: readonly MenuGroup[] = [
     color: "#3A6EA5",
     sections: [{ keys: [
       "alma_redemptoris", "ave_regina_caelorum", "regina_caeli", "salve_regina",
-      "sub_tuum", "memorare", "magnificat", "stabat_mater",
+      "sub_tuum", "memorare", "magnificat", "stabat_mater", "ave_maris_stella",
     ] }],
   },
   {
@@ -118,7 +118,7 @@ const GROUPS: readonly MenuGroup[] = [
     subtitle: { cs: "K Nejsvětější svátosti", en: "To the Blessed Sacrament" },
     icon: "monstrance",
     color: "#A87B12",
-    sections: [{ keys: ["adoro_te", "ave_verum", "o_salutaris", "pange_lingua", "tantum_ergo"] }],
+    sections: [{ keys: ["adoro_te", "ave_verum", "o_salutaris", "o_sacrum_convivium", "panis_angelicus", "pange_lingua", "tantum_ergo"] }],
   },
   {
     key: "litaniae",
@@ -161,7 +161,7 @@ export const groupKeys = (g: MenuGroup): MenuKey[] => g.sections.flatMap((s) => 
 const OCCASION_PRAYERS: Record<Occasion, readonly MenuKey[]> = {
   easter_octave: ["victimae_paschali"],
   pentecost_octave: ["veni_sancte_spiritus", "spiritus"],
-  corpus_christi: ["lauda_sion", "pange_lingua"],
+  corpus_christi: ["lauda_sion", "pange_lingua", "o_sacrum_convivium", "panis_angelicus"],
   seven_sorrows: ["stabat_mater", "septem_dolores"],
   november: ["requiem", "de_profundis", "dies_irae", "defuncti"],
   st_michael: ["angelica"],
@@ -171,7 +171,7 @@ const OCCASION_PRAYERS: Record<Occasion, readonly MenuKey[]> = {
   precious_blood: ["precious_blood", "sanguis"],
   holy_name: ["holy_name"],
   marian_month: ["loreto"],
-  lent: ["brigit", "septem_dolores"],
+  lent: ["brigit", "septem_dolores", "miserere"],
 };
 
 // What belongs to the day, for the start screen's "in season" card and the
