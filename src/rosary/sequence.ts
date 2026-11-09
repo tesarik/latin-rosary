@@ -482,6 +482,10 @@ export type OrdinaryPrayerKey =
   | "decalogue"
   | "de_profundis"
   | "dies_irae"
+  | "o_sacrum_convivium"
+  | "panis_angelicus"
+  | "ave_maris_stella"
+  | "miserere"
   | "confiteor"
   | "kyrie"
   | "gloria_in_excelsis"
@@ -577,6 +581,10 @@ export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, OrdinaryEntry> = {
   o_salutaris:          ordinary("O salutáris Hóstia", { cs: "Ó spasitelná oběti", en: "O Saving Victim" }, PRAYER_TYPES.O_SALUTARIS),
   pange_lingua:         ordinary("Pange, lingua", { cs: "Chvalte, ústa (Boží Tělo)", en: "Sing, My Tongue (Corpus Christi)" }, PRAYER_TYPES.PANGE_LINGUA),
   tantum_ergo:          ordinary("Tantum ergo", { cs: "Před Svátostí touto slavnou (před požehnáním)", en: "Down in Adoration Falling (before Benediction)" }, PRAYER_TYPES.TANTUM_ERGO),
+  o_sacrum_convivium:   ordinary("O sacrum convívium", { cs: "Ó svatá hostino", en: "O Sacred Banquet" }, PRAYER_TYPES.O_SACRUM_CONVIVIUM),
+  panis_angelicus:      ordinary("Panis angélicus", { cs: "Andělský chléb", en: "Bread of Angels" }, PRAYER_TYPES.PANIS_ANGELICUS),
+  ave_maris_stella:     ordinary("Ave, maris stella", { cs: "Hvězdo mořská, zdrávas", en: "Hail, Thou Star of Ocean" }, PRAYER_TYPES.AVE_MARIS_STELLA),
+  miserere:             ordinary("Miserére", { cs: "Smiluj se nade mnou, Bože (Žalm 50)", en: "Have Mercy on Me, O God (Psalm 50)" }, PRAYER_TYPES.MISERERE),
   dies_irae:            ordinary("Dies iræ", { cs: "Den hněvu (za zemřelé)", en: "Day of Wrath (for the Dead)" }, PRAYER_TYPES.DIES_IRAE),
   benedictio_mensae: ordinary("Benedíctio mensæ", { cs: "Modlitba před jídlem", en: "Grace before Meals" }, PRAYER_TYPES.BENEDICTIO_MENSAE),
   gratiarum_actio: ordinary("Gratiárum áctio", { cs: "Modlitba po jídle", en: "Grace after Meals" }, PRAYER_TYPES.GRATIARUM_ACTIO),

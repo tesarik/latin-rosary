@@ -811,6 +811,87 @@ While my body here decays,
 May my soul Thy goodness praise,
 Safe in Paradise with Thee. Amen.`,
 
+  // Edward Caswall's translation (Lyra Catholica, 1849).
+  // NOT yet checked against a printed witness.
+  [PRAYER_TYPES.AVE_MARIS_STELLA]: `Hail, thou star of ocean,
+portal of the sky!
+Ever Virgin Mother
+of the Lord most high!
+
+Oh! by Gabriel's Ave,
+uttered long ago,
+Eva's name reversing,
+'stablish peace below.
+
+Break the captive's fetters;
+light on blindness pour;
+all our ills expelling,
+every bliss implore.
+
+Show thyself a Mother;
+offer him our sighs,
+who for us incarnate
+did not thee despise.
+
+Virgin of all virgins!
+To thy shelter take us:
+gentlest of the gentle!
+Chaste and gentle make us.
+
+Still, as on we journey,
+help our weak endeavour;
+till with thee and Jesus
+we rejoice for ever.
+
+Through the highest heaven,
+to the Almighty Three,
+Father, Son and Spirit,
+one same glory be. Amen.`,
+
+  // The received English of St. Thomas's antiphon.
+  [PRAYER_TYPES.O_SACRUM_CONVIVIUM]: `O sacred banquet, in which Christ is received: the memory of his Passion is renewed: the mind is filled with grace: and a pledge of future glory is given to us.`,
+
+  // OUR OWN literal translation, line for line with the Latin.
+  [PRAYER_TYPES.PANIS_ANGELICUS]: `The bread of angels
+becomes the bread of men;
+the bread of heaven
+puts an end to figures:
+O wondrous thing!
+The poor, the slave and the lowly
+eat their Lord.
+
+Thee, Godhead three
+and one, we beseech:
+so do thou visit us,
+as we worship thee;
+by thy paths
+lead us whither we tend,
+to the light wherein thou dwellest. Amen.`,
+
+  // Psalm 50, Douay-Rheims (Challoner), one verse a line.
+  [PRAYER_TYPES.MISERERE]: `Have mercy on me, O God, according to thy great mercy.
+And according to the multitude of thy tender mercies blot out my iniquity.
+Wash me yet more from my iniquity: and cleanse me from my sin.
+For I know my iniquity: and my sin is always before me.
+To thee only have I sinned, and have done evil before thee: that thou mayst be justified in thy words, and mayst overcome when thou art judged.
+For behold I was conceived in iniquities: and in sins did my mother conceive me.
+For behold thou hast loved truth: the uncertain and hidden things of thy wisdom thou hast made manifest to me.
+Thou shalt sprinkle me with hyssop, and I shall be cleansed: thou shalt wash me, and I shall be made whiter than snow.
+To my hearing thou shalt give joy and gladness: and the bones that have been humbled shall rejoice.
+Turn away thy face from my sins: and blot out all my iniquities.
+Create a clean heart in me, O God: and renew a right spirit within my bowels.
+Cast me not away from thy face: and take not thy Holy Spirit from me.
+Restore unto me the joy of thy salvation: and strengthen me with a perfect spirit.
+I will teach the unjust thy ways: and the wicked shall be converted to thee.
+Deliver me from blood, O God, thou God of my salvation: and my tongue shall extol thy justice.
+O Lord, thou wilt open my lips: and my mouth shall declare thy praise.
+For if thou hadst desired sacrifice, I would indeed have given it: with burnt offerings thou wilt not be delighted.
+A sacrifice to God is an afflicted spirit: a contrite and humbled heart, O God, thou wilt not despise.
+Deal favourably, O Lord, in thy good will with Sion: that the walls of Jerusalem may be built up.
+Then shalt thou accept the sacrifice of justice, oblations and whole burnt offerings: then shall they lay calves upon thy altar.
+Glory be to the Father, and to the Son, and to the Holy Ghost.
+As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
+
   // The Book of Common Prayer (1662), with "Holy Spirit" for "Holy Ghost".
   // NOT yet checked against a printed witness (the online copies were out of reach).
   [PRAYER_TYPES.TE_DEUM]: `We praise thee, O God: we acknowledge thee to be the Lord.

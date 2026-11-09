@@ -148,6 +148,10 @@ export const PRAYER_TYPES = {
   O_SALUTARIS: "o_salutaris",
   PANGE_LINGUA: "pange_lingua",
   TANTUM_ERGO: "tantum_ergo",
+  AVE_MARIS_STELLA: "ave_maris_stella",
+  O_SACRUM_CONVIVIUM: "o_sacrum_convivium",
+  PANIS_ANGELICUS: "panis_angelicus",
+  MISERERE: "miserere",
   ANGELUS: "angelus",
   REGINA_CAELI: "regina_caeli",
   ANIMA_CHRISTI: "anima_christi",
@@ -1082,6 +1086,88 @@ ad palmam victóriæ.
 Quando corpus moriétur,
 fac, ut ánimæ donétur
 paradísi glória. Amen.`,
+
+  // Ave maris stella: the Roman Breviary's hymn (Vespers of Our Lady).
+  [PRAYER_TYPES.AVE_MARIS_STELLA]: `Ave, maris stella,
+Dei Mater alma,
+atque semper Virgo,
+felix cæli porta.
+
+Sumens illud Ave
+Gabriélis ore,
+funda nos in pace,
+mutans Evæ nomen.
+
+Solve vincla reis,
+profer lumen cæcis,
+mala nostra pelle,
+bona cuncta posce.
+
+Monstra te esse matrem,
+sumat per te preces,
+qui pro nobis natus
+tulit esse tuus.
+
+Virgo singuláris,
+inter omnes mitis,
+nos culpis solútos
+mites fac et castos.
+
+Vitam præsta puram,
+iter para tutum,
+ut vidéntes Iesum
+semper collætémur.
+
+Sit laus Deo Patri,
+summo Christo decus,
+Spirítui Sancto,
+tribus honor unus. Amen.`,
+
+  // O sacrum convivium: St. Thomas's antiphon (Magnificat at second Vespers of
+  // Corpus Christi), sung at Benediction.
+  [PRAYER_TYPES.O_SACRUM_CONVIVIUM]: `O sacrum convívium, in quo Christus súmitur: recólitur memória passiónis eius: mens implétur grátia: et futúræ glóriæ nobis pignus datur.`,
+
+  // Panis angelicus: the last two stanzas of St. Thomas's Sacris solemniis
+  // (Matins of Corpus Christi).
+  [PRAYER_TYPES.PANIS_ANGELICUS]: `Panis angélicus
+fit panis hóminum;
+dat panis cǽlicus
+figúris términum:
+o res mirábilis!
+mandúcat Dóminum
+pauper, servus et húmilis.
+
+Te, trina Déitas
+únaque, póscimus:
+sic nos tu vísita,
+sicut te cólimus;
+per tuas sémitas
+duc nos quo téndimus,
+ad lucem quam inhábitas. Amen.`,
+
+  // Miserere: Psalm 50 (Vulgate), one verse a line, with the Glória Patri.
+  [PRAYER_TYPES.MISERERE]: `Miserére mei, Deus, secúndum magnam misericórdiam tuam.
+Et secúndum multitúdinem miseratiónum tuárum, dele iniquitátem meam.
+Amplius lava me ab iniquitáte mea: et a peccáto meo munda me.
+Quóniam iniquitátem meam ego cognósco: et peccátum meum contra me est semper.
+Tibi soli peccávi, et malum coram te feci: ut iustificéris in sermónibus tuis, et vincas cum iudicáris.
+Ecce enim in iniquitátibus concéptus sum: et in peccátis concépit me mater mea.
+Ecce enim veritátem dilexísti: incérta et occúlta sapiéntiæ tuæ manifestásti mihi.
+Aspérges me hyssópo, et mundábor: lavábis me, et super nivem dealbábor.
+Audítui meo dabis gáudium et lætítiam: et exsultábunt ossa humiliáta.
+Avérte fáciem tuam a peccátis meis: et omnes iniquitátes meas dele.
+Cor mundum crea in me, Deus: et spíritum rectum ínnova in viscéribus meis.
+Ne proícias me a fácie tua: et Spíritum Sanctum tuum ne áuferas a me.
+Redde mihi lætítiam salutáris tui: et spíritu principáli confírma me.
+Docébo iníquos vias tuas: et ímpii ad te converténtur.
+Líbera me de sanguínibus, Deus, Deus salútis meæ: et exsultábit lingua mea iustítiam tuam.
+Dómine, lábia mea apéries: et os meum annuntiábit laudem tuam.
+Quóniam si voluísses sacrifícium, dedíssem útique: holocáustis non delectáberis.
+Sacrifícium Deo spíritus contribulátus: cor contrítum, et humiliátum, Deus, non despícies.
+Benígne fac, Dómine, in bona voluntáte tua Sion: ut ædificéntur muri Ierúsalem.
+Tunc acceptábis sacrifícium iustítiæ, oblatiónes, et holocáusta: tunc impónent super altáre tuum vítulos.
+Glória Patri, et Fílio, et Spirítui Sancto.
+Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.`,
 
   // Te Deum: the Roman Breviary's text (as in Příručka katolických pobožností,
   // 1935, p. 47), with the app's accent pointing.

@@ -776,6 +776,93 @@ Tělo bude umírati,
 duši mé pak račiž dáti
 slávu Ráje blaženou! Amen.`,
 
+  // Ave maris stella: "Zdrávas, Hvězdo strážná", J. P.'s translation (1905),
+  // Cesta k věčné spáse (Brno, [1932]), no. 421, p. 317–318 — metrical, stanza
+  // for stanza. The Amen, which the book leaves out, follows the Latin.
+  [PRAYER_TYPES.AVE_MARIS_STELLA]: `Hvězdo mořská, zdrávas,
+Matko Boží pravá's,
+ustavičně Panna,
+šťastná k nebi brána!
+
+S Gabrielem s nebe
+pozdravujem tebe.
+Dej mír, zapuď hněvy,
+proměň jméno Evy.
+
+Zbav nás hříchů mraku,
+uděl slepým zraku,
+odvrať od nás strasti,
+vypros pravé vlasti.
+
+Ukaž, že jsi máti,
+rač se přimlouvati,
+by nás k nebi vodil,
+jenž se z tebe zrodil.
+
+Panno přespanilá,
+nade všecky milá,
+v duši hříchu prosté,
+pros, ať cudnost roste.
+
+Duši chraň nám čistou,
+cestu připrav jistou,
+bychom Krista zřeli,
+radost věčnou měli.
+
+Sláva Bohu Otci,
+Synu stejné moci,
+rovná s nimi sláva
+Duchu ať se vzdává. Amen.`,
+
+  // Modleme se! Nejdůležitější modlitby a písně (1916), p. 62.
+  [PRAYER_TYPES.O_SACRUM_CONVIVIUM]: `Ó svatá hostino, v nížto se požívá Kristus: znovu se uctívá památka umučení jeho, mysl naplněna bývá milostí a budoucí slávy záruka se nám dává.`,
+
+  // The last two stanzas of the metrical Sacris solemniis in Posvátné zpěvy a
+  // modlitby (1888), p. 373 (Corpus Christi procession, on the way to the
+  // fourth altar). The Amen, which the book leaves out, follows the Latin.
+  [PRAYER_TYPES.PANIS_ANGELICUS]: `Andělský chléb chlebem
+člověka se stává;
+stravou danou nebem
+stín se dokonává;
+ó div předivoucí:
+chudým sluhům dává
+v stravu Pán se všemohoucí.
+
+Bože trojjediný,
+nakloň k nám svých uší,
+sestup ve hlubiny
+věrných tobě duší;
+veď nás onou stezkou,
+kterou nám jít sluší,
+na výšinu na nebeskou! Amen.`,
+
+  // Žalm 50 from Malé hodinky k nejblahoslavenější Panně Marii (1924, reprinted
+  // 1937), p. 112–114. The book prints the first two verses as one; they are
+  // split here at its asterisk, so the lines match the Latin; its asterisks are
+  // colons, and its capitalized pronouns for God lower case (see Conventions).
+  [PRAYER_TYPES.MISERERE]: `Smiluj se nade mnou, Bože, podle velikého milosrdenství svého:
+a podle množství slitování svých shlaď nepravost mou.
+Více obmyj mne od nepravosti mé: a od hříchu mého očisť mne.
+Nebo nepravost svou já poznávám: a hřích můj proti mně je vždycky.
+Tobě samému jsem zhřešil, a zlé před tebou učinil: abys spravedliv shledán byl v řečech svých, a zvítězil, když posuzován býváš.
+Nebo hle, v nepravostech počat jsem: a v hříších počala mne matka má.
+Nebo hle, pravdu zamiloval jsi: neznámé a skryté věci moudrosti své oznámil jsi mi.
+Pokropíš mne yzopem, a očištěn budu: obmyješ mne, a nad sníh zbílen budu.
+Sluchu mému dáš radost a veselí: a zplesají kosti ponížené.
+Odvrať tvář svou od hříchů mých: a vymaž všecky nepravosti mé.
+Srdce čisté stvoř ve mně, Bože: a ducha přímého obnov v útrobách mých.
+Nezamítej mne od tváře své: a Ducha Svatého svého neodjímej ode mne.
+Navrať mi radost spasení svého: a duchem statečným utvrď mne.
+Vyučovati budu nepravé cestám tvým: a bezbožní obrátí se k tobě.
+Vysvoboď mne z krvi, Bože, Bože spasení mého: a s veselím prozpěvovati bude jazyk můj o spravedlnosti tvé.
+Pane, rty mé otevřeš: a ústa má zvěstovati budou chválu tvou.
+Neb kdybys byl chtěl oběť, dal bych ji byl ovšem: ale zápalů nelibuješ sobě.
+Oběť Bohu příjemná duch zkormoucený: srdcem skroušeným a pokorným, Bože, nepohrdneš.
+Dobrotivě učiň, Hospodine, v dobré vůli své Sionu: aby sdělány byly zdi Jerusalémské.
+Tehdáž přijmeš oběť spravedlnosti, dary a zápaly: tehdáž klásti budou na oltář tvůj oběti slavné a tobě líbezné.
+Sláva Otci, i Synu, i Duchu Svatému:
+jakož bylo na počátku, nyní, i vždycky až na věky věkův. Amen.`,
+
   // Dr. Hejčl's prose translation, Příručka katolických pobožností (1935), p. 47–48.
   // It joins the last two verses ("Sestup milosrdenství… doufám na věky").
   [PRAYER_TYPES.TE_DEUM]: `Bože, tebe chválíme, Pane, tebe slavíme.

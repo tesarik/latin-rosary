@@ -118,6 +118,9 @@ const NOTES: Record<string, Partial<Localized>> = {
     cs: "Současný český překlad Lenky Jeřábkové (Collegium Strahoviense); starší český překlad jsme v prohledaných modlitebních knihách nenašli.",
     en: "The English is our own literal translation.",
   },
+  panis_angelicus: {
+    en: "The English is our own literal translation.",
+  },
   dies_irae: {
     cs: "Český překlad podle Schallerova Římského misálu (1931).",
     en: "The English is W. J. Irons' verse translation, as printed in the Saint Andrew Daily Missal.",
