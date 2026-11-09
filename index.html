@@ -8,25 +8,19 @@
       // Saved preference wins; otherwise follow the OS setting. Keep the key in
       // sync with src/rosary/theme.ts.
       (function () {
+        var look = "base";
         try {
           var t = localStorage.getItem("ruzenec_theme");
           if (t !== "light" && t !== "dark") {
             t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
           }
           document.documentElement.dataset.theme = t;
-          // The look (src/rosary/look.ts, loadSavedLook): the saved one; with
-          // none, Základ for someone who has used the app before (anything
-          // of ours in storage), Papír for a newcomer — saved at once.
+          // The look (src/rosary/look.ts, loadSavedLook): the saved one, else
+          // Základ, the default.
           var l = localStorage.getItem("ruzenec_look");
-          if (l !== "base" && l !== "paper" && l !== "missal") {
-            l = "paper";
-            for (var i = 0; i < localStorage.length; i++) {
-              if ((localStorage.key(i) || "").indexOf("ruzenec_") === 0) { l = "base"; break; }
-            }
-            localStorage.setItem("ruzenec_look", l);
-          }
-          document.documentElement.dataset.look = l;
+          if (l === "base" || l === "paper" || l === "missal") look = l;
         } catch (e) {}
+        document.documentElement.dataset.look = look;
       })();
     </script>
     <title>Rosarium</title>
@@ -44,7 +38,7 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="A rosary beside the words Rosarium Latinum" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#F2ECE0" />
+    <meta name="theme-color" content="#ECEFF1" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Rosarium" />

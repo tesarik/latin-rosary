@@ -15,25 +15,15 @@ import { accentText, type Theme } from "./theme";
 // differently in each look (`headerStyles`). Persisted under its own key.
 export type Look = "base" | "paper" | "missal";
 export const LOOKS: readonly Look[] = ["base", "paper", "missal"];
-export const DEFAULT_LOOK: Look = "paper";
+export const DEFAULT_LOOK: Look = "base";
 
 const LOOK_STORAGE_KEY = "ruzenec_look";
 
-// With no look saved yet, someone who has used the app before (anything of
-// ours in storage) keeps the look they know, Základ; a newcomer gets Papír.
-// The choice is saved at once, so it is made only on the first launch of a
-// version with looks. index.html's pre-paint script does the same.
+// The saved look, else Základ. index.html's pre-paint script does the same.
 export function loadSavedLook(): Look {
   try {
     const v = localStorage.getItem(LOOK_STORAGE_KEY);
     if (v === "base" || v === "paper" || v === "missal") return v;
-    let returning = false;
-    for (let i = 0; i < localStorage.length; i++) {
-      if (localStorage.key(i)?.startsWith("ruzenec_")) { returning = true; break; }
-    }
-    const look: Look = returning ? "base" : DEFAULT_LOOK;
-    localStorage.setItem(LOOK_STORAGE_KEY, look);
-    return look;
   } catch {}
   return DEFAULT_LOOK;
 }
