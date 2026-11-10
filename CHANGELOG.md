@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+- **An easier welcome.** The welcome card's three points are numbered, each with a short heading over its text; the *La | Cz* switch is drawn as it looks in the header, and *Rozumím* is a filled button under a rule, beside *Víc v nápovědě*.
+
 ## [0.33.0]
 
 ### Added
