@@ -16,7 +16,8 @@ A small, offline-friendly web app for praying the rosary and other prayers in La
 - The **Leonine prayers** (after Low Mass), the **prayers of St. Bridget**, the **Seven Sorrows and Joys of St. Joseph** in its short Latin form, and the **prayers for the dead** (*Preces pro defunctis*: Pater Noster, Ave María, *De profúndis*, its versicles and collect, step by step).
 - The start screen has **three tabs** at the bottom: *Rosary* (the mysteries, today's first, and the Chaplet of Divine Mercy), *Prayers* (search, the *In season* card and the groups) and *Mine* (favourites, prayer plans and settings). **Help** and **About** are at the foot of every tab.
 - **Favourites**: star any prayer, litany or devotion from its header (☆), and it appears in a *Favourites* card under *Mine*, beside the prayer plans. Kept in the browser, like the plans.
-- Three looks, each light or dark: **Základ** (the default), in cool greys; **Papír**, set like a missal — Latin names in EB Garamond, warm paper tones, each prayer opening with a red initial; and **Misál**, a white page in black and red only. Chosen in the ⋯ settings or the *Moje* tab.
+- Three looks, each light or dark: **Základ** (the default), in cool greys; **Papír**, set like a missal — Latin names in EB Garamond, warm paper tones, each prayer opening with a red initial; and **Misál**, a white page in black and red only, with woodcuts from Roman missals of the 1880s heading the prayer groups, the *Moje* tab, the plans, Help and About, and a red tailpiece closing each prayer (a thorn-crowned cross after the Passion, the sorrows and the prayers for the dead). Chosen in the ⋯ settings or the *Moje* tab.
+- The light/dark toggle and the language (a flag) sit in the top corners of every start-screen tab.
 - **Search** the prayers by their Latin, Czech or English name, accents optional (*memorare*, *pomni*, *credo*).
 - Today's mysteries lead the start screen as its largest tile.
 - On a first launch, a short **welcome** card says where to start, how to switch between Latin and the translation, and where the other prayers are.
@@ -102,6 +103,7 @@ On the PR branch, commit `chore: release X.Y.Z`: `npm version X.Y.Z --no-git-tag
   - Unit tests: `*.test.ts`. Component tests (`src/Rosary.test.tsx`, React Testing Library in jsdom) drive the start screen and the prayer screen as a user would.
 - `src/main.tsx`: the entry point, with an error boundary around the app.
 - `public/icons/*.webp`: the paintings on the start screen's mystery-set and chaplet tiles, rendered from `art/menu-icons/` by `python3 scripts/render-menu-icons.py`.
+- `public/missal/*.webp`: the Misál look's woodcuts (public domain, from 1880s Roman missals), rendered from `art/missal/` by `python3 scripts/render-missal-art.py`.
 - `public/manifest.webmanifest`, `public/sw.js` and the icons `public/icon-48/180/192/512.png` and `public/icon-maskable-192/512.png`: PWA assets. The icons are rendered from `art/icon-source.png` by `python3 scripts/render-icons.py` (needs Pillow and NumPy), which also renders `public/heart-192.webp`, the heart shown in the app on a transparent background, from `art/icon-heart.png` (cut out of the blue field by `python3 scripts/cut-heart.py`).
 - `public/og-image.svg`: the link-preview image, rendered to `og-image.png` (1200×630) the same way; EB Garamond must be installed.
 - `index.html`: title, description, link-preview tags, theme colour, and the pre-paint theme script.

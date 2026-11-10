@@ -1,4 +1,6 @@
 import { SERIF } from "./fonts";
+import { MissalArt } from "./MissalArt";
+import { currentLook } from "./look";
 import type { ReactNode, Ref } from "react";
 import { PRAYER_TYPES, PRAYERS, getHailMary, getHailMaryTr } from "./prayers";
 import { useTranslation } from "./translations";
@@ -162,6 +164,8 @@ type Props = {
   // text and the page scrolls (the rosary, where the bead ring scrolls too).
   contained?: boolean;
   scrollRef?: Ref<HTMLDivElement>;
+  // The Misál look's tailpiece on the last step (missalArt.ts finisFor).
+  finis?: string;
 };
 
 // The tappable white card that wraps the current prayer's text.
@@ -169,9 +173,15 @@ type Props = {
 // text or interacting with the language select, in which case the parent's
 // click handler bails out. Which language the body shows (Latin or the active
 // UI language) is chosen by the LanguageToggle in the label row above the card.
-export default function PrayerCard({ currentPrayer, accentColor, currentStep, totalSteps, onClick, locale, showTranslation, fontSizeClamp, theme, contained, scrollRef }: Props) {
+export default function PrayerCard({ currentPrayer, accentColor, currentStep, totalSteps, onClick, locale, showTranslation, fontSizeClamp, theme, contained, scrollRef, finis: finisArt = "finis" }: Props) {
   const t = STRINGS[locale];
-  const body = <PrayerBody currentPrayer={currentPrayer} accentColor={accentColor} locale={locale} showTranslation={showTranslation} fontSizeClamp={fontSizeClamp} theme={theme} />;
+  // In the Misál look the last step closes with a tailpiece, as a chapter
+  // ends in an old book.
+  const finis = currentLook() === "missal" && currentStep === totalSteps - 1;
+  const body = <>
+    <PrayerBody currentPrayer={currentPrayer} accentColor={accentColor} locale={locale} showTranslation={showTranslation} fontSizeClamp={fontSizeClamp} theme={theme} />
+    {finis && <MissalArt name={finisArt} style={{ marginTop: 22 }} />}
+  </>;
   return (
     <div
       onClick={onClick}

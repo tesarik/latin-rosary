@@ -39,7 +39,9 @@ export const menuEntry = (k: MenuKey): MenuEntry =>
 
 // A group may be cut into titled sections (the Mass: its order, the sequences,
 // the prayers after it); a section without a heading is shown plain.
-export type MenuSection = { heading?: string; keys: readonly MenuKey[] };
+// `art`: the engraving above it in the Misál look (public/missal/<art>.webp,
+// MissalArt.tsx), for a group or a headed section.
+export type MenuSection = { heading?: string; art?: string; keys: readonly MenuKey[] };
 export type MenuGroupKey = "cotidianae" | "mariales" | "missa" | "sacramentum" | "litaniae" | "defuncti" | "devotiones";
 // The symbol drawn in a group's header (GroupIcon in MysteryMenu.tsx).
 export type GroupIconName = "calendar" | "sun" | "marian" | "ihs" | "monstrance" | "list" | "cross" | "heart" | "star";
@@ -50,12 +52,15 @@ export type MenuGroup = {
   // The header's symbol and its colour (liturgical where there is one).
   icon: GroupIconName;
   color: string;
+  art?: string;
   sections: readonly MenuSection[];
 };
 
 // The "in season" card's symbol and colour (liturgical green).
 export const IN_SEASON_ICON: GroupIconName = "calendar";
 export const IN_SEASON_COLOR = "#2E7D32";
+// Its engraving in the Misál look: an angel in a wreath, "Iustus ut palma florebit".
+export const IN_SEASON_ART = "tempus";
 
 // The Favourites card's symbol and colour (a gold star).
 export const FAVORITES_ICON: GroupIconName = "star";
@@ -77,6 +82,7 @@ const GROUPS: readonly MenuGroup[] = [
     subtitle: { cs: "Každodenní modlitby", en: "Daily prayers" },
     icon: "sun",
     color: "#1565C0",
+    art: "cotidianae",
     sections: [{ keys: [
       "signum_crucis", "pater_noster", "ave_maria", "gloria_patri",
       "symbolum_apostolorum", "symbolum_nicenum", "symbolum_athanasianum",
@@ -90,6 +96,7 @@ const GROUPS: readonly MenuGroup[] = [
     subtitle: { cs: "K Panně Marii", en: "To Our Lady" },
     icon: "marian",
     color: "#3A6EA5",
+    art: "mariales",
     sections: [{ keys: [
       "alma_redemptoris", "ave_regina_caelorum", "regina_caeli", "salve_regina",
       "sub_tuum", "memorare", "magnificat", "stabat_mater", "ave_maris_stella",
@@ -101,6 +108,7 @@ const GROUPS: readonly MenuGroup[] = [
     subtitle: { cs: "Mše svatá", en: "Holy Mass" },
     icon: "ihs",
     color: "#B8860B",
+    art: "missa",
     sections: [
       // The whole Mass as one sequence to step through, then its parts one by one.
       { keys: ["ordo_missae"] },
@@ -118,6 +126,7 @@ const GROUPS: readonly MenuGroup[] = [
     subtitle: { cs: "K Nejsvětější svátosti", en: "To the Blessed Sacrament" },
     icon: "monstrance",
     color: "#A87B12",
+    art: "sacramentum",
     sections: [{ keys: ["adoro_te", "ave_verum", "o_salutaris", "o_sacrum_convivium", "panis_angelicus", "pange_lingua", "tantum_ergo"] }],
   },
   {
@@ -126,6 +135,7 @@ const GROUPS: readonly MenuGroup[] = [
     subtitle: { cs: "Litanie", en: "Litanies" },
     icon: "list",
     color: "#3949AB",
+    art: "litaniae",
     sections: [{ keys: ["loreto", "sacred_heart", "holy_name", "st_joseph", "precious_blood", "saints", "humility"] }],
   },
   {
@@ -134,6 +144,7 @@ const GROUPS: readonly MenuGroup[] = [
     subtitle: { cs: "Za zemřelé", en: "For the dead" },
     icon: "cross",
     color: "#546E7A",
+    art: "defuncti",
     sections: [{ keys: ["requiem", "de_profundis", "dies_irae", "defuncti"] }],
   },
   {
@@ -142,9 +153,10 @@ const GROUPS: readonly MenuGroup[] = [
     subtitle: { cs: "Pobožnosti", en: "Devotions" },
     icon: "heart",
     color: "#C62828",
+    art: "devotiones",
     sections: [
       { keys: ["spiritus", "sanguis", "brigit", "cor_iesu", "septem_dolores", "angelica"] },
-      { heading: "Ad sanctum Ioseph", keys: [
+      { heading: "Ad sanctum Ioseph", art: "ioseph", keys: [
         "ioseph", "ad_te_ioseph", "memorare_ioseph", "memento_ioseph", "o_ioseph_virgo", "fac_nos_innocuam", "commemoratio_ioseph",
       ] },
     ],

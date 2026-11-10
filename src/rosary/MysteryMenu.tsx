@@ -1,7 +1,8 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { MissalArt } from "./MissalArt";
 import { MYSTERIES, type MysteryKey } from "./prayers";
 import { CHAPLETS } from "./sequence";
-import { FAVORITES_COLOR, FAVORITES_ICON, IN_SEASON_COLOR, IN_SEASON_ICON, MENU_GROUPS, inSeason, menuEntry, searchMenu, type GroupIconName, type MenuKey, type MenuSection } from "./menu";
+import { FAVORITES_COLOR, FAVORITES_ICON, IN_SEASON_COLOR, IN_SEASON_ART, IN_SEASON_ICON, MENU_GROUPS, inSeason, menuEntry, searchMenu, type GroupIconName, type MenuKey, type MenuSection } from "./menu";
 import { chapletToOpen, loadSavedChapletFull, saveChapletFull } from "./chaplet";
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
 import type { PrayerSetKey } from "./navigation";
@@ -41,8 +42,8 @@ type Props = {
   onDismissWelcome: () => void;
 };
 
-// Sun/moon toggle in the top-left of the start screen, mirroring the language
-// picker top-right. Shows the icon for the theme you'd switch TO.
+// Sun/moon toggle in the top-left of every start-screen tab, mirroring the
+// language picker top-right. Shows the icon for the theme you'd switch TO.
 function ThemeToggle({ theme, onToggle, locale }: { theme: Theme; onToggle: () => void; locale: Locale }) {
   const t = STRINGS[locale];
   const dark = theme === "dark";
@@ -74,6 +75,8 @@ function ThemeToggle({ theme, onToggle, locale }: { theme: Theme; onToggle: () =
 
 // Custom flag dropdown. Native <select> can't render SVG inside <option>, so
 // this is a button + listbox pattern with outside-click + Escape to close.
+// Closed, it shows only the current language's flag (a square button like the
+// theme toggle); the list names each language beside its flag.
 function LanguagePicker({ locale, onChange }: { locale: Locale; onChange: (l: Locale) => void }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -101,24 +104,22 @@ function LanguagePicker({ locale, onChange }: { locale: Locale; onChange: (l: Lo
         onClick={() => setOpen((o) => !o)}
         aria-haspopup="listbox"
         aria-expanded={open}
-        aria-label={t.languagePickerAria}
+        aria-label={`${t.languagePickerAria}: ${t.localeName}`}
+        title={t.localeName}
         style={{
           display: "flex",
           alignItems: "center",
-          gap: 8,
-          padding: "6px 10px",
+          justifyContent: "center",
+          width: 40,
+          height: 40,
+          padding: 0,
           borderRadius: 10,
           border: "1px solid var(--border-strong)",
           background: "var(--surface)",
           cursor: "pointer",
-          fontFamily: "Arial, sans-serif",
-          fontSize: 13,
-          color: "var(--text)",
-          }}
+        }}
       >
         <Flag locale={locale} />
-        <span lang={locale} style={{ fontWeight: 600 }}>{STRINGS[locale].localeName}</span>
-        <span aria-hidden="true" style={{ fontSize: 10, marginLeft: 2, color: "var(--text-muted)" }}>{open ? "▴" : "▾"}</span>
       </button>
       {open && (
         <ul
@@ -293,7 +294,7 @@ const closedGroups = new Set<string>();
 // Latin name with its name in the UI language as a muted subtitle — the same
 // two-line shape the prayer-plan tile uses. The "in season" card is one too,
 // closed like the rest until tapped.
-function CollapsiblePrayers({ title, subtitle, icon, color: rawAccent, sections, onStart, resume, badges = {}, notes = {}, startOpen = false, theme, locale }: {
+function CollapsiblePrayers({ title, subtitle, icon, color: rawAccent, sections, onStart, resume, badges = {}, notes = {}, startOpen = false, art, theme, locale }: {
   title: string;
   subtitle: string;
   icon: GroupIconName;
@@ -306,10 +307,13 @@ function CollapsiblePrayers({ title, subtitle, icon, color: rawAccent, sections,
   notes?: Record<string, string>;
   // Open unless closed this session, rather than closed unless opened.
   startOpen?: boolean;
+  // The engraving heading the open group in the Misál look (MissalArt.tsx).
+  art?: string;
   theme: Theme;
   locale: Locale;
 }) {
   const accent = ink(rawAccent);
+  const missal = currentLook() === "missal";
   const keys = sections.flatMap((s) => s.keys);
   // A group holding an unfinished set starts open, so its place is visible; so
   // does one left open before a prayer was opened from it (openGroups).
@@ -364,6 +368,7 @@ function CollapsiblePrayers({ title, subtitle, icon, color: rawAccent, sections,
 
       {open && (
         <div style={{ borderTop: "1px solid var(--border)", padding: "4px 0", animation: "rolldown 0.22s ease" }}>
+          {missal && art && <MissalArt name={art} style={{ padding: "10px var(--card-px) 6px" }} />}
           <PrayerRows sections={sections} onStart={onStart} resume={resume} badges={badges} notes={notes} theme={theme} locale={locale} />
         </div>
       )}
@@ -397,6 +402,9 @@ function PrayerRows({ sections, onStart, resume, badges = {}, notes = {}, indent
               section's heading, so it reads as a new section rather than as
               the last row's caption. */}
           {i > 0 && <div aria-hidden="true" style={{ height: 1, background: "var(--divider)" }} />}
+          {section.art && currentLook() === "missal" && (
+            <MissalArt name={section.art} style={{ padding: "16px var(--card-px) 0" }} />
+          )}
           {section.heading && (
             <div style={{
               ...RUBRIC_CAPS,
@@ -485,6 +493,8 @@ function cardHover(raw: string) {
 }
 
 export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, onOpenPlans, planCount, favorites, locale, onLocaleChange, theme, onToggleTheme, look, onLook, showWelcome, onDismissWelcome }: Props) {
+  // The Misál look's red star above the footer.
+  const missal = look === "missal";
   const t = STRINGS[locale];
   const [aboutOpen, setAboutOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
@@ -545,9 +555,11 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
       padding: "24px 24px calc(96px + env(safe-area-inset-bottom, 0px))",
       position: "relative",
     }}>
+      {/* Light/dark and the language, in the top corners of every tab. */}
+      <ThemeToggle theme={theme} onToggle={onToggleTheme} locale={locale} />
+      <LanguagePicker locale={locale} onChange={onLocaleChange} />
+
       {tab === "rosary" && (<>
-        <ThemeToggle theme={theme} onToggle={onToggleTheme} locale={locale} />
-        <LanguagePicker locale={locale} onChange={onLocaleChange} />
 
         {/* The Immaculate Heart, cut out of the app icon's blue field (192 px, sharp at 2× density). */}
         <img
@@ -778,6 +790,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
           <CollapsiblePrayers
             title={t.inSeasonHeading}
             subtitle={t.inSeasonSubtitle}
+            art={IN_SEASON_ART}
             icon={IN_SEASON_ICON}
             color={IN_SEASON_COLOR}
             sections={[{ keys: seasonal }]}
@@ -795,6 +808,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
               icon={g.icon}
               color={g.color}
               sections={g.sections}
+              art={g.art}
               onStart={onStart}
               badges={seasonBadges}
               notes={angelusNote}
@@ -811,6 +825,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
       {tab === "mine" && (<>
         {tabTitle(t.myPrayersHeading)}
         <div style={column}>
+          {missal && <MissalArt name="maria" style={{ padding: "0 var(--card-px)", marginBottom: 6 }} />}
 
             {/* The prayers starred in the prayer header, open from the start;
               each is also in its own group below. */}
@@ -867,6 +882,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
         </div>
       </>)}
 
+      {missal && <MissalArt name="stella" width={110} style={{ marginTop: 28 }} />}
       {/* Help and About under every tab, not only the rosary's. */}
       <div style={{ marginTop: 20, display: "flex", alignItems: "center", gap: 4, color: "var(--text-muted)", fontSize: 13 }}>
         <button onClick={() => setHelpOpen(true)} style={footerLink}>{t.helpTitle}</button>

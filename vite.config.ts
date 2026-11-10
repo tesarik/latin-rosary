@@ -26,7 +26,7 @@ function swVersion(version: string): Plugin {
 }
 
 // A fingerprint of the app's pictures: the icons, the heart and the start
-// screen's paintings. The server lets browsers keep them for 30 days, and
+// screen's paintings and the Misál look's engravings. The server lets browsers keep them for 30 days, and
 // Safari keeps an apple-touch-icon even across removing the app from the home
 // screen, so a changed picture under the same URL would go unseen. Every
 // reference carries `?v=<fingerprint>` instead: a new picture is a new URL.
@@ -35,6 +35,7 @@ function iconFingerprint(): string {
   const files = [
     ...fs.readdirSync(dir).filter((f) => /^(icon-|heart-).*\.(png|webp)$/.test(f)),
     ...fs.readdirSync(path.join(dir, "icons")).map((f) => path.join("icons", f)),
+    ...fs.readdirSync(path.join(dir, "missal")).map((f) => path.join("missal", f)),
   ].sort();
   const hash = crypto.createHash("sha1");
   for (const f of files) hash.update(f).update(fs.readFileSync(path.join(dir, f)));
