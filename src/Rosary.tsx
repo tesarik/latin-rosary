@@ -24,7 +24,7 @@ import PrayerCard from "./rosary/PrayerCard";
 import PrayerSections from "./rosary/PrayerSections";
 import SettingsMenu from "./rosary/SettingsMenu";
 import { applyLook, headerStyles, ink, loadSavedLook, saveLook, type Look } from "./rosary/look";
-import { loadDim, loadHintSeen, loadVibrate, saveDim, saveHintSeen, saveVibrate } from "./rosary/prefs";
+import { loadDim, loadHintSeen, loadVibrate, loadWelcomeSeen, saveDim, saveHintSeen, saveVibrate, saveWelcomeSeen } from "./rosary/prefs";
 import LanguageToggle from "./rosary/LanguageToggle";
 import StarIcon from "./rosary/StarIcon";
 import { loadFavorites, saveFavorites, toggleFavorite } from "./rosary/favorites";
@@ -82,6 +82,9 @@ export default function Rosary() {
   const [dim, setDimState] = useState<boolean>(loadDim);
   // The one-time "tap or swipe" hint, until it is closed or a step is taken.
   const [hintSeen, setHintSeenState] = useState<boolean>(loadHintSeen);
+  // The start screen's welcome card, until closed or a prayer is opened.
+  const [welcomeSeen, setWelcomeSeen] = useState<boolean>(loadWelcomeSeen);
+  const dismissWelcome = useCallback(() => { setWelcomeSeen(true); saveWelcomeSeen(); }, []);
   const { updateReady, applyUpdate, dismissUpdate } = useServiceWorkerUpdate();
   const t = STRINGS[locale];
   const wide = useMediaQuery(WIDE_LAYOUT);
@@ -264,13 +267,14 @@ export default function Rosary() {
 
   // Opening a set resumes it where it was left, if it was left unfinished.
   const startSet = useCallback((key: PrayerSetKey) => {
+    dismissWelcome();
     setSelectedSet(key);
     setSequence(buildSequence(key, plans));
     setCurrentStep(resumeStep(key, progress[key] ?? 0, plans) ?? 0);
     setStarted(true);
     // Plan ids are per-device and unbounded — report plans as one bucket.
     track(`pray/${isPlanKey(key) ? "plan" : key}`);
-  }, [plans, progress]);
+  }, [plans, progress, dismissWelcome]);
 
   // The static prayer pages link to a set as #pray=<key>: open it once, on
   // mount. The fragment is cleared first, so a reload doesn't reopen it.
@@ -420,6 +424,8 @@ export default function Rosary() {
             onToggleTheme={toggleTheme}
             look={look}
             onLook={setLook}
+            showWelcome={!welcomeSeen}
+            onDismissWelcome={dismissWelcome}
           />
         )}
         {updateToast}

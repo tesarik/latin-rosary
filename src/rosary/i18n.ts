@@ -30,6 +30,9 @@ type Strings = {
   resumeAt: (step: number, total: number) => string;
   // Small heading over the start screen's tile for the last unfinished prayer.
   continueHeading: string;
+  welcomeTitle: string;
+  welcomePoints: readonly (readonly [string, string])[];
+  welcomeDismiss: string;
   rosaryHeading: string;
   discardAria: (name: string) => string;
   confirmDiscard: string;
@@ -180,6 +183,13 @@ export const STRINGS: Record<Locale, Strings> = {
     confirmRestart: "Začít modlitbu znovu od začátku?",
     resumeAt: (step, total) => `Pokračovat · ${step}/${total}`,
     continueHeading: "Nedokončená modlitba",
+    welcomeTitle: "Vítejte",
+    welcomePoints: [
+      ["Začněte modlitbou", "Dnešní tajemství růžence jsou hned pod tímto. Ťuknutím na text modlitby nebo přejetím prstem se postupuje dál."],
+      ["Latina a překlad", "Tlačítko La | Cz v záhlaví modlitby přepne text do češtiny a zpět."],
+      ["Další modlitby", "Litanie, hymny a mešní texty jsou na kartě Modlitby, oblíbené a vlastní plány na kartě Moje."],
+    ],
+    welcomeDismiss: "Rozumím",
     rosaryHeading: "Růženec a korunka",
     discardAria: (name) => `Odebrat nedokončenou modlitbu ${name}`,
     confirmDiscard: "Zapomenout, kde jste skončili? Modlitba pak začne od začátku.",
@@ -317,6 +327,13 @@ export const STRINGS: Record<Locale, Strings> = {
     confirmRestart: "Start this prayer again from the beginning?",
     resumeAt: (step, total) => `Continue · ${step}/${total}`,
     continueHeading: "Unfinished prayer",
+    welcomeTitle: "Welcome",
+    welcomePoints: [
+      ["Start with a prayer", "Today's mysteries of the rosary are just below. Tap the prayer's text or swipe to move on."],
+      ["Latin and translation", "The La | En button in a prayer's header switches the text to English and back."],
+      ["More prayers", "Litanies, hymns and the texts of the Mass are under Prayers; your favourites and own plans under Mine."],
+    ],
+    welcomeDismiss: "Got it",
     rosaryHeading: "Rosary and chaplet",
     discardAria: (name) => `Remove the unfinished ${name}`,
     confirmDiscard: "Forget where you left off? The prayer will then start from the beginning.",

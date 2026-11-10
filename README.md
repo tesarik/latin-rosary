@@ -19,6 +19,7 @@ A small, offline-friendly web app for praying the rosary and other prayers in La
 - Three looks, each light or dark: **Základ** (the default), in cool greys; **Papír**, set like a missal — Latin names in EB Garamond, warm paper tones, each prayer opening with a red initial; and **Misál**, a white page in black and red only. Chosen in the ⋯ settings or the *Moje* tab.
 - **Search** the prayers by their Latin, Czech or English name, accents optional (*memorare*, *pomni*, *credo*).
 - Today's mysteries lead the start screen as its largest tile.
+- On a first launch, a short **welcome** card says where to start, how to switch between Latin and the translation, and where the other prayers are.
 - While praying, the *Next* button names the next prayer, and a litany or devotion shows its step (*5 of 11*). Text size, dark mode, a **dimmed screen** for church and the **vibration** on each step are under the header's ⋯ button.
 - Coming back from a prayer, the start screen is where you left it: on the same tab, scrolled to the same place, with the same groups open.
 - The other prayers are grouped by occasion, each group in alphabetical order of the Latin names; the Mass keeps the order of the Mass.

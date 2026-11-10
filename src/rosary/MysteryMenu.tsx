@@ -36,6 +36,9 @@ type Props = {
   onToggleTheme: () => void;
   look: Look;
   onLook: (look: Look) => void;
+  // The first-run welcome card, and closing it.
+  showWelcome: boolean;
+  onDismissWelcome: () => void;
 };
 
 // Sun/moon toggle in the top-left of the start screen, mirroring the language
@@ -481,7 +484,7 @@ function cardHover(raw: string) {
   };
 }
 
-export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, onOpenPlans, planCount, favorites, locale, onLocaleChange, theme, onToggleTheme, look, onLook }: Props) {
+export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, onOpenPlans, planCount, favorites, locale, onLocaleChange, theme, onToggleTheme, look, onLook, showWelcome, onDismissWelcome }: Props) {
   const t = STRINGS[locale];
   const [aboutOpen, setAboutOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
@@ -573,6 +576,29 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
           {/* The last unfinished prayer, one tap away — otherwise it may sit
               inside a collapsed group (a litany) or in the plans screen. Its own
               row further down still shows its place too. */}
+          {/* First launch: what the app offers and where, in three lines,
+              until closed or a prayer is opened. */}
+          {showWelcome && !continueWith && (
+            <section aria-labelledby="welcome-title" style={{ ...CARD, padding: "14px var(--card-px) 12px" }}>
+              <h2 id="welcome-title" style={{ ...nameFont(23), fontWeight: 600, margin: "0 0 6px", color: "var(--text-strong)" }}>{t.welcomeTitle}</h2>
+              {t.welcomePoints.map(([lead, text]) => (
+                <p key={lead} style={{ margin: "0 0 8px", fontSize: 14, lineHeight: 1.45, color: "var(--text)" }}>
+                  <strong style={{ color: "var(--rubric)" }}>{lead}.</strong> {text}
+                </p>
+              ))}
+              <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: 8, marginTop: 4 }}>
+                <button onClick={() => setHelpOpen(true)} style={{ ...footerLink, minHeight: 40 }}>{t.helpTitle}</button>
+                <button
+                  onClick={onDismissWelcome}
+                  style={{
+                    minHeight: 40, padding: "0 16px", borderRadius: 10, cursor: "pointer",
+                    border: "1px solid var(--border-strong)", background: "transparent",
+                    color: "var(--rubric)", fontWeight: 600, fontSize: 14, fontFamily: "Arial, sans-serif",
+                  }}
+                >{t.welcomeDismiss}</button>
+              </div>
+            </section>
+          )}
           {continueWith && (
             <>
               <h2 style={{ ...sectionHeading, margin: "4px var(--heading-indent) 0" }}>{t.continueHeading}</h2>
@@ -602,11 +628,13 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
                   ×
                 </button>
               </div>
-              {/* The rosary under its own heading, so the unfinished prayer
-                  above it doesn't run into it (in the missal, whose entries run
-                  rule to rule, the two would read as one list). */}
-              <h2 style={{ ...sectionHeading, margin: "12px var(--heading-indent) 0" }}>{t.rosaryHeading}</h2>
             </>
+          )}
+          {/* The rosary under its own heading, so the unfinished prayer or the
+              welcome above it doesn't run into it (in the missal, whose entries
+              run rule to rule, they would read as one list). */}
+          {(continueWith || showWelcome) && (
+            <h2 style={{ ...sectionHeading, margin: "12px var(--heading-indent) 0" }}>{t.rosaryHeading}</h2>
           )}
           {(() => {
             const val = MYSTERIES[todaysMysteries];
