@@ -390,10 +390,14 @@ function PrayerRows({ sections, onStart, resume, badges = {}, notes = {}, indent
     <>
       {sections.map((section, i) => (
         <div key={section.heading ?? i}>
+          {/* A rule across the card between two sections, and room above a
+              section's heading, so it reads as a new section rather than as
+              the last row's caption. */}
+          {i > 0 && <div aria-hidden="true" style={{ height: 1, background: "var(--divider)" }} />}
           {section.heading && (
             <div style={{
               ...RUBRIC_CAPS,
-              padding: `8px var(--card-px) 2px ${pad}`,
+              padding: `${i > 0 ? 18 : 8}px var(--card-px) 4px ${pad}`,
               fontSize: headingSize(15),
             }}>{section.heading}</div>
           )}
@@ -598,9 +602,10 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
                   ×
                 </button>
               </div>
-              {/* A little extra space under it; none in the missal, whose entries
-                  run rule to rule. */}
-              <div aria-hidden="true" style={{ height: "calc(var(--card-gap) / 2)" }} />
+              {/* The rosary under its own heading, so the unfinished prayer
+                  above it doesn't run into it (in the missal, whose entries run
+                  rule to rule, the two would read as one list). */}
+              <h2 style={{ ...sectionHeading, margin: "12px var(--heading-indent) 0" }}>{t.rosaryHeading}</h2>
             </>
           )}
           {(() => {
@@ -768,8 +773,23 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
 
             {/* The prayers starred in the prayer header, open from the start;
               each is also in its own group below. */}
+          {/* With none starred, the same card's header, saying how to star one,
+              so the hint sits in the list like every other entry. */}
           {favorites.length === 0 && (
-            <p style={{ margin: "0 4px", fontSize: 14, lineHeight: 1.45, color: "var(--text-muted)" }}>{t.favoritesEmpty}</p>
+            <div style={{ ...CARD, display: "flex", alignItems: "center", gap: 12, padding: "12px var(--card-px)" }}>
+              <div style={{
+                width: "var(--icon-box)", height: 40, borderRadius: 12, background: iconBg(ink(FAVORITES_COLOR)),
+                display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+              }}>
+                <GroupIcon name={FAVORITES_ICON} color={ink(FAVORITES_COLOR)} />
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ ...nameFont(23), fontWeight: 600, lineHeight: 1.15, color: "var(--text-strong)" }}>
+                  {t.favoritesHeading}
+                </div>
+                <div style={{ ...CAPTION, marginTop: 2 }}>{t.favoritesEmpty}</div>
+              </div>
+            </div>
           )}
           {favorites.length > 0 && (
             <CollapsiblePrayers
