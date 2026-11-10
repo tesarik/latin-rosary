@@ -579,21 +579,34 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
           {/* First launch: what the app offers and where, in three lines,
               until closed or a prayer is opened. */}
           {showWelcome && !continueWith && (
-            <section aria-labelledby="welcome-title" style={{ ...CARD, padding: "14px var(--card-px) 12px" }}>
-              <h2 id="welcome-title" style={{ ...nameFont(23), fontWeight: 600, margin: "0 0 6px", color: "var(--text-strong)" }}>{t.welcomeTitle}</h2>
-              {t.welcomePoints.map(([lead, text]) => (
-                <p key={lead} style={{ margin: "0 0 8px", fontSize: 14, lineHeight: 1.45, color: "var(--text)" }}>
-                  <strong style={{ color: "var(--rubric)" }}>{lead}.</strong> {text}
-                </p>
-              ))}
-              <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", gap: 8, marginTop: 4 }}>
-                <button onClick={() => setHelpOpen(true)} style={{ ...footerLink, minHeight: 40 }}>{t.helpTitle}</button>
+            <section aria-labelledby="welcome-title" style={{ ...CARD, padding: "16px var(--card-px) 10px" }}>
+              <h2 id="welcome-title" style={{ ...nameFont(24), fontWeight: 600, margin: 0, lineHeight: 1.15, color: "var(--text-strong)" }}>{t.welcomeTitle}</h2>
+              <div style={{ ...CAPTION, marginTop: 2 }}>{t.welcomeSubtitle}</div>
+              {/* Three numbered points: a short lead, the detail under it. */}
+              <ol style={{ listStyle: "none", margin: "14px 0 0", padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
+                {t.welcomePoints.map(([lead, text], i) => (
+                  <li key={lead} style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
+                    <span aria-hidden="true" style={{
+                      flexShrink: 0, width: 26, height: 26, marginTop: 1, borderRadius: "50%",
+                      border: "1.5px solid var(--rubric)", color: "var(--rubric)",
+                      display: "flex", alignItems: "center", justifyContent: "center",
+                      ...nameFont(15), fontWeight: 600,
+                    }}>{i + 1}</span>
+                    <div style={{ minWidth: 0 }}>
+                      <div style={{ fontFamily: "Arial, sans-serif", fontSize: 15, fontWeight: 700, lineHeight: 1.3, color: "var(--text-strong)" }}>{lead}</div>
+                      <div style={{ fontFamily: "Arial, sans-serif", fontSize: 14, lineHeight: 1.45, color: "var(--text-soft)", marginTop: 2 }}>{withKeys(text)}</div>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8, marginTop: 14, paddingTop: 10, borderTop: "1px solid var(--divider)" }}>
+                <button onClick={() => setHelpOpen(true)} style={{ ...footerLink, paddingLeft: 0 }}>{t.welcomeMore}</button>
                 <button
                   onClick={onDismissWelcome}
                   style={{
-                    minHeight: 40, padding: "0 16px", borderRadius: 10, cursor: "pointer",
-                    border: "1px solid var(--border-strong)", background: "transparent",
-                    color: "var(--rubric)", fontWeight: 600, fontSize: 14, fontFamily: "Arial, sans-serif",
+                    minHeight: 40, padding: "0 20px", borderRadius: 10, cursor: "pointer",
+                    border: "none", background: "var(--rubric)",
+                    color: "var(--surface)", fontWeight: 700, fontSize: 14, fontFamily: "Arial, sans-serif",
                   }}
                 >{t.welcomeDismiss}</button>
               </div>
@@ -1136,6 +1149,21 @@ const footerLink: React.CSSProperties = {
   padding: 8,
   minHeight: 40,
 };
+
+// The welcome card's text with the header's language switch ("La | Cz",
+// "La | En") drawn as a small chip, as it looks in the header.
+function withKeys(text: string): React.ReactNode {
+  const m = /La \| (Cz|En)/.exec(text);
+  if (!m) return text;
+  return (<>
+    {text.slice(0, m.index)}
+    <span style={{
+      display: "inline-block", padding: "0 6px", borderRadius: 6, border: "1px solid var(--border-strong)",
+      fontSize: 12, fontWeight: 700, lineHeight: "18px", color: "var(--text-strong)", whiteSpace: "nowrap",
+    }}>{m[0]}</span>
+    {text.slice(m.index + m[0].length)}
+  </>);
+}
 
 // Small uppercase heading over a group of start-screen rows.
 const sectionHeading: React.CSSProperties = {

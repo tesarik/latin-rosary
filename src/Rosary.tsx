@@ -24,7 +24,7 @@ import PrayerCard from "./rosary/PrayerCard";
 import PrayerSections from "./rosary/PrayerSections";
 import SettingsMenu from "./rosary/SettingsMenu";
 import { applyLook, headerStyles, ink, loadSavedLook, saveLook, type Look } from "./rosary/look";
-import { loadDim, loadHintSeen, loadVibrate, loadWelcomeSeen, saveDim, saveHintSeen, saveVibrate, saveWelcomeSeen } from "./rosary/prefs";
+import { hintToShow, loadDim, loadHintsSeen, loadVibrate, loadWelcomeSeen, saveDim, saveHintDone, saveVibrate, saveWelcomeSeen, type Hint, type HintsSeen } from "./rosary/prefs";
 import LanguageToggle from "./rosary/LanguageToggle";
 import StarIcon from "./rosary/StarIcon";
 import { loadFavorites, saveFavorites, toggleFavorite } from "./rosary/favorites";
@@ -80,8 +80,9 @@ export default function Rosary() {
   // The prayer screen's quieter settings (prefs.ts), in the header's ⋯ menu.
   const [vibrate, setVibrateState] = useState<boolean>(loadVibrate);
   const [dim, setDimState] = useState<boolean>(loadDim);
-  // The one-time "tap or swipe" hint, until it is closed or a step is taken.
-  const [hintSeen, setHintSeenState] = useState<boolean>(loadHintSeen);
+  // The prayer screen's one-time hints (prefs.ts: how to step, how to jump,
+  // that ← keeps the place), each until closed or put to use.
+  const [hintsSeen, setHintsSeen] = useState<HintsSeen>(loadHintsSeen);
   // The start screen's welcome card, until closed or a prayer is opened.
   const [welcomeSeen, setWelcomeSeen] = useState<boolean>(loadWelcomeSeen);
   const dismissWelcome = useCallback(() => { setWelcomeSeen(true); saveWelcomeSeen(); }, []);
@@ -139,7 +140,10 @@ export default function Rosary() {
 
   const setVibrate = useCallback((on: boolean) => { setVibrateState(on); saveVibrate(on); }, []);
   const setDim = useCallback((on: boolean) => { setDimState(on); saveDim(on); }, []);
-  const dismissHint = useCallback(() => { setHintSeenState(true); saveHintSeen(); }, []);
+  const closeHint = useCallback((hint: Hint) => {
+    setHintsSeen((prev) => (prev[hint] ? prev : { ...prev, [hint]: true }));
+    saveHintDone(hint);
+  }, []);
 
   const toggleTheme = useCallback(() => {
     setThemeState((prev) => {
@@ -300,8 +304,8 @@ export default function Rosary() {
     if (canGoToStep(idx, currentStep, sequence.length)) {
       buzz(sequence[idx]);
       setCurrentStep(idx);
-      // Having stepped, the hint has done its job.
-      if (!hintSeen) dismissHint();
+      // Having stepped, the first hint has done its job.
+      if (!hintsSeen.step) closeHint("step");
       const reduce = typeof matchMedia !== "undefined" && matchMedia("(prefers-reduced-motion: reduce)").matches;
       prayerRef.current?.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
     }
@@ -309,11 +313,17 @@ export default function Rosary() {
 
   const next = () => goToStep(currentStep + 1);
   const prev = () => goToStep(currentStep - 1);
-  const jumpTo = (idx: number) => goToStep(idx);
+  // A tap on a bead: the jump hint is no longer needed.
+  const jumpTo = (idx: number) => {
+    if (!hintsSeen.jump) closeHint("jump");
+    goToStep(idx);
+  };
 
   // Back to the menu. The set's progress stays in the map, so opening it
   // again resumes where it was left.
   const exitToMenu = () => {
+    // Leaving a set part-way keeps its place: the keep hint has been shown in action.
+    if (!hintsSeen.keep && hintsSeen.jump && currentStep > 0 && selectedSet && isPersistableKey(selectedSet, plans)) closeHint("keep");
     setStarted(false);
     setSelectedSet(null);
     setCurrentStep(0);
@@ -436,6 +446,15 @@ export default function Rosary() {
   const setMeta = getPrayerSetMeta(selectedSet, plans);
   const currentPrayer = sequence[currentStep];
   const accentColor = ink(setMeta.color);
+  const hint = hintToShow(hintsSeen, {
+    kind: setMeta.kind,
+    persistable: isPersistableKey(selectedSet, plans),
+    step: currentStep,
+    length: sequence.length,
+  });
+  const hintText = hint === "step" ? t.hintText
+    : hint === "jump" ? (setMeta.kind === "rosary" ? t.hintJumpRosary : t.hintJumpSections)
+    : t.hintKeep;
   const progressPct = sequence.length > 0 ? ((currentStep + 1) / sequence.length) * 100 : 0;
 
   // Within a rosary decade the chip names the decade and quotes its mystery in
@@ -691,8 +710,9 @@ export default function Rosary() {
         </div>
       </div>
 
-      {/* First time on a prayer: how to move on, once, until closed or used. */}
-      {!hintSeen && (
+      {/* The one-time hints (prefs.ts hintToShow): how to move on, how to
+          jump by a bead, that ← keeps the place; one at a time. */}
+      {hint && (
         <div role="note" style={{
           margin: "0 14px 2px",
           padding: "8px 8px 8px 14px",
@@ -706,9 +726,9 @@ export default function Rosary() {
           lineHeight: 1.35,
           color: "var(--text)",
         }}>
-          <span style={{ flex: 1 }}>{t.hintText}</span>
+          <span style={{ flex: 1 }}>{hintText}</span>
           <button
-            onClick={dismissHint}
+            onClick={() => closeHint(hint)}
             style={{
               flexShrink: 0,
               minHeight: 36,
