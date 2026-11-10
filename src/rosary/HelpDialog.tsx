@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import { STRINGS, type Locale } from "./i18n";
 import { SERIF } from "./fonts";
+import { currentLook } from "./look";
+import { MissalArt } from "./MissalArt";
 
 // What the help explains, one short paragraph per topic, in every UI locale
 // (the Record makes a missing locale a compile error). Keep it in step with
@@ -112,6 +114,7 @@ export default function HelpDialog({ locale, onClose }: Props) {
         </button>
         <div style={{ overflowY: "auto", padding: "22px 22px 18px", scrollbarWidth: "thin" }}>
           <h2 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 600, color: "var(--text-strong)", margin: "0 0 12px" }}>{t.helpTitle}</h2>
+          {currentLook() === "missal" && <MissalArt name="euntes" style={{ margin: "0 0 14px" }} />}
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {HELP[locale].map((item) => (
               <section key={item.title}>

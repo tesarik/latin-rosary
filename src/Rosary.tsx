@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
+import { finisFor } from "./rosary/missalArt";
 import { type SequenceItem } from "./rosary/sequence";
 import { loadSavedState, saveState } from "./rosary/storage";
 import { getPrayerSetMeta, buildSequence, isBuiltInKey, isChapletKey, isPersistableKey, isRosaryKey, resolveSession, resumeStep, canGoToStep, type PrayerSetKey } from "./rosary/navigation";
@@ -516,6 +517,7 @@ export default function Rosary() {
 
   const card = (
     <PrayerCard
+      finis={finisFor(selectedSet)}
       currentPrayer={currentPrayer}
       accentColor={accentColor}
       currentStep={currentStep}

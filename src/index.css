@@ -243,3 +243,14 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* The Misál look's engravings (MissalArt.tsx): grey ink on white paper, the
+   white dropped into the page's own colour; on the dark page, light ink. */
+.missal-art {
+  mix-blend-mode: multiply;
+}
+:root[data-theme="dark"] .missal-art {
+  filter: invert(1);
+  mix-blend-mode: screen;
+  opacity: 0.85;
+}

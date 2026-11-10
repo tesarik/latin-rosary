@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react";
 import { STRINGS, type Locale } from "./i18n";
 import { analyticsConfigured } from "./analytics";
 import { SERIF } from "./fonts";
+import { currentLook } from "./look";
+import { MissalArt } from "./MissalArt";
 
 // ─── Edit these to set what the About panel shows ──────────────────────────
 const CREATOR = {
@@ -129,6 +131,7 @@ export default function AboutDialog({ locale, onClose }: Props) {
           {buildDate && ` · ${t.aboutBuilt} ${buildDate}`}
         </div>
         <div style={{ textAlign: "center", fontSize: 14, color: "var(--text)", margin: "12px 0 14px", lineHeight: 1.4 }}>{t.aboutText}</div>
+        {currentLook() === "missal" && <MissalArt name="pax" style={{ margin: "0 auto 14px" }} />}
 
         <div style={{ textAlign: "center", fontSize: 14, margin: "0 0 14px" }}>
           <a href={`${import.meta.env.BASE_URL}${locale}/`} target="_blank" rel="noopener" style={linkStyle}>{t.aboutPrayerTexts}</a>

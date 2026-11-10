@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.35.0]
+
+### Added
+- **Woodcuts in the Misál look.** Engravings from Roman missals of the 1880s now head each prayer group on the *Modlitby* tab (the in-season card, the daily prayers, Our Lady, the Mass, the Blessed Sacrament, the litanies, the dead, the devotions and St. Joseph), the *Moje* tab, the prayer plans, Help and About. A prayer's last step closes with a red tailpiece — a thorn-crowned cross after the sorrowful mysteries, the Seven Sorrows, the Precious Blood, St. Bridget, Stabat Mater, the Miserére and the prayers for the dead — and a red star stands above the footer. In the dark theme the engravings turn to light ink.
+
+### Changed
+- **The light/dark toggle and the language on every tab.** They used to sit only atop the *Růženec* tab; now they are in the top corners of all three, and the language button shows just its flag until opened.
+
 ## [0.34.0]
 
 ### Added

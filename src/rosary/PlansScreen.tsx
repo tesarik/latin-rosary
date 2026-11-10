@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { CAPTION, CARD, RUBRIC_CAPS, headingSize, nameFont } from "./fonts";
-import { headerStyles, iconBg, ink } from "./look";
+import { currentLook, headerStyles, iconBg, ink } from "./look";
+import { MissalArt } from "./MissalArt";
 import { STRINGS, type Locale } from "./i18n";
 import {
   MAX_PLANS,
@@ -156,6 +157,7 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
           <PlanEditor draft={draft} onDraftChange={setDraft} onSave={commit} onNotice={setToast} locale={locale} />
         ) : (
           <>
+            {currentLook() === "missal" && <MissalArt name="immaculata" />}
             {plans.length === 0 && (
               <p style={{ margin: "8px 4px 4px", color: "var(--text-soft)", fontSize: 15, lineHeight: 1.55 }}>
                 {t.plansEmpty}
