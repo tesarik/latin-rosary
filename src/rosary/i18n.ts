@@ -30,6 +30,7 @@ type Strings = {
   resumeAt: (step: number, total: number) => string;
   // Small heading over the start screen's tile for the last unfinished prayer.
   continueHeading: string;
+  rosaryHeading: string;
   discardAria: (name: string) => string;
   confirmDiscard: string;
   discardLabel: string;
@@ -179,6 +180,7 @@ export const STRINGS: Record<Locale, Strings> = {
     confirmRestart: "Začít modlitbu znovu od začátku?",
     resumeAt: (step, total) => `Pokračovat · ${step}/${total}`,
     continueHeading: "Nedokončená modlitba",
+    rosaryHeading: "Růženec a korunka",
     discardAria: (name) => `Odebrat nedokončenou modlitbu ${name}`,
     confirmDiscard: "Zapomenout, kde jste skončili? Modlitba pak začne od začátku.",
     discardLabel: "Zapomenout",
@@ -315,6 +317,7 @@ export const STRINGS: Record<Locale, Strings> = {
     confirmRestart: "Start this prayer again from the beginning?",
     resumeAt: (step, total) => `Continue · ${step}/${total}`,
     continueHeading: "Unfinished prayer",
+    rosaryHeading: "Rosary and chaplet",
     discardAria: (name) => `Remove the unfinished ${name}`,
     confirmDiscard: "Forget where you left off? The prayer will then start from the beginning.",
     discardLabel: "Forget",

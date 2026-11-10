@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Fixed
+- **Clearer sections on the start screen.** A section inside a group (*Ad sanctum Ioseph*, the Mass's *Sequéntiæ*) now starts under a rule with more room above its heading, instead of reading as part of the prayer before it; and when an unfinished prayer is offered, the rosary and the chaplet below it get their own heading, *Růženec a korunka*. With no favourites yet, the note on how to star a prayer stands in a *Oblíbené* card like the other entries, rather than loose above them.
+
 ## [0.32.0]
 
 ### Added
