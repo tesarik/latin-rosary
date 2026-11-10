@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.33.0]
+
 ### Added
 - **A welcome on first launch.** The start screen opens with a short *Vítejte* card: where to start and how to step through a prayer, the *La | Cz* switch, and where the other prayers, favourites and plans are, with a link to *Nápověda*. It goes away with *Rozumím* or once you open a prayer, and someone who has already prayed never sees it.
 
