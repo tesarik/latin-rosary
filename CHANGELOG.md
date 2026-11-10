@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.34.0]
+
 ### Added
 - **Hints while praying.** After the first hint on stepping, a newcomer gets two more, one at a time and once each: a few steps in, that tapping a larger bead jumps to another decade (or another part of a litany or devotion); further on, that the ← arrow goes back to the menu and keeps the place. Each goes with *Rozumím* or once you do what it says.
 
