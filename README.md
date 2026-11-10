@@ -32,6 +32,7 @@ A small, offline-friendly web app for praying the rosary and other prayers in La
 - Litanies and the other multi-step prayers step through their **sections** on a bead strand. In a litany, a response shared by several invocations is shown **once**, in a band that stays at the top of the card (*℟ ora pro nobis*), instead of on every line.
 - **Unfinished prayers keep their place**: leave the rosary to pray something else, and come back to *Pokračovat · 23/74*. The last unfinished prayer is offered at the top of the start screen, with a × to forget it. Every multi-step prayer remembers its own step across reloads.
 - Tap or swipe to move on or back. On a keyboard, `→` / `Space` / `Enter` move on and `←` goes back. Every step gives a haptic tick.
+- A first-time user gets three short hints in the prayer, one at a time and once each: how to step, that a larger bead jumps to another decade or part, and that `←` keeps the place.
 - The header holds the controls: back and restart, the favourites star, the ⋯ settings (look, text size, dark mode, dimmed screen, vibration), and a one-tap switch for the prayer language (Latin ↔ Czech/English).
 - In the rosary, the label names the current decade and quotes its mystery in full, in the language the prayer is shown in (*II. quem, Virgo, visitándo Elisabeth portásti* / *2. desátek: s kterým jsi, Panno, Alžbětu navštívila*), and a double vibration marks the end of each decade (in the chaplet too).
 - Turn a phone sideways, or use a tablet, and the beads and the prayer sit side by side.
@@ -98,7 +99,7 @@ On the PR branch, commit `chore: release X.Y.Z`: `npm version X.Y.Z --no-git-tag
 - `src/rosary/`:
   - Prayer data (`prayers.ts`) and sequences (`sequence.ts`), litany parsing (`litany.ts`), navigation and persistence logic (`navigation.ts`, `storage.ts`), the chaplet's optional-prayers switch (`chaplet.ts`), plans (`plans.ts`), and the static prayer pages and sitemap (`staticPages.ts`).
   - The components: `MysteryMenu`, `PrayerCard`, `RosaryBeads`, `PrayerSections`, `PlansScreen`, and the header controls.
-  - Unit tests: `*.test.ts`.
+  - Unit tests: `*.test.ts`. Component tests (`src/Rosary.test.tsx`, React Testing Library in jsdom) drive the start screen and the prayer screen as a user would.
 - `src/main.tsx`: the entry point, with an error boundary around the app.
 - `public/icons/*.webp`: the paintings on the start screen's mystery-set and chaplet tiles, rendered from `art/menu-icons/` by `python3 scripts/render-menu-icons.py`.
 - `public/manifest.webmanifest`, `public/sw.js` and the icons `public/icon-48/180/192/512.png` and `public/icon-maskable-192/512.png`: PWA assets. The icons are rendered from `art/icon-source.png` by `python3 scripts/render-icons.py` (needs Pillow and NumPy), which also renders `public/heart-192.webp`, the heart shown in the app on a transparent background, from `art/icon-heart.png` (cut out of the blue field by `python3 scripts/cut-heart.py`).

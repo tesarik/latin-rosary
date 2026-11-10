@@ -63,6 +63,9 @@ type Strings = {
   settingsDim: string;
   hintText: string;
   hintDismiss: string;
+  hintJumpRosary: string;
+  hintJumpSections: string;
+  hintKeep: string;
   nextStepAria: (name: string) => string;
   stepCount: (step: number, total: number) => string;
   searchPlaceholder: string;
@@ -219,6 +222,9 @@ export const STRINGS: Record<Locale, Strings> = {
     settingsDim: "Ztlumit obrazovku",
     hintText: "Další modlitbu otevřete ťuknutím na text nebo přejetím prstem doleva, předchozí přejetím doprava.",
     hintDismiss: "Rozumím",
+    hintJumpRosary: "Ťuknutím na větší korálek přeskočíte na jiný desátek.",
+    hintJumpSections: "Ťuknutím na větší korálek nahoře přeskočíte na jinou část modlitby.",
+    hintKeep: "Šipkou ← se vrátíte do nabídky a místo zůstane uložené. Příště budete pokračovat tam, kde jste skončili.",
     nextStepAria: (name) => `Další modlitba: ${name}`,
     stepCount: (step, total) => `${step} z ${total}`,
     searchPlaceholder: "Hledat modlitbu",
@@ -365,6 +371,9 @@ export const STRINGS: Record<Locale, Strings> = {
     settingsDim: "Dim the screen",
     hintText: "Tap the prayer or swipe left for the next one; swipe right to go back.",
     hintDismiss: "Got it",
+    hintJumpRosary: "Tap a larger bead to jump to another decade.",
+    hintJumpSections: "Tap a larger bead above to jump to another part of the prayer.",
+    hintKeep: "The ← arrow takes you back to the menu and keeps your place, so next time you carry on where you stopped.",
     nextStepAria: (name) => `Next prayer: ${name}`,
     stepCount: (step, total) => `${step} of ${total}`,
     searchPlaceholder: "Search prayers",
