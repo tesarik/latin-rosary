@@ -1,6 +1,6 @@
 # Latin rosary
 
-A small, offline-friendly web app for praying the rosary and other prayers in Latin. The interface is in Czech or English; every prayer is in ecclesiastical Latin, with a Czech or English translation one tap away.
+A small, offline-friendly web app for praying the rosary and other prayers in Latin. The interface is in Czech or English; every prayer is in ecclesiastical Latin, with a Czech or English translation one tap away — instead of the Latin, or under it, line by line.
 
 ## Features
 
@@ -34,7 +34,7 @@ A small, offline-friendly web app for praying the rosary and other prayers in La
 - **Unfinished prayers keep their place**: leave the rosary to pray something else, and come back to *Pokračovat · 23/74*. The last unfinished prayer is offered at the top of the start screen, with a × to forget it. Every multi-step prayer remembers its own step across reloads.
 - Tap or swipe to move on or back. On a keyboard, `→` / `Space` / `Enter` move on and `←` goes back. Every step gives a haptic tick.
 - A first-time user gets three short hints in the prayer, one at a time and once each: how to step, that a larger bead jumps to another decade or part, and that `←` keeps the place.
-- The header holds the controls: back and restart, the favourites star, the ⋯ settings (look, text size, dark mode, dimmed screen, vibration), and a one-tap switch for the prayer language (Latin ↔ Czech/English).
+- The header holds the controls: back and restart, the favourites star, the ⋯ settings (look, text size, dark mode, dimmed screen, vibration), and a three-way switch for the prayer language: Latin, Latin with the translation under each line, or the translation (Czech/English).
 - In the rosary, the label names the current decade and quotes its mystery in full, in the language the prayer is shown in (*II. quem, Virgo, visitándo Elisabeth portásti* / *2. desátek: s kterým jsi, Panno, Alžbětu navštívila*), and a double vibration marks the end of each decade (in the chaplet too).
 - Turn a phone sideways, or use a tablet, and the beads and the prayer sit side by side.
 - **Wake Lock** keeps the screen on while praying.

@@ -117,6 +117,10 @@ type Strings = {
   prayerSectionsAria: string;
   jumpToSection: (name: string) => string;
   prayerLanguageAria: string;
+  // The three sides of the header's language switch, for screen readers.
+  prayerLanguageLatin: string;
+  prayerLanguageBoth: string;
+  prayerLanguageTranslation: string;
   errorTitle: string;
   errorMessage: string;
   errorReload: string;
@@ -191,7 +195,7 @@ export const STRINGS: Record<Locale, Strings> = {
     welcomeTitle: "Vítejte",
     welcomePoints: [
       ["Začněte modlitbou", "Dnešní tajemství růžence jsou hned pod touto kartou. Dál se postupuje ťuknutím na text nebo přejetím prstem."],
-      ["Latina a překlad", "Přepínač La | Cz v záhlaví modlitby ukáže český překlad a zase latinu."],
+      ["Latina a překlad", "Přepínač La | Cz v záhlaví modlitby ukáže latinu, latinu s překladem pod každým řádkem, nebo jen češtinu."],
       ["Další modlitby", "Litanie, hymny a mešní texty jsou na kartě Modlitby. Oblíbené a vlastní plány na kartě Moje."],
     ],
     welcomeDismiss: "Rozumím",
@@ -270,6 +274,9 @@ export const STRINGS: Record<Locale, Strings> = {
     prayerSectionsAria: "Sekce modlitby",
     jumpToSection: (n) => `Skočit na ${n}`,
     prayerLanguageAria: "Jazyk modlitby",
+    prayerLanguageLatin: "Latinsky",
+    prayerLanguageBoth: "Latinsky s překladem",
+    prayerLanguageTranslation: "Česky",
     errorTitle: "Něco se pokazilo",
     errorMessage: "V aplikaci nastala neočekávaná chyba.",
     errorReload: "Načíst znovu",
@@ -340,7 +347,7 @@ export const STRINGS: Record<Locale, Strings> = {
     welcomeTitle: "Welcome",
     welcomePoints: [
       ["Start with a prayer", "Today's mysteries of the rosary are just below this card. Tap the text or swipe to move on."],
-      ["Latin and translation", "The La | En switch in a prayer's header shows the English and then the Latin again."],
+      ["Latin and translation", "The La | En switch in a prayer's header shows the Latin, the Latin with the English under each line, or the English alone."],
       ["More prayers", "Litanies, hymns and the texts of the Mass are under Prayers. Favourites and your own plans under Mine."],
     ],
     welcomeDismiss: "Got it",
@@ -419,6 +426,9 @@ export const STRINGS: Record<Locale, Strings> = {
     prayerSectionsAria: "Prayer sections",
     jumpToSection: (n) => `Jump to ${n}`,
     prayerLanguageAria: "Prayer language",
+    prayerLanguageLatin: "Latin",
+    prayerLanguageBoth: "Latin with translation",
+    prayerLanguageTranslation: "English",
     errorTitle: "Something went wrong",
     errorMessage: "The app ran into an unexpected problem.",
     errorReload: "Reload",
@@ -514,22 +524,24 @@ export function saveLocale(locale: Locale): void {
   } catch {}
 }
 
-// Prayer-body language: Latin (false) or the translation (true). Its own key,
-// independent of the session and of the UI locale above — mirrors the font-size
-// and theme preferences.
+// Prayer-body language: the Latin, the Latin with the translation under each
+// line ("both"), or the translation. It stores which side, not which language,
+// so it survives a locale change. Its own key, independent of the session and
+// of the UI locale above — mirrors the font-size and theme preferences.
+export type PrayerLanguage = "latin" | "both" | "translation";
+export const PRAYER_LANGUAGES: readonly PrayerLanguage[] = ["latin", "both", "translation"];
 const PRAYER_LANGUAGE_STORAGE_KEY = "ruzenec_prayer_language";
 
-export function loadSavedShowTranslation(): boolean | null {
+export function loadSavedPrayerLanguage(): PrayerLanguage | null {
   try {
     const raw = localStorage.getItem(PRAYER_LANGUAGE_STORAGE_KEY);
-    if (raw === "translation") return true;
-    if (raw === "latin") return false;
+    if ((PRAYER_LANGUAGES as readonly string[]).includes(raw ?? "")) return raw as PrayerLanguage;
   } catch {}
   return null;
 }
 
-export function saveShowTranslation(showTranslation: boolean): void {
+export function savePrayerLanguage(lang: PrayerLanguage): void {
   try {
-    localStorage.setItem(PRAYER_LANGUAGE_STORAGE_KEY, showTranslation ? "translation" : "latin");
+    localStorage.setItem(PRAYER_LANGUAGE_STORAGE_KEY, lang);
   } catch {}
 }

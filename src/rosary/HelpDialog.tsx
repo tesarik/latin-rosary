@@ -11,7 +11,7 @@ const HELP: Record<Locale, { title: string; text: string }[]> = {
   cs: [
     { title: "Modlitba krok za krokem", text: "Další modlitbu otevřete ťuknutím na text nebo na Další, přejetím prstem doleva jdete dál, doprava zpět. Na počítači fungují šipky, mezerník a Enter. Tlačítko Další ukazuje, co přijde." },
     { title: "Korálky", text: "U růžence a korunky ťuknutím na korálek Otčenáše skočíte na začátek desátku. U litanií, pobožností a mše ťuknutím na větší korálek skočíte na danou část." },
-    { title: "Latina a překlad", text: "Tlačítko La | Cz v hlavičce přepne text modlitby mezi latinou a češtinou. Aplikace si volbu pamatuje." },
+    { title: "Latina a překlad", text: "Přepínač v hlavičce má tři polohy: La je jen latina, prostřední latina s českým překladem pod každým řádkem, Cz jen čeština. Aplikace si volbu pamatuje." },
     { title: "Nedokončené modlitby", text: "Šipkou ← se vrátíte do nabídky a aplikace si místo zapamatuje. Modlitba se pak nabídne nahoře jako nedokončená; křížkem × ji odtud odeberete. Tlačítko ↺ začne znovu od začátku." },
     { title: "Záložky dole", text: "Růženec: tajemství, dnešní jako první, a korunka k Božímu milosrdenství. Modlitby: hledání a skupiny modliteb; karta V tuto dobu ukazuje, co se hodí k dnešnímu dni. Moje: oblíbené modlitby a vlastní plány." },
     { title: "Oblíbené", text: "Hvězdičkou ☆ v hlavičce modlitby ji přidáte do Oblíbených v záložce Moje. Dalším ťuknutím ji odeberete." },
@@ -22,7 +22,7 @@ const HELP: Record<Locale, { title: string; text: string }[]> = {
   en: [
     { title: "Praying step by step", text: "Tap the prayer or Next for the next one; swipe left to go on and right to go back. On a computer, use the arrow keys, Space or Enter. The Next button shows what comes next." },
     { title: "The beads", text: "In the rosary and the chaplet, tap an Our Father bead to jump to the start of its decade. In litanies, devotions and the Mass, tap a larger bead to jump to that part." },
-    { title: "Latin and translation", text: "The La | En button in the header switches the prayer between Latin and English. The app remembers your choice." },
+    { title: "Latin and translation", text: "The switch in the header has three positions: La is the Latin alone, the middle one the Latin with the English under each line, En the English alone. The app remembers your choice." },
     { title: "Unfinished prayers", text: "The ← arrow takes you back to the menu and keeps your place; the prayer is then offered at the top as unfinished, and its × removes it. The ↺ button starts again from the beginning." },
     { title: "The tabs at the bottom", text: "Rosary: the mysteries, today's first, and the Chaplet of Divine Mercy. Prayers: the search and the groups of prayers; the In season card shows what suits the day. Mine: your favourites and your own plans." },
     { title: "Favourites", text: "The star ☆ in a prayer's header adds it to your Favourites under Mine. Tap it again to remove it." },
