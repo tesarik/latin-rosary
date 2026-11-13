@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.35.2]
+
 ### Fixed
 - **Only https://rosarium.lat/.** Plain http and www.rosarium.lat now redirect there: over http the app had no offline mode and couldn't be installed, and each address kept its own plans and favourites.
 
