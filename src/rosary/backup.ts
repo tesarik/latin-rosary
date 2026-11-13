@@ -26,6 +26,7 @@ export const BACKUP_PREF_KEYS = [
   "ruzenec_font_size",
   "ruzenec_vibrate",
   "ruzenec_dim",
+  "ruzenec_meditation",
   "ruzenec_chaplet_full",
   "ruzenec_hint_seen",
   "ruzenec_hint_jump_seen",

@@ -116,3 +116,19 @@ describe("the prayer language switch", () => {
     expect(screen.queryByText(/Salve Regína, Mater/)).toBeNull();
   });
 });
+
+describe("the fruit and verse at each decade", () => {
+  it("are off by default and shown at a decade's Pater Noster once switched on", () => {
+    localStorage.setItem("ruzenec_hint_seen", "1");
+    location.hash = "#pray=radostny";
+    render(<Rosary />);
+    stepTo(7); // the first decade's Pater Noster
+    expect(screen.queryByText(/Fructus mystérii/)).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: t.settingsAria }));
+    fireEvent.click(screen.getByRole("switch", { name: t.settingsMeditation }));
+    expect(screen.getByText(/Fructus mystérii/)).toBeTruthy();
+    expect(screen.getByText(/Ecce ancílla Dómini/)).toBeTruthy();
+    step();
+    expect(screen.queryByText(/Fructus mystérii/)).toBeNull();
+  });
+});
