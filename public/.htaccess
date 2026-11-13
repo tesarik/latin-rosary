@@ -1,0 +1,6 @@
+# rosarium.lat only at https://rosarium.lat/: plain http and www get a 301
+# there (the service worker needs https, and localStorage is per origin).
+RewriteEngine On
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://rosarium.lat%{REQUEST_URI} [R=301,L]
