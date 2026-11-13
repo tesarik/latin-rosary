@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.35.1]
+
 ### Changed
 - **A new address: [rosarium.lat](https://rosarium.lat/).** The old one, jaroslavtesarik.cz/latin-rosary/, redirects there, prayer pages included. Plans, favourites and unfinished prayers saved at the old address don't move with it.
 
