@@ -1,13 +1,13 @@
 import { SERIF } from "./fonts";
 import { MissalArt } from "./MissalArt";
 import { currentLook } from "./look";
-import type { ReactNode, Ref } from "react";
+import type { CSSProperties, ReactNode, Ref } from "react";
 import { PRAYER_TYPES, PRAYERS, getHailMary, getHailMaryTr } from "./prayers";
 import { useTranslation } from "./translations";
 import { sliceLines, type SequenceItem } from "./sequence";
-import { STRINGS, type Locale } from "./i18n";
+import { STRINGS, type Locale, type PrayerLanguage } from "./i18n";
 import { accentText, type Theme } from "./theme";
-import { parseLitany } from "./litany";
+import { parseLitany, type LitanyBlock } from "./litany";
 
 // Render prayer text, turning `{r}…{/r}` spans into red liturgical rubrics
 // (missal-style seasonal labels). Newlines are handled by the container's
@@ -32,17 +32,40 @@ function withRubrics(text: string): ReactNode {
 // response shows that response once, in a band above them that sticks to the
 // top while the run scrolls past; a lone invocation keeps its response inline,
 // styled like the band (accent colour, upright). See `parseLitany` in litany.ts.
-function renderLitany(text: string, accent: string): ReactNode {
-  return parseLitany(text).map((b, i) => {
+// With `tr` (the Latin with the translation, PrayerLanguage "both"), each line
+// is followed by its translation, and a band carries both responses; that
+// needs the two texts to parse alike (they keep one line structure, so they
+// do), otherwise the translation follows the whole Latin.
+function renderLitany(text: string, accent: string, tr?: { text: string; locale: Locale }): ReactNode {
+  const blocks = parseLitany(text);
+  const trBlocks = tr ? parseLitany(tr.text) : undefined;
+  const paired = !!trBlocks && sameShape(blocks, trBlocks);
+  if (tr && !paired) {
+    return <>
+      {renderLitany(text, accent)}
+      <div lang={tr.locale} style={{ ...TR_STYLE, marginTop: "1em" }}>{renderLitany(tr.text, accent)}</div>
+    </>;
+  }
+  const under = (node: ReactNode) => paired
+    ? <div lang={tr!.locale} style={TR_STYLE}>{node}</div>
+    : null;
+  return blocks.map((b, i) => {
+    const t = trBlocks?.[i];
     switch (b.kind) {
       case "blank":
         return <div key={i} aria-hidden="true" style={{ height: "0.6em" }} />;
       case "plain":
-        return <div key={i} style={{ margin: "3px 0" }}>{withRubrics(b.line)}</div>;
+        return (
+          <div key={i} style={{ margin: paired ? "3px 0 7px" : "3px 0" }}>
+            {withRubrics(b.line)}
+            {t?.kind === "plain" && under(withRubrics(t.line))}
+          </div>
+        );
       case "single":
         return (
-          <div key={i} style={{ margin: "3px 0" }}>
+          <div key={i} style={{ margin: paired ? "3px 0 7px" : "3px 0" }}>
             {b.invocation} <span style={{ color: accent, fontWeight: 600 }}>{b.response}</span>
+            {t?.kind === "single" && under(<>{t.invocation} <span style={{ color: accent, fontWeight: 600 }}>{t.response}</span></>)}
           </div>
         );
       case "run":
@@ -61,13 +84,25 @@ function renderLitany(text: string, accent: string): ReactNode {
               borderBottom: "1px solid var(--border)",
             }}>
               ℟ {b.response}
+              {t?.kind === "run" && <div lang={tr!.locale} style={{ ...TR_STYLE, color: accent, fontStyle: "normal" }}>{t.response}</div>}
             </div>
             {b.invocations.map((inv, j) => (
-              <div key={j} style={{ margin: "3px 0" }}>{inv}</div>
+              <div key={j} style={{ margin: paired ? "3px 0 7px" : "3px 0" }}>
+                {inv}
+                {t?.kind === "run" && under(t.invocations[j])}
+              </div>
             ))}
           </div>
         );
     }
+  });
+}
+
+// Two litany texts parse alike: the same blocks, runs of the same length.
+function sameShape(a: LitanyBlock[], b: LitanyBlock[]): boolean {
+  return a.length === b.length && a.every((x, i) => {
+    const y = b[i]!;
+    return x.kind === y.kind && (x.kind !== "run" || (y.kind === "run" && x.invocations.length === y.invocations.length));
   });
 }
 
@@ -81,13 +116,47 @@ const bodyStyle = {
   fontFamily: SERIF,
 };
 
-function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontSizeClamp, theme }: { currentPrayer: SequenceItem | undefined; accentColor: string; locale: Locale; showTranslation: boolean; fontSizeClamp: string; theme: Theme }) {
+// The translation under the Latin (PrayerLanguage "both"): smaller, italic
+// and softer, so the Latin stays the text that is prayed.
+const TR_STYLE: CSSProperties = {
+  fontSize: "0.8em",
+  fontStyle: "italic",
+  color: "var(--text-soft)",
+  lineHeight: 1.3,
+  marginTop: 2,
+};
+
+// The Latin with its translation under it. Texts that keep one line structure
+// (psalms, the Salve Regína's sections, versicles) pair line by line; a
+// one-paragraph prayer gets its translation under the whole paragraph.
+function Interlinear({ latin, tr, locale }: { latin: string; tr: string; locale: Locale }) {
+  const la = latin.split("\n");
+  const tl = tr.split("\n");
+  if (la.length > 1 && la.length === tl.length) {
+    return <>{la.map((line, i) => line.trim() === ""
+      ? <div key={i} aria-hidden="true" style={{ height: "0.5em" }} />
+      : (
+        <div key={i} style={{ marginBottom: "0.55em" }}>
+          <div className={i === 0 ? "initial" : undefined} style={{ color: "var(--text)" }}>{withRubrics(line)}</div>
+          <div lang={locale} style={TR_STYLE}>{withRubrics(tl[i]!)}</div>
+        </div>
+      ))}</>;
+  }
+  return <>
+    <div className="initial" style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{withRubrics(latin)}</div>
+    <div lang={locale} style={{ ...TR_STYLE, whiteSpace: "pre-line", marginTop: "0.6em" }}>{withRubrics(tr)}</div>
+  </>;
+}
+
+function PrayerBody({ currentPrayer, accentColor, locale, language, fontSizeClamp, theme }: { currentPrayer: SequenceItem | undefined; accentColor: string; locale: Locale; language: PrayerLanguage; fontSizeClamp: string; theme: Theme }) {
   // The shown language's table, loaded on demand (translations.ts); until it
   // arrives a translated prayer shows its Latin.
   const table = useTranslation(locale);
   if (!currentPrayer) return null;
   const sizedBodyStyle = { ...bodyStyle, fontSize: fontSizeClamp };
   const clauseColor = accentText(accentColor, theme);
+  const showTranslation = language === "translation";
+  const both = language === "both";
   // Only the translation is language-tagged (the UI locale). Latin is left
   // UNTAGGED on purpose: lang="la" makes EB Garamond apply its Latin localized
   // forms (`locl`) and render u→v, and font-feature-settings can't reliably turn
@@ -95,9 +164,11 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
   const bodyLang = showTranslation ? locale : undefined;
 
   if (currentPrayer.type === PRAYER_TYPES.HAIL_MARY) {
-    const hm = showTranslation
-      ? getHailMaryTr(locale, currentPrayer.mysteryTr?.[locale])
-      : getHailMary(currentPrayer.mystery);
+    const la = getHailMary(currentPrayer.mystery);
+    const tr = getHailMaryTr(locale, currentPrayer.mysteryTr?.[locale]);
+    const hm = showTranslation ? tr : la;
+    const under = (text: string, style?: CSSProperties) =>
+      both ? <div lang={locale} style={{ ...TR_STYLE, whiteSpace: "pre-line", marginBottom: "0.45em", ...style }}>{text}</div> : null;
     return (
       <div lang={bodyLang} style={sizedBodyStyle}>
         {currentPrayer.num !== undefined && (
@@ -109,8 +180,11 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
           </div>
         )}
         <div className="initial" style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{hm.before}</div>
+        {under(tr.before)}
         {hm.mystery && <div style={{ color: clauseColor, fontWeight: 600, margin: "4px 0" }}>{hm.mystery}.</div>}
+        {hm.mystery && tr.mystery && under(`${tr.mystery}.`, { color: clauseColor })}
         <div style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{hm.after}</div>
+        {under(tr.after, { marginBottom: 0 })}
       </div>
     );
   }
@@ -125,15 +199,35 @@ function PrayerBody({ currentPrayer, accentColor, locale, showTranslation, fontS
     return (
       <div lang={useTr ? locale : undefined} style={sizedBodyStyle}>
         <div className="initial" style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{useTr ? custom!.textTr : custom?.text}</div>
+        {both && custom?.textTr && (
+          <div lang={locale} style={{ ...TR_STYLE, whiteSpace: "pre-line", marginTop: "0.6em" }}>{custom.textTr}</div>
+        )}
       </div>
     );
   }
 
-  const tr = showTranslation ? table?.[currentPrayer.type] : undefined;
-  const full = tr ?? PRAYERS[currentPrayer.type];
   // A litany step may be one section of a longer text: the same line range in
   // every language, since the translations keep the Latin's line structure.
-  const text = currentPrayer.lines ? sliceLines(full, currentPrayer.lines) : full;
+  const cut = (full: string) => currentPrayer.lines ? sliceLines(full, currentPrayer.lines) : full;
+  const latin = cut(PRAYERS[currentPrayer.type]);
+  const trFull = language !== "latin" ? table?.[currentPrayer.type] : undefined;
+  const trText = trFull !== undefined ? cut(trFull) : undefined;
+  if (both && trText !== undefined) {
+    if (isLitanyType(currentPrayer.type)) {
+      return (
+        <div style={{ ...sizedBodyStyle, textAlign: "left" }}>
+          <div style={{ color: "var(--text)" }}>{renderLitany(latin, clauseColor, { text: trText, locale })}</div>
+        </div>
+      );
+    }
+    return (
+      <div style={sizedBodyStyle}>
+        <Interlinear latin={latin} tr={trText} locale={locale} />
+      </div>
+    );
+  }
+  const tr = showTranslation ? trText : undefined;
+  const text = tr ?? latin;
   if (isLitanyType(currentPrayer.type)) {
     return (
       <div lang={tr ? locale : undefined} style={{ ...sizedBodyStyle, textAlign: "left" }}>
@@ -155,7 +249,7 @@ type Props = {
   totalSteps: number;
   onClick: () => void;
   locale: Locale;
-  showTranslation: boolean;
+  language: PrayerLanguage;
   fontSizeClamp: string;
   theme: Theme;
   // Contained: the card fills the height it is given and scrolls its text
@@ -173,13 +267,13 @@ type Props = {
 // text or interacting with the language select, in which case the parent's
 // click handler bails out. Which language the body shows (Latin or the active
 // UI language) is chosen by the LanguageToggle in the label row above the card.
-export default function PrayerCard({ currentPrayer, accentColor, currentStep, totalSteps, onClick, locale, showTranslation, fontSizeClamp, theme, contained, scrollRef, finis: finisArt = "finis" }: Props) {
+export default function PrayerCard({ currentPrayer, accentColor, currentStep, totalSteps, onClick, locale, language, fontSizeClamp, theme, contained, scrollRef, finis: finisArt = "finis" }: Props) {
   const t = STRINGS[locale];
   // In the Misál look the last step closes with a tailpiece, as a chapter
   // ends in an old book.
   const finis = currentLook() === "missal" && currentStep === totalSteps - 1;
   const body = <>
-    <PrayerBody currentPrayer={currentPrayer} accentColor={accentColor} locale={locale} showTranslation={showTranslation} fontSizeClamp={fontSizeClamp} theme={theme} />
+    <PrayerBody currentPrayer={currentPrayer} accentColor={accentColor} locale={locale} language={language} fontSizeClamp={fontSizeClamp} theme={theme} />
     {finis && <MissalArt name={finisArt} style={{ marginTop: 22 }} />}
   </>;
   return (

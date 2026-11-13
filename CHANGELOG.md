@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.36.0]
+
+### Added
+- **Latin with the translation under it.** The language switch in a prayer's header has a third position, between *La* and *Cz* / *En*: the Latin stays the text you pray, with the translation under each line in smaller italics — psalms and versicles line by line, the litanies invocation by invocation, with both responses in the ℟ band. The app remembers the choice.
+
 ## [0.35.2]
 
 ### Fixed

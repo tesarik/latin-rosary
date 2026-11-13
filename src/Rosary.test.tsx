@@ -99,3 +99,20 @@ describe("the Mine tab", () => {
     expect(screen.getByText(t.favoritesEmpty)).toBeTruthy();
   });
 });
+
+describe("the prayer language switch", () => {
+  it("shows the Latin with the translation under it, and remembers it", async () => {
+    localStorage.setItem("ruzenec_hint_seen", "1");
+    location.hash = "#pray=salve_regina";
+    render(<Rosary />);
+    expect(screen.getByRole("radio", { name: t.prayerLanguageLatin }).getAttribute("aria-checked")).toBe("true");
+    expect(screen.queryByText(/Hail, holy Queen/i)).toBeNull();
+    fireEvent.click(screen.getByRole("radio", { name: t.prayerLanguageBoth }));
+    // The translation table arrives as its own chunk.
+    expect(await screen.findByText(/Hail, holy Queen/i)).toBeTruthy();
+    expect(screen.getByText(/Salve Regína, Mater/)).toBeTruthy();
+    expect(localStorage.getItem("ruzenec_prayer_language")).toBe("both");
+    fireEvent.click(screen.getByRole("radio", { name: t.prayerLanguageTranslation }));
+    expect(screen.queryByText(/Salve Regína, Mater/)).toBeNull();
+  });
+});

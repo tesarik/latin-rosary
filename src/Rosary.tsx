@@ -4,7 +4,7 @@ import { type SequenceItem } from "./rosary/sequence";
 import { loadSavedState, saveState } from "./rosary/storage";
 import { getPrayerSetMeta, buildSequence, isBuiltInKey, isChapletKey, isPersistableKey, isRosaryKey, resolveSession, resumeStep, canGoToStep, type PrayerSetKey } from "./rosary/navigation";
 import { MYSTERIES, PRAYER_TYPES } from "./rosary/prayers";
-import { STRINGS, detectLocale, loadSavedLocale, saveLocale, loadSavedShowTranslation, saveShowTranslation, type Locale } from "./rosary/i18n";
+import { STRINGS, detectLocale, loadSavedLocale, saveLocale, loadSavedPrayerLanguage, savePrayerLanguage, type Locale, type PrayerLanguage } from "./rosary/i18n";
 import { DEFAULT_FONT_SCALE, clampFontScale, fontSizeClamp, loadSavedFontScale, saveFontScale } from "./rosary/fontSize";
 import { accentText, applyTheme, loadSavedTheme, resolveTheme, saveTheme, systemTheme, type Theme } from "./rosary/theme";
 import { track } from "./rosary/analytics";
@@ -73,7 +73,8 @@ export default function Rosary() {
   // Saved step of every unfinished multi-step set, so leaving one to pray
   // something else never loses its place. Kept in step with currentStep below.
   const [progress, setProgress] = useState<Record<string, number>>(saved.current.progress);
-  const [showTranslation, setShowTranslationState] = useState<boolean>(() => loadSavedShowTranslation() ?? false);
+  const [prayerLanguage, setPrayerLanguageState] = useState<PrayerLanguage>(() => loadSavedPrayerLanguage() ?? "latin");
+  const showTranslation = prayerLanguage === "translation";
   const [locale, setLocaleState] = useState<Locale>(() => loadSavedLocale() ?? detectLocale());
   const [fontScale, setFontScaleState] = useState<number>(() => loadSavedFontScale() ?? DEFAULT_FONT_SCALE);
   const [theme, setThemeState] = useState<Theme>(() => resolveTheme());
@@ -128,9 +129,9 @@ export default function Rosary() {
     saveLocale(next);
   }, []);
 
-  const setShowTranslation = useCallback((next: boolean) => {
-    setShowTranslationState(next);
-    saveShowTranslation(next);
+  const setPrayerLanguage = useCallback((next: PrayerLanguage) => {
+    setPrayerLanguageState(next);
+    savePrayerLanguage(next);
   }, []);
 
   const setFontScale = useCallback((next: number) => {
@@ -524,7 +525,7 @@ export default function Rosary() {
       totalSteps={sequence.length}
       onClick={onPrayerCardClick}
       locale={locale}
-      showTranslation={showTranslation}
+      language={prayerLanguage}
       fontSizeClamp={fontSizeClamp(fontScale)}
       theme={theme}
       contained
@@ -642,7 +643,7 @@ export default function Rosary() {
             accentColor={accentColor}
             locale={locale}
           />
-          <LanguageToggle showTranslation={showTranslation} onChange={setShowTranslation} accentColor={accentColor} theme={theme} locale={locale} />
+          <LanguageToggle value={prayerLanguage} onChange={setPrayerLanguage} accentColor={accentColor} theme={theme} locale={locale} />
         </div>
         <div style={{
           marginTop: 8,
