@@ -1,7 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { MissalArt } from "./MissalArt";
 import { MYSTERIES, type MysteryKey } from "./prayers";
-import { CHAPLETS } from "./sequence";
+import { CHAPLETS, FULL_ROSARY } from "./sequence";
 import { FAVORITES_COLOR, FAVORITES_ICON, IN_SEASON_COLOR, IN_SEASON_ART, IN_SEASON_ICON, MENU_GROUPS, inSeason, menuEntry, searchMenu, type GroupIconName, type MenuKey, type MenuSection } from "./menu";
 import { chapletToOpen, loadSavedChapletFull, saveChapletFull } from "./chaplet";
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
@@ -697,6 +697,17 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
               );
             })}
           </div>
+
+          {/* All fifteen decades in one prayer, the Marian psalter. */}
+          <PrayerSetButton
+            name={FULL_ROSARY.psalterium.name}
+            subtitle={FULL_ROSARY.psalterium.nameTr[locale]}
+            color={FULL_ROSARY.psalterium.color}
+            ariaLabel={t.startPrayerAria(FULL_ROSARY.psalterium.nameTr[locale])}
+            icon="rosary"
+            resume={<ResumeLine info={resume.psalterium} color={FULL_ROSARY.psalterium.color} theme={theme} locale={locale} />}
+            onClick={() => onStart("psalterium")}
+          />
 
           <PrayerSetButton
             name={chapletEntry.name}

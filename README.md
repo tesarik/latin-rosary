@@ -36,6 +36,7 @@ A small, offline-friendly web app for praying the rosary and other prayers in La
 
 - An SVG rosary: 5 Pater Noster + 50 Ave Maria beads on the ring, and a tail with the Creed, Pater Noster, 3 Hail Marys and the cross. The active bead glows in the mystery's accent colour. Tap a Pater Noster bead to jump to that decade. The Chaplet of Divine Mercy uses the same ring.
 - Litanies and the other multi-step prayers step through their **sections** on a bead strand. In a litany, a response shared by several invocations is shown **once**, in a band that stays at the top of the card (*℟ ora pro nobis*), instead of on every line.
+- **The full rosary** of fifteen decades (*Psaltérium Mariánum*): the joyful, sorrowful and glorious mysteries in one prayer, with one opening and one closing, the bead ring showing the set being prayed.
 - **Unfinished prayers keep their place**: leave the rosary to pray something else, and come back to *Pokračovat · 23/74*. The last unfinished prayer is offered at the top of the start screen, with a × to forget it. Every multi-step prayer remembers its own step across reloads.
 - Tap or swipe to move on or back. On a keyboard, `→` / `Space` / `Enter` move on and `←` goes back. Every step gives a haptic tick.
 - A first-time user gets three short hints in the prayer, one at a time and once each: how to step, that a larger bead jumps to another decade or part, and that `←` keeps the place.

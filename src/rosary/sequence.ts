@@ -1,4 +1,4 @@
-import { PRAYER_TYPES, type Localized, type MysterySet, type PrayerType } from "./prayers";
+import { MYSTERIES, PRAYER_TYPES, type Localized, type MysteryKey, type MysterySet, type PrayerType } from "./prayers";
 
 export type SequenceItem = {
   type: PrayerType;
@@ -10,6 +10,11 @@ export type SequenceItem = {
   // The decade (0–4) a rosary item belongs to: its Pater Noster, ten Ave
   // Marías, Gloria Patri and Fatima prayer. Unset outside the decades.
   decade?: number;
+  // In the full rosary of fifteen decades, the mystery set a decade belongs
+  // to: its `decade` counts within that set (0–4), so the chip and the
+  // fruits read it as they do in a single set, and the bead ring shows one
+  // set's five decades at a time (RosaryBeads).
+  part?: MysteryKey;
   num?: number;
   // Section name for linear (non-rosary) prayer sets — drives the segmented
   // stepper shown above the prayer card. Rosary items leave this unset.
@@ -40,9 +45,24 @@ export function sliceLines(text: string, [start, end]: readonly [number, number]
 // Items without a beadId have no bead — the Sign of the Cross uses the cross
 // glyph; Gloria Patri / Fatima / Salve Regina are "said at the junction".
 export function buildRosarySequence(mysterySet: MysterySet): SequenceItem[] {
-  const seq: SequenceItem[] = [];
+  const seq = rosaryOpening();
+  seq.push(...decades(mysterySet));
+  seq.push(...rosaryClosing());
+  return seq;
+}
 
-  // Opening
+// The full rosary, the Marian psalter of 150 Aves: one opening, the joyful,
+// sorrowful and glorious decades in turn, one closing. 7 + 15 × 13 + 2 = 204
+// steps. Its beadIds repeat the ring's for each set, told apart by `part`.
+export function buildFullRosary(): SequenceItem[] {
+  const seq = rosaryOpening();
+  for (const part of ["radostny", "bolestny", "slavny"] as const) seq.push(...decades(MYSTERIES[part], part));
+  seq.push(...rosaryClosing());
+  return seq;
+}
+
+function rosaryOpening(): SequenceItem[] {
+  const seq: SequenceItem[] = [];
   seq.push({ type: PRAYER_TYPES.SIGN_OF_CROSS, label: "Signum Crucis" });
   seq.push({ type: PRAYER_TYPES.CREED,        label: "Credo",        beadId: "tail-creed" });
   seq.push({ type: PRAYER_TYPES.OUR_FATHER,   label: "Pater Noster", beadId: "tail-of" });
@@ -50,15 +70,22 @@ export function buildRosarySequence(mysterySet: MysterySet): SequenceItem[] {
   seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave María", mystery: "qui corróboret nobis spem",     mysteryTr: { cs: "který v nás posiluje naději", en: "who may strengthen our hope" },    beadId: "tail-hm-1" });
   seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave María", mystery: "qui perfíciat nobis caritátem", mysteryTr: { cs: "který v nás zdokonaluje lásku", en: "who may perfect our charity" },   beadId: "tail-hm-2" });
   seq.push({ type: PRAYER_TYPES.GLORY_BE,     label: "Gloria Patri" });
+  return seq;
+}
 
-  // 5 decades
+// Five decades of a mystery set: Pater Noster, ten Ave Marías with the
+// mystery, Gloria Patri and the Fatima prayer.
+function decades(mysterySet: MysterySet, part?: MysteryKey): SequenceItem[] {
+  const seq: SequenceItem[] = [];
+  const of = part ? { part } : {};
   for (let d = 0; d < 5; d++) {
-    seq.push({ type: PRAYER_TYPES.OUR_FATHER, label: "Pater Noster", decade: d, beadId: `ring-of-${d}` });
+    seq.push({ type: PRAYER_TYPES.OUR_FATHER, label: "Pater Noster", decade: d, ...of, beadId: `ring-of-${d}` });
     for (let h = 1; h <= 10; h++) {
       seq.push({
         type: PRAYER_TYPES.HAIL_MARY,
         label: "Ave María",
         decade: d,
+        ...of,
         num: h,
         mystery: mysterySet.mysteries[d],
         mysteryTr: {
@@ -68,15 +95,30 @@ export function buildRosarySequence(mysterySet: MysterySet): SequenceItem[] {
         beadId: `ring-hm-${d}-${h - 1}`,
       });
     }
-    seq.push({ type: PRAYER_TYPES.GLORY_BE, label: "Gloria Patri", decade: d });
-    seq.push({ type: PRAYER_TYPES.FATIMA,   label: "O mi Iesu",    decade: d });
+    seq.push({ type: PRAYER_TYPES.GLORY_BE, label: "Gloria Patri", decade: d, ...of });
+    seq.push({ type: PRAYER_TYPES.FATIMA,   label: "O mi Iesu",    decade: d, ...of });
   }
-
-  // Closing
-  seq.push({ type: PRAYER_TYPES.SALVE_REGINA,  label: "Salve Regína" });
-  seq.push({ type: PRAYER_TYPES.SIGN_OF_CROSS, label: "Signum Crucis" });
   return seq;
 }
+
+function rosaryClosing(): SequenceItem[] {
+  return [
+    { type: PRAYER_TYPES.SALVE_REGINA,  label: "Salve Regína" },
+    { type: PRAYER_TYPES.SIGN_OF_CROSS, label: "Signum Crucis" },
+  ];
+}
+
+// The full rosary's start-screen entry and prayer set: its own key, so a kept
+// place always belongs to the 204-step sequence it was counted in.
+export type FullRosaryKey = "psalterium";
+export const FULL_ROSARY: Record<FullRosaryKey, { name: string; nameTr: Localized; color: string; build: () => SequenceItem[] }> = {
+  psalterium: {
+    name: "Psaltérium Mariánum",
+    nameTr: { cs: "Celý růženec (15 desátků)", en: "The Full Rosary (15 decades)" },
+    color: "#3949AB",
+    build: buildFullRosary,
+  },
+};
 
 // Chaplet of Divine Mercy, prayed on the rosary's beads (Diary of St. Faustina
 // 476): the Sign of the Cross, the Pater Noster, Ave María and Credo on the
