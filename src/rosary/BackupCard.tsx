@@ -33,7 +33,7 @@ export default function BackupCard({ locale }: { locale: Locale }) {
       return;
     }
     const summary = summarizeBackup(backup);
-    if (!summary.plans && !summary.favorites && !summary.places && !summary.prefs) {
+    if (!summary.plans && !summary.favorites && !summary.places && !summary.intentions && !summary.prefs) {
       await askConfirm({ message: t.backupNothing, confirmLabel: t.dialogOk, cancelLabel: null, color });
       return;
     }
