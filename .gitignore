@@ -11,3 +11,4 @@ dist
 .idea/
 
 *.tsbuildinfo
+dist-redirect
