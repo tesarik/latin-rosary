@@ -76,6 +76,10 @@ type Strings = {
   aboutTitle: string;
   helpTitle: string;
   aboutText: string;
+  // What the app never asks of you, under the description.
+  aboutPromise: string;
+  // Where the pictures come from.
+  aboutArt: string;
   aboutCreator: string;
   aboutFeedback: string;
   aboutAnalytics: string;
@@ -170,13 +174,17 @@ type Strings = {
   planCustomEditAria: (title: string) => string;
   planShareLong: string;
   // Backup of all plans as a file.
-  planBackupHint: string;
-  planExport: string;
-  planImport: string;
-  planImportBackupConfirm: (n: number) => string;
-  planImportDone: (n: number) => string;
-  planImportInvalid: string;
-  planImportNone: string;
+  // The Mine tab's backup card (BackupCard).
+  backupHeading: string;
+  backupHint: string;
+  backupExport: string;
+  backupImport: string;
+  backupFileName: string;
+  backupConfirm: string;
+  backupContents: (s: { plans: number; favorites: number; places: number; prefs: boolean }) => string;
+  backupLoad: string;
+  backupNothing: string;
+  backupInvalid: string;
 };
 
 export const STRINGS: Record<Locale, Strings> = {
@@ -239,6 +247,8 @@ export const STRINGS: Record<Locale, Strings> = {
     aboutTitle: "O aplikaci",
     helpTitle: "Nápověda",
     aboutText: "Modlitba růžence a dalších modliteb v latině s českým překladem.",
+    aboutPromise: "Zdarma, bez reklam, bez účtu a bez sledování. Funguje i bez internetu a vše, co si uložíte, zůstává ve vašem zařízení.",
+    aboutArt: "Dřevoryty ve vzhledu Misál pocházejí z římského misálu z let 1883–1887.",
     aboutCreator: "Tvůrce",
     aboutFeedback: "Chyby a návrhy posílejte na",
     aboutAnalytics: "Sbírají se anonymní statistiky používání, bez cookies.",
@@ -324,13 +334,21 @@ export const STRINGS: Record<Locale, Strings> = {
     planCustomLimit: "Plán může mít nejvýš 10 vlastních modliteb.",
     planCustomEditAria: (n) => `Upravit modlitbu ${n}`,
     planShareLong: "Odkaz je dlouhý – některé aplikace ho mohou zkrátit.",
-    planBackupHint: "Plány jsou uložené jen v tomto prohlížeči. Zálohu si uložte jako soubor a později ji můžete načíst zpět, třeba v jiném zařízení.",
-    planExport: "Zálohovat plány",
-    planImport: "Načíst zálohu",
-    planImportBackupConfirm: (n) => `Přidat ${n} ${n === 1 ? "plán" : n >= 2 && n <= 4 ? "plány" : "plánů"} ze zálohy?`,
-    planImportDone: (n) => `Přidáno ${n} ${n === 1 ? "plán" : n >= 2 && n <= 4 ? "plány" : "plánů"}.`,
-    planImportInvalid: "Tento soubor není záloha plánů.",
-    planImportNone: "V záloze nejsou žádné plány, nebo už není místo.",
+    backupHeading: "Záloha",
+    backupHint: "Plány, oblíbené, rozmodlené modlitby i nastavení jsou uložené jen v tomto prohlížeči. Uložte si je jako soubor a později je načtěte zpět, třeba v jiném zařízení.",
+    backupExport: "Uložit zálohu",
+    backupImport: "Načíst zálohu",
+    backupFileName: "rosarium-zaloha",
+    backupConfirm: "Načíst zálohu? Nic se nesmaže, jen se přidá:",
+    backupContents: ({ plans, favorites, places, prefs }) => [
+      plans > 0 && `plány: ${plans}`,
+      favorites > 0 && `oblíbené: ${favorites}`,
+      places > 0 && `rozmodlené modlitby: ${places}`,
+      prefs && "nastavení ze zálohy",
+    ].filter(Boolean).join(" · "),
+    backupLoad: "Načíst",
+    backupNothing: "V záloze není nic, co by tu už nebylo.",
+    backupInvalid: "Tento soubor není záloha této aplikace.",
   },
   en: {
     appTitle: "Latin Rosary",
@@ -391,6 +409,8 @@ export const STRINGS: Record<Locale, Strings> = {
     aboutTitle: "About",
     helpTitle: "Help",
     aboutText: "Praying the rosary and other prayers in Latin, with an English translation.",
+    aboutPromise: "Free, with no ads, no account and no tracking. It works offline, and everything you save stays on your device.",
+    aboutArt: "The woodcuts of the Missal look come from a Roman Missal of 1883–1887.",
     aboutCreator: "Created by",
     aboutFeedback: "Send errors and improvements to",
     aboutAnalytics: "Anonymous, cookieless usage statistics are collected.",
@@ -476,13 +496,21 @@ export const STRINGS: Record<Locale, Strings> = {
     planCustomLimit: "A plan can hold at most 10 prayers of your own.",
     planCustomEditAria: (n) => `Edit prayer ${n}`,
     planShareLong: "The link is long; some apps may cut it short.",
-    planBackupHint: "Plans are stored only in this browser. Save a backup as a file and load it back later, on another device too.",
-    planExport: "Back up plans",
-    planImport: "Load a backup",
-    planImportBackupConfirm: (n) => `Add ${n} ${n === 1 ? "plan" : "plans"} from the backup?`,
-    planImportDone: (n) => `Added ${n} ${n === 1 ? "plan" : "plans"}.`,
-    planImportInvalid: "This file is not a plans backup.",
-    planImportNone: "The backup has no plans, or there is no room left.",
+    backupHeading: "Backup",
+    backupHint: "Your plans, favourites, unfinished prayers and settings are stored only in this browser. Save them as a file and load them back later, on another device too.",
+    backupExport: "Save a backup",
+    backupImport: "Load a backup",
+    backupFileName: "rosarium-backup",
+    backupConfirm: "Load the backup? Nothing is deleted; it adds:",
+    backupContents: ({ plans, favorites, places, prefs }) => [
+      plans > 0 && `plans: ${plans}`,
+      favorites > 0 && `favourites: ${favorites}`,
+      places > 0 && `unfinished prayers: ${places}`,
+      prefs && "the backup's settings",
+    ].filter(Boolean).join(" · "),
+    backupLoad: "Load",
+    backupNothing: "The backup holds nothing that isn't here already.",
+    backupInvalid: "This file is not a backup of this app.",
   },
 };
 

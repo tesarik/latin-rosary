@@ -19,8 +19,6 @@ import {
   MAX_CUSTOM_PRAYERS,
   MAX_CUSTOM_TEXT,
   MAX_CUSTOM_TITLE,
-  exportPlans,
-  parsePlansBackup,
   type Plan,
 } from "./plans";
 import { ORDINARY_PRAYERS, LITANIES } from "./sequence";
@@ -284,33 +282,5 @@ describe("custom prayers", () => {
       name: "Večer",
       steps: [{ key: "pater_noster", repeat: 1 }, { key: "ave_maria", repeat: 3 }],
     });
-  });
-});
-
-describe("backup", () => {
-  const plans: Plan[] = [
-    { id: "p1", name: "Ráno", steps: [{ key: "angelus", repeat: 1 }] },
-    {
-      id: "p2",
-      name: "Večer",
-      steps: [{ key: "loreto", repeat: 1 }, { key: "custom:c1", repeat: 1 }],
-      custom: [{ id: "c1", title: "Za rodinu", text: "Amen." }],
-    },
-  ];
-
-  it("round-trips every plan, without ids", () => {
-    const withoutIds = plans.map((p) => { const rest: Partial<Plan> = { ...p }; delete rest.id; return rest; });
-    expect(parsePlansBackup(exportPlans(plans))).toEqual(withoutIds);
-  });
-
-  it("rejects anything that isn't a backup of this app", () => {
-    expect(parsePlansBackup("not json")).toBeNull();
-    expect(parsePlansBackup(JSON.stringify({ plans }))).toBeNull();
-    expect(parsePlansBackup(JSON.stringify({ app: "other", version: 1, plans }))).toBeNull();
-  });
-
-  it("drops invalid plans from a backup but keeps the rest", () => {
-    const json = JSON.stringify({ app: "latin-rosary", version: 1, plans: [plans[0], { name: "", steps: [] }, null] });
-    expect(parsePlansBackup(json)).toEqual([{ name: "Ráno", steps: [{ key: "angelus", repeat: 1 }] }]);
   });
 });

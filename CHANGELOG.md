@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+- **Back up everything.** The backup now holds your favourites, unfinished prayers and settings as well as the plans, and has moved to the *Moje* tab, under *Záloha*. Loading a backup only adds — plans, favourites, places in prayers you haven't started here — and never deletes. Backups saved by earlier versions still load.
+- **Pronouncing the Latin.** Help explains the Roman pronunciation in a short table: *cæli* → *čéli*, *Agnus* → *Aňus*, *grátia* → *grácia*, and where the accent falls.
+- **About says it plainly:** free, no ads, no account, no tracking, offline, your data on your device; and where the Misál's woodcuts come from. The prayer pages say it too.
+
 ## [0.36.0]
 
 ### Added
