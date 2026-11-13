@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.38.0]
+
 ### Added
 - **An intention for each prayer.** On the first step of a rosary, chaplet or litany, *+ Úmysl* lets you write for whom or what you pray. It shows under the prayer's name throughout, and stays for next time until you change it. It never leaves the device, and the backup carries it.
 - **A daily reminder in your calendar.** Under *Moje → Připomínka*, choose the Angelus, the Chaplet of Divine Mercy or the rosary and an hour, and add a daily event to your calendar (an .ics file, or Google Calendar). Its link opens the prayer — the rosary with the day's mysteries. The app itself still sends no notifications and keeps nothing of it.
