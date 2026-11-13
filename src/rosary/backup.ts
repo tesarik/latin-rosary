@@ -2,6 +2,7 @@ import { MAX_PLANS, PLANS_VERSION, loadPlans, newPlanId, sanitizePlan, savePlans
 import { MAX_FAVORITES, loadFavorites, sanitizeFavorites, saveFavorites } from "./favorites";
 import { loadSavedState, saveState, STATE_VERSION } from "./storage";
 import type { MenuKey } from "./menu";
+import { loadIntentions, sanitizeIntentions, saveIntentions, type Intentions } from "./intentions";
 
 // --- Backup of everything the app keeps --------------------------------------
 // It all lives only in this browser's localStorage (per origin), so clearing
@@ -33,13 +34,14 @@ export const BACKUP_PREF_KEYS = [
 ] as const;
 
 // The keys whose data the backup carries structurally (above the prefs).
-export const BACKUP_DATA_KEYS = ["ruzenec_plans", "ruzenec_favorites", "ruzenec_state"] as const;
+export const BACKUP_DATA_KEYS = ["ruzenec_plans", "ruzenec_favorites", "ruzenec_state", "ruzenec_intentions"] as const;
 
 export type Backup = {
   plans: Plan[]; // with the ids they had, so kept places can follow them
   favorites: MenuKey[];
   progress: Record<string, number>;
   active: string | null;
+  intentions: Intentions;
   prefs: Record<string, string>;
 };
 
@@ -59,6 +61,7 @@ export function exportBackup(): string {
     version: PLANS_VERSION,
     plans: loadPlans(),
     favorites: loadFavorites(),
+    intentions: loadIntentions(),
     state: state ? { version: STATE_VERSION, active: state.active, progress: state.progress } : null,
     prefs,
   }, null, 2);
@@ -99,13 +102,13 @@ export function parseBackup(json: string): Backup | null {
         if (typeof v === "string" && v.length <= MAX_PREF_LENGTH) prefs[key] = v;
       }
     }
-    return { plans, favorites, progress, active, prefs };
+    return { plans, favorites, progress, active, intentions: sanitizeIntentions(parsed.intentions), prefs };
   } catch {
     return null;
   }
 }
 
-export type BackupSummary = { plans: number; favorites: number; places: number; prefs: boolean };
+export type BackupSummary = { plans: number; favorites: number; places: number; intentions: number; prefs: boolean };
 
 // What loading a backup into the current data would add: plans up to the
 // limit, favourites not starred yet, places in prayers that have none here.
@@ -115,14 +118,15 @@ export function summarizeBackup(backup: Backup): BackupSummary {
 
 // Loads a backup into this browser. It adds, never removes: its plans come in
 // with fresh ids (a backup can't overwrite a local plan) up to the limit, its
-// favourites after the ones starred here, and its places only in prayers that
-// have none here (a plan's place follows the plan's new id). Its preferences
+// favourites after the ones starred here, and its places and intentions only
+// in prayers that have none here (a plan's place follows the plan's new id). Its preferences
 // replace the ones here: loading a backup on a new phone should bring them.
 // The caller reloads the page, so every screen reads the new data.
 export function applyBackup(backup: Backup): BackupSummary {
-  const { plans, favorites, progress, active, summary } = mergeBackup(backup);
+  const { plans, favorites, progress, active, intentions, summary } = mergeBackup(backup);
   savePlans(plans);
   saveFavorites(favorites);
+  saveIntentions(intentions);
   saveState(active, progress);
   for (const [key, value] of Object.entries(backup.prefs)) {
     try { localStorage.setItem(key, value); } catch {}
@@ -156,6 +160,13 @@ function mergeBackup(backup: Backup) {
     const key = remap(k);
     if (key && !(key in progress)) { progress[key] = step; places++; }
   }
+  // Intentions like places: only for prayers without one here.
+  const intentions = { ...loadIntentions() };
+  let intentionsAdded = 0;
+  for (const [k, text] of Object.entries(backup.intentions)) {
+    const key = remap(k);
+    if (key && !(key in intentions)) { intentions[key] = text; intentionsAdded++; }
+  }
   const backupActive = backup.active ? remap(backup.active) : null;
   const active = saved?.active ?? backupActive;
 
@@ -164,10 +175,12 @@ function mergeBackup(backup: Backup) {
     favorites,
     progress,
     active,
+    intentions,
     summary: {
       plans: added,
       favorites: favorites.length - local.length,
       places,
+      intentions: intentionsAdded,
       prefs: Object.keys(backup.prefs).length > 0,
     },
   };

@@ -174,6 +174,22 @@ type Strings = {
   planCustomEditAria: (title: string) => string;
   planShareLong: string;
   // Backup of all plans as a file.
+  // A prayer's private intention (IntentionLine).
+  intentionAdd: string;
+  intentionLabel: string;
+  intentionEdit: string;
+  intentionPlaceholder: string;
+  intentionSave: string;
+  // The Mine tab's reminder card (ReminderCard).
+  reminderHeading: string;
+  reminderHint: string;
+  reminderPrayer: string;
+  reminderTime: string;
+  reminderTitle: Record<"angelus" | "corona" | "rosarium", string>;
+  reminderDescription: string;
+  reminderIcs: string;
+  reminderGoogle: string;
+  reminderFileName: string;
   // The Mine tab's backup card (BackupCard).
   backupHeading: string;
   backupHint: string;
@@ -181,7 +197,7 @@ type Strings = {
   backupImport: string;
   backupFileName: string;
   backupConfirm: string;
-  backupContents: (s: { plans: number; favorites: number; places: number; prefs: boolean }) => string;
+  backupContents: (s: { plans: number; favorites: number; places: number; intentions: number; prefs: boolean }) => string;
   backupLoad: string;
   backupNothing: string;
   backupInvalid: string;
@@ -334,16 +350,31 @@ export const STRINGS: Record<Locale, Strings> = {
     planCustomLimit: "Plán může mít nejvýš 10 vlastních modliteb.",
     planCustomEditAria: (n) => `Upravit modlitbu ${n}`,
     planShareLong: "Odkaz je dlouhý – některé aplikace ho mohou zkrátit.",
+    intentionAdd: "Úmysl",
+    intentionLabel: "Úmysl",
+    intentionEdit: "Upravit",
+    intentionPlaceholder: "Za koho nebo za co se modlíte",
+    intentionSave: "Uložit úmysl",
+    reminderHeading: "Připomínka",
+    reminderHint: "Aplikace sama upozornění neposílá. Přidejte si do kalendáře událost, která se opakuje každý den a jejíž odkaz modlitbu rovnou otevře.",
+    reminderPrayer: "Modlitba",
+    reminderTime: "Čas",
+    reminderTitle: { angelus: "Anděl Páně", corona: "Korunka k Božímu milosrdenství", rosarium: "Růženec" },
+    reminderDescription: "Otevřít v aplikaci Rosarium:",
+    reminderIcs: "Do kalendáře",
+    reminderGoogle: "Google Kalendář",
+    reminderFileName: "rosarium-pripominka",
     backupHeading: "Záloha",
     backupHint: "Plány, oblíbené, rozmodlené modlitby i nastavení jsou uložené jen v tomto prohlížeči. Uložte si je jako soubor a později je načtěte zpět, třeba v jiném zařízení.",
     backupExport: "Uložit zálohu",
     backupImport: "Načíst zálohu",
     backupFileName: "rosarium-zaloha",
     backupConfirm: "Načíst zálohu? Nic se nesmaže, jen se přidá:",
-    backupContents: ({ plans, favorites, places, prefs }) => [
+    backupContents: ({ plans, favorites, places, intentions, prefs }) => [
       plans > 0 && `plány: ${plans}`,
       favorites > 0 && `oblíbené: ${favorites}`,
       places > 0 && `rozmodlené modlitby: ${places}`,
+      intentions > 0 && `úmysly: ${intentions}`,
       prefs && "nastavení ze zálohy",
     ].filter(Boolean).join(" · "),
     backupLoad: "Načíst",
@@ -496,16 +527,31 @@ export const STRINGS: Record<Locale, Strings> = {
     planCustomLimit: "A plan can hold at most 10 prayers of your own.",
     planCustomEditAria: (n) => `Edit prayer ${n}`,
     planShareLong: "The link is long; some apps may cut it short.",
+    intentionAdd: "Intention",
+    intentionLabel: "Intention",
+    intentionEdit: "Edit",
+    intentionPlaceholder: "For whom or what you pray",
+    intentionSave: "Save the intention",
+    reminderHeading: "Reminder",
+    reminderHint: "The app sends no notifications of its own. Add an event to your calendar that repeats every day, with a link that opens the prayer.",
+    reminderPrayer: "Prayer",
+    reminderTime: "Time",
+    reminderTitle: { angelus: "The Angelus", corona: "The Chaplet of Divine Mercy", rosarium: "The Rosary" },
+    reminderDescription: "Open in the Rosarium app:",
+    reminderIcs: "Add to calendar",
+    reminderGoogle: "Google Calendar",
+    reminderFileName: "rosarium-reminder",
     backupHeading: "Backup",
     backupHint: "Your plans, favourites, unfinished prayers and settings are stored only in this browser. Save them as a file and load them back later, on another device too.",
     backupExport: "Save a backup",
     backupImport: "Load a backup",
     backupFileName: "rosarium-backup",
     backupConfirm: "Load the backup? Nothing is deleted; it adds:",
-    backupContents: ({ plans, favorites, places, prefs }) => [
+    backupContents: ({ plans, favorites, places, intentions, prefs }) => [
       plans > 0 && `plans: ${plans}`,
       favorites > 0 && `favourites: ${favorites}`,
       places > 0 && `unfinished prayers: ${places}`,
+      intentions > 0 && `intentions: ${intentions}`,
       prefs && "the backup's settings",
     ].filter(Boolean).join(" · "),
     backupLoad: "Load",

@@ -29,6 +29,10 @@ import { hintToShow, loadDim, loadHintsSeen, loadVibrate, loadWelcomeSeen, saveD
 import LanguageToggle from "./rosary/LanguageToggle";
 import StarIcon from "./rosary/StarIcon";
 import { loadFavorites, saveFavorites, toggleFavorite } from "./rosary/favorites";
+import { loadIntentions, saveIntentions, withIntention, type Intentions } from "./rosary/intentions";
+import IntentionLine from "./rosary/IntentionLine";
+import { mysteriesOfDay } from "./rosary/liturgy";
+import { chapletToOpen, loadSavedChapletFull } from "./rosary/chaplet";
 import { isMenuKey, type MenuKey } from "./rosary/menu";
 import MysteryMenu from "./rosary/MysteryMenu";
 import PlansScreen from "./rosary/PlansScreen";
@@ -64,6 +68,15 @@ export default function Rosary() {
   const [plansOpen, setPlansOpen] = useState(false);
   // The starred prayers (favorites.ts), user data under their own key.
   const [favorites, setFavoritesState] = useState<MenuKey[]>(loadFavorites);
+  // Each prayer's private intention (intentions.ts), shown under its label.
+  const [intentions, setIntentionsState] = useState<Intentions>(loadIntentions);
+  const setIntention = useCallback((key: string, text: string) => {
+    setIntentionsState((prev) => {
+      const next = withIntention(prev, key, text);
+      saveIntentions(next);
+      return next;
+    });
+  }, []);
   const saved = useRef(resolveSession(loadSavedState(), plans));
 
   const [selectedSet, setSelectedSet] = useState<PrayerSetKey | null>(saved.current.active?.key ?? null);
@@ -111,6 +124,16 @@ export default function Rosary() {
       if (stale.length === 0) return prev;
       const kept = { ...prev };
       for (const k of stale) delete kept[k];
+      return kept;
+    });
+    // A deleted plan's intention goes with it.
+    const live = new Set(next.map((p) => planKeyOf(p.id)));
+    setIntentionsState((prev) => {
+      const gone = Object.keys(prev).filter((k) => isPlanKey(k) && !live.has(k));
+      if (gone.length === 0) return prev;
+      const kept = { ...prev };
+      for (const k of gone) delete kept[k];
+      saveIntentions(kept);
       return kept;
     });
     setPlansState(next);
@@ -283,12 +306,18 @@ export default function Rosary() {
   }, [plans, progress, dismissWelcome]);
 
   // The static prayer pages link to a set as #pray=<key>: open it once, on
-  // mount. The fragment is cleared first, so a reload doesn't reopen it.
+  // mount. The fragment is cleared first, so a reload doesn't reopen it. A
+  // calendar reminder (reminder.ts) may also name `rosarium` — today's
+  // mysteries, whatever the day — or `corona`, the chaplet in the form the
+  // start screen would open.
   useEffect(() => {
     const m = /^#pray=([\w-]+)$/.exec(window.location.hash);
     if (!m) return;
     history.replaceState(null, "", window.location.pathname + window.location.search);
-    if (isBuiltInKey(m[1]!)) startSet(m[1]!);
+    const key = m[1] === "rosarium" ? mysteriesOfDay(new Date())
+      : m[1] === "corona" ? chapletToOpen(loadSavedChapletFull(), Object.keys(progress))
+      : m[1]!;
+    if (isBuiltInKey(key)) startSet(key);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -502,6 +531,18 @@ export default function Rosary() {
         <span style={{ marginLeft: 8, fontSize: 12, color: "var(--text-muted)", whiteSpace: "nowrap" }}>
           {t.stepCount(currentStep + 1, sequence.length)}
         </span>
+      )}
+      {/* The private intention, for a prayer of several steps: offered on
+          the first step, then shown on every step once written. */}
+      {setMeta.kind !== "single" && (
+        <IntentionLine
+          key={selectedSet}
+          text={intentions[selectedSet]}
+          offerAdd={currentStep === 0}
+          onChange={(text) => setIntention(selectedSet, text)}
+          color={accentText(accentColor, theme)}
+          locale={locale}
+        />
       )}
     </div>
   );

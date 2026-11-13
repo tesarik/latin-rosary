@@ -3,6 +3,7 @@ import { BACKUP_DATA_KEYS, BACKUP_PREF_KEYS, applyBackup, exportBackup, parseBac
 import { loadPlans, savePlans, type Plan } from "./plans";
 import { loadFavorites, saveFavorites } from "./favorites";
 import { loadSavedState, saveState, STATE_VERSION } from "./storage";
+import { loadIntentions, saveIntentions } from "./intentions";
 
 // The test environment is node, with no localStorage: a minimal in-memory one.
 const store = new Map<string, string>();
@@ -49,7 +50,7 @@ describe("the backup", () => {
     store.set("ruzenec_theme", "dark");
     const json = exportBackup();
     store.clear();
-    expect(applyBackup(parseBackup(json)!)).toEqual({ plans: 2, favorites: 1, places: 2, prefs: true });
+    expect(applyBackup(parseBackup(json)!)).toEqual({ plans: 2, favorites: 1, places: 2, intentions: 0, prefs: true });
     const restored = loadPlans();
     expect(restored.map((p) => p.name)).toEqual(["Ráno", "Večer"]);
     const evening = restored.find((p) => p.name === "Večer")!;
@@ -69,13 +70,25 @@ describe("the backup", () => {
       favorites: ["angelus", "loreto"],
       state: { version: STATE_VERSION, active: "radostny", progress: { radostny: 23, slavny: 9 } },
     }))!;
-    expect(summarizeBackup(backup)).toEqual({ plans: 1, favorites: 1, places: 1, prefs: false });
+    expect(summarizeBackup(backup)).toEqual({ plans: 1, favorites: 1, places: 1, intentions: 0, prefs: false });
     applyBackup(backup);
     expect(loadPlans().map((p) => p.name)).toEqual(["Ráno", "Večer"]);
     expect(new Set(loadPlans().map((p) => p.id)).size).toBe(2);
     expect(loadFavorites()).toEqual(["loreto", "angelus"]);
     // The place here wins; the set open here stays the one reopened.
     expect(loadSavedState()).toEqual({ version: STATE_VERSION, active: "bolestny", progress: { bolestny: 5, radostny: 40, slavny: 9 } });
+  });
+
+  it("carries the intentions, a plan's following its new id, and keeps the ones here", () => {
+    savePlans([plans[1]!]);
+    saveIntentions({ radostny: "za rodinu", "plan:p2": "za nemocné" });
+    const json = exportBackup();
+    store.clear();
+    saveIntentions({ radostny: "za mír" });
+    const summary = applyBackup(parseBackup(json)!);
+    expect(summary.intentions).toBe(1);
+    const id = loadPlans()[0]!.id;
+    expect(loadIntentions()).toEqual({ radostny: "za mír", [`plan:${id}`]: "za nemocné" });
   });
 
   it("still reads a plans-only backup of an older version", () => {
