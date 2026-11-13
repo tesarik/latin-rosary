@@ -25,12 +25,13 @@ import PrayerCard from "./rosary/PrayerCard";
 import PrayerSections from "./rosary/PrayerSections";
 import SettingsMenu from "./rosary/SettingsMenu";
 import { applyLook, headerStyles, ink, loadSavedLook, saveLook, type Look } from "./rosary/look";
-import { hintToShow, loadDim, loadHintsSeen, loadVibrate, loadWelcomeSeen, saveDim, saveHintDone, saveVibrate, saveWelcomeSeen, type Hint, type HintsSeen } from "./rosary/prefs";
+import { hintToShow, loadDim, loadHintsSeen, loadVibrate, loadWelcomeSeen, saveDim, saveHintDone, saveVibrate, saveWelcomeSeen, type Hint, type HintsSeen, loadMeditation, saveMeditation } from "./rosary/prefs";
 import LanguageToggle from "./rosary/LanguageToggle";
 import StarIcon from "./rosary/StarIcon";
 import { loadFavorites, saveFavorites, toggleFavorite } from "./rosary/favorites";
 import { loadIntentions, saveIntentions, withIntention, type Intentions } from "./rosary/intentions";
 import IntentionLine from "./rosary/IntentionLine";
+import { MEDITATIONS } from "./rosary/meditations";
 import { mysteriesOfDay } from "./rosary/liturgy";
 import { chapletToOpen, loadSavedChapletFull } from "./rosary/chaplet";
 import { isMenuKey, type MenuKey } from "./rosary/menu";
@@ -95,6 +96,7 @@ export default function Rosary() {
   // The prayer screen's quieter settings (prefs.ts), in the header's ⋯ menu.
   const [vibrate, setVibrateState] = useState<boolean>(loadVibrate);
   const [dim, setDimState] = useState<boolean>(loadDim);
+  const [meditation, setMeditationState] = useState<boolean>(loadMeditation);
   // The prayer screen's one-time hints (prefs.ts: how to step, how to jump,
   // that ← keeps the place), each until closed or put to use.
   const [hintsSeen, setHintsSeen] = useState<HintsSeen>(loadHintsSeen);
@@ -165,6 +167,7 @@ export default function Rosary() {
 
   const setVibrate = useCallback((on: boolean) => { setVibrateState(on); saveVibrate(on); }, []);
   const setDim = useCallback((on: boolean) => { setDimState(on); saveDim(on); }, []);
+  const setMeditation = useCallback((on: boolean) => { setMeditationState(on); saveMeditation(on); }, []);
   const closeHint = useCallback((hint: Hint) => {
     setHintsSeen((prev) => (prev[hint] ? prev : { ...prev, [hint]: true }));
     saveHintDone(hint);
@@ -557,8 +560,15 @@ export default function Rosary() {
   // leads (at Mass: which part comes next).
   const nextLabel = sequence[currentStep + 1]?.label;
 
+  // The fruit of the mystery and a verse, at each rosary decade's Pater
+  // Noster, when switched on in the ⋯ settings (meditations.ts).
+  const decadeMeditation = meditation && isRosaryKey(selectedSet) && currentPrayer?.type === PRAYER_TYPES.OUR_FATHER && currentPrayer.decade !== undefined
+    ? MEDITATIONS[selectedSet][currentPrayer.decade]
+    : undefined;
+
   const card = (
     <PrayerCard
+      meditation={decadeMeditation}
       finis={finisFor(selectedSet)}
       currentPrayer={currentPrayer}
       accentColor={accentColor}
@@ -678,6 +688,8 @@ export default function Rosary() {
             vibrate={vibrate}
             onVibrate={setVibrate}
             dim={dim}
+            meditation={meditation}
+            onMeditation={setMeditation}
             onDim={setDim}
             look={look}
             onLook={setLook}

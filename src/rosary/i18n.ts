@@ -61,6 +61,9 @@ type Strings = {
   lookNames: Record<"base" | "paper" | "missal", string>;
   settingsHeading: string;
   settingsDim: string;
+  // The switch for the fruit and verse at each decade, and their label.
+  settingsMeditation: string;
+  meditationFruit: string;
   hintText: string;
   hintDismiss: string;
   hintJumpRosary: string;
@@ -248,6 +251,8 @@ export const STRINGS: Record<Locale, Strings> = {
     lookNames: { base: "Základ", paper: "Papír", missal: "Misál" },
     settingsHeading: "Nastavení",
     settingsDim: "Ztlumit obrazovku",
+    settingsMeditation: "Ovoce tajemství a verš z Písma",
+    meditationFruit: "Ovoce tajemství",
     hintText: "Další modlitbu otevřete ťuknutím na text nebo přejetím prstem doleva, předchozí přejetím doprava.",
     hintDismiss: "Rozumím",
     hintJumpRosary: "Ťuknutím na větší korálek přeskočíte na jiný desátek.",
@@ -425,6 +430,8 @@ export const STRINGS: Record<Locale, Strings> = {
     lookNames: { base: "Basic", paper: "Paper", missal: "Missal" },
     settingsHeading: "Settings",
     settingsDim: "Dim the screen",
+    settingsMeditation: "Fruit of the mystery and a verse",
+    meditationFruit: "Fruit of the mystery",
     hintText: "Tap the prayer or swipe left for the next one; swipe right to go back.",
     hintDismiss: "Got it",
     hintJumpRosary: "Tap a larger bead to jump to another decade.",

@@ -6,6 +6,9 @@ import type { PrayerSetKind } from "./navigation";
 //                      quiet church, where a buzz can be heard)
 //   ruzenec_dim      — a dark veil over the prayer screen, dimmer than the
 //                      dark theme alone (off by default)
+//   ruzenec_meditation — the fruit of the mystery and a verse of Scripture
+//                      at each rosary decade's Pater Noster (off by default:
+//                      many want "just the rosary")
 //   ruzenec_hint_seen — the first-run "tap or swipe" hint was shown and closed
 //   ruzenec_hint_jump_seen — the later hint on jumping by a larger bead
 //   ruzenec_hint_keep_seen — the later hint that ← keeps the place
@@ -14,6 +17,7 @@ import type { PrayerSetKind } from "./navigation";
 //                      the hint seen — never gets it)
 const VIBRATE_KEY = "ruzenec_vibrate";
 const DIM_KEY = "ruzenec_dim";
+const MEDITATION_KEY = "ruzenec_meditation";
 const HINT_KEY = "ruzenec_hint_seen";
 const WELCOME_KEY = "ruzenec_welcome_seen";
 const JUMP_HINT_KEY = "ruzenec_hint_jump_seen";
@@ -38,6 +42,8 @@ export const loadVibrate = (): boolean => loadFlag(VIBRATE_KEY, true);
 export const saveVibrate = (on: boolean): void => saveFlag(VIBRATE_KEY, on);
 export const loadDim = (): boolean => loadFlag(DIM_KEY, false);
 export const saveDim = (on: boolean): void => saveFlag(DIM_KEY, on);
+export const loadMeditation = (): boolean => loadFlag(MEDITATION_KEY, false);
+export const saveMeditation = (on: boolean): void => saveFlag(MEDITATION_KEY, on);
 export const loadHintSeen = (): boolean => loadFlag(HINT_KEY, false);
 export const saveHintSeen = (): void => saveFlag(HINT_KEY, true);
 export const loadWelcomeSeen = (): boolean => loadFlag(WELCOME_KEY, false) || loadHintSeen();

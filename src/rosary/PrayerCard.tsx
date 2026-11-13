@@ -8,6 +8,7 @@ import { sliceLines, type SequenceItem } from "./sequence";
 import { STRINGS, type Locale, type PrayerLanguage } from "./i18n";
 import { accentText, type Theme } from "./theme";
 import { parseLitany, type LitanyBlock } from "./litany";
+import { FRUCTUS_LABEL, type Meditation } from "./meditations";
 
 // Render prayer text, turning `{r}…{/r}` spans into red liturgical rubrics
 // (missal-style seasonal labels). Newlines are handled by the container's
@@ -242,7 +243,36 @@ function PrayerBody({ currentPrayer, accentColor, locale, language, fontSizeClam
   );
 }
 
+// The fruit of the mystery and a verse above a decade's Pater Noster (the
+// ⋯ settings' switch; meditations.ts): the verse in italics with its
+// reference, then the fruit, in the language the prayer is shown in — the
+// Latin with the translation under it in "both". A thin rule parts it from
+// the prayer.
+function MeditationBlock({ m, language, locale, accent }: { m: Meditation; language: PrayerLanguage; locale: Locale; accent: string }) {
+  const t = STRINGS[locale];
+  const tr = language === "translation";
+  const both = language === "both";
+  const verseStyle: CSSProperties = { fontStyle: "italic", color: "var(--text-soft)", fontSize: "0.85em", lineHeight: 1.35 };
+  const refStyle: CSSProperties = { fontStyle: "normal", fontSize: "0.8em", color: "var(--text-muted)", whiteSpace: "nowrap" };
+  const fruitStyle: CSSProperties = { fontSize: "0.82em", marginTop: 8, color: "var(--text-soft)" };
+  return (
+    <div style={{ textAlign: "center", fontFamily: SERIF, paddingBottom: 12, marginBottom: 14, borderBottom: "1px solid var(--divider)" }}>
+      <div lang={tr ? locale : undefined} style={verseStyle}>
+        {tr ? m.verse[locale] : m.verse.la} <span style={refStyle}>{tr ? m.ref[locale] : m.ref.la}</span>
+      </div>
+      {both && <div lang={locale} style={{ ...TR_STYLE, fontSize: "0.72em" }}>{m.verse[locale]} <span style={refStyle}>{m.ref[locale]}</span></div>}
+      <div style={fruitStyle}>
+        <span lang={tr ? locale : undefined} style={{ color: accent, fontWeight: 600 }}>{tr ? t.meditationFruit : FRUCTUS_LABEL}:</span>{" "}
+        <span lang={tr ? locale : undefined}>{tr ? m.fruit[locale] : m.fruit.la}</span>
+        {both && <span lang={locale} style={{ fontStyle: "italic", color: "var(--text-muted)" }}> · {m.fruit[locale]}</span>}
+      </div>
+    </div>
+  );
+}
+
 type Props = {
+  // The fruit and verse to show above the prayer (a rosary decade's Pater).
+  meditation?: Meditation;
   currentPrayer: SequenceItem | undefined;
   accentColor: string;
   currentStep: number;
@@ -267,12 +297,13 @@ type Props = {
 // text or interacting with the language select, in which case the parent's
 // click handler bails out. Which language the body shows (Latin or the active
 // UI language) is chosen by the LanguageToggle in the label row above the card.
-export default function PrayerCard({ currentPrayer, accentColor, currentStep, totalSteps, onClick, locale, language, fontSizeClamp, theme, contained, scrollRef, finis: finisArt = "finis" }: Props) {
+export default function PrayerCard({ meditation, currentPrayer, accentColor, currentStep, totalSteps, onClick, locale, language, fontSizeClamp, theme, contained, scrollRef, finis: finisArt = "finis" }: Props) {
   const t = STRINGS[locale];
   // In the Misál look the last step closes with a tailpiece, as a chapter
   // ends in an old book.
   const finis = currentLook() === "missal" && currentStep === totalSteps - 1;
   const body = <>
+    {meditation && <MeditationBlock m={meditation} language={language} locale={locale} accent={accentText(accentColor, theme)} />}
     <PrayerBody currentPrayer={currentPrayer} accentColor={accentColor} locale={locale} language={language} fontSizeClamp={fontSizeClamp} theme={theme} />
     {finis && <MissalArt name={finisArt} style={{ marginTop: 22 }} />}
   </>;

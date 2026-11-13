@@ -37,7 +37,7 @@ const HELP: Record<Locale, HelpItem[]> = {
     { title: "Oblíbené", text: "Hvězdičkou ☆ v hlavičce modlitby ji přidáte do Oblíbených v záložce Moje. Dalším ťuknutím ji odeberete." },
     { title: "Modlitební plány", text: "Sestavte si vlastní pořadí modliteb, klidně i s vlastními texty, a modlete se je jako jednu sadu. Plán můžete poslat odkazem." },
     { title: "Připomínka", text: "V záložce Moje si přidáte do kalendáře každodenní připomínku Anděla Páně, korunky nebo růžence v čase, který si zvolíte. Odkaz v události modlitbu rovnou otevře, u růžence s tajemstvím toho dne." },
-    { title: "Nastavení ⋯", text: "V hlavičce modlitby: velikost písma, tmavý režim, ztlumení obrazovky do kostela a vibrace při každém kroku." },
+    { title: "Nastavení ⋯", text: "V hlavičce modlitby: velikost písma, tmavý režim, ztlumení obrazovky do kostela, ovoce tajemství a verš z Písma u každého desátku růžence a vibrace při každém kroku." },
     { title: "Na ploše a bez internetu", text: "Aplikaci si můžete přidat na plochu: v Safari Sdílet → Přidat na plochu, v Chromu nabídka → Nainstalovat aplikaci. Po prvním otevření funguje i bez připojení. Vše, co si uložíte, zůstává jen v tomto zařízení; v záložce Moje si to můžete zálohovat do souboru a načíst třeba v novém telefonu." },
   ],
   en: [
@@ -67,7 +67,7 @@ const HELP: Record<Locale, HelpItem[]> = {
     { title: "Favourites", text: "The star ☆ in a prayer's header adds it to your Favourites under Mine. Tap it again to remove it." },
     { title: "Prayer plans", text: "Put prayers together in your own order, with texts of your own if you like, and pray them as one set. You can send a plan as a link." },
     { title: "Reminder", text: "Under Mine, add a daily reminder of the Angelus, the chaplet or the rosary to your calendar, at the hour you choose. The event's link opens the prayer, the rosary with the day's mysteries." },
-    { title: "Settings ⋯", text: "In a prayer's header: text size, dark mode, a dimmed screen for church and the vibration on each step." },
+    { title: "Settings ⋯", text: "In a prayer's header: text size, dark mode, a dimmed screen for church, the fruit of the mystery and a verse of Scripture at each decade of the rosary, and the vibration on each step." },
     { title: "On the home screen, offline", text: "Add the app to your home screen: in Safari, Share → Add to Home Screen; in Chrome, the menu → Install app. Once opened, it works without a connection. Everything you save stays on this device only; under Mine you can back it up to a file and load it on a new phone, say." },
   ],
 };

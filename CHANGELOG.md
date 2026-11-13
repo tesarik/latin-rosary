@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+- **The fruit of the mystery and a verse of Scripture** at each decade of the rosary, switched on in the ⋯ settings (off by default). Above the decade's *Pater noster*: a verse from the Vulgate — in Czech from Sýkora's New Testament as revised by Hejčl, in English from the Douay-Rheims — with its reference, and the decade's fruit after St. Louis de Montfort (*humílitas* · pokora, *cáritas erga próximum* · láska k bližnímu, …). It follows the language switch, the translation under the Latin in the middle position.
+
 ## [0.38.0]
 
 ### Added
