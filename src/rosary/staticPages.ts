@@ -77,7 +77,7 @@ const PAGE_STRINGS: Record<Locale, {
     rosaryMysteriesIntro: "Tajemství se vkládá do každého Zdrávas za slovo Iesus.",
     rosaryOpening: "Úvodní tři Zdrávas",
     chapletOrder: "Korunka se modlí na růženci (Deníček sv. Faustyny 476). Znamení kříže, Otčenáš, Zdrávas a Věřím v Boha. Pak pět desátků: na velkém zrnu „Věčný Otče“, na deseti malých „Pro jeho bolestné utrpení“. Na závěr třikrát „Svatý Bože“ a znamení kříže. Nepovinně se po úvodním znamení kříže přidává modlitba „Zemřel jsi, Ježíši“ a třikrát „Ó Krvi a Vodo“, na konci modlitba „Věčný Bože“ a „Ježíši, důvěřuji ti“. V aplikaci je zapíná přepínač pod korunkou.",
-    appBlurb: "Rosarium je bezplatná aplikace pro modlitbu v latině s překladem na jedno klepnutí. Funguje i bez připojení.",
+    appBlurb: "Rosarium je bezplatná aplikace pro modlitbu v latině s překladem na jedno klepnutí: bez reklam, bez účtu a bez sledování. Funguje i bez připojení.",
   },
   en: {
     languageName: "English",
@@ -99,7 +99,7 @@ const PAGE_STRINGS: Record<Locale, {
     rosaryMysteriesIntro: "The mystery is added to every Hail Mary after the word Iesus.",
     rosaryOpening: "The three opening Hail Marys",
     chapletOrder: "The chaplet is prayed on rosary beads (Diary of St. Faustina 476). The Sign of the Cross, the Our Father, the Hail Mary and the Apostles’ Creed. Then five decades: “Eternal Father” on the large bead, “For the sake of his sorrowful Passion” on the ten small ones. Finally “Holy God” three times and the Sign of the Cross. Optionally, “You expired, Jesus” and three times “O Blood and Water” follow the opening Sign of the Cross, and the prayer “Eternal God” and “Jesus, I trust in you” close the chaplet. In the app, the switch under the chaplet turns them on.",
-    appBlurb: "Rosarium is a free app for praying in Latin, with the translation one tap away. It works offline.",
+    appBlurb: "Rosarium is a free app for praying in Latin, with the translation one tap away: no ads, no account, no tracking. It works offline.",
   },
 };
 

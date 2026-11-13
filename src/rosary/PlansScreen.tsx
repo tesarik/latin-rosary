@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { CAPTION, CARD, RUBRIC_CAPS, headingSize, nameFont } from "./fonts";
 import { currentLook, headerStyles, iconBg, ink } from "./look";
 import { MissalArt } from "./MissalArt";
@@ -23,11 +23,9 @@ import {
   planShareUrl,
   requestPersistentStorage,
   customKeyOf,
-  exportPlans,
   findCustom,
   isCustomKey,
   newCustomId,
-  parsePlansBackup,
   stepName,
   type CustomPrayer,
   type Plan,
@@ -108,40 +106,6 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
     setDraft({ id: newPlanId(plans), name: "", steps: [] });
   };
 
-  // Backup: every plan to a JSON file the user keeps, and back. Imported
-  // plans are added with fresh ids — never overwriting a local plan — up to
-  // the plan limit.
-  const fileInput = useRef<HTMLInputElement | null>(null);
-
-  const exportAll = () => {
-    const blob = new Blob([exportPlans(plans)], { type: "application/json" });
-    const href = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = href;
-    a.download = `ruzenec-plany-${new Date().toISOString().slice(0, 10)}.json`;
-    a.click();
-    setTimeout(() => URL.revokeObjectURL(href), 1000);
-  };
-
-  const importFile = async (file: File) => {
-    const parsed = parsePlansBackup(await file.text());
-    if (!parsed) {
-      setToast(t.planImportInvalid);
-      return;
-    }
-    const take = parsed.slice(0, Math.max(0, MAX_PLANS - plans.length));
-    if (take.length === 0) {
-      setToast(t.planImportNone);
-      return;
-    }
-    if (!(await askConfirm({ message: t.planImportBackupConfirm(take.length), confirmLabel: t.planImportAdd, cancelLabel: t.planCancel, color: ink(PLAN_COLOR) }))) return;
-    const next = [...plans];
-    for (const p of take) next.push({ ...p, id: newPlanId(next) });
-    onChange(next);
-    requestPersistentStorage();
-    setToast(t.planImportDone(take.length));
-  };
-
   return (
     <div style={{ minHeight: "100dvh", background: "var(--bg)", fontFamily: "Arial, sans-serif" }}>
       <Header
@@ -195,30 +159,6 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
               + {t.planNew}
             </button>
 
-            <div style={{ marginTop: 12, padding: "14px 16px", borderRadius: 14, background: "var(--surface)", border: "1px solid var(--border)" }}>
-              <p style={{ margin: "0 0 10px", color: "var(--text-soft)", fontSize: 13, lineHeight: 1.5 }}>
-                {t.planBackupHint}
-              </p>
-              <div style={{ display: "flex", gap: 8 }}>
-                <button onClick={exportAll} disabled={plans.length === 0} style={backupButton(plans.length === 0)}>
-                  {t.planExport}
-                </button>
-                <button onClick={() => fileInput.current?.click()} style={backupButton(false)}>
-                  {t.planImport}
-                </button>
-              </div>
-              <input
-                ref={fileInput}
-                type="file"
-                accept="application/json,.json"
-                style={{ display: "none" }}
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  e.target.value = "";
-                  if (file) void importFile(file);
-                }}
-              />
-            </div>
           </>
         )}
       </div>
@@ -715,20 +655,6 @@ export function PlanIcon({ color }: { color: string }) {
   );
 }
 
-function backupButton(disabled: boolean): React.CSSProperties {
-  return {
-    flex: 1,
-    padding: "10px 12px",
-    borderRadius: 10,
-    border: "1px solid var(--border-strong)",
-    background: "var(--surface)",
-    color: disabled ? "var(--border-strong)" : ink(PLAN_COLOR),
-    fontFamily: "Arial, sans-serif",
-    fontSize: 14,
-    fontWeight: 600,
-    cursor: disabled ? "default" : "pointer",
-  };
-}
 
 const addButton = (): React.CSSProperties => ({
   flex: 1,

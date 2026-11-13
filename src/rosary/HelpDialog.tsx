@@ -6,29 +6,65 @@ import { MissalArt } from "./MissalArt";
 
 // What the help explains, one short paragraph per topic, in every UI locale
 // (the Record makes a missing locale a compile error). Keep it in step with
-// the app: a new control or screen gets a line here.
-const HELP: Record<Locale, { title: string; text: string }[]> = {
+// the app: a new control or screen gets a line here. `rules` (the Latin
+// pronunciation) is a short table under the text: a rule, then an example.
+type HelpItem = { title: string; text: string; rules?: readonly (readonly [string, string])[] };
+const HELP: Record<Locale, HelpItem[]> = {
   cs: [
     { title: "Modlitba krok za krokem", text: "Další modlitbu otevřete ťuknutím na text nebo na Další, přejetím prstem doleva jdete dál, doprava zpět. Na počítači fungují šipky, mezerník a Enter. Tlačítko Další ukazuje, co přijde." },
     { title: "Korálky", text: "U růžence a korunky ťuknutím na korálek Otčenáše skočíte na začátek desátku. U litanií, pobožností a mše ťuknutím na větší korálek skočíte na danou část." },
     { title: "Latina a překlad", text: "Přepínač v hlavičce má tři polohy: La je jen latina, prostřední latina s českým překladem pod každým řádkem, Cz jen čeština. Aplikace si volbu pamatuje." },
+    {
+      title: "Výslovnost latiny",
+      text: "Církev doporučuje římskou (italskou) výslovnost; v českých kostelích se dodnes setkáte i s tradiční českou. Čárka nad samohláskou značí přízvuk, ne délku: Dóminus se čte s důrazem na první slabice, krátce.",
+      rules: [
+        ["c před e, i, æ, œ = č", "cæli → čéli"],
+        ["g před e, i, æ, œ = dž", "Génitrix → Dženitrix"],
+        ["sc před e, i = š", "descéndit → dešéndit"],
+        ["gn = ň", "Agnus → Aňus"],
+        ["ti před samohláskou = ci", "grátia → grácia"],
+        ["æ, œ = é", "pœna → péna"],
+        ["ch = k, ph = f, th = t", "Christus → Kristus"],
+        ["qu = kv", "qui → kvi"],
+        ["h se nečte, v mihi a nihil = k", "mihi → miki"],
+        ["i na začátku před samohláskou = j", "Iesus → Jezus"],
+        ["s mezi samohláskami zní jako z", "rosa → roza"],
+      ],
+    },
     { title: "Nedokončené modlitby", text: "Šipkou ← se vrátíte do nabídky a aplikace si místo zapamatuje. Modlitba se pak nabídne nahoře jako nedokončená; křížkem × ji odtud odeberete. Tlačítko ↺ začne znovu od začátku." },
-    { title: "Záložky dole", text: "Růženec: tajemství, dnešní jako první, a korunka k Božímu milosrdenství. Modlitby: hledání a skupiny modliteb; karta V tuto dobu ukazuje, co se hodí k dnešnímu dni. Moje: oblíbené modlitby a vlastní plány." },
+    { title: "Záložky dole", text: "Růženec: tajemství, dnešní jako první, a korunka k Božímu milosrdenství. Modlitby: hledání a skupiny modliteb; karta V tuto dobu ukazuje, co se hodí k dnešnímu dni. Moje: oblíbené modlitby, vlastní plány, vzhled a záloha." },
     { title: "Oblíbené", text: "Hvězdičkou ☆ v hlavičce modlitby ji přidáte do Oblíbených v záložce Moje. Dalším ťuknutím ji odeberete." },
-    { title: "Modlitební plány", text: "Sestavte si vlastní pořadí modliteb, klidně i s vlastními texty, a modlete se je jako jednu sadu. Plán můžete poslat odkazem a všechny plány zálohovat do souboru." },
+    { title: "Modlitební plány", text: "Sestavte si vlastní pořadí modliteb, klidně i s vlastními texty, a modlete se je jako jednu sadu. Plán můžete poslat odkazem." },
     { title: "Nastavení ⋯", text: "V hlavičce modlitby: velikost písma, tmavý režim, ztlumení obrazovky do kostela a vibrace při každém kroku." },
-    { title: "Na ploše a bez internetu", text: "Aplikaci si můžete přidat na plochu: v Safari Sdílet → Přidat na plochu, v Chromu nabídka → Nainstalovat aplikaci. Po prvním otevření funguje i bez připojení. Vše, co si uložíte, zůstává jen v tomto zařízení." },
+    { title: "Na ploše a bez internetu", text: "Aplikaci si můžete přidat na plochu: v Safari Sdílet → Přidat na plochu, v Chromu nabídka → Nainstalovat aplikaci. Po prvním otevření funguje i bez připojení. Vše, co si uložíte, zůstává jen v tomto zařízení; v záložce Moje si to můžete zálohovat do souboru a načíst třeba v novém telefonu." },
   ],
   en: [
     { title: "Praying step by step", text: "Tap the prayer or Next for the next one; swipe left to go on and right to go back. On a computer, use the arrow keys, Space or Enter. The Next button shows what comes next." },
     { title: "The beads", text: "In the rosary and the chaplet, tap an Our Father bead to jump to the start of its decade. In litanies, devotions and the Mass, tap a larger bead to jump to that part." },
     { title: "Latin and translation", text: "The switch in the header has three positions: La is the Latin alone, the middle one the Latin with the English under each line, En the English alone. The app remembers your choice." },
+    {
+      title: "Pronouncing the Latin",
+      text: "The Church recommends the Roman (Italian) pronunciation. Vowels are pure, as in Italian: a as in father, e as in they, i as in machine, o as in for, u as in rule. An accent mark shows the stress, not length: Dóminus is stressed on its first syllable.",
+      rules: [
+        ["c before e, i, æ, œ = ch", "cæli → chay-lee"],
+        ["g before e, i, æ, œ = j", "Génitrix → jay-nee-trix"],
+        ["sc before e, i = sh", "descéndit → day-shen-dit"],
+        ["gn = ny", "Agnus → ah-nyoos"],
+        ["ti before a vowel = tsee", "grátia → grah-tsee-ah"],
+        ["æ, œ = e as in they", "pœna → pay-nah"],
+        ["ch = k, ph = f, th = t", "Christus → kree-stoos"],
+        ["qu = kw", "qui → kwee"],
+        ["h is silent; in mihi and nihil = k", "mihi → mee-kee"],
+        ["i before a vowel at the start = y", "Iesus → yay-zoos"],
+        ["s between vowels sounds like z", "rosa → roh-zah"],
+      ],
+    },
     { title: "Unfinished prayers", text: "The ← arrow takes you back to the menu and keeps your place; the prayer is then offered at the top as unfinished, and its × removes it. The ↺ button starts again from the beginning." },
-    { title: "The tabs at the bottom", text: "Rosary: the mysteries, today's first, and the Chaplet of Divine Mercy. Prayers: the search and the groups of prayers; the In season card shows what suits the day. Mine: your favourites and your own plans." },
+    { title: "The tabs at the bottom", text: "Rosary: the mysteries, today's first, and the Chaplet of Divine Mercy. Prayers: the search and the groups of prayers; the In season card shows what suits the day. Mine: your favourites, your own plans, the look and the backup." },
     { title: "Favourites", text: "The star ☆ in a prayer's header adds it to your Favourites under Mine. Tap it again to remove it." },
-    { title: "Prayer plans", text: "Put prayers together in your own order, with texts of your own if you like, and pray them as one set. You can send a plan as a link and back up all your plans to a file." },
+    { title: "Prayer plans", text: "Put prayers together in your own order, with texts of your own if you like, and pray them as one set. You can send a plan as a link." },
     { title: "Settings ⋯", text: "In a prayer's header: text size, dark mode, a dimmed screen for church and the vibration on each step." },
-    { title: "On the home screen, offline", text: "Add the app to your home screen: in Safari, Share → Add to Home Screen; in Chrome, the menu → Install app. Once opened, it works without a connection. Everything you save stays on this device only." },
+    { title: "On the home screen, offline", text: "Add the app to your home screen: in Safari, Share → Add to Home Screen; in Chrome, the menu → Install app. Once opened, it works without a connection. Everything you save stays on this device only; under Mine you can back it up to a file and load it on a new phone, say." },
   ],
 };
 
@@ -120,6 +156,16 @@ export default function HelpDialog({ locale, onClose }: Props) {
               <section key={item.title}>
                 <h3 style={{ fontFamily: SERIF, fontSize: 19, fontWeight: 600, color: "var(--text-strong)", margin: "0 0 2px" }}>{item.title}</h3>
                 <p style={{ fontSize: 14, lineHeight: 1.45, color: "var(--text)", margin: 0 }}>{item.text}</p>
+                {item.rules && (
+                  <dl style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) auto", columnGap: 10, rowGap: 3, margin: "8px 0 0", fontSize: 13, lineHeight: 1.35 }}>
+                    {item.rules.map(([rule, example]) => (
+                      <div key={rule} style={{ display: "contents" }}>
+                        <dt style={{ color: "var(--text)" }}>{rule}</dt>
+                        <dd style={{ margin: 0, fontFamily: SERIF, fontSize: 15, fontStyle: "italic", color: "var(--text-soft)", whiteSpace: "nowrap" }}>{example}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
               </section>
             ))}
           </div>

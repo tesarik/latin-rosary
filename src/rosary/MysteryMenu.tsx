@@ -19,6 +19,7 @@ import { STAR_PATH } from "./StarIcon";
 import { CAPTION, CARD, RUBRIC_CAPS, headingSize, nameFont } from "./fonts";
 import { currentLook, iconBg, ink, type Look } from "./look";
 import LookPicker from "./LookPicker";
+import BackupCard from "./BackupCard";
 
 type Props = {
   onStart: (key: PrayerSetKey) => void;
@@ -878,6 +879,10 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
           <div style={{ ...CARD, padding: "12px var(--card-px) 14px" }}>
             <LookPicker look={look} onChange={onLook} locale={locale} />
           </div>
+
+          {/* Everything kept in this browser, to a file and back. */}
+          <h2 style={{ ...sectionHeading, margin: "12px var(--heading-indent) 0" }}>{t.backupHeading}</h2>
+          <BackupCard locale={locale} />
 
         </div>
       </>)}

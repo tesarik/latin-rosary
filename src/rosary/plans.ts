@@ -333,32 +333,3 @@ export function readSharedPlanFromHash(hash: string): Omit<Plan, "id"> | null {
   const match = new RegExp(`(?:^|[#&])${SHARE_PARAM}=([^&]*)`).exec(hash);
   return match ? decodePlan(match[1]!) : null;
 }
-
-// --- Backup ----------------------------------------------------------------
-// Plans live only in this browser's localStorage, so clearing site data or
-// changing phones loses them. A backup is a plain JSON file the user saves
-// and later loads back; nothing leaves the device.
-
-const BACKUP_APP = "latin-rosary";
-
-export function exportPlans(plans: Plan[]): string {
-  return JSON.stringify({ app: BACKUP_APP, version: PLANS_VERSION, plans }, null, 2);
-}
-
-// The plans in a backup file, validated, WITHOUT ids — like a shared plan,
-// each import gets a fresh id so it can never overwrite a local plan. Null if
-// the file isn't a backup of this app.
-export function parsePlansBackup(json: string): Omit<Plan, "id">[] | null {
-  try {
-    const parsed = JSON.parse(json) as { app?: unknown; version?: unknown; plans?: unknown };
-    if (parsed?.app !== BACKUP_APP || parsed.version !== PLANS_VERSION || !Array.isArray(parsed.plans)) return null;
-    const out: Omit<Plan, "id">[] = [];
-    for (const candidate of parsed.plans) {
-      const plan = sanitizePlan({ ...(candidate as object), id: "imported" });
-      if (plan) out.push(withoutId(plan));
-    }
-    return out;
-  } catch {
-    return null;
-  }
-}
