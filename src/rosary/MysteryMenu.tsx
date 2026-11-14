@@ -705,6 +705,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
             color={FULL_ROSARY.psalterium.color}
             ariaLabel={t.startPrayerAria(FULL_ROSARY.psalterium.nameTr[locale])}
             icon="rosary"
+            image="psalterium"
             resume={<ResumeLine info={resume.psalterium} color={FULL_ROSARY.psalterium.color} theme={theme} locale={locale} />}
             onClick={() => onStart("psalterium")}
           />
