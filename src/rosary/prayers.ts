@@ -152,6 +152,9 @@ export const PRAYER_TYPES = {
   O_SACRUM_CONVIVIUM: "o_sacrum_convivium",
   PANIS_ANGELICUS: "panis_angelicus",
   MISERERE: "miserere",
+  IESU_DULCIS: "iesu_dulcis",
+  LAUDATE_DOMINUM: "laudate_dominum",
+  TU_TRINITATIS: "tu_trinitatis",
   ANGELUS: "angelus",
   REGINA_CAELI: "regina_caeli",
   ANIMA_CHRISTI: "anima_christi",
@@ -1144,6 +1147,77 @@ sicut te cólimus;
 per tuas sémitas
 duc nos quo téndimus,
 ad lucem quam inhábitas. Amen.`,
+
+  // Iesu, dulcis memória: the Vespers hymn of the Holy Name of Jesus, five
+  // stanzas (the fifth closes it; no separate doxology). The 1960 Breviary's
+  // text (Divinum Officium, Tempora/Nat2-0), as in Britt, The Hymns of the
+  // Breviary and Missal (1922), no. 43.
+  [PRAYER_TYPES.IESU_DULCIS]: `Iesu, dulcis memória,
+dans vera cordis gáudia:
+sed super mel, et ómnia,
+eius dulcis præséntia.
+
+Nil cánitur suávius,
+nil audítur iucúndius,
+nil cogitátur dúlcius,
+quam Iesus Dei Fílius.
+
+Iesu, spes pœniténtibus,
+quam pius es peténtibus!
+quam bonus te quæréntibus!
+sed quid inveniéntibus?
+
+Nec lingua valet dícere,
+nec líttera exprímere:
+expértus potest crédere,
+quid sit Iesum dilígere.
+
+Sis, Iesu, nostrum gáudium,
+qui es futúrus prǽmium:
+sit nostra in te glória,
+per cuncta semper sǽcula.
+Amen.`,
+
+  // Laudáte Dóminum: Psalm 116, with the Glória Patri, as sung at Benediction
+  // (Divinum Officium; the Liber Usualis has the same words).
+  [PRAYER_TYPES.LAUDATE_DOMINUM]: `Laudáte Dóminum, omnes gentes: laudáte eum, omnes pópuli.
+Quóniam confirmáta est super nos misericórdia eius: et véritas Dómini manet in ætérnum.
+Glória Patri, et Fílio, et Spirítui Sancto.
+Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.`,
+
+  // Tu, Trinitátis Únitas: the hymn of Friday at Matins (St. Ambrose), with
+  // its doxology. The 1632/1960 Breviary's "quæ regis" (Divinum Officium,
+  // Matutinum Special [Day5 Hymnus]; Britt 1922, no. 19).
+  [PRAYER_TYPES.TU_TRINITATIS]: `Tu, Trinitátis Únitas,
+orbem poténter quæ regis,
+atténde laudis cánticum,
+quod excubántes psállimus.
+
+Nam léctulo consúrgimus
+noctis quiéto témpore,
+ut flagitémus ómnium
+a te medélam vúlnerum.
+
+Quo fraude quidquid dǽmonum
+in nóctibus delíquimus,
+abstérgat illud cǽlitus
+tuæ potéstas glóriæ.
+
+Ne corpus astet sórdidum,
+nec torpor instet córdium,
+ne críminis contágio
+tepéscat ardor spíritus.
+
+Ob hoc, Redémptor, quǽsumus,
+reple tuo nos lúmine,
+per quod diérum círculis
+nullis ruámus áctibus.
+
+Præsta, Pater piíssime,
+Patríque compar Únice,
+cum Spíritu Paráclito
+regnans per omne sǽculum.
+Amen.`,
 
   // Miserere: Psalm 50 (Vulgate), one verse a line, with the Glória Patri.
   [PRAYER_TYPES.MISERERE]: `Miserére mei, Deus, secúndum magnam misericórdiam tuam.

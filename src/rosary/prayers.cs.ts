@@ -836,6 +836,80 @@ veď nás onou stezkou,
 kterou nám jít sluší,
 na výšinu na nebeskou! Amen.`,
 
+  // Fr. Sušil's and J. P.'s metrical translation, Cesta k věčné spáse ([1946]),
+  // no. 126, p. 45 (MZK uuid:d05602b6-5773-11e3-ae9f-0050569d679d); the Amen
+  // follows the Latin.
+  [PRAYER_TYPES.IESU_DULCIS]: `Tvá, Jezu, sladká památka
+mé duši pravou radost dá,
+než nad med a vše, co svět má,
+slast větší přítomnost je tvá.
+
+Nic nepěje se liběji,
+nic neposlouchá mileji,
+nic nevzpomíná raději,
+než tvá-li jména zaznějí.
+
+Ó Jezu, čáko kajícím,
+jak dobrotiv jsi prosícím,
+jak milý tebe ždajícím,
+což teprv tebe majícím!
+
+Rtům nelze toho vyslovit,
+a písmem nelze naznačit,
+kdo zkusil, může uvěřit,
+co Ježíše je v srdci mít.
+
+Buď, Ježíši, nám radostí,
+mzdou, jíž nás nebe uhostí,
+čest naše plyň z tvé milosti,
+teď — u věčné jak věčnosti!
+Amen.`,
+
+  // Nešporní žalmy, antifony, hymny… (1909), p. 31 (MZK uuid:c493edc0-449e-
+  // 11e7-b3c8-005056825209), anonymous; the asterisks dropped, "Duchu
+  // Svatému" capitalized as the Latin is.
+  [PRAYER_TYPES.LAUDATE_DOMINUM]: `Chvalte Hospodina všickni národové: chvalte ho všickni lidé.
+Nebo utvrzeno jest nad námi milosrdenství jeho: a pravda Hospodinova zůstává na vše věky.
+Sláva Otci, i Synu, i Duchu Svatému.
+Jakož byla na počátku, i nyní, i vždycky, i na věky věkův. Amen.`,
+
+  // Fr. Sušil, Hymny církevní (1859), no. 9, version II, pp. 21–22 (ČDK
+  // uuid:3aaacd73-3534-7dca-863d-23073d51e613); spelling modernized
+  // (ukojiť, zahojiť, mocnosť, O Bože), pronouns for God lower-case.
+  // ⚠ The doxology is not printed with this hymn: it is Sušil's translation of
+  // the same "Præsta, Pater piíssime" in his no. 18 (Nunc sancte nobis
+  // Spíritus), p. 29, which he himself reuses for another hymn.
+  [PRAYER_TYPES.TU_TRINITATIS]: `Ó jednobytná Trojice,
+tvá vesmír řídí pravice;
+zpěv chvály míle pozoruj,
+jejž procitnuv lid pěje tvůj.
+
+Neb povstáváme ode sna,
+an noci klidná vládne tma,
+rač tužby naše ukojit
+a všecky rány zahojit.
+
+I jestli pro ďábelskou lest
+jsme vyvinuli z přímých cest,
+nechť mocnost tvojí oslavy
+vše úhony ty napraví.
+
+Buď tělo naše prosto vad,
+duch ospalostí nebuď jat,
+ať mysli nejme škodný puch
+a neostydne v ohni duch.
+
+Slyš Spáso, jak tvůj prosí lid,
+slej světlo v duší našich byt,
+ať lid tvůj v skutky závadné
+tou změnou denní nepadne.
+
+Dej laskavý to Otče náš,
+dej Synu jenž byt stejný máš,
+dej Duchu obou společný,
+Ó Bože vládce pověčný!
+Amen.`,
+
   // Žalm 50 from Malé hodinky k nejblahoslavenější Panně Marii (1924, reprinted
   // 1937), p. 112–114. The book prints the first two verses as one; they are
   // split here at its asterisk, so the lines match the Latin; its asterisks are
