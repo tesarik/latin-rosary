@@ -60,6 +60,13 @@ const SALVE_REGINA_ANTIPHON_EN = `Hail, holy Queen, Mother of mercy, our life, o
 // for line. Only the antiphon bodies changed; the seasonal versicles and
 // collects that follow them are unchanged.
 //
+// Fourth pass (November 2026): the Te Deum against the 1662 Book of Common
+// Prayer, and Caswall's Ave maris stella, O salutáris, Pange lingua and Tantum
+// ergo against Lyra Catholica (1849), Hymns and Poems (1873) and the
+// Westminster Hymnal (1912), all page scans; the words stand, each text's note
+// names its witness (report: docs/research/english-hymns-check.md). Hopkins'
+// Adóro te is still unchecked.
+//
 // STILL NOT checked against any witness: the BRIGIT_* prayers, which are a
 // translation of our own text (no authoritative original exists).
 //
@@ -811,8 +818,10 @@ While my body here decays,
 May my soul Thy goodness praise,
 Safe in Paradise with Thee. Amen.`,
 
-  // Edward Caswall's translation (Lyra Catholica, 1849).
-  // NOT yet checked against a printed witness.
+  // Edward Caswall's translation in his revised form, Hymns and Poems (1873),
+  // whose first line is "Hail, thou star of ocean" (Lyra Catholica, 1849, has
+  // "Gentle Star of ocean!"); checked against both (archive.org), "Show" for
+  // his "Shew".
   [PRAYER_TYPES.AVE_MARIS_STELLA]: `Hail, thou star of ocean,
 portal of the sky!
 Ever Virgin Mother
@@ -868,6 +877,74 @@ by thy paths
 lead us whither we tend,
 to the light wherein thou dwellest. Amen.`,
 
+  // Edward Caswall's "Jesu, the very thought of thee", the five stanzas that
+  // answer the Breviary's, as in Britt (1922), no. 43; the Amen follows the
+  // Latin.
+  [PRAYER_TYPES.IESU_DULCIS]: `Jesu, the very thought of thee
+with sweetness fills my breast;
+but sweeter far thy face to see,
+and in thy presence rest.
+
+Nor voice can sing, nor heart can frame,
+nor can the memory find,
+a sweeter sound than thy blest Name,
+O Saviour of mankind!
+
+O Hope of every contrite heart,
+O Joy of all the meek,
+to those who fall, how kind thou art!
+How good to those who seek!
+
+But what to those who find? Ah! this
+nor tongue nor pen can show:
+the love of Jesus, what it is
+none but his loved ones know.
+
+Jesu, our only joy be thou,
+as thou our prize wilt be;
+Jesu, be thou our glory now,
+and through eternity.
+Amen.`,
+
+  // Psalm 116, Douay-Rheims (Challoner); the Glória as in the Miserere.
+  [PRAYER_TYPES.LAUDATE_DOMINUM]: `O praise the Lord, all ye nations: praise him, all ye people.
+For his mercy is confirmed upon us: and the truth of the Lord remaineth for ever.
+Glory be to the Father, and to the Son, and to the Holy Ghost.
+As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
+
+  // G. H. Palmer's and J. W. Chadwick's translation, as in Britt (1922), no. 19;
+  // "Holy Ghost" kept, as the metre needs it.
+  [PRAYER_TYPES.TU_TRINITATIS]: `O Three in One, and One in Three,
+who rulest all things mightily:
+bow down to hear the songs of praise
+which, freed from bonds of sleep, we raise.
+
+While lingers yet the peace of night,
+we rouse us from our slumbers light:
+that might of instant prayer may win
+the healing balm for wounds of sin.
+
+If, by the wiles of Satan caught,
+this night-time we have sinned in aught,
+that sin thy glorious power to-day,
+from heaven descending, cleanse away.
+
+Let naught impure our bodies stain,
+no laggard sloth our souls detain,
+no taint of sin our spirits know,
+to chill the fervor of their glow.
+
+Wherefore, Redeemer, grant that we
+fulfilled with thine own light may be:
+that, in our course, from day to day,
+by no misdeed we fall away.
+
+Grant this, O Father ever One
+with Christ, thy sole-begotten Son,
+and Holy Ghost, whom all adore,
+reigning and blest forevermore.
+Amen.`,
+
   // Psalm 50, Douay-Rheims (Challoner), one verse a line.
   [PRAYER_TYPES.MISERERE]: `Have mercy on me, O God, according to thy great mercy.
 And according to the multitude of thy tender mercies blot out my iniquity.
@@ -892,8 +969,10 @@ Then shalt thou accept the sacrifice of justice, oblations and whole burnt offer
 Glory be to the Father, and to the Son, and to the Holy Ghost.
 As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
 
-  // The Book of Common Prayer (1662), with "Holy Spirit" for "Holy Ghost".
-  // NOT yet checked against a printed witness (the online copies were out of reach).
+  // The Book of Common Prayer (1662), with "Holy Spirit" for "Holy Ghost";
+  // checked word for word against the 1662 text (Howell's transcription and
+  // Baskerville's 1762 printing): "Cherubin and Seraphin" and "honourable" are
+  // the received 1662 readings.
   [PRAYER_TYPES.TE_DEUM]: `We praise thee, O God: we acknowledge thee to be the Lord.
 All the earth doth worship thee, the Father everlasting.
 To thee all Angels cry aloud, the Heavens, and all the Powers therein;
@@ -925,7 +1004,10 @@ O Lord, let thy mercy lighten upon us, as our trust is in thee.
 O Lord, in thee have I trusted: let me never be confounded.`,
 
   // Gerard Manley Hopkins' translation ("Godhead here in hiding").
-  // NOT yet checked against a printed witness (the online copies were out of reach).
+  // NOT yet checked against a printed witness: the 1918 Poems lacks it and the
+  // later editions are out of reach. Online copies differ in stanza 4, line 3
+  // ("Let me to a deeper faith … daily nearer move"); both seem to be Hopkins'
+  // drafts. The Amen is probably not his.
   [PRAYER_TYPES.ADORO_TE]: `Godhead here in hiding, whom I do adore,
 masked by these bare shadows, shape and nothing more,
 see, Lord, at thy service low lies here a heart
@@ -969,8 +1051,11 @@ whose pierced side flowed with water and blood:
 be for us a foretaste in the trial of death.
 O sweet, O loving Jesus, Son of Mary, have mercy on me. Amen.`,
 
-  // Edward Caswall's translation (Lyra Catholica, 1849).
-  // NOT yet checked against a printed witness (the online copies were out of reach).
+  // Edward Caswall's translation (Lyra Catholica, 1849), with the second
+  // stanza as altered in Hymns Ancient and Modern (1875), the form most
+  // hymnals sing and closer to the Latin's "vitam sine término" (Caswall's
+  // own: "To thy great Name be endless praise, / Immortal Godhead, One in
+  // Three!…"). Checked against both printings.
   [PRAYER_TYPES.O_SALUTARIS]: `O saving Victim, opening wide
 the gate of heaven to man below,
 our foes press on from every side:
@@ -981,9 +1066,9 @@ for evermore, blest One in Three;
 O grant us life that shall not end
 in our true native land with thee. Amen.`,
 
-  // Edward Caswall's translation (Lyra Catholica, 1849); "Holy Ghost" kept, as the
-  // metre needs it.
-  // NOT yet checked against a printed witness (the online copies were out of reach).
+  // Edward Caswall's translation (Lyra Catholica, 1849), checked against it:
+  // "to all his brethren" is 1849's (1873 and the Westminster Hymnal have "to
+  // his Apostles"). "Holy Ghost" kept, as the metre needs it.
   [PRAYER_TYPES.PANGE_LINGUA]: `Sing, my tongue, the Saviour's glory,
 of his flesh the mystery sing;
 of the Blood, all price exceeding,
@@ -1026,8 +1111,10 @@ forth from each eternally,
 be salvation, honour, blessing,
 might and endless majesty. Amen.`,
 
-  // Caswall's last two stanzas of Pange lingua; the versicle and collect are the
-  // Missal's for Corpus Christi.
+  // Caswall's last two stanzas of Pange lingua, identical in Lyra Catholica
+  // (1849), Hymns and Poems (1873) and the Westminster Hymnal (1912) bar
+  // capitals and commas; the versicle and collect are the Missal's for Corpus
+  // Christi.
   [PRAYER_TYPES.TANTUM_ERGO]: `Down in adoration falling,
 lo! the sacred Host we hail;
 lo! o'er ancient forms departing,
