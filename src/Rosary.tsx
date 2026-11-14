@@ -499,10 +499,19 @@ export default function Rosary() {
   // card. The chaplet's decades have no mystery: "III. Pro dolorósa".
   // Everywhere else the chip names the current prayer or section.
   const decade = currentPrayer?.decade;
-  const chipText = decade !== undefined && isRosaryKey(selectedSet)
-    ? showTranslation
-      ? t.decadeLabel(decade + 1, MYSTERIES[selectedSet].mysteriesTr[locale][decade]!)
-      : `${ROMAN[decade]}. ${MYSTERIES[selectedSet].mysteries[decade]}`
+  // The mystery set a decade belongs to: the open set, or in the full rosary
+  // the item's part.
+  const decadeSet = decade === undefined ? undefined
+    : currentPrayer?.part ?? (isRosaryKey(selectedSet) ? selectedSet : undefined);
+  // In the full rosary the set's name leads, so its fifteen decades read
+  // "Mysteria Dolorosa · II. qui pro nobis…".
+  const partName = currentPrayer?.part
+    ? `${showTranslation ? MYSTERIES[currentPrayer.part].nameTr[locale] : MYSTERIES[currentPrayer.part].name} · `
+    : "";
+  const chipText = decade !== undefined && decadeSet
+    ? partName + (showTranslation
+      ? t.decadeLabel(decade + 1, MYSTERIES[decadeSet].mysteriesTr[locale][decade]!)
+      : `${ROMAN[decade]}. ${MYSTERIES[decadeSet].mysteries[decade]}`)
     : decade !== undefined && isChapletKey(selectedSet)
       ? `${ROMAN[decade]}. ${currentPrayer!.label}`
       : currentPrayer?.label;
@@ -513,7 +522,7 @@ export default function Rosary() {
           is set in Arial, so the Latin may carry lang="la" here (the u→v
           issue is EB Garamond's alone — see Typography). */}
       <span
-        lang={decade !== undefined && isRosaryKey(selectedSet) ? (showTranslation ? locale : "la") : undefined}
+        lang={decadeSet ? (showTranslation ? locale : "la") : undefined}
         style={{
           display: "inline-block",
           maxWidth: "100%",
@@ -562,8 +571,8 @@ export default function Rosary() {
 
   // The fruit of the mystery and a verse, at each rosary decade's Pater
   // Noster, when switched on in the ⋯ settings (meditations.ts).
-  const decadeMeditation = meditation && isRosaryKey(selectedSet) && currentPrayer?.type === PRAYER_TYPES.OUR_FATHER && currentPrayer.decade !== undefined
-    ? MEDITATIONS[selectedSet][currentPrayer.decade]
+  const decadeMeditation = meditation && decadeSet && currentPrayer?.type === PRAYER_TYPES.OUR_FATHER && decade !== undefined
+    ? MEDITATIONS[decadeSet][decade]
     : undefined;
 
   const card = (
