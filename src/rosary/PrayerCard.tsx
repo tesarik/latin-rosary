@@ -118,10 +118,12 @@ const bodyStyle = {
 };
 
 // The translation under the Latin (PrayerLanguage "both"): a little smaller
-// and lighter, upright, so the Latin stays the text that is prayed.
+// and clearly lighter (its own token, --tr-text: about 5 : 1 against the page,
+// where the Latin is 10–18 : 1), upright, so the Latin stays the text that is
+// prayed.
 const TR_STYLE: CSSProperties = {
   fontSize: "0.9em",
-  color: "var(--text-muted)",
+  color: "var(--tr-text)",
   lineHeight: 1.3,
   marginTop: 2,
 };
