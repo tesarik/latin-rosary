@@ -12,8 +12,8 @@ export type SequenceItem = {
   decade?: number;
   // In the full rosary of fifteen decades, the mystery set a decade belongs
   // to: its `decade` counts within that set (0–4), so the chip and the
-  // fruits read it as they do in a single set, and the bead ring shows one
-  // set's five decades at a time (RosaryBeads).
+  // fruits read it as they do in a single set (its beads, on the ring of
+  // fifteen decades, are numbered on: `ring-of-5` is the sorrowful first).
   part?: MysteryKey;
   num?: number;
   // Section name for linear (non-rosary) prayer sets — drives the segmented
@@ -53,10 +53,10 @@ export function buildRosarySequence(mysterySet: MysterySet): SequenceItem[] {
 
 // The full rosary, the Marian psalter of 150 Aves: one opening, the joyful,
 // sorrowful and glorious decades in turn, one closing. 7 + 15 × 13 + 2 = 204
-// steps. Its beadIds repeat the ring's for each set, told apart by `part`.
+// steps, on a ring of fifteen decades (`ring-of-0` … `ring-of-14`).
 export function buildFullRosary(): SequenceItem[] {
   const seq = rosaryOpening();
-  for (const part of ["radostny", "bolestny", "slavny"] as const) seq.push(...decades(MYSTERIES[part], part));
+  (["radostny", "bolestny", "slavny"] as const).forEach((part, i) => seq.push(...decades(MYSTERIES[part], part, i * 5)));
   seq.push(...rosaryClosing());
   return seq;
 }
@@ -74,12 +74,13 @@ function rosaryOpening(): SequenceItem[] {
 }
 
 // Five decades of a mystery set: Pater Noster, ten Ave Marías with the
-// mystery, Gloria Patri and the Fatima prayer.
-function decades(mysterySet: MysterySet, part?: MysteryKey): SequenceItem[] {
+// mystery, Gloria Patri and the Fatima prayer. `ring` is where its first
+// decade sits on the bead ring (0, or 5 and 10 in the full rosary).
+function decades(mysterySet: MysterySet, part?: MysteryKey, ring = 0): SequenceItem[] {
   const seq: SequenceItem[] = [];
   const of = part ? { part } : {};
   for (let d = 0; d < 5; d++) {
-    seq.push({ type: PRAYER_TYPES.OUR_FATHER, label: "Pater Noster", decade: d, ...of, beadId: `ring-of-${d}` });
+    seq.push({ type: PRAYER_TYPES.OUR_FATHER, label: "Pater Noster", decade: d, ...of, beadId: `ring-of-${ring + d}` });
     for (let h = 1; h <= 10; h++) {
       seq.push({
         type: PRAYER_TYPES.HAIL_MARY,
@@ -92,7 +93,7 @@ function decades(mysterySet: MysterySet, part?: MysteryKey): SequenceItem[] {
           cs: mysterySet.mysteriesTr.cs[d]!,
           en: mysterySet.mysteriesTr.en[d]!,
         },
-        beadId: `ring-hm-${d}-${h - 1}`,
+        beadId: `ring-hm-${ring + d}-${h - 1}`,
       });
     }
     seq.push({ type: PRAYER_TYPES.GLORY_BE, label: "Gloria Patri", decade: d, ...of });

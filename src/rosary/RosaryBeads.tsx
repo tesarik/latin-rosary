@@ -32,14 +32,14 @@ type RingBead = {
   decade: number;
 };
 
-function beadStyle(seqIdx: number, currentStep: number, accentColor: string) {
+function beadStyle(seqIdx: number, currentStep: number, accentColor: string, small = false) {
   const isActive = seqIdx === currentStep;
   const isPast = seqIdx < currentStep;
   return {
     fill: isActive ? accentColor : isPast ? "var(--bead-past)" : "var(--bead-future)",
     stroke: isActive ? accentColor : "none",
-    strokeWidth: isActive ? 2.5 : 0,
-    filter: isActive ? `drop-shadow(0 0 8px ${accentColor})` : "none",
+    strokeWidth: isActive ? (small ? 2 : 2.5) : 0,
+    filter: isActive ? `drop-shadow(0 0 ${small ? 5 : 8}px ${accentColor})` : "none",
   };
 }
 
@@ -53,17 +53,15 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
   const cx = 150, cy = 128, r = 105;
   const elements: ReactElement[] = [];
 
-  // Build a beadId → sequence index map from the live sequence. The full
-  // rosary names each ring bead three times, once per mystery set (`part`):
-  // the ring shows the set being prayed — the first in the opening, the last
-  // in the closing — so its beads light, and jump, within that set.
-  const firstPart = sequence.findIndex((s) => s.part !== undefined);
-  const shownPart = firstPart < 0 ? undefined
-    : sequence[currentStep]?.part ?? (currentStep < firstPart ? sequence[firstPart]!.part : [...sequence].reverse().find((s) => s.part !== undefined)!.part);
+  // Build a beadId → sequence index map from the live sequence.
   const beadIdx: Record<string, number> = {};
   sequence.forEach((step, i) => {
-    if (step.beadId && (step.part === undefined || step.part === shownPart)) beadIdx[step.beadId] = i;
+    if (step.beadId) beadIdx[step.beadId] = i;
   });
+  // Five decades, or fifteen for the full rosary (the Marian psalter): then
+  // the beads are smaller and the three sets parted by a wider gap.
+  const decades = beadIdx["ring-of-5"] !== undefined ? 15 : 5;
+  const big = decades === 5;
 
   // Junction: bottom of the ring where tail connects (no bead here — Gloria
   // Patri is "said at the junction").
@@ -147,21 +145,26 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
   });
 
   // --- RING ---
-  const totalBeads = 55;
-  const decadeGapAngle = 0.08; // uniform gap between decades (also bridging end → start)
-  const totalGapsAngle = 5 * decadeGapAngle;
+  const totalBeads = decades * 11;
+  // Uniform gap between decades (also bridging end → start); in the full
+  // rosary a wider one after every fifth, between the sets.
+  const decadeGapAngle = big ? 0.08 : 0.014;
+  const partGapAngle = big ? decadeGapAngle : 0.06;
+  const gapAfter = (d: number) => (d % 5 === 4 ? partGapAngle : decadeGapAngle);
+  let totalGapsAngle = 0;
+  for (let d = 0; d < decades; d++) totalGapsAngle += gapAfter(d);
   const usableAngle = 2 * Math.PI - totalGapsAngle;
   const beadAngle = usableAngle / totalBeads;
 
   let angle = Math.PI / 2; // first OF sits exactly at the junction (bottom-center)
   const ringBeadPositions: RingBead[] = [];
 
-  for (let d = 0; d < 5; d++) {
+  for (let d = 0; d < decades; d++) {
     ringBeadPositions.push({
       x: cx + r * Math.cos(angle),
       y: cy + r * Math.sin(angle),
       seqIdx: beadIdx[`ring-of-${d}`],
-      radius: 6,
+      radius: big ? 6 : 3.3,
       key: `ring-of-${d}`,
       isOf: true,
       decade: d,
@@ -173,7 +176,7 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
         x: cx + r * Math.cos(angle),
         y: cy + r * Math.sin(angle),
         seqIdx: beadIdx[`ring-hm-${d}-${h}`],
-        radius: 4,
+        radius: big ? 4 : 2.1,
         key: `ring-hm-${d}-${h}`,
         isOf: false,
         decade: d,
@@ -181,12 +184,13 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
       angle += beadAngle;
     }
 
-    angle += decadeGapAngle;
+    angle += gapAfter(d);
   }
 
   // Draw connecting lines between consecutive beads within each decade
+  const ringLw = big ? lw : 0.8;
   let ringCursor = 0;
-  for (let d = 0; d < 5; d++) {
+  for (let d = 0; d < decades; d++) {
     const decadeStart = ringCursor;
     const decadeEnd = ringCursor + 11; // 1 OF + 10 HM
     for (let i = decadeStart; i < decadeEnd - 1; i++) {
@@ -194,21 +198,21 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
       const b = ringBeadPositions[i + 1]!;
       elements.push(
         <line key={`rline-${i}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y}
-          strokeWidth={lw} style={{ stroke: lineColor }} />
+          strokeWidth={ringLw} style={{ stroke: lineColor }} />
       );
     }
     ringCursor += 11;
   }
 
   // Lines connecting decades (last HM of decade N → first OF of decade N+1)
-  for (let d = 0; d < 4; d++) {
+  for (let d = 0; d < decades - 1; d++) {
     const lastOfPrev = d * 11 + 10;
     const firstOfNext = (d + 1) * 11;
     const a = ringBeadPositions[lastOfPrev]!;
     const b = ringBeadPositions[firstOfNext]!;
     elements.push(
       <line key={`rline-gap-${d}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y}
-        strokeWidth={lw} style={{ stroke: lineColor }} />
+        strokeWidth={ringLw} style={{ stroke: lineColor }} />
     );
   }
 
@@ -222,9 +226,12 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
   // Ring beads ON TOP of lines (with optional jump hit-circle for Pater Noster)
   ringBeadPositions.forEach((bead) => {
     if (bead.seqIdx === undefined) return;
-    const bs = beadStyle(bead.seqIdx, currentStep, accentColor);
+    const bs = beadStyle(bead.seqIdx, currentStep, accentColor, !big);
+    // Among the fifteen decades' small beads the current one is drawn larger,
+    // so it stands out of the string.
+    const rad = !big && bead.seqIdx === currentStep ? bead.radius * 1.8 : bead.radius;
     elements.push(
-      <circle key={bead.key} cx={bead.x} cy={bead.y} r={bead.radius}
+      <circle key={bead.key} cx={bead.x} cy={bead.y} r={rad}
         strokeWidth={bs.strokeWidth}
         style={{ fill: bs.fill, stroke: bs.stroke, transition: "all 0.3s ease", filter: bs.filter }} />
     );

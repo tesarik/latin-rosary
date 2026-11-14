@@ -138,14 +138,14 @@ export default function AboutDialog({ locale, onClose }: Props) {
           <a href={`${import.meta.env.BASE_URL}${locale}/`} target="_blank" rel="noopener" style={linkStyle}>{t.aboutPrayerTexts}</a>
         </div>
 
-        <div style={{ fontSize: 14, color: "var(--text)" }}>
+        <div style={{ textAlign: "center", fontSize: 14, color: "var(--text)" }}>
           <span style={{ color: "var(--text-muted)" }}>{t.aboutCreator}: </span>
           {CREATOR.name}
           {" · "}
           <a href={CREATOR.websiteUrl} target="_blank" rel="noopener noreferrer" style={linkStyle}>{CREATOR.website}</a>
         </div>
 
-        <div style={{ borderTop: "1px solid var(--border)", marginTop: 14, paddingTop: 14, fontSize: 13, color: "var(--text-muted)" }}>
+        <div style={{ textAlign: "center", borderTop: "1px solid var(--border)", marginTop: 14, paddingTop: 14, fontSize: 13, color: "var(--text-muted)" }}>
           {t.aboutFeedback}{" "}
           <a href={`mailto:${CREATOR.feedbackEmail}`} style={linkStyle}>{CREATOR.feedbackEmail}</a>
         </div>

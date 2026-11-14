@@ -25,11 +25,12 @@ describe("the full rosary", () => {
     }
   });
 
-  it("names each ring bead once per set, every decade item tagged with its set", () => {
-    for (const part of ["radostny", "bolestny", "slavny"] as const) {
-      const ids = seq.filter((s) => s.part === part && s.beadId).map((s) => s.beadId);
-      expect(new Set(ids).size).toBe(55);
-    }
+  it("lays its fifteen decades on one ring, every bead once, every decade item tagged with its set", () => {
+    const ring = seq.filter((s) => s.beadId?.startsWith("ring-")).map((s) => s.beadId);
+    expect(ring).toHaveLength(165);
+    expect(new Set(ring).size).toBe(165);
+    expect(seq.find((s) => s.part === "bolestny" && s.type === PRAYER_TYPES.OUR_FATHER)!.beadId).toBe("ring-of-5");
+    expect(seq.find((s) => s.part === "slavny" && s.type === PRAYER_TYPES.OUR_FATHER)!.beadId).toBe("ring-of-10");
     expect(seq.filter((s) => s.decade !== undefined).every((s) => s.part)).toBe(true);
   });
 
