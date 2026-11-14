@@ -6,7 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.41.0]
+
 ### Added
+- **After the rosary, what follows it.** Finishing a rosary brings you back to a *Deo grátias* card at the top of the start screen, offering the Litany of Loreto, *Ad te, beáte Ioseph* and *Sancte Míchael*; it goes when you open a prayer or close it.
+- **Shortcuts on the app's icon.** A long press on the installed app's icon offers today's rosary, the Chaplet of Divine Mercy, the Angelus, and *Pokračovat* — the last unfinished prayer.
 - **Three more hymns:** *Iesu, dulcis memória* (the hymn of the Holy Name — in Czech Sušil's *Tvá, Jezu, sladká památka*, in English Caswall's *Jesu, the very thought of thee*) and *Laudáte Dóminum* (Psalm 116 as sung at Benediction), with the hymns to the Blessed Sacrament; and *Tu, Trinitátis Únitas* (the Friday Matins hymn, in Sušil's Czech), with the daily prayers.
 
 ### Changed

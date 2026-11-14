@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { finisFor } from "./rosary/missalArt";
 import { type SequenceItem } from "./rosary/sequence";
 import { loadSavedState, saveState } from "./rosary/storage";
-import { getPrayerSetMeta, buildSequence, isBuiltInKey, isChapletKey, isPersistableKey, isRosaryKey, resolveSession, resumeStep, canGoToStep, type PrayerSetKey } from "./rosary/navigation";
+import { getPrayerSetMeta, buildSequence, isBuiltInKey, isChapletKey, isFullRosaryKey, isPersistableKey, isRosaryKey, resolveSession, resumeStep, canGoToStep, type PrayerSetKey } from "./rosary/navigation";
 import { MYSTERIES, PRAYER_TYPES } from "./rosary/prayers";
 import { STRINGS, detectLocale, loadSavedLocale, saveLocale, loadSavedPrayerLanguage, savePrayerLanguage, type Locale, type PrayerLanguage } from "./rosary/i18n";
 import { DEFAULT_FONT_SCALE, clampFontScale, fontSizeClamp, loadSavedFontScale, saveFontScale } from "./rosary/fontSize";
@@ -96,6 +96,8 @@ export default function Rosary() {
   // The prayer screen's quieter settings (prefs.ts), in the header's ⋯ menu.
   const [vibrate, setVibrateState] = useState<boolean>(loadVibrate);
   const [dim, setDimState] = useState<boolean>(loadDim);
+  // Set on finishing a rosary, cleared by opening any prayer (not persisted).
+  const [afterRosary, setAfterRosary] = useState(false);
   const [meditation, setMeditationState] = useState<boolean>(loadMeditation);
   // The prayer screen's one-time hints (prefs.ts: how to step, how to jump,
   // that ← keeps the place), each until closed or put to use.
@@ -300,6 +302,7 @@ export default function Rosary() {
   // Opening a set resumes it where it was left, if it was left unfinished.
   const startSet = useCallback((key: PrayerSetKey) => {
     dismissWelcome();
+    setAfterRosary(false);
     setSelectedSet(key);
     setSequence(buildSequence(key, plans));
     setCurrentStep(resumeStep(key, progress[key] ?? 0, plans) ?? 0);
@@ -312,15 +315,17 @@ export default function Rosary() {
   // mount. The fragment is cleared first, so a reload doesn't reopen it. A
   // calendar reminder (reminder.ts) may also name `rosarium` — today's
   // mysteries, whatever the day — or `corona`, the chaplet in the form the
-  // start screen would open.
+  // start screen would open; the home-screen icon's shortcut also `continue`,
+  // the last unfinished prayer (the start screen's tile), if there is one.
   useEffect(() => {
     const m = /^#pray=([\w-]+)$/.exec(window.location.hash);
     if (!m) return;
     history.replaceState(null, "", window.location.pathname + window.location.search);
     const key = m[1] === "rosarium" ? mysteriesOfDay(new Date())
       : m[1] === "corona" ? chapletToOpen(loadSavedChapletFull(), Object.keys(progress))
+      : m[1] === "continue" ? Object.keys(progress).at(-1) ?? ""
       : m[1]!;
-    if (isBuiltInKey(key)) startSet(key);
+    if (isBuiltInKey(key) || (m[1] === "continue" && isPersistableKey(key, plans))) startSet(key as PrayerSetKey);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -379,6 +384,9 @@ export default function Rosary() {
 
   // Finishing a set forgets its progress; the next time it starts from the top.
   const finish = () => {
+    // A finished rosary (a mystery set or all fifteen decades) offers what is
+    // prayed after it on the start screen.
+    setAfterRosary(!!selectedSet && (isRosaryKey(selectedSet) || isFullRosaryKey(selectedSet)));
     if (selectedSet) {
       setProgress((prev) => {
         if (!Object.hasOwn(prev, selectedSet)) return prev;
@@ -470,6 +478,8 @@ export default function Rosary() {
             onLook={setLook}
             showWelcome={!welcomeSeen}
             onDismissWelcome={dismissWelcome}
+            afterRosary={afterRosary}
+            onDismissAfterRosary={() => setAfterRosary(false)}
           />
         )}
         {updateToast}

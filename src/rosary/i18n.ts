@@ -30,6 +30,9 @@ type Strings = {
   resumeAt: (step: number, total: number) => string;
   // Small heading over the start screen's tile for the last unfinished prayer.
   continueHeading: string;
+  // The card offered after a finished rosary (MysteryMenu).
+  afterRosarySubtitle: string;
+  afterRosaryClose: string;
   welcomeTitle: string;
   welcomePoints: readonly (readonly [string, string])[];
   welcomeDismiss: string;
@@ -219,6 +222,8 @@ export const STRINGS: Record<Locale, Strings> = {
     confirmRestart: "Začít modlitbu znovu od začátku?",
     resumeAt: (step, total) => `Pokračovat · ${step}/${total}`,
     continueHeading: "Nedokončená modlitba",
+    afterRosarySubtitle: "Po růženci se tradičně modlí",
+    afterRosaryClose: "Zavřít",
     welcomeTitle: "Vítejte",
     welcomePoints: [
       ["Začněte modlitbou", "Dnešní tajemství růžence jsou hned pod touto kartou. Dál se postupuje ťuknutím na text nebo přejetím prstem."],
@@ -398,6 +403,8 @@ export const STRINGS: Record<Locale, Strings> = {
     confirmRestart: "Start this prayer again from the beginning?",
     resumeAt: (step, total) => `Continue · ${step}/${total}`,
     continueHeading: "Unfinished prayer",
+    afterRosarySubtitle: "Traditionally prayed after the rosary",
+    afterRosaryClose: "Close",
     welcomeTitle: "Welcome",
     welcomePoints: [
       ["Start with a prayer", "Today's mysteries of the rosary are just below this card. Tap the text or swipe to move on."],

@@ -42,6 +42,10 @@ type Props = {
   // The first-run welcome card, and closing it.
   showWelcome: boolean;
   onDismissWelcome: () => void;
+  // After a rosary is finished: what is traditionally prayed next, offered at
+  // the top of the Růženec tab until a prayer is opened or the card closed.
+  afterRosary?: boolean;
+  onDismissAfterRosary?: () => void;
 };
 
 // Sun/moon toggle in the top-left of every start-screen tab, mirroring the
@@ -284,6 +288,11 @@ function TileImage({ name, size = 40 }: { name: string; size?: number }) {
   );
 }
 
+// What is traditionally prayed after the rosary, offered once it is finished:
+// the Litany of Loreto, the prayer to St. Joseph (Leo XIII prescribed it after
+// the rosary in October) and St. Michael's.
+const AFTER_ROSARY: readonly MenuKey[] = ["loreto", "ad_te_ioseph", "sancte_michael"];
+
 // Groups left open, by title. Opening a prayer unmounts the menu, so a group's
 // own state would reset; this keeps it open for the return, for the session.
 // A group that starts open (the Favourites) is tracked by closing instead.
@@ -494,7 +503,7 @@ function cardHover(raw: string) {
   };
 }
 
-export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, onOpenPlans, planCount, favorites, locale, onLocaleChange, theme, onToggleTheme, look, onLook, showWelcome, onDismissWelcome }: Props) {
+export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, onOpenPlans, planCount, favorites, locale, onLocaleChange, theme, onToggleTheme, look, onLook, showWelcome, onDismissWelcome, afterRosary = false, onDismissAfterRosary }: Props) {
   // The Misál look's red star above the footer.
   const missal = look === "missal";
   const t = STRINGS[locale];
@@ -590,6 +599,25 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
           {/* The last unfinished prayer, one tap away — otherwise it may sit
               inside a collapsed group (a litany) or in the plans screen. Its own
               row further down still shows its place too. */}
+          {/* Just finished a rosary: Deo grátias, and what follows it — the
+              Litany of Loreto, the prayer to St. Joseph, St. Michael. */}
+          {afterRosary && (
+            <section aria-labelledby="after-title" style={{ ...CARD, overflow: "hidden", padding: "4px 0 4px" }}>
+              <div style={{ display: "flex", alignItems: "flex-start", gap: 8, padding: "10px var(--card-px) 6px" }}>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <h2 id="after-title" style={{ ...nameFont(22), fontWeight: 600, margin: 0, lineHeight: 1.15, color: "var(--text-strong)" }}>Deo grátias</h2>
+                  <div style={{ ...CAPTION, marginTop: 2 }}>{t.afterRosarySubtitle}</div>
+                </div>
+                <button
+                  onClick={onDismissAfterRosary}
+                  aria-label={t.afterRosaryClose}
+                  title={t.afterRosaryClose}
+                  style={{ width: 40, height: 40, marginRight: -8, border: "none", borderRadius: 10, padding: 0, background: "transparent", color: "var(--text-muted)", fontSize: 24, lineHeight: 1, cursor: "pointer" }}
+                >×</button>
+              </div>
+              <PrayerRows sections={[{ keys: AFTER_ROSARY }]} onStart={onStart} resume={resume} indent="var(--card-px)" theme={theme} locale={locale} />
+            </section>
+          )}
           {/* First launch: what the app offers and where, in three lines,
               until closed or a prayer is opened. */}
           {showWelcome && !continueWith && (
@@ -660,7 +688,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
           {/* The rosary under its own heading, so the unfinished prayer or the
               welcome above it doesn't run into it (in the missal, whose entries
               run rule to rule, they would read as one list). */}
-          {(continueWith || showWelcome) && (
+          {(continueWith || showWelcome || afterRosary) && (
             <h2 style={{ ...sectionHeading, margin: "12px var(--heading-indent) 0" }}>{t.rosaryHeading}</h2>
           )}
           {(() => {
