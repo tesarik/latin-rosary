@@ -117,11 +117,11 @@ const bodyStyle = {
   fontFamily: SERIF,
 };
 
-// The translation under the Latin (PrayerLanguage "both"): smaller and
-// softer, upright, so the Latin stays the text that is prayed.
+// The translation under the Latin (PrayerLanguage "both"): a little smaller
+// and lighter, upright, so the Latin stays the text that is prayed.
 const TR_STYLE: CSSProperties = {
-  fontSize: "0.8em",
-  color: "var(--text-soft)",
+  fontSize: "0.9em",
+  color: "var(--text-muted)",
   lineHeight: 1.3,
   marginTop: 2,
 };
