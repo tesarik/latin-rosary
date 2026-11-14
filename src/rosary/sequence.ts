@@ -114,7 +114,7 @@ export type FullRosaryKey = "psalterium";
 export const FULL_ROSARY: Record<FullRosaryKey, { name: string; nameTr: Localized; color: string; build: () => SequenceItem[] }> = {
   psalterium: {
     name: "Psalterium Marianum",
-    nameTr: { cs: "Celý růženec (15 desátků)", en: "The Full Rosary (15 decades)" },
+    nameTr: { cs: "Mariánský žaltář (15 desátků)", en: "The Marian Psalter (15 decades)" },
     color: "#3949AB",
     build: buildFullRosary,
   },

@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Changed
+- **Psalterium Marianum is called the Marian Psalter** (*Mariánský žaltář*) under its Latin name, not "the full rosary": since 2002 the full rosary has twenty decades, and the app keeps the traditional fifteen.
 - **The intention's button looks like one** and says what it is for: an outlined *+ Přidat úmysl: za koho nebo za co se modlíte* on the first step; a written intention shows a pencil.
 - **The translation under the Latin stands apart from it**: upright instead of italic, a little larger, and in a colour of its own, clearly lighter than the Latin (in the Misál, grey instead of near-black) yet readable (at least 4.5 : 1).
 
