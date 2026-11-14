@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+- **The intention's button looks like one** and says what it is for: an outlined *+ Přidat úmysl: za koho nebo za co se modlíte* on the first step; a written intention shows a pencil.
+- **The translation under the Latin is upright**, no longer in italics — just smaller and softer.
+
 ## [0.41.0]
 
 ### Added

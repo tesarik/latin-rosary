@@ -85,7 +85,7 @@ function renderLitany(text: string, accent: string, tr?: { text: string; locale:
               borderBottom: "1px solid var(--border)",
             }}>
               ℟ {b.response}
-              {t?.kind === "run" && <div lang={tr!.locale} style={{ ...TR_STYLE, color: accent, fontStyle: "normal" }}>{t.response}</div>}
+              {t?.kind === "run" && <div lang={tr!.locale} style={{ ...TR_STYLE, color: accent }}>{t.response}</div>}
             </div>
             {b.invocations.map((inv, j) => (
               <div key={j} style={{ margin: paired ? "3px 0 7px" : "3px 0" }}>
@@ -117,11 +117,10 @@ const bodyStyle = {
   fontFamily: SERIF,
 };
 
-// The translation under the Latin (PrayerLanguage "both"): smaller, italic
-// and softer, so the Latin stays the text that is prayed.
+// The translation under the Latin (PrayerLanguage "both"): smaller and
+// softer, upright, so the Latin stays the text that is prayed.
 const TR_STYLE: CSSProperties = {
   fontSize: "0.8em",
-  fontStyle: "italic",
   color: "var(--text-soft)",
   lineHeight: 1.3,
   marginTop: 2,
@@ -264,7 +263,7 @@ function MeditationBlock({ m, language, locale, accent }: { m: Meditation; langu
       <div style={fruitStyle}>
         <span lang={tr ? locale : undefined} style={{ color: accent, fontWeight: 600 }}>{tr ? t.meditationFruit : FRUCTUS_LABEL}:</span>{" "}
         <span lang={tr ? locale : undefined}>{tr ? m.fruit[locale] : m.fruit.la}</span>
-        {both && <span lang={locale} style={{ fontStyle: "italic", color: "var(--text-muted)" }}> · {m.fruit[locale]}</span>}
+        {both && <span lang={locale} style={{ color: "var(--text-muted)" }}> · {m.fruit[locale]}</span>}
       </div>
     </div>
   );
