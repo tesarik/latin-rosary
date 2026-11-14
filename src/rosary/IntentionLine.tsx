@@ -32,7 +32,7 @@ export default function IntentionLine({ text, offerAdd, onChange, color, locale 
     return (
       <form
         onSubmit={(e) => { e.preventDefault(); save(); }}
-        style={{ display: "flex", gap: 6, alignItems: "center", justifyContent: "center", margin: "6px auto 0", maxWidth: 420 }}
+        style={{ display: "flex", gap: 6, alignItems: "center", justifyContent: "center", margin: "8px auto 0", maxWidth: 420 }}
       >
         <input
           ref={input}
@@ -55,7 +55,7 @@ export default function IntentionLine({ text, offerAdd, onChange, color, locale 
   }
   if (text) {
     return (
-      <div style={{ textAlign: "center", marginTop: 2 }}>
+      <div style={{ textAlign: "center", marginTop: 8 }}>
         <button
           onClick={open}
           aria-label={`${t.intentionLabel}: ${text}. ${t.intentionEdit}`}
@@ -73,7 +73,7 @@ export default function IntentionLine({ text, offerAdd, onChange, color, locale 
   }
   if (!offerAdd) return null;
   return (
-    <div style={{ textAlign: "center", marginTop: 2 }}>
+    <div style={{ textAlign: "center", marginTop: 8 }}>
       {/* An outlined pill in the set's colour, so it reads as a button. */}
       <button
         onClick={open}
