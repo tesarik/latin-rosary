@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
-- **The full rosary, fifteen decades in one** (*Psalterium Marianum* · Celý růženec), on the *Růženec* tab under the three sets of mysteries: one opening, the joyful, sorrowful and glorious decades in turn, one closing — 204 steps. Its picture is a triptych of the three sets' paintings. The bead ring shows the set being prayed, the label names it (*Mysteria Dolorosa · II. …*), and like the rosary it keeps its place.
+- **The full rosary, fifteen decades in one** (*Psalterium Marianum* · Celý růženec), on the *Růženec* tab under the three sets of mysteries: one opening, the joyful, sorrowful and glorious decades in turn, one closing — 204 steps. Its picture is Our Lady with the rosary, among medallions of the three sets of mysteries. The bead ring shows the set being prayed, the label names it (*Mysteria Dolorosa · II. …*), and like the rosary it keeps its place.
 
 ## [0.39.0]
 
