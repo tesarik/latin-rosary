@@ -132,3 +132,29 @@ describe("the fruit and verse at each decade", () => {
     expect(screen.queryByText(/Fructus mystérii/)).toBeNull();
   });
 });
+
+describe("after a rosary", () => {
+  it("offers what is prayed after it, until a prayer is opened", () => {
+    localStorage.setItem("ruzenec_hint_seen", "1");
+    location.hash = "#pray=radostny";
+    render(<Rosary />);
+    stepTo(73);
+    fireEvent.click(screen.getByRole("button", { name: t.finishAria }));
+    // The open tab outlives the menu (another test left Mine open).
+    fireEvent.click(screen.getByRole("button", { name: new RegExp(t.tabRosary) }));
+    const card = screen.getByRole("heading", { name: "Deo grátias" }).closest("section")!;
+    expect(within(card).getByRole("button", { name: /Loreto/ })).toBeTruthy();
+    fireEvent.click(within(card).getByRole("button", { name: /Loreto/ }));
+    fireEvent.click(screen.getByRole("button", { name: t.exitToMenuAria }));
+    expect(screen.queryByRole("heading", { name: "Deo grátias" })).toBeNull();
+  });
+
+  it("opens the last unfinished prayer from the icon's shortcut", () => {
+    localStorage.setItem("ruzenec_hint_seen", "1");
+    localStorage.setItem("ruzenec_state", JSON.stringify({ version: 6, active: null, progress: { loreto: 2, bolestny: 30 } }));
+    location.hash = "#pray=continue";
+    render(<Rosary />);
+    expect(screen.getByRole("button", { name: t.exitToMenuAria })).toBeTruthy();
+    expect(screen.getByText("Mysteria Dolorosa")).toBeTruthy();
+  });
+});
