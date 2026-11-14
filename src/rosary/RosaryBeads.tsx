@@ -53,10 +53,16 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
   const cx = 150, cy = 128, r = 105;
   const elements: ReactElement[] = [];
 
-  // Build a beadId → sequence index map from the live sequence.
+  // Build a beadId → sequence index map from the live sequence. The full
+  // rosary names each ring bead three times, once per mystery set (`part`):
+  // the ring shows the set being prayed — the first in the opening, the last
+  // in the closing — so its beads light, and jump, within that set.
+  const firstPart = sequence.findIndex((s) => s.part !== undefined);
+  const shownPart = firstPart < 0 ? undefined
+    : sequence[currentStep]?.part ?? (currentStep < firstPart ? sequence[firstPart]!.part : [...sequence].reverse().find((s) => s.part !== undefined)!.part);
   const beadIdx: Record<string, number> = {};
   sequence.forEach((step, i) => {
-    if (step.beadId) beadIdx[step.beadId] = i;
+    if (step.beadId && (step.part === undefined || step.part === shownPart)) beadIdx[step.beadId] = i;
   });
 
   // Junction: bottom of the ring where tail connects (no bead here — Gloria
