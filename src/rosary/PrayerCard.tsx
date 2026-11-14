@@ -85,7 +85,7 @@ function renderLitany(text: string, accent: string, tr?: { text: string; locale:
               borderBottom: "1px solid var(--border)",
             }}>
               ℟ {b.response}
-              {t?.kind === "run" && <div lang={tr!.locale} style={{ ...TR_STYLE, color: accent }}>{t.response}</div>}
+              {t?.kind === "run" && <div lang={tr!.locale} style={{ ...TR_STYLE, color: accent }}>℟ {t.response}</div>}
             </div>
             {b.invocations.map((inv, j) => (
               <div key={j} style={{ margin: paired ? "3px 0 7px" : "3px 0" }}>
