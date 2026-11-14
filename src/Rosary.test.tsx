@@ -158,3 +158,19 @@ describe("after a rosary", () => {
     expect(screen.getByText("Mysteria Dolorosa")).toBeTruthy();
   });
 });
+
+describe("the Marian Psalter's rings", () => {
+  it("shows the set being prayed, the others as small rings that jump to their start", () => {
+    localStorage.setItem("ruzenec_hint_seen", "1");
+    location.hash = "#pray=psalterium";
+    render(<Rosary />);
+    // The joyful set's ring, and the other two sets' small rings.
+    expect(screen.getByRole("button", { name: t.jumpToDecade(1) })).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: t.jumpToDecade(6) }));
+    expect(screen.getByText(/Mysteria Dolorosa · I\./)).toBeTruthy();
+    // Now the sorrowful ring is the big one: its Paters jump, and the glorious set is small.
+    expect(screen.getByRole("button", { name: t.jumpToDecade(7) })).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: t.jumpToDecade(11) }));
+    expect(screen.getByText(/Mysteria Gloriosa · I\./)).toBeTruthy();
+  });
+});

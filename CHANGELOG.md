@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Changed
-- **The Marian Psalter on one ring of fifteen decades**, as on a fifteen-decade rosary: smaller beads, the three sets of mysteries parted by a wider gap, and the current bead drawn larger.
+- **The Marian Psalter shows its three sets as three rings.** The set being prayed is the full-size rosary; the other two are small rings on a diagonal — the set before it top left, the one after it bottom right — turning round as the sets go by. Tap a small ring to go to the start of its set.
 - **Help in three parts**: praying, the start screen, and the app itself, each under its heading.
 - **About centres** the creator and the contact address.
 - **Psalterium Marianum is called the Marian Psalter** (*Mariánský žaltář*) under its Latin name, not "the full rosary": since 2002 the full rosary has twenty decades, and the app keeps the traditional fifteen.

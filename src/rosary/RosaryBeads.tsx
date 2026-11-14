@@ -58,10 +58,15 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
   sequence.forEach((step, i) => {
     if (step.beadId) beadIdx[step.beadId] = i;
   });
-  // Five decades, or fifteen for the full rosary (the Marian psalter): then
-  // the beads are smaller and the three sets parted by a wider gap.
-  const decades = beadIdx["ring-of-5"] !== undefined ? 15 : 5;
-  const big = decades === 5;
+  // The full rosary (the Marian psalter) names fifteen decades. Its ring is
+  // the set being prayed — the first in the opening, the last in the closing
+  // — with the other two as small rings on a diagonal: the set before it top
+  // left, the one after it bottom right, turning round as the sets go by.
+  const psalter = beadIdx["ring-of-5"] !== undefined;
+  const part = !psalter ? 0
+    : currentStep >= beadIdx["ring-of-10"]! ? 2
+    : currentStep >= beadIdx["ring-of-5"]! ? 1
+    : 0;
 
   // Junction: bottom of the ring where tail connects (no bead here — Gloria
   // Patri is "said at the junction").
@@ -145,117 +150,100 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
   });
 
   // --- RING ---
-  const totalBeads = decades * 11;
-  // Uniform gap between decades (also bridging end → start); in the full
-  // rosary a wider one after every fifth, between the sets.
-  const decadeGapAngle = big ? 0.08 : 0.014;
-  const partGapAngle = big ? decadeGapAngle : 0.06;
-  const gapAfter = (d: number) => (d % 5 === 4 ? partGapAngle : decadeGapAngle);
-  let totalGapsAngle = 0;
-  for (let d = 0; d < decades; d++) totalGapsAngle += gapAfter(d);
-  const usableAngle = 2 * Math.PI - totalGapsAngle;
-  const beadAngle = usableAngle / totalBeads;
-
-  let angle = Math.PI / 2; // first OF sits exactly at the junction (bottom-center)
-  const ringBeadPositions: RingBead[] = [];
-
-  for (let d = 0; d < decades; d++) {
-    ringBeadPositions.push({
-      x: cx + r * Math.cos(angle),
-      y: cy + r * Math.sin(angle),
-      seqIdx: beadIdx[`ring-of-${d}`],
-      radius: big ? 6 : 3.3,
-      key: `ring-of-${d}`,
-      isOf: true,
-      decade: d,
-    });
-    angle += beadAngle;
-
-    for (let h = 0; h < 10; h++) {
-      ringBeadPositions.push({
-        x: cx + r * Math.cos(angle),
-        y: cy + r * Math.sin(angle),
-        seqIdx: beadIdx[`ring-hm-${d}-${h}`],
-        radius: big ? 4 : 2.1,
-        key: `ring-hm-${d}-${h}`,
-        isOf: false,
-        decade: d,
-      });
+  // One ring of five decades round (rcx, rcy): a Pater Noster and ten Ave
+  // Marías each, a gap between decades, the first Pater at the bottom. `first`
+  // is its first decade's number on the full rosary's ring of fifteen.
+  const drawRing = (rcx: number, rcy: number, rr: number, first: number, small: boolean) => {
+    const decadeGapAngle = 0.08;
+    const beadAngle = (2 * Math.PI - 5 * decadeGapAngle) / 55;
+    const scale = small ? 0.52 : 1;
+    const ringLw = small ? 1 : lw;
+    let angle = Math.PI / 2;
+    const beads: RingBead[] = [];
+    for (let d = first; d < first + 5; d++) {
+      beads.push({ x: rcx + rr * Math.cos(angle), y: rcy + rr * Math.sin(angle), seqIdx: beadIdx[`ring-of-${d}`], radius: 6 * scale, key: `ring-of-${d}`, isOf: true, decade: d });
       angle += beadAngle;
+      for (let h = 0; h < 10; h++) {
+        beads.push({ x: rcx + rr * Math.cos(angle), y: rcy + rr * Math.sin(angle), seqIdx: beadIdx[`ring-hm-${d}-${h}`], radius: 4 * scale, key: `ring-hm-${d}-${h}`, isOf: false, decade: d });
+        angle += beadAngle;
+      }
+      angle += decadeGapAngle;
     }
-
-    angle += gapAfter(d);
-  }
-
-  // Draw connecting lines between consecutive beads within each decade
-  const ringLw = big ? lw : 0.8;
-  let ringCursor = 0;
-  for (let d = 0; d < decades; d++) {
-    const decadeStart = ringCursor;
-    const decadeEnd = ringCursor + 11; // 1 OF + 10 HM
-    for (let i = decadeStart; i < decadeEnd - 1; i++) {
-      const a = ringBeadPositions[i]!;
-      const b = ringBeadPositions[i + 1]!;
+    // The thread: within each decade, across the gaps, and back to the
+    // junction (the big ring) or round to its start (a small one).
+    for (let i = 0; i < beads.length - 1; i++) {
+      const a = beads[i]!, b = beads[i + 1]!;
+      elements.push(<line key={`rline-${a.key}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y} strokeWidth={ringLw} style={{ stroke: lineColor }} />);
+    }
+    const last = beads[beads.length - 1]!;
+    const close = small ? beads[0]! : { x: rcx, y: rcy + rr };
+    elements.push(<line key={`rline-close-${first}`} x1={last.x} y1={last.y} x2={close.x} y2={close.y} strokeWidth={ringLw} style={{ stroke: lineColor }} />);
+    // The beads on top, a big ring's Pater Noster with a hit circle to jump.
+    beads.forEach((bead) => {
+      if (bead.seqIdx === undefined) return;
+      const bs = beadStyle(bead.seqIdx, currentStep, accentColor, small);
       elements.push(
-        <line key={`rline-${i}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y}
-          strokeWidth={ringLw} style={{ stroke: lineColor }} />
+        <circle key={bead.key} cx={bead.x} cy={bead.y} r={bead.radius}
+          strokeWidth={bs.strokeWidth * scale}
+          style={{ fill: bs.fill, stroke: bs.stroke, transition: "all 0.3s ease", filter: bs.filter }} />
       );
-    }
-    ringCursor += 11;
-  }
+      if (!small && bead.isOf && onJump) {
+        const targetIdx = bead.seqIdx;
+        elements.push(
+          <circle key={`hit-${bead.key}`} cx={bead.x} cy={bead.y} r={11}
+            fill="transparent" style={{ cursor: "pointer" }}
+            onClick={(e) => { e.stopPropagation(); onJump(targetIdx); }}
+            role="button"
+            aria-label={t.jumpToDecade(bead.decade + 1)}
+          />
+        );
+      }
+    });
+  };
 
-  // Lines connecting decades (last HM of decade N → first OF of decade N+1)
-  for (let d = 0; d < decades - 1; d++) {
-    const lastOfPrev = d * 11 + 10;
-    const firstOfNext = (d + 1) * 11;
-    const a = ringBeadPositions[lastOfPrev]!;
-    const b = ringBeadPositions[firstOfNext]!;
+  drawRing(cx, cy, r, part * 5, false);
+
+  // The full rosary's other two sets: small rings on the diagonal, each with
+  // its numeral, and tapped to jump to its first Pater Noster.
+  const smallR = 54;
+  const smallRings = psalter
+    ? [
+        { p: (part + 2) % 3, x: cx - 172, y: cy - 66 },
+        { p: (part + 1) % 3, x: cx + 172, y: cy + 98 },
+      ]
+    : [];
+  smallRings.forEach(({ p, x, y }) => {
+    drawRing(x, y, smallR, p * 5, true);
     elements.push(
-      <line key={`rline-gap-${d}`} x1={a.x} y1={a.y} x2={b.x} y2={b.y}
-        strokeWidth={ringLw} style={{ stroke: lineColor }} />
+      <text key={`num-${p}`} x={x} y={y + 7} textAnchor="middle"
+        style={{ fill: "var(--text-muted)", fontFamily: "Georgia, serif", fontSize: 20 }}>
+        {["I", "II", "III"][p]}
+      </text>
     );
-  }
-
-  // Last ring bead loops back across the end gap to the junction
-  const lastRingBead = ringBeadPositions[ringBeadPositions.length - 1]!;
-  elements.push(
-    <line key="rline-to-junc-r" x1={lastRingBead.x} y1={lastRingBead.y} x2={cx} y2={junctionY}
-      strokeWidth={lw} style={{ stroke: lineColor }} />
-  );
-
-  // Ring beads ON TOP of lines (with optional jump hit-circle for Pater Noster)
-  ringBeadPositions.forEach((bead) => {
-    if (bead.seqIdx === undefined) return;
-    const bs = beadStyle(bead.seqIdx, currentStep, accentColor, !big);
-    // Among the fifteen decades' small beads the current one is drawn larger,
-    // so it stands out of the string.
-    const rad = !big && bead.seqIdx === currentStep ? bead.radius * 1.8 : bead.radius;
-    elements.push(
-      <circle key={bead.key} cx={bead.x} cy={bead.y} r={rad}
-        strokeWidth={bs.strokeWidth}
-        style={{ fill: bs.fill, stroke: bs.stroke, transition: "all 0.3s ease", filter: bs.filter }} />
-    );
-    if (bead.isOf && onJump) {
-      const targetIdx = bead.seqIdx;
+    const target = beadIdx[`ring-of-${p * 5}`];
+    if (onJump && target !== undefined) {
       elements.push(
-        <circle key={`hit-${bead.key}`} cx={bead.x} cy={bead.y} r={11}
+        <circle key={`hit-set-${p}`} cx={x} cy={y} r={smallR + 6}
           fill="transparent" style={{ cursor: "pointer" }}
-          onClick={(e) => { e.stopPropagation(); onJump(targetIdx); }}
+          onClick={(e) => { e.stopPropagation(); onJump(target); }}
           role="button"
-          aria-label={t.jumpToDecade(bead.decade + 1)}
+          aria-label={t.jumpToDecade(p * 5 + 1)}
         />
       );
     }
   });
 
   // Tightly fit the viewBox to actual content (top of ring beads → bottom of cross stroke)
-  const vbTop = cy - r - 6;
-  const vbBottom = crossBot + 3;
+  // (and, for the full rosary, out to its small rings on either side).
+  const vbTop = Math.min(cy - r - 6, ...smallRings.map((s) => s.y - smallR - 6));
+  const vbBottom = Math.max(crossBot + 3, ...smallRings.map((s) => s.y + smallR + 6));
   const vbHeight = vbBottom - vbTop;
+  const vbLeft = Math.min(0, ...smallRings.map((s) => s.x - smallR - 6));
+  const vbWidth = Math.max(300, ...smallRings.map((s) => s.x + smallR + 6)) - vbLeft;
 
   return (
-    <svg viewBox={`0 ${vbTop} 300 ${vbHeight}`}
-      style={{ width: "100%", maxWidth, maxHeight, margin: "0 auto", display: "block" }}
+    <svg viewBox={`${vbLeft} ${vbTop} ${vbWidth} ${vbHeight}`}
+      style={{ width: "100%", maxWidth: maxWidth * vbWidth / 300, maxHeight, margin: "0 auto", display: "block" }}
       role="img"
       aria-label={t.rosaryAria(currentStep + 1, sequence.length)}>
       {elements}
