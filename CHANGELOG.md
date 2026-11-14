@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Changed
+- **The language switch is a slider with three positions**: *La* on the left, *Cz* / *En* on the right, the knob between them — left for the Latin, in the middle for the Latin with the translation, right for the translation. Each tap moves it on. The tiny middle label is gone.
+- **Room between the prayer's label and the intention.**
 - **The Marian Psalter shows its three sets as three rings.** The set being prayed is the full-size rosary; the other two are small rings on a diagonal, in their order: the lower-numbered top left, the other bottom right. Tap a small ring to go to the start of its set.
 - **Help in three parts**: praying, the start screen, and the app itself, each under its heading.
 - **About centres** the creator and the contact address.

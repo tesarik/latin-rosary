@@ -19,7 +19,7 @@ const HELP: Record<Locale, HelpItem[]> = {
   cs: [
     { group: 0, title: "Modlitba krok za krokem", text: "Další modlitbu otevřete ťuknutím na text nebo na Další, přejetím prstem doleva jdete dál, doprava zpět. Na počítači fungují šipky, mezerník a Enter. Tlačítko Další ukazuje, co přijde." },
     { group: 0, title: "Korálky", text: "U růžence a korunky ťuknutím na korálek Otčenáše skočíte na začátek desátku. U litanií, pobožností a mše ťuknutím na větší korálek skočíte na danou část." },
-    { group: 0, title: "Latina a překlad", text: "Přepínač v hlavičce má tři polohy: La je jen latina, prostřední latina s českým překladem pod každým řádkem, Cz jen čeština. Aplikace si volbu pamatuje." },
+    { group: 0, title: "Latina a překlad", text: "Přepínač La – Cz v hlavičce má tři polohy: jezdec vlevo je jen latina, uprostřed latina s českým překladem pod každým řádkem, vpravo jen čeština. Každé ťuknutí ho posune o polohu dál. Aplikace si volbu pamatuje." },
     {
       group: 0, title: "Výslovnost latiny",
       text: "Církev doporučuje římskou (italskou) výslovnost; v českých kostelích se dodnes setkáte i s tradiční českou. Čárka nad samohláskou značí přízvuk, ne délku: Dóminus se čte s důrazem na první slabice, krátce.",
@@ -49,7 +49,7 @@ const HELP: Record<Locale, HelpItem[]> = {
   en: [
     { group: 0, title: "Praying step by step", text: "Tap the prayer or Next for the next one; swipe left to go on and right to go back. On a computer, use the arrow keys, Space or Enter. The Next button shows what comes next." },
     { group: 0, title: "The beads", text: "In the rosary and the chaplet, tap an Our Father bead to jump to the start of its decade. In litanies, devotions and the Mass, tap a larger bead to jump to that part." },
-    { group: 0, title: "Latin and translation", text: "The switch in the header has three positions: La is the Latin alone, the middle one the Latin with the English under each line, En the English alone. The app remembers your choice." },
+    { group: 0, title: "Latin and translation", text: "The La – En switch in the header has three positions: the knob on the left is the Latin alone, in the middle the Latin with the English under each line, on the right the English alone. Each tap moves it one position on. The app remembers your choice." },
     {
       group: 0, title: "Pronouncing the Latin",
       text: "The Church recommends the Roman (Italian) pronunciation. Vowels are pure, as in Italian: a as in father, e as in they, i as in machine, o as in for, u as in rule. An accent mark shows the stress, not length: Dóminus is stressed on its first syllable.",

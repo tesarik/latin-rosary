@@ -101,19 +101,22 @@ describe("the Mine tab", () => {
 });
 
 describe("the prayer language switch", () => {
-  it("shows the Latin with the translation under it, and remembers it", async () => {
+  it("moves on with each tap — Latin, with the translation, the translation — and remembers it", async () => {
     localStorage.setItem("ruzenec_hint_seen", "1");
     location.hash = "#pray=salve_regina";
     render(<Rosary />);
-    expect(screen.getByRole("radio", { name: t.prayerLanguageLatin }).getAttribute("aria-checked")).toBe("true");
+    const sw = () => screen.getByRole("button", { name: new RegExp(`^${t.prayerLanguageAria}:`) });
+    expect(sw().getAttribute("aria-label")).toBe(`${t.prayerLanguageAria}: ${t.prayerLanguageLatin}`);
     expect(screen.queryByText(/Hail, holy Queen/i)).toBeNull();
-    fireEvent.click(screen.getByRole("radio", { name: t.prayerLanguageBoth }));
+    fireEvent.click(sw());
     // The translation table arrives as its own chunk.
     expect(await screen.findByText(/Hail, holy Queen/i)).toBeTruthy();
     expect(screen.getByText(/Salve Regína, Mater/)).toBeTruthy();
     expect(localStorage.getItem("ruzenec_prayer_language")).toBe("both");
-    fireEvent.click(screen.getByRole("radio", { name: t.prayerLanguageTranslation }));
+    fireEvent.click(sw());
     expect(screen.queryByText(/Salve Regína, Mater/)).toBeNull();
+    fireEvent.click(sw());
+    expect(sw().getAttribute("aria-label")).toBe(`${t.prayerLanguageAria}: ${t.prayerLanguageLatin}`);
   });
 });
 
