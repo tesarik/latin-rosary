@@ -60,8 +60,8 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
   });
   // The full rosary (the Marian psalter) names fifteen decades. Its ring is
   // the set being prayed — the first in the opening, the last in the closing
-  // — with the other two as small rings on a diagonal: the set before it top
-  // left, the one after it bottom right, turning round as the sets go by.
+  // — with the other two as small rings on a diagonal, in their order: the
+  // lower-numbered top left, the other bottom right.
   const psalter = beadIdx["ring-of-5"] !== undefined;
   const part = !psalter ? 0
     : currentStep >= beadIdx["ring-of-10"]! ? 2
@@ -206,10 +206,11 @@ export default function RosaryBeads({ currentStep, sequence, accentColor, onJump
   // The full rosary's other two sets: small rings on the diagonal, each with
   // its numeral, and tapped to jump to its first Pater Noster.
   const smallR = 54;
+  const others = [0, 1, 2].filter((p) => p !== part);
   const smallRings = psalter
     ? [
-        { p: (part + 2) % 3, x: cx - 172, y: cy - 66 },
-        { p: (part + 1) % 3, x: cx + 172, y: cy + 98 },
+        { p: others[0]!, x: cx - 172, y: cy - 66 },
+        { p: others[1]!, x: cx + 172, y: cy + 98 },
       ]
     : [];
   smallRings.forEach(({ p, x, y }) => {
