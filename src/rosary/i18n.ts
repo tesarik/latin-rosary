@@ -66,6 +66,7 @@ type Strings = {
   settingsDim: string;
   // The switch for the fruit and verse at each decade, and their label.
   settingsMeditation: string;
+  settingsInterlinear: string;
   meditationFruit: string;
   hintText: string;
   hintDismiss: string;
@@ -129,7 +130,6 @@ type Strings = {
   prayerLanguageAria: string;
   // The three sides of the header's language switch, for screen readers.
   prayerLanguageLatin: string;
-  prayerLanguageBoth: string;
   prayerLanguageTranslation: string;
   errorTitle: string;
   errorMessage: string;
@@ -227,7 +227,7 @@ export const STRINGS: Record<Locale, Strings> = {
     welcomeTitle: "Vítejte",
     welcomePoints: [
       ["Začněte modlitbou", "Dnešní tajemství růžence jsou hned pod touto kartou. Dál se postupuje ťuknutím na text nebo přejetím prstem."],
-      ["Latina a překlad", "Přepínač La | Cz v záhlaví modlitby: každé ťuknutí posune jezdec mezi latinou, latinou s překladem pod každým řádkem a češtinou."],
+      ["Latina a překlad", "Přepínač La | Cz v záhlaví modlitby. Překlad pod každým řádkem latiny zapnete v nastavení ⋯."],
       ["Další modlitby", "Litanie, hymny a mešní texty jsou na kartě Modlitby. Oblíbené a vlastní plány na kartě Moje."],
     ],
     welcomeDismiss: "Rozumím",
@@ -257,6 +257,7 @@ export const STRINGS: Record<Locale, Strings> = {
     settingsHeading: "Nastavení",
     settingsDim: "Ztlumit obrazovku",
     settingsMeditation: "Ovoce tajemství a verš z Písma",
+    settingsInterlinear: "Překlad pod latinou",
     meditationFruit: "Ovoce tajemství",
     hintText: "Další modlitbu otevřete ťuknutím na text nebo přejetím prstem doleva, předchozí přejetím doprava.",
     hintDismiss: "Rozumím",
@@ -311,7 +312,6 @@ export const STRINGS: Record<Locale, Strings> = {
     jumpToSection: (n) => `Skočit na ${n}`,
     prayerLanguageAria: "Jazyk modlitby",
     prayerLanguageLatin: "Latinsky",
-    prayerLanguageBoth: "Latinsky s překladem",
     prayerLanguageTranslation: "Česky",
     errorTitle: "Něco se pokazilo",
     errorMessage: "V aplikaci nastala neočekávaná chyba.",
@@ -408,7 +408,7 @@ export const STRINGS: Record<Locale, Strings> = {
     welcomeTitle: "Welcome",
     welcomePoints: [
       ["Start with a prayer", "Today's mysteries of the rosary are just below this card. Tap the text or swipe to move on."],
-      ["Latin and translation", "The La | En switch in a prayer's header: each tap moves its knob between the Latin, the Latin with the English under each line, and the English."],
+      ["Latin and translation", "The La | En switch in a prayer's header. To see the English under each line of the Latin, turn it on in the ⋯ settings."],
       ["More prayers", "Litanies, hymns and the texts of the Mass are under Prayers. Favourites and your own plans under Mine."],
     ],
     welcomeDismiss: "Got it",
@@ -438,6 +438,7 @@ export const STRINGS: Record<Locale, Strings> = {
     settingsHeading: "Settings",
     settingsDim: "Dim the screen",
     settingsMeditation: "Fruit of the mystery and a verse",
+    settingsInterlinear: "Translation under the Latin",
     meditationFruit: "Fruit of the mystery",
     hintText: "Tap the prayer or swipe left for the next one; swipe right to go back.",
     hintDismiss: "Got it",
@@ -492,7 +493,6 @@ export const STRINGS: Record<Locale, Strings> = {
     jumpToSection: (n) => `Jump to ${n}`,
     prayerLanguageAria: "Prayer language",
     prayerLanguageLatin: "Latin",
-    prayerLanguageBoth: "Latin with translation",
     prayerLanguageTranslation: "English",
     errorTitle: "Something went wrong",
     errorMessage: "The app ran into an unexpected problem.",
@@ -613,11 +613,13 @@ export function saveLocale(locale: Locale): void {
 }
 
 // Prayer-body language: the Latin, the Latin with the translation under each
-// line ("both"), or the translation. It stores which side, not which language,
+// line ("both"), or the translation. Stored is the header switch's side
+// ("latin" or "translation"; "both" from before the ⋯ settings' switch reads
+// as the Latin side), not which language,
 // so it survives a locale change. Its own key, independent of the session and
 // of the UI locale above — mirrors the font-size and theme preferences.
 export type PrayerLanguage = "latin" | "both" | "translation";
-export const PRAYER_LANGUAGES: readonly PrayerLanguage[] = ["latin", "both", "translation"];
+const PRAYER_LANGUAGES: readonly PrayerLanguage[] = ["latin", "both", "translation"];
 const PRAYER_LANGUAGE_STORAGE_KEY = "ruzenec_prayer_language";
 
 export function loadSavedPrayerLanguage(): PrayerLanguage | null {
@@ -631,5 +633,26 @@ export function loadSavedPrayerLanguage(): PrayerLanguage | null {
 export function savePrayerLanguage(lang: PrayerLanguage): void {
   try {
     localStorage.setItem(PRAYER_LANGUAGE_STORAGE_KEY, lang);
+  } catch {}
+}
+
+// Whether the Latin side of the header's La | Cz switch shows the translation
+// under the Latin ("both") — the ⋯ settings' switch. Its own key, so it is
+// kept while the translation alone is shown. Before it existed, "both" was a
+// third position of the header switch: a saved "both" reads as switched on.
+const INTERLINEAR_STORAGE_KEY = "ruzenec_interlinear";
+
+export function loadSavedInterlinear(): boolean {
+  try {
+    const raw = localStorage.getItem(INTERLINEAR_STORAGE_KEY);
+    if (raw !== null) return raw === "1";
+    return localStorage.getItem(PRAYER_LANGUAGE_STORAGE_KEY) === "both";
+  } catch {}
+  return false;
+}
+
+export function saveInterlinear(on: boolean): void {
+  try {
+    localStorage.setItem(INTERLINEAR_STORAGE_KEY, on ? "1" : "0");
   } catch {}
 }

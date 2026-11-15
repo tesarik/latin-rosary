@@ -101,22 +101,52 @@ describe("the Mine tab", () => {
 });
 
 describe("the prayer language switch", () => {
-  it("moves on with each tap — Latin, with the translation, the translation — and remembers it", async () => {
+  it("picks the Latin or the translation, and the ⋯ settings put the translation under the Latin", async () => {
     localStorage.setItem("ruzenec_hint_seen", "1");
     location.hash = "#pray=salve_regina";
     render(<Rosary />);
-    const sw = () => screen.getByRole("button", { name: new RegExp(`^${t.prayerLanguageAria}:`) });
-    expect(sw().getAttribute("aria-label")).toBe(`${t.prayerLanguageAria}: ${t.prayerLanguageLatin}`);
+    const latin = () => screen.getByRole("radio", { name: t.prayerLanguageLatin });
+    const translation = () => screen.getByRole("radio", { name: t.prayerLanguageTranslation });
+    expect(latin().getAttribute("aria-checked")).toBe("true");
     expect(screen.queryByText(/Hail, holy Queen/i)).toBeNull();
-    fireEvent.click(sw());
+    fireEvent.click(translation());
     // The translation table arrives as its own chunk.
     expect(await screen.findByText(/Hail, holy Queen/i)).toBeTruthy();
-    expect(screen.getByText(/Salve Regína, Mater/)).toBeTruthy();
-    expect(localStorage.getItem("ruzenec_prayer_language")).toBe("both");
-    fireEvent.click(sw());
     expect(screen.queryByText(/Salve Regína, Mater/)).toBeNull();
-    fireEvent.click(sw());
-    expect(sw().getAttribute("aria-label")).toBe(`${t.prayerLanguageAria}: ${t.prayerLanguageLatin}`);
+    expect(localStorage.getItem("ruzenec_prayer_language")).toBe("translation");
+    fireEvent.click(latin());
+    expect(screen.queryByText(/Hail, holy Queen/i)).toBeNull();
+    fireEvent.click(screen.getByRole("button", { name: t.settingsAria }));
+    fireEvent.click(screen.getByRole("switch", { name: t.settingsInterlinear }));
+    expect(screen.getByText(/Hail, holy Queen/i)).toBeTruthy();
+    expect(screen.getByText(/Salve Regína, Mater/)).toBeTruthy();
+    expect(localStorage.getItem("ruzenec_interlinear")).toBe("1");
+  });
+
+  it("pairs the Pater Noster phrase by phrase under the Latin, and hides the break points otherwise", async () => {
+    localStorage.setItem("ruzenec_hint_seen", "1");
+    location.hash = "#pray=pater_noster";
+    render(<Rosary />);
+    const card = () => document.querySelector('[aria-live="polite"]')!;
+    expect(card().textContent).toContain("Pater noster, qui es in cælis, sanctificétur");
+    expect(card().textContent).not.toContain("{/}");
+    fireEvent.click(screen.getByRole("button", { name: t.settingsAria }));
+    fireEvent.click(screen.getByRole("switch", { name: t.settingsInterlinear }));
+    expect(await screen.findByText("hallowed be thy name.")).toBeTruthy();
+    expect(screen.getByText("sanctificétur nomen tuum.")).toBeTruthy();
+    fireEvent.click(screen.getByRole("radio", { name: t.prayerLanguageTranslation }));
+    expect(card().textContent).toContain("Our Father, who art in heaven, hallowed");
+    expect(card().textContent).not.toContain("{/}");
+  });
+
+  it("reads the old three-way switch's middle position as the translation under the Latin", async () => {
+    localStorage.setItem("ruzenec_hint_seen", "1");
+    localStorage.setItem("ruzenec_prayer_language", "both");
+    location.hash = "#pray=salve_regina";
+    render(<Rosary />);
+    expect(screen.getByRole("radio", { name: t.prayerLanguageLatin }).getAttribute("aria-checked")).toBe("true");
+    expect(await screen.findByText(/Hail, holy Queen/i)).toBeTruthy();
+    expect(screen.getByText(/Salve Regína, Mater/)).toBeTruthy();
   });
 });
 

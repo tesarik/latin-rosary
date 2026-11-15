@@ -5,23 +5,27 @@ import type { CSSProperties, ReactNode, Ref } from "react";
 import { PRAYER_TYPES, PRAYERS, getHailMary, getHailMaryTr } from "./prayers";
 import { useTranslation } from "./translations";
 import { sliceLines, type SequenceItem } from "./sequence";
+import { segments, stripBreaks } from "./breaks";
 import { STRINGS, type Locale, type PrayerLanguage } from "./i18n";
 import { accentText, type Theme } from "./theme";
 import { parseLitany, type LitanyBlock } from "./litany";
 import { FRUCTUS_LABEL, type Meditation } from "./meditations";
 
 // Render prayer text, turning `{r}…{/r}` spans into red liturgical rubrics
-// (missal-style seasonal labels). Newlines are handled by the container's
-// `whiteSpace: pre-line`. Plain text without markup passes through unchanged.
+// (missal-style seasonal labels), upright as a missal prints them. In the
+// Misál the signs ℣, ℟ and ☩ are red too, as they are on a missal's page.
+// Newlines are handled by the container's `whiteSpace: pre-line`. Plain text
+// without markup passes through unchanged.
+const RED: CSSProperties = { color: "var(--rubric)" };
 function withRubrics(text: string): ReactNode {
   const out: ReactNode[] = [];
-  const re = /\{r\}([\s\S]*?)\{\/r\}/g;
+  const re = currentLook() === "missal" ? /\{r\}([\s\S]*?)\{\/r\}|([℣℟☩])/g : /\{r\}([\s\S]*?)\{\/r\}/g;
   let last = 0;
   let key = 0;
   let m: RegExpExecArray | null;
   while ((m = re.exec(text)) !== null) {
     if (m.index > last) out.push(text.slice(last, m.index));
-    out.push(<span key={key++} style={{ color: "var(--rubric)" }}>{m[1]}</span>);
+    out.push(<span key={key++} style={RED}>{m[1] ?? m[2]}</span>);
     last = m.index + m[0].length;
   }
   if (last < text.length) out.push(text.slice(last));
@@ -129,11 +133,12 @@ const TR_STYLE: CSSProperties = {
 };
 
 // The Latin with its translation under it. Texts that keep one line structure
-// (psalms, the Salve Regína's sections, versicles) pair line by line; a
-// one-paragraph prayer gets its translation under the whole paragraph.
+// (psalms, the Salve Regína's sections, versicles) pair line by line, and a
+// prayer marked with break points (breaks.ts: the Pater Noster, the Creed, …)
+// phrase by phrase; any other gets its translation under the whole paragraph.
 function Interlinear({ latin, tr, locale }: { latin: string; tr: string; locale: Locale }) {
-  const la = latin.split("\n");
-  const tl = tr.split("\n");
+  const la = segments(latin);
+  const tl = segments(tr);
   if (la.length > 1 && la.length === tl.length) {
     return <>{la.map((line, i) => line.trim() === ""
       ? <div key={i} aria-hidden="true" style={{ height: "0.5em" }} />
@@ -145,8 +150,8 @@ function Interlinear({ latin, tr, locale }: { latin: string; tr: string; locale:
       ))}</>;
   }
   return <>
-    <div className="initial" style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{withRubrics(latin)}</div>
-    <div lang={locale} style={{ ...TR_STYLE, whiteSpace: "pre-line", marginTop: "0.6em" }}>{withRubrics(tr)}</div>
+    <div className="initial" style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{withRubrics(stripBreaks(latin))}</div>
+    <div lang={locale} style={{ ...TR_STYLE, whiteSpace: "pre-line", marginTop: "0.6em" }}>{withRubrics(stripBreaks(tr))}</div>
   </>;
 }
 
@@ -229,7 +234,7 @@ function PrayerBody({ currentPrayer, accentColor, locale, language, fontSizeClam
     );
   }
   const tr = showTranslation ? trText : undefined;
-  const text = tr ?? latin;
+  const text = stripBreaks(tr ?? latin);
   if (isLitanyType(currentPrayer.type)) {
     return (
       <div lang={tr ? locale : undefined} style={{ ...sizedBodyStyle, textAlign: "left" }}>

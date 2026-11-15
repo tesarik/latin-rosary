@@ -4,7 +4,7 @@ import { type SequenceItem } from "./rosary/sequence";
 import { loadSavedState, saveState } from "./rosary/storage";
 import { getPrayerSetMeta, buildSequence, isBuiltInKey, isChapletKey, isFullRosaryKey, isPersistableKey, isRosaryKey, resolveSession, resumeStep, canGoToStep, type PrayerSetKey } from "./rosary/navigation";
 import { MYSTERIES, PRAYER_TYPES } from "./rosary/prayers";
-import { STRINGS, detectLocale, loadSavedLocale, saveLocale, loadSavedPrayerLanguage, savePrayerLanguage, type Locale, type PrayerLanguage } from "./rosary/i18n";
+import { STRINGS, detectLocale, loadSavedLocale, saveLocale, loadSavedPrayerLanguage, savePrayerLanguage, loadSavedInterlinear, saveInterlinear, type Locale, type PrayerLanguage } from "./rosary/i18n";
 import { DEFAULT_FONT_SCALE, clampFontScale, fontSizeClamp, loadSavedFontScale, saveFontScale } from "./rosary/fontSize";
 import { accentText, applyTheme, loadSavedTheme, resolveTheme, saveTheme, systemTheme, type Theme } from "./rosary/theme";
 import { track } from "./rosary/analytics";
@@ -31,6 +31,7 @@ import StarIcon from "./rosary/StarIcon";
 import { loadFavorites, saveFavorites, toggleFavorite } from "./rosary/favorites";
 import { loadIntentions, saveIntentions, withIntention, type Intentions } from "./rosary/intentions";
 import IntentionLine from "./rosary/IntentionLine";
+import { SERIF } from "./rosary/fonts";
 import { MEDITATIONS } from "./rosary/meditations";
 import { mysteriesOfDay } from "./rosary/liturgy";
 import { chapletToOpen, loadSavedChapletFull } from "./rosary/chaplet";
@@ -87,8 +88,11 @@ export default function Rosary() {
   // Saved step of every unfinished multi-step set, so leaving one to pray
   // something else never loses its place. Kept in step with currentStep below.
   const [progress, setProgress] = useState<Record<string, number>>(saved.current.progress);
-  const [prayerLanguage, setPrayerLanguageState] = useState<PrayerLanguage>(() => loadSavedPrayerLanguage() ?? "latin");
-  const showTranslation = prayerLanguage === "translation";
+  // The header's La | Cz switch picks the side; on the Latin side the ⋯
+  // settings may put the translation under the Latin ("both").
+  const [showTranslation, setShowTranslationState] = useState<boolean>(() => loadSavedPrayerLanguage() === "translation");
+  const [interlinear, setInterlinearState] = useState<boolean>(loadSavedInterlinear);
+  const prayerLanguage: PrayerLanguage = showTranslation ? "translation" : interlinear ? "both" : "latin";
   const [locale, setLocaleState] = useState<Locale>(() => loadSavedLocale() ?? detectLocale());
   const [fontScale, setFontScaleState] = useState<number>(() => loadSavedFontScale() ?? DEFAULT_FONT_SCALE);
   const [theme, setThemeState] = useState<Theme>(() => resolveTheme());
@@ -156,10 +160,11 @@ export default function Rosary() {
     saveLocale(next);
   }, []);
 
-  const setPrayerLanguage = useCallback((next: PrayerLanguage) => {
-    setPrayerLanguageState(next);
-    savePrayerLanguage(next);
+  const setShowTranslation = useCallback((on: boolean) => {
+    setShowTranslationState(on);
+    savePrayerLanguage(on ? "translation" : "latin");
   }, []);
+  const setInterlinear = useCallback((on: boolean) => { setInterlinearState(on); saveInterlinear(on); }, []);
 
   const setFontScale = useCallback((next: number) => {
     const c = clampFontScale(next);
@@ -530,10 +535,21 @@ export default function Rosary() {
     <div style={{ textAlign: "center", marginTop: 8, marginBottom: 4 }}>
       {/* A decade's chip quotes its mystery, so it may wrap to two lines. It
           is set in Arial, so the Latin may carry lang="la" here (the u→v
-          issue is EB Garamond's alone — see Typography). */}
+          issue is EB Garamond's alone — see Typography). In the Misál it is
+          no chip but a red heading in Garamond, as a missal heads a prayer —
+          so there the Latin stays untagged. */}
       <span
-        lang={decadeSet ? (showTranslation ? locale : "la") : undefined}
-        style={{
+        lang={decadeSet ? (showTranslation ? locale : look === "missal" ? undefined : "la") : undefined}
+        style={look === "missal" ? {
+          display: "inline-block",
+          maxWidth: "100%",
+          color: "var(--rubric)",
+          padding: "2px 6px",
+          fontFamily: SERIF,
+          fontSize: 17,
+          fontWeight: 500,
+          lineHeight: 1.3,
+        } : {
           display: "inline-block",
           maxWidth: "100%",
           background: accentColor + "15",
@@ -709,13 +725,15 @@ export default function Rosary() {
             dim={dim}
             meditation={meditation}
             onMeditation={setMeditation}
+            interlinear={interlinear}
+            onInterlinear={setInterlinear}
             onDim={setDim}
             look={look}
             onLook={setLook}
             accentColor={accentColor}
             locale={locale}
           />
-          <LanguageToggle value={prayerLanguage} onChange={setPrayerLanguage} accentColor={accentColor} theme={theme} locale={locale} />
+          <LanguageToggle translation={showTranslation} onChange={setShowTranslation} accentColor={accentColor} theme={theme} locale={locale} />
         </div>
         <div style={{
           marginTop: 8,
