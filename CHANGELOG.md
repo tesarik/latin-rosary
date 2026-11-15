@@ -10,7 +10,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - **The language switch is a slider with three positions**: *La* on the left, *Cz* / *En* on the right, the knob between them — left for the Latin, in the middle for the Latin with the translation, right for the translation. Each tap moves it on. The tiny middle label is gone.
 - **Room between the prayer's label and the intention.**
 - **The translated response in a litany's band has its ℟ too.**
-- **The Marian Psalter shows its three sets as three rings.** The set being prayed is the full-size rosary; the other two are small rings on a diagonal, in their order: the lower-numbered top left, the other bottom right. Tap a small ring to go to the start of its set.
+- **The Marian Psalter shows its three sets as three rings.** The set being prayed is the full-size rosary; the other two are small rings below it, either side of the cross, in their order — so the rosary keeps its size. Tap a small ring to go to the start of its set.
 - **Help in three parts**: praying, the start screen, and the app itself, each under its heading.
 - **About centres** the creator and the contact address.
 - **Psalterium Marianum is called the Marian Psalter** (*Mariánský žaltář*) under its Latin name, not "the full rosary": since 2002 the full rosary has twenty decades, and the app keeps the traditional fifteen.
