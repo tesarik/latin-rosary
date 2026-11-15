@@ -11,17 +11,20 @@ import { parseLitany, type LitanyBlock } from "./litany";
 import { FRUCTUS_LABEL, type Meditation } from "./meditations";
 
 // Render prayer text, turning `{r}…{/r}` spans into red liturgical rubrics
-// (missal-style seasonal labels). Newlines are handled by the container's
-// `whiteSpace: pre-line`. Plain text without markup passes through unchanged.
+// (missal-style seasonal labels), upright as a missal prints them. In the
+// Misál the signs ℣, ℟ and ☩ are red too, as they are on a missal's page.
+// Newlines are handled by the container's `whiteSpace: pre-line`. Plain text
+// without markup passes through unchanged.
+const RED: CSSProperties = { color: "var(--rubric)" };
 function withRubrics(text: string): ReactNode {
   const out: ReactNode[] = [];
-  const re = /\{r\}([\s\S]*?)\{\/r\}/g;
+  const re = currentLook() === "missal" ? /\{r\}([\s\S]*?)\{\/r\}|([℣℟☩])/g : /\{r\}([\s\S]*?)\{\/r\}/g;
   let last = 0;
   let key = 0;
   let m: RegExpExecArray | null;
   while ((m = re.exec(text)) !== null) {
     if (m.index > last) out.push(text.slice(last, m.index));
-    out.push(<span key={key++} style={{ color: "var(--rubric)" }}>{m[1]}</span>);
+    out.push(<span key={key++} style={RED}>{m[1] ?? m[2]}</span>);
     last = m.index + m[0].length;
   }
   if (last < text.length) out.push(text.slice(last));

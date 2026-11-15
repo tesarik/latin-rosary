@@ -16,6 +16,8 @@ type Props = {
   onDim: (on: boolean) => void;
   meditation: boolean;
   onMeditation: (on: boolean) => void;
+  interlinear: boolean;
+  onInterlinear: (on: boolean) => void;
   look: Look;
   onLook: (look: Look) => void;
   accentColor: string;
@@ -27,7 +29,7 @@ type Props = {
 // the star, the language). A popover with the dark theme, the text size
 // (smaller-A / bigger-A, stays open for repeated taps), the haptic tick and
 // the dimmed screen. Outside click or Escape closes it.
-export default function SettingsMenu({ theme, onToggleTheme, fontScale, onFontScale, vibrate, onVibrate, dim, onDim, meditation, onMeditation, look, onLook, accentColor, locale }: Props) {
+export default function SettingsMenu({ theme, onToggleTheme, fontScale, onFontScale, vibrate, onVibrate, dim, onDim, meditation, onMeditation, interlinear, onInterlinear, look, onLook, accentColor, locale }: Props) {
   const t = STRINGS[locale];
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -105,6 +107,7 @@ export default function SettingsMenu({ theme, onToggleTheme, fontScale, onFontSc
               </button>
             </div>
           </Row>
+          <SwitchRow label={t.settingsInterlinear} checked={interlinear} onChange={() => onInterlinear(!interlinear)} color={accentColor} />
           <SwitchRow label={t.settingsDarkMode} checked={theme === "dark"} onChange={onToggleTheme} color={accentColor} />
           <SwitchRow label={t.settingsDim} checked={dim} onChange={() => onDim(!dim)} color={accentColor} />
           <SwitchRow label={t.settingsMeditation} checked={meditation} onChange={() => onMeditation(!meditation)} color={accentColor} />

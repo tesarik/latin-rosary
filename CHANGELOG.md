@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+- **The language switch is La | Cz again**, two halves, a tap on the one you want. The Latin with the translation under each line is now a switch in the ⋯ settings, *Překlad pod latinou*; whoever had chosen it keeps it.
+- **The Misál looks more like a missal**: ℣, ℟ and ☩ in the prayer text are red, and the step's name is a red heading in the book face instead of a chip.
+
 ## [0.42.0]
 
 ### Changed

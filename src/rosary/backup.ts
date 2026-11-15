@@ -23,6 +23,7 @@ export const BACKUP_PREF_KEYS = [
   "ruzenec_theme",
   "ruzenec_locale",
   "ruzenec_prayer_language",
+  "ruzenec_interlinear",
   "ruzenec_font_size",
   "ruzenec_vibrate",
   "ruzenec_dim",
