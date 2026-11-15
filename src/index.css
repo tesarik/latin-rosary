@@ -30,6 +30,7 @@ html, body, #root {
   --text-strong: #2A2620;
   --text-soft: #5C5548;
   --text-muted: #6B6352;
+  --tr-text: #786F5E;
   --bead-past: #A69C8A;
   --bead-future: #DCD3C1;
   --thread: #C3B9A6;
@@ -51,6 +52,7 @@ html, body, #root {
   --text-strong: #F4EFE6;
   --text-soft: #BEB4A4;
   --text-muted: #AAA090;
+  --tr-text: #968C7C;
   --bead-past: #7B7163;
   --bead-future: #423A30;
   --thread: #423A30;
@@ -113,6 +115,7 @@ html, body, #root {
   --text-strong: #263238;
   --text-soft: #546E7A;
   --text-muted: #5D7785;
+  --tr-text: #5D7785;
   --bead-past: #90A4AE;
   --bead-future: #CFD8DC;
   --thread: #B0BEC5;
@@ -144,6 +147,7 @@ html, body, #root {
   --text-strong: #EEF1F4;
   --text-soft: #AEB8C2;
   --text-muted: #9AA5B0;
+  --tr-text: #86919C;
   --bead-past: #6A7682;
   --bead-future: #39414C;
   --thread: #39414C;
@@ -166,6 +170,7 @@ html, body, #root {
   --text-strong: #000000;
   --text-soft: #333333;
   --text-muted: #4A4A4A;
+  --tr-text: #707070;
   --bead-past: #141414;
   --bead-future: #CFCFCF;
   --thread: #9A9A9A;
@@ -200,6 +205,7 @@ html, body, #root {
   --text-strong: #FFFFFF;
   --text-soft: #CCCCCC;
   --text-muted: #B4B4B4;
+  --tr-text: #8E8E8E;
   --bead-past: #E8E8E8;
   --bead-future: #3A3A3A;
   --thread: #666666;

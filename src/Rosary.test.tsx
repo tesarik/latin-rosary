@@ -101,19 +101,22 @@ describe("the Mine tab", () => {
 });
 
 describe("the prayer language switch", () => {
-  it("shows the Latin with the translation under it, and remembers it", async () => {
+  it("moves on with each tap — Latin, with the translation, the translation — and remembers it", async () => {
     localStorage.setItem("ruzenec_hint_seen", "1");
     location.hash = "#pray=salve_regina";
     render(<Rosary />);
-    expect(screen.getByRole("radio", { name: t.prayerLanguageLatin }).getAttribute("aria-checked")).toBe("true");
+    const sw = () => screen.getByRole("button", { name: new RegExp(`^${t.prayerLanguageAria}:`) });
+    expect(sw().getAttribute("aria-label")).toBe(`${t.prayerLanguageAria}: ${t.prayerLanguageLatin}`);
     expect(screen.queryByText(/Hail, holy Queen/i)).toBeNull();
-    fireEvent.click(screen.getByRole("radio", { name: t.prayerLanguageBoth }));
+    fireEvent.click(sw());
     // The translation table arrives as its own chunk.
     expect(await screen.findByText(/Hail, holy Queen/i)).toBeTruthy();
     expect(screen.getByText(/Salve Regína, Mater/)).toBeTruthy();
     expect(localStorage.getItem("ruzenec_prayer_language")).toBe("both");
-    fireEvent.click(screen.getByRole("radio", { name: t.prayerLanguageTranslation }));
+    fireEvent.click(sw());
     expect(screen.queryByText(/Salve Regína, Mater/)).toBeNull();
+    fireEvent.click(sw());
+    expect(sw().getAttribute("aria-label")).toBe(`${t.prayerLanguageAria}: ${t.prayerLanguageLatin}`);
   });
 });
 
@@ -156,5 +159,21 @@ describe("after a rosary", () => {
     render(<Rosary />);
     expect(screen.getByRole("button", { name: t.exitToMenuAria })).toBeTruthy();
     expect(screen.getByText("Mysteria Dolorosa")).toBeTruthy();
+  });
+});
+
+describe("the Marian Psalter's rings", () => {
+  it("shows the set being prayed, the others as small rings that jump to their start", () => {
+    localStorage.setItem("ruzenec_hint_seen", "1");
+    location.hash = "#pray=psalterium";
+    render(<Rosary />);
+    // The joyful set's ring, and the other two sets' small rings.
+    expect(screen.getByRole("button", { name: t.jumpToDecade(1) })).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: t.jumpToDecade(6) }));
+    expect(screen.getByText(/Mysteria Dolorosa · I\./)).toBeTruthy();
+    // Now the sorrowful ring is the big one: its Paters jump, and the glorious set is small.
+    expect(screen.getByRole("button", { name: t.jumpToDecade(7) })).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: t.jumpToDecade(11) }));
+    expect(screen.getByText(/Mysteria Gloriosa · I\./)).toBeTruthy();
   });
 });

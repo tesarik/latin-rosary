@@ -3,8 +3,8 @@ import { STRINGS, type Locale } from "./i18n";
 import { MAX_INTENTION } from "./intentions";
 
 // The prayer's private intention under the label chip (intentions.ts): the
-// text in small italics, tapped to edit; with none, a small "+ Intention" on
-// the first step only, so it is offered before praying and never clutters
+// text in small italics with a pencil, tapped to edit; with none, an outlined
+// "+ Add an intention: …" pill on the first step only, so it is offered before praying and never clutters
 // the rest. Editing is an inline field: Enter or ✓ keeps it, Escape cancels,
 // emptying it clears the intention.
 export default function IntentionLine({ text, offerAdd, onChange, color, locale }: {
@@ -32,7 +32,7 @@ export default function IntentionLine({ text, offerAdd, onChange, color, locale 
     return (
       <form
         onSubmit={(e) => { e.preventDefault(); save(); }}
-        style={{ display: "flex", gap: 6, alignItems: "center", justifyContent: "center", margin: "6px auto 0", maxWidth: 420 }}
+        style={{ display: "flex", gap: 6, alignItems: "center", justifyContent: "center", margin: "8px auto 0", maxWidth: 420 }}
       >
         <input
           ref={input}
@@ -55,7 +55,7 @@ export default function IntentionLine({ text, offerAdd, onChange, color, locale 
   }
   if (text) {
     return (
-      <div style={{ textAlign: "center", marginTop: 2 }}>
+      <div style={{ textAlign: "center", marginTop: 8 }}>
         <button
           onClick={open}
           aria-label={`${t.intentionLabel}: ${text}. ${t.intentionEdit}`}
@@ -65,14 +65,23 @@ export default function IntentionLine({ text, offerAdd, onChange, color, locale 
           }}
         >
           <span style={{ fontStyle: "normal", color }}>{t.intentionLabel}:</span> {text}
+          {/* A pencil, so it reads as editable. */}
+          <span aria-hidden="true" style={{ fontStyle: "normal", color, marginLeft: 6 }}>✎</span>
         </button>
       </div>
     );
   }
   if (!offerAdd) return null;
   return (
-    <div style={{ textAlign: "center", marginTop: 2 }}>
-      <button onClick={open} style={{ ...small, color: "var(--text-muted)" }}>+ {t.intentionAdd}</button>
+    <div style={{ textAlign: "center", marginTop: 8 }}>
+      {/* An outlined pill in the set's colour, so it reads as a button. */}
+      <button
+        onClick={open}
+        style={{
+          ...small, minHeight: 30, padding: "4px 12px", borderRadius: 15,
+          border: `1px solid ${color}`, color, maxWidth: "100%",
+        }}
+      >+ {t.intentionAdd}</button>
     </div>
   );
 }
