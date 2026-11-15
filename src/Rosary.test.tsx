@@ -123,6 +123,22 @@ describe("the prayer language switch", () => {
     expect(localStorage.getItem("ruzenec_interlinear")).toBe("1");
   });
 
+  it("pairs the Pater Noster phrase by phrase under the Latin, and hides the break points otherwise", async () => {
+    localStorage.setItem("ruzenec_hint_seen", "1");
+    location.hash = "#pray=pater_noster";
+    render(<Rosary />);
+    const card = () => document.querySelector('[aria-live="polite"]')!;
+    expect(card().textContent).toContain("Pater noster, qui es in cælis, sanctificétur");
+    expect(card().textContent).not.toContain("{/}");
+    fireEvent.click(screen.getByRole("button", { name: t.settingsAria }));
+    fireEvent.click(screen.getByRole("switch", { name: t.settingsInterlinear }));
+    expect(await screen.findByText("hallowed be thy name.")).toBeTruthy();
+    expect(screen.getByText("sanctificétur nomen tuum.")).toBeTruthy();
+    fireEvent.click(screen.getByRole("radio", { name: t.prayerLanguageTranslation }));
+    expect(card().textContent).toContain("Our Father, who art in heaven, hallowed");
+    expect(card().textContent).not.toContain("{/}");
+  });
+
   it("reads the old three-way switch's middle position as the translation under the Latin", async () => {
     localStorage.setItem("ruzenec_hint_seen", "1");
     localStorage.setItem("ruzenec_prayer_language", "both");

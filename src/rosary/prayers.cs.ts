@@ -12,18 +12,18 @@ const SALVE_REGINA_ANTIPHON_CS = `Zdrávas Královno, Matko milosrdenství. Živ
 
 // Czech counterparts of the Latin prayer texts. Mirrors `PRAYERS` 1:1 so the
 // prayer card can swap languages without any structural changes.
-const PATER_NOSTER_CS = `Otče náš, jenž jsi na nebesích, posvěť se jméno tvé. Přijď království tvé. Buď vůle tvá jako v nebi, tak i na zemi. Chléb náš vezdejší dej nám dnes. A odpusť nám naše viny, jako i my odpouštíme našim viníkům. A neuveď nás v pokušení, ale zbav nás od zlého. Amen.`;
+const PATER_NOSTER_CS = `Otče náš, jenž jsi na nebesích, {/}posvěť se jméno tvé. {/}Přijď království tvé. {/}Buď vůle tvá jako v nebi, tak i na zemi. {/}Chléb náš vezdejší dej nám dnes. {/}A odpusť nám naše viny, {/}jako i my odpouštíme našim viníkům. {/}A neuveď nás v pokušení, {/}ale zbav nás od zlého. Amen.`;
 
 export const PRAYERS_CS: Record<StaticPrayerType, string> = {
   [PRAYER_TYPES.SIGN_OF_CROSS]: `Ve jménu ☩ Otce i Syna i Ducha Svatého. Amen.`,
 
-  [PRAYER_TYPES.CREED]: `Věřím v Boha, Otce všemohoucího, Stvořitele nebe i země. I v Ježíše Krista, Syna jeho jediného, Pána našeho; jenž se počal z Ducha Svatého, narodil se z Marie Panny, trpěl pod Pontským Pilátem, ukřižován umřel i pohřben jest; sestoupil do pekel, třetího dne vstal z mrtvých; vstoupil na nebesa, sedí po pravici Boha, Otce všemohoucího; odtud přijde soudit živé i mrtvé. Věřím v Ducha Svatého, svatou církev obecnou, společenství svatých, odpuštění hříchů, vzkříšení těla a život věčný. Amen.`,
+  [PRAYER_TYPES.CREED]: `Věřím v Boha, Otce všemohoucího, Stvořitele nebe i země. {/}I v Ježíše Krista, Syna jeho jediného, Pána našeho; {/}jenž se počal z Ducha Svatého, narodil se z Marie Panny, {/}trpěl pod Pontským Pilátem, ukřižován umřel i pohřben jest; {/}sestoupil do pekel, třetího dne vstal z mrtvých; {/}vstoupil na nebesa, sedí po pravici Boha, Otce všemohoucího; {/}odtud přijde soudit živé i mrtvé. {/}Věřím v Ducha Svatého, svatou církev obecnou, {/}společenství svatých, odpuštění hříchů, {/}vzkříšení těla a život věčný. Amen.`,
 
   [PRAYER_TYPES.OUR_FATHER]: PATER_NOSTER_CS,
 
-  [PRAYER_TYPES.GLORY_BE]: `Sláva Otci i Synu i Duchu Svatému, jako byla na počátku, i nyní, i vždycky, a na věky věků. Amen.`,
+  [PRAYER_TYPES.GLORY_BE]: `Sláva Otci i Synu i Duchu Svatému, {/}jako byla na počátku, i nyní, i vždycky, {/}a na věky věků. Amen.`,
 
-  [PRAYER_TYPES.FATIMA]: `Ó můj Ježíši, odpusť nám naše hříchy, uchraň nás pekelného ohně a přiveď do nebe všechny duše, zvláště ty, které tvého milosrdenství nejvíce potřebují.`,
+  [PRAYER_TYPES.FATIMA]: `Ó můj Ježíši, odpusť nám naše hříchy, {/}uchraň nás pekelného ohně {/}a přiveď do nebe všechny duše, {/}zvláště ty, které tvého milosrdenství nejvíce potřebují.`,
 
   [PRAYER_TYPES.SALVE_REGINA]: `${SALVE_REGINA_ANTIPHON_CS}
 
@@ -32,7 +32,7 @@ Bože, jehož jednorozený Syn nám svým životem, smrtí a vzkříšením zís
 
   [PRAYER_TYPES.SALVE_REGINA_LEONINE]: SALVE_REGINA_ANTIPHON_CS,
 
-  [PRAYER_TYPES.LEONINE_OREMUS]: `Modleme se. Bože, útočiště naše a sílo, shlédni milostivě na lid, který k tobě volá, a na přímluvu slavné a neposkvrněné Panny, Bohorodičky Marie, se svatým Josefem, jejím snoubencem, i tvými svatými apoštoly Petrem a Pavlem a všemi svatými, vyslyš milosrdně a dobrotivě naše prosby, které předkládáme za obrácení hříšníků, za svobodu a povznesení svaté matky Církve. Skrze téhož Krista, našeho Pána. Amen.`,
+  [PRAYER_TYPES.LEONINE_OREMUS]: `Modleme se. {/}Bože, útočiště naše a sílo, shlédni milostivě na lid, který k tobě volá, {/}a na přímluvu slavné a neposkvrněné Panny, Bohorodičky Marie, se svatým Josefem, jejím snoubencem, i tvými svatými apoštoly Petrem a Pavlem a všemi svatými, {/}vyslyš milosrdně a dobrotivě naše prosby, které předkládáme za obrácení hříšníků, za svobodu a povznesení svaté matky Církve. {/}Skrze téhož Krista, našeho Pána. Amen.`,
 
   [PRAYER_TYPES.ST_MICHAEL]: `Svatý Michaeli Archanděli, braň nás v boji; proti zlobě a úkladům ďáblovým budiž nám záštitou. Nech ať Bůh přikáže jemu, pokorně prosíme. Ty pak, kníže vojska nebeského, Satana a jiné duchy zlé, kteří ke zkáze duší světem obcházejí, božskou mocí do pekla svrhni. Amen.`,
 
@@ -59,7 +59,7 @@ Bože, jehož jednorozený Syn nám svým životem, smrtí a vzkříšením zís
   [PRAYER_TYPES.BRIGIT_PIERCING]: `Ó Ježíši, božský milovníku našich duší, ke cti oné Krve a vody, které vytryskly z tvého otevřeného boku a Srdce, přijmi mě do svého nejsvětějšího Srdce a skrze toto poslední vylití doveď mě i všechny duše do věčné slávy. Amen.`,
 
   // Orationes utilissimæ additions. Czech sourced verbatim from orationes.pdf.
-  [PRAYER_TYPES.NICENE_CREED]: `Věřím v jednoho Boha, Otce všemohoucího, Stvořitele nebe i země, všeho viditelného i neviditelného. Věřím v jednoho Pána, Ježíše Krista, jednorozeného Syna Božího, který se zrodil z Otce přede všemi věky: Bůh z Boha, Světlo ze Světla, pravý Bůh z pravého Boha, zrozený, nestvořený, jedné podstaty s Otcem: skrze něho všechno je stvořeno. On pro nás lidi a pro naši spásu sestoupil z nebe. Skrze Ducha Svatého přijal tělo z Marie Panny a stal se člověkem. Byl za nás ukřižován, za dnů Poncia Piláta byl umučen a pohřben. Třetího dne vstal z mrtvých podle Písma. Vstoupil do nebe, sedí po pravici Otce. A znovu přijde, ve slávě, soudit živé i mrtvé a jeho království bude bez konce. Věřím v Ducha Svatého, Pána a dárce života, který z Otce i Syna vychází, s Otcem i Synem je zároveň uctíván a oslavován a mluvil ústy proroků. Věřím v jednu, svatou, všeobecnou, apoštolskou církev. Vyznávám jeden křest na odpuštění hříchů. Očekávám vzkříšení mrtvých a život budoucího věku. Amen.`,
+  [PRAYER_TYPES.NICENE_CREED]: `Věřím v jednoho Boha, Otce všemohoucího, Stvořitele nebe i země, všeho viditelného i neviditelného. {/}Věřím v jednoho Pána, Ježíše Krista, jednorozeného Syna Božího, {/}který se zrodil z Otce přede všemi věky: {/}Bůh z Boha, Světlo ze Světla, pravý Bůh z pravého Boha, {/}zrozený, nestvořený, jedné podstaty s Otcem: {/}skrze něho všechno je stvořeno. {/}On pro nás lidi a pro naši spásu sestoupil z nebe. {/}Skrze Ducha Svatého přijal tělo z Marie Panny a stal se člověkem. {/}Byl za nás ukřižován, za dnů Poncia Piláta byl umučen a pohřben. {/}Třetího dne vstal z mrtvých podle Písma. {/}Vstoupil do nebe, sedí po pravici Otce. {/}A znovu přijde, ve slávě, soudit živé i mrtvé {/}a jeho království bude bez konce. {/}Věřím v Ducha Svatého, Pána a dárce života, {/}který z Otce i Syna vychází, {/}s Otcem i Synem je zároveň uctíván a oslavován {/}a mluvil ústy proroků. {/}Věřím v jednu, svatou, všeobecnou, apoštolskou církev. {/}Vyznávám jeden křest na odpuštění hříchů. {/}Očekávám vzkříšení mrtvých {/}a život budoucího věku. Amen.`,
 
   [PRAYER_TYPES.SUB_TUUM]: `Pod ochranu tvou se utíkáme, svatá Boží Rodičko. Neodmítej naše prosby v našich potřebách, ale ode všeho nebezpečí vysvoboď nás vždycky, Panno slavná a požehnaná. Paní naše, prostřednice naše, orodovnice naše, u Syna nám smilování vypros, Synu svému nás doporuč, k Synu svému nás doprovoď.`,
 
@@ -212,7 +212,7 @@ dej jim odpočinutí! Amen.`,
 Kriste, smiluj se nad námi. 3×
 Pane, smiluj se nad námi. 3×`,
 
-  [PRAYER_TYPES.GLORIA_IN_EXCELSIS]: `Sláva na výsostech Bohu a na zemi pokoj lidem dobré vůle! Chválíme tě. Dobrořečíme tobě. Klaníme se tobě. Oslavujeme tě. Díky vzdáváme tobě pro velikou slávu tvou. Pane Bože, Králi nebeský, Bože Otče všemohoucí! Pane, Synu jednorozený, Ježíši Kriste! Pane Bože, Beránku Boží, Synu Otce! Jenž snímáš hříchy světa, smiluj se nad námi. Jenž snímáš hříchy světa, přijmi prosbu naši. Jenž sedíš po pravici Otce, smiluj se nad námi. Neboť ty jediný jsi Svatý. Ty jediný jsi Pán. Ty jediný jsi Svrchovaný, Ježíši Kriste, se Svatým Duchem ve slávě Boha Otce. Amen.`,
+  [PRAYER_TYPES.GLORIA_IN_EXCELSIS]: `Sláva na výsostech Bohu {/}a na zemi pokoj lidem dobré vůle! {/}Chválíme tě. Dobrořečíme tobě. Klaníme se tobě. Oslavujeme tě. {/}Díky vzdáváme tobě pro velikou slávu tvou. {/}Pane Bože, Králi nebeský, Bože Otče všemohoucí! {/}Pane, Synu jednorozený, Ježíši Kriste! {/}Pane Bože, Beránku Boží, Synu Otce! {/}Jenž snímáš hříchy světa, smiluj se nad námi. {/}Jenž snímáš hříchy světa, přijmi prosbu naši. {/}Jenž sedíš po pravici Otce, smiluj se nad námi. {/}Neboť ty jediný jsi Svatý. {/}Ty jediný jsi Pán. {/}Ty jediný jsi Svrchovaný, Ježíši Kriste, {/}se Svatým Duchem ve slávě Boha Otce. Amen.`,
 
   [PRAYER_TYPES.SANCTUS]: `Svatý, Svatý, Svatý Pán, Bůh zástupů. Plna jsou nebesa i země slávy tvé. Hosanna na výsostech.
 Požehnaný, jenž přichází ve jménu Páně. Hosanna na výsostech.`,
@@ -221,7 +221,7 @@ Požehnaný, jenž přichází ve jménu Páně. Hosanna na výsostech.`,
 Beránku Boží, který snímáš hříchy světa, smiluj se nad námi.
 Beránku Boží, který snímáš hříchy světa, uděl nám pokoje.`,
 
-  [PRAYER_TYPES.DOMINE_NON_SUM_DIGNUS]: `Pane, nejsem hoden, abys vešel pod střechu mou, ale toliko rci slovem, a uzdravena bude duše má. 3×`,
+  [PRAYER_TYPES.DOMINE_NON_SUM_DIGNUS]: `Pane, nejsem hoden, abys vešel pod střechu mou, {/}ale toliko rci slovem, a uzdravena bude duše má. 3×`,
 
   [PRAYER_TYPES.PRAEFATIO_DIALOG]: `℣ Po všecky věky věkův.
 ℟ Amen.
@@ -253,7 +253,7 @@ Nechť Tělo tvé, Pane, jež jsem požil, a Krev, kterou jsem pil, utkví v út
 
   [PRAYER_TYPES.GRATIARUM_ACTIO]: `Děkujeme ti, všemohoucí Bože, za všecka tvoje dobrodiní. Jenž jsi živ a kraluješ na věky věkův. Amen.`,
 
-  [PRAYER_TYPES.MEMORARE]: `Pomni, nejdobrotivější Panno Maria, že od věků není slýcháno, že bys byla někoho opustila, kdo se pod ochranu tvou utíkal, neb o pomoc tě vzýval, anebo za přímluvu tě žádal. Tou důvěrou jsa posilněn, k tobě, Panno panen a Matko, spěchám, k tobě přicházím a jako kající hříšník stojím před tebou. Ó Matko Slova, mými slovy nepohrdej, nýbrž milostivě slyš a vyslyš mne. Amen.`,
+  [PRAYER_TYPES.MEMORARE]: `Pomni, nejdobrotivější Panno Maria, že od věků není slýcháno, {/}že bys byla někoho opustila, kdo se pod ochranu tvou utíkal, neb o pomoc tě vzýval, anebo za přímluvu tě žádal. {/}Tou důvěrou jsa posilněn, k tobě, Panno panen a Matko, spěchám, {/}k tobě přicházím a jako kající hříšník stojím před tebou. {/}Ó Matko Slova, mými slovy nepohrdej, {/}nýbrž milostivě slyš a vyslyš mne. Amen.`,
 
   [PRAYER_TYPES.AD_TE_IOSEPH]: `K tobě, svatý Josefe, v soužení svém se utíkáme a jako jsme vzývali o pomoc nejsvětější tvoji Nevěstu, tak důvěrně žádáme i za tvou ochranu. Pro lásku, která tebe spojovala s neposkvrněnou Pannou, Bohorodičkou, a pro otcovskou lásku, se kterou jsi dítě Ježíše objímal, pokorně prosíme, abys na dědictví, kterého Ježíš Kristus dobyl svou krví, dobrotivě shlédl, a našim potřebám mocí a silou svou na pomoc přispěl. Nejpečlivější Strážce božské rodiny, ochraňuj vyvolené potomstvo Ježíše Krista: Odvrať od nás, nejmilejší Otče, všecku nákazu bludů a nepravostí. Buď nám s nebe milostiv, nejsilnější Spomocníku náš, v boji proti mocnosti temností. A jako jsi druhdy vysvobodil dítě Ježíše z největšího nebezpečí života, tak nyní braň Církev svatou proti nepřátelským úkladům, proti všemu protivenství; a zastři nás všecky stráží ustavičnou, abychom podle tvého příkladu a tvou pomocí opatřeni, mohli svatě žíti, nábožně zemříti a věčné blaženosti dosíci. Amen.`,
 
@@ -411,7 +411,7 @@ Duch Svatý v duši spravedlivého.
   [PRAYER_TYPES.CORONA_ANG_INITIUM]: `℣ Bože, ku pomoci mé vzezři.
 ℟ Hospodine, ku pomoci mé pospěš.
 
-Sláva Otci i Synu i Duchu Svatému. Jako byla na počátku, i nyní, i vždycky, a na věky věků. Amen.`,
+Sláva Otci i Synu i Duchu Svatému. {/}Jako byla na počátku, i nyní, i vždycky, {/}a na věky věků. Amen.`,
 
   [PRAYER_TYPES.CORONA_ANG_1]: `{r}Pozdravení prvního kůru andělského{/r}
 Na přímluvu svatého Michaele a nebeského kůru serafů učiň nás, Bože, hodnými, abychom ohněm dokonalé lásky rozníceni byli. Tak se staň!`,
@@ -815,7 +815,7 @@ rovná s nimi sláva
 Duchu ať se vzdává. Amen.`,
 
   // Modleme se! Nejdůležitější modlitby a písně (1916), p. 62.
-  [PRAYER_TYPES.O_SACRUM_CONVIVIUM]: `Ó svatá hostino, v nížto se požívá Kristus: znovu se uctívá památka umučení jeho, mysl naplněna bývá milostí a budoucí slávy záruka se nám dává.`,
+  [PRAYER_TYPES.O_SACRUM_CONVIVIUM]: `Ó svatá hostino, v nížto se požívá Kristus: {/}znovu se uctívá památka umučení jeho, {/}mysl naplněna bývá milostí {/}a budoucí slávy záruka se nám dává.`,
 
   // The last two stanzas of the metrical Sacris solemniis in Posvátné zpěvy a
   // modlitby (1888), p. 373 (Corpus Christi procession, on the way to the

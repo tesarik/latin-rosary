@@ -5,6 +5,7 @@ import type { CSSProperties, ReactNode, Ref } from "react";
 import { PRAYER_TYPES, PRAYERS, getHailMary, getHailMaryTr } from "./prayers";
 import { useTranslation } from "./translations";
 import { sliceLines, type SequenceItem } from "./sequence";
+import { segments, stripBreaks } from "./breaks";
 import { STRINGS, type Locale, type PrayerLanguage } from "./i18n";
 import { accentText, type Theme } from "./theme";
 import { parseLitany, type LitanyBlock } from "./litany";
@@ -132,11 +133,12 @@ const TR_STYLE: CSSProperties = {
 };
 
 // The Latin with its translation under it. Texts that keep one line structure
-// (psalms, the Salve Regína's sections, versicles) pair line by line; a
-// one-paragraph prayer gets its translation under the whole paragraph.
+// (psalms, the Salve Regína's sections, versicles) pair line by line, and a
+// prayer marked with break points (breaks.ts: the Pater Noster, the Creed, …)
+// phrase by phrase; any other gets its translation under the whole paragraph.
 function Interlinear({ latin, tr, locale }: { latin: string; tr: string; locale: Locale }) {
-  const la = latin.split("\n");
-  const tl = tr.split("\n");
+  const la = segments(latin);
+  const tl = segments(tr);
   if (la.length > 1 && la.length === tl.length) {
     return <>{la.map((line, i) => line.trim() === ""
       ? <div key={i} aria-hidden="true" style={{ height: "0.5em" }} />
@@ -148,8 +150,8 @@ function Interlinear({ latin, tr, locale }: { latin: string; tr: string; locale:
       ))}</>;
   }
   return <>
-    <div className="initial" style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{withRubrics(latin)}</div>
-    <div lang={locale} style={{ ...TR_STYLE, whiteSpace: "pre-line", marginTop: "0.6em" }}>{withRubrics(tr)}</div>
+    <div className="initial" style={{ whiteSpace: "pre-line", color: "var(--text)" }}>{withRubrics(stripBreaks(latin))}</div>
+    <div lang={locale} style={{ ...TR_STYLE, whiteSpace: "pre-line", marginTop: "0.6em" }}>{withRubrics(stripBreaks(tr))}</div>
   </>;
 }
 
@@ -232,7 +234,7 @@ function PrayerBody({ currentPrayer, accentColor, locale, language, fontSizeClam
     );
   }
   const tr = showTranslation ? trText : undefined;
-  const text = tr ?? latin;
+  const text = stripBreaks(tr ?? latin);
   if (isLitanyType(currentPrayer.type)) {
     return (
       <div lang={tr ? locale : undefined} style={{ ...sizedBodyStyle, textAlign: "left" }}>

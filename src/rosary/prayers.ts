@@ -320,7 +320,7 @@ const SALVE_REGINA_ANTIPHON = `Salve Regína, Mater misericórdiæ, vita, dulcé
 ℣ Ora pro nobis, sancta Dei Génitrix.
 ℟ Ut digni efficiámur promissiónibus Christi.`;
 
-const PATER_NOSTER = `Pater noster, qui es in cælis, sanctificétur nomen tuum. Advéniat regnum tuum. Fiat volúntas tua, sicut in cælo et in terra. Panem nostrum quotidiánum da nobis hódie: et dimítte nobis débita nostra, sicut et nos dimíttimus debitóribus nostris. Et ne nos indúcas in tentatiónem: sed líbera nos a malo. Amen.`;
+const PATER_NOSTER = `Pater noster, qui es in cælis, {/}sanctificétur nomen tuum. {/}Advéniat regnum tuum. {/}Fiat volúntas tua, sicut in cælo et in terra. {/}Panem nostrum quotidiánum da nobis hódie: {/}et dimítte nobis débita nostra, {/}sicut et nos dimíttimus debitóribus nostris. {/}Et ne nos indúcas in tentatiónem: {/}sed líbera nos a malo. Amen.`;
 
 // One of St. Joseph's seven sorrows and joys: its heading in red, as a missal
 // heads a section, then the Pater Noster that opens it (the Ave María and
@@ -330,13 +330,13 @@ export const ioseph = (heading: string, pater: string) => `{r}${heading}{/r}\n\n
 export const PRAYERS: Record<StaticPrayerType, string> = {
   [PRAYER_TYPES.SIGN_OF_CROSS]: `In nómine ☩ Patris et Fílii et Spíritus Sancti. Amen.`,
 
-  [PRAYER_TYPES.CREED]: `Credo in Deum, Patrem omnipoténtem, Creatórem cæli et terræ. Et in Iesum Christum, Fílium eius únicum, Dóminum nostrum: qui concéptus est de Spíritu Sancto, natus ex María Vírgine, passus sub Póntio Piláto, crucifíxus, mórtuus, et sepúltus: descéndit ad ínferos; tértia die resurréxit a mórtuis; ascéndit ad cælos; sedet ad déxteram Dei Patris omnipoténtis: inde ventúrus est iudicáre vivos et mórtuos. Credo in Spíritum Sanctum, sanctam Ecclésiam cathólicam, Sanctórum communiónem, remissiónem peccatórum, carnis resurrectiónem, vitam ætérnam. Amen.`,
+  [PRAYER_TYPES.CREED]: `Credo in Deum, Patrem omnipoténtem, Creatórem cæli et terræ. {/}Et in Iesum Christum, Fílium eius únicum, Dóminum nostrum: {/}qui concéptus est de Spíritu Sancto, natus ex María Vírgine, {/}passus sub Póntio Piláto, crucifíxus, mórtuus, et sepúltus: {/}descéndit ad ínferos; tértia die resurréxit a mórtuis; {/}ascéndit ad cælos; sedet ad déxteram Dei Patris omnipoténtis: {/}inde ventúrus est iudicáre vivos et mórtuos. {/}Credo in Spíritum Sanctum, sanctam Ecclésiam cathólicam, {/}Sanctórum communiónem, remissiónem peccatórum, {/}carnis resurrectiónem, vitam ætérnam. Amen.`,
 
   [PRAYER_TYPES.OUR_FATHER]: PATER_NOSTER,
 
-  [PRAYER_TYPES.GLORY_BE]: `Glória Patri, et Fílio, et Spirítui Sancto. Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.`,
+  [PRAYER_TYPES.GLORY_BE]: `Glória Patri, et Fílio, et Spirítui Sancto. {/}Sicut erat in princípio, et nunc, et semper, {/}et in sǽcula sæculórum. Amen.`,
 
-  [PRAYER_TYPES.FATIMA]: `O mi Iesu, indúlge peccáta nostra, consérva nos ab ígne inférni, duc ómnes ad cæli glóriam, præcípue misericordia túa máxime indigéntes.`,
+  [PRAYER_TYPES.FATIMA]: `O mi Iesu, indúlge peccáta nostra, {/}consérva nos ab ígne inférni, {/}duc ómnes ad cæli glóriam, {/}præcípue misericordia túa máxime indigéntes.`,
 
   [PRAYER_TYPES.SALVE_REGINA]: `${SALVE_REGINA_ANTIPHON}
 
@@ -345,7 +345,7 @@ Deus, cuius Unigénitus per vitam, mortem et resurrectiónem suam nobis salútis
 
   [PRAYER_TYPES.SALVE_REGINA_LEONINE]: SALVE_REGINA_ANTIPHON,
 
-  [PRAYER_TYPES.LEONINE_OREMUS]: `Orémus. Deus, refúgium nostrum et virtus, pópulum ad te clamántem propítius réspice; et intercedénte gloriósa, et immaculáta Vírgine Dei Genitríce María, cum beáto Ioseph, eius Sponso, ac beatis Apóstolis tuis Petro et Paulo, et ómnibus Sanctis, quas pro conversióne peccatórum, pro libertáte et exaltatióne sanctæ Matris Ecclésiæ, preces effúndimus, miséricors et benígnus exáudi. Per eúndem Christum Dóminum nostrum. Amen.`,
+  [PRAYER_TYPES.LEONINE_OREMUS]: `Orémus. {/}Deus, refúgium nostrum et virtus, pópulum ad te clamántem propítius réspice; {/}et intercedénte gloriósa, et immaculáta Vírgine Dei Genitríce María, cum beáto Ioseph, eius Sponso, ac beatis Apóstolis tuis Petro et Paulo, et ómnibus Sanctis, {/}quas pro conversióne peccatórum, pro libertáte et exaltatióne sanctæ Matris Ecclésiæ, preces effúndimus, miséricors et benígnus exáudi. {/}Per eúndem Christum Dóminum nostrum. Amen.`,
 
   [PRAYER_TYPES.ST_MICHAEL]: `Sancte Míchael Archángele, defénde nos in prælio; contra nequítiam et insídias diáboli esto præsídium. Imperet illi Deus, súpplices deprecámur: tuque, Princeps milítiæ Cæléstis, sátanam aliósque spíritus malígnos, qui ad perditiónem animárum pervagántur in mundo, divína virtúte in inférnum detrúde. Amen.`,
 
@@ -380,7 +380,7 @@ Deus, cuius Unigénitus per vitam, mortem et resurrectiónem suam nobis salútis
   [PRAYER_TYPES.BRIGIT_PIERCING]: `O Iesu, divíne amátor animárum nostrárum, in honórem illíus Sánguinis et aquæ quæ ex apérto látere et Corde tuo manavérunt, súscipe me in Cor tuum sacratíssimum, et per hanc últimam effusiónem perdúc me et omnes ánimas in glóriam ætérnam. Amen.`,
 
   // Orationes utilissimæ additions. Source: orationes.pdf.
-  [PRAYER_TYPES.NICENE_CREED]: `Credo in unum Deum, Patrem omnipoténtem, factórem cæli et terræ, visibílium ómnium et invisibílium. Et in unum Dóminum Iesum Christum, Fílium Dei unigénitum. Et ex Patre natum ante ómnia sæcula. Deum de Deo, lumen de lúmine, Deum verum de Deo vero. Génitum, non factum, consubstantiálem Patri: per quem ómnia facta sunt. Qui propter nos hómines et propter nostram salútem descéndit de cælis. Et incarnátus est de Spíritu Sancto ex María Vírgine: Et homo factus est. Crucifíxus étiam pro nobis: sub Póntio Piláto passus, et sepúltus est. Et resurréxit tértia die, secúndum Scriptúras. Et ascéndit in cælum: sedet ad déxteram Patris. Et íterum ventúrus est cum glória iudicáre vivos et mórtuos: cuius regni non erit finis. Et in Spíritum Sanctum, Dóminum et vivificántem: qui ex Patre Filióque procédit. Qui cum Patre et Fílio simul adorátur et conglorificátur: qui locútus est per Prophétas. Et unam sanctam cathólicam et apostólicam Ecclésiam. Confíteor unum baptísma in remissiónem peccatórum. Et exspécto resurrectiónem mortuórum. Et vitam ventúri sæculi. Amen.`,
+  [PRAYER_TYPES.NICENE_CREED]: `Credo in unum Deum, Patrem omnipoténtem, factórem cæli et terræ, visibílium ómnium et invisibílium. {/}Et in unum Dóminum Iesum Christum, Fílium Dei unigénitum. {/}Et ex Patre natum ante ómnia sæcula. {/}Deum de Deo, lumen de lúmine, Deum verum de Deo vero. {/}Génitum, non factum, consubstantiálem Patri: {/}per quem ómnia facta sunt. {/}Qui propter nos hómines et propter nostram salútem descéndit de cælis. {/}Et incarnátus est de Spíritu Sancto ex María Vírgine: Et homo factus est. {/}Crucifíxus étiam pro nobis: sub Póntio Piláto passus, et sepúltus est. {/}Et resurréxit tértia die, secúndum Scriptúras. {/}Et ascéndit in cælum: sedet ad déxteram Patris. {/}Et íterum ventúrus est cum glória iudicáre vivos et mórtuos: {/}cuius regni non erit finis. {/}Et in Spíritum Sanctum, Dóminum et vivificántem: {/}qui ex Patre Filióque procédit. {/}Qui cum Patre et Fílio simul adorátur et conglorificátur: {/}qui locútus est per Prophétas. {/}Et unam sanctam cathólicam et apostólicam Ecclésiam. {/}Confíteor unum baptísma in remissiónem peccatórum. {/}Et exspécto resurrectiónem mortuórum. {/}Et vitam ventúri sæculi. Amen.`,
 
   [PRAYER_TYPES.SUB_TUUM]: `Sub tuum præsídium confúgimus, sancta Dei Génitrix. Nostras deprecatiónes ne despícias in necessitátibus, sed a perículis cunctis líbera nos semper, Virgo benedícta. Dómina nostra, mediátrix nostra, advocáta nostra, tuo Fílio nos reconcília, tuo Fílio nos comménda, tuo Fílio nos repræsénta.`,
 
@@ -519,7 +519,7 @@ dona eis réquiem. Amen.`,
 Christe, eléison. 3×
 Kýrie, eléison. 3×`,
 
-  [PRAYER_TYPES.GLORIA_IN_EXCELSIS]: `Glória in excélsis Deo. Et in terra pax homínibus bonæ voluntátis. Laudámus te. Benedícimus te. Adorámus te. Glorificámus te. Grátias ágimus tibi propter magnam glóriam tuam. Dómine Deus, Rex cæléstis, Deus Pater omnípotens. Dómine Fili unigénite, Iesu Christe. Dómine Deus, Agnus Dei, Fílius Patris. Qui tollis peccáta mundi, miserére nobis. Qui tollis peccáta mundi, súscipe deprecatiónem nostram. Qui sedes ad déxteram Patris, miserére nobis. Quóniam tu solus Sanctus. Tu solus Dóminus. Tu solus Altíssimus, Iesu Christe. Cum Sancto Spíritu, in glória Dei Patris. Amen.`,
+  [PRAYER_TYPES.GLORIA_IN_EXCELSIS]: `Glória in excélsis Deo. {/}Et in terra pax homínibus bonæ voluntátis. {/}Laudámus te. Benedícimus te. Adorámus te. Glorificámus te. {/}Grátias ágimus tibi propter magnam glóriam tuam. {/}Dómine Deus, Rex cæléstis, Deus Pater omnípotens. {/}Dómine Fili unigénite, Iesu Christe. {/}Dómine Deus, Agnus Dei, Fílius Patris. {/}Qui tollis peccáta mundi, miserére nobis. {/}Qui tollis peccáta mundi, súscipe deprecatiónem nostram. {/}Qui sedes ad déxteram Patris, miserére nobis. {/}Quóniam tu solus Sanctus. {/}Tu solus Dóminus. {/}Tu solus Altíssimus, Iesu Christe. {/}Cum Sancto Spíritu, in glória Dei Patris. Amen.`,
 
   [PRAYER_TYPES.SANCTUS]: `Sanctus, Sanctus, Sanctus Dóminus, Deus Sábaoth. Pleni sunt cæli et terra glória tua. Hosánna in excélsis.
 Benedíctus qui venit in nómine Dómini. Hosánna in excélsis.`,
@@ -528,7 +528,7 @@ Benedíctus qui venit in nómine Dómini. Hosánna in excélsis.`,
 Agnus Dei, qui tollis peccáta mundi, miserére nobis.
 Agnus Dei, qui tollis peccáta mundi, dona nobis pacem.`,
 
-  [PRAYER_TYPES.DOMINE_NON_SUM_DIGNUS]: `Dómine, non sum dignus, ut intres sub tectum meum: sed tantum dic verbo, et sanábitur ánima mea. 3×`,
+  [PRAYER_TYPES.DOMINE_NON_SUM_DIGNUS]: `Dómine, non sum dignus, ut intres sub tectum meum: {/}sed tantum dic verbo, et sanábitur ánima mea. 3×`,
 
   // The dialogue before the Preface, and the priest's prayers before and
   // after his Communion (Schallerův Římský misál, 1931).
@@ -561,7 +561,7 @@ Corpus tuum, Dómine, quod sumpsi, et Sanguis, quem potávi, adhǽreat viscérib
 
   [PRAYER_TYPES.GRATIARUM_ACTIO]: `Agimus tibi grátias, omnípotens Deus, pro univérsis benefíciis tuis: qui vivis et regnas in sǽcula sæculórum. Amen.`,
 
-  [PRAYER_TYPES.MEMORARE]: `Memoráre, o piíssima Virgo María, non esse audítum a sǽculo, quemquam ad tua curréntem præsídia, tua implorántem auxília, tua peténtem suffrágia, esse derelíctum. Ego tali animátus confidéntia, ad te, Virgo Vírginum, Mater, curro, ad te vénio, coram te gemens peccátor assísto. Noli, Mater Verbi, verba mea despícere; sed áudi propítia et exáudi. Amen.`,
+  [PRAYER_TYPES.MEMORARE]: `Memoráre, o piíssima Virgo María, non esse audítum a sǽculo, {/}quemquam ad tua curréntem præsídia, tua implorántem auxília, tua peténtem suffrágia, esse derelíctum. {/}Ego tali animátus confidéntia, ad te, Virgo Vírginum, Mater, curro, {/}ad te vénio, coram te gemens peccátor assísto. {/}Noli, Mater Verbi, verba mea despícere; {/}sed áudi propítia et exáudi. Amen.`,
 
   [PRAYER_TYPES.AD_TE_IOSEPH]: `Ad te, beáte Ioseph, in tribulatióne nostra confúgimus, atque, imploráto Sponsæ tuæ sanctíssimæ auxílio, patrocínium quoque tuum fidénter expóscimus. Per eam, quæsumus, quæ te cum immaculáta Vírgine Dei Genetríce coniúnxit, caritátem, perque patérnum, quo Púerum Iesum ampléxus es, amórem, súpplices deprecámur, ut ad hereditátem, quam Iesus Christus acquisívit Sánguine suo, benígnus respícias, ac necessitátibus nostris tua virtúte et ope succúrras. Tuére, o Custos providentíssime divínæ Famíliæ, Iesu Christi súbolem eléctam; próhibe a nobis, amantíssime Pater, omnem errórum ac corruptelárum luem; propítius nobis, sospitátor noster fortíssime, in hoc cum potestáte tenebrárum certámine e cælo adésto; et sicut olim Púerum Iesum e summo eripuísti vitæ discrímine, ita nunc Ecclésiam sanctam Dei ab hostílibus insídiis atque ab omni adversitáte defénde: nosque síngulos perpétuo tege patrocínio, ut ad tui exémplar et ope tua suffúlti, sancte vívere, pie émori, sempiternámque in cælis beatitúdinem ássequi possímus. Amen.`,
 
@@ -723,7 +723,7 @@ Spíritus Sanctus in ánima iusti.
   [PRAYER_TYPES.CORONA_ANG_INITIUM]: `℣ Deus, in adiutórium meum inténde.
 ℟ Dómine, ad adiuvándum me festína.
 
-Glória Patri, et Fílio, et Spirítui Sancto. Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.`,
+Glória Patri, et Fílio, et Spirítui Sancto. {/}Sicut erat in princípio, et nunc, et semper, {/}et in sǽcula sæculórum. Amen.`,
 
   [PRAYER_TYPES.CORONA_ANG_1]: `{r}Salutátio prima{/r}
 Intercedénte sancto Michaéle et cælésti choro Séraphim, dignos nos effíciat Dóminus, qui igne perféctæ caritátis inflammémur. Amen.`,
@@ -1128,7 +1128,7 @@ tribus honor unus. Amen.`,
 
   // O sacrum convivium: St. Thomas's antiphon (Magnificat at second Vespers of
   // Corpus Christi), sung at Benediction.
-  [PRAYER_TYPES.O_SACRUM_CONVIVIUM]: `O sacrum convívium, in quo Christus súmitur: recólitur memória passiónis eius: mens implétur grátia: et futúræ glóriæ nobis pignus datur.`,
+  [PRAYER_TYPES.O_SACRUM_CONVIVIUM]: `O sacrum convívium, in quo Christus súmitur: {/}recólitur memória passiónis eius: {/}mens implétur grátia: {/}et futúræ glóriæ nobis pignus datur.`,
 
   // Panis angelicus: the last two stanzas of St. Thomas's Sacris solemniis
   // (Matins of Corpus Christi).

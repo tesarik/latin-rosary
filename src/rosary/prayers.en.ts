@@ -73,18 +73,18 @@ const SALVE_REGINA_ANTIPHON_EN = `Hail, holy Queen, Mother of mercy, our life, o
 // House style throughout: "Holy Spirit" (not "Holy Ghost") and lower-case
 // thee/thy/thou, where the printed witnesses capitalize divine pronouns.
 // ---------------------------------------------------------------------------
-const PATER_NOSTER_EN = `Our Father, who art in heaven, hallowed be thy name. Thy kingdom come. Thy will be done, on earth as it is in heaven. Give us this day our daily bread, and forgive us our trespasses, as we forgive those who trespass against us. And lead us not into temptation, but deliver us from evil. Amen.`;
+const PATER_NOSTER_EN = `Our Father, who art in heaven, {/}hallowed be thy name. {/}Thy kingdom come. {/}Thy will be done, on earth as it is in heaven. {/}Give us this day our daily bread, {/}and forgive us our trespasses, {/}as we forgive those who trespass against us. {/}And lead us not into temptation, {/}but deliver us from evil. Amen.`;
 
 export const PRAYERS_EN: Record<StaticPrayerType, string> = {
   [PRAYER_TYPES.SIGN_OF_CROSS]: `In the name ☩ of the Father, and of the Son, and of the Holy Spirit. Amen.`,
 
-  [PRAYER_TYPES.CREED]: `I believe in God, the Father almighty, Creator of heaven and earth. And in Jesus Christ, his only Son, our Lord; who was conceived by the Holy Spirit, born of the Virgin Mary, suffered under Pontius Pilate, was crucified, died, and was buried; he descended into hell; on the third day he rose again from the dead; he ascended into heaven, and is seated at the right hand of God the Father almighty; from thence he shall come to judge the living and the dead. I believe in the Holy Spirit, the holy catholic Church, the communion of saints, the forgiveness of sins, the resurrection of the body, and life everlasting. Amen.`,
+  [PRAYER_TYPES.CREED]: `I believe in God, the Father almighty, Creator of heaven and earth. {/}And in Jesus Christ, his only Son, our Lord; {/}who was conceived by the Holy Spirit, born of the Virgin Mary, {/}suffered under Pontius Pilate, was crucified, died, and was buried; {/}he descended into hell; on the third day he rose again from the dead; {/}he ascended into heaven, and is seated at the right hand of God the Father almighty; {/}from thence he shall come to judge the living and the dead. {/}I believe in the Holy Spirit, the holy catholic Church, {/}the communion of saints, the forgiveness of sins, {/}the resurrection of the body, and life everlasting. Amen.`,
 
   [PRAYER_TYPES.OUR_FATHER]: PATER_NOSTER_EN,
 
-  [PRAYER_TYPES.GLORY_BE]: `Glory be to the Father, and to the Son, and to the Holy Spirit. As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
+  [PRAYER_TYPES.GLORY_BE]: `Glory be to the Father, and to the Son, and to the Holy Spirit. {/}As it was in the beginning, is now, and ever shall be, {/}world without end. Amen.`,
 
-  [PRAYER_TYPES.FATIMA]: `O my Jesus, forgive us our sins, save us from the fires of hell, and lead all souls to heaven, especially those most in need of thy mercy.`,
+  [PRAYER_TYPES.FATIMA]: `O my Jesus, forgive us our sins, {/}save us from the fires of hell, {/}and lead all souls to heaven, {/}especially those most in need of thy mercy.`,
 
   [PRAYER_TYPES.SALVE_REGINA]: `${SALVE_REGINA_ANTIPHON_EN}
 
@@ -93,7 +93,7 @@ O God, whose only-begotten Son, by his life, death and resurrection, has purchas
 
   [PRAYER_TYPES.SALVE_REGINA_LEONINE]: SALVE_REGINA_ANTIPHON_EN,
 
-  [PRAYER_TYPES.LEONINE_OREMUS]: `Let us pray. O God, our refuge and our strength, look down with favour on thy people who cry to thee; and through the intercession of the glorious and immaculate Virgin Mary, Mother of God, of Saint Joseph her spouse, of thy blessed Apostles Peter and Paul, and of all the saints, in mercy and goodness hear our prayers for the conversion of sinners, and for the liberty and exaltation of our holy Mother the Church. Through the same Christ our Lord. Amen.`,
+  [PRAYER_TYPES.LEONINE_OREMUS]: `Let us pray. {/}O God, our refuge and our strength, look down with favour on thy people who cry to thee; {/}and through the intercession of the glorious and immaculate Virgin Mary, Mother of God, of Saint Joseph her spouse, of thy blessed Apostles Peter and Paul, and of all the saints, {/}in mercy and goodness hear our prayers for the conversion of sinners, and for the liberty and exaltation of our holy Mother the Church. {/}Through the same Christ our Lord. Amen.`,
 
   [PRAYER_TYPES.ST_MICHAEL]: `Saint Michael the Archangel, defend us in battle; be our protection against the wickedness and snares of the devil. May God rebuke him, we humbly pray; and do thou, O Prince of the heavenly host, by the power of God, thrust into hell Satan and all the evil spirits who prowl about the world seeking the ruin of souls. Amen.`,
 
@@ -121,7 +121,7 @@ O God, whose only-begotten Son, by his life, death and resurrection, has purchas
 
   // Current English Roman Missal (ICEL 2011) — the counterpart of the Czech
   // here, which is likewise the current missal text.
-  [PRAYER_TYPES.NICENE_CREED]: `I believe in one God, the Father almighty, maker of heaven and earth, of all things visible and invisible. I believe in one Lord Jesus Christ, the Only Begotten Son of God, born of the Father before all ages. God from God, Light from Light, true God from true God, begotten, not made, consubstantial with the Father; through him all things were made. For us men and for our salvation he came down from heaven, and by the Holy Spirit was incarnate of the Virgin Mary, and became man. For our sake he was crucified under Pontius Pilate, he suffered death and was buried, and rose again on the third day in accordance with the Scriptures. He ascended into heaven and is seated at the right hand of the Father. He will come again in glory to judge the living and the dead and his kingdom will have no end. I believe in the Holy Spirit, the Lord, the giver of life, who proceeds from the Father and the Son, who with the Father and the Son is adored and glorified, who has spoken through the prophets. I believe in one, holy, catholic and apostolic Church. I confess one Baptism for the forgiveness of sins and I look forward to the resurrection of the dead and the life of the world to come. Amen.`,
+  [PRAYER_TYPES.NICENE_CREED]: `I believe in one God, the Father almighty, maker of heaven and earth, of all things visible and invisible. {/}I believe in one Lord Jesus Christ, the Only Begotten Son of God, {/}born of the Father before all ages. {/}God from God, Light from Light, true God from true God, {/}begotten, not made, consubstantial with the Father; {/}through him all things were made. {/}For us men and for our salvation he came down from heaven, {/}and by the Holy Spirit was incarnate of the Virgin Mary, and became man. {/}For our sake he was crucified under Pontius Pilate, he suffered death and was buried, {/}and rose again on the third day in accordance with the Scriptures. {/}He ascended into heaven and is seated at the right hand of the Father. {/}He will come again in glory to judge the living and the dead {/}and his kingdom will have no end. {/}I believe in the Holy Spirit, the Lord, the giver of life, {/}who proceeds from the Father and the Son, {/}who with the Father and the Son is adored and glorified, {/}who has spoken through the prophets. {/}I believe in one, holy, catholic and apostolic Church. {/}I confess one Baptism for the forgiveness of sins {/}and I look forward to the resurrection of the dead {/}and the life of the world to come. Amen.`,
 
   [PRAYER_TYPES.SUB_TUUM]: `We fly to thy protection, O holy Mother of God. Despise not our petitions in our necessities, but deliver us always from all dangers, O glorious and blessed Virgin. Our Lady, our mediatrix, our advocate, reconcile us to thy Son, commend us to thy Son, present us to thy Son.`,
 
@@ -260,7 +260,7 @@ Grant them Thine eternal rest. Amen.`,
 Christ, have mercy on us. 3×
 Lord, have mercy on us. 3×`,
 
-  [PRAYER_TYPES.GLORIA_IN_EXCELSIS]: `Glory to God in the highest. And on earth peace to men of good will. We praise Thee. We bless Thee. We adore Thee. We glorify Thee. We give thanks to Thee for Thy great glory. O Lord God, heavenly King, God the Father almighty. O Lord, the only-begotten Son, Jesus Christ. O Lord God, Lamb of God, Son of the Father. Thou who takest away the sins of the world, have mercy upon us. Thou who takest away the sins of the world, receive our prayer. Thou who sittest at the right hand of the Father, have mercy upon us. For Thou only art holy. Thou only art the Lord. Thou only, O Jesus Christ, art most high. With the Holy Ghost, in the glory of God the Father. Amen.`,
+  [PRAYER_TYPES.GLORIA_IN_EXCELSIS]: `Glory to God in the highest. {/}And on earth peace to men of good will. {/}We praise Thee. We bless Thee. We adore Thee. We glorify Thee. {/}We give thanks to Thee for Thy great glory. {/}O Lord God, heavenly King, God the Father almighty. {/}O Lord, the only-begotten Son, Jesus Christ. {/}O Lord God, Lamb of God, Son of the Father. {/}Thou who takest away the sins of the world, have mercy upon us. {/}Thou who takest away the sins of the world, receive our prayer. {/}Thou who sittest at the right hand of the Father, have mercy upon us. {/}For Thou only art holy. {/}Thou only art the Lord. {/}Thou only, O Jesus Christ, art most high. {/}With the Holy Ghost, in the glory of God the Father. Amen.`,
 
   [PRAYER_TYPES.SANCTUS]: `Holy, holy, holy, Lord God of hosts. Heaven and earth are full of Thy glory. Hosanna in the highest.
 Blessed is He that cometh in the name of the Lord. Hosanna in the highest.`,
@@ -269,7 +269,7 @@ Blessed is He that cometh in the name of the Lord. Hosanna in the highest.`,
 Lamb of God, who takest away the sins of the world, have mercy on us.
 Lamb of God, who takest away the sins of the world, grant us peace.`,
 
-  [PRAYER_TYPES.DOMINE_NON_SUM_DIGNUS]: `Lord, I am not worthy that Thou shouldst enter under my roof: say but the word and my soul shall be healed. 3×`,
+  [PRAYER_TYPES.DOMINE_NON_SUM_DIGNUS]: `Lord, I am not worthy that Thou shouldst enter under my roof: {/}say but the word and my soul shall be healed. 3×`,
 
   // The priest's Communion prayers: OCR of the Saint Andrew missal, joined.
   [PRAYER_TYPES.PRAEFATIO_DIALOG]: `℣ World without end.
@@ -301,7 +301,7 @@ May Thy Body, O Lord, which I have received, and Thy Blood which I have drunk, c
 
   [PRAYER_TYPES.GRATIARUM_ACTIO]: `We give thee thanks, almighty God, for all thy benefits, who livest and reignest world without end. Amen.`,
 
-  [PRAYER_TYPES.MEMORARE]: `Remember, O most gracious Virgin Mary, that never was it known that anyone who fled to thy protection, implored thy help, and sought thy intercession, was left unaided. Inspired with this confidence, I fly unto thee, O Virgin of virgins, my Mother. To thee I come; before thee I stand, sinful and sorrowful. O Mother of the Word Incarnate, despise not my petitions, but graciously hear and answer me. Amen.`,
+  [PRAYER_TYPES.MEMORARE]: `Remember, O most gracious Virgin Mary, that never was it known {/}that anyone who fled to thy protection, implored thy help, and sought thy intercession, was left unaided. {/}Inspired with this confidence, I fly unto thee, O Virgin of virgins, my Mother. {/}To thee I come; before thee I stand, sinful and sorrowful. {/}O Mother of the Word Incarnate, despise not my petitions, {/}but graciously hear and answer me. Amen.`,
 
   [PRAYER_TYPES.AD_TE_IOSEPH]: `To thee, O blessed Joseph, do we come in our tribulation, and having implored the help of thy most holy Spouse, we confidently invoke thy patronage also. Through that charity which bound thee to the immaculate Virgin Mother of God and through the paternal love with which thou embraced the Child Jesus, we humbly beg thee to graciously regard the inheritance which Jesus Christ has purchased by his Blood, and with thy power and strength to aid us in our necessities. O most watchful Guardian of the Holy Family, defend the chosen children of Jesus Christ; O most loving father, ward off from us every contagion of error and corrupting influence; O our most mighty protector, be propitious to us and from heaven assist us in our struggle with the power of darkness; and, as once thou rescued the Child Jesus from deadly peril, so now protect God's Holy Church from the snares of the enemy and from all adversity; shield, too, each one of us by thy constant protection, so that, supported by thy example and thy aid, we may be able to live piously, to die holy, and to obtain eternal happiness in heaven. Amen.`,
 
@@ -452,7 +452,7 @@ The Holy Spirit in the soul of the just man.
   [PRAYER_TYPES.CORONA_ANG_INITIUM]: `℣ O God, come to my assistance.
 ℟ O Lord, make haste to help me.
 
-Glory be to the Father, and to the Son, and to the Holy Spirit. As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
+Glory be to the Father, and to the Son, and to the Holy Spirit. {/}As it was in the beginning, is now, and ever shall be, {/}world without end. Amen.`,
 
   [PRAYER_TYPES.CORONA_ANG_1]: `{r}First Salutation{/r}
 At the intercession of St Michael and the heavenly choir of the Seraphim, may it please God to make us worthy to receive into our hearts the fire of his perfect charity. Amen.`,
@@ -858,7 +858,7 @@ Father, Son and Spirit,
 one same glory be. Amen.`,
 
   // The received English of St. Thomas's antiphon.
-  [PRAYER_TYPES.O_SACRUM_CONVIVIUM]: `O sacred banquet, in which Christ is received: the memory of his Passion is renewed: the mind is filled with grace: and a pledge of future glory is given to us.`,
+  [PRAYER_TYPES.O_SACRUM_CONVIVIUM]: `O sacred banquet, in which Christ is received: {/}the memory of his Passion is renewed: {/}the mind is filled with grace: {/}and a pledge of future glory is given to us.`,
 
   // OUR OWN literal translation, line for line with the Latin.
   [PRAYER_TYPES.PANIS_ANGELICUS]: `The bread of angels

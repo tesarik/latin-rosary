@@ -9,6 +9,7 @@
 
 import { MYSTERIES, PRAYERS, PRAYER_TYPES, getHailMary, getHailMaryTr, type Localized } from "./prayers";
 import { PRAYER_TRANSLATIONS } from "./allTranslations";
+import { stripBreaks } from "./breaks";
 import {
   buildRosarySequence,
   sliceLines,
@@ -196,7 +197,7 @@ function itemText(item: SequenceItem, locale: Locale | null): string {
     return `${hm.before}${hm.mystery ? ` ${hm.mystery}.` : ""} ${hm.after}`;
   }
   if (item.type === PRAYER_TYPES.CUSTOM) return "";
-  const full = locale ? PRAYER_TRANSLATIONS[locale][item.type] : PRAYERS[item.type];
+  const full = stripBreaks(locale ? PRAYER_TRANSLATIONS[locale][item.type] : PRAYERS[item.type]);
   return item.lines ? sliceLines(full, item.lines) : full;
 }
 

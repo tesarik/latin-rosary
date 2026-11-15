@@ -13,6 +13,7 @@ import { PRAYERS_EN } from "./prayers.en";
 import { PRAYER_TRANSLATIONS } from "./allTranslations";
 import { buildChaplet, buildRosarySequence, sliceLines, CHAPLETS, OTHER_PRAYER_SETS, ORDINARY_PRAYERS, LITANIES, type SequenceItem } from "./sequence";
 import { parseLitany } from "./litany";
+import { BREAK, segments, stripBreaks } from "./breaks";
 import { SUPPORTED_LOCALES, type Locale } from "./i18n";
 import { STATE_VERSION } from "./storage";
 
@@ -415,5 +416,30 @@ describe("litany responses", () => {
     expect(kyrie[0]).toEqual({ kind: "plain", line: "Pane, smiluj se nad námi. 2×" });
     const runs = runsOf(PRAYER_TYPES.LITANY_SAINTS_NECESSITIES, "cs");
     expect(runs.map((r) => r.kind === "run" && r.response)).toEqual(["tě prosíme, uslyš nás"]);
+  });
+});
+
+describe("break points for the Latin with its translation under it", () => {
+  const keys = Object.keys(PRAYERS) as (keyof typeof PRAYERS)[];
+  const marked = keys.filter((k) => [PRAYERS[k], ...SUPPORTED_LOCALES.map((l) => PRAYER_TRANSLATIONS[l][k])].some((t) => t.includes(BREAK)));
+
+  it("mark the rosary's own prayers", () => {
+    for (const k of [PRAYER_TYPES.OUR_FATHER, PRAYER_TYPES.GLORY_BE, PRAYER_TYPES.CREED, PRAYER_TYPES.FATIMA]) expect(marked).toContain(k);
+  });
+
+  it("cut every language of a marked prayer into as many pieces", () => {
+    for (const k of marked) {
+      const n = segments(PRAYERS[k]).length;
+      for (const l of SUPPORTED_LOCALES) expect([k, l, segments(PRAYER_TRANSLATIONS[l][k]).length]).toEqual([k, l, n]);
+    }
+  });
+
+  it("sit right before a word, so removing them leaves the text as it was", () => {
+    for (const k of marked) {
+      for (const t of [PRAYERS[k], ...SUPPORTED_LOCALES.map((l) => PRAYER_TRANSLATIONS[l][k])]) {
+        expect(t).not.toMatch(/\{\/\}\s|[^\s]\{\/\}/);
+        expect(stripBreaks(t)).not.toContain(BREAK);
+      }
+    }
   });
 });
