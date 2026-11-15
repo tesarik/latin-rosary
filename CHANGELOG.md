@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.42.0]
+
 ### Changed
 - **The language switch is a slider with three positions**: *La* on the left, *Cz* / *En* on the right, the knob between them — left for the Latin, in the middle for the Latin with the translation, right for the translation. Each tap moves it on. The tiny middle label is gone.
 - **Room between the prayer's label and the intention.**
