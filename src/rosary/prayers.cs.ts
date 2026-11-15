@@ -34,7 +34,7 @@ Bože, jehož jednorozený Syn nám svým životem, smrtí a vzkříšením zís
 
   [PRAYER_TYPES.LEONINE_OREMUS]: `Modleme se. {/}Bože, útočiště naše a sílo, shlédni milostivě na lid, který k tobě volá, {/}a na přímluvu slavné a neposkvrněné Panny, Bohorodičky Marie, se svatým Josefem, jejím snoubencem, i tvými svatými apoštoly Petrem a Pavlem a všemi svatými, {/}vyslyš milosrdně a dobrotivě naše prosby, které předkládáme za obrácení hříšníků, za svobodu a povznesení svaté matky Církve. {/}Skrze téhož Krista, našeho Pána. Amen.`,
 
-  [PRAYER_TYPES.ST_MICHAEL]: `Svatý Michaeli Archanděli, braň nás v boji; proti zlobě a úkladům ďáblovým budiž nám záštitou. Nech ať Bůh přikáže jemu, pokorně prosíme. Ty pak, kníže vojska nebeského, Satana a jiné duchy zlé, kteří ke zkáze duší světem obcházejí, božskou mocí do pekla svrhni. Amen.`,
+  [PRAYER_TYPES.ST_MICHAEL]: `Svatý Michaeli Archanděli, braň nás v boji; {/}proti zlobě a úkladům ďáblovým budiž nám záštitou. {/}Nech ať Bůh přikáže jemu, pokorně prosíme. {/}Ty pak, kníže vojska nebeského, {/}Satana a jiné duchy zlé, kteří ke zkáze duší světem obcházejí, božskou mocí do pekla svrhni. Amen.`,
 
   [PRAYER_TYPES.COR_IESU]: `℣ Nejsvětější Srdce Ježíšovo.
 ℟ Smiluj se nad námi.`,
@@ -42,26 +42,26 @@ Bože, jehož jednorozený Syn nám svým životem, smrtí a vzkříšením zís
   // Seven Prayers of St. Bridget — TRANSLATION, not a sourced text. See the
   // note in PRAYERS above the Latin BRIGIT_* entries; the Czech is likewise our
   // own faithful rendering, not transcribed from an authoritative booklet.
-  [PRAYER_TYPES.BRIGIT_OPENING]: `Ó Ježíši, nyní si přeji sedmkrát se pomodlit modlitbu Páně ve spojení s láskou, kterou jsi tuto modlitbu posvětil ve svém Srdci. Přijmi ji z mých rtů do svého božského Srdce; oprav a doplň ji tak, aby přinesla Nejsvětější Trojici tolik cti a radosti, kolik jsi jí ty sám na zemi touto modlitbou vzdal. Kéž se vylévají na tvé nejsvětější lidství ke cti a slávě tvých Ran a předrahé Krve, kterou jsi z nich vylil. Amen.`,
+  [PRAYER_TYPES.BRIGIT_OPENING]: `Ó Ježíši, nyní si přeji sedmkrát se pomodlit modlitbu Páně ve spojení s láskou, kterou jsi tuto modlitbu posvětil ve svém Srdci. {/}Přijmi ji z mých rtů do svého božského Srdce; {/}oprav a doplň ji tak, aby přinesla Nejsvětější Trojici tolik cti a radosti, kolik jsi jí ty sám na zemi touto modlitbou vzdal. {/}Kéž se vylévají na tvé nejsvětější lidství ke cti a slávě tvých Ran a předrahé Krve, kterou jsi z nich vylil. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_CIRCUMCISION]: `Ó Ježíši, božský milovníku našich duší, ke cti onoho prvního vylití tvé předrahé Krve, které jsi za nás podstoupil při svém obřezání, zbav mě všeho hříchu, smrtelného i všedního, a ochraňuj mě před nebezpečími a nepřáteli mé spásy. Amen.`,
+  [PRAYER_TYPES.BRIGIT_CIRCUMCISION]: `Ó Ježíši, božský milovníku našich duší, {/}ke cti onoho prvního vylití tvé předrahé Krve, které jsi za nás podstoupil při svém obřezání, {/}zbav mě všeho hříchu, smrtelného i všedního, {/}a ochraňuj mě před nebezpečími a nepřáteli mé spásy. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_AGONY]: `Ó Ježíši, božský milovníku našich duší, ke cti oné hrozné úzkosti, kterou jsi vytrpěl v Getsemanské zahradě, když tvé nejsvětější Tělo zalil krvavý pot, braň mě proti všem nepřátelům mé spásy, viditelným i neviditelným, a dej mi milost šťastné smrti. Amen.`,
+  [PRAYER_TYPES.BRIGIT_AGONY]: `Ó Ježíši, božský milovníku našich duší, {/}ke cti oné hrozné úzkosti, kterou jsi vytrpěl v Getsemanské zahradě, {/}když tvé nejsvětější Tělo zalil krvavý pot, {/}braň mě proti všem nepřátelům mé spásy, viditelným i neviditelným, {/}a dej mi milost šťastné smrti. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_SCOURGING]: `Ó Ježíši, božský milovníku našich duší, ke cti oné předrahé Krve, kterou jsi vylil při nejukrutnějším bičování, zbav mě, prosím, trestů, které si zasloužily mé hříchy, a dej mi trpělivost ve všech souženích tohoto života. Amen.`,
+  [PRAYER_TYPES.BRIGIT_SCOURGING]: `Ó Ježíši, božský milovníku našich duší, {/}ke cti oné předrahé Krve, kterou jsi vylil při nejukrutnějším bičování, {/}zbav mě, prosím, trestů, které si zasloužily mé hříchy, {/}a dej mi trpělivost ve všech souženích tohoto života. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_THORNS]: `Ó Ježíši, božský milovníku našich duší, ke cti oné Krve, kterou jsi při korunování trním vylil ze své svaté hlavy, zbav mě všech zlých myšlenek a pýchy a dej, ať k tobě vždy přilnu myslí i srdcem. Amen.`,
+  [PRAYER_TYPES.BRIGIT_THORNS]: `Ó Ježíši, božský milovníku našich duší, {/}ke cti oné Krve, kterou jsi při korunování trním vylil ze své svaté hlavy, {/}zbav mě všech zlých myšlenek a pýchy {/}a dej, ať k tobě vždy přilnu myslí i srdcem. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_CROSS]: `Ó Ježíši, božský milovníku našich duší, ke cti oné Krve, kterou jsi vylil při nesení kříže na Kalvárii, dej mi pravou kajícnost a trpělivost, abych denně nesl svůj kříž a věrně tě následoval. Amen.`,
+  [PRAYER_TYPES.BRIGIT_CROSS]: `Ó Ježíši, božský milovníku našich duší, {/}ke cti oné Krve, kterou jsi vylil při nesení kříže na Kalvárii, {/}dej mi pravou kajícnost a trpělivost, abych denně nesl svůj kříž a věrně tě následoval. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_CRUCIFIXION]: `Ó Ježíši, božský milovníku našich duší, ke cti oné předrahé Krve, kterou jsi vylil z ran svých rukou a nohou na kříži, smiluj se nade mnou a skrze ony praménky své Krve zachraň mou duši v hodině mé smrti. Amen.`,
+  [PRAYER_TYPES.BRIGIT_CRUCIFIXION]: `Ó Ježíši, božský milovníku našich duší, {/}ke cti oné předrahé Krve, kterou jsi vylil z ran svých rukou a nohou na kříži, {/}smiluj se nade mnou {/}a skrze ony praménky své Krve zachraň mou duši v hodině mé smrti. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_PIERCING]: `Ó Ježíši, božský milovníku našich duší, ke cti oné Krve a vody, které vytryskly z tvého otevřeného boku a Srdce, přijmi mě do svého nejsvětějšího Srdce a skrze toto poslední vylití doveď mě i všechny duše do věčné slávy. Amen.`,
+  [PRAYER_TYPES.BRIGIT_PIERCING]: `Ó Ježíši, božský milovníku našich duší, {/}ke cti oné Krve a vody, které vytryskly z tvého otevřeného boku a Srdce, {/}přijmi mě do svého nejsvětějšího Srdce {/}a skrze toto poslední vylití doveď mě i všechny duše do věčné slávy. Amen.`,
 
   // Orationes utilissimæ additions. Czech sourced verbatim from orationes.pdf.
   [PRAYER_TYPES.NICENE_CREED]: `Věřím v jednoho Boha, Otce všemohoucího, Stvořitele nebe i země, všeho viditelného i neviditelného. {/}Věřím v jednoho Pána, Ježíše Krista, jednorozeného Syna Božího, {/}který se zrodil z Otce přede všemi věky: {/}Bůh z Boha, Světlo ze Světla, pravý Bůh z pravého Boha, {/}zrozený, nestvořený, jedné podstaty s Otcem: {/}skrze něho všechno je stvořeno. {/}On pro nás lidi a pro naši spásu sestoupil z nebe. {/}Skrze Ducha Svatého přijal tělo z Marie Panny a stal se člověkem. {/}Byl za nás ukřižován, za dnů Poncia Piláta byl umučen a pohřben. {/}Třetího dne vstal z mrtvých podle Písma. {/}Vstoupil do nebe, sedí po pravici Otce. {/}A znovu přijde, ve slávě, soudit živé i mrtvé {/}a jeho království bude bez konce. {/}Věřím v Ducha Svatého, Pána a dárce života, {/}který z Otce i Syna vychází, {/}s Otcem i Synem je zároveň uctíván a oslavován {/}a mluvil ústy proroků. {/}Věřím v jednu, svatou, všeobecnou, apoštolskou církev. {/}Vyznávám jeden křest na odpuštění hříchů. {/}Očekávám vzkříšení mrtvých {/}a život budoucího věku. Amen.`,
 
-  [PRAYER_TYPES.SUB_TUUM]: `Pod ochranu tvou se utíkáme, svatá Boží Rodičko. Neodmítej naše prosby v našich potřebách, ale ode všeho nebezpečí vysvoboď nás vždycky, Panno slavná a požehnaná. Paní naše, prostřednice naše, orodovnice naše, u Syna nám smilování vypros, Synu svému nás doporuč, k Synu svému nás doprovoď.`,
+  [PRAYER_TYPES.SUB_TUUM]: `Pod ochranu tvou se utíkáme, svatá Boží Rodičko. {/}Neodmítej naše prosby v našich potřebách, {/}ale ode všeho nebezpečí vysvoboď nás vždycky, Panno slavná a požehnaná. {/}Paní naše, prostřednice naše, orodovnice naše, {/}u Syna nám smilování vypros, Synu svému nás doporuč, k Synu svému nás doprovoď.`,
 
   [PRAYER_TYPES.ANGELE_DEI]: `Anděle Boží, strážce můj,
 rač vždycky být ochránce můj:
@@ -249,23 +249,23 @@ Nechť Tělo tvé, Pane, jež jsem požil, a Krev, kterou jsem pil, utkví v út
   // katolických pobožností (Minařík, 1935); Súscipe from Cesta k věčné spáse
   // (Brno, 1915); Iúdica me from Schaller's Římský misál (1931). Spelling as
   // printed.
-  [PRAYER_TYPES.BENEDICTIO_MENSAE]: `Žehnej, Hospodine, nás i tyto dary, jichž chceme požívati z tvé štědrosti. Skrze Krista, našeho Pána. Amen.`,
+  [PRAYER_TYPES.BENEDICTIO_MENSAE]: `Žehnej, Hospodine, nás i tyto dary, {/}jichž chceme požívati z tvé štědrosti. {/}Skrze Krista, našeho Pána. Amen.`,
 
-  [PRAYER_TYPES.GRATIARUM_ACTIO]: `Děkujeme ti, všemohoucí Bože, za všecka tvoje dobrodiní. Jenž jsi živ a kraluješ na věky věkův. Amen.`,
+  [PRAYER_TYPES.GRATIARUM_ACTIO]: `Děkujeme ti, všemohoucí Bože, za všecka tvoje dobrodiní. {/}Jenž jsi živ a kraluješ na věky věkův. Amen.`,
 
   [PRAYER_TYPES.MEMORARE]: `Pomni, nejdobrotivější Panno Maria, že od věků není slýcháno, {/}že bys byla někoho opustila, kdo se pod ochranu tvou utíkal, neb o pomoc tě vzýval, anebo za přímluvu tě žádal. {/}Tou důvěrou jsa posilněn, k tobě, Panno panen a Matko, spěchám, {/}k tobě přicházím a jako kající hříšník stojím před tebou. {/}Ó Matko Slova, mými slovy nepohrdej, {/}nýbrž milostivě slyš a vyslyš mne. Amen.`,
 
-  [PRAYER_TYPES.AD_TE_IOSEPH]: `K tobě, svatý Josefe, v soužení svém se utíkáme a jako jsme vzývali o pomoc nejsvětější tvoji Nevěstu, tak důvěrně žádáme i za tvou ochranu. Pro lásku, která tebe spojovala s neposkvrněnou Pannou, Bohorodičkou, a pro otcovskou lásku, se kterou jsi dítě Ježíše objímal, pokorně prosíme, abys na dědictví, kterého Ježíš Kristus dobyl svou krví, dobrotivě shlédl, a našim potřebám mocí a silou svou na pomoc přispěl. Nejpečlivější Strážce božské rodiny, ochraňuj vyvolené potomstvo Ježíše Krista: Odvrať od nás, nejmilejší Otče, všecku nákazu bludů a nepravostí. Buď nám s nebe milostiv, nejsilnější Spomocníku náš, v boji proti mocnosti temností. A jako jsi druhdy vysvobodil dítě Ježíše z největšího nebezpečí života, tak nyní braň Církev svatou proti nepřátelským úkladům, proti všemu protivenství; a zastři nás všecky stráží ustavičnou, abychom podle tvého příkladu a tvou pomocí opatřeni, mohli svatě žíti, nábožně zemříti a věčné blaženosti dosíci. Amen.`,
+  [PRAYER_TYPES.AD_TE_IOSEPH]: `K tobě, svatý Josefe, v soužení svém se utíkáme {/}a jako jsme vzývali o pomoc nejsvětější tvoji Nevěstu, tak důvěrně žádáme i za tvou ochranu. {/}Pro lásku, která tebe spojovala s neposkvrněnou Pannou, Bohorodičkou, a pro otcovskou lásku, se kterou jsi dítě Ježíše objímal, {/}pokorně prosíme, abys na dědictví, kterého Ježíš Kristus dobyl svou krví, dobrotivě shlédl, {/}a našim potřebám mocí a silou svou na pomoc přispěl. {/}Nejpečlivější Strážce božské rodiny, ochraňuj vyvolené potomstvo Ježíše Krista: {/}Odvrať od nás, nejmilejší Otče, všecku nákazu bludů a nepravostí. {/}Buď nám s nebe milostiv, nejsilnější Spomocníku náš, v boji proti mocnosti temností. {/}A jako jsi druhdy vysvobodil dítě Ježíše z největšího nebezpečí života, {/}tak nyní braň Církev svatou proti nepřátelským úkladům, proti všemu protivenství; {/}a zastři nás všecky stráží ustavičnou, {/}abychom podle tvého příkladu a tvou pomocí opatřeni, mohli svatě žíti, nábožně zemříti a věčné blaženosti dosíci. Amen.`,
 
   // Prayers to St. Joseph: the Memoráre (Vzpomeň) and O Ioseph, virgo Pater
   // from Příručka katolických pobožností (Minařík, 1935); Meménto nostri, Fac
   // nos innócuam and the commemoration from Cesta k věčné spáse (Brno, 1915,
   // vol. III). Capitals follow the Latin.
-  [PRAYER_TYPES.MEMORARE_IOSEPH]: `Vzpomeň, svatý Josefe, nejčistší Choti Panny Marie a laskavý náš ochránce, že nebylo slýcháno, že by zůstal bez útěchy, kdo tebe vzýval o pomoc a u tebe hledal ochrany. S touto důvěrou též já k tobě přicházím a tobě se poroučím se vší vroucností. Ach, nepohrdej mou prosbou, Pěstoune Spasitelův, ale přijmi ji milostivě. Amen.`,
+  [PRAYER_TYPES.MEMORARE_IOSEPH]: `Vzpomeň, svatý Josefe, nejčistší Choti Panny Marie a laskavý náš ochránce, {/}že nebylo slýcháno, že by zůstal bez útěchy, kdo tebe vzýval o pomoc a u tebe hledal ochrany. {/}S touto důvěrou též já k tobě přicházím a tobě se poroučím se vší vroucností. {/}Ach, nepohrdej mou prosbou, Pěstoune Spasitelův, ale přijmi ji milostivě. Amen.`,
 
-  [PRAYER_TYPES.MEMENTO_IOSEPH]: `Pamatuj na nás, blahoslavený Josefe, a přimlouvej se prosbou své modlitby u Syna Božího, svého schovance; učiň též, aby nejblahoslavenější Panna, Snoubenka tvá, nám byla milostivou, kteráž Matkou jest toho, jenž s Otcem a Duchem Svatým žije a kraluje po nekonečné věky věkův. Amen.`,
+  [PRAYER_TYPES.MEMENTO_IOSEPH]: `Pamatuj na nás, blahoslavený Josefe, {/}a přimlouvej se prosbou své modlitby u Syna Božího, svého schovance; {/}učiň též, aby nejblahoslavenější Panna, Snoubenka tvá, nám byla milostivou, {/}kteráž Matkou jest toho, jenž s Otcem a Duchem Svatým žije a kraluje po nekonečné věky věkův. Amen.`,
 
-  [PRAYER_TYPES.O_IOSEPH_VIRGO]: `Josefe, panický Pěstoune Ježíšův, nejčistší Snoubenče Panny Marie, pros za nás každodenně téhož Ježíše, Syna Božího, abychom podporováni jsouce jeho milostí, řádně bojovali v životě a od něho korunováni byli ve smrti.`,
+  [PRAYER_TYPES.O_IOSEPH_VIRGO]: `Josefe, panický Pěstoune Ježíšův, nejčistší Snoubenče Panny Marie, {/}pros za nás každodenně téhož Ježíše, Syna Božího, {/}abychom podporováni jsouce jeho milostí, řádně bojovali v životě a od něho korunováni byli ve smrti.`,
 
   [PRAYER_TYPES.FAC_NOS_INNOCUAM]: `Dej, Josefe blažený, bychom životem šli nevinně; kéž tvá stráž učiní pouť naši bezpečnou!`,
 
@@ -310,14 +310,14 @@ jakož byla na počátku, nyní vždy i na věky. Amen.`,
 ℣ Vstoupím k oltáři Božímu.
 ℟ Před Boha, jenž je původcem radosti mé od mladosti mojí.`,
 
-  [PRAYER_TYPES.SUSCIPE]: `Přijmi, ó Pane, a přivlastni sobě všecku mou svobodu, paměť, rozum a vůli! Cokoli zovu svým, všecko dals mi ty; tobě, ó Pane, opět všecko vracím; vše náleží tobě; nalož s tím, jak se ti zalíbí. Daruj mi toliko lásku a milost svou, a budu s dostatek bohat, aniž sobě čeho více žádati budu.`,
+  [PRAYER_TYPES.SUSCIPE]: `Přijmi, ó Pane, a přivlastni sobě všecku mou svobodu, {/}paměť, rozum a vůli! {/}Cokoli zovu svým, všecko dals mi ty; {/}tobě, ó Pane, opět všecko vracím; vše náleží tobě; nalož s tím, jak se ti zalíbí. {/}Daruj mi toliko lásku a milost svou, {/}a budu s dostatek bohat, aniž sobě čeho více žádati budu.`,
 
   // ---------------------------------------------------------------------------
   // Creátor ineffábilis (St. Thomas Aquinas, before study): OUR OWN TRANSLATION
   // of the Latin — no Czech version was found in the prayer books searched.
   // Replace it verbatim if a printed one turns up.
   // ---------------------------------------------------------------------------
-  [PRAYER_TYPES.CREATOR_INEFFABILIS]: `Nevýslovný Stvořiteli, jenž jsi z pokladů své moudrosti ustanovil tři kůry andělů, podivuhodným řádem jsi je postavil nad nejvyšší nebe a části vesmíru jsi nanejvýš krásně uspořádal: ty, pravím, jenž se nazýváš pravým pramenem světla a moudrosti a svrchovaným počátkem, rač vlít do temnot mého rozumu paprsek své jasnosti a odejmi ode mne dvojí temnotu, v níž jsem se narodil, totiž hřích a nevědomost. Ty, jenž jazyky nemluvňat činíš výmluvnými, vyuč můj jazyk a vlij do mých rtů milost svého požehnání. Dej mi bystrost k chápání, schopnost k zapamatování, způsob a snadnost k učení, důvtip k vykládání a hojnou milost v mluvení. Začátek uspořádej, postup řiď, konec završ. Ty, jenž jsi pravý Bůh a člověk, jenž žiješ a kraluješ na věky věků. Amen.`,
+  [PRAYER_TYPES.CREATOR_INEFFABILIS]: `Nevýslovný Stvořiteli, jenž jsi z pokladů své moudrosti ustanovil tři kůry andělů, {/}podivuhodným řádem jsi je postavil nad nejvyšší nebe {/}a části vesmíru jsi nanejvýš krásně uspořádal: {/}ty, pravím, jenž se nazýváš pravým pramenem světla a moudrosti a svrchovaným počátkem, {/}rač vlít do temnot mého rozumu paprsek své jasnosti {/}a odejmi ode mne dvojí temnotu, v níž jsem se narodil, totiž hřích a nevědomost. {/}Ty, jenž jazyky nemluvňat činíš výmluvnými, {/}vyuč můj jazyk a vlij do mých rtů milost svého požehnání. {/}Dej mi bystrost k chápání, schopnost k zapamatování, způsob a snadnost k učení, důvtip k vykládání a hojnou milost v mluvení. {/}Začátek uspořádej, postup řiď, konec završ. {/}Ty, jenž jsi pravý Bůh a člověk, jenž žiješ a kraluješ na věky věků. Amen.`,
 
   // Korunka k úctě Ducha Svatého: Příručka katolických pobožností (Minařík,
   // 1935), p. 237 f., a translation of the Latin above; the Veni Creator from
@@ -446,7 +446,7 @@ Svatý Michaeli, přeslavné kníže, hlavo a vůdce nebeských zástupů, vůdc
 ℣ Oroduj za nás, přeblahoslavený Michaeli, kníže Církve Ježíše Krista.
 ℟ Abychom hodni učiněni byli zaslíbení jeho.`,
 
-  [PRAYER_TYPES.CORONA_ANG_OREMUS]: `Modleme se. Všemohoucí, věčný Bože, jenž jsi v přepodivné dobrotě a milosrdnosti své k všeobecnému spasení lidu slavného a svatého archanděla Michala knížetem Církve své vyvoliti ráčil: prosíme tebe, učiň nás hodny, abychom jeho dobrotivou ochranou ode všech nepřátel svých osvobozeni byli, tak, aby žádný z nich v hodinu smrti nás neznepokojoval, nýbrž abychom milosti účastní se stali, od něho samého před tvář tvé vznešené velebnosti Boží přivedenu býti. Pro zásluhy Ježíše Krista, Pána našeho. Tak se staň!`,
+  [PRAYER_TYPES.CORONA_ANG_OREMUS]: `Modleme se. {/}Všemohoucí, věčný Bože, jenž jsi v přepodivné dobrotě a milosrdnosti své k všeobecnému spasení lidu slavného a svatého archanděla Michala knížetem Církve své vyvoliti ráčil: {/}prosíme tebe, učiň nás hodny, abychom jeho dobrotivou ochranou ode všech nepřátel svých osvobozeni byli, {/}tak, aby žádný z nich v hodinu smrti nás neznepokojoval, {/}nýbrž abychom milosti účastní se stali, od něho samého před tvář tvé vznešené velebnosti Boží přivedenu býti. {/}Pro zásluhy Ježíše Krista, Pána našeho. Tak se staň!`,
 
   [PRAYER_TYPES.CORONA_DOL_INITIUM]: `{r}Vzbuzení lítosti{/r}
 Ó jediný a nejlaskavější Pane můj, viz mne, jenž rozjímaje velké urážky, jimiž jsem tě rozhněval, všecek zahanben před tebou klečím. Prosím tě vroucně, račiž mi je odpustiti, protože jich z pouhé lásky k tobě lituji, a poněvadž jsi neskonalé dobro, je nade všecko zlo v ošklivosti mám a je zavrhuji. A jako bych si přál, abych tisíckrát byl raději zemřel, než tebe urazil, tak jsem též pevně odhodlán raději tisíckrát život svůj ztratiti, než tebe opět urazit. Ó můj ukřižovaný Ježíši, činím opravdové předsevzetí co nejdříve duši svou předrahou krví svou ve svátosti pokání očistit. Tebe však, nejmilostivější Panno, Matko milosrdenství a útočiště hříšníků, prosím, račiž mi pro své přehořké bolesti zjednati přežádoucí odpuštění mých hříchův; a modle se dle úmyslu náměstků Kristových, abych odpustků růženci tvému udělených účastným se stal, doufám zároveň, že jimi dosáhnu odpuštění trestů, za hříchy své zasloužených.`,
@@ -533,7 +533,7 @@ Před tvým nejmírnějším Srdcem, ó můj laskavý Ježíši, hrozím se své
   [PRAYER_TYPES.CORONA_COR_5]: `{r}V. Velkomyslné Srdce{/r}
 Buďtež pěny chvály, ó Ježíši, tvému velkomyslnému Srdci, jež nad smrtí a peklem zvítězilo a všech chval zasluhuje. Já však jsem více než kdy zahanben, vida srdce své tak malomyslné, že se bojí každé zpozdilé řeči a zastrašeno bývá bázní lidskou. Avšak od nynějška tak nebude. Prosím tě vroucně, dej mi zmužilosti a síly, abych s tebou bojoval a zvítězil na zemi a pak radostné vítězství s tebou slavil na nebi.`,
 
-  [PRAYER_TYPES.CORONA_COR_IACULATORIA]: `Ó přesladké Srdce mého Ježíše, dej, abych tě miloval víc a více!`,
+  [PRAYER_TYPES.CORONA_COR_IACULATORIA]: `Ó přesladké Srdce mého Ježíše, {/}dej, abych tě miloval víc a více!`,
 
   [PRAYER_TYPES.CORONA_COR_MARIA]: `{r}Obraťme se k Marii, víc a více se jí zasvěcujíce, a důvěřujíce v její mateřské Srdce, rceme jí:{/r}
 Prosím tebe, ó vznešená Matko Boží a Matko má, Maria, pro veliké přednosti svého nejsladšího Srdce vyžádej mi pravé a stálé pobožnosti k nejsvětějšímu Srdci Ježíše, Syna svého, abych se všemi myšlenkami a city svými do tohoto Srdce ukryt všecky povinnosti své plnil a povždy, zvláště však tohoto dne, Ježíši ochotně a pilně sloužil.`,
@@ -1830,17 +1830,17 @@ Všemohoucí věčný Bože, jenž nad živými vládneš zároveň i nad mrtvý
   // prayer and Ó Krvi a Vodo follow the Hour of Mercy service of the
   // Augustinian abbey in Brno (Dn 1319, 84); the closing prayer the Minorites
   // in Opava (Dn 950), without its added "Neboť ty žiješ…" ending.
-  [PRAYER_TYPES.CHAPLET_OPENING]: `Zemřel jsi, Ježíši, ale pro duše vytryskl pramen života a pro celý svět se otevřelo moře milosrdenství. Zřídlo života, nevyčerpatelné Boží milosrdenství, obejmi celý svět a vylej se na nás.`,
+  [PRAYER_TYPES.CHAPLET_OPENING]: `Zemřel jsi, Ježíši, ale pro duše vytryskl pramen života {/}a pro celý svět se otevřelo moře milosrdenství. {/}Zřídlo života, nevyčerpatelné Boží milosrdenství, {/}obejmi celý svět a vylej se na nás.`,
 
   [PRAYER_TYPES.CHAPLET_BLOOD_WATER]: `Ó Krvi a Vodo, která jsi vytryskla ze Srdce Ježíšova jako zdroj milosrdenství pro nás, důvěřuji ti.`,
 
-  [PRAYER_TYPES.CHAPLET_ETERNAL_FATHER]: `Věčný Otče, obětuji ti Tělo a Krev, Duši i Božství tvého nejmilejšího Syna a našeho Pána Ježíše Krista na smír za hříchy naše i celého světa.`,
+  [PRAYER_TYPES.CHAPLET_ETERNAL_FATHER]: `Věčný Otče, obětuji ti Tělo a Krev, Duši i Božství {/}tvého nejmilejšího Syna a našeho Pána Ježíše Krista {/}na smír za hříchy naše i celého světa.`,
 
   [PRAYER_TYPES.CHAPLET_PASSION]: `Pro jeho bolestné utrpení buď milosrdný k nám i k celému světu.`,
 
   [PRAYER_TYPES.CHAPLET_TRISAGION]: `Svatý Bože, Svatý Silný, Svatý Nesmrtelný, smiluj se nad námi a nad celým světem.`,
 
-  [PRAYER_TYPES.CHAPLET_CLOSING]: `Věčný Bože, jehož milosrdenství je nevyčerpatelné a poklad slitování nepřeberný, shlédni na nás s laskavostí a rozhojni v nás své milosrdenství, abychom v těžkých chvílích nezoufali a neklesali na duchu, ale poddali se s velkou důvěrou tvé svaté vůli, která je láska a milosrdenství samo.`,
+  [PRAYER_TYPES.CHAPLET_CLOSING]: `Věčný Bože, jehož milosrdenství je nevyčerpatelné a poklad slitování nepřeberný, {/}shlédni na nás s laskavostí a rozhojni v nás své milosrdenství, {/}abychom v těžkých chvílích nezoufali a neklesali na duchu, {/}ale poddali se s velkou důvěrou tvé svaté vůli, která je láska a milosrdenství samo.`,
 
   [PRAYER_TYPES.CHAPLET_TRUST]: `Ježíši, důvěřuji ti.`,
 
@@ -1857,5 +1857,5 @@ Všemohoucí věčný Bože, jenž nad živými vládneš zároveň i nad mrtvý
   [PRAYER_TYPES.IOSEPH_6]: ioseph("VI. Návrat z Egypta a život s Ježíšem a Marií.", PATER_NOSTER_CS),
   [PRAYER_TYPES.IOSEPH_7]: ioseph("VII. Ztráta Ježíše a jeho nalezení v chrámě.", PATER_NOSTER_CS),
 
-  [PRAYER_TYPES.IOSEPH_VIRGINUM_CUSTOS]: `Ó strážce a otče panen, svatý Josefe, jehož věrné stráži samotná nevinnost Ježíš Kristus a Panna všech panen Maria svěřeni byli! Tebe skrze tento dvojí nejdražší tobě svěřený poklad, skrze Ježíše a Marii, snažně prosím, abys mne od vší nečistoty uchránil a učinil, abych neposkvrněnou myslí, nevinným srdcem a čistým tělem Ježíši a Marii vždy v co největší čistotě sloužil(a). Amen.`,
+  [PRAYER_TYPES.IOSEPH_VIRGINUM_CUSTOS]: `Ó strážce a otče panen, svatý Josefe, {/}jehož věrné stráži samotná nevinnost Ježíš Kristus a Panna všech panen Maria svěřeni byli! {/}Tebe skrze tento dvojí nejdražší tobě svěřený poklad, skrze Ježíše a Marii, snažně prosím, {/}abys mne od vší nečistoty uchránil a učinil, {/}abych neposkvrněnou myslí, nevinným srdcem a čistým tělem Ježíši a Marii vždy v co největší čistotě sloužil(a). Amen.`,
 };

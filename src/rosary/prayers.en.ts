@@ -95,7 +95,7 @@ O God, whose only-begotten Son, by his life, death and resurrection, has purchas
 
   [PRAYER_TYPES.LEONINE_OREMUS]: `Let us pray. {/}O God, our refuge and our strength, look down with favour on thy people who cry to thee; {/}and through the intercession of the glorious and immaculate Virgin Mary, Mother of God, of Saint Joseph her spouse, of thy blessed Apostles Peter and Paul, and of all the saints, {/}in mercy and goodness hear our prayers for the conversion of sinners, and for the liberty and exaltation of our holy Mother the Church. {/}Through the same Christ our Lord. Amen.`,
 
-  [PRAYER_TYPES.ST_MICHAEL]: `Saint Michael the Archangel, defend us in battle; be our protection against the wickedness and snares of the devil. May God rebuke him, we humbly pray; and do thou, O Prince of the heavenly host, by the power of God, thrust into hell Satan and all the evil spirits who prowl about the world seeking the ruin of souls. Amen.`,
+  [PRAYER_TYPES.ST_MICHAEL]: `Saint Michael the Archangel, defend us in battle; {/}be our protection against the wickedness and snares of the devil. {/}May God rebuke him, we humbly pray; {/}and do thou, O Prince of the heavenly host, {/}by the power of God, thrust into hell Satan and all the evil spirits who prowl about the world seeking the ruin of souls. Amen.`,
 
   [PRAYER_TYPES.COR_IESU]: `℣ Most Sacred Heart of Jesus.
 ℟ Have mercy on us.`,
@@ -103,27 +103,27 @@ O God, whose only-begotten Son, by his life, death and resurrection, has purchas
   // Seven Prayers of St. Bridget — TRANSLATION, not a sourced text. See the note
   // in PRAYERS above the Latin BRIGIT_* entries; the English, like the Czech, is
   // our own rendering of the same content.
-  [PRAYER_TYPES.BRIGIT_OPENING]: `O Jesus, I now wish to pray the Lord's Prayer seven times in union with that love with which thou didst sanctify this prayer in thy Heart. Take it from my lips into thy divine Heart; amend and perfect it, that it may bring the Most Holy Trinity as much honour and joy as thou thyself didst render to it on earth by this prayer. May it overflow upon thy most sacred Humanity, to the honour and glory of thy Wounds and of the precious Blood that thou didst pour forth from them. Amen.`,
+  [PRAYER_TYPES.BRIGIT_OPENING]: `O Jesus, I now wish to pray the Lord's Prayer seven times in union with that love with which thou didst sanctify this prayer in thy Heart. {/}Take it from my lips into thy divine Heart; {/}amend and perfect it, that it may bring the Most Holy Trinity as much honour and joy as thou thyself didst render to it on earth by this prayer. {/}May it overflow upon thy most sacred Humanity, to the honour and glory of thy Wounds and of the precious Blood that thou didst pour forth from them. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_CIRCUMCISION]: `O Jesus, divine lover of our souls, in honour of that first shedding of thy precious Blood which thou didst suffer for us at thy Circumcision, deliver me from every sin, mortal and venial, and protect me against the dangers and the enemies of my salvation. Amen.`,
+  [PRAYER_TYPES.BRIGIT_CIRCUMCISION]: `O Jesus, divine lover of our souls, {/}in honour of that first shedding of thy precious Blood which thou didst suffer for us at thy Circumcision, {/}deliver me from every sin, mortal and venial, {/}and protect me against the dangers and the enemies of my salvation. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_AGONY]: `O Jesus, divine lover of our souls, in honour of that fearful agony which thou didst endure in the garden of Olives, when thy most sacred Body streamed with a sweat of blood, defend me against all the enemies of my salvation, visible and invisible, and grant me the grace of a happy death. Amen.`,
+  [PRAYER_TYPES.BRIGIT_AGONY]: `O Jesus, divine lover of our souls, {/}in honour of that fearful agony which thou didst endure in the garden of Olives, {/}when thy most sacred Body streamed with a sweat of blood, {/}defend me against all the enemies of my salvation, visible and invisible, {/}and grant me the grace of a happy death. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_SCOURGING]: `O Jesus, divine lover of our souls, in honour of that precious Blood which thou didst shed in thy most cruel scourging, deliver me, I beseech thee, from the punishments my sins have deserved, and give me patience in all the trials of this life. Amen.`,
+  [PRAYER_TYPES.BRIGIT_SCOURGING]: `O Jesus, divine lover of our souls, {/}in honour of that precious Blood which thou didst shed in thy most cruel scourging, {/}deliver me, I beseech thee, from the punishments my sins have deserved, {/}and give me patience in all the trials of this life. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_THORNS]: `O Jesus, divine lover of our souls, in honour of that Blood which thou didst pour forth from thy sacred head at the crowning with thorns, deliver me from all evil thoughts and from pride, and grant that I may cleave to thee always in mind and heart. Amen.`,
+  [PRAYER_TYPES.BRIGIT_THORNS]: `O Jesus, divine lover of our souls, {/}in honour of that Blood which thou didst pour forth from thy sacred head at the crowning with thorns, {/}deliver me from all evil thoughts and from pride, {/}and grant that I may cleave to thee always in mind and heart. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_CROSS]: `O Jesus, divine lover of our souls, in honour of that Blood which thou didst shed while carrying the Cross to Calvary, grant me true repentance and the patience to bear my cross daily, following thee faithfully. Amen.`,
+  [PRAYER_TYPES.BRIGIT_CROSS]: `O Jesus, divine lover of our souls, {/}in honour of that Blood which thou didst shed while carrying the Cross to Calvary, {/}grant me true repentance and the patience to bear my cross daily, following thee faithfully. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_CRUCIFIXION]: `O Jesus, divine lover of our souls, in honour of that precious Blood which thou didst pour forth from the Wounds of thy hands and feet upon the Cross, have mercy on me, and by those streams of thy Blood save my soul in the hour of my death. Amen.`,
+  [PRAYER_TYPES.BRIGIT_CRUCIFIXION]: `O Jesus, divine lover of our souls, {/}in honour of that precious Blood which thou didst pour forth from the Wounds of thy hands and feet upon the Cross, {/}have mercy on me, {/}and by those streams of thy Blood save my soul in the hour of my death. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_PIERCING]: `O Jesus, divine lover of our souls, in honour of that Blood and water which flowed from thy opened side and Heart, receive me into thy most sacred Heart, and by this last outpouring lead me and all souls into eternal glory. Amen.`,
+  [PRAYER_TYPES.BRIGIT_PIERCING]: `O Jesus, divine lover of our souls, {/}in honour of that Blood and water which flowed from thy opened side and Heart, {/}receive me into thy most sacred Heart, {/}and by this last outpouring lead me and all souls into eternal glory. Amen.`,
 
   // Current English Roman Missal (ICEL 2011) — the counterpart of the Czech
   // here, which is likewise the current missal text.
   [PRAYER_TYPES.NICENE_CREED]: `I believe in one God, the Father almighty, maker of heaven and earth, of all things visible and invisible. {/}I believe in one Lord Jesus Christ, the Only Begotten Son of God, {/}born of the Father before all ages. {/}God from God, Light from Light, true God from true God, {/}begotten, not made, consubstantial with the Father; {/}through him all things were made. {/}For us men and for our salvation he came down from heaven, {/}and by the Holy Spirit was incarnate of the Virgin Mary, and became man. {/}For our sake he was crucified under Pontius Pilate, he suffered death and was buried, {/}and rose again on the third day in accordance with the Scriptures. {/}He ascended into heaven and is seated at the right hand of the Father. {/}He will come again in glory to judge the living and the dead {/}and his kingdom will have no end. {/}I believe in the Holy Spirit, the Lord, the giver of life, {/}who proceeds from the Father and the Son, {/}who with the Father and the Son is adored and glorified, {/}who has spoken through the prophets. {/}I believe in one, holy, catholic and apostolic Church. {/}I confess one Baptism for the forgiveness of sins {/}and I look forward to the resurrection of the dead {/}and the life of the world to come. Amen.`,
 
-  [PRAYER_TYPES.SUB_TUUM]: `We fly to thy protection, O holy Mother of God. Despise not our petitions in our necessities, but deliver us always from all dangers, O glorious and blessed Virgin. Our Lady, our mediatrix, our advocate, reconcile us to thy Son, commend us to thy Son, present us to thy Son.`,
+  [PRAYER_TYPES.SUB_TUUM]: `We fly to thy protection, O holy Mother of God. {/}Despise not our petitions in our necessities, {/}but deliver us always from all dangers, O glorious and blessed Virgin. {/}Our Lady, our mediatrix, our advocate, {/}reconcile us to thy Son, commend us to thy Son, present us to thy Son.`,
 
   [PRAYER_TYPES.ANGELE_DEI]: `Angel of God, my guardian dear, to whom God's love commits me here, ever this day be at my side, to light and guard, to rule and guide. Amen.`,
 
@@ -297,21 +297,21 @@ May Thy Body, O Lord, which I have received, and Thy Blood which I have drunk, c
   // Daily Missal (thee/thou in lower case, as elsewhere in this table); Ad te
   // beáte Ioseph from preces-latinae; grace at meals and the Súscipe in their
   // received forms.
-  [PRAYER_TYPES.BENEDICTIO_MENSAE]: `Bless us, O Lord, and these thy gifts, which we are about to receive from thy bounty. Through Christ our Lord. Amen.`,
+  [PRAYER_TYPES.BENEDICTIO_MENSAE]: `Bless us, O Lord, and these thy gifts, {/}which we are about to receive from thy bounty. {/}Through Christ our Lord. Amen.`,
 
-  [PRAYER_TYPES.GRATIARUM_ACTIO]: `We give thee thanks, almighty God, for all thy benefits, who livest and reignest world without end. Amen.`,
+  [PRAYER_TYPES.GRATIARUM_ACTIO]: `We give thee thanks, almighty God, for all thy benefits, {/}who livest and reignest world without end. Amen.`,
 
   [PRAYER_TYPES.MEMORARE]: `Remember, O most gracious Virgin Mary, that never was it known {/}that anyone who fled to thy protection, implored thy help, and sought thy intercession, was left unaided. {/}Inspired with this confidence, I fly unto thee, O Virgin of virgins, my Mother. {/}To thee I come; before thee I stand, sinful and sorrowful. {/}O Mother of the Word Incarnate, despise not my petitions, {/}but graciously hear and answer me. Amen.`,
 
-  [PRAYER_TYPES.AD_TE_IOSEPH]: `To thee, O blessed Joseph, do we come in our tribulation, and having implored the help of thy most holy Spouse, we confidently invoke thy patronage also. Through that charity which bound thee to the immaculate Virgin Mother of God and through the paternal love with which thou embraced the Child Jesus, we humbly beg thee to graciously regard the inheritance which Jesus Christ has purchased by his Blood, and with thy power and strength to aid us in our necessities. O most watchful Guardian of the Holy Family, defend the chosen children of Jesus Christ; O most loving father, ward off from us every contagion of error and corrupting influence; O our most mighty protector, be propitious to us and from heaven assist us in our struggle with the power of darkness; and, as once thou rescued the Child Jesus from deadly peril, so now protect God's Holy Church from the snares of the enemy and from all adversity; shield, too, each one of us by thy constant protection, so that, supported by thy example and thy aid, we may be able to live piously, to die holy, and to obtain eternal happiness in heaven. Amen.`,
+  [PRAYER_TYPES.AD_TE_IOSEPH]: `To thee, O blessed Joseph, do we come in our tribulation, {/}and having implored the help of thy most holy Spouse, we confidently invoke thy patronage also. {/}Through that charity which bound thee to the immaculate Virgin Mother of God and through the paternal love with which thou embraced the Child Jesus, {/}we humbly beg thee to graciously regard the inheritance which Jesus Christ has purchased by his Blood, {/}and with thy power and strength to aid us in our necessities. {/}O most watchful Guardian of the Holy Family, defend the chosen children of Jesus Christ; {/}O most loving father, ward off from us every contagion of error and corrupting influence; {/}O our most mighty protector, be propitious to us and from heaven assist us in our struggle with the power of darkness; {/}and, as once thou rescued the Child Jesus from deadly peril, {/}so now protect God's Holy Church from the snares of the enemy and from all adversity; {/}shield, too, each one of us by thy constant protection, {/}so that, supported by thy example and thy aid, we may be able to live piously, to die holy, and to obtain eternal happiness in heaven. Amen.`,
 
   // Prayers to St. Joseph: the Raccolta (1910, nos. 303, 309, 314, 310, 298),
   // its "etc." written out.
-  [PRAYER_TYPES.MEMORARE_IOSEPH]: `Remember, most pure spouse of Mary ever Virgin, my loving protector, St. Joseph, that never has it been heard that anyone ever invoked thy protection, or besought aid of thee, without being consoled. In this confidence I come before thee, I fervently recommend myself to thee. Despise not my prayer, foster-father of our Redeemer, but do thou in thy pity receive it. Amen.`,
+  [PRAYER_TYPES.MEMORARE_IOSEPH]: `Remember, most pure spouse of Mary ever Virgin, my loving protector, St. Joseph, {/}that never has it been heard that anyone ever invoked thy protection, or besought aid of thee, without being consoled. {/}In this confidence I come before thee, I fervently recommend myself to thee. {/}Despise not my prayer, foster-father of our Redeemer, but do thou in thy pity receive it. Amen.`,
 
-  [PRAYER_TYPES.MEMENTO_IOSEPH]: `Be mindful of us, O blessed Joseph, and intercede on our behalf with thy reputed Son; and secure for us the favour of thy most holy Virgin Spouse, the Mother of him who liveth and reigneth with the Father and the Holy Ghost, world without end. Amen.`,
+  [PRAYER_TYPES.MEMENTO_IOSEPH]: `Be mindful of us, O blessed Joseph, {/}and intercede on our behalf with thy reputed Son; {/}and secure for us the favour of thy most holy Virgin Spouse, {/}the Mother of him who liveth and reigneth with the Father and the Holy Ghost, world without end. Amen.`,
 
-  [PRAYER_TYPES.O_IOSEPH_VIRGO]: `O Joseph, virgin father of Jesus, most pure spouse of the Virgin Mary, pray for us daily to the Son of God, that, armed with the weapons of his grace, we may fight as we ought in life, and be crowned by him in death.`,
+  [PRAYER_TYPES.O_IOSEPH_VIRGO]: `O Joseph, virgin father of Jesus, most pure spouse of the Virgin Mary, {/}pray for us daily to the Son of God, {/}that, armed with the weapons of his grace, we may fight as we ought in life, and be crowned by him in death.`,
 
   [PRAYER_TYPES.FAC_NOS_INNOCUAM]: `Grant, O holy Joseph, that, ever secure under thy protection, we may pass our lives without guilt.`,
 
@@ -356,10 +356,10 @@ As it was in the beginning, is now, and ever shall be, world without end. Amen.`
 ℣ I will go in unto the altar of God.
 ℟ Unto God, who giveth joy to my youth.`,
 
-  [PRAYER_TYPES.SUSCIPE]: `Take, O Lord, and receive all my liberty, my memory, my understanding and my whole will. Whatever I have or hold, thou hast given me; I give it all back to thee and surrender it wholly to be governed by thy will. Give me only thy love and thy grace, and I am rich enough and ask for nothing more. Amen.`,
+  [PRAYER_TYPES.SUSCIPE]: `Take, O Lord, and receive all my liberty, {/}my memory, my understanding and my whole will. {/}Whatever I have or hold, thou hast given me; {/}I give it all back to thee and surrender it wholly to be governed by thy will. {/}Give me only thy love and thy grace, {/}and I am rich enough and ask for nothing more. Amen.`,
 
   // Creátor ineffábilis: the English of preces-latinae.
-  [PRAYER_TYPES.CREATOR_INEFFABILIS]: `O infinite Creator, who in the riches of Thy wisdom didst appoint three hierarchies of Angels and didst set them in wondrous order over the highest heavens, and who didst apportion the elements of the world most wisely: do Thou, who art in truth the fountain of light and wisdom, deign to shed upon the darkness of my understanding the rays of Thine infinite brightness, and remove far from me the twofold darkness in which I was born, namely, sin and ignorance. Do Thou, who givest speech to the tongues of little children, instruct my tongue and pour into my lips the grace of Thy benediction. Give me keenness of apprehension, capacity for remembering, method and ease in learning, insight-in interpretation, and copious eloquence in speech. Instruct my beginning, direct my progress, and set Thy seal upon the finished work, Thou, who art true God and true Man, who livest and reignest world without end. Amen.`,
+  [PRAYER_TYPES.CREATOR_INEFFABILIS]: `O infinite Creator, who in the riches of Thy wisdom didst appoint three hierarchies of Angels {/}and didst set them in wondrous order over the highest heavens, {/}and who didst apportion the elements of the world most wisely: {/}do Thou, who art in truth the fountain of light and wisdom, {/}deign to shed upon the darkness of my understanding the rays of Thine infinite brightness, {/}and remove far from me the twofold darkness in which I was born, namely, sin and ignorance. {/}Do Thou, who givest speech to the tongues of little children, {/}instruct my tongue and pour into my lips the grace of Thy benediction. {/}Give me keenness of apprehension, capacity for remembering, method and ease in learning, insight-in interpretation, and copious eloquence in speech. {/}Instruct my beginning, direct my progress, and set Thy seal upon the finished work, {/}Thou, who art true God and true Man, who livest and reignest world without end. Amen.`,
 
   // ---------------------------------------------------------------------------
   // Chaplet of the Holy Spirit: the English of the Raccolta (1910), no. 52,
@@ -487,7 +487,7 @@ Michael, glorious Prince, chief and champion of the heavenly host, guardian of t
 ℣ Pray for us, most blessed Michael, Prince of the Church of Jesus Christ.
 ℟ That we may be made worthy of his promises.`,
 
-  [PRAYER_TYPES.CORONA_ANG_OREMUS]: `Let us pray. Almighty and eternal God, who in thy own marvellous goodness and pity didst, for the common salvation of man, choose the glorious Archangel Michael to be the Prince of thy Church; make us worthy, we pray Thee, to be delivered by his beneficent protection from all our enemies, that at the hour of our death no one of them may approach to harm us, and that by the same Archangel Michael we may be introduced into the presence of thy high and heavenly Majesty. Through the merits of Jesus Christ our Lord, Amen.`,
+  [PRAYER_TYPES.CORONA_ANG_OREMUS]: `Let us pray. {/}Almighty and eternal God, who in thy own marvellous goodness and pity didst, for the common salvation of man, choose the glorious Archangel Michael to be the Prince of thy Church; {/}make us worthy, we pray Thee, to be delivered by his beneficent protection from all our enemies, {/}that at the hour of our death no one of them may approach to harm us, {/}and that by the same Archangel Michael we may be introduced into the presence of thy high and heavenly Majesty. {/}Through the merits of Jesus Christ our Lord, Amen.`,
 
   [PRAYER_TYPES.CORONA_DOL_INITIUM]: `{r}Act of Contrition{/r}
 My Lord, Thou who alone art most worthy of my love, behold me standing before thy Divine Presence utterly overwhelmed by the thought of the many grievous injuries I have done Thee. I ask thy pardon for them with my whole heart, repenting of them purely for love of Thee, and at the thought of thy great goodness hating and loathing them above every evil of this life. As I would rather have died a thousand times than have offended Thee, so now I am most firmly resolved to die a thousand deaths rather than offend Thee again. My crucified Jesus, I firmly purpose to cleanse my soul as soon as possible by thy most Precious Blood in the Sacrament of Penance. And thou, most tender Virgin, Mother of mercy and Refuge of sinners, do thou obtain for me by virtue of thy bitter pains, the pardon of sin which I desire; whilst, praying according to the mind of so many holy Pontiffs in order to obtain the Indulgences granted to this thy holy Rosary, I hope thereby to obtain remission of all pains due to my sins.`,
@@ -1049,7 +1049,7 @@ and be blest for ever with thy glory's sight. Amen.`,
 who truly suffered and was sacrificed on the cross for man;
 whose pierced side flowed with water and blood:
 be for us a foretaste in the trial of death.
-O sweet, O loving Jesus, Son of Mary, have mercy on me. Amen.`,
+O sweet, O loving Jesus, Son of Mary, have mercy on me. {/}Amen.`,
 
   // Edward Caswall's translation (Lyra Catholica, 1849), with the second
   // stanza as altered in Hymns Ancient and Modern (1875), the form most
@@ -1815,17 +1815,17 @@ Almighty and everlasting God, who hast dominion over the living and the dead, an
   // checked against EWTN and a catholic.com leaflet (the closing prayer and
   // "fount of mercy" from the latter). A modern devotion, so "you" rather than
   // "thee", as with the Liturgy of the Hours antiphons above.
-  [PRAYER_TYPES.CHAPLET_OPENING]: `You expired, Jesus, but the source of life gushed forth for souls, and the ocean of mercy opened up for the whole world. O Fount of Life, unfathomable Divine Mercy, envelop the whole world and empty yourself out upon us.`,
+  [PRAYER_TYPES.CHAPLET_OPENING]: `You expired, Jesus, but the source of life gushed forth for souls, {/}and the ocean of mercy opened up for the whole world. {/}O Fount of Life, unfathomable Divine Mercy, {/}envelop the whole world and empty yourself out upon us.`,
 
   [PRAYER_TYPES.CHAPLET_BLOOD_WATER]: `O Blood and Water, which gushed forth from the Heart of Jesus as a fount of mercy for us, I trust in you!`,
 
-  [PRAYER_TYPES.CHAPLET_ETERNAL_FATHER]: `Eternal Father, I offer you the Body and Blood, Soul and Divinity of your dearly beloved Son, our Lord Jesus Christ, in atonement for our sins and those of the whole world.`,
+  [PRAYER_TYPES.CHAPLET_ETERNAL_FATHER]: `Eternal Father, I offer you the Body and Blood, Soul and Divinity {/}of your dearly beloved Son, our Lord Jesus Christ, {/}in atonement for our sins and those of the whole world.`,
 
   [PRAYER_TYPES.CHAPLET_PASSION]: `For the sake of his sorrowful Passion, have mercy on us and on the whole world.`,
 
   [PRAYER_TYPES.CHAPLET_TRISAGION]: `Holy God, Holy Mighty One, Holy Immortal One, have mercy on us and on the whole world.`,
 
-  [PRAYER_TYPES.CHAPLET_CLOSING]: `Eternal God, in whom mercy is endless and the treasury of compassion inexhaustible, look kindly upon us and increase your mercy in us, that in difficult moments we might not despair nor become despondent, but with great confidence submit ourselves to your holy will, which is Love and Mercy itself.`,
+  [PRAYER_TYPES.CHAPLET_CLOSING]: `Eternal God, in whom mercy is endless and the treasury of compassion inexhaustible, {/}look kindly upon us and increase your mercy in us, {/}that in difficult moments we might not despair nor become despondent, {/}but with great confidence submit ourselves to your holy will, which is Love and Mercy itself.`,
 
   [PRAYER_TYPES.CHAPLET_TRUST]: `Jesus, I trust in you.`,
 
@@ -1840,5 +1840,5 @@ Almighty and everlasting God, who hast dominion over the living and the dead, an
   [PRAYER_TYPES.IOSEPH_6]: ioseph("VI. The return from Egypt, and the life with Jesus and Mary.", PATER_NOSTER_EN),
   [PRAYER_TYPES.IOSEPH_7]: ioseph("VII. The loss of Jesus, and his finding in the Temple.", PATER_NOSTER_EN),
 
-  [PRAYER_TYPES.IOSEPH_VIRGINUM_CUSTOS]: `Guardian of virgins and father, Saint Joseph, to whose faithful custody Innocence itself, Christ Jesus, and Mary, Virgin of virgins, were committed: I pray and beseech thee by each of these dear pledges, Jesus and Mary, that, being preserved from all uncleanness, I may with spotless mind, pure heart and chaste body ever serve Jesus and Mary most chastely. Amen.`,
+  [PRAYER_TYPES.IOSEPH_VIRGINUM_CUSTOS]: `Guardian of virgins and father, Saint Joseph, {/}to whose faithful custody Innocence itself, Christ Jesus, and Mary, Virgin of virgins, were committed: {/}I pray and beseech thee by each of these dear pledges, Jesus and Mary, {/}that, being preserved from all uncleanness, {/}I may with spotless mind, pure heart and chaste body ever serve Jesus and Mary most chastely. Amen.`,
 };
