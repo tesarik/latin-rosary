@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { finisFor } from "./rosary/missalArt";
-import { type SequenceItem } from "./rosary/sequence";
+import { ROSARY_OPENING_EXTRA, setRosaryOpeningFull, type SequenceItem } from "./rosary/sequence";
 import { loadSavedState, saveState } from "./rosary/storage";
 import { getPrayerSetMeta, buildSequence, isBuiltInKey, isChapletKey, isFullRosaryKey, isPersistableKey, isRosaryKey, resolveSession, resumeStep, canGoToStep, type PrayerSetKey } from "./rosary/navigation";
 import { MYSTERIES, PRAYER_TYPES } from "./rosary/prayers";
@@ -25,7 +25,7 @@ import PrayerCard from "./rosary/PrayerCard";
 import PrayerSections from "./rosary/PrayerSections";
 import SettingsMenu from "./rosary/SettingsMenu";
 import { applyLook, headerStyles, ink, loadSavedLook, saveLook, type Look } from "./rosary/look";
-import { hintToShow, loadDim, loadHintsSeen, loadVibrate, loadWelcomeSeen, saveDim, saveHintDone, saveVibrate, saveWelcomeSeen, type Hint, type HintsSeen, loadMeditation, saveMeditation } from "./rosary/prefs";
+import { hintToShow, loadDim, loadHintsSeen, loadVibrate, loadWelcomeSeen, saveDim, saveHintDone, saveVibrate, saveWelcomeSeen, type Hint, type HintsSeen, loadMeditation, saveMeditation, loadRosaryFull, saveRosaryFull } from "./rosary/prefs";
 import LanguageToggle from "./rosary/LanguageToggle";
 import StarIcon from "./rosary/StarIcon";
 import { loadFavorites, saveFavorites, toggleFavorite } from "./rosary/favorites";
@@ -34,7 +34,9 @@ import IntentionLine from "./rosary/IntentionLine";
 import { SERIF } from "./rosary/fonts";
 import { MEDITATIONS } from "./rosary/meditations";
 import { mysteriesOfDay } from "./rosary/liturgy";
-import { chapletToOpen, loadSavedChapletFull } from "./rosary/chaplet";
+import { chapletKey, chapletToOpen, loadSavedChapletFull, saveChapletFull } from "./rosary/chaplet";
+import { brigitKey, brigitToOpen, isBrigitKey, loadSavedBrigitFull, saveBrigitFull } from "./rosary/brigit";
+import OptionSwitch from "./rosary/OptionSwitch";
 import { isMenuKey, type MenuKey } from "./rosary/menu";
 import MysteryMenu from "./rosary/MysteryMenu";
 import PlansScreen from "./rosary/PlansScreen";
@@ -79,6 +81,13 @@ export default function Rosary() {
       return next;
     });
   }, []);
+  // The rosary's optional opening prayers change its length, so the builders
+  // must know before the saved session is checked against them.
+  const [rosaryFull, setRosaryFull] = useState(() => {
+    const full = loadRosaryFull();
+    setRosaryOpeningFull(full);
+    return full;
+  });
   const saved = useRef(resolveSession(loadSavedState(), plans));
 
   const [selectedSet, setSelectedSet] = useState<PrayerSetKey | null>(saved.current.active?.key ?? null);
@@ -248,6 +257,16 @@ export default function Rosary() {
     return out;
   }, [progress, plans]);
 
+  // The menu lists St. Bridget's prayers once, as `brigit`: under it, the
+  // place kept in the form a tap would open.
+  const menuResume = useMemo(() => {
+    const form = brigitToOpen(loadSavedBrigitFull(), Object.keys(resume));
+    const out = { ...resume };
+    delete out.brigit;
+    if (resume[form]) out.brigit = resume[form];
+    return out;
+  }, [resume]);
+
   // The most recently prayed unfinished set, for the start screen's tile.
   const continueWith = useMemo(() => {
     const key = Object.keys(resume).at(-1) as PrayerSetKey | undefined;
@@ -305,7 +324,11 @@ export default function Rosary() {
   }, [started]);
 
   // Opening a set resumes it where it was left, if it was left unfinished.
-  const startSet = useCallback((key: PrayerSetKey) => {
+  // St. Bridget's prayers open in the form their switch picks, or the one
+  // with a kept place (brigit.ts); a key naming a form outright (the
+  // continue tile's) opens that form.
+  const startSet = useCallback((requested: PrayerSetKey) => {
+    const key: PrayerSetKey = requested === "brigit" ? brigitToOpen(loadSavedBrigitFull(), Object.keys(progress)) : requested;
     dismissWelcome();
     setAfterRosary(false);
     setSelectedSet(key);
@@ -403,6 +426,44 @@ export default function Rosary() {
     exitToMenu();
   };
 
+  // The optional-prayers switch on the first step of the rosary, the chaplet
+  // and St. Bridget's prayers: which form is open, and switching it.
+  const isRosarySet = (k: string) => isRosaryKey(k as PrayerSetKey) || isFullRosaryKey(k as PrayerSetKey);
+  const optionalForm = selectedSet && currentStep === 0
+    ? isChapletKey(selectedSet) ? { full: selectedSet === "misericordia-plena", save: saveChapletFull, key: chapletKey }
+      : isBrigitKey(selectedSet) ? { full: selectedSet === "brigit", save: saveBrigitFull, key: brigitKey }
+      : isRosarySet(selectedSet) ? { full: rosaryFull, save: saveRosaryFull, key: null }
+      : null
+    : null;
+  const switchForm = (full: boolean) => {
+    if (!optionalForm || !selectedSet) return;
+    optionalForm.save(full);
+    if (!optionalForm.key) {
+      // The rosary keeps its keys: its opening grows or shrinks, so every
+      // place kept in a rosary moves with it (one inside the optional
+      // prayers, when they go, falls back to the start).
+      setRosaryOpeningFull(full);
+      setRosaryFull(full);
+      setSequence(buildSequence(selectedSet, plans));
+      setProgress((prev) => {
+        const next: Record<string, number> = {};
+        for (const [k, step] of Object.entries(prev)) {
+          if (!isRosarySet(k)) next[k] = step;
+          else if (full) next[k] = step + ROSARY_OPENING_EXTRA;
+          else if (step > ROSARY_OPENING_EXTRA) next[k] = step - ROSARY_OPENING_EXTRA;
+        }
+        return next;
+      });
+      return;
+    }
+    const key = optionalForm.key(full);
+    const intention = intentions[selectedSet];
+    if (intention) { setIntention(selectedSet, ""); setIntention(key, intention); }
+    setSelectedSet(key);
+    setSequence(buildSequence(key, plans));
+    setCurrentStep(0);
+  };
+
   const confirmRestart = async () => {
     const ok = await askConfirm({ message: t.confirmRestart, confirmLabel: t.restartLabel, cancelLabel: t.planCancel, color: getPrayerSetMeta(selectedSet!, plans).color });
     if (ok) goToStep(0);
@@ -414,6 +475,8 @@ export default function Rosary() {
     const onKey = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement | null;
       if (target?.tagName === "INPUT" || target?.tagName === "TEXTAREA") return;
+      // A switch (the chaplet's optional prayers) takes Space and Enter itself.
+      if (target?.getAttribute("role") === "switch" && (e.key === " " || e.key === "Enter")) return;
       // An open in-app dialog owns the keyboard (it also stops keys itself,
       // but only once its effect has run).
       if (document.querySelector('[role="alertdialog"]')) return;
@@ -469,7 +532,7 @@ export default function Rosary() {
         ) : (
           <MysteryMenu
             onStart={startSet}
-            resume={resume}
+            resume={menuResume}
             continueWith={continueWith}
             onDiscard={discardProgress}
             onOpenPlans={() => setPlansOpen(true)}
@@ -582,6 +645,20 @@ export default function Rosary() {
           locale={locale}
         />
       )}
+      {/* The optional prayers of the chaplet or St. Bridget's, chosen before
+          it is begun: on its first step the switch swaps one form for the
+          other (two keys, so a kept place always belongs to the form it was
+          counted in). */}
+      {optionalForm && (
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <OptionSwitch
+            label={t.optionalPrayers}
+            checked={optionalForm.full}
+            color={accentColor}
+            onChange={switchForm}
+          />
+        </div>
+      )}
     </div>
   );
 
@@ -688,12 +765,15 @@ export default function Rosary() {
             </button>
           )}
           <div style={{ flex: 1 }} />
-          {isMenuKey(selectedSet) && (() => {
-            const starred = favorites.includes(selectedSet);
+          {(() => {
+            // St. Bridget's short form stars the prayers the menu lists.
+            const starKey = selectedSet === "brigit-brevis" ? "brigit" : selectedSet;
+            if (!isMenuKey(starKey)) return null;
+            const starred = favorites.includes(starKey);
             const label = starred ? t.favoriteRemove : t.favoriteAdd;
             return (
               <button
-                onClick={() => toggleFavoriteKey(selectedSet)}
+                onClick={() => toggleFavoriteKey(starKey)}
                 aria-label={label}
                 aria-pressed={starred}
                 title={label}

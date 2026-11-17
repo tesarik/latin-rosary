@@ -46,6 +46,31 @@ export const PRAYER_TYPES = {
   BRIGIT_CROSS: "brigit_cross",
   BRIGIT_CRUCIFIXION: "brigit_crucifixion",
   BRIGIT_PIERCING: "brigit_piercing",
+  // The Fifteen Prayers of St. Bridget (*Quindecim orationes*, the year-long
+  // devotion): fifteen prayers on the Passion and a closing prayer. Each is
+  // followed by a Pater Noster and an Ave María, which reuse OUR_FATHER /
+  // HAIL_MARY. Sources: see the note above the BRIGIT_XV_* entries in PRAYERS.
+  BRIGIT_XV_1: "brigit_xv_1",
+  BRIGIT_XV_2: "brigit_xv_2",
+  BRIGIT_XV_3: "brigit_xv_3",
+  BRIGIT_XV_4: "brigit_xv_4",
+  BRIGIT_XV_5: "brigit_xv_5",
+  BRIGIT_XV_6: "brigit_xv_6",
+  BRIGIT_XV_7: "brigit_xv_7",
+  BRIGIT_XV_8: "brigit_xv_8",
+  BRIGIT_XV_9: "brigit_xv_9",
+  BRIGIT_XV_10: "brigit_xv_10",
+  BRIGIT_XV_11: "brigit_xv_11",
+  BRIGIT_XV_12: "brigit_xv_12",
+  BRIGIT_XV_13: "brigit_xv_13",
+  BRIGIT_XV_14: "brigit_xv_14",
+  BRIGIT_XV_15: "brigit_xv_15",
+  BRIGIT_XV_CONCLUSIO: "brigit_xv_conclusio",
+  // The rosary's optional opening prayers (the switch on its first step):
+  // the opening versicles of the Hours, then "María, Mater grátiæ"
+  // and "Dignáre me". Sources: see the note above them in PRAYERS.
+  ROSARY_APERI: "rosary_aperi",
+  ROSARY_DIGNARE: "rosary_dignare",
   // Orationes utilissimæ — basic prayers shown as single-prayer links on the
   // start screen (source: orationes.pdf). The ones the app already had
   // (Signum Crucis, Pater Noster, Ave María, Gloria Patri, Apostles' Creed,
@@ -378,6 +403,89 @@ Deus, cuius Unigénitus per vitam, mortem et resurrectiónem suam nobis salútis
   [PRAYER_TYPES.BRIGIT_CRUCIFIXION]: `O Iesu, divíne amátor animárum nostrárum, {/}in honórem illíus pretiósi Sánguinis quem ex Vulnéribus mánuum et pedum tuórum in Cruce profudísti, {/}miserére mei, {/}et per illos rivos Sánguinis tui salva ánimam meam in hora mortis meæ. Amen.`,
 
   [PRAYER_TYPES.BRIGIT_PIERCING]: `O Iesu, divíne amátor animárum nostrárum, {/}in honórem illíus Sánguinis et aquæ quæ ex apérto látere et Corde tuo manavérunt, {/}súscipe me in Cor tuum sacratíssimum, {/}et per hanc últimam effusiónem perdúc me et omnes ánimas in glóriam ætérnam. Amen.`,
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // The Fifteen Prayers of St. Bridget (*Quindecim orationes*). Composed after
+  // her death, most likely in 15th-century England among the Bridgettines,
+  // and attributed to her by tradition. Latin: Jacob Merlo Horst, *Paradisus
+  // animae christianae* (1670), as transcribed on preces-latinae.org (word for
+  // word). The accents, æ/œ and the pointing of the quotations are ours, as
+  // everywhere in the app. The "promises" circulated with them are left out
+  // (Holy Office, warning of 28 January 1954). Paragraphs as in the source;
+  // the one-paragraph prayers carry break points. See
+  // docs/research/brigit-xv-sources.md.
+  // ─────────────────────────────────────────────────────────────────────────
+  [PRAYER_TYPES.BRIGIT_XV_1]: `O Iesu Christe, ætérna dulcédo te amántium, iúbilus excédens omne gáudium et omne desidérium, salus et amátor peccatórum, qui delícias tuas testátus es esse cum fíliis hóminum, propter hóminem homo factus es in fine témporum. Meménto omnis præmeditatiónis et íntimi mœróris quem in humáno córpore sustinuísti instánte saluberrímæ Passiónis tuæ témpore in divíno Corde præordináto.
+
+Meménto tristítiæ et amaritúdinis, quam in ánima, teípso testánte, habuísti, quando in última cena Discípulis tuis Corpus et Sánguinem tuum tradidísti, pedes eórum lavísti, ac dúlciter eos consolándo, imminéntem Passiónem prædixísti.
+
+Meménto omnis tremóris, angústiæ, et dolóris, quem in tuo delicáto córpore ante Passiónem crucis tuæ pertulísti, quando post trinam oratiónem et Sánguinem sudórem a Iuda tuo discípulo tradebáris, ab elécta gente capiebáris, a falsis téstibus accusabáris, a tribus iudícibus iniúste iudicabáris, in elécta civitáte, in Pascháli témpore, in flórida córporis iuventúte innocénter damnabáris, veste própria exuebáris, et véstibus aliénis induebáris, colaphizabáris, óculis et fácie velabáris, álapis cædebáris, ad colúmnam ligabáris, flagellabáris, spinis coronabáris, arúndine in cápite feriebáris et innumerabílibus áliis calúmniis lacerabáris.
+
+Da Dómine Deus mihi, quæso, ob memóriam harum ante crucem tuam Passiónum veram ante mortem meam Contritiónem, puram Confessiónem, dignam satisfactiónem, ac ómnium peccatórum remissiónem. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_2]: `O Iesu, mundi fabricátor, quem nulla diménsio vero in término metítur, qui terram palmo conclúdis, {/}recordáre amaríssimi dolóris tui quem sustinébas cum Iudǽi sanctíssimas manus tuas ad crucem obtúsis clavis primo afflixérunt, {/}et ad perforándum delicatíssimos pedes tuos, cum non esses convéniens voluntáti eórum, dolórem super dolórem vulnéribus tuis addidérunt, {/}et sic te crudéliter distraxérunt et extendérunt in longum et latum crucis tuæ, ut dissolveréntur compáges membrórum tuórum. {/}Déprecor te per huiúsmodi sacratíssimi et amaríssimi in cruce dolóris memóriam ut des mihi timórem et amórem tuum. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_3]: `O Iesu, cæléstis médice, recordáre languóris, livóris, et dolóris, quos in alto crucis patíbulo levátus, passus es in ómnibus dilacerátis membris tuis, quorum nullum in statu recte permánserat, ita ut nullus dolor símilis tuo dolóri invenirétur, quia a planta pedis usque ad vérticem cápitis non fuit in te sánitas, et tamen ómnium dolóris ímmemor, Patrem pro inimícis pie exorásti, dicens: Pater, ignósce illis, quia nésciunt quod fáciunt.
+
+Per hanc misericórdiam et ob memóriam illíus dolóris, concéde, ut hæc memória Passiónis tuæ amaríssimæ sit ómnium peccatórum meórum plena remíssio. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_4]: `O Iesu, vera libértas angelórum, paradísus deliciárum, meménto mœróris et horróris quos sustinébas cum omnes inimíci tui quasi leónes ferocíssimi te circumstetérunt et colaphizatiónibus, conspuitiónibus, ungulatiónibus, ceterísque pœnis inaudítis te molestavérunt.
+
+Per has pœnas et per ómnia contumeliósa verba, durissimáque torménta, quibus te Dómine Iesu Christe, omnes inimíci afflixérunt, déprecor te ut líberes me ab ómnibus inimícis meis visibílibus et invisibílibus, et dones me sub umbra alárum tuárum ad perfectiónem salútis ætérnæ perveníre. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_5]: `O Iesu, spéculum claritátis ætérnæ, meménto illíus mœróris quem habuísti {/}quando in spéculo sereníssimæ maiestátis tuæ conspexísti prædestinatiónem electórum tuórum per mérita tuæ Passiónis salvandórum et reprobatiónem malórum per sua demérita damnandórum, {/}et per abýssum miseratiónis tuæ, qua nobis pérditis peccatóribus et desperátis tunc condoluísti, {/}et quam latróni in cruce exhibuísti dicens: Hódie mecum eris in Paradíso. {/}Rogo te pie Iesu ut fácias mecum misericórdiam in hora mortis meæ. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_6]: `O Rex amábilis et amíce totus desiderábilis, meménto illíus mœróris, quem habuísti quando nudus et miserábilis in cruce pependísti, et omnes amíci et noti tui advérsus te stetérunt, et nullum consolántem inveniébas, nisi solum diléctam Genetrícem tuam in amaritúdine ánimæ suæ tibi fidelíssimæ astántem, quam Discípulo tuo commendásti, dicens, Múlier, ecce fílius tuus.
+
+Rogo te, piíssime Iesu, per gládium dolóris, qui tunc eius ánimam pertransívit, ut compatiáris mihi in ómnibus tribulatiónibus et afflictiónibus meis corporálibus et spirituálibus, et da mihi consolatiónem in témpore tribulatiónis, et in hora mortis meæ. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_7]: `O Iesu, fons inexháustæ pietátis, {/}qui ex íntimo dilectiónis afféctu in cruce dixísti: Sítio, scílicet salútem géneris humáni, {/}accénde, quæso, córdium nostrórum desidéria ad omne opus perféctum, {/}et sitim carnális concupiscéntiæ, æstum mundánæ delectatiónis in nobis pénitus refrígera et exstíngue. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_8]: `O Iesu, dulcédo córdium, ingénsque suávitas méntium, {/}per amaritúdinem acéti et fellis, quam pro nobis degustásti, {/}in hora mortis nostræ, concéde nobis Corpus et Sánguinem tuum digne percípere ad remédium et consolatiónem animárum nostrárum. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_9]: `O Iesu, regális virtus, iubilúsque mentális, {/}meménto angústiæ et dolóris quem passus es, {/}quando præ mortis amaritúdine et Iudæórum insultatióne cum magna voce te a Deo Patre derelíctum clamásti, dicens: Deus meus, Deus meus, ut quid dereliquísti me? {/}Per hanc angústiam peto a te, ut in angústiis nostris non derelínquas nos, Dómine Deus noster. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_10]: `O Iesu, Alpha et Ómega, vita et virtus in omni témpore, recordáre, quod a summo cápite usque ad plantam pedis te pro nobis in aqua Passiónis demersísti.
+
+Propter latitúdinem et longitúdinem vúlnerum tuórum, doce me, per veram caritátem, custodíre latum mandátum tuum, nimis peccátis demérsum. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_11]: `O Iesu, abýssus profundíssima misericórdiæ, {/}rogo te propter profunditátem vúlnerum tuórum, quæ pertransiérunt medúllam óssium ac víscerum tuórum, {/}ut me submérsum in peccátis emérgas, {/}abscondásque me in foramínibus vúlnerum tuórum a fácie iræ tuæ, donec pertránseat furor tuus, Dómine. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_12]: `O Iesu, veritátis spéculum, signum unitátis, caritatísque vínculum, meménto multitúdinis innumerabílium vúlnerum tuórum, quibus a summo cápitis usque ad imum pedis vulnerátus fuísti, et sanctíssimo Sánguine tuo rubricátus, quam magnitúdinem dolóris in virgínea carne tua pertulísti pro nobis! Pie Iesu quid ultra debuísti fácere et non fecísti?
+
+Scribe, quæso, o pie Iesu, ómnia vúlnera tua in corde meo pretiosíssimo Sánguine tuo, ut in illis legam dolórem tuum et mortem, ut in gratiárum actióne usque in finem iúgiter persevérem. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_13]: `O Iesu, leo fortíssime, Rex immortális et invictíssime: meménto dolóris quem passus es cum omnes vires cordis et córporis tui pénitus defecérunt et inclináto cápite: Consummátum est, dixísti.
+
+Per hanc angústiam et dolórem miserére mei cum ánima mea in última consummatióne éxitus spíritus mei anxiáta fúerit et conturbáta. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_14]: `O Iesu, unigénite altíssimi Patris, splendor et figúra substántiæ eius, meménto obníxæ commendatiónis, qua Patri spíritum commendásti, dicens: In manus tuas, Dómine, comméndo spíritum meum. Et laceráto córpore, rupto corde cum válido clamóre, patefáctis viscéribus misericórdiæ tuæ pro nobis rediméndis, expirásti.
+
+Per hanc pretiosíssimam mortem precor te, Rex sanctórum, confórta me ad resisténdum diábolo, mundo, carni et sánguini, ut mundo mórtuus tibi vivam, et in novíssima hora éxitus mei súscipe ad te reverténtem spíritum meum éxulem et peregrínum. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_15]: `O Iesu, vitis vera et fecúnda, meménto supereffluéntis et abundántis effusiónis Sánguinis tui, quem tu sicut de botro expréssum copiosíssime effudísti, quando in cruce tórcular solus calcásti, et láncea militári perfósso látere nobis sánguinem et aquam propinásti, ita ut nec mínima gutta in te remanéret, et demum quasi myrrhæ fascículus in altum suspénsus fuísti, et delicáta caro tua evánuit, et liquor víscerum tuórum exáruit, et medúlla óssium tuórum emárcuit.
+
+Per hanc amaríssimam passiónem tuam et pretiósi Sánguinis effusiónem, pie Iesu, precor te, súscipe ánimam meam in agóne mortis meæ. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_CONCLUSIO]: `O Dómine Iesu Christe, Fili Dei vivi, {/}súscipe hanc oratiónem in amóre illo superexcellénti, in quo ómnia vúlnera tui sanctíssimi Córporis sustinuísti, {/}et miserére mei fámuli tui, {/}et ómnibus peccatóribus, cunctísque fidélibus tam vivis quam defúnctis da misericórdiam, grátiam, remissiónem et vitam ætérnam. Amen.`,
+
+  // The rosary's optional opening prayers, as traditional rosary manuals set
+  // them after the Sign of the Cross. The versicles open the Hours (Breviary;
+  // Little Office of the B.V.M.); "María, Mater grátiæ" is the Raccolta's
+  // (1910, p. 104), "Dignáre me" the Little Office's antiphon. The Dominican
+  // offering "Dómine Deus noster, dírige…" that some manuals add is left out:
+  // no printed source for it was found, nor any Czech.
+  [PRAYER_TYPES.ROSARY_APERI]: `℣ Dómine, lábia mea apéries.
+℟ Et os meum annuntiábit laudem tuam.
+℣ Deus, in adiutórium meum inténde.
+℟ Dómine, ad adiuvándum me festína.`,
+
+  [PRAYER_TYPES.ROSARY_DIGNARE]: `María, Mater grátiæ,
+Mater misericórdiæ,
+tu nos ab hoste prótege,
+et mortis hora súscipe.
+℣ Dignáre me laudáre te, Virgo sacráta.
+℟ Da mihi virtútem contra hostes tuos.`,
 
   // Orationes utilissimæ additions. Source: orationes.pdf.
   [PRAYER_TYPES.NICENE_CREED]: `Credo in unum Deum, Patrem omnipoténtem, factórem cæli et terræ, visibílium ómnium et invisibílium. {/}Et in unum Dóminum Iesum Christum, Fílium Dei unigénitum. {/}Et ex Patre natum ante ómnia sæcula. {/}Deum de Deo, lumen de lúmine, Deum verum de Deo vero. {/}Génitum, non factum, consubstantiálem Patri: {/}per quem ómnia facta sunt. {/}Qui propter nos hómines et propter nostram salútem descéndit de cælis. {/}Et incarnátus est de Spíritu Sancto ex María Vírgine: Et homo factus est. {/}Crucifíxus étiam pro nobis: sub Póntio Piláto passus, et sepúltus est. {/}Et resurréxit tértia die, secúndum Scriptúras. {/}Et ascéndit in cælum: sedet ad déxteram Patris. {/}Et íterum ventúrus est cum glória iudicáre vivos et mórtuos: {/}cuius regni non erit finis. {/}Et in Spíritum Sanctum, Dóminum et vivificántem: {/}qui ex Patre Filióque procédit. {/}Qui cum Patre et Fílio simul adorátur et conglorificátur: {/}qui locútus est per Prophétas. {/}Et unam sanctam cathólicam et apostólicam Ecclésiam. {/}Confíteor unum baptísma in remissiónem peccatórum. {/}Et exspécto resurrectiónem mortuórum. {/}Et vitam ventúri sæculi. Amen.`,

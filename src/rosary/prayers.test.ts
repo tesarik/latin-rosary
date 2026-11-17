@@ -221,6 +221,29 @@ describe("St. Joseph's seven sorrows and joys", () => {
   });
 });
 
+describe("the Fifteen Prayers of St. Bridget", () => {
+  const seq = OTHER_PRAYER_SETS.brigit_xv.build();
+
+  it("is fifteen prayers, each with a Pater and an Ave, then the closing prayer", () => {
+    expect(seq.length).toBe(46);
+    expect(seq.filter((i) => i.section).length).toBe(16);
+    for (let n = 0; n < 15; n++) {
+      const [prayer, pater, ave] = seq.slice(n * 3, n * 3 + 3);
+      expect(prayer!.section).toBeTruthy();
+      expect([pater!.type, ave!.type]).toEqual([PRAYER_TYPES.OUR_FATHER, PRAYER_TYPES.HAIL_MARY]);
+      expect(pater!.section ?? ave!.section).toBeUndefined();
+    }
+    expect(seq[45]!.type).toBe(PRAYER_TYPES.BRIGIT_XV_CONCLUSIO);
+  });
+
+  it("keeps the Latin's paragraphs in every language, so they pair under each other", () => {
+    for (const item of seq.filter((i) => i.section)) {
+      const paras = latinText(item.type).split("\n\n").length;
+      for (const locale of SUPPORTED_LOCALES) expect([item.label, locale, translatedText(locale, item.type).split("\n\n").length]).toEqual([item.label, locale, paras]);
+    }
+  });
+});
+
 describe("the Chaplet of the Holy Spirit", () => {
   const seq = OTHER_PRAYER_SETS.spiritus.build();
 

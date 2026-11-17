@@ -1,7 +1,7 @@
 import type { ChapletKey } from "./sequence";
 
-// The start screen's "with the optional prayers" switch under the Chaplet of
-// Divine Mercy. A UI preference like the theme or text size: its own key, not
+// The "with the optional prayers" switch on the Chaplet of Divine Mercy's
+// first step. A UI preference like the theme or text size: its own key, not
 // versioned, kept across resets. Off (the prescribed prayers only) by default.
 const CHAPLET_FULL_STORAGE_KEY = "ruzenec_chaplet_full";
 
