@@ -25,9 +25,9 @@ type Props = {
 // A short set lies left→right on one line. A longer one winds like a snake —
 // left→right, a half-turn at the end, back right→left — breaking where its
 // parts start (strand.ts), so its beads keep their size and the big ones stay
-// large enough to tap. Every row has the same spacing, set by the longest, so
-// a shorter row ends early and its thread runs on to the turn. In a snake
-// the beads sit at most SNAKE_GAP apart and the strand is centred.
+// large enough to tap. The spacing is set by the longest row (in a snake at
+// most SNAKE_GAP, the strand centred), and every row but the last reaches its
+// half-turn (see pos).
 export default function PrayerSections({ sequence, currentStep, accentColor, onJump, locale }: Props) {
   const t = STRINGS[locale];
   const rowStarts = useMemo(() => strandRows(sequence.map((i) => !!i.section)), [sequence]);
@@ -56,9 +56,17 @@ export default function PrayerSections({ sequence, currentStep, accentColor, onJ
     while (r + 1 < rows && rowStarts[r + 1]! <= i) r++;
     return r;
   };
+  // Rows meet at the half-turns, so every row but the last reaches its turn:
+  // a short first row starts further in (the strand begins there), a short
+  // middle row spreads its beads from turn to turn, and only the last may
+  // end early, where the strand ends.
   const pos = (i: number) => {
     const r = rowOf(i);
-    const along = gap * (i - rowStarts[r]!);
+    const k = i - rowStarts[r]!;
+    const len = bounds[r + 1]! - rowStarts[r]!;
+    let along = gap * k;
+    if (rows > 1 && r === 0) along = gap * (longest - len + k);
+    else if (rows > 1 && r < rows - 1 && len > 1) along = ((right - left) / (len - 1)) * k;
     const x = N === 1 ? W / 2 : r % 2 === 0 ? left + along : right - along;
     return { x, y: top + r * rowH, r };
   };
