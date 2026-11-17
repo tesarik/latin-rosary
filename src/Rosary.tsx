@@ -837,9 +837,9 @@ export default function Rosary() {
                 alignItems: "center",
                 justifyContent: "center",
                 verticalAlign: "middle",
-                width: 32,
-                height: 32,
-                margin: "-6px -8px -6px 0",
+                width: 34,
+                height: 34,
+                margin: "-7px -8px -7px 2px",
                 padding: 0,
                 border: "none",
                 background: "transparent",
@@ -847,10 +847,15 @@ export default function Rosary() {
                 cursor: "pointer",
               }}
             >
-              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" style={{ opacity: 0.7 }}>
-                <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" strokeWidth="1.3" />
-                <circle cx="8" cy="4.6" r="0.95" fill="currentColor" />
-                <path d="M8 7v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              {/* A filled disc with a Garamond i cut out of it, the header
+                  showing through: white on Základ's coloured bar, the rubric
+                  red on the paper. */}
+              <svg width="19" height="19" viewBox="0 0 20 20" aria-hidden="true">
+                <mask id="prayer-note-i">
+                  <rect width="20" height="20" fill="white" />
+                  <text x="10" y="15.2" textAnchor="middle" fontFamily="'EB Garamond', serif" fontWeight="600" fontSize="16" fill="black">i</text>
+                </mask>
+                <circle cx="10" cy="10" r="9.5" mask="url(#prayer-note-i)" style={{ fill: look === "base" ? "white" : "var(--rubric)" }} />
               </svg>
             </button>
           )}
