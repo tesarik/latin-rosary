@@ -119,6 +119,79 @@ O God, whose only-begotten Son, by his life, death and resurrection, has purchas
 
   [PRAYER_TYPES.BRIGIT_PIERCING]: `O Jesus, divine lover of our souls, {/}in honour of that Blood and water which flowed from thy opened side and Heart, {/}receive me into thy most sacred Heart, {/}and by this last outpouring lead me and all souls into eternal glory. Amen.`,
 
+  // The Fifteen Prayers of St. Bridget — OUR OWN literal translation of the
+  // Latin (no public-domain English of this Latin was found: Caxton's 1491
+  // text is Middle English, the booklets in use are in copyright).
+  [PRAYER_TYPES.BRIGIT_XV_1]: `O Jesus Christ, eternal sweetness of those who love thee, joy surpassing all gladness and all desire, salvation and lover of sinners, who didst declare that thy delight was to be with the children of men, and for man's sake wast made man in the fullness of time: remember all the foreknowledge and the inward sorrow that thou didst bear in thy human body as the time of thy most saving Passion drew near, ordained beforehand in thy divine Heart.
+
+Remember the sadness and bitterness which, as thou thyself didst testify, thou hadst in thy soul when at the Last Supper thou gavest thy Body and Blood to thy disciples, didst wash their feet and, sweetly consoling them, didst foretell thy coming Passion.
+
+Remember all the trembling, anguish and pain that thou didst suffer in thy tender body before the Passion of thy cross, when after thy threefold prayer and thy bloody sweat thou wast betrayed by Judas thy disciple, taken by the chosen people, accused by false witnesses, unjustly judged by three judges, condemned though innocent in the chosen city, at the Paschal time, in the flower of thy youth; stripped of thine own garments and clothed in the garments of others, buffeted, blindfolded, struck in the face, bound to the pillar, scourged, crowned with thorns, struck on the head with a reed, and torn by countless other insults.
+
+Grant me, O Lord God, I beseech thee, in memory of these sufferings before thy cross, true contrition before my death, a pure confession, worthy satisfaction and the remission of all my sins. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_2]: `O Jesus, maker of the world, whom no measure can truly bound, who holdest the earth in the palm of thy hand, {/}remember the most bitter pain that thou didst bear when the Jews first fastened thy most holy hands to the cross with blunt nails, {/}and, piercing thy most tender feet, since thou didst not answer to their purpose, added pain upon pain to thy wounds, {/}and so cruelly stretched thee out to the length and breadth of thy cross that the joints of thy limbs were loosed. {/}I beseech thee, by the memory of this most holy and most bitter pain on the cross, to give me thy fear and thy love. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_3]: `O Jesus, heavenly physician, remember the faintness, the bruising and the pain that thou didst suffer, lifted high on the gibbet of the cross, in all thy torn limbs, of which not one remained in its right place, so that no sorrow was found like unto thy sorrow; for from the sole of the foot to the crown of the head there was no soundness in thee; and yet, unmindful of all thy pain, thou didst lovingly pray to the Father for thine enemies, saying: Father, forgive them, for they know not what they do.
+
+By this mercy, and in memory of that pain, grant that this remembrance of thy most bitter Passion may be the full remission of all my sins. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_4]: `O Jesus, true freedom of the angels, paradise of delights, remember the grief and horror that thou didst endure when all thine enemies stood round thee like most fierce lions and tormented thee with blows, spitting, scratching and other unheard-of pains.
+
+By these pains, and by all the insulting words and most cruel torments with which all thine enemies afflicted thee, O Lord Jesus Christ, I beseech thee to deliver me from all my enemies, visible and invisible, and to bring me under the shadow of thy wings to the perfection of eternal salvation. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_5]: `O Jesus, mirror of eternal brightness, remember the grief that thou hadst {/}when, in the mirror of thy most serene majesty, thou didst see the predestination of thine elect, to be saved by the merits of thy Passion, and the reprobation of the wicked, to be damned by their own demerits; {/}and by the depth of thy compassion, with which thou didst then grieve for us lost and despairing sinners, {/}and which thou didst show to the thief on the cross, saying: This day thou shalt be with me in paradise, {/}I pray thee, merciful Jesus, to show me mercy in the hour of my death. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_6]: `O King most lovable and friend wholly to be desired, remember the grief that thou hadst when thou didst hang naked and wretched on the cross, and all thy friends and acquaintance stood against thee, and thou foundest none to comfort thee but thy beloved Mother alone, standing by thee most faithfully in the bitterness of her soul, whom thou didst commend to thy disciple, saying: Woman, behold thy son.
+
+I pray thee, most loving Jesus, by the sword of sorrow which then pierced her soul, to have compassion on me in all my tribulations and afflictions of body and spirit, and give me comfort in the time of tribulation and in the hour of my death. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_7]: `O Jesus, fountain of inexhaustible pity, {/}who from the depth of thy love didst say on the cross: I thirst, that is, for the salvation of mankind, {/}kindle, I beseech thee, the desires of our hearts for every perfect work, {/}and wholly cool and quench in us the thirst of fleshly lust and the heat of worldly pleasure. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_8]: `O Jesus, sweetness of hearts and great delight of souls, {/}by the bitterness of the vinegar and gall which thou didst taste for us, {/}grant us in the hour of our death worthily to receive thy Body and Blood, for the healing and comfort of our souls. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_9]: `O Jesus, royal strength and joy of the mind, {/}remember the anguish and pain that thou didst suffer {/}when, in the bitterness of death and under the mockery of the Jews, thou didst cry with a loud voice that thou wast forsaken by God the Father, saying: My God, my God, why hast thou forsaken me? {/}By this anguish I ask of thee not to forsake us in our anguish, O Lord our God. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_10]: `O Jesus, Alpha and Omega, life and strength at all times, remember that from the crown of the head to the sole of the foot thou didst plunge thyself for us into the waters of thy Passion.
+
+By the breadth and length of thy wounds, teach me, sunk too deep in sin, to keep with true charity thy commandment, which is exceeding broad. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_11]: `O Jesus, deepest abyss of mercy, {/}I pray thee, by the depth of thy wounds, which pierced to the marrow of thy bones and thy bowels, {/}to draw me up, who am sunk in sin, {/}and to hide me in the clefts of thy wounds from the face of thine anger, until thy wrath pass away, O Lord. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_12]: `O Jesus, mirror of truth, sign of unity and bond of charity, remember the multitude of thy countless wounds, with which thou wast wounded from the crown of the head to the sole of the foot and reddened with thy most holy Blood: how great a pain thou didst bear for us in thy virginal flesh! Merciful Jesus, what more oughtest thou to have done that thou hast not done?
+
+Write, I beseech thee, O merciful Jesus, all thy wounds in my heart with thy most precious Blood, that in them I may read thy pain and thy death, and persevere in thanksgiving continually to the end. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_13]: `O Jesus, most mighty lion, King immortal and unconquerable, remember the pain that thou didst suffer when all the strength of thy heart and body utterly failed thee, and, bowing thy head, thou didst say: It is consummated.
+
+By this anguish and pain have mercy on me when my soul is anguished and troubled in the last consummation of the going forth of my spirit. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_14]: `O Jesus, only-begotten Son of the most high Father, brightness and figure of his substance, remember the earnest commendation with which thou didst commend thy spirit to the Father, saying: Into thy hands, O Lord, I commend my spirit. And with thy body torn and thy heart broken, with a strong cry, opening the depths of thy mercy to redeem us, thou didst give up the ghost.
+
+By this most precious death I pray thee, King of saints, strengthen me to resist the devil, the world, the flesh and blood, that, dead to the world, I may live to thee; and at the last hour of my departing receive my spirit, an exile and a pilgrim, returning to thee. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_15]: `O Jesus, true and fruitful vine, remember the overflowing and abundant shedding of thy Blood, which thou didst pour out most plentifully, as if pressed from a cluster of grapes, when thou alone didst tread the winepress on the cross, and from thy side, pierced by a soldier's lance, didst give us blood and water to drink, so that not the least drop remained in thee; and at last thou wast hung on high like a bundle of myrrh, and thy tender flesh wasted away, and the moisture of thy bowels dried up, and the marrow of thy bones withered.
+
+By this most bitter Passion and the shedding of thy precious Blood, merciful Jesus, I pray thee, receive my soul in the agony of my death. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_CONCLUSIO]: `O Lord Jesus Christ, Son of the living God, {/}receive this prayer in that surpassing love with which thou didst bear all the wounds of thy most holy Body; {/}and have mercy on me thy servant, {/}and to all sinners and all the faithful, living and dead, grant mercy, grace, forgiveness and life everlasting. Amen.`,
+
+  // The rosary's optional opening prayers. The versicles and "Dignáre me" are
+  // the Little Office of the B.V.M. (Benziger, 1915, as on lobvm.com), its
+  // pronouns lower case; "María, Mater grátiæ" is the Raccolta's (1910,
+  // p. 104) metrical English.
+  [PRAYER_TYPES.ROSARY_APERI]: `℣ O Lord, thou shalt open my lips.
+℟ And my mouth shall declare thy praise.
+℣ O God, hasten to mine aid.
+℟ O Lord, make haste to help me.`,
+
+  [PRAYER_TYPES.ROSARY_DIGNARE]: `Mother of mercy, Mother of grace,
+Mary, help a fallen race;
+shield us when the foe is nigh,
+and receive us when we die.
+℣ Vouchsafe that I may praise thee, O holy Virgin.
+℟ Grant me strength against thine enemies.`,
+
   // Current English Roman Missal (ICEL 2011) — the counterpart of the Czech
   // here, which is likewise the current missal text.
   [PRAYER_TYPES.NICENE_CREED]: `I believe in one God, the Father almighty, maker of heaven and earth, of all things visible and invisible. {/}I believe in one Lord Jesus Christ, the Only Begotten Son of God, {/}born of the Father before all ages. {/}God from God, Light from Light, true God from true God, {/}begotten, not made, consubstantial with the Father; {/}through him all things were made. {/}For us men and for our salvation he came down from heaven, {/}and by the Holy Spirit was incarnate of the Virgin Mary, and became man. {/}For our sake he was crucified under Pontius Pilate, he suffered death and was buried, {/}and rose again on the third day in accordance with the Scriptures. {/}He ascended into heaven and is seated at the right hand of the Father. {/}He will come again in glory to judge the living and the dead {/}and his kingdom will have no end. {/}I believe in the Holy Spirit, the Lord, the giver of life, {/}who proceeds from the Father and the Son, {/}who with the Father and the Son is adored and glorified, {/}who has spoken through the prophets. {/}I believe in one, holy, catholic and apostolic Church. {/}I confess one Baptism for the forgiveness of sins {/}and I look forward to the resurrection of the dead {/}and the life of the world to come. Amen.`,

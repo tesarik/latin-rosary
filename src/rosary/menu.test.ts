@@ -47,7 +47,7 @@ describe("inSeason", () => {
     expect(inSeason(new Date(2026, 8, 15))).toEqual(["salve_regina", "stabat_mater", "septem_dolores"]);
     // The Friday before Palm Sunday, 27 March 2026: in Lent and St. Joseph's month too
     // (the Seven Sorrows chaplet, a Lenten devotion as well, is listed once).
-    expect(inSeason(new Date(2026, 2, 27))).toEqual(["ave_regina_caelorum", "stabat_mater", "septem_dolores", "st_joseph", "ioseph", "ad_te_ioseph", "brigit", "miserere"]);
+    expect(inSeason(new Date(2026, 2, 27))).toEqual(["ave_regina_caelorum", "stabat_mater", "septem_dolores", "st_joseph", "ioseph", "ad_te_ioseph", "brigit", "brigit_xv", "miserere"]);
   });
 
   it("adds the prayers for the dead through November, and All Saints' litany on its day", () => {

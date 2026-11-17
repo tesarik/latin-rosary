@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { buildFullRosary, buildRosarySequence, FULL_ROSARY } from "./sequence";
+import { buildFullRosary, buildRosarySequence, FULL_ROSARY, ROSARY_OPENING_EXTRA, setRosaryOpeningFull } from "./sequence";
 import { MYSTERIES } from "./prayers";
 import { buildSequence, getPrayerSetMeta, isBuiltInKey, isPersistableKey, resolveSession } from "./navigation";
 import { STATE_VERSION } from "./storage";
@@ -41,5 +41,23 @@ describe("the full rosary", () => {
     expect(buildSequence("psalterium")).toHaveLength(204);
     const session = resolveSession({ version: STATE_VERSION, active: "psalterium", progress: { psalterium: 150 } });
     expect(session.progress).toEqual({ psalterium: 150 });
+  });
+});
+
+describe("the rosary's optional opening prayers", () => {
+  it("add two steps after the Sign of the Cross, and leave the beads as they were", () => {
+    const beads = (s: { beadId?: string }[]) => s.map((i) => i.beadId).filter(Boolean);
+    const plain = buildRosarySequence(MYSTERIES.radostny);
+    setRosaryOpeningFull(true);
+    try {
+      const full = buildRosarySequence(MYSTERIES.radostny);
+      expect(full).toHaveLength(plain.length + ROSARY_OPENING_EXTRA);
+      expect(full.slice(1, 3).map((i) => i.type)).toEqual([PRAYER_TYPES.ROSARY_APERI, PRAYER_TYPES.ROSARY_DIGNARE]);
+      expect(full.slice(3)).toEqual(plain.slice(1));
+      expect(beads(full)).toEqual(beads(plain));
+      expect(buildFullRosary()).toHaveLength(seq.length + ROSARY_OPENING_EXTRA);
+    } finally {
+      setRosaryOpeningFull(false);
+    }
   });
 });

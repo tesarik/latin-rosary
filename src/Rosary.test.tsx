@@ -192,6 +192,60 @@ describe("after a rosary", () => {
   });
 });
 
+describe("the chaplet's optional prayers", () => {
+  it("are switched on the chaplet's first step, remembered, and the switch goes once begun", () => {
+    localStorage.setItem("ruzenec_hint_seen", "1");
+    location.hash = "#pray=corona";
+    render(<Rosary />);
+    const sw = screen.getByRole("switch", { name: t.optionalPrayers });
+    expect(sw.getAttribute("aria-checked")).toBe("false");
+    expect(screen.queryByText("Expirásti, Iesu")).toBeNull();
+
+    fireEvent.click(sw);
+    expect(screen.getByRole("switch", { name: t.optionalPrayers }).getAttribute("aria-checked")).toBe("true");
+    // Next leads to the optional opening prayer.
+    expect(screen.getByText("Expirásti, Iesu")).toBeTruthy();
+    expect(localStorage.getItem("ruzenec_chaplet_full")).toBe("1");
+
+    step();
+    expect(screen.queryByRole("switch", { name: t.optionalPrayers })).toBeNull();
+  });
+});
+
+describe("the rosary's optional opening prayers", () => {
+  it("are switched on the rosary's first step, and every kept rosary place moves with them", () => {
+    localStorage.setItem("ruzenec_hint_seen", "1");
+    localStorage.setItem("ruzenec_state", JSON.stringify({ version: 6, active: null, progress: { bolestny: 30, loreto: 2 } }));
+    location.hash = "#pray=radostny";
+    render(<Rosary />);
+    const sw = screen.getByRole("switch", { name: t.optionalPrayers });
+    expect(sw.getAttribute("aria-checked")).toBe("false");
+    expect(screen.getByText("Credo")).toBeTruthy();
+
+    fireEvent.click(sw);
+    expect(screen.getByText("Dómine, lábia mea")).toBeTruthy();
+    expect(localStorage.getItem("ruzenec_rosary_full")).toBe("1");
+    expect(JSON.parse(localStorage.getItem("ruzenec_state")!).progress).toEqual({ bolestny: 32, loreto: 2 });
+
+    fireEvent.click(screen.getByRole("switch", { name: t.optionalPrayers }));
+    expect(JSON.parse(localStorage.getItem("ruzenec_state")!).progress).toEqual({ bolestny: 30, loreto: 2 });
+  });
+});
+
+describe("St. Bridget's optional prayers", () => {
+  it("are off by default, leaving the Paters and Aves; switched on, the prayers are whole and still starrable", () => {
+    localStorage.setItem("ruzenec_hint_seen", "1");
+    location.hash = "#pray=brigit";
+    render(<Rosary />);
+    expect(screen.getByText(t.stepCount(1, 14))).toBeTruthy();
+    expect(screen.getByRole("button", { name: t.favoriteAdd })).toBeTruthy();
+
+    fireEvent.click(screen.getByRole("switch", { name: t.optionalPrayers }));
+    expect(screen.getByText(t.stepCount(1, 22))).toBeTruthy();
+    expect(localStorage.getItem("ruzenec_brigit_full")).toBe("1");
+  });
+});
+
 describe("the Marian Psalter's rings", () => {
   it("shows the set being prayed, the others as small rings that jump to their start", () => {
     localStorage.setItem("ruzenec_hint_seen", "1");

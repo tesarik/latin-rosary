@@ -3,7 +3,7 @@ import { MissalArt } from "./MissalArt";
 import { MYSTERIES, type MysteryKey } from "./prayers";
 import { CHAPLETS, FULL_ROSARY } from "./sequence";
 import { FAVORITES_COLOR, FAVORITES_ICON, IN_SEASON_COLOR, IN_SEASON_ART, IN_SEASON_ICON, MENU_GROUPS, inSeason, menuEntry, searchMenu, type GroupIconName, type MenuKey, type MenuSection } from "./menu";
-import { chapletToOpen, loadSavedChapletFull, saveChapletFull } from "./chaplet";
+import { chapletToOpen, loadSavedChapletFull } from "./chaplet";
 import { STRINGS, SUPPORTED_LOCALES, type Locale } from "./i18n";
 import type { PrayerSetKey } from "./navigation";
 import { accentText, type Theme } from "./theme";
@@ -518,8 +518,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
   const eastertide = seasonOf(now) === "easter";
   const seasonBadges: Record<string, string> = Object.fromEntries(seasonal.map((k) => [k, t.seasonBadge]));
   const angelusNote: Record<string, string> = eastertide ? { angelus: t.angelusEastertide } : {};
-  const [chapletFull, setChapletFull] = useState(loadSavedChapletFull);
-  const chaplet = chapletToOpen(chapletFull, Object.keys(resume));
+  const chaplet = chapletToOpen(loadSavedChapletFull(), Object.keys(resume));
   const chapletEntry = CHAPLETS[chaplet];
   const [query, setQueryState] = useState(menuQuery);
   const setQuery = (q: string) => { menuQuery = q; setQueryState(q); };
@@ -748,14 +747,6 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
             image="misericordia"
             resume={<ResumeLine info={resume[chaplet]} color={chapletEntry.color} theme={theme} locale={locale} />}
             onClick={() => onStart(chaplet)}
-            footer={
-              <OptionSwitch
-                label={t.chapletOptional}
-                checked={chapletFull}
-                color={chapletEntry.color}
-                onChange={(full) => { setChapletFull(full); saveChapletFull(full); }}
-              />
-            }
           />
         </div>
       </>)}
@@ -952,10 +943,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
 // Shared button used for both rosary mystery sets and the linear prayer block.
 // The icon variant tells the rosary buttons apart from the linear ones at a
 // glance — circle-with-cross for rosary, plain cross for linear prayers.
-// A `footer` (the chaplet's switch) goes inside the same box, under a rule:
-// the box becomes a plain container holding two controls side by side in the
-// tree, since a button can't contain another one.
-function PrayerSetButton({ name, subtitle, badge, resume, color: rawColor, ariaLabel, icon, image, hero = false, padRight, onClick, footer }: {
+function PrayerSetButton({ name, subtitle, badge, resume, color: rawColor, ariaLabel, icon, image, hero = false, padRight, onClick }: {
   name: string;
   subtitle?: string;
   badge?: React.ReactNode;
@@ -970,12 +958,11 @@ function PrayerSetButton({ name, subtitle, badge, resume, color: rawColor, ariaL
   // Room kept on the right for a control laid over the tile (the ×).
   padRight?: number;
   onClick: () => void;
-  footer?: React.ReactNode;
 }) {
   const color = ink(rawColor);
   const box: React.CSSProperties = { ...CARD, transition: "all 0.2s ease" };
   const hover = cardHover(color);
-  const button = (
+  return (
     <button
       onClick={onClick}
       aria-label={ariaLabel}
@@ -983,16 +970,15 @@ function PrayerSetButton({ name, subtitle, badge, resume, color: rawColor, ariaL
         display: "flex",
         alignItems: "center",
         gap: hero ? 14 : 12,
-        padding: footer ? "12px var(--card-px) 8px" : hero ? "16px var(--card-px)" : "12px var(--card-px)",
+        padding: hero ? "16px var(--card-px)" : "12px var(--card-px)",
         ...(padRight ? { paddingRight: padRight } : {}),
         cursor: "pointer",
-        ...(footer
-          ? { width: "100%", background: "transparent", border: "none", borderRadius: "16px 16px 0 0" }
-          // The full width even when it sits in a wrapper (the unfinished
-          // prayer's, beside its ×), so a short name doesn't narrow the card.
-          : { ...box, width: "100%" }),
+        // The full width even when it sits in a wrapper (the unfinished
+        // prayer's, beside its ×), so a short name doesn't narrow the card.
+        ...box,
+        width: "100%",
       }}
-      {...(footer ? {} : hover)}
+      {...hover}
     >
       {image ? <TileImage name={image} size={hero ? 64 : 40} /> : (
         <div style={{
@@ -1036,15 +1022,6 @@ function PrayerSetButton({ name, subtitle, badge, resume, color: rawColor, ariaL
         {resume}
       </div>
     </button>
-  );
-  if (!footer) return button;
-  return (
-    <div style={{ ...box, display: "flex", flexDirection: "column" }} {...hover}>
-      {button}
-      <div style={{ borderTop: "1px solid var(--border)", display: "flex", justifyContent: "flex-end", padding: "0 var(--card-px)" }}>
-        {footer}
-      </div>
-    </div>
   );
 }
 
@@ -1148,60 +1125,6 @@ function TabBar({ tab, onChange, locale }: { tab: MenuTab; onChange: (tab: MenuT
         })}
       </div>
     </nav>
-  );
-}
-
-// A small labelled on/off switch in a start-screen row's footer — the
-// chaplet's optional prayers. Its own control rather than part of the row's
-// button, so the two taps can't be confused.
-function OptionSwitch({ label, checked, color, onChange }: {
-  label: string;
-  checked: boolean;
-  color: string;
-  onChange: (checked: boolean) => void;
-}) {
-  return (
-    <button
-      role="switch"
-      aria-checked={checked}
-      onClick={() => onChange(!checked)}
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 10,
-        padding: "8px 4px",
-        minHeight: 40,
-        background: "transparent",
-        border: "none",
-        cursor: "pointer",
-        fontFamily: "Arial, sans-serif",
-        fontSize: 13,
-        color: "var(--text-muted)",
-      }}
-    >
-      {label}
-      <span aria-hidden="true" style={{
-        position: "relative",
-        width: 34,
-        height: 20,
-        borderRadius: 10,
-        background: checked ? ink(color) : "var(--border-strong)",
-        transition: "background 0.2s ease",
-        flexShrink: 0,
-      }}>
-        <span style={{
-          position: "absolute",
-          top: 2,
-          left: checked ? 16 : 2,
-          width: 16,
-          height: 16,
-          borderRadius: "50%",
-          background: "white",
-          boxShadow: "0 1px 2px rgba(0,0,0,0.2)",
-          transition: "left 0.2s ease",
-        }} />
-      </span>
-    </button>
   );
 }
 

@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Changed
+- **The beads of a long prayer wind like a snake** instead of crowding one line: from 27 steps the strand turns at the end and comes back, in up to four rows, each starting with a part of the prayer (five of St. Bridget's fifteen prayers a row, two of the Seven Sorrows). The beads keep their size, so the large ones are easy to tap.
+- **The switch for the chaplet's optional prayers moved from the start screen into the chaplet,** under the prayer's name on its first step: you choose as you begin. It is still remembered, and it goes once the chaplet is under way.
+
+### Added
+- **The rosary's optional opening prayers:** a switch on its first step, *S nepovinnými modlitbami*, adds after the Sign of the Cross the opening versicles of the Hours (*Dómine, lábia mea*, *Deus, in adiutórium*), *María, Mater grátiæ* and *Dignáre me*, as traditional rosary manuals have them. Czech from *Malé hodinky* (1937) and St. Alphonsus's *Cesta spásy* (1904), English from the Little Office and the Raccolta. A rosary left half-prayed keeps its place either way.
+- **St. Bridget's prayers can be prayed without the optional ones:** a switch on their first step, *S nepovinnými modlitbami*, as the chaplet has. Off, only the seven Our Fathers and Hail Marys; on, the whole devotion as before, with the opening prayer and the seven meditations. Off by default; a half-prayed one resumes in its form.
+- **The Fifteen Prayers of St. Bridget** (*Quindecim Orationes Sanctæ Brigittæ*), the year-long devotion, among the devotions: fifteen prayers on the Passion, each followed by an Our Father and a Hail Mary, and a closing prayer. The Latin is from a 1670 prayer book, the Czech from the booklet *Tajemství spásy*, the English our own translation. The "promises" attached to them are left out, as the Holy Office asked in 1954. Offered in Lent, like the seven prayers.
+- **Help explains the optional prayers** of the chaplet and St. Bridget's prayers.
+
 ## [0.43.0]
 
 ### Changed

@@ -58,6 +58,84 @@ Bože, jehož jednorozený Syn nám svým životem, smrtí a vzkříšením zís
 
   [PRAYER_TYPES.BRIGIT_PIERCING]: `Ó Ježíši, božský milovníku našich duší, {/}ke cti oné Krve a vody, které vytryskly z tvého otevřeného boku a Srdce, {/}přijmi mě do svého nejsvětějšího Srdce {/}a skrze toto poslední vylití doveď mě i všechny duše do věčné slávy. Amen.`,
 
+  // The Fifteen Prayers of St. Bridget: the Czech of the booklet *Tajemství
+  // spásy* (as published by the Minorites, immaculata.minorite.cz), put in the
+  // Latin's order (the booklet has the 2nd, 3rd and 4th as 3, 4, 2) and its
+  // paragraphs; spelling as the app's (capitals following the Latin, pronouns
+  // for God in lower case). Its plural "nás" where the Latin says "me" is
+  // kept. The closing prayer (BRIGIT_XV_CONCLUSIO) is OUR OWN translation: the
+  // booklet closes with a modern prayer of its own instead.
+  [PRAYER_TYPES.BRIGIT_XV_1]: `Ó Ježíši Kriste, věčná slasti těch, kteří tě milují, blaženosti převyšující jakoukoli radost a žádost, spáso a milovníku hříšníků: ty jsi dosvědčil, že tvou rozkoší je být se syny lidskými, protože ses pro člověka učinil člověkem při naplnění času. Rozpomeň se na všechny úzkostné předtuchy a zármutek, jež jsi vytrpěl v lidském těle, když nastával čas tvého spasitelného umučení, v božském Srdci předem stanovený.
+
+Vzpomeň na smutek a hořkost, které podle tvého vlastního svědectví naplňovaly tvou duši, když jsi při poslední večeři myl nohy svým učedníkům, dal jim své Tělo a svou Krev, laskavě je těšil a předpověděl jim své bolestné umučení.
+
+Vzpomeň na svůj strach a úzkost i bolest, jež jsi ve svém božském těle vytrpěl před mukami kříže, když jsi po trojí modlitbě v krvavém potu byl od Jidáše, svého učedníka, zrazen, od vyvoleného lidu jat, křivými svědky obžalován, třemi soudci nespravedlivě souzen, ve vyvoleném městě o Veliké noci v kvetoucí mladosti nevinně odsouzen, ze svého roucha svlečen, potupným pláštěm oděn, políčkován, na očích a na tváři zahalen, k sloupu přivázán, krutě, nelítostně bičován, trním korunován, třtinou do hlavy bit a jinými nesčíslnými potupami drásán.
+
+Pro tato před svým ukřižováním vytrpěná muka, dej nám, Pane Bože, vroucně prosíme, před naší smrtí pravou zkroušenost, pravdivé vyznání, upřímnou lítost, dostatečné zadostiučinění a všech našich hříchů odpuštění. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_2]: `Ó Ježíši, stvořiteli světa, jehož nic nezmění a neobsáhne, jenž svou rukou řídíš svět, {/}vzpomeň na přehořkou bolest, kterou jsi vytrpěl, když Židé nejdříve ruce tvé tupými hřeby na kříž přibili {/}a pak prorážejíce tvé nohy bolest na bolest k ranám tvým přidávali, {/}a tak ukrutně rozepjali tvé svaté tělo na délku i šíři tvého kříže, že se vymkly klouby tvých údů. {/}Pro památku této přesvaté a hořké bolesti na kříži, prosíme tě, naplň nás bázní a dej nám svou lásku. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_3]: `Ó Ježíši, nebeský lékaři, rozpomeň se na mdlobu a zsinalost, kterou jsi vytrpěl při vztyčení kříže, rozdrásán na všech svých údech, z nichž žádný nezůstal ušetřen, že nebylo a není bolesti, jež by byla podobna tvé; neboť od chodidla nohou až k temeni hlavy nebylo na tobě zdravého místa. A přece, nedbaje všech bolestí, modlil ses za své nepřátele k svému Otci: Otče, odpusť jim, neboť nevědí, co činí.
+
+Pro toto milosrdenství a na památku této bolesti dopřej nám, aby tato připomínka tvého přehořkého umučení přispěla nám k odpuštění všech našich hříchů. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_4]: `Ó Ježíši, pravá radosti, svobodo andělů, rozkoši ráje, vzpomeň na truchlivost a hrůzu, které jsi zakoušel, když všichni tvoji nepřátelé jako nejdravější lvi tě obstoupili, políčkováním, pliváním a ostatními neslýchanými trýzněními tě trápili.
+
+Pro toto trýznění a pro potupné nadávky a rouhání, jimiž tě, Pane Ježíši, všichni tvoji nepřátelé trápili, prosíme tě, vysvoboď nás ode všech našich nepřátel, viditelných i neviditelných, a dej nám ve stínu tvých křídel dospět k dokonalosti a věčné spáse. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_5]: `Ó Ježíši, zrcadlo věčného lesku, pomni oné truchlivosti, kterou jsi pocítil, {/}když jsi spatřil v zrcadle své nejjasnější velebnosti jak předurčení vyvolených, kteří zásluhami tvého umučení budou spaseni, tak i zavržení zlých, kteří pro své hříchy budou zavrženi. {/}Pro hlubinu své slitovnosti, jíž se ti zželelo nás, ztracených a zoufalých hříšníků, {/}kterou jsi projevil kajícímu lotru na kříži slovy: Ještě dnes budeš se mnou v ráji, {/}prosíme tě, milovaný Ježíši, uděl nám své milosrdenství v hodině naší smrti. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_6]: `Ó Ježíši, milování hodný a žádoucí příteli všech, vzpomeň si na onen zármutek, který jsi pocítil, když nahý a zbědovaný pněl jsi na kříži a všichni tvoji přátelé a známí tě opustili. Neměl jsi nikoho, kdo by tě potěšil, jen svou milovanou Matku, která v nesmírné bolesti své duše při tobě stála nejvěrněji, a kterou jsi odporučil svému učedníku slovy: Hle, matka tvá!
+
+Prosíme tě, přelaskavý Ježíši, pro meč bolesti, který tenkrát pronikl její duši, slituj se nad námi ve všech našich souženích a trápeních tělesných i duševních a dej nám útěchu v čase soužení a útrap, zvláště v hodinu naší smrti. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_7]: `Ó Ježíši, nevyvážná studnice dobroty, {/}ty jsi v nesmírné lásce zvolal na kříži: Žízním! po spasení lidského pokolení. {/}Prosíme, rozněť žádost našich srdcí po všem, co je dokonalé, {/}a uhas v nás úplně žízeň hříšné tělesné žádostivosti a žár zálib světských. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_8]: `Ó Ježíši, sladkosti srdcí a nesmírná lahodo duší, {/}pro hořkost octa a žluči, jež jsi okusil pro nás, {/}dopřej nám, abychom v hodině smrti hodně přijali tvé Tělo a tvou Krev pro útěchu a uzdravení svých duší. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_9]: `Ó Ježíši, moci královská a radosti mysli, {/}vzpomeň bolesti a úzkosti, jež jsi vytrpěl, {/}když z hořkosti smrti za posměšného spílání Židů jsi zvolal velikým hlasem: Bože můj, Bože můj, proč jsi mne opustil! {/}Pro tuto úzkost žádáme snažně, abys nás neopouštěl v našich úzkostech, Pane a Bože náš. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_10]: `Ó Ježíši, Alfo a Omego, živote a sílo každého času, vzpomeň si, že od hlavy až k nohám pohroužil ses pro nás do tůně utrpení.
+
+Pro šíři i délku svých ran, nauč nás, tonoucí příliš v hříších, plnit v celé šíři a s pravou láskou tvá přikázání. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_11]: `Ó Ježíši, nejhlubší propasti milosrdenství, {/}prosíme tě, pro hloubku tvých ran, jež pronikly až do dřeni tvých kostí a útrob, {/}abys nás, tonoucí příliš v hříších, vynesl {/}a ukryl v skrýši svých ran, Pane, až by se utišil tvůj hněv. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_12]: `Ó Ježíši, zrcadlo pravdy, znamení jednoty a pouto lásky, pomni nesčetných svých ran, jimiž jsi byl od hlavy až k nohám poset a nejsvětější Krví svou zbarven. Jaké nezměrné bolesti jsi za nás na svém přečistém těle vytrpěl! Milosrdný Ježíši, co jsi měl ještě učinit a neučinil jsi?
+
+Prosíme tě, vpiš své rány svou nejdražší Krví do našich srdcí, abychom v nich četli tvou bolest a tvou smrt, abychom stále, až do konce života, trvali v díkůčinění. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_13]: `Ó Ježíši, lve nejsilnější, Králi nesmrtelný a nepřemožitelný, vzpomeň na bolest, kterou jsi vytrpěl, když všechny síly těla i srdce tvého tě úplně opustily a když nakloniv hlavu jsi řekl: Dokonáno jest!
+
+Pro tuto úzkost a bolest smiluj se nad námi při dokonání našeho posledního zápasu, když duše každého z nás bude sklíčena a duch zarmoucen. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_14]: `Ó Ježíši, jednorozený Synu nejvyššího Otce, záře a obraze jeho podstaty, pomni oné naprosté oddanosti, v níž jsi svému Otci odevzdal svého ducha slovy: Otče, v ruce tvé poroučím svého ducha! A s tělem rozdrásaným a srdcem pukajícím, s velkým výkřikem otevřels útroby svého milosrdenství. Za naše vykoupení jsi vypustil duši.
+
+Pro tuto nejdražší smrt tě prosíme, Králi svatých, posilni nás k odporování ďáblu, světu, tělu, abychom světu odumřeli, tobě živi byli a v poslední hodině našeho skonání přijmi ducha každého z nás jako poutníka k tobě se vracejícího. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_15]: `Ó Ježíši, pravý a plodný vinný kmeni, rozpomeň se na přetékající vylitou Krev, kterou jsi přehojně prolil jako hrozen v lisu. Z boku kopím probodeného vycedil jsi nám krev a vodu k napojení, že v tobě ani kapky nezůstalo, a posléze jako kytička myrhy visel jsi na kříži mezi nebem a zemí. Tělo tvé jako by pomizelo, vlhkost tvých útrob vyschla, dřeň tvých kostí zvadla.
+
+Pro toto přehořké umučení a vylití tvé drahocenné Krve, prosíme tě, dobrotivý Ježíši, přijmi duši každého z nás v zápase smrti. Amen.`,
+
+  [PRAYER_TYPES.BRIGIT_XV_CONCLUSIO]: `Ó Pane Ježíši Kriste, Synu Boha živého, {/}přijmi tuto modlitbu v oné nejvyšší lásce, s níž jsi snášel všechny rány svého nejsvětějšího Těla, {/}a smiluj se nade mnou, svým služebníkem, {/}a všem hříšníkům i všem věřícím, živým i zemřelým, dej milosrdenství, milost, odpuštění a život věčný. Amen.`,
+
+  // The rosary's optional opening prayers. The versicles and "Dignáre me" are
+  // Malé hodinky k nejblahoslavenější Panně Marii (1924, reprinted 1937),
+  // pp. 2 and 20 (the antiphon split at its semicolon into ℣ and ℟); "María,
+  // Mater grátiæ" is the prose of sv. Alfons z Liguori, Cesta spásy (1904),
+  // p. 216. Capitals as the app's (pronouns for God lower case).
+  [PRAYER_TYPES.ROSARY_APERI]: `℣ Hospodine, rty mé otevři.
+℟ A ústa má zvěstovati budou chválu tvou.
+℣ Bože, ku pomoci mé vzezři.
+℟ Hospodine, k spomáhání mému pospěš.`,
+
+  [PRAYER_TYPES.ROSARY_DIGNARE]: `Maria, matko milosti,
+matko milosrdenství,
+ty nás od nepřítele chraň
+a v hodince smrti přijmi.
+℣ Učiň mne hodna chváliti tebe, Panno svatá.
+℟ Dejž mi tu sílu proti nepřátelům tvým.`,
+
   // Orationes utilissimæ additions. Czech sourced verbatim from orationes.pdf.
   [PRAYER_TYPES.NICENE_CREED]: `Věřím v jednoho Boha, Otce všemohoucího, Stvořitele nebe i země, všeho viditelného i neviditelného. {/}Věřím v jednoho Pána, Ježíše Krista, jednorozeného Syna Božího, {/}který se zrodil z Otce přede všemi věky: {/}Bůh z Boha, Světlo ze Světla, pravý Bůh z pravého Boha, {/}zrozený, nestvořený, jedné podstaty s Otcem: {/}skrze něho všechno je stvořeno. {/}On pro nás lidi a pro naši spásu sestoupil z nebe. {/}Skrze Ducha Svatého přijal tělo z Marie Panny a stal se člověkem. {/}Byl za nás ukřižován, za dnů Poncia Piláta byl umučen a pohřben. {/}Třetího dne vstal z mrtvých podle Písma. {/}Vstoupil do nebe, sedí po pravici Otce. {/}A znovu přijde, ve slávě, soudit živé i mrtvé {/}a jeho království bude bez konce. {/}Věřím v Ducha Svatého, Pána a dárce života, {/}který z Otce i Syna vychází, {/}s Otcem i Synem je zároveň uctíván a oslavován {/}a mluvil ústy proroků. {/}Věřím v jednu, svatou, všeobecnou, apoštolskou církev. {/}Vyznávám jeden křest na odpuštění hříchů. {/}Očekávám vzkříšení mrtvých {/}a život budoucího věku. Amen.`,
 

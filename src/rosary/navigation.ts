@@ -10,11 +10,13 @@
 import { MYSTERIES, type MysteryKey } from "./prayers";
 import {
   buildRosarySequence,
+  BRIGIT_SHORT,
   CHAPLETS,
   FULL_ROSARY,
   OTHER_PRAYER_SETS,
   ORDINARY_PRAYERS,
   LITANIES,
+  type BrigitShortKey,
   type ChapletKey,
   type FullRosaryKey,
   type OtherPrayerKey,
@@ -32,7 +34,7 @@ import {
 } from "./plans";
 import type { SavedState } from "./storage";
 
-export type PrayerSetKey = MysteryKey | FullRosaryKey | ChapletKey | OtherPrayerKey | OrdinaryPrayerKey | LitanyKey | PlanSetKey;
+export type PrayerSetKey = MysteryKey | FullRosaryKey | ChapletKey | BrigitShortKey | OtherPrayerKey | OrdinaryPrayerKey | LitanyKey | PlanSetKey;
 export type PrayerSetKind = "rosary" | "linear" | "single";
 
 // Own-property check, NOT `in`: `in` walks the prototype chain, so `"toString"`
@@ -42,11 +44,12 @@ const has = (obj: object, k: string): boolean => Object.prototype.hasOwnProperty
 
 // A key of one of the built-in prayer sets (not a user plan). Used for the
 // `#pray=<key>` links from the static prayer pages.
-export const isBuiltInKey = (k: string): k is MysteryKey | FullRosaryKey | ChapletKey | OtherPrayerKey | OrdinaryPrayerKey | LitanyKey =>
-  has(MYSTERIES, k) || has(FULL_ROSARY, k) || has(CHAPLETS, k) || has(OTHER_PRAYER_SETS, k) || has(ORDINARY_PRAYERS, k) || has(LITANIES, k);
+export const isBuiltInKey = (k: string): k is MysteryKey | FullRosaryKey | ChapletKey | BrigitShortKey | OtherPrayerKey | OrdinaryPrayerKey | LitanyKey =>
+  has(MYSTERIES, k) || has(FULL_ROSARY, k) || has(CHAPLETS, k) || has(BRIGIT_SHORT, k) || has(OTHER_PRAYER_SETS, k) || has(ORDINARY_PRAYERS, k) || has(LITANIES, k);
 
 export const isRosaryKey = (k: PrayerSetKey): k is MysteryKey => has(MYSTERIES, k);
 export const isChapletKey = (k: PrayerSetKey): k is ChapletKey => has(CHAPLETS, k);
+export const isBrigitShortKey = (k: PrayerSetKey): k is BrigitShortKey => has(BRIGIT_SHORT, k);
 export const isFullRosaryKey = (k: PrayerSetKey): k is FullRosaryKey => has(FULL_ROSARY, k);
 export const isOrdinaryKey = (k: PrayerSetKey): k is OrdinaryPrayerKey => has(ORDINARY_PRAYERS, k);
 export const isLitanyKey = (k: PrayerSetKey): k is LitanyKey => has(LITANIES, k);
@@ -74,6 +77,10 @@ export function getPrayerSetMeta(
     const c = CHAPLETS[key];
     return { name: c.name, color: c.color, kind: "rosary" };
   }
+  if (isBrigitShortKey(key)) {
+    const b = BRIGIT_SHORT[key];
+    return { name: b.name, color: b.color, kind: "linear" };
+  }
   if (isOrdinaryKey(key)) {
     const o = ORDINARY_PRAYERS[key];
     return { name: o.name, color: o.color, kind: "single" };
@@ -94,6 +101,7 @@ export function buildSequence(key: PrayerSetKey, plans: Plan[] = []): SequenceIt
   if (isRosaryKey(key)) return buildRosarySequence(MYSTERIES[key]);
   if (isFullRosaryKey(key)) return FULL_ROSARY[key].build();
   if (isChapletKey(key)) return CHAPLETS[key].build();
+  if (isBrigitShortKey(key)) return BRIGIT_SHORT[key].build();
   if (isOrdinaryKey(key)) return ORDINARY_PRAYERS[key].build();
   if (isLitanyKey(key)) return LITANIES[key].build();
   return OTHER_PRAYER_SETS[key].build();
@@ -107,10 +115,11 @@ export function buildSequence(key: PrayerSetKey, plans: Plan[] = []): SequenceIt
 export const isPersistableKey = (
   k: string,
   plans: Plan[] = []
-): k is MysteryKey | FullRosaryKey | ChapletKey | OtherPrayerKey | LitanyKey | PlanSetKey =>
+): k is MysteryKey | FullRosaryKey | ChapletKey | BrigitShortKey | OtherPrayerKey | LitanyKey | PlanSetKey =>
   has(MYSTERIES, k) ||
   has(FULL_ROSARY, k) ||
   has(CHAPLETS, k) ||
+  has(BRIGIT_SHORT, k) ||
   has(OTHER_PRAYER_SETS, k) ||
   (has(LITANIES, k) && LITANIES[k as LitanyKey].kind === "linear") ||
   (isPlanKey(k) && !!findPlan(plans, k));

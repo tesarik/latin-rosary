@@ -61,9 +61,23 @@ export function buildFullRosary(): SequenceItem[] {
   return seq;
 }
 
+// The rosary's optional opening prayers (the switch on its first step, the
+// `ruzenec_rosary_full` preference in prefs.ts): with them, two more steps
+// after the Sign of the Cross. Read from here, like look.ts's current look,
+// so every caller of the rosary's builders — the session check included —
+// counts the same steps; Rosary sets it before anything is built, and moves
+// the places kept in the rosary by ROSARY_OPENING_EXTRA when it changes.
+let rosaryOpeningFull = false;
+export const setRosaryOpeningFull = (full: boolean): void => { rosaryOpeningFull = full; };
+export const ROSARY_OPENING_EXTRA = 2;
+
 function rosaryOpening(): SequenceItem[] {
   const seq: SequenceItem[] = [];
   seq.push({ type: PRAYER_TYPES.SIGN_OF_CROSS, label: "Signum Crucis" });
+  if (rosaryOpeningFull) {
+    seq.push({ type: PRAYER_TYPES.ROSARY_APERI,   label: "Dómine, lábia mea" });
+    seq.push({ type: PRAYER_TYPES.ROSARY_DIGNARE, label: "Dignáre me" });
+  }
   seq.push({ type: PRAYER_TYPES.CREED,        label: "Credo",        beadId: "tail-creed" });
   seq.push({ type: PRAYER_TYPES.OUR_FATHER,   label: "Pater Noster", beadId: "tail-of" });
   seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave María", mystery: "qui adaúgeat nobis fidem",      mysteryTr: { cs: "který v nás rozmnožuje víru",  en: "who may increase our faith" },     beadId: "tail-hm-0" });
@@ -160,8 +174,8 @@ export function buildChaplet(full: boolean): SequenceItem[] {
 
 // The chaplet in its two forms: with only the prayers the Diary prescribes,
 // and with the optional ones. Two keys rather than one with a setting, so a
-// kept place always belongs to the sequence it was counted in; the start
-// screen's switch picks which one a tap opens (see chaplet.ts).
+// kept place always belongs to the sequence it was counted in; the switch on
+// the chaplet's first step picks the form (see chaplet.ts).
 export type ChapletKey = "misericordia" | "misericordia-plena";
 
 export const CHAPLET_COLOR = "#1E6FB8";
@@ -222,17 +236,41 @@ const BRIGIT_PRAYERS = [
   { type: PRAYER_TYPES.BRIGIT_PIERCING,     section: "Láncea",      label: "In Apertióne Láteris" },
 ] as const;
 
-// Opening prayer + 7 sheddings × (meditation + Pater Noster + Ave María) =
-// 22 steps. Linear, no beads. Texts are a translation, not a sourced edition
-// (see the note in prayers.ts above the BRIGIT_* entries).
-export function buildBrigitPrayers(): SequenceItem[] {
+// In full: the opening prayer + 7 sheddings × (meditation + Pater Noster +
+// Ave María) = 22 steps. Linear, no beads. Texts are a translation, not a
+// sourced edition (see the note in prayers.ts above the BRIGIT_* entries).
+// The opening and the meditations are optional: without them the devotion is
+// the seven Paters and Aves themselves, 14 steps, each Pater the section of
+// its shedding.
+export function buildBrigitPrayers(full = true): SequenceItem[] {
   const seq: SequenceItem[] = [];
-  seq.push({ type: PRAYER_TYPES.BRIGIT_OPENING, label: "Inítium", section: "Inítium" });
+  if (full) seq.push({ type: PRAYER_TYPES.BRIGIT_OPENING, label: "Inítium", section: "Inítium" });
   for (const p of BRIGIT_PRAYERS) {
-    seq.push({ type: p.type, label: p.label, section: p.section });
-    seq.push({ type: PRAYER_TYPES.OUR_FATHER, label: "Pater Noster" });
+    if (full) seq.push({ type: p.type, label: p.label, section: p.section });
+    seq.push({ type: PRAYER_TYPES.OUR_FATHER, label: "Pater Noster", ...(full ? {} : { section: p.section }) });
     seq.push({ type: PRAYER_TYPES.HAIL_MARY,  label: "Ave María" });
   }
+  return seq;
+}
+
+// The Fifteen Prayers of St. Bridget (the year-long devotion): each prayer a
+// section, followed by an unsectioned Pater Noster and Ave María, then the
+// closing prayer — 46 steps. Like the seven prayers, never in a plan (each
+// Pater and Ave would become a bead).
+const BRIGIT_XV_ORDINALS = [
+  "prima", "secúnda", "tértia", "quarta", "quinta", "sexta", "séptima", "octáva",
+  "nona", "décima", "undécima", "duodécima", "décima tértia", "décima quarta", "décima quinta",
+] as const;
+
+export function buildBrigitXV(): SequenceItem[] {
+  const seq: SequenceItem[] = [];
+  BRIGIT_XV_ORDINALS.forEach((ord, i) => {
+    const label = `Orátio ${ord}`;
+    seq.push({ type: PRAYER_TYPES[`BRIGIT_XV_${i + 1}` as `BRIGIT_XV_${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15}`], label, section: label });
+    seq.push({ type: PRAYER_TYPES.OUR_FATHER, label: "Pater Noster" });
+    seq.push({ type: PRAYER_TYPES.HAIL_MARY,  label: "Ave María" });
+  });
+  seq.push({ type: PRAYER_TYPES.BRIGIT_XV_CONCLUSIO, label: "Conclúsio", section: "Conclúsio" });
   return seq;
 }
 
@@ -430,8 +468,30 @@ export function buildOrdoMissae(): SequenceItem[] {
     ORDINARY_PRAYERS[key].build().map((item) => ({ ...item, label: section, section })));
 }
 
+const BRIGIT_NAME = "Orationes Sanctæ Brigittæ";
+const BRIGIT_NAME_TR: Localized = { cs: "Modlitby svaté Brigity", en: "The Prayers of Saint Bridget" };
+const BRIGIT_COLOR = "#8E1B1B";
+
+// St. Bridget's prayers without the optional ones (the opening and the seven
+// meditations): only the Paters and Aves. Its own key, as the chaplet's two
+// forms have (see chaplet.ts), so a kept place always belongs to the sequence
+// it was counted in; `brigit` — the full form — stays the one the menu,
+// favourites, plans and the static page know, and the switch on the prayer's
+// first step picks the form (brigit.ts). Not in OTHER_PRAYER_SETS, so it is
+// never listed on its own.
+export type BrigitShortKey = "brigit-brevis";
+
+export const BRIGIT_SHORT: Record<BrigitShortKey, {
+  name: string;
+  nameTr: Localized;
+  color: string;
+  build: () => SequenceItem[];
+}> = {
+  "brigit-brevis": { name: BRIGIT_NAME, nameTr: BRIGIT_NAME_TR, color: BRIGIT_COLOR, build: () => buildBrigitPrayers(false) },
+};
+
 export type OtherPrayerKey =
-  | "leonine" | "brigit" | "ioseph" | "defuncti" | "spiritus"
+  | "leonine" | "brigit" | "brigit_xv" | "ioseph" | "defuncti" | "spiritus"
   | "angelica" | "septem_dolores" | "sanguis" | "cor_iesu" | "ordo_missae";
 
 // Linear prayer sets (no beads, not persisted). Keyed by `OtherPrayerKey`,
@@ -455,10 +515,16 @@ export const OTHER_PRAYER_SETS: Record<OtherPrayerKey, {
     build: buildLeoninePrayers,
   },
   brigit: {
-    name: "Orationes Sanctæ Brigittæ",
-    nameTr: { cs: "Modlitby svaté Brigity", en: "The Prayers of Saint Bridget" },
-    color: "#8E1B1B",
-    build: buildBrigitPrayers,
+    name: BRIGIT_NAME,
+    nameTr: BRIGIT_NAME_TR,
+    color: BRIGIT_COLOR,
+    build: () => buildBrigitPrayers(true),
+  },
+  brigit_xv: {
+    name: "Quindecim Orationes Sanctæ Brigittæ",
+    nameTr: { cs: "Patnáct modliteb svaté Brigity", en: "The Fifteen Prayers of Saint Bridget" },
+    color: BRIGIT_COLOR,
+    build: buildBrigitXV,
   },
   ioseph: {
     name: "Septem Dolóres et Gáudia Sancti Ioseph",

@@ -116,9 +116,9 @@ type Strings = {
   inSeasonSubtitle: string;
   // Under the Angelus in Eastertide, when the Regína Cæli takes its place.
   angelusEastertide: string;
-  // The switch under the Chaplet of Divine Mercy that adds its optional
-  // opening and closing prayers.
-  chapletOptional: string;
+  // The switch on the first step of the Chaplet of Divine Mercy and of St.
+  // Bridget's prayers that adds their optional prayers.
+  optionalPrayers: string;
   startRosaryAria: (mysteryName: string) => string;
   startPrayerAria: (prayerName: string) => string;
   stepXofY: (step: number, total: number) => string;
@@ -301,7 +301,7 @@ export const STRINGS: Record<Locale, Strings> = {
     favoriteRemove: "Odebrat z oblíbených",
     inSeasonSubtitle: "Antifona doby, svátky a měsíce",
     angelusEastertide: "V době velikonoční se místo něj modlí Regína Cæli",
-    chapletOptional: "S nepovinnými modlitbami",
+    optionalPrayers: "S nepovinnými modlitbami",
     startRosaryAria: (n) => `Začít růženec — ${n}`,
     startPrayerAria: (n) => `Začít modlitbu — ${n}`,
     stepXofY: (s, t) => `krok ${s} z ${t}`,
@@ -482,7 +482,7 @@ export const STRINGS: Record<Locale, Strings> = {
     favoriteRemove: "Remove from favourites",
     inSeasonSubtitle: "The antiphon of the season, feasts and months",
     angelusEastertide: "In Eastertide the Regína Cæli is prayed instead",
-    chapletOptional: "With the optional prayers",
+    optionalPrayers: "With the optional prayers",
     startRosaryAria: (n) => `Start rosary — ${n}`,
     startPrayerAria: (n) => `Start prayer — ${n}`,
     stepXofY: (s, t) => `step ${s} of ${t}`,
