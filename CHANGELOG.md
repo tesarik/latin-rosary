@@ -7,9 +7,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
+- **The Way of the Cross** (*Via Crucis*), among the devotions and in Lent: fourteen stations, each with its title, *Adorámus te*, an Our Father, a Hail Mary, *Miserére nostri* and a stanza of the *Stabat Mater*, then the collect of the Holy Cross and the prayers for the Pope, in the form the Raccolta gives. Latin titles from P. Gaudentius's *Orate Fratres* (1901), Czech from the Brno *Cesta k věčné spáse*, English from the Raccolta.
 - **The acts of faith, hope, charity and contrition** (*Actus fídei, spei, caritátis*), with the daily prayers: the Latin and English of the Compendium of the Catechism (2005), the Czech our own translation.
 - **The Benedíctus**, the Canticle of Zachary of Morning Prayer, with the daily prayers beside the Nunc dimíttis. Czech from *Malé hodinky* (1937), English Douay-Rheims.
 - **Veni, Creátor Spíritus** on its own, with its versicle and collect (until now only inside the Chaplet of the Holy Spirit), with the daily prayers and in the Pentecost octave.
+
+### Fixed
+- **The beads of a very long prayer** (over 72 steps) stay in four rows broken where its parts start, instead of an even cut.
 
 ## [0.44.0]
 

@@ -176,6 +176,71 @@ By this most bitter Passion and the shedding of thy precious Blood, merciful Jes
 
   [PRAYER_TYPES.BRIGIT_XV_CONCLUSIO]: `O Lord Jesus Christ, Son of the living God, {/}receive this prayer in that surpassing love with which thou didst bear all the wounds of thy most holy Body; {/}and have mercy on me thy servant, {/}and to all sinners and all the faithful, living and dead, grant mercy, grace, forgiveness and life everlasting. Amen.`,
 
+  // Via Crucis: the titles, versicles and collect of the Raccolta (1910),
+  // no. 117, pronouns lower case; the closing rubric is its own.
+  [PRAYER_TYPES.VIA_CRUCIS_1]: `{r}Station I.{/r} Jesus condemned to death.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_2]: `{r}Station II.{/r} Jesus receives his cross.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_3]: `{r}Station III.{/r} Jesus falls the first time beneath the cross.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_4]: `{r}Station IV.{/r} Jesus meets his Mother.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_5]: `{r}Station V.{/r} Simon of Cyrene helps Jesus to carry the cross.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_6]: `{r}Station VI.{/r} Jesus and Veronica.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_7]: `{r}Station VII.{/r} Jesus falls a second time.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_8]: `{r}Station VIII.{/r} Jesus comforts the women of Jerusalem.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_9]: `{r}Station IX.{/r} Again a third time Jesus falls.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_10]: `{r}Station X.{/r} Jesus stripped and given gall to drink.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_11]: `{r}Station XI.{/r} Jesus nailed to the cross.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_12]: `{r}Station XII.{/r} Jesus dies upon the cross.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_13]: `{r}Station XIII.{/r} Jesus taken from the cross and laid in Mary's bosom.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_14]: `{r}Station XIV.{/r} Jesus laid in the tomb.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_MISERERE]: `℣ Have mercy on us, O Lord.
+℟ Have mercy on us.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_OREMUS]: `Let us pray.
+O God, who by the precious Blood of thy only-begotten Son didst sanctify the standard of the Cross, {/}grant, we beseech thee, that all those who rejoice in the glory of the same holy Cross may at all times and places feel the gladness of thy protection. {/}Through the same Christ our Lord. Amen.
+{r}End with one Pater, Ave and Gloria for the intention of the Sovereign Pontiff.{/r}`,
+
   // The rosary's optional opening prayers. The versicles and "Dignáre me" are
   // the Little Office of the B.V.M. (Benziger, 1915, as on lobvm.com), its
   // pronouns lower case; "María, Mater grátiæ" is the Raccolta's (1910,

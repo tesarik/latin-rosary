@@ -2,7 +2,7 @@
 // the thorn-crowned cross after the Passion, the sorrows and the prayers for
 // the dead and for mercy; the flowered tailpiece after every other one.
 const CRUX_SETS: ReadonlySet<string> = new Set([
-  "bolestny", "septem_dolores", "sanguis", "brigit", "brigit_xv", "stabat_mater", "miserere",
+  "bolestny", "septem_dolores", "sanguis", "brigit", "brigit_xv", "via_crucis", "stabat_mater", "miserere",
   "requiem", "de_profundis", "dies_irae", "defuncti",
 ]);
 

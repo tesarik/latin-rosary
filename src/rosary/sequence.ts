@@ -274,6 +274,32 @@ export function buildBrigitXV(): SequenceItem[] {
   return seq;
 }
 
+// Via Crucis (the Raccolta's form, see prayers.ts): the opening act of
+// contrition; at each station its title and versicle (a section), Pater, Ave,
+// Miserére and a stanza of the Stabat Mater, in order (cut by `lines`: three
+// lines and a blank a stanza); then the last six stanzas, the collect and a
+// Pater, Ave and Glória for the Pope — 76 steps.
+const VIA_CRUCIS_ROMAN = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV"] as const;
+const stanzas = (from: number, to: number): [number, number] => [from * 4, to * 4 - 1];
+
+export function buildViaCrucis(): SequenceItem[] {
+  const seq: SequenceItem[] = [{ type: PRAYER_TYPES.CORONA_SS_INITIUM, label: "Inítium", section: "Inítium" }];
+  VIA_CRUCIS_ROMAN.forEach((n, i) => {
+    const label = `Statio ${n}`;
+    seq.push({ type: PRAYER_TYPES[`VIA_CRUCIS_${i + 1}` as `VIA_CRUCIS_${1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14}`], label, section: label });
+    seq.push({ type: PRAYER_TYPES.OUR_FATHER, label: "Pater Noster" });
+    seq.push({ type: PRAYER_TYPES.HAIL_MARY, label: "Ave María" });
+    seq.push({ type: PRAYER_TYPES.VIA_CRUCIS_MISERERE, label: "Miserére nostri" });
+    seq.push({ type: PRAYER_TYPES.STABAT_MATER, label: "Stabat Mater", lines: stanzas(i, i + 1) });
+  });
+  seq.push({ type: PRAYER_TYPES.STABAT_MATER, label: "Stabat Mater", lines: stanzas(14, 20), section: "Stabat Mater" });
+  seq.push({ type: PRAYER_TYPES.VIA_CRUCIS_OREMUS, label: "Orémus", section: "Orémus" });
+  seq.push({ type: PRAYER_TYPES.OUR_FATHER, label: "Pater Noster" });
+  seq.push({ type: PRAYER_TYPES.HAIL_MARY, label: "Ave María" });
+  seq.push({ type: PRAYER_TYPES.GLORY_BE, label: "Glória Patri" });
+  return seq;
+}
+
 // The Seven Sorrows and Joys of St. Joseph, short form: seven sections, each a
 // red heading over its Pater Noster, then an Ave María and a Glória Patri, and
 // Vírginum custos to close — 22 steps. As with St. Bridget, only the heading
@@ -491,7 +517,7 @@ export const BRIGIT_SHORT: Record<BrigitShortKey, {
 };
 
 export type OtherPrayerKey =
-  | "leonine" | "brigit" | "brigit_xv" | "ioseph" | "defuncti" | "spiritus"
+  | "leonine" | "brigit" | "brigit_xv" | "via_crucis" | "ioseph" | "defuncti" | "spiritus"
   | "angelica" | "septem_dolores" | "sanguis" | "cor_iesu" | "ordo_missae";
 
 // Linear prayer sets (no beads, not persisted). Keyed by `OtherPrayerKey`,
@@ -525,6 +551,12 @@ export const OTHER_PRAYER_SETS: Record<OtherPrayerKey, {
     nameTr: { cs: "Patnáct modliteb svaté Brigity", en: "The Fifteen Prayers of Saint Bridget" },
     color: BRIGIT_COLOR,
     build: buildBrigitXV,
+  },
+  via_crucis: {
+    name: "Via Crucis",
+    nameTr: { cs: "Křížová cesta", en: "The Way of the Cross" },
+    color: "#7B1F1F",
+    build: buildViaCrucis,
   },
   ioseph: {
     name: "Septem Dolóres et Gáudia Sancti Ioseph",

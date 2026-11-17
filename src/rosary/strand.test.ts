@@ -17,7 +17,10 @@ describe("strandRows", () => {
     // Five of the fifteen prayers a row; two of the seven sorrows a row.
     expect(rowsOf("brigit_xv").rows).toEqual([0, 15, 30]);
     expect(rowsOf("septem_dolores").rows).toEqual([0, 19, 37, 55]);
-    for (const key of ["brigit_xv", "spiritus", "angelica", "septem_dolores", "sanguis", "cor_iesu"] as const) {
+    // At most four rows, though 76 steps would want five of 18: the opening
+    // and three stations, then four stations a row, the closing in the last.
+    expect(rowsOf("via_crucis").rows).toEqual([0, 16, 36, 56]);
+    for (const key of ["brigit_xv", "via_crucis", "spiritus", "angelica", "septem_dolores", "sanguis", "cor_iesu"] as const) {
       const { seq, rows } = rowsOf(key);
       expect(rows.length, key).toBeGreaterThan(1);
       expect(rows.length, key).toBeLessThanOrEqual(MAX_ROWS);

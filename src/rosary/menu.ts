@@ -155,7 +155,7 @@ const GROUPS: readonly MenuGroup[] = [
     color: "#C62828",
     art: "devotiones",
     sections: [
-      { keys: ["spiritus", "sanguis", "brigit", "brigit_xv", "cor_iesu", "septem_dolores", "angelica"] },
+      { keys: ["spiritus", "sanguis", "brigit", "brigit_xv", "via_crucis", "cor_iesu", "septem_dolores", "angelica"] },
       { heading: "Ad sanctum Ioseph", art: "ioseph", keys: [
         "ioseph", "ad_te_ioseph", "memorare_ioseph", "memento_ioseph", "o_ioseph_virgo", "fac_nos_innocuam", "commemoratio_ioseph",
       ] },
@@ -183,7 +183,7 @@ const OCCASION_PRAYERS: Record<Occasion, readonly MenuKey[]> = {
   precious_blood: ["precious_blood", "sanguis"],
   holy_name: ["holy_name"],
   marian_month: ["loreto"],
-  lent: ["brigit", "brigit_xv", "septem_dolores", "miserere"],
+  lent: ["via_crucis", "brigit", "brigit_xv", "septem_dolores", "miserere"],
 };
 
 // What belongs to the day, for the start screen's "in season" card and the

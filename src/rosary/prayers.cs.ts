@@ -119,6 +119,74 @@ Pro toto přehořké umučení a vylití tvé drahocenné Krve, prosíme tě, do
 
   [PRAYER_TYPES.BRIGIT_XV_CONCLUSIO]: `Ó Pane Ježíši Kriste, Synu Boha živého, {/}přijmi tuto modlitbu v oné nejvyšší lásce, s níž jsi snášel všechny rány svého nejsvětějšího Těla, {/}a smiluj se nade mnou, svým služebníkem, {/}a všem hříšníkům i všem věřícím, živým i zemřelým, dej milosrdenství, milost, odpuštění a život věčný. Amen.`,
 
+  // Via Crucis: the titles, ℣ Klaníme se and ℣ Smiluj se of the Brno way of the
+  // cross in Cesta k věčné spáse ([1946]), pp. 58–77 (its own songs,
+  // meditations and prayers left out; its ℣ adds "nejsvětější Pane Ježíši",
+  // its Smiluj se "ó Ježíši", to the Latin's). The collect and the rubric
+  // are OUR OWN translation.
+  [PRAYER_TYPES.VIA_CRUCIS_1]: `{r}I. zastavení:{/r} Ježíše na smrt odsuzují.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_2]: `{r}II. zastavení:{/r} Na Ježíše kříž vložen.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_3]: `{r}III. zastavení:{/r} Ježíš ponejprv pod křížem padá.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_4]: `{r}IV. zastavení:{/r} Ježíš potká se s Matkou svou.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_5]: `{r}V. zastavení:{/r} Šimon pomáhá Ježíši kříž nésti.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_6]: `{r}VI. zastavení:{/r} Ježíš vytiskne tvář svou na roucho Veroniky.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_7]: `{r}VII. zastavení:{/r} Ježíš padá po druhé.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_8]: `{r}VIII. zastavení:{/r} S Ježíšem ženy jerusalemské se potkají.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_9]: `{r}IX. zastavení:{/r} Ježíš padá po třetí.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_10]: `{r}X. zastavení:{/r} Ježíš na popravní místo dochází, ze šatů svlečen a octem a žlučí napájen jest.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_11]: `{r}XI. zastavení:{/r} Ježíš na kříž přibit.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_12]: `{r}XII. zastavení:{/r} Ježíš na kříži umírá.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_13]: `{r}XIII. zastavení:{/r} Ježíš na klín Matky své položen.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_14]: `{r}XIV. zastavení:{/r} Ježíš položen do hrobu.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_MISERERE]: `℣ Smiluj se nad námi, ó Ježíši!
+℟ Smiluj se nad námi!`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_OREMUS]: `Modleme se.
+Bože, jenž jsi drahocennou krví svého jednorozeného Syna posvětit ráčil prapor oživujícího Kříže, {/}dej, prosíme, aby ti, kdo se radují ze cti téhož svatého Kříže, radovali se také všude z tvé ochrany. {/}Skrze téhož Krista, Pána našeho. Amen.
+{r}Potom Otčenáš, Zdrávas a Sláva Otci na úmysl Svatého otce.{/r}`,
+
   // The rosary's optional opening prayers. The versicles and "Dignáre me" are
   // Malé hodinky k nejblahoslavenější Panně Marii (1924, reprinted 1937),
   // pp. 2 and 20 (the antiphon split at its semicolon into ℣ and ℟); "María,

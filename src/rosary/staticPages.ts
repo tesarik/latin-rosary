@@ -122,6 +122,10 @@ const NOTES: Record<string, Partial<Localized>> = {
   veni_creator: {
     en: "The English is our own line-for-line rendering of the Latin.",
   },
+  via_crucis: {
+    cs: "Podoba podle Raccolty (1910, č. 117); latinské názvy zastavení podle P. Gaudentia, Orate Fratres (1901), české podle brněnské Cesty k věčné spáse ([1946]). Český překlad závěrečné modlitby je náš vlastní.",
+    en: "The form of the Raccolta (1910, no. 117); the Latin titles of the stations from P. Gaudentius, Orate Fratres (1901).",
+  },
   brigit_xv: {
     cs: "Latinské znění podle P. J. Merla Horsta, Paradisus animae christianae (1670). Závěrečná modlitba v češtině je náš vlastní překlad. Tradiční „přislíbení“ připojovaná k těmto modlitbám neuvádíme (varování Svatého oficia z roku 1954).",
     en: "The Latin follows Jacob Merlo Horst, Paradisus animae christianae (1670). The English is our own literal translation. The “promises” traditionally attached to these prayers are left out (warning of the Holy Office, 1954).",

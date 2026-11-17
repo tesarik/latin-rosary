@@ -16,7 +16,7 @@ export function strandRows(sections: readonly boolean[]): number[] {
   const n = sections.length;
   if (n <= ONE_ROW) return [0];
   const starts = sections.map((s, i) => (s && i > 0 ? i : -1)).filter((i) => i > 0);
-  for (let rows = Math.ceil(n / TARGET_PER_ROW); rows <= MAX_ROWS; rows++) {
+  for (let rows = Math.min(MAX_ROWS, Math.ceil(n / TARGET_PER_ROW)); rows <= MAX_ROWS; rows++) {
     const best = bestSplit(n, starts, rows);
     if (best) return best;
   }
