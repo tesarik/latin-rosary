@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.44.0]
+
 ### Changed
 - **The beads of a long prayer wind like a snake** instead of crowding one line: from 27 steps the strand turns at the end and comes back, in up to four rows, each starting with a part of the prayer (five of St. Bridget's fifteen prayers a row, two of the Seven Sorrows). The beads keep their size, so the large ones are easy to tap.
 - **The switch for the chaplet's optional prayers moved from the start screen into the chaplet,** under the prayer's name on its first step: you choose as you begin. It is still remembered, and it goes once the chaplet is under way.
