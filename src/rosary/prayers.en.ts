@@ -416,6 +416,38 @@ A light to the revelation of the Gentiles, and the glory of thy people Israel.
 Glory be to the Father, and to the Son, and to the Holy Ghost.
 As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
 
+  // Benedictus: Douay-Rheims (Lk 1:68–79), with the Glória as in the Magníficat.
+  [PRAYER_TYPES.BENEDICTUS]: `Blessed be the Lord God of Israel; because he hath visited and wrought the redemption of his people:
+And hath raised up an horn of salvation to us, in the house of David his servant:
+As he spoke by the mouth of his holy prophets, who are from the beginning:
+Salvation from our enemies, and from the hand of all that hate us:
+To perform mercy to our fathers, and to remember his holy testament,
+The oath, which he swore to Abraham our father, that he would grant to us,
+That being delivered from the hand of our enemies, we may serve him without fear,
+In holiness and justice before him, all our days.
+And thou, child, shalt be called the prophet of the Highest: for thou shalt go before the face of the Lord to prepare his ways:
+To give knowledge of salvation to his people, unto the remission of their sins:
+Through the bowels of the mercy of our God, in which the Orient from on high hath visited us:
+To enlighten them that sit in darkness, and in the shadow of death; to direct our feet into the way of peace.
+Glory be to the Father, and to the Son, and to the Holy Ghost.
+As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
+
+  // The acts of faith, hope, love and contrition: the English of the
+  // Compendium of the Catechism (Vatican, 2005), Appendix A, as printed, bar
+  // its pronouns for God in lower case. Its act of faith says more than the
+  // Latin (the Trinity, the Incarnation, the Judgement) before joining it.
+  [PRAYER_TYPES.ACTUS]: `{r}Act of Faith{/r}
+O my God, I firmly believe that you are one God in three divine Persons, Father, Son, and Holy Spirit. I believe that your divine Son became man and died for our sins and that he will come to judge the living and the dead. I believe these and all the truths which the Holy Catholic Church teaches {/}because you have revealed them who are eternal truth and wisdom, who can neither deceive nor be deceived. {/}In this faith I intend to live and die. Amen.
+
+{r}Act of Hope{/r}
+O Lord God, I hope by your grace for the pardon of all my sins {/}and after life here to gain eternal happiness {/}because you have promised it who are infinitely powerful, faithful, kind, and merciful. {/}In this hope I intend to live and die. Amen.
+
+{r}Act of Love{/r}
+O Lord God, I love you above all things and I love my neighbor for your sake {/}because you are the highest, infinite and perfect good, worthy of all my love. {/}In this love I intend to live and die. Amen.
+
+{r}Act of Contrition{/r}
+O my God, I am heartily sorry for having offended thee, and I detest all my sins {/}because of thy just punishments, {/}but most of all because they offend thee, my God, who art all good and deserving of all my love. {/}I firmly resolve with the help of thy grace to sin no more and to avoid the near occasion of sin. Amen.`,
+
   [PRAYER_TYPES.IUDICA_ME]: `℣ I will go in unto the altar of God.
 ℟ Unto God, who giveth joy to my youth.
 ℣ Judge me, O God, and distinguish my cause against an ungodly nation: O deliver me from the unjust and deceitful man.

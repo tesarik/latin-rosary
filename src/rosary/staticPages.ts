@@ -115,6 +115,13 @@ const NOTES: Record<string, Partial<Localized>> = {
     cs: "Latinské znění těchto modliteb je náš vlastní překlad: autoritativní latinský originál není znám.",
     en: "The Latin of these prayers is our own translation: no authoritative Latin original is known.",
   },
+  actus: {
+    cs: "Latinské znění je z Kompendia Katechismu katolické církve (2005), anglické z jeho anglického vydání; český překlad je náš vlastní.",
+    en: "The Latin and the English are those of the Compendium of the Catechism of the Catholic Church (2005).",
+  },
+  veni_creator: {
+    en: "The English is our own line-for-line rendering of the Latin.",
+  },
   brigit_xv: {
     cs: "Latinské znění podle P. J. Merla Horsta, Paradisus animae christianae (1670). Závěrečná modlitba v češtině je náš vlastní překlad. Tradiční „přislíbení“ připojovaná k těmto modlitbám neuvádíme (varování Svatého oficia z roku 1954).",
     en: "The Latin follows Jacob Merlo Horst, Paradisus animae christianae (1670). The English is our own literal translation. The “promises” traditionally attached to these prayers are left out (warning of the Holy Office, 1954).",

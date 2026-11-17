@@ -618,6 +618,9 @@ export type OrdinaryPrayerKey =
   | "commemoratio_ioseph"
   | "magnificat"
   | "nunc_dimittis"
+  | "benedictus"
+  | "actus"
+  | "veni_creator"
   | "iudica_me"
   | "suscipe"
   | "creator_ineffabilis"
@@ -711,6 +714,11 @@ export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, OrdinaryEntry> = {
   fac_nos_innocuam: ordinary("Fac nos innócuam, Ioseph", { cs: "Dej, Josefe blažený (povzdech)", en: "Grant, O Holy Joseph (Invocation)" }, PRAYER_TYPES.FAC_NOS_INNOCUAM),
   commemoratio_ioseph: ordinary("Commemorátio sancti Ioseph", { cs: "Antifona a modlitba k sv. Josefu", en: "Commemoration of St. Joseph" }, PRAYER_TYPES.COMMEMORATIO_IOSEPH),
   magnificat: ordinary("Magníficat", { cs: "Velebí duše má Hospodina", en: "The Canticle of Mary" }, PRAYER_TYPES.MAGNIFICAT),
+  benedictus: ordinary("Benedíctus", { cs: "Požehnaný buď Pán Bůh Israelský (ráno)", en: "The Canticle of Zachary (Morning Prayer)" }, PRAYER_TYPES.BENEDICTUS),
+  actus: ordinary("Actus fídei, spei, caritátis", { cs: "Úkony víry, naděje, lásky a lítosti", en: "Acts of Faith, Hope, Love and Contrition" }, PRAYER_TYPES.ACTUS),
+  // The hymn with its versicle and collect, the same text the Chaplet of the
+  // Holy Spirit opens with.
+  veni_creator: ordinary("Veni, Creátor Spíritus", { cs: "Přijď, Duchu Stvořiteli", en: "Come, Creator Spirit" }, PRAYER_TYPES.CORONA_SS_HYMNUS),
   nunc_dimittis: ordinary("Nunc dimíttis", { cs: "Nyní propouštíš, Pane (večer)", en: "The Canticle of Simeon (Night Prayer)" }, PRAYER_TYPES.NUNC_DIMITTIS),
   iudica_me: ordinary("Iúdica me", { cs: "Žalm 42 u stupňů oltáře", en: "Psalm 42 at the Foot of the Altar" }, PRAYER_TYPES.IUDICA_ME),
   creator_ineffabilis: ordinary("Creátor ineffábilis", { cs: "Modlitba sv. Tomáše Akvinského před studiem", en: "St. Thomas Aquinas's Prayer before Study" }, PRAYER_TYPES.CREATOR_INEFFABILIS),

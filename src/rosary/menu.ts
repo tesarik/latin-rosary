@@ -87,7 +87,7 @@ const GROUPS: readonly MenuGroup[] = [
       "signum_crucis", "pater_noster", "ave_maria", "gloria_patri",
       "symbolum_apostolorum", "symbolum_nicenum", "symbolum_athanasianum",
       "angelus", "benedictio_mensae", "gratiarum_actio", "anima_christi", "suscipe", "creator_ineffabilis",
-      "angele_dei", "sancte_michael", "nunc_dimittis", "decalogue", "te_deum", "miserere", "tu_trinitatis",
+      "angele_dei", "sancte_michael", "nunc_dimittis", "benedictus", "actus", "veni_creator", "decalogue", "te_deum", "miserere", "tu_trinitatis",
     ] }],
   },
   {
@@ -172,7 +172,7 @@ export const groupKeys = (g: MenuGroup): MenuKey[] => g.sections.flatMap((s) => 
 
 const OCCASION_PRAYERS: Record<Occasion, readonly MenuKey[]> = {
   easter_octave: ["victimae_paschali"],
-  pentecost_octave: ["veni_sancte_spiritus", "spiritus"],
+  pentecost_octave: ["veni_sancte_spiritus", "veni_creator", "spiritus"],
   corpus_christi: ["lauda_sion", "pange_lingua", "o_sacrum_convivium", "panis_angelicus"],
   seven_sorrows: ["stabat_mater", "septem_dolores"],
   november: ["requiem", "de_profundis", "dies_irae", "defuncti"],

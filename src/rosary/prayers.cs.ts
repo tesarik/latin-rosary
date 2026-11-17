@@ -126,7 +126,7 @@ Pro toto přehořké umučení a vylití tvé drahocenné Krve, prosíme tě, do
   // p. 216. Capitals as the app's (pronouns for God lower case).
   [PRAYER_TYPES.ROSARY_APERI]: `℣ Hospodine, rty mé otevři.
 ℟ A ústa má zvěstovati budou chválu tvou.
-℣ Bože, ku pomoci mé vzezři.
+℣ Bože, ku pomoci mé vzezři!
 ℟ Hospodine, k spomáhání mému pospěš.`,
 
   [PRAYER_TYPES.ROSARY_DIGNARE]: `Maria, matko milosti,
@@ -375,6 +375,39 @@ Světlo k osvícení pohanův a k slávě lidu svého israelského.
 Sláva Bohu Otci, i Synu, i Duchu Svatému:
 jakož byla na počátku, nyní vždy i na věky. Amen.`,
 
+  // Benedictus: Malé hodinky k nejblahoslavenější Panně Marii (1924, reprinted
+  // 1937), pp. 45–46, read from the page images; its asterisks are colons, its
+  // footnotes left out; the Glória as in the same book's Miserere.
+  [PRAYER_TYPES.BENEDICTUS]: `Požehnaný buď Pán Bůh Israelský: že navštívil a učinil vykoupení lidu svého.
+I vyzdvihl nám roh spasení: v domě Davida, služebníka svého.
+Jakož mluvil skrze ústa svatých proroků svých: kteří jsou od věků.
+O vysvobození z moci nepřátel našich: a z ruky všech, kteří nenávidí nás.
+Aby učinil milosrdenství s otci našimi: a rozpomenul se na svatou smlouvu svou.
+Na přísahu, kterouž přisáhl Abrahamovi, otci našemu: že nám to dá.
+Abychom z ruky nepřátel našich vysvobozeni: beze strachu sloužili jemu.
+V svatosti a spravedlnosti před ním: po všecky dny své.
+A ty, dítě, prorokem Nejvyššího slouti budeš: nebo půjdeš před tváří Páně připravovati cest jeho.
+Aby dáno bylo umění spasitelné lidu jeho: na odpuštění hříchů jejich.
+Skrze srdečné milosrdenství Boha našeho: v němžto navštívil nás, vyšed s výsosti.
+Aby posvítil těm, kteří ve tmě sedí a stínu smrti: k spravení nohou našich na cestu pokoje.
+Sláva Otci, i Synu, i Duchu Svatému:
+jakož bylo na počátku, nyní, i vždycky až na věky věkův. Amen.`,
+
+  // The acts of faith, hope, charity and contrition — OUR OWN translation of
+  // the Compendium's Latin: its Czech edition (2006) was not to hand, and the
+  // older Czech prayer books use other formulas (Brno's "Vzbuzení víry…").
+  [PRAYER_TYPES.ACTUS]: `{r}Úkon víry{/r}
+Pane Bože, pevně věřím a vyznávám všechno a každou jednotlivost, co předkládá svatá katolická církev, {/}protože ty, Bože, jsi to všechno zjevil, ty, který jsi věčná pravda a moudrost, jež nemůže klamat ani být oklamána. {/}V této víře chci žít a zemřít. Amen.
+
+{r}Úkon naděje{/r}
+Pane Bože, doufám, že skrze tvou milost dosáhnu odpuštění všech hříchů {/}a po tomto životě věčné blaženosti, {/}protože jsi to slíbil ty, který jsi nekonečně mocný, věrný, dobrotivý a milosrdný. {/}V této naději chci žít a zemřít. Amen.
+
+{r}Úkon lásky{/r}
+Pane Bože, miluji tě nade všechno a svého bližního pro tebe, {/}protože ty jsi nejvyšší, nekonečné a nejdokonalejší dobro, hodné vší lásky. {/}V této lásce chci žít a zemřít. Amen.
+
+{r}Úkon lítosti{/r}
+Bože můj, z celého srdce lituji všech svých hříchů a ošklivím si je, {/}protože jsem hřešením zasloužil nejen tresty, které jsi spravedlivě stanovil, {/}ale především proto, že jsem urazil tebe, nejvyšší dobro, hodné toho, abys byl milován nade všechno. {/}Proto pevně předsevzímám, že s pomocí tvé milosti už nebudu hřešit a budu se vyhýbat blízkým příležitostem ke hříchu. Amen.`,
+
   [PRAYER_TYPES.IUDICA_ME]: `℣ Vstoupím k oltáři Božímu.
 ℟ Před Boha, jenž je původcem radosti mé od mladosti mojí.
 ℣ Zjednej mi právo, Bože, a rozhodni při mou proti bezbožnému lidu; od člověka nespravedlivého a lstivého vysvoboď mne.
@@ -486,7 +519,7 @@ Duch Svatý v duši spravedlivého.
   // kniha (1893), its Raccolta form. OCR checked against the scans; spelling
   // modernised only where the source itself wavers (bolesť/bolest), and capitals
   // per the Latin. The Czech headings are ours.
-  [PRAYER_TYPES.CORONA_ANG_INITIUM]: `℣ Bože, ku pomoci mé vzezři.
+  [PRAYER_TYPES.CORONA_ANG_INITIUM]: `℣ Bože, ku pomoci mé vzezři!
 ℟ Hospodine, ku pomoci mé pospěš.
 
 Sláva Otci i Synu i Duchu Svatému. {/}Jako byla na počátku, i nyní, i vždycky, {/}a na věky věků. Amen.`,
@@ -557,7 +590,7 @@ Sedmou a poslední bolest pocítila blahoslavená Panna Maria, panovnice naše a
 
 Modleme se. Prosíme tě, ó Pane Ježíši Kriste, nechať blahoslavená Panna Maria, Matka tvá, jejíž přesvatou duši v hodině utrpení tvého meč bolesti pronikl, pro milosrdenství tvé nyní i v hodině smrti za nás se přimlouvá; skrze tebe, Ježíši Kriste, Spasitel světa, jenž s Otcem i Duchem Svatým žiješ a kraluješ na věky věkův. Amen.`,
 
-  [PRAYER_TYPES.CORONA_SANG_INITIUM]: `℣ Bože, ku pomoci mé vzezři.
+  [PRAYER_TYPES.CORONA_SANG_INITIUM]: `℣ Bože, ku pomoci mé vzezři!
 ℟ Hospodine, ku pomoci mé pospěš.
 ℣ Sláva Otci i Synu i Duchu Svatému.
 ℟ Jako byla na počátku, i nyní, i vždycky, a na věky věků. Amen.`,
@@ -593,7 +626,7 @@ Konečně prolil Ježíš Krev při své smrti, když mu kopím otevřen byl bok
 
 Modleme se. Všemohoucí věčný Bože, kterýž jsi jednorozeného Syna svého Vykupitelem světa ustanovil, a jeho Krví smířen býti chtěl: propůjč, prosíme; abychom cenu naší spásy slavnou službou tak ctili, a od zla přítomného života její silou tak byli chráněni na zemi, abychom z užitku věčného se radovali na nebi. Jenž s tebou živ jest a kraluje v jednotě Ducha Svatého, Bůh po všechny věky věků. Amen.`,
 
-  [PRAYER_TYPES.CORONA_COR_INITIUM]: `℣ Bože, ku pomoci mé vzezři.
+  [PRAYER_TYPES.CORONA_COR_INITIUM]: `℣ Bože, ku pomoci mé vzezři!
 ℟ Hospodine, ku pomoci mé pospěš.`,
 
   [PRAYER_TYPES.CORONA_COR_1]: `{r}I. Dobrotivé Srdce{/r}

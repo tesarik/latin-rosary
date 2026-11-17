@@ -29,7 +29,7 @@ describe("MENU_GROUPS", () => {
         const names = s.keys.map(fold);
         expect(names, g.title).toEqual([...names].sort((a, b) => a.localeCompare(b)));
       }
-    expect(groupKeys(MENU_GROUPS.find((g) => g.key === "cotidianae")!).slice(0, 3)).toEqual(["angele_dei", "angelus", "anima_christi"]);
+    expect(groupKeys(MENU_GROUPS.find((g) => g.key === "cotidianae")!).slice(0, 3)).toEqual(["actus", "angele_dei", "angelus"]);
     expect(groupKeys(MENU_GROUPS.find((g) => g.key === "missa")!).slice(0, 4)).toEqual(["ordo_missae", "iudica_me", "confiteor", "kyrie"]);
   });
 });
@@ -42,7 +42,7 @@ describe("inSeason", () => {
   it("adds the sequence of a feast", () => {
     // Easter 2026 is 5 April; Pentecost 24 May; Corpus Christi 4 June.
     expect(inSeason(new Date(2026, 3, 8))).toEqual(["regina_caeli", "victimae_paschali"]);
-    expect(inSeason(new Date(2026, 4, 24))).toEqual(["regina_caeli", "veni_sancte_spiritus", "spiritus", "loreto"]);
+    expect(inSeason(new Date(2026, 4, 24))).toEqual(["regina_caeli", "veni_sancte_spiritus", "veni_creator", "spiritus", "loreto"]);
     expect(inSeason(new Date(2026, 5, 4))).toEqual(["salve_regina", "lauda_sion", "pange_lingua", "o_sacrum_convivium", "panis_angelicus", "sacred_heart", "cor_iesu"]);
     expect(inSeason(new Date(2026, 8, 15))).toEqual(["salve_regina", "stabat_mater", "septem_dolores"]);
     // The Friday before Palm Sunday, 27 March 2026: in Lent and St. Joseph's month too

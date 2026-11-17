@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+- **The acts of faith, hope, charity and contrition** (*Actus fídei, spei, caritátis*), with the daily prayers: the Latin and English of the Compendium of the Catechism (2005), the Czech our own translation.
+- **The Benedíctus**, the Canticle of Zachary of Morning Prayer, with the daily prayers beside the Nunc dimíttis. Czech from *Malé hodinky* (1937), English Douay-Rheims.
+- **Veni, Creátor Spíritus** on its own, with its versicle and collect (until now only inside the Chaplet of the Holy Spirit), with the daily prayers and in the Pentecost octave.
+
 ## [0.44.0]
 
 ### Changed

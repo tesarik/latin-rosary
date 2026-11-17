@@ -107,6 +107,9 @@ export const PRAYER_TYPES = {
   COMMEMORATIO_IOSEPH: "commemoratio_ioseph",
   MAGNIFICAT: "magnificat",
   NUNC_DIMITTIS: "nunc_dimittis",
+  BENEDICTUS: "benedictus",
+  // The acts of faith, hope, charity and contrition, as one prayer.
+  ACTUS: "actus",
   IUDICA_ME: "iudica_me",
   SUSCIPE: "suscipe",
   CREATOR_INEFFABILIS: "creator_ineffabilis",
@@ -716,6 +719,39 @@ Quod parásti ante fáciem ómnium populórum,
 Lumen ad revelatiónem géntium, et glóriam plebis tuæ Israël.
 Glória Patri, et Fílio, et Spirítui Sancto.
 Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.`,
+
+  // The Canticle of Zachary (Lk 1:68–79), as the Breviary sings it at Lauds,
+  // with the Glória Patri; its asterisks are colons, as in the Magníficat.
+  [PRAYER_TYPES.BENEDICTUS]: `Benedíctus Dóminus, Deus Israël: quia visitávit, et fecit redemptiónem plebis suæ:
+Et eréxit cornu salútis nobis: in domo David, púeri sui.
+Sicut locútus est per os sanctórum, qui a sǽculo sunt, prophetárum eius:
+Salútem ex inimícis nostris, et de manu ómnium, qui odérunt nos.
+Ad faciéndam misericórdiam cum pátribus nostris: et memorári testaménti sui sancti.
+Iusiurándum, quod iurávit ad Ábraham patrem nostrum, datúrum se nobis:
+Ut sine timóre, de manu inimicórum nostrórum liberáti, serviámus illi.
+In sanctitáte et iustítia coram ipso, ómnibus diébus nostris.
+Et tu, puer, prophéta Altíssimi vocáberis: præíbis enim ante fáciem Dómini paráre vias eius:
+Ad dandam sciéntiam salútis plebi eius: in remissiónem peccatórum eórum:
+Per víscera misericórdiæ Dei nostri: in quibus visitávit nos, óriens ex alto:
+Illumináre his, qui in ténebris et in umbra mortis sedent: ad dirigéndos pedes nostros in viam pacis.
+Glória Patri, et Fílio, et Spirítui Sancto.
+Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.`,
+
+  // The acts of the theological virtues and of contrition. The Church
+  // prescribes no one wording (any formula of an approved catechism, says the
+  // Enchiridion indulgentiarum of 1952, no. 36); these are the Latin of the
+  // Compendium of the Catechism (Vatican, 2005), Appendix A, accents and all.
+  [PRAYER_TYPES.ACTUS]: `{r}Actus fídei{/r}
+Dómine Deus, firma fide credo et confíteor ómnia et síngula quæ sancta Ecclésia Cathólica propónit, {/}quia tu, Deus, ea ómnia revelásti, qui es ætérna véritas et sapiéntia quæ nec fállere nec falli potest. {/}In hac fide vívere et mori státuo. Amen.
+
+{r}Actus spei{/r}
+Dómine Deus, spero per grátiam tuam remissiónem ómnium peccatórum, {/}et post hanc vitam ætérnam felicitátem me esse consecutúrum: {/}quia tu promisísti, qui es infiníte potens, fidélis, benígnus, et miséricors. {/}In hac spe vívere et mori státuo. Amen.
+
+{r}Actus caritátis{/r}
+Dómine Deus, amo te super ómnia et próximum meum propter te, {/}quia tu es summum, infinítum, et perfectíssimum bonum, omni dilectióne dignum. {/}In hac caritáte vívere et mori státuo. Amen.
+
+{r}Actus contritiónis{/r}
+Deus meus, ex toto corde pænitet me ómnium meórum peccatórum, éaque detéstor, {/}quia peccándo, non solum pœnas a te iuste statútas proméritus sum, {/}sed præsértim quia offéndi te, summum bonum, ac dignum qui super ómnia diligáris. {/}Ídeo fírmiter propóno, adiuvánte grátia tua, de cétero me non peccatúrum peccandíque occasiónes próximas fugitúrum. Amen.`,
 
   [PRAYER_TYPES.IUDICA_ME]: `℣ Introíbo ad altáre Dei.
 ℟ Ad Deum, qui lætíficat iuventútem meam.
