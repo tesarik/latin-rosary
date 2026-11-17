@@ -1,5 +1,4 @@
 import type { SequenceItem } from "./sequence";
-import { useMemo } from "react";
 import { STRINGS, type Locale } from "./i18n";
 import { strandRows } from "./strand";
 
@@ -23,14 +22,13 @@ type Props = {
 // are small and inert, exactly like the rosary's non-jumpable Hail Mary beads.
 //
 // A short set lies left→right on one line. A longer one winds like a snake —
-// left→right, a half-turn at the end, back right→left — breaking where its
-// parts start (strand.ts), so its beads keep their size and the big ones stay
-// large enough to tap. Every row has the same spacing, set by the longest, so
-// a shorter row ends early and its thread runs on to the turn. In a snake
-// the beads sit at most SNAKE_GAP apart and the strand is centred.
+// left→right, a half-turn at the end, back right→left — in rows of equal
+// length (strand.ts), so its beads keep their size, stand in columns, and the
+// big ones stay large enough to tap. In a snake the beads sit at most
+// SNAKE_GAP apart and the strand is centred.
 export default function PrayerSections({ sequence, currentStep, accentColor, onJump, locale }: Props) {
   const t = STRINGS[locale];
-  const rowStarts = useMemo(() => strandRows(sequence.map((i) => !!i.section)), [sequence]);
+  const rowStarts = strandRows(sequence.length);
   const N = sequence.length;
   if (N === 0) return null;
 

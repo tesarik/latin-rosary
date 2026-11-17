@@ -176,6 +176,71 @@ By this most bitter Passion and the shedding of thy precious Blood, merciful Jes
 
   [PRAYER_TYPES.BRIGIT_XV_CONCLUSIO]: `O Lord Jesus Christ, Son of the living God, {/}receive this prayer in that surpassing love with which thou didst bear all the wounds of thy most holy Body; {/}and have mercy on me thy servant, {/}and to all sinners and all the faithful, living and dead, grant mercy, grace, forgiveness and life everlasting. Amen.`,
 
+  // Via Crucis: the titles, versicles and collect of the Raccolta (1910),
+  // no. 117, pronouns lower case; the closing rubric is its own.
+  [PRAYER_TYPES.VIA_CRUCIS_1]: `{r}Station I.{/r} Jesus condemned to death.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_2]: `{r}Station II.{/r} Jesus receives his cross.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_3]: `{r}Station III.{/r} Jesus falls the first time beneath the cross.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_4]: `{r}Station IV.{/r} Jesus meets his Mother.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_5]: `{r}Station V.{/r} Simon of Cyrene helps Jesus to carry the cross.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_6]: `{r}Station VI.{/r} Jesus and Veronica.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_7]: `{r}Station VII.{/r} Jesus falls a second time.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_8]: `{r}Station VIII.{/r} Jesus comforts the women of Jerusalem.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_9]: `{r}Station IX.{/r} Again a third time Jesus falls.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_10]: `{r}Station X.{/r} Jesus stripped and given gall to drink.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_11]: `{r}Station XI.{/r} Jesus nailed to the cross.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_12]: `{r}Station XII.{/r} Jesus dies upon the cross.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_13]: `{r}Station XIII.{/r} Jesus taken from the cross and laid in Mary's bosom.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_14]: `{r}Station XIV.{/r} Jesus laid in the tomb.
+℣ We adore thee, O Christ, and we bless thee.
+℟ Because by thy holy cross thou hast redeemed the world.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_MISERERE]: `℣ Have mercy on us, O Lord.
+℟ Have mercy on us.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_OREMUS]: `Let us pray.
+O God, who by the precious Blood of thy only-begotten Son didst sanctify the standard of the Cross, {/}grant, we beseech thee, that all those who rejoice in the glory of the same holy Cross may at all times and places feel the gladness of thy protection. {/}Through the same Christ our Lord. Amen.
+{r}End with one Pater, Ave and Gloria for the intention of the Sovereign Pontiff.{/r}`,
+
   // The rosary's optional opening prayers. The versicles and "Dignáre me" are
   // the Little Office of the B.V.M. (Benziger, 1915, as on lobvm.com), its
   // pronouns lower case; "María, Mater grátiæ" is the Raccolta's (1910,
@@ -415,6 +480,38 @@ Which thou hast prepared before the face of all peoples:
 A light to the revelation of the Gentiles, and the glory of thy people Israel.
 Glory be to the Father, and to the Son, and to the Holy Ghost.
 As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
+
+  // Benedictus: Douay-Rheims (Lk 1:68–79), with the Glória as in the Magníficat.
+  [PRAYER_TYPES.BENEDICTUS]: `Blessed be the Lord God of Israel; because he hath visited and wrought the redemption of his people:
+And hath raised up an horn of salvation to us, in the house of David his servant:
+As he spoke by the mouth of his holy prophets, who are from the beginning:
+Salvation from our enemies, and from the hand of all that hate us:
+To perform mercy to our fathers, and to remember his holy testament,
+The oath, which he swore to Abraham our father, that he would grant to us,
+That being delivered from the hand of our enemies, we may serve him without fear,
+In holiness and justice before him, all our days.
+And thou, child, shalt be called the prophet of the Highest: for thou shalt go before the face of the Lord to prepare his ways:
+To give knowledge of salvation to his people, unto the remission of their sins:
+Through the bowels of the mercy of our God, in which the Orient from on high hath visited us:
+To enlighten them that sit in darkness, and in the shadow of death; to direct our feet into the way of peace.
+Glory be to the Father, and to the Son, and to the Holy Ghost.
+As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
+
+  // The acts of faith, hope, love and contrition: the English of the
+  // Compendium of the Catechism (Vatican, 2005), Appendix A, as printed, bar
+  // its pronouns for God in lower case. Its act of faith says more than the
+  // Latin (the Trinity, the Incarnation, the Judgement) before joining it.
+  [PRAYER_TYPES.ACTUS]: `{r}Act of Faith{/r}
+O my God, I firmly believe that you are one God in three divine Persons, Father, Son, and Holy Spirit. I believe that your divine Son became man and died for our sins and that he will come to judge the living and the dead. I believe these and all the truths which the Holy Catholic Church teaches {/}because you have revealed them who are eternal truth and wisdom, who can neither deceive nor be deceived. {/}In this faith I intend to live and die. Amen.
+
+{r}Act of Hope{/r}
+O Lord God, I hope by your grace for the pardon of all my sins {/}and after life here to gain eternal happiness {/}because you have promised it who are infinitely powerful, faithful, kind, and merciful. {/}In this hope I intend to live and die. Amen.
+
+{r}Act of Love{/r}
+O Lord God, I love you above all things and I love my neighbor for your sake {/}because you are the highest, infinite and perfect good, worthy of all my love. {/}In this love I intend to live and die. Amen.
+
+{r}Act of Contrition{/r}
+O my God, I am heartily sorry for having offended thee, and I detest all my sins {/}because of thy just punishments, {/}but most of all because they offend thee, my God, who art all good and deserving of all my love. {/}I firmly resolve with the help of thy grace to sin no more and to avoid the near occasion of sin. Amen.`,
 
   [PRAYER_TYPES.IUDICA_ME]: `℣ I will go in unto the altar of God.
 ℟ Unto God, who giveth joy to my youth.
@@ -1540,6 +1637,96 @@ That others may be preferred to me in everything, Jesus, grant me the grace to d
 That others may become holier than I, provided that I become as holy as thou wouldst have me, Jesus, grant me the grace to desire it.
 
 He must increase, but I must decrease. Amen.`,
+
+  // Litany of the Holy Face: the English of the same Manual (1886), as printed
+  // beside the Latin, pronouns lower case; its two invocations on the lips and
+  // on the heavens put in the Latin's order, the responses on every line; its
+  // petitions' "we beseech thee" (and "We sinners beseech thee, hear us")
+  // made "we beseech thee, hear us" throughout, as the Latin's te rogámus,
+  // audi nos, so the two pair line by line.
+  [PRAYER_TYPES.LITANY_HOLY_FACE]: `Lord, have mercy on us.
+Jesus Christ, have mercy on us.
+Lord, have mercy on us.
+Jesus Christ, hear us.
+Jesus Christ, graciously hear us.
+God the Father, who art in heaven, have pity on us.
+God the Son, Redeemer of the world, have pity on us.
+God the Holy Ghost, have pity on us.
+Holy Trinity, one God, have pity on us.
+
+Jesus, who didst take on thyself the form of a servant, have pity on us.
+Jesus, who didst converse with men, have pity on us.
+Jesus, who didst weep over Jerusalem, have pity on us.
+Jesus, whose Face didst shine like the sun, have pity on us.
+Jesus, who didst prostrate thyself upon thy Face, have pity on us.
+Jesus, whose Face was bathed in a bloody sweat, have pity on us.
+Jesus, betrayed by the kiss of Judas, have pity on us.
+Jesus, who didst receive a blow from the hand of a servant, have pity on us.
+Jesus, whose Face was veiled, have pity on us.
+Jesus, whose Face was covered with spittle, have pity on us.
+Jesus, whose Face was wounded with blows, have pity on us.
+Jesus, crowned with thorns, have pity on us.
+Jesus, whose head was struck with a reed, have pity on us.
+
+Jesus, whose Face commands a reverent silence over the whole earth, have pity on us.
+Jesus, who dost show thy Face above thy sanctuary, have pity on us.
+Jesus, before whose Face we utter our prayers, have pity on us.
+Jesus, from whose Face we expect mercy, have pity on us.
+Jesus, from whose Face none of our doings are hidden, have pity on us.
+Jesus, whose Face causes the mountains to melt away, have pity on us.
+Jesus, who didst not turn thy Face away from spittings, have pity on us.
+Jesus, who didst present thy cheeks to those who struck thee, have pity on us.
+Jesus, who was looked upon as a leper, have pity on us.
+Jesus, whose Face we behold with joy, have pity on us.
+Jesus, whose eyes observe those who do evil, have pity on us.
+Jesus, who causest to shine upon us the light of thy Face, have pity on us.
+
+Jesus, whose head is of most pure gold, have pity on us.
+Jesus, whose lips distil an excellent myrrh, have pity on us.
+Jesus, on whose lips grace is shed, have pity on us.
+Jesus, in whose eyes the heavens are not pure, have pity on us.
+Jesus, whose eyes are witnesses of our tears, have pity on us.
+Jesus, whose Face rejoices the just, have pity on us.
+Jesus, whose eyes are attentive to the poor, have pity on us.
+Jesus, whose eyes are upon those that fear thee, have pity on us.
+Jesus, whose eyes behold the just, have pity on us.
+Jesus, whose eyes are upon the faithful on the earth, have pity on us.
+Jesus, whose eyes resemble those of a dove, have pity on us.
+Jesus, whose eyes are like a burning lamp, have pity on us.
+Jesus, whose eyes are like a flaming fire, have pity on us.
+Jesus, whose eyes are more brilliant than the sun, have pity on us.
+Jesus, whose eyes rest upon those that love thee, have pity on us.
+
+Be merciful unto us, pardon us, Jesus.
+From all evil, deliver us, Jesus.
+From sudden and unprovided death, deliver us, Jesus.
+From eternal damnation, deliver us, Jesus.
+By the mystery of thy holy Incarnation, deliver us, Jesus.
+By thy glorious Transfiguration, deliver us, Jesus.
+By thy tears, deliver us, Jesus.
+By thy bloody sweat, deliver us, Jesus.
+By the blows thou didst receive, deliver us, Jesus.
+By thy crown of thorns, deliver us, Jesus.
+At the day of judgment, deliver us, Jesus.
+
+We sinners, we beseech thee, hear us.
+That being dead to sin, we may live to justice, we beseech thee, hear us.
+Having suffered in the flesh, arm us with the same thought, we beseech thee, hear us.
+Grant that we may apply ourselves to know nothing, save Jesus crucified, we beseech thee, hear us.
+Having taken part in thy sufferings grant us a share in thy consolations, we beseech thee, hear us.
+Grant us to see thee, face to face, in heaven, we beseech thee, hear us.
+Son of God, hear us.
+
+Lamb of God, who takest away the sins of the world, spare us, Jesus.
+Lamb of God, who takest away the sins of the world, graciously hear us, Jesus.
+Lamb of God, who takest away the sins of the world, have mercy on us, Jesus.
+
+{r}Anthem{/r}
+Oh God, the whole earth is troubled when anger shows itself on thy Face; {/}but, oh Lord our God, grant unto us mercy, and do not proceed to the last extremity; {/}show us thy Face and we shall be saved.
+℣ Let God arise, and let his enemies be scattered.
+℟ And let all who hate him, flee from before his Face.
+
+Let us pray. Almighty and merciful God, grant, we beseech thee, {/}that whilst reverencing the Face of thy Christ, disfigured in the Passion because of our sins, {/}we may merit to contemplate it, shining for ever in celestial glory. {/}Through the same Jesus Christ. Amen.`,
 
   // Litany of St. Joseph, with the seven invocations added in 2021 — same
   // interleaved positions as the Latin above.

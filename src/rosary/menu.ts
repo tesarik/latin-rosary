@@ -87,7 +87,7 @@ const GROUPS: readonly MenuGroup[] = [
       "signum_crucis", "pater_noster", "ave_maria", "gloria_patri",
       "symbolum_apostolorum", "symbolum_nicenum", "symbolum_athanasianum",
       "angelus", "benedictio_mensae", "gratiarum_actio", "anima_christi", "suscipe", "creator_ineffabilis",
-      "angele_dei", "sancte_michael", "nunc_dimittis", "decalogue", "te_deum", "miserere", "tu_trinitatis",
+      "angele_dei", "sancte_michael", "nunc_dimittis", "benedictus", "actus", "veni_creator", "decalogue", "te_deum", "miserere", "tu_trinitatis",
     ] }],
   },
   {
@@ -136,7 +136,7 @@ const GROUPS: readonly MenuGroup[] = [
     icon: "list",
     color: "#3949AB",
     art: "litaniae",
-    sections: [{ keys: ["loreto", "sacred_heart", "holy_name", "st_joseph", "precious_blood", "saints", "humility"] }],
+    sections: [{ keys: ["loreto", "sacred_heart", "holy_name", "st_joseph", "precious_blood", "saints", "humility", "holy_face"] }],
   },
   {
     key: "defuncti",
@@ -155,7 +155,7 @@ const GROUPS: readonly MenuGroup[] = [
     color: "#C62828",
     art: "devotiones",
     sections: [
-      { keys: ["spiritus", "sanguis", "brigit", "brigit_xv", "cor_iesu", "septem_dolores", "angelica"] },
+      { keys: ["spiritus", "sanguis", "brigit", "brigit_xv", "via_crucis", "cor_iesu", "septem_dolores", "angelica"] },
       { heading: "Ad sanctum Ioseph", art: "ioseph", keys: [
         "ioseph", "ad_te_ioseph", "memorare_ioseph", "memento_ioseph", "o_ioseph_virgo", "fac_nos_innocuam", "commemoratio_ioseph",
       ] },
@@ -172,7 +172,7 @@ export const groupKeys = (g: MenuGroup): MenuKey[] => g.sections.flatMap((s) => 
 
 const OCCASION_PRAYERS: Record<Occasion, readonly MenuKey[]> = {
   easter_octave: ["victimae_paschali"],
-  pentecost_octave: ["veni_sancte_spiritus", "spiritus"],
+  pentecost_octave: ["veni_sancte_spiritus", "veni_creator", "spiritus"],
   corpus_christi: ["lauda_sion", "pange_lingua", "o_sacrum_convivium", "panis_angelicus"],
   seven_sorrows: ["stabat_mater", "septem_dolores"],
   november: ["requiem", "de_profundis", "dies_irae", "defuncti"],
@@ -183,7 +183,7 @@ const OCCASION_PRAYERS: Record<Occasion, readonly MenuKey[]> = {
   precious_blood: ["precious_blood", "sanguis"],
   holy_name: ["holy_name"],
   marian_month: ["loreto"],
-  lent: ["brigit", "brigit_xv", "septem_dolores", "miserere"],
+  lent: ["via_crucis", "brigit", "brigit_xv", "septem_dolores", "miserere"],
 };
 
 // What belongs to the day, for the start screen's "in season" card and the

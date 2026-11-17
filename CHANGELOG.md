@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.45.0]
+
+### Added
+- **An ⓘ after the name of a less familiar prayer** tells where its text comes from: a private devotion, the book it is from, the parts that are our own translation. The same notes as on the web pages; none for the rosary or the everyday prayers.
+- **The Litany of the Holy Face** (*Litaníæ Sanctæ Fáciei*), with the litanies: a private devotion of the Archconfraternity of the Holy Face at Tours, its Latin and English from the Archconfraternity's *Manual* (1886), the Czech our own translation.
+- **The Way of the Cross** (*Via Crucis*), among the devotions and in Lent: fourteen stations, each with its title, *Adorámus te*, an Our Father, a Hail Mary, *Miserére nostri* and a stanza of the *Stabat Mater*, then the collect of the Holy Cross and the prayers for the Pope, in the form the Raccolta gives. Latin titles from P. Gaudentius's *Orate Fratres* (1901), Czech from the Brno *Cesta k věčné spáse*, English from the Raccolta.
+- **The acts of faith, hope, charity and contrition** (*Actus fídei, spei, caritátis*), with the daily prayers: the Latin and English of the Compendium of the Catechism (2005), the Czech our own translation.
+- **The Benedíctus**, the Canticle of Zachary of Morning Prayer, with the daily prayers beside the Nunc dimíttis. Czech from *Malé hodinky* (1937), English Douay-Rheims.
+- **Veni, Creátor Spíritus** on its own, with its versicle and collect (until now only inside the Chaplet of the Holy Spirit), with the daily prayers and in the Pentecost octave.
+
+### Changed
+- **The snake of beads winds in rows of equal length,** its beads in columns, every row but the last reaching its turn. Breaking the rows where a part of the prayer starts made them uneven.
+
 ## [0.44.0]
 
 ### Changed

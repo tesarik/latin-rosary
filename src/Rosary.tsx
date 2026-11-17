@@ -37,6 +37,7 @@ import { mysteriesOfDay } from "./rosary/liturgy";
 import { chapletKey, chapletToOpen, loadSavedChapletFull, saveChapletFull } from "./rosary/chaplet";
 import { brigitKey, brigitToOpen, isBrigitKey, loadSavedBrigitFull, saveBrigitFull } from "./rosary/brigit";
 import OptionSwitch from "./rosary/OptionSwitch";
+import { noteFor } from "./rosary/notes";
 import { isMenuKey, type MenuKey } from "./rosary/menu";
 import MysteryMenu from "./rosary/MysteryMenu";
 import PlansScreen from "./rosary/PlansScreen";
@@ -672,6 +673,9 @@ export default function Rosary() {
   // leads (at Mass: which part comes next).
   const nextLabel = sequence[currentStep + 1]?.label;
 
+  // Where a less familiar prayer comes from (the ⓘ beside its name).
+  const prayerNote = noteFor(selectedSet, locale);
+
   // The fruit of the mystery and a verse, at each rosary decade's Pater
   // Noster, when switched on in the ⋯ settings (meditations.ts).
   const decadeMeditation = meditation && decadeSet && currentPrayer?.type === PRAYER_TYPES.OUR_FATHER && decade !== undefined
@@ -822,6 +826,39 @@ export default function Rosary() {
           fontWeight: 600,
         }}>
           {setMeta.name}
+          {/* A less familiar prayer's ⓘ: where its text comes from (notes.ts). */}
+          {prayerNote && (
+            <button
+              onClick={() => { void askConfirm({ message: prayerNote, confirmLabel: t.aboutClose, cancelLabel: null, color: accentColor }); }}
+              aria-label={t.prayerNoteAria}
+              title={t.prayerNoteAria}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                verticalAlign: "middle",
+                width: 34,
+                height: 34,
+                margin: "-7px -8px -7px 2px",
+                padding: 0,
+                border: "none",
+                background: "transparent",
+                color: "inherit",
+                cursor: "pointer",
+              }}
+            >
+              {/* A filled disc with a Garamond i cut out of it, the header
+                  showing through: white on Základ's coloured bar, the rubric
+                  red on the paper. */}
+              <svg width="19" height="19" viewBox="0 0 20 20" aria-hidden="true">
+                <mask id="prayer-note-i">
+                  <rect width="20" height="20" fill="white" />
+                  <text x="10" y="15.2" textAnchor="middle" fontFamily="'EB Garamond', serif" fontWeight="600" fontSize="16" fill="black">i</text>
+                </mask>
+                <circle cx="10" cy="10" r="9.5" mask="url(#prayer-note-i)" style={{ fill: look === "base" ? "white" : "var(--rubric)" }} />
+              </svg>
+            </button>
+          )}
         </div>
         </div>
 

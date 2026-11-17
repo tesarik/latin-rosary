@@ -119,6 +119,74 @@ Pro toto přehořké umučení a vylití tvé drahocenné Krve, prosíme tě, do
 
   [PRAYER_TYPES.BRIGIT_XV_CONCLUSIO]: `Ó Pane Ježíši Kriste, Synu Boha živého, {/}přijmi tuto modlitbu v oné nejvyšší lásce, s níž jsi snášel všechny rány svého nejsvětějšího Těla, {/}a smiluj se nade mnou, svým služebníkem, {/}a všem hříšníkům i všem věřícím, živým i zemřelým, dej milosrdenství, milost, odpuštění a život věčný. Amen.`,
 
+  // Via Crucis: the titles, ℣ Klaníme se and ℣ Smiluj se of the Brno way of the
+  // cross in Cesta k věčné spáse ([1946]), pp. 58–77 (its own songs,
+  // meditations and prayers left out; its ℣ adds "nejsvětější Pane Ježíši",
+  // its Smiluj se "ó Ježíši", to the Latin's). The collect and the rubric
+  // are OUR OWN translation.
+  [PRAYER_TYPES.VIA_CRUCIS_1]: `{r}I. zastavení:{/r} Ježíše na smrt odsuzují.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_2]: `{r}II. zastavení:{/r} Na Ježíše kříž vložen.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_3]: `{r}III. zastavení:{/r} Ježíš ponejprv pod křížem padá.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_4]: `{r}IV. zastavení:{/r} Ježíš potká se s Matkou svou.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_5]: `{r}V. zastavení:{/r} Šimon pomáhá Ježíši kříž nésti.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_6]: `{r}VI. zastavení:{/r} Ježíš vytiskne tvář svou na roucho Veroniky.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_7]: `{r}VII. zastavení:{/r} Ježíš padá po druhé.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_8]: `{r}VIII. zastavení:{/r} S Ježíšem ženy jerusalemské se potkají.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_9]: `{r}IX. zastavení:{/r} Ježíš padá po třetí.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_10]: `{r}X. zastavení:{/r} Ježíš na popravní místo dochází, ze šatů svlečen a octem a žlučí napájen jest.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_11]: `{r}XI. zastavení:{/r} Ježíš na kříž přibit.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_12]: `{r}XII. zastavení:{/r} Ježíš na kříži umírá.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_13]: `{r}XIII. zastavení:{/r} Ježíš na klín Matky své položen.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_14]: `{r}XIV. zastavení:{/r} Ježíš položen do hrobu.
+℣ Klaníme se tobě, nejsvětější Pane Ježíši Kriste, a dobrořečíme tobě.
+℟ Nebo skrze svatý kříž svůj svět jsi vykoupil.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_MISERERE]: `℣ Smiluj se nad námi, ó Ježíši!
+℟ Smiluj se nad námi!`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_OREMUS]: `Modleme se.
+Bože, jenž jsi drahocennou krví svého jednorozeného Syna posvětit ráčil prapor oživujícího Kříže, {/}dej, prosíme, aby ti, kdo se radují ze cti téhož svatého Kříže, radovali se také všude z tvé ochrany. {/}Skrze téhož Krista, Pána našeho. Amen.
+{r}Potom Otčenáš, Zdrávas a Sláva Otci na úmysl Svatého otce.{/r}`,
+
   // The rosary's optional opening prayers. The versicles and "Dignáre me" are
   // Malé hodinky k nejblahoslavenější Panně Marii (1924, reprinted 1937),
   // pp. 2 and 20 (the antiphon split at its semicolon into ℣ and ℟); "María,
@@ -126,7 +194,7 @@ Pro toto přehořké umučení a vylití tvé drahocenné Krve, prosíme tě, do
   // p. 216. Capitals as the app's (pronouns for God lower case).
   [PRAYER_TYPES.ROSARY_APERI]: `℣ Hospodine, rty mé otevři.
 ℟ A ústa má zvěstovati budou chválu tvou.
-℣ Bože, ku pomoci mé vzezři.
+℣ Bože, ku pomoci mé vzezři!
 ℟ Hospodine, k spomáhání mému pospěš.`,
 
   [PRAYER_TYPES.ROSARY_DIGNARE]: `Maria, matko milosti,
@@ -375,6 +443,39 @@ Světlo k osvícení pohanův a k slávě lidu svého israelského.
 Sláva Bohu Otci, i Synu, i Duchu Svatému:
 jakož byla na počátku, nyní vždy i na věky. Amen.`,
 
+  // Benedictus: Malé hodinky k nejblahoslavenější Panně Marii (1924, reprinted
+  // 1937), pp. 45–46, read from the page images; its asterisks are colons, its
+  // footnotes left out; the Glória as in the same book's Miserere.
+  [PRAYER_TYPES.BENEDICTUS]: `Požehnaný buď Pán Bůh Israelský: že navštívil a učinil vykoupení lidu svého.
+I vyzdvihl nám roh spasení: v domě Davida, služebníka svého.
+Jakož mluvil skrze ústa svatých proroků svých: kteří jsou od věků.
+O vysvobození z moci nepřátel našich: a z ruky všech, kteří nenávidí nás.
+Aby učinil milosrdenství s otci našimi: a rozpomenul se na svatou smlouvu svou.
+Na přísahu, kterouž přisáhl Abrahamovi, otci našemu: že nám to dá.
+Abychom z ruky nepřátel našich vysvobozeni: beze strachu sloužili jemu.
+V svatosti a spravedlnosti před ním: po všecky dny své.
+A ty, dítě, prorokem Nejvyššího slouti budeš: nebo půjdeš před tváří Páně připravovati cest jeho.
+Aby dáno bylo umění spasitelné lidu jeho: na odpuštění hříchů jejich.
+Skrze srdečné milosrdenství Boha našeho: v němžto navštívil nás, vyšed s výsosti.
+Aby posvítil těm, kteří ve tmě sedí a stínu smrti: k spravení nohou našich na cestu pokoje.
+Sláva Otci, i Synu, i Duchu Svatému:
+jakož bylo na počátku, nyní, i vždycky až na věky věkův. Amen.`,
+
+  // The acts of faith, hope, charity and contrition — OUR OWN translation of
+  // the Compendium's Latin: its Czech edition (2006) was not to hand, and the
+  // older Czech prayer books use other formulas (Brno's "Vzbuzení víry…").
+  [PRAYER_TYPES.ACTUS]: `{r}Úkon víry{/r}
+Pane Bože, pevně věřím a vyznávám všechno a každou jednotlivost, co předkládá svatá katolická církev, {/}protože ty, Bože, jsi to všechno zjevil, ty, který jsi věčná pravda a moudrost, jež nemůže klamat ani být oklamána. {/}V této víře chci žít a zemřít. Amen.
+
+{r}Úkon naděje{/r}
+Pane Bože, doufám, že skrze tvou milost dosáhnu odpuštění všech hříchů {/}a po tomto životě věčné blaženosti, {/}protože jsi to slíbil ty, který jsi nekonečně mocný, věrný, dobrotivý a milosrdný. {/}V této naději chci žít a zemřít. Amen.
+
+{r}Úkon lásky{/r}
+Pane Bože, miluji tě nade všechno a svého bližního pro tebe, {/}protože ty jsi nejvyšší, nekonečné a nejdokonalejší dobro, hodné vší lásky. {/}V této lásce chci žít a zemřít. Amen.
+
+{r}Úkon lítosti{/r}
+Bože můj, z celého srdce lituji všech svých hříchů a ošklivím si je, {/}protože jsem hřešením zasloužil nejen tresty, které jsi spravedlivě stanovil, {/}ale především proto, že jsem urazil tebe, nejvyšší dobro, hodné toho, abys byl milován nade všechno. {/}Proto pevně předsevzímám, že s pomocí tvé milosti už nebudu hřešit a budu se vyhýbat blízkým příležitostem ke hříchu. Amen.`,
+
   [PRAYER_TYPES.IUDICA_ME]: `℣ Vstoupím k oltáři Božímu.
 ℟ Před Boha, jenž je původcem radosti mé od mladosti mojí.
 ℣ Zjednej mi právo, Bože, a rozhodni při mou proti bezbožnému lidu; od člověka nespravedlivého a lstivého vysvoboď mne.
@@ -486,7 +587,7 @@ Duch Svatý v duši spravedlivého.
   // kniha (1893), its Raccolta form. OCR checked against the scans; spelling
   // modernised only where the source itself wavers (bolesť/bolest), and capitals
   // per the Latin. The Czech headings are ours.
-  [PRAYER_TYPES.CORONA_ANG_INITIUM]: `℣ Bože, ku pomoci mé vzezři.
+  [PRAYER_TYPES.CORONA_ANG_INITIUM]: `℣ Bože, ku pomoci mé vzezři!
 ℟ Hospodine, ku pomoci mé pospěš.
 
 Sláva Otci i Synu i Duchu Svatému. {/}Jako byla na počátku, i nyní, i vždycky, {/}a na věky věků. Amen.`,
@@ -557,7 +658,7 @@ Sedmou a poslední bolest pocítila blahoslavená Panna Maria, panovnice naše a
 
 Modleme se. Prosíme tě, ó Pane Ježíši Kriste, nechať blahoslavená Panna Maria, Matka tvá, jejíž přesvatou duši v hodině utrpení tvého meč bolesti pronikl, pro milosrdenství tvé nyní i v hodině smrti za nás se přimlouvá; skrze tebe, Ježíši Kriste, Spasitel světa, jenž s Otcem i Duchem Svatým žiješ a kraluješ na věky věkův. Amen.`,
 
-  [PRAYER_TYPES.CORONA_SANG_INITIUM]: `℣ Bože, ku pomoci mé vzezři.
+  [PRAYER_TYPES.CORONA_SANG_INITIUM]: `℣ Bože, ku pomoci mé vzezři!
 ℟ Hospodine, ku pomoci mé pospěš.
 ℣ Sláva Otci i Synu i Duchu Svatému.
 ℟ Jako byla na počátku, i nyní, i vždycky, a na věky věků. Amen.`,
@@ -593,7 +694,7 @@ Konečně prolil Ježíš Krev při své smrti, když mu kopím otevřen byl bok
 
 Modleme se. Všemohoucí věčný Bože, kterýž jsi jednorozeného Syna svého Vykupitelem světa ustanovil, a jeho Krví smířen býti chtěl: propůjč, prosíme; abychom cenu naší spásy slavnou službou tak ctili, a od zla přítomného života její silou tak byli chráněni na zemi, abychom z užitku věčného se radovali na nebi. Jenž s tebou živ jest a kraluje v jednotě Ducha Svatého, Bůh po všechny věky věků. Amen.`,
 
-  [PRAYER_TYPES.CORONA_COR_INITIUM]: `℣ Bože, ku pomoci mé vzezři.
+  [PRAYER_TYPES.CORONA_COR_INITIUM]: `℣ Bože, ku pomoci mé vzezři!
 ℟ Hospodine, ku pomoci mé pospěš.`,
 
   [PRAYER_TYPES.CORONA_COR_1]: `{r}I. Dobrotivé Srdce{/r}
@@ -1532,6 +1633,93 @@ Aby se jiným dávala ve všem přednost přede mnou, Ježíši, dej mi milost p
 Aby se jiní stali více svatými než já, jen když se já stanu natolik svatým, jak si přeješ ty, Ježíši, dej mi milost po tom toužit.
 
 Dej, abych se stále umenšoval a ty, Ježíši, rostl. Amen.`,
+
+  // Litany of the Holy Face — OUR OWN translation of the Latin (no Czech of
+  // this litany was found; the Czech "Litanie k nejsvětějšímu obličeji Pána
+  // Ježíše" of 1884 is another text). Tvář capitalized as the Latin's Fácies.
+  [PRAYER_TYPES.LITANY_HOLY_FACE]: `Pane, smiluj se.
+Kriste, smiluj se.
+Pane, smiluj se.
+Kriste, uslyš nás.
+Kriste, vyslyš nás.
+Bože, náš nebeský Otče, smiluj se nad námi.
+Bože Synu, Vykupiteli světa, smiluj se nad námi.
+Bože Duchu Svatý, smiluj se nad námi.
+Bože v Trojici jediný, smiluj se nad námi.
+
+Ježíši, jenž jsi přijal podobu služebníka, smiluj se nad námi.
+Ježíši, jenž jsi obcoval s lidmi, smiluj se nad námi.
+Ježíši, jenž jsi plakal nad Jeruzalémem, smiluj se nad námi.
+Ježíši, jehož Tvář zazářila jako slunce, smiluj se nad námi.
+Ježíši, jenž jsi padl na svou Tvář, smiluj se nad námi.
+Ježíši, jehož Tvář zalil krvavý pot, smiluj se nad námi.
+Ježíši, zrazený Jidášovým políbením, smiluj se nad námi.
+Ježíši, jemuž služebník vyťal políček, smiluj se nad námi.
+Ježíši, jemuž zahalili Tvář, smiluj se nad námi.
+Ježíši, jemuž plivali do Tváře, smiluj se nad námi.
+Ježíši, bitý pěstmi do Tváře, smiluj se nad námi.
+Ježíši, trním korunovaný, smiluj se nad námi.
+Ježíši, bitý třtinou do hlavy, smiluj se nad námi.
+
+Ježíši, před jehož Tváří mlčí celá země, smiluj se nad námi.
+Ježíši, jenž ukazuješ svou Tvář nad svou svatyní, smiluj se nad námi.
+Ježíši, před jehož Tváří skládáme své prosby, smiluj se nad námi.
+Ježíši, u jehož Tváře hledáme milosrdenství, smiluj se nad námi.
+Ježíši, před jehož Tváří nejsou skryty naše cesty, smiluj se nad námi.
+Ježíši, před jehož Tváří se rozplynuly hory, smiluj se nad námi.
+Ježíši, jenž jsi neodvrátil Tvář od těch, kdo na tebe plivali, smiluj se nad námi.
+Ježíši, jenž jsi nastavil líce těm, kdo tě trhali za vousy, smiluj se nad námi.
+Ježíši, pokládaný za malomocného, smiluj se nad námi.
+Ježíši, jehož Tvář s jásotem spatřujeme, smiluj se nad námi.
+Ježíši, jehož Tvář je proti těm, kdo páchají zlo, smiluj se nad námi.
+Ježíši, jenž nad námi rozjasňuješ svou Tvář, smiluj se nad námi.
+
+Ježíši, jehož hlava je z ryzího zlata, smiluj se nad námi.
+Ježíši, jehož rty kanou nejvzácnější myrhou, smiluj se nad námi.
+Ježíši, na jehož rty je vylita milost, smiluj se nad námi.
+Ježíši, před jehož zrakem ani nebesa nejsou čistá, smiluj se nad námi.
+Ježíši, jenž máš naše slzy před očima, smiluj se nad námi.
+Ježíši, před nímž jásají spravedliví, smiluj se nad námi.
+Ježíši, jehož oči hledí na chudého, smiluj se nad námi.
+Ježíši, jehož oči spočívají na těch, kdo se tě bojí, smiluj se nad námi.
+Ježíši, jehož oči spočívají na spravedlivých, smiluj se nad námi.
+Ježíši, jehož oči hledí na věrné v zemi, smiluj se nad námi.
+Ježíši, jehož oči jsou jako holubice, smiluj se nad námi.
+Ježíši, jehož oči jsou jako hořící lampa, smiluj se nad námi.
+Ježíši, jehož oči jsou jako plamen ohně, smiluj se nad námi.
+Ježíši, jehož oči jsou jasnější nad slunce, smiluj se nad námi.
+Ježíši, jehož oči spočívají na těch, kdo tě milují, smiluj se nad námi.
+
+Buď nám milostiv, odpusť nám, Ježíši.
+Ode všeho zlého, vysvoboď nás, Ježíši.
+Od náhlé a nenadálé smrti, vysvoboď nás, Ježíši.
+Od věčného zatracení, vysvoboď nás, Ježíši.
+Skrze tajemství svého svatého vtělení, vysvoboď nás, Ježíši.
+Skrze své slavné proměnění, vysvoboď nás, Ježíši.
+Skrze své slzy, vysvoboď nás, Ježíši.
+Skrze svůj krvavý pot, vysvoboď nás, Ježíši.
+Skrze políčky, které jsi snesl, vysvoboď nás, Ježíši.
+Skrze svou trnovou korunu, vysvoboď nás, Ježíši.
+V den soudu, vysvoboď nás, Ježíši.
+
+My hříšníci, prosíme tě, vyslyš nás.
+Abychom, hříchům odumřelí, žili spravedlnosti, prosíme tě, vyslyš nás.
+Abychom se, když jsi ty trpěl v těle, ozbrojili toutéž myšlenkou, prosíme tě, vyslyš nás.
+Abychom usilovali především znát tebe ukřižovaného, prosíme tě, vyslyš nás.
+Abychom, jako jsme účastni utrpení, byli účastni i útěchy, prosíme tě, vyslyš nás.
+Abychom tě jednou mohli spatřit s odhalenou Tváří, prosíme tě, vyslyš nás.
+Synu Boží, prosíme tě.
+
+Beránku Boží, který snímáš hříchy světa, odpusť nám, Ježíši.
+Beránku Boží, který snímáš hříchy světa, vyslyš nás, Ježíši.
+Beránku Boží, který snímáš hříchy světa, smiluj se nad námi, Ježíši.
+
+{r}Antifona{/r}
+Před tváří tvého hněvu, Bože, zachvěla se celá země: {/}ale ty, Pane Bože, smiluj se a nedopusť záhubu; {/}ukaž svou Tvář, a budeme spaseni.
+℣ Povstaň Bůh, a rozptýleni buďte nepřátelé jeho.
+℟ A utečte od Tváře jeho všichni, kdo ho nenávidí.
+
+Modleme se. Dej, prosíme, všemohoucí a milosrdný Bože, {/}abychom, kteří uctíváme Tvář tvého Syna, našeho Pána Ježíše Krista, pro naše hříchy v umučení zohavenou, {/}zasloužili si ji navěky spatřovat zářící v nebeské slávě. {/}Skrze téhož Pána našeho. Amen.`,
 
   // Czech: the traditional 24 invocations transcribed from the farni-musle.cz
   // "Rok svatého Josefa 2021" leaflet, cross-checked against prayerbook.weebly.com

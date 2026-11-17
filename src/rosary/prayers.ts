@@ -66,6 +66,23 @@ export const PRAYER_TYPES = {
   BRIGIT_XV_14: "brigit_xv_14",
   BRIGIT_XV_15: "brigit_xv_15",
   BRIGIT_XV_CONCLUSIO: "brigit_xv_conclusio",
+  // Via Crucis (the Raccolta's form): the stations, the versicle and collect.
+  VIA_CRUCIS_1: "via_crucis_1",
+  VIA_CRUCIS_2: "via_crucis_2",
+  VIA_CRUCIS_3: "via_crucis_3",
+  VIA_CRUCIS_4: "via_crucis_4",
+  VIA_CRUCIS_5: "via_crucis_5",
+  VIA_CRUCIS_6: "via_crucis_6",
+  VIA_CRUCIS_7: "via_crucis_7",
+  VIA_CRUCIS_8: "via_crucis_8",
+  VIA_CRUCIS_9: "via_crucis_9",
+  VIA_CRUCIS_10: "via_crucis_10",
+  VIA_CRUCIS_11: "via_crucis_11",
+  VIA_CRUCIS_12: "via_crucis_12",
+  VIA_CRUCIS_13: "via_crucis_13",
+  VIA_CRUCIS_14: "via_crucis_14",
+  VIA_CRUCIS_MISERERE: "via_crucis_miserere",
+  VIA_CRUCIS_OREMUS: "via_crucis_oremus",
   // The rosary's optional opening prayers (the switch on its first step):
   // the opening versicles of the Hours, then "María, Mater grátiæ"
   // and "Dignáre me". Sources: see the note above them in PRAYERS.
@@ -107,6 +124,9 @@ export const PRAYER_TYPES = {
   COMMEMORATIO_IOSEPH: "commemoratio_ioseph",
   MAGNIFICAT: "magnificat",
   NUNC_DIMITTIS: "nunc_dimittis",
+  BENEDICTUS: "benedictus",
+  // The acts of faith, hope, charity and contrition, as one prayer.
+  ACTUS: "actus",
   IUDICA_ME: "iudica_me",
   SUSCIPE: "suscipe",
   CREATOR_INEFFABILIS: "creator_ineffabilis",
@@ -190,6 +210,7 @@ export const PRAYER_TYPES = {
   LITANY_SACRED_HEART: "litany_sacred_heart",
   LITANY_HOLY_NAME: "litany_holy_name",
   LITANY_HUMILITY: "litany_humility",
+  LITANY_HOLY_FACE: "litany_holy_face",
   LITANY_ST_JOSEPH: "litany_st_joseph",
   LITANY_PRECIOUS_BLOOD: "litany_precious_blood",
   // Litany of the Saints — the only litany split across steps, so each section
@@ -469,6 +490,79 @@ Per hanc amaríssimam passiónem tuam et pretiósi Sánguinis effusiónem, pie I
 
   [PRAYER_TYPES.BRIGIT_XV_CONCLUSIO]: `O Dómine Iesu Christe, Fili Dei vivi, {/}súscipe hanc oratiónem in amóre illo superexcellénti, in quo ómnia vúlnera tui sanctíssimi Córporis sustinuísti, {/}et miserére mei fámuli tui, {/}et ómnibus peccatóribus, cunctísque fidélibus tam vivis quam defúnctis da misericórdiam, grátiam, remissiónem et vitam ætérnam. Amen.`,
 
+  // Via Crucis, in the form the Raccolta (1910, no. 117) gives "for the
+  // Stations": the act of contrition (as the Chaplet of the Holy Spirit
+  // opens), at each station its title, ℣ Adorámus te, Pater, Ave, ℣ Miserére
+  // nostri and a stanza of the Stabat Mater (one each, in order; the last six
+  // before the collect), then the collect and a Pater, Ave and Glória for the
+  // Pope. The stations' short prayers are the Raccolta's in English only, and
+  // are left out. Titles: P. Gaudentius, Orate Fratres (1901), as on
+  // preces-latinae.org (its "Iesu cruci affígitur" read as Iesus), accents
+  // ours. The collect is the Missal's (Missa votiva de sancta Cruce); the
+  // closing rubric is ours.
+  [PRAYER_TYPES.VIA_CRUCIS_1]: `{r}Statio I.{/r} Christus ad mortem condemnátur.
+℣ Adorámus te, Christe, et benedícimus tibi.
+℟ Quia per sanctam crucem tuam redemísti mundum.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_2]: `{r}Statio II.{/r} Iesus súscipit crucem super húmeros.
+℣ Adorámus te, Christe, et benedícimus tibi.
+℟ Quia per sanctam crucem tuam redemísti mundum.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_3]: `{r}Statio III.{/r} Iesus prima vice cadit sub cruce.
+℣ Adorámus te, Christe, et benedícimus tibi.
+℟ Quia per sanctam crucem tuam redemísti mundum.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_4]: `{r}Statio IV.{/r} Iesus crucem báiulans occúrrit Matri suæ dolorosíssimæ.
+℣ Adorámus te, Christe, et benedícimus tibi.
+℟ Quia per sanctam crucem tuam redemísti mundum.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_5]: `{r}Statio V.{/r} Iesus a Simóne Cyrenéo in baiulatióne crucis adiuvátur.
+℣ Adorámus te, Christe, et benedícimus tibi.
+℟ Quia per sanctam crucem tuam redemísti mundum.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_6]: `{r}Statio VI.{/r} Verónica Christo sudárium præséntat.
+℣ Adorámus te, Christe, et benedícimus tibi.
+℟ Quia per sanctam crucem tuam redemísti mundum.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_7]: `{r}Statio VII.{/r} Secúndus lapsus Iesu ad portam.
+℣ Adorámus te, Christe, et benedícimus tibi.
+℟ Quia per sanctam crucem tuam redemísti mundum.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_8]: `{r}Statio VIII.{/r} Iesus fílias Ierúsalem flentes allóquitur.
+℣ Adorámus te, Christe, et benedícimus tibi.
+℟ Quia per sanctam crucem tuam redemísti mundum.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_9]: `{r}Statio IX.{/r} Iesus ad ascénsum montis Calváriæ tértio cadit.
+℣ Adorámus te, Christe, et benedícimus tibi.
+℟ Quia per sanctam crucem tuam redemísti mundum.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_10]: `{r}Statio X.{/r} Iesus véstibus nudátur et felle potátur.
+℣ Adorámus te, Christe, et benedícimus tibi.
+℟ Quia per sanctam crucem tuam redemísti mundum.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_11]: `{r}Statio XI.{/r} Iesus cruci affígitur.
+℣ Adorámus te, Christe, et benedícimus tibi.
+℟ Quia per sanctam crucem tuam redemísti mundum.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_12]: `{r}Statio XII.{/r} Iesus in cruce levátur et móritur.
+℣ Adorámus te, Christe, et benedícimus tibi.
+℟ Quia per sanctam crucem tuam redemísti mundum.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_13]: `{r}Statio XIII.{/r} Iesus de cruce depónitur.
+℣ Adorámus te, Christe, et benedícimus tibi.
+℟ Quia per sanctam crucem tuam redemísti mundum.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_14]: `{r}Statio XIV.{/r} Sepultúra Christi.
+℣ Adorámus te, Christe, et benedícimus tibi.
+℟ Quia per sanctam crucem tuam redemísti mundum.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_MISERERE]: `℣ Miserére nostri, Dómine.
+℟ Miserére nostri.`,
+
+  [PRAYER_TYPES.VIA_CRUCIS_OREMUS]: `Orémus.
+Deus, qui Unigéniti Fílii tui pretióso sánguine vivíficæ Crucis vexíllum sanctificáre voluísti: {/}concéde, quǽsumus, eos, qui eiúsdem sanctæ Crucis gaudent honóre, tua quoque ubíque protectióne gaudére. {/}Per eúndem Christum Dóminum nostrum. Amen.
+{r}Deinde Pater, Ave et Glória ad mentem Summi Pontíficis.{/r}`,
+
   // The rosary's optional opening prayers, as traditional rosary manuals set
   // them after the Sign of the Cross. The versicles open the Hours (Breviary;
   // Little Office of the B.V.M.); "María, Mater grátiæ" is the Raccolta's
@@ -716,6 +810,39 @@ Quod parásti ante fáciem ómnium populórum,
 Lumen ad revelatiónem géntium, et glóriam plebis tuæ Israël.
 Glória Patri, et Fílio, et Spirítui Sancto.
 Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.`,
+
+  // The Canticle of Zachary (Lk 1:68–79), as the Breviary sings it at Lauds,
+  // with the Glória Patri; its asterisks are colons, as in the Magníficat.
+  [PRAYER_TYPES.BENEDICTUS]: `Benedíctus Dóminus, Deus Israël: quia visitávit, et fecit redemptiónem plebis suæ:
+Et eréxit cornu salútis nobis: in domo David, púeri sui.
+Sicut locútus est per os sanctórum, qui a sǽculo sunt, prophetárum eius:
+Salútem ex inimícis nostris, et de manu ómnium, qui odérunt nos.
+Ad faciéndam misericórdiam cum pátribus nostris: et memorári testaménti sui sancti.
+Iusiurándum, quod iurávit ad Ábraham patrem nostrum, datúrum se nobis:
+Ut sine timóre, de manu inimicórum nostrórum liberáti, serviámus illi.
+In sanctitáte et iustítia coram ipso, ómnibus diébus nostris.
+Et tu, puer, prophéta Altíssimi vocáberis: præíbis enim ante fáciem Dómini paráre vias eius:
+Ad dandam sciéntiam salútis plebi eius: in remissiónem peccatórum eórum:
+Per víscera misericórdiæ Dei nostri: in quibus visitávit nos, óriens ex alto:
+Illumináre his, qui in ténebris et in umbra mortis sedent: ad dirigéndos pedes nostros in viam pacis.
+Glória Patri, et Fílio, et Spirítui Sancto.
+Sicut erat in princípio, et nunc, et semper, et in sǽcula sæculórum. Amen.`,
+
+  // The acts of the theological virtues and of contrition. The Church
+  // prescribes no one wording (any formula of an approved catechism, says the
+  // Enchiridion indulgentiarum of 1952, no. 36); these are the Latin of the
+  // Compendium of the Catechism (Vatican, 2005), Appendix A, accents and all.
+  [PRAYER_TYPES.ACTUS]: `{r}Actus fídei{/r}
+Dómine Deus, firma fide credo et confíteor ómnia et síngula quæ sancta Ecclésia Cathólica propónit, {/}quia tu, Deus, ea ómnia revelásti, qui es ætérna véritas et sapiéntia quæ nec fállere nec falli potest. {/}In hac fide vívere et mori státuo. Amen.
+
+{r}Actus spei{/r}
+Dómine Deus, spero per grátiam tuam remissiónem ómnium peccatórum, {/}et post hanc vitam ætérnam felicitátem me esse consecutúrum: {/}quia tu promisísti, qui es infiníte potens, fidélis, benígnus, et miséricors. {/}In hac spe vívere et mori státuo. Amen.
+
+{r}Actus caritátis{/r}
+Dómine Deus, amo te super ómnia et próximum meum propter te, {/}quia tu es summum, infinítum, et perfectíssimum bonum, omni dilectióne dignum. {/}In hac caritáte vívere et mori státuo. Amen.
+
+{r}Actus contritiónis{/r}
+Deus meus, ex toto corde pænitet me ómnium meórum peccatórum, éaque detéstor, {/}quia peccándo, non solum pœnas a te iuste statútas proméritus sum, {/}sed præsértim quia offéndi te, summum bonum, ac dignum qui super ómnia diligáris. {/}Ídeo fírmiter propóno, adiuvánte grátia tua, de cétero me non peccatúrum peccandíque occasiónes próximas fugitúrum. Amen.`,
 
   [PRAYER_TYPES.IUDICA_ME]: `℣ Introíbo ad altáre Dei.
 ℟ Ad Deum, qui lætíficat iuventútem meam.
@@ -1877,6 +2004,98 @@ Ut álii mihi in ómnibus rebus præferántur, Iesu, da mihi grátiam ita deside
 Ut álii sanctióres me sint, dúmmodo ego tam sanctus fiam quam tu vis, Iesu, da mihi grátiam ita desiderándi.
 
 Illum opórtet créscere, me autem mínui. Amen.`,
+
+  // Litany of the Holy Face, "taken from the Scriptures": a private devotion of
+  // the Archconfraternity of the Holy Face at Tours, not one of the litanies
+  // approved for public recitation. Latin from the Manual of the
+  // Archconfraternity of the Holy Face (Abbé Janvier, tr. A.-R. Bennett; Tours,
+  // Oratory of the Holy Face; approbation of the Archbishop, 15 April 1886),
+  // pp. 143–149, read from the page images: "Jesu" / "cujus" spelt as the app's
+  // Latin, the accents ours, the response written on every line (the book
+  // braces it). See docs/research/holy-face-litany-sources.md.
+  [PRAYER_TYPES.LITANY_HOLY_FACE]: `Kýrie, eléison.
+Christe, eléison.
+Kýrie, eléison.
+Christe, audi nos.
+Christe, exáudi nos.
+Pater de cælis, Deus, miserére nobis.
+Fili, Redémptor mundi, Deus, miserére nobis.
+Spíritus Sancte, Deus, miserére nobis.
+Sancta Trínitas, unus Deus, miserére nobis.
+
+Iesu, in formam servi facte, miserére nobis.
+Iesu, cum homínibus conversáte, miserére nobis.
+Iesu, super Ierúsalem lacrymáte, miserére nobis.
+Iesu, cuius Fácies resplénduit sicut sol, miserére nobis.
+Iesu, in Fáciem tuam prostráte, miserére nobis.
+Iesu, sanguíneo sudóre Fáciem perfúse, miserére nobis.
+Iesu, ósculo a Iuda trádite, miserére nobis.
+Iesu, a ministro álapa percússe, miserére nobis.
+Iesu, Fáciem veláte, miserére nobis.
+Iesu, in Fáciem conspúte, miserére nobis.
+Iesu, cólaphis in Fáciem cæse, miserére nobis.
+Iesu, spinis coronáte, miserére nobis.
+Iesu, arúndine caput percússe, miserére nobis.
+
+Iesu, a Fácie cuius silet omnis terra, miserére nobis.
+Iesu, osténdens Fáciem tuam super sanctuárium tuum, miserére nobis.
+Iesu, ante cuius Fáciem prostérnimus preces, miserére nobis.
+Iesu, a Fácie cuius quǽrimus misericórdiam, miserére nobis.
+Iesu, a Fácie cuius non sunt abscónditæ viæ nostræ, miserére nobis.
+Iesu, a Fácie cuius montes defluxérunt, miserére nobis.
+Iesu, cuius Fácies non est avérsa a conspuéntibus, miserére nobis.
+Iesu, cuius genæ velléntibus datæ, miserére nobis.
+Iesu, quasi leprósus reputáte, miserére nobis.
+Iesu, cuius vidémus Fáciem in iúbilo, miserére nobis.
+Iesu, cuius Vultus super faciéntes mala, miserére nobis.
+Iesu, illúminans Vultum tuum super nos, miserére nobis.
+
+Iesu, cuius caput aurum óptimum, miserére nobis.
+Iesu, cuius lábia distíllant myrrham primam, miserére nobis.
+Iesu, in cuius lábiis diffúsa est grátia, miserére nobis.
+Iesu, in cuius conspéctu cæli non sunt mundi, miserére nobis.
+Iesu, ponens lácrymas nostras in conspéctu tuo, miserére nobis.
+Iesu, in conspéctu cuius exsúltant iusti, miserére nobis.
+Iesu, cuius óculi in páuperem respíciunt, miserére nobis.
+Iesu, cuius óculi super metuéntes te, miserére nobis.
+Iesu, cuius óculi super iustos, miserére nobis.
+Iesu, cuius óculi ad fidéles terræ, miserére nobis.
+Iesu, cuius óculi sicut colúmbæ, miserére nobis.
+Iesu, cuius óculi ut lampas ardens, miserére nobis.
+Iesu, cuius óculi tamquam flamma ignis, miserére nobis.
+Iesu, cuius óculi lucidióres sunt super solem, miserére nobis.
+Iesu, cuius óculi in diligéntes te, miserére nobis.
+
+Propítius esto, parce nobis, Iesu.
+Ab omni malo, líbera nos, Iesu.
+A subitánea et improvísa morte, líbera nos, Iesu.
+A damnatióne perpétua, líbera nos, Iesu.
+Per mystérium sanctæ Incarnatiónis tuæ, líbera nos, Iesu.
+Per gloriósam Transfiguratiónem tuam, líbera nos, Iesu.
+Per lácrymas tuas, líbera nos, Iesu.
+Per sanguíneum sudórem tuum, líbera nos, Iesu.
+Per álapas tuas, líbera nos, Iesu.
+Per spíneam corónam tuam, líbera nos, Iesu.
+In die iudícii, líbera nos, Iesu.
+
+Peccatóres, te rogámus, audi nos.
+Ut peccátis mórtui, iustítiæ vivámus, te rogámus, audi nos.
+Ut te passo in carne eámdem cogitatióne armémur, te rogámus, audi nos.
+Ut te crucifíxum scire ante ómnia studeámus, te rogámus, audi nos.
+Ut sicut sócii passiónum, ita simus et consolatiónis, te rogámus, audi nos.
+Ut te reveláta Fácie aliquándo vidére possímus, te rogámus, audi nos.
+Fili Dei, te rogámus.
+
+Agnus Dei, qui tollis peccáta mundi, parce nobis, Iesu.
+Agnus Dei, qui tollis peccáta mundi, exáudi nos, Iesu.
+Agnus Dei, qui tollis peccáta mundi, miserére nobis, Iesu.
+
+{r}Antíphona{/r}
+A fácie furóris tui, Deus, conturbáta est omnis terra: {/}sed tu, Dómine Deus, miserére, et ne fácias consummatiónem; {/}osténde Fáciem tuam, et salvi érimus.
+℣ Exsúrgat Deus, et dissipéntur inimíci eius.
+℟ Et fúgiant omnes qui odérunt eum a Fácie eius.
+
+Orémus. Concéde, quǽsumus, omnípotens et miséricors Deus, {/}ut qui Fílii tui Dómini nostri Iesu Christi Fáciem propter peccáta nostra in Passióne deformátam venerámur, {/}eámdem in cælésti glória fulgéntem contemplári perpétuo mereámur. {/}Per eúndem Dóminum nostrum. Amen.`,
 
   // Litany of St. Joseph (approved 1909 by Pius X), with the seven invocations
   // added by Francis on 1 May 2021 — Custos Redemptóris, Serve Christi, Miníster

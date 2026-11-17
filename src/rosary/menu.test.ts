@@ -29,7 +29,7 @@ describe("MENU_GROUPS", () => {
         const names = s.keys.map(fold);
         expect(names, g.title).toEqual([...names].sort((a, b) => a.localeCompare(b)));
       }
-    expect(groupKeys(MENU_GROUPS.find((g) => g.key === "cotidianae")!).slice(0, 3)).toEqual(["angele_dei", "angelus", "anima_christi"]);
+    expect(groupKeys(MENU_GROUPS.find((g) => g.key === "cotidianae")!).slice(0, 3)).toEqual(["actus", "angele_dei", "angelus"]);
     expect(groupKeys(MENU_GROUPS.find((g) => g.key === "missa")!).slice(0, 4)).toEqual(["ordo_missae", "iudica_me", "confiteor", "kyrie"]);
   });
 });
@@ -42,12 +42,12 @@ describe("inSeason", () => {
   it("adds the sequence of a feast", () => {
     // Easter 2026 is 5 April; Pentecost 24 May; Corpus Christi 4 June.
     expect(inSeason(new Date(2026, 3, 8))).toEqual(["regina_caeli", "victimae_paschali"]);
-    expect(inSeason(new Date(2026, 4, 24))).toEqual(["regina_caeli", "veni_sancte_spiritus", "spiritus", "loreto"]);
+    expect(inSeason(new Date(2026, 4, 24))).toEqual(["regina_caeli", "veni_sancte_spiritus", "veni_creator", "spiritus", "loreto"]);
     expect(inSeason(new Date(2026, 5, 4))).toEqual(["salve_regina", "lauda_sion", "pange_lingua", "o_sacrum_convivium", "panis_angelicus", "sacred_heart", "cor_iesu"]);
     expect(inSeason(new Date(2026, 8, 15))).toEqual(["salve_regina", "stabat_mater", "septem_dolores"]);
     // The Friday before Palm Sunday, 27 March 2026: in Lent and St. Joseph's month too
     // (the Seven Sorrows chaplet, a Lenten devotion as well, is listed once).
-    expect(inSeason(new Date(2026, 2, 27))).toEqual(["ave_regina_caelorum", "stabat_mater", "septem_dolores", "st_joseph", "ioseph", "ad_te_ioseph", "brigit", "brigit_xv", "miserere"]);
+    expect(inSeason(new Date(2026, 2, 27))).toEqual(["ave_regina_caelorum", "stabat_mater", "septem_dolores", "st_joseph", "ioseph", "ad_te_ioseph", "via_crucis", "brigit", "brigit_xv", "miserere"]);
   });
 
   it("adds the prayers for the dead through November, and All Saints' litany on its day", () => {
@@ -91,7 +91,7 @@ describe("searchMenu", () => {
 
   it("needs every word, sorts by Latin name, and finds nothing for nothing", () => {
     const litanies = searchMenu("litaniae");
-    expect(litanies.length).toBe(7);
+    expect(litanies.length).toBe(8);
     expect(litanies[0]).toBe("humility");
     expect(searchMenu("litaniae ioseph")).toEqual(["st_joseph"]);
     expect(searchMenu("")).toEqual([]);

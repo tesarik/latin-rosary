@@ -221,6 +221,21 @@ describe("St. Joseph's seven sorrows and joys", () => {
   });
 });
 
+describe("the Way of the Cross", () => {
+  const seq = OTHER_PRAYER_SETS.via_crucis.build();
+
+  it("is fourteen stations, each with a Pater, an Ave, the Miserére and a stanza, the whole Stabat Mater in order", () => {
+    expect(seq.length).toBe(76);
+    const stations = seq.filter((i) => /^Statio /.test(i.section ?? ""));
+    expect(stations.map((i) => i.label)).toEqual(["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV"].map((n) => `Statio ${n}`));
+    const stanzas = seq.filter((i) => i.type === PRAYER_TYPES.STABAT_MATER).map((i) => i.lines!);
+    expect(stanzas.map((l) => l[0])).toEqual([...Array(15).keys()].map((k) => k * 4));
+    expect(stanzas.at(-1)![1]).toBe(latinText(PRAYER_TYPES.STABAT_MATER).split("\n").length);
+    for (const locale of SUPPORTED_LOCALES)
+      expect(translatedText(locale, PRAYER_TYPES.STABAT_MATER).split("\n").length).toBe(latinText(PRAYER_TYPES.STABAT_MATER).split("\n").length);
+  });
+});
+
 describe("the Fifteen Prayers of St. Bridget", () => {
   const seq = OTHER_PRAYER_SETS.brigit_xv.build();
 

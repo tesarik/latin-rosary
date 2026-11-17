@@ -91,6 +91,8 @@ type Strings = {
   aboutFeedback: string;
   aboutAnalytics: string;
   aboutClose: string;
+  // The ⓘ beside a less familiar prayer's name: where its text comes from.
+  prayerNoteAria: string;
   aboutBuilt: string;
   // Link from About to the static prayer pages (texts to read and share).
   aboutPrayerTexts: string;
@@ -280,6 +282,7 @@ export const STRINGS: Record<Locale, Strings> = {
     aboutFeedback: "Chyby a návrhy posílejte na",
     aboutAnalytics: "Sbírají se anonymní statistiky používání, bez cookies.",
     aboutClose: "Zavřít",
+    prayerNoteAria: "Původ modlitby",
     aboutBuilt: "sestaveno",
     aboutPrayerTexts: "Texty modliteb na webu",
     localeName: "Čeština",
@@ -461,6 +464,7 @@ export const STRINGS: Record<Locale, Strings> = {
     aboutFeedback: "Send errors and improvements to",
     aboutAnalytics: "Anonymous, cookieless usage statistics are collected.",
     aboutClose: "Close",
+    prayerNoteAria: "Where this prayer comes from",
     aboutBuilt: "built",
     aboutPrayerTexts: "The prayer texts on the web",
     localeName: "English",
