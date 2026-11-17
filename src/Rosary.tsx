@@ -37,6 +37,7 @@ import { mysteriesOfDay } from "./rosary/liturgy";
 import { chapletKey, chapletToOpen, loadSavedChapletFull, saveChapletFull } from "./rosary/chaplet";
 import { brigitKey, brigitToOpen, isBrigitKey, loadSavedBrigitFull, saveBrigitFull } from "./rosary/brigit";
 import OptionSwitch from "./rosary/OptionSwitch";
+import { noteFor } from "./rosary/notes";
 import { isMenuKey, type MenuKey } from "./rosary/menu";
 import MysteryMenu from "./rosary/MysteryMenu";
 import PlansScreen from "./rosary/PlansScreen";
@@ -672,6 +673,9 @@ export default function Rosary() {
   // leads (at Mass: which part comes next).
   const nextLabel = sequence[currentStep + 1]?.label;
 
+  // Where a less familiar prayer comes from (the ⓘ beside its name).
+  const prayerNote = noteFor(selectedSet, locale);
+
   // The fruit of the mystery and a verse, at each rosary decade's Pater
   // Noster, when switched on in the ⋯ settings (meditations.ts).
   const decadeMeditation = meditation && decadeSet && currentPrayer?.type === PRAYER_TYPES.OUR_FATHER && decade !== undefined
@@ -822,6 +826,34 @@ export default function Rosary() {
           fontWeight: 600,
         }}>
           {setMeta.name}
+          {/* A less familiar prayer's ⓘ: where its text comes from (notes.ts). */}
+          {prayerNote && (
+            <button
+              onClick={() => { void askConfirm({ message: prayerNote, confirmLabel: t.aboutClose, cancelLabel: null, color: accentColor }); }}
+              aria-label={t.prayerNoteAria}
+              title={t.prayerNoteAria}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                verticalAlign: "middle",
+                width: 32,
+                height: 32,
+                margin: "-6px -8px -6px 0",
+                padding: 0,
+                border: "none",
+                background: "transparent",
+                color: "inherit",
+                cursor: "pointer",
+              }}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" style={{ opacity: 0.7 }}>
+                <circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" strokeWidth="1.3" />
+                <circle cx="8" cy="4.6" r="0.95" fill="currentColor" />
+                <path d="M8 7v5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            </button>
+          )}
         </div>
         </div>
 

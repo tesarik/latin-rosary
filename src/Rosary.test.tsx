@@ -246,6 +246,20 @@ describe("St. Bridget's optional prayers", () => {
   });
 });
 
+describe("the ⓘ beside a prayer's name", () => {
+  it("tells where a less familiar prayer comes from, and is not there for the rosary", async () => {
+    localStorage.setItem("ruzenec_hint_seen", "1");
+    location.hash = "#pray=via_crucis";
+    render(<Rosary />);
+    fireEvent.click(screen.getByRole("button", { name: t.prayerNoteAria }));
+    expect((await screen.findByRole("alertdialog")).textContent).toContain("Raccolta");
+    cleanup();
+    location.hash = "#pray=radostny";
+    render(<Rosary />);
+    expect(screen.queryByRole("button", { name: t.prayerNoteAria })).toBeNull();
+  });
+});
+
 describe("the Marian Psalter's rings", () => {
   it("shows the set being prayed, the others as small rings that jump to their start", () => {
     localStorage.setItem("ruzenec_hint_seen", "1");
