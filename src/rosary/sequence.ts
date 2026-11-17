@@ -762,6 +762,7 @@ export type LitanyKey =
   | "sacred_heart"
   | "holy_name"
   | "humility"
+  | "holy_face"
   | "st_joseph"
   | "precious_blood"
   | "saints";
@@ -867,6 +868,17 @@ export const LITANIES: Record<LitanyKey, LitanyEntry> = {
     ["A desidério", 0],
     ["A timóre", 11],
     ["Ut álii", 20],
+  ]),
+  // Private devotion of the Archconfraternity of the Holy Face (Tours, 1886):
+  // its Latin and English are the Manual's, its Czech ours.
+  holy_face: litany("Litaníæ Sanctæ Fáciei", { cs: "Litanie k Nejsvětější Tváři Ježíšově", en: "The Litany of the Holy Face" }, PRAYER_TYPES.LITANY_HOLY_FACE, [
+    ["Kyrie", 0],
+    ["In formam servi", 9],
+    ["A Fácie cuius", 23],
+    ["Cuius caput", 36],
+    ["Propítius esto", 52],
+    ["Peccatóres", 64],
+    ["Agnus Dei", 72],
   ]),
   st_joseph: litany("Litaníæ Sancti Ioseph", { cs: "Litanie k svatému Josefu", en: "The Litany of Saint Joseph" }, PRAYER_TYPES.LITANY_ST_JOSEPH, [
     ["Kyrie", 0],

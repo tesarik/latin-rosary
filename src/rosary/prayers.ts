@@ -210,6 +210,7 @@ export const PRAYER_TYPES = {
   LITANY_SACRED_HEART: "litany_sacred_heart",
   LITANY_HOLY_NAME: "litany_holy_name",
   LITANY_HUMILITY: "litany_humility",
+  LITANY_HOLY_FACE: "litany_holy_face",
   LITANY_ST_JOSEPH: "litany_st_joseph",
   LITANY_PRECIOUS_BLOOD: "litany_precious_blood",
   // Litany of the Saints — the only litany split across steps, so each section
@@ -2003,6 +2004,98 @@ Ut álii mihi in ómnibus rebus præferántur, Iesu, da mihi grátiam ita deside
 Ut álii sanctióres me sint, dúmmodo ego tam sanctus fiam quam tu vis, Iesu, da mihi grátiam ita desiderándi.
 
 Illum opórtet créscere, me autem mínui. Amen.`,
+
+  // Litany of the Holy Face, "taken from the Scriptures": a private devotion of
+  // the Archconfraternity of the Holy Face at Tours, not one of the litanies
+  // approved for public recitation. Latin from the Manual of the
+  // Archconfraternity of the Holy Face (Abbé Janvier, tr. A.-R. Bennett; Tours,
+  // Oratory of the Holy Face; approbation of the Archbishop, 15 April 1886),
+  // pp. 143–149, read from the page images: "Jesu" / "cujus" spelt as the app's
+  // Latin, the accents ours, the response written on every line (the book
+  // braces it). See docs/research/holy-face-litany-sources.md.
+  [PRAYER_TYPES.LITANY_HOLY_FACE]: `Kýrie, eléison.
+Christe, eléison.
+Kýrie, eléison.
+Christe, audi nos.
+Christe, exáudi nos.
+Pater de cælis, Deus, miserére nobis.
+Fili, Redémptor mundi, Deus, miserére nobis.
+Spíritus Sancte, Deus, miserére nobis.
+Sancta Trínitas, unus Deus, miserére nobis.
+
+Iesu, in formam servi facte, miserére nobis.
+Iesu, cum homínibus conversáte, miserére nobis.
+Iesu, super Ierúsalem lacrymáte, miserére nobis.
+Iesu, cuius Fácies resplénduit sicut sol, miserére nobis.
+Iesu, in Fáciem tuam prostráte, miserére nobis.
+Iesu, sanguíneo sudóre Fáciem perfúse, miserére nobis.
+Iesu, ósculo a Iuda trádite, miserére nobis.
+Iesu, a ministro álapa percússe, miserére nobis.
+Iesu, Fáciem veláte, miserére nobis.
+Iesu, in Fáciem conspúte, miserére nobis.
+Iesu, cólaphis in Fáciem cæse, miserére nobis.
+Iesu, spinis coronáte, miserére nobis.
+Iesu, arúndine caput percússe, miserére nobis.
+
+Iesu, a Fácie cuius silet omnis terra, miserére nobis.
+Iesu, osténdens Fáciem tuam super sanctuárium tuum, miserére nobis.
+Iesu, ante cuius Fáciem prostérnimus preces, miserére nobis.
+Iesu, a Fácie cuius quǽrimus misericórdiam, miserére nobis.
+Iesu, a Fácie cuius non sunt abscónditæ viæ nostræ, miserére nobis.
+Iesu, a Fácie cuius montes defluxérunt, miserére nobis.
+Iesu, cuius Fácies non est avérsa a conspuéntibus, miserére nobis.
+Iesu, cuius genæ velléntibus datæ, miserére nobis.
+Iesu, quasi leprósus reputáte, miserére nobis.
+Iesu, cuius vidémus Fáciem in iúbilo, miserére nobis.
+Iesu, cuius Vultus super faciéntes mala, miserére nobis.
+Iesu, illúminans Vultum tuum super nos, miserére nobis.
+
+Iesu, cuius caput aurum óptimum, miserére nobis.
+Iesu, cuius lábia distíllant myrrham primam, miserére nobis.
+Iesu, in cuius lábiis diffúsa est grátia, miserére nobis.
+Iesu, in cuius conspéctu cæli non sunt mundi, miserére nobis.
+Iesu, ponens lácrymas nostras in conspéctu tuo, miserére nobis.
+Iesu, in conspéctu cuius exsúltant iusti, miserére nobis.
+Iesu, cuius óculi in páuperem respíciunt, miserére nobis.
+Iesu, cuius óculi super metuéntes te, miserére nobis.
+Iesu, cuius óculi super iustos, miserére nobis.
+Iesu, cuius óculi ad fidéles terræ, miserére nobis.
+Iesu, cuius óculi sicut colúmbæ, miserére nobis.
+Iesu, cuius óculi ut lampas ardens, miserére nobis.
+Iesu, cuius óculi tamquam flamma ignis, miserére nobis.
+Iesu, cuius óculi lucidióres sunt super solem, miserére nobis.
+Iesu, cuius óculi in diligéntes te, miserére nobis.
+
+Propítius esto, parce nobis, Iesu.
+Ab omni malo, líbera nos, Iesu.
+A subitánea et improvísa morte, líbera nos, Iesu.
+A damnatióne perpétua, líbera nos, Iesu.
+Per mystérium sanctæ Incarnatiónis tuæ, líbera nos, Iesu.
+Per gloriósam Transfiguratiónem tuam, líbera nos, Iesu.
+Per lácrymas tuas, líbera nos, Iesu.
+Per sanguíneum sudórem tuum, líbera nos, Iesu.
+Per álapas tuas, líbera nos, Iesu.
+Per spíneam corónam tuam, líbera nos, Iesu.
+In die iudícii, líbera nos, Iesu.
+
+Peccatóres, te rogámus, audi nos.
+Ut peccátis mórtui, iustítiæ vivámus, te rogámus, audi nos.
+Ut te passo in carne eámdem cogitatióne armémur, te rogámus, audi nos.
+Ut te crucifíxum scire ante ómnia studeámus, te rogámus, audi nos.
+Ut sicut sócii passiónum, ita simus et consolatiónis, te rogámus, audi nos.
+Ut te reveláta Fácie aliquándo vidére possímus, te rogámus, audi nos.
+Fili Dei, te rogámus.
+
+Agnus Dei, qui tollis peccáta mundi, parce nobis, Iesu.
+Agnus Dei, qui tollis peccáta mundi, exáudi nos, Iesu.
+Agnus Dei, qui tollis peccáta mundi, miserére nobis, Iesu.
+
+{r}Antíphona{/r}
+A fácie furóris tui, Deus, conturbáta est omnis terra: {/}sed tu, Dómine Deus, miserére, et ne fácias consummatiónem; {/}osténde Fáciem tuam, et salvi érimus.
+℣ Exsúrgat Deus, et dissipéntur inimíci eius.
+℟ Et fúgiant omnes qui odérunt eum a Fácie eius.
+
+Orémus. Concéde, quǽsumus, omnípotens et miséricors Deus, {/}ut qui Fílii tui Dómini nostri Iesu Christi Fáciem propter peccáta nostra in Passióne deformátam venerámur, {/}eámdem in cælésti glória fulgéntem contemplári perpétuo mereámur. {/}Per eúndem Dóminum nostrum. Amen.`,
 
   // Litany of St. Joseph (approved 1909 by Pius X), with the seven invocations
   // added by Francis on 1 May 2021 — Custos Redemptóris, Serve Christi, Miníster

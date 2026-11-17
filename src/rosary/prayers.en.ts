@@ -1638,6 +1638,96 @@ That others may become holier than I, provided that I become as holy as thou wou
 
 He must increase, but I must decrease. Amen.`,
 
+  // Litany of the Holy Face: the English of the same Manual (1886), as printed
+  // beside the Latin, pronouns lower case; its two invocations on the lips and
+  // on the heavens put in the Latin's order, the responses on every line; its
+  // petitions' "we beseech thee" (and "We sinners beseech thee, hear us")
+  // made "we beseech thee, hear us" throughout, as the Latin's te rogámus,
+  // audi nos, so the two pair line by line.
+  [PRAYER_TYPES.LITANY_HOLY_FACE]: `Lord, have mercy on us.
+Jesus Christ, have mercy on us.
+Lord, have mercy on us.
+Jesus Christ, hear us.
+Jesus Christ, graciously hear us.
+God the Father, who art in heaven, have pity on us.
+God the Son, Redeemer of the world, have pity on us.
+God the Holy Ghost, have pity on us.
+Holy Trinity, one God, have pity on us.
+
+Jesus, who didst take on thyself the form of a servant, have pity on us.
+Jesus, who didst converse with men, have pity on us.
+Jesus, who didst weep over Jerusalem, have pity on us.
+Jesus, whose Face didst shine like the sun, have pity on us.
+Jesus, who didst prostrate thyself upon thy Face, have pity on us.
+Jesus, whose Face was bathed in a bloody sweat, have pity on us.
+Jesus, betrayed by the kiss of Judas, have pity on us.
+Jesus, who didst receive a blow from the hand of a servant, have pity on us.
+Jesus, whose Face was veiled, have pity on us.
+Jesus, whose Face was covered with spittle, have pity on us.
+Jesus, whose Face was wounded with blows, have pity on us.
+Jesus, crowned with thorns, have pity on us.
+Jesus, whose head was struck with a reed, have pity on us.
+
+Jesus, whose Face commands a reverent silence over the whole earth, have pity on us.
+Jesus, who dost show thy Face above thy sanctuary, have pity on us.
+Jesus, before whose Face we utter our prayers, have pity on us.
+Jesus, from whose Face we expect mercy, have pity on us.
+Jesus, from whose Face none of our doings are hidden, have pity on us.
+Jesus, whose Face causes the mountains to melt away, have pity on us.
+Jesus, who didst not turn thy Face away from spittings, have pity on us.
+Jesus, who didst present thy cheeks to those who struck thee, have pity on us.
+Jesus, who was looked upon as a leper, have pity on us.
+Jesus, whose Face we behold with joy, have pity on us.
+Jesus, whose eyes observe those who do evil, have pity on us.
+Jesus, who causest to shine upon us the light of thy Face, have pity on us.
+
+Jesus, whose head is of most pure gold, have pity on us.
+Jesus, whose lips distil an excellent myrrh, have pity on us.
+Jesus, on whose lips grace is shed, have pity on us.
+Jesus, in whose eyes the heavens are not pure, have pity on us.
+Jesus, whose eyes are witnesses of our tears, have pity on us.
+Jesus, whose Face rejoices the just, have pity on us.
+Jesus, whose eyes are attentive to the poor, have pity on us.
+Jesus, whose eyes are upon those that fear thee, have pity on us.
+Jesus, whose eyes behold the just, have pity on us.
+Jesus, whose eyes are upon the faithful on the earth, have pity on us.
+Jesus, whose eyes resemble those of a dove, have pity on us.
+Jesus, whose eyes are like a burning lamp, have pity on us.
+Jesus, whose eyes are like a flaming fire, have pity on us.
+Jesus, whose eyes are more brilliant than the sun, have pity on us.
+Jesus, whose eyes rest upon those that love thee, have pity on us.
+
+Be merciful unto us, pardon us, Jesus.
+From all evil, deliver us, Jesus.
+From sudden and unprovided death, deliver us, Jesus.
+From eternal damnation, deliver us, Jesus.
+By the mystery of thy holy Incarnation, deliver us, Jesus.
+By thy glorious Transfiguration, deliver us, Jesus.
+By thy tears, deliver us, Jesus.
+By thy bloody sweat, deliver us, Jesus.
+By the blows thou didst receive, deliver us, Jesus.
+By thy crown of thorns, deliver us, Jesus.
+At the day of judgment, deliver us, Jesus.
+
+We sinners, we beseech thee, hear us.
+That being dead to sin, we may live to justice, we beseech thee, hear us.
+Having suffered in the flesh, arm us with the same thought, we beseech thee, hear us.
+Grant that we may apply ourselves to know nothing, save Jesus crucified, we beseech thee, hear us.
+Having taken part in thy sufferings grant us a share in thy consolations, we beseech thee, hear us.
+Grant us to see thee, face to face, in heaven, we beseech thee, hear us.
+Son of God, hear us.
+
+Lamb of God, who takest away the sins of the world, spare us, Jesus.
+Lamb of God, who takest away the sins of the world, graciously hear us, Jesus.
+Lamb of God, who takest away the sins of the world, have mercy on us, Jesus.
+
+{r}Anthem{/r}
+Oh God, the whole earth is troubled when anger shows itself on thy Face; {/}but, oh Lord our God, grant unto us mercy, and do not proceed to the last extremity; {/}show us thy Face and we shall be saved.
+℣ Let God arise, and let his enemies be scattered.
+℟ And let all who hate him, flee from before his Face.
+
+Let us pray. Almighty and merciful God, grant, we beseech thee, {/}that whilst reverencing the Face of thy Christ, disfigured in the Passion because of our sins, {/}we may merit to contemplate it, shining for ever in celestial glory. {/}Through the same Jesus Christ. Amen.`,
+
   // Litany of St. Joseph, with the seven invocations added in 2021 — same
   // interleaved positions as the Latin above.
   [PRAYER_TYPES.LITANY_ST_JOSEPH]: `Lord, have mercy. 2×

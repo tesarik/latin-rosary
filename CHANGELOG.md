@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
+- **The Litany of the Holy Face** (*Litaníæ Sanctæ Fáciei*), with the litanies: a private devotion of the Archconfraternity of the Holy Face at Tours, its Latin and English from the Archconfraternity's *Manual* (1886), the Czech our own translation.
 - **The Way of the Cross** (*Via Crucis*), among the devotions and in Lent: fourteen stations, each with its title, *Adorámus te*, an Our Father, a Hail Mary, *Miserére nostri* and a stanza of the *Stabat Mater*, then the collect of the Holy Cross and the prayers for the Pope, in the form the Raccolta gives. Latin titles from P. Gaudentius's *Orate Fratres* (1901), Czech from the Brno *Cesta k věčné spáse*, English from the Raccolta.
 - **The acts of faith, hope, charity and contrition** (*Actus fídei, spei, caritátis*), with the daily prayers: the Latin and English of the Compendium of the Catechism (2005), the Czech our own translation.
 - **The Benedíctus**, the Canticle of Zachary of Morning Prayer, with the daily prayers beside the Nunc dimíttis. Czech from *Malé hodinky* (1937), English Douay-Rheims.

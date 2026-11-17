@@ -1634,6 +1634,93 @@ Aby se jiní stali více svatými než já, jen když se já stanu natolik svat�
 
 Dej, abych se stále umenšoval a ty, Ježíši, rostl. Amen.`,
 
+  // Litany of the Holy Face — OUR OWN translation of the Latin (no Czech of
+  // this litany was found; the Czech "Litanie k nejsvětějšímu obličeji Pána
+  // Ježíše" of 1884 is another text). Tvář capitalized as the Latin's Fácies.
+  [PRAYER_TYPES.LITANY_HOLY_FACE]: `Pane, smiluj se.
+Kriste, smiluj se.
+Pane, smiluj se.
+Kriste, uslyš nás.
+Kriste, vyslyš nás.
+Bože, náš nebeský Otče, smiluj se nad námi.
+Bože Synu, Vykupiteli světa, smiluj se nad námi.
+Bože Duchu Svatý, smiluj se nad námi.
+Bože v Trojici jediný, smiluj se nad námi.
+
+Ježíši, jenž jsi přijal podobu služebníka, smiluj se nad námi.
+Ježíši, jenž jsi obcoval s lidmi, smiluj se nad námi.
+Ježíši, jenž jsi plakal nad Jeruzalémem, smiluj se nad námi.
+Ježíši, jehož Tvář zazářila jako slunce, smiluj se nad námi.
+Ježíši, jenž jsi padl na svou Tvář, smiluj se nad námi.
+Ježíši, jehož Tvář zalil krvavý pot, smiluj se nad námi.
+Ježíši, zrazený Jidášovým políbením, smiluj se nad námi.
+Ježíši, jemuž služebník vyťal políček, smiluj se nad námi.
+Ježíši, jemuž zahalili Tvář, smiluj se nad námi.
+Ježíši, jemuž plivali do Tváře, smiluj se nad námi.
+Ježíši, bitý pěstmi do Tváře, smiluj se nad námi.
+Ježíši, trním korunovaný, smiluj se nad námi.
+Ježíši, bitý třtinou do hlavy, smiluj se nad námi.
+
+Ježíši, před jehož Tváří mlčí celá země, smiluj se nad námi.
+Ježíši, jenž ukazuješ svou Tvář nad svou svatyní, smiluj se nad námi.
+Ježíši, před jehož Tváří skládáme své prosby, smiluj se nad námi.
+Ježíši, u jehož Tváře hledáme milosrdenství, smiluj se nad námi.
+Ježíši, před jehož Tváří nejsou skryty naše cesty, smiluj se nad námi.
+Ježíši, před jehož Tváří se rozplynuly hory, smiluj se nad námi.
+Ježíši, jenž jsi neodvrátil Tvář od těch, kdo na tebe plivali, smiluj se nad námi.
+Ježíši, jenž jsi nastavil líce těm, kdo tě trhali za vousy, smiluj se nad námi.
+Ježíši, pokládaný za malomocného, smiluj se nad námi.
+Ježíši, jehož Tvář s jásotem spatřujeme, smiluj se nad námi.
+Ježíši, jehož Tvář je proti těm, kdo páchají zlo, smiluj se nad námi.
+Ježíši, jenž nad námi rozjasňuješ svou Tvář, smiluj se nad námi.
+
+Ježíši, jehož hlava je z ryzího zlata, smiluj se nad námi.
+Ježíši, jehož rty kanou nejvzácnější myrhou, smiluj se nad námi.
+Ježíši, na jehož rty je vylita milost, smiluj se nad námi.
+Ježíši, před jehož zrakem ani nebesa nejsou čistá, smiluj se nad námi.
+Ježíši, jenž máš naše slzy před očima, smiluj se nad námi.
+Ježíši, před nímž jásají spravedliví, smiluj se nad námi.
+Ježíši, jehož oči hledí na chudého, smiluj se nad námi.
+Ježíši, jehož oči spočívají na těch, kdo se tě bojí, smiluj se nad námi.
+Ježíši, jehož oči spočívají na spravedlivých, smiluj se nad námi.
+Ježíši, jehož oči hledí na věrné v zemi, smiluj se nad námi.
+Ježíši, jehož oči jsou jako holubice, smiluj se nad námi.
+Ježíši, jehož oči jsou jako hořící lampa, smiluj se nad námi.
+Ježíši, jehož oči jsou jako plamen ohně, smiluj se nad námi.
+Ježíši, jehož oči jsou jasnější nad slunce, smiluj se nad námi.
+Ježíši, jehož oči spočívají na těch, kdo tě milují, smiluj se nad námi.
+
+Buď nám milostiv, odpusť nám, Ježíši.
+Ode všeho zlého, vysvoboď nás, Ježíši.
+Od náhlé a nenadálé smrti, vysvoboď nás, Ježíši.
+Od věčného zatracení, vysvoboď nás, Ježíši.
+Skrze tajemství svého svatého vtělení, vysvoboď nás, Ježíši.
+Skrze své slavné proměnění, vysvoboď nás, Ježíši.
+Skrze své slzy, vysvoboď nás, Ježíši.
+Skrze svůj krvavý pot, vysvoboď nás, Ježíši.
+Skrze políčky, které jsi snesl, vysvoboď nás, Ježíši.
+Skrze svou trnovou korunu, vysvoboď nás, Ježíši.
+V den soudu, vysvoboď nás, Ježíši.
+
+My hříšníci, prosíme tě, vyslyš nás.
+Abychom, hříchům odumřelí, žili spravedlnosti, prosíme tě, vyslyš nás.
+Abychom se, když jsi ty trpěl v těle, ozbrojili toutéž myšlenkou, prosíme tě, vyslyš nás.
+Abychom usilovali především znát tebe ukřižovaného, prosíme tě, vyslyš nás.
+Abychom, jako jsme účastni utrpení, byli účastni i útěchy, prosíme tě, vyslyš nás.
+Abychom tě jednou mohli spatřit s odhalenou Tváří, prosíme tě, vyslyš nás.
+Synu Boží, prosíme tě.
+
+Beránku Boží, který snímáš hříchy světa, odpusť nám, Ježíši.
+Beránku Boží, který snímáš hříchy světa, vyslyš nás, Ježíši.
+Beránku Boží, který snímáš hříchy světa, smiluj se nad námi, Ježíši.
+
+{r}Antifona{/r}
+Před tváří tvého hněvu, Bože, zachvěla se celá země: {/}ale ty, Pane Bože, smiluj se a nedopusť záhubu; {/}ukaž svou Tvář, a budeme spaseni.
+℣ Povstaň Bůh, a rozptýleni buďte nepřátelé jeho.
+℟ A utečte od Tváře jeho všichni, kdo ho nenávidí.
+
+Modleme se. Dej, prosíme, všemohoucí a milosrdný Bože, {/}abychom, kteří uctíváme Tvář tvého Syna, našeho Pána Ježíše Krista, pro naše hříchy v umučení zohavenou, {/}zasloužili si ji navěky spatřovat zářící v nebeské slávě. {/}Skrze téhož Pána našeho. Amen.`,
+
   // Czech: the traditional 24 invocations transcribed from the farni-musle.cz
   // "Rok svatého Josefa 2021" leaflet, cross-checked against prayerbook.weebly.com
   // (both agree line for line). Three additions are ours, since no Czech witness

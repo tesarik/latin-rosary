@@ -91,7 +91,7 @@ describe("searchMenu", () => {
 
   it("needs every word, sorts by Latin name, and finds nothing for nothing", () => {
     const litanies = searchMenu("litaniae");
-    expect(litanies.length).toBe(7);
+    expect(litanies.length).toBe(8);
     expect(litanies[0]).toBe("humility");
     expect(searchMenu("litaniae ioseph")).toEqual(["st_joseph"]);
     expect(searchMenu("")).toEqual([]);

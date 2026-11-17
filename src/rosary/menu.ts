@@ -136,7 +136,7 @@ const GROUPS: readonly MenuGroup[] = [
     icon: "list",
     color: "#3949AB",
     art: "litaniae",
-    sections: [{ keys: ["loreto", "sacred_heart", "holy_name", "st_joseph", "precious_blood", "saints", "humility"] }],
+    sections: [{ keys: ["loreto", "sacred_heart", "holy_name", "st_joseph", "precious_blood", "saints", "humility", "holy_face"] }],
   },
   {
     key: "defuncti",

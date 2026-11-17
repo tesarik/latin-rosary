@@ -122,6 +122,10 @@ const NOTES: Record<string, Partial<Localized>> = {
   veni_creator: {
     en: "The English is our own line-for-line rendering of the Latin.",
   },
+  holy_face: {
+    cs: "Soukromá pobožnost Arcibratrstva Svaté Tváře v Tours. Latinské a anglické znění podle jeho Manuálu (Tours, schváleno 1886); český překlad je náš vlastní.",
+    en: "A private devotion of the Archconfraternity of the Holy Face at Tours. The Latin and English are those of its Manual (Tours, approved 1886).",
+  },
   via_crucis: {
     cs: "Podoba podle Raccolty (1910, č. 117); latinské názvy zastavení podle P. Gaudentia, Orate Fratres (1901), české podle brněnské Cesty k věčné spáse ([1946]). Český překlad závěrečné modlitby je náš vlastní.",
     en: "The form of the Raccolta (1910, no. 117); the Latin titles of the stations from P. Gaudentius, Orate Fratres (1901).",

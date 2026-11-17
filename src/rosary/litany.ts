@@ -36,6 +36,8 @@ export const LITANY_RESPONSES = [
   "deliver us", "save us", "intercede for us", "we beseech thee, hear us",
   // Litany of Humility — first person, and a full clause for its third section.
   "deliver me", "hear me", "Jesus, grant me the grace to desire it",
+  // Litany of the Holy Face (the Manual of 1886).
+  "have pity on us", "pardon us",
 ];
 
 // A response has to END the line — bar a short vocative address (", Dómine.",
@@ -68,7 +70,7 @@ export function responseStart(line: string): number {
 // litany. Matched on the full phrase, since every Holy Name invocation also opens
 // with "Iesu," / "Ježíši," and those do take a response.
 export const LITANY_ACCLAMATION =
-  /^(Kyrie|Christe|Pane|Kriste), (eléison|smiluj se( nad námi)?)\.|^(Christe|Iesu|Kriste|Ježíši), (ex)?(áudi|audi|slyš|uslyš|vyslyš) (nos|nás)\.|^(Lord|Christ), have mercy\.|^(Christ|Jesus), (graciously )?hear us\./;
+  /^(Kyrie|Christe|Pane|Kriste), (eléison|smiluj se( nad námi)?)\.|^(Christe|Iesu|Kriste|Ježíši), (ex)?(áudi|audi|slyš|uslyš|vyslyš) (nos|nás)\.|^(Lord|Christ|Jesus Christ), have mercy( on us)?\.|^(Christ|Jesus|Jesus Christ), (graciously )?hear us\./;
 
 // A known response, as the line carries it, minus closing punctuation
 // ("ora pro nobis.", "ora pro nobis" → same).
