@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.45.0]
+
 ### Added
 - **An ⓘ after the name of a less familiar prayer** tells where its text comes from: a private devotion, the book it is from, the parts that are our own translation. The same notes as on the web pages; none for the rosary or the everyday prayers.
 - **The Litany of the Holy Face** (*Litaníæ Sanctæ Fáciei*), with the litanies: a private devotion of the Archconfraternity of the Holy Face at Tours, its Latin and English from the Archconfraternity's *Manual* (1886), the Czech our own translation.
