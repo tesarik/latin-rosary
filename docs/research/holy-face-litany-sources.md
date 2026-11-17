@@ -9,7 +9,18 @@
 - Scan: [virgosacrata.com, *Manual of the Holy Face*](https://www.virgosacrata.com/files/ebook/Manual-of-the-Holy-Face.pdf), PDF pp. 179–185. The litany was read from the page images.
 - A transcription is on [holyfacechapel.org](https://holyfacechapel.org/manual-of-the-archconfraternity-of-the-holy-face-litanies-of-the-holy-face/). It carries OCR errors (*quresumus*, *sujus*, *cceli*, *culjus*, *abscondit*, *lacientes*), none of which is in the print.
 
-This is a private devotion, not one of the litanies approved for public recitation. The Manual also has a second litany "composed by Sister Mary of St. Peter", in English only, which is not used here.
+This is a private devotion, not one of the litanies approved for public recitation.
+
+## Standing
+
+What the Church approved is the devotion, not the revelations behind it:
+
+- **1876:** Archbishop Charles Colet of Tours examined the writings of Sister Mary of St. Peter (1816–1848, Carmelite of Tours, revelations 1843–1847), allowed them to be published, and set up the Confraternity of the Holy Face. His predecessor had held their publication back.
+- **1885:** Leo XIII raised it to an Archconfraternity for the whole world, with indulgences and a scapular. The brief is printed in the Manual. Some secondary sources give 1895.
+- **1886:** the Archbishop of Tours approved the Manual. So the litany has the approval to be printed and prayed privately.
+- **Pius XII** declared Léon Dupont Venerable. He spread the devotion for about thirty years.
+
+No formal judgement that the revelations are of supernatural origin was found. The approval to print says only that nothing in them is against faith or morals. This litany is not drawn from the revelations: it is put together from verses of Scripture. Sources: Wikipedia ([Mary of Saint Peter](https://www.wikipedia.org/wiki/Little_Sachet), [Leo Dupont](https://en.wikipedia.org/wiki/Leo_Dupont), [Archconfraternity of the Holy Face](https://en.wikipedia.com/wiki/Scapular_of_the_Holy_Face)) and the Manual's own documents. These dates were not checked against the archdiocesan acts. The Manual also has a second litany "composed by Sister Mary of St. Peter", in English only, which is not used here.
 
 ## Latin
 
