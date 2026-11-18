@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.45.1]
+
 ### Fixed
 - **Latin accents made consistent** in the rosary: the mystery clauses (*Spíritu*, *Sánguinem*, *mórtuis*), the collect after the Salve Regína (*quǽsumus*, *mystéria*, *Vírginis*, *cóntinent*) and the Fatima prayer (no accent on two-syllable words, *misericórdia*); and in the names: *Mystéria Gaudiósa / Dolorósa / Gloriósa*, *Glória Patri*, *Ángele Dei*, *Oratiónes*, *Preces pro defúnctis*, the litanies' *Kýrie*. The web pages' addresses stay the same.
 - **Czech:** *Zdrávas, Královno* with its comma; *Litanie k Nejsvětějšímu jménu Ježíš*.
