@@ -443,7 +443,7 @@ describe("litany responses", () => {
   it("never groups the Kyrie or a versicle", () => {
     const blocks = parseLitany(PRAYERS[PRAYER_TYPES.LITANY_SACRED_HEART]);
     const plain = blocks.filter((b) => b.kind === "plain").map((b) => b.kind === "plain" && b.line);
-    expect(plain).toContain("Kyrie, eléison. 2×");
+    expect(plain).toContain("Kýrie, eléison. 2×");
     expect(plain.some((l) => l && l.startsWith("℣"))).toBe(true);
   });
 
@@ -479,5 +479,30 @@ describe("break points for the Latin with its translation under it", () => {
         expect(stripBreaks(t)).not.toContain(BREAK);
       }
     }
+  });
+});
+
+// One spelling per word: a Latin word written mid-sentence (lower case) with
+// its accent in one prayer and without it in another is a slip, not a source's
+// choice — the outside review of November 2026 found a dozen. Capitalized words
+// are left out: many printed sources leave an initial capital unaccented
+// (Angelus Dómini, Deinde), and ours follow them.
+describe("Latin accents", () => {
+  const fold = (w: string) => w.replace(/ǽ/g, "æ").normalize("NFD").replace(/\p{Mn}/gu, "");
+  const latin = [
+    ...Object.values(PRAYERS),
+    ...Object.values(MYSTERIES).flatMap((m) => m.mysteries),
+  ].join("\n").replace(/\{\/?r\}|\{\/\}/g, " ");
+
+  it("spells each lower-case word one way", () => {
+    const forms = new Map<string, Set<string>>();
+    for (const w of latin.match(/\p{L}+/gu) ?? []) {
+      if (w[0] !== w[0]!.toLowerCase()) continue;
+      const k = fold(w);
+      if (!forms.has(k)) forms.set(k, new Set());
+      forms.get(k)!.add(w);
+    }
+    const mixed = [...forms.values()].filter((s) => s.size > 1).map((s) => [...s].join("/"));
+    expect(mixed).toEqual([]);
   });
 });

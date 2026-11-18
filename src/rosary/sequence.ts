@@ -590,7 +590,7 @@ export const OTHER_PRAYER_SETS: Record<OtherPrayerKey, {
   },
   cor_iesu: {
     name: "Corona Sacratíssimi Cordis Iesu",
-    nameTr: { cs: "Korunka k nejsvětějšímu Srdci Ježíšovu", en: "The Chaplet of the Sacred Heart" },
+    nameTr: { cs: "Korunka k Nejsvětějšímu Srdci Ježíšovu", en: "The Chaplet of the Sacred Heart" },
     color: "#C62828",
     build: buildCoronaCordis,
   },
@@ -706,7 +706,7 @@ export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, OrdinaryEntry> = {
   anima_christi:        ordinary("Ánima Christi", { cs: "Duše Kristova", en: "Soul of Christ" },        PRAYER_TYPES.ANIMA_CHRISTI),
   angele_dei:           ordinary("Ángele Dei", { cs: "Anděle Boží", en: "Angel of God" },           PRAYER_TYPES.ANGELE_DEI),
   sancte_michael:       ordinary("Sancte Míchael", { cs: "Svatý Michaeli", en: "Saint Michael the Archangel" },       PRAYER_TYPES.ST_MICHAEL),
-  requiem:              ordinary("Pro defunctis (Réquiem)", { cs: "Za zemřelé", en: "Eternal Rest" }, PRAYER_TYPES.REQUIEM),
+  requiem:              ordinary("Pro defúnctis (Réquiem)", { cs: "Za zemřelé", en: "Eternal Rest" }, PRAYER_TYPES.REQUIEM),
   decalogue:            ordinary("Decálogus", { cs: "Desatero", en: "The Ten Commandments" },            PRAYER_TYPES.DECALOGUE),
   de_profundis:         ordinary("De profúndis", { cs: "Z hlubin (za zemřelé)", en: "Out of the Depths (for the Dead)" }, PRAYER_TYPES.DE_PROFUNDIS),
   confiteor:            ordinary("Confíteor", { cs: "Vyznávám se", en: "I Confess" }, PRAYER_TYPES.CONFITEOR),

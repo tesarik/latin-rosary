@@ -573,7 +573,7 @@ export default function Rosary() {
   // Within a rosary decade the chip names the decade and quotes its mystery in
   // full, in the language the prayer is shown in (the La / Cz switch): in
   // Latin just the number, as Latin prayer books head them ("II. quem, Virgo,
-  // visitándo Elisabeth portásti"); translated, "2. desátek: s kterým jsi,
+  // visitándo Elísabeth portásti"); translated, "2. desátek: s kterým jsi,
   // Panno, Alžbětu navštívila". The prayer itself is plain from the
   // card. The chaplet's decades have no mystery: "III. Pro dolorósa".
   // Everywhere else the chip names the current prayer or section.

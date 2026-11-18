@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Fixed
+- **Latin accents made consistent across every prayer**, found by a scan of all the texts: *sǽcula* and *sǽculi* in the Nicene Creed, *quǽsumus*, *prǽmia*, *dǽmonum*, *exémplar*, *ánimo*, *eáque*, *Elísabeth* in the Visitation, *Israël*, *Ábraham*, *Kýrie* in every litany; no accent on two-syllable words (*vere*, *audi*, *primum*, *perduc*, *condi*); *Pro defúnctis*. A test now keeps each word spelt one way.
+- *Korunka k Nejsvětějšímu Srdci Ježíšovu* with a capital, as the litany.
+
 ## [0.45.1]
 
 ### Fixed
