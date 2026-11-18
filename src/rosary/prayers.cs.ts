@@ -5,7 +5,7 @@
 import { PRAYER_TYPES, ioseph, type StaticPrayerType } from "./prayers";
 
 // Czech counterpart of the shared Salve Regína antiphon (see SALVE_REGINA_ANTIPHON).
-const SALVE_REGINA_ANTIPHON_CS = `Zdrávas Královno, Matko milosrdenství. Živote, sladkosti a naděje naše, buď zdráva. K Tobě voláme, vyhnaní synové Evy. K Tobě vzdycháme, lkajíce a plačíce v tomto slzavém údolí. A proto, orodovnice naše, obrať k nám své milosrdné oči. A Ježíše, požehnaný plod života svého, nám po tomto putování ukaž. Ó milostivá, ó přívětivá, ó přesladká Panno Maria.
+const SALVE_REGINA_ANTIPHON_CS = `Zdrávas, Královno, Matko milosrdenství. Živote, sladkosti a naděje naše, buď zdráva. K Tobě voláme, vyhnaní synové Evy. K Tobě vzdycháme, lkajíce a plačíce v tomto slzavém údolí. A proto, orodovnice naše, obrať k nám své milosrdné oči. A Ježíše, požehnaný plod života svého, nám po tomto putování ukaž. Ó milostivá, ó přívětivá, ó přesladká Panno Maria.
 
 ℣ Oroduj za nás, svatá Boží Rodičko.
 ℟ Abychom byli učiněni hodnými Kristových zaslíbení.`;

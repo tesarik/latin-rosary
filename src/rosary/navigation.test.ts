@@ -184,7 +184,7 @@ describe("getPrayerSetMeta", () => {
       expect(isPersistableKey(k), k).toBe(true);
     }
     expect(buildSequence("loreto").map((i) => i.section)).toEqual(
-      ["Kyrie", "Sancta María", "Virgo", "Spéculum iustítiæ", "Regína", "Agnus Dei"]
+      ["Kýrie", "Sancta María", "Virgo", "Spéculum iustítiæ", "Regína", "Agnus Dei"]
     );
   });
 

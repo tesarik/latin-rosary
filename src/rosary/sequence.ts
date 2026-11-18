@@ -83,7 +83,7 @@ function rosaryOpening(): SequenceItem[] {
   seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave María", mystery: "qui adaúgeat nobis fidem",      mysteryTr: { cs: "který v nás rozmnožuje víru",  en: "who may increase our faith" },     beadId: "tail-hm-0" });
   seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave María", mystery: "qui corróboret nobis spem",     mysteryTr: { cs: "který v nás posiluje naději", en: "who may strengthen our hope" },    beadId: "tail-hm-1" });
   seq.push({ type: PRAYER_TYPES.HAIL_MARY,    label: "Ave María", mystery: "qui perfíciat nobis caritátem", mysteryTr: { cs: "který v nás zdokonaluje lásku", en: "who may perfect our charity" },   beadId: "tail-hm-2" });
-  seq.push({ type: PRAYER_TYPES.GLORY_BE,     label: "Gloria Patri" });
+  seq.push({ type: PRAYER_TYPES.GLORY_BE,     label: "Glória Patri" });
   return seq;
 }
 
@@ -110,7 +110,7 @@ function decades(mysterySet: MysterySet, part?: MysteryKey, ring = 0): SequenceI
         beadId: `ring-hm-${ring + d}-${h - 1}`,
       });
     }
-    seq.push({ type: PRAYER_TYPES.GLORY_BE, label: "Gloria Patri", decade: d, ...of });
+    seq.push({ type: PRAYER_TYPES.GLORY_BE, label: "Glória Patri", decade: d, ...of });
     seq.push({ type: PRAYER_TYPES.FATIMA,   label: "O mi Iesu",    decade: d, ...of });
   }
   return seq;
@@ -494,7 +494,7 @@ export function buildOrdoMissae(): SequenceItem[] {
     ORDINARY_PRAYERS[key].build().map((item) => ({ ...item, label: section, section })));
 }
 
-const BRIGIT_NAME = "Orationes Sanctæ Brigittæ";
+const BRIGIT_NAME = "Oratiónes Sanctæ Brigíttæ";
 const BRIGIT_NAME_TR: Localized = { cs: "Modlitby svaté Brigity", en: "The Prayers of Saint Bridget" };
 const BRIGIT_COLOR = "#8E1B1B";
 
@@ -535,7 +535,7 @@ export const OTHER_PRAYER_SETS: Record<OtherPrayerKey, {
     build: buildOrdoMissae,
   },
   leonine: {
-    name: "Orationes Leonis XIII",
+    name: "Oratiónes Leónis XIII",
     nameTr: { cs: "Modlitby Lva XIII.", en: "The Leonine Prayers" },
     color: "#5E35B1",
     build: buildLeoninePrayers,
@@ -547,7 +547,7 @@ export const OTHER_PRAYER_SETS: Record<OtherPrayerKey, {
     build: () => buildBrigitPrayers(true),
   },
   brigit_xv: {
-    name: "Quindecim Orationes Sanctæ Brigittæ",
+    name: "Quíndecim Oratiónes Sanctæ Brigíttæ",
     nameTr: { cs: "Patnáct modliteb svaté Brigity", en: "The Fifteen Prayers of Saint Bridget" },
     color: BRIGIT_COLOR,
     build: buildBrigitXV,
@@ -595,7 +595,7 @@ export const OTHER_PRAYER_SETS: Record<OtherPrayerKey, {
     build: buildCoronaCordis,
   },
   defuncti: {
-    name: "Preces pro defunctis",
+    name: "Preces pro defúnctis",
     nameTr: { cs: "Modlitby za zemřelé", en: "Prayers for the Dead" },
     color: "#455A64",
     build: buildDefunctiPrayers,
@@ -695,16 +695,16 @@ export const ORDINARY_PRAYERS: Record<OrdinaryPrayerKey, OrdinaryEntry> = {
   signum_crucis:        ordinary("Signum Crucis", { cs: "Znamení kříže", en: "The Sign of the Cross" },        PRAYER_TYPES.SIGN_OF_CROSS),
   pater_noster:         ordinary("Pater Noster", { cs: "Otče náš", en: "The Our Father" },         PRAYER_TYPES.OUR_FATHER),
   ave_maria:            ordinary("Ave María", { cs: "Zdrávas, Maria", en: "The Hail Mary" },            PRAYER_TYPES.HAIL_MARY),
-  gloria_patri:         ordinary("Gloria Patri", { cs: "Sláva Otci", en: "The Glory Be" },         PRAYER_TYPES.GLORY_BE),
+  gloria_patri:         ordinary("Glória Patri", { cs: "Sláva Otci", en: "The Glory Be" },         PRAYER_TYPES.GLORY_BE),
   symbolum_apostolorum: ordinary("Symbolum Apostolórum", { cs: "Apoštolské vyznání víry", en: "The Apostles' Creed" }, PRAYER_TYPES.CREED),
   symbolum_athanasianum:ordinary("Symbolum Athanasiánum", { cs: "Athanasiánské vyznání víry", en: "The Athanasian Creed" }, PRAYER_TYPES.ATHANASIAN_CREED),
   symbolum_nicenum:     ordinary("Symbolum Nicænum", { cs: "Nicejsko-cařihradské vyznání víry", en: "The Nicene Creed" },     PRAYER_TYPES.NICENE_CREED),
-  salve_regina:         ordinary("Salve Regína", { cs: "Zdrávas Královno", en: "Hail, Holy Queen" },         PRAYER_TYPES.SALVE_REGINA_LEONINE),
+  salve_regina:         ordinary("Salve Regína", { cs: "Zdrávas, Královno", en: "Hail, Holy Queen" },         PRAYER_TYPES.SALVE_REGINA_LEONINE),
   sub_tuum:             ordinary("Sub tuum præsídium", { cs: "Pod ochranu tvou", en: "Under Thy Protection" },   PRAYER_TYPES.SUB_TUUM),
   angelus:              ordinary("Angelus Dómini", { cs: "Anděl Páně", en: "The Angelus" },       PRAYER_TYPES.ANGELUS),
   regina_caeli:         ordinary("Regína Cæli", { cs: "Raduj se, Královno nebeská", en: "Queen of Heaven" },          PRAYER_TYPES.REGINA_CAELI),
   anima_christi:        ordinary("Ánima Christi", { cs: "Duše Kristova", en: "Soul of Christ" },        PRAYER_TYPES.ANIMA_CHRISTI),
-  angele_dei:           ordinary("Angele Dei", { cs: "Anděle Boží", en: "Angel of God" },           PRAYER_TYPES.ANGELE_DEI),
+  angele_dei:           ordinary("Ángele Dei", { cs: "Anděle Boží", en: "Angel of God" },           PRAYER_TYPES.ANGELE_DEI),
   sancte_michael:       ordinary("Sancte Míchael", { cs: "Svatý Michaeli", en: "Saint Michael the Archangel" },       PRAYER_TYPES.ST_MICHAEL),
   requiem:              ordinary("Pro defunctis (Réquiem)", { cs: "Za zemřelé", en: "Eternal Rest" }, PRAYER_TYPES.REQUIEM),
   decalogue:            ordinary("Decálogus", { cs: "Desatero", en: "The Ten Commandments" },            PRAYER_TYPES.DECALOGUE),
@@ -840,7 +840,7 @@ export function buildSaintsLitany(): SequenceItem[] {
 // evenly where the text has no division of its own.
 export const LITANIES: Record<LitanyKey, LitanyEntry> = {
   loreto: litany("Litaníæ Lauretánæ", { cs: "Loretánské litanie", en: "The Litany of Loreto" }, PRAYER_TYPES.LITANY_LORETO, [
-    ["Kyrie", 0],
+    ["Kýrie", 0],
     ["Sancta María", 10],
     ["Virgo", 27],
     ["Spéculum iustítiæ", 33],
@@ -848,14 +848,14 @@ export const LITANIES: Record<LitanyKey, LitanyEntry> = {
     ["Agnus Dei", 65],
   ]),
   sacred_heart: litany("Litaníæ Sacratíssimi Cordis Iesu", { cs: "Litanie k Nejsvětějšímu Srdci Ježíšovu", en: "The Litany of the Sacred Heart" }, PRAYER_TYPES.LITANY_SACRED_HEART, [
-    ["Kyrie", 0],
+    ["Kýrie", 0],
     ["Cor Iesu I", 10],
     ["Cor Iesu II", 23],
     ["Cor Iesu III", 32],
     ["Agnus Dei", 44],
   ]),
-  holy_name: litany("Litaníæ Sanctíssimi Nóminis Iesu", { cs: "Litanie k nejsvětějšímu jménu Ježíš", en: "The Litany of the Holy Name" }, PRAYER_TYPES.LITANY_HOLY_NAME, [
-    ["Kyrie", 0],
+  holy_name: litany("Litaníæ Sanctíssimi Nóminis Iesu", { cs: "Litanie k Nejsvětějšímu jménu Ježíš", en: "The Litany of the Holy Name" }, PRAYER_TYPES.LITANY_HOLY_NAME, [
+    ["Kýrie", 0],
     ["Iesu I", 10],
     ["Iesu II", 29],
     ["Ab omni malo", 49],
@@ -872,7 +872,7 @@ export const LITANIES: Record<LitanyKey, LitanyEntry> = {
   // Private devotion of the Archconfraternity of the Holy Face (Tours, 1886):
   // its Latin and English are the Manual's, its Czech ours.
   holy_face: litany("Litaníæ Sanctæ Fáciei", { cs: "Litanie k Nejsvětější Tváři Ježíšově", en: "The Litany of the Holy Face" }, PRAYER_TYPES.LITANY_HOLY_FACE, [
-    ["Kyrie", 0],
+    ["Kýrie", 0],
     ["In formam servi", 9],
     ["A Fácie cuius", 23],
     ["Cuius caput", 36],
@@ -881,14 +881,14 @@ export const LITANIES: Record<LitanyKey, LitanyEntry> = {
     ["Agnus Dei", 72],
   ]),
   st_joseph: litany("Litaníæ Sancti Ioseph", { cs: "Litanie k svatému Josefu", en: "The Litany of Saint Joseph" }, PRAYER_TYPES.LITANY_ST_JOSEPH, [
-    ["Kyrie", 0],
+    ["Kýrie", 0],
     ["Sancte Ioseph", 10],
     ["Ioseph iustíssime", 22],
     ["Custos vírginum", 32],
     ["Agnus Dei", 44],
   ]),
   precious_blood: litany("Litaníæ Pretiosíssimi Sánguinis D.N.I.C.", { cs: "Litanie k Nejdražší Krvi Páně", en: "The Litany of the Precious Blood" }, PRAYER_TYPES.LITANY_PRECIOUS_BLOOD, [
-    ["Kyrie", 0],
+    ["Kýrie", 0],
     ["Sanguis Christi I", 10],
     ["Sanguis Christi II", 22],
     ["Agnus Dei", 35],

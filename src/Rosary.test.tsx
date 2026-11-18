@@ -188,7 +188,7 @@ describe("after a rosary", () => {
     location.hash = "#pray=continue";
     render(<Rosary />);
     expect(screen.getByRole("button", { name: t.exitToMenuAria })).toBeTruthy();
-    expect(screen.getByText("Mysteria Dolorosa")).toBeTruthy();
+    expect(screen.getByText("Mystéria Dolorósa")).toBeTruthy();
   });
 });
 
@@ -268,10 +268,10 @@ describe("the Marian Psalter's rings", () => {
     // The joyful set's ring, and the other two sets' small rings.
     expect(screen.getByRole("button", { name: t.jumpToDecade(1) })).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: t.jumpToDecade(6) }));
-    expect(screen.getByText(/Mysteria Dolorosa · I\./)).toBeTruthy();
+    expect(screen.getByText(/Mystéria Dolorósa · I\./)).toBeTruthy();
     // Now the sorrowful ring is the big one: its Paters jump, and the glorious set is small.
     expect(screen.getByRole("button", { name: t.jumpToDecade(7) })).toBeTruthy();
     fireEvent.click(screen.getByRole("button", { name: t.jumpToDecade(11) }));
-    expect(screen.getByText(/Mysteria Gloriosa · I\./)).toBeTruthy();
+    expect(screen.getByText(/Mystéria Gloriósa · I\./)).toBeTruthy();
   });
 });

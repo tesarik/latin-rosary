@@ -67,13 +67,13 @@ const PAGE_STRINGS: Record<Locale, {
     openApp: "Otevřít aplikaci",
     prayInApp: "Modlit se v aplikaci",
     titleSuffix: (nameTr) => `${nameTr} latinsky a česky`,
-    description: (nameTr, snippet) => `${nameTr} – latinský text s českým překladem: „${snippet}…“ A aplikace, ve které se ji pomodlíte.`,
+    description: (nameTr, snippet) => `${nameTr} – latinský text s českým překladem: „${snippet}…“ A aplikace, ve které se dá pomodlit.`,
     indexTitle: "Latinské modlitby s českým překladem",
     indexIntro: "Růženec, litanie a další modlitby v latině, každá s českým překladem. Všechny se dají modlit v aplikaci Rosarium, i bez připojení.",
     indexDescription: "Růženec, litanie a modlitby v latině s českým překladem: Salve Regína, Angelus, Loretánské litanie a další.",
     rosaryGroup: "Růženec a korunka",
     rosaryIntro: "Růženec v latině, jak se modlí v aplikaci: v každém Zdrávas se za jménem Ježíš vkládá tajemství desátku.",
-    rosaryOrder: "Znamení kříže, Věřím v Boha, Otčenáš, tři Zdrávas (za víru, naději a lásku), Sláva Otci. Pak pět desátků: Otčenáš, deset Zdrávas s tajemstvím, Sláva Otci a „Ó můj Ježíši“. Na závěr Zdrávas Královno a znamení kříže.",
+    rosaryOrder: "Znamení kříže, Věřím v Boha, Otčenáš, tři Zdrávas (za víru, naději a lásku), Sláva Otci. Pak pět desátků: Otčenáš, deset Zdrávas s tajemstvím, Sláva Otci a „Ó můj Ježíši“. Na závěr Zdrávas, Královno a znamení kříže.",
     rosaryPrayers: "Modlitby růžence",
     rosaryMysteries: "Tajemství",
     rosaryMysteriesIntro: "Tajemství se vkládá do každého Zdrávas za slovo Iesus.",
@@ -171,10 +171,10 @@ function entries(): Entry[] {
 
 type TextBlock = { heading?: string; count?: number; la: string; tr: string };
 
-const rows = (blocks: TextBlock[], locale: Locale): string =>
+const rows = (blocks: TextBlock[], locale: Locale, h = "h2"): string =>
   blocks.map((b) => `
       <section class="prayer">
-        ${b.heading ? `<h2>${escape(b.heading)}${b.count && b.count > 1 ? ` <span class="count">${b.count}×</span>` : ""}</h2>` : ""}
+        ${b.heading ? `<${h}>${escape(b.heading)}${b.count && b.count > 1 ? ` <span class="count">${b.count}×</span>` : ""}</${h}>` : ""}
         <div class="pair">
           <div class="la">${withRubrics(b.la)}</div>
           <div class="tr" lang="${locale}">${withRubrics(b.tr)}</div>
@@ -226,7 +226,7 @@ function rosaryBody(locale: Locale, base: string): string {
   return `
       <p class="intro">${escape(s.rosaryIntro)}</p>
       <p class="intro">${escape(s.rosaryOrder)}</p>
-      <h2 class="part">${escape(s.rosaryPrayers)}</h2>${rows(prayers.map((p) => ({ heading: p.label, la: itemText(p, null), tr: itemText(p, locale) })), locale)}
+      <h2 class="part">${escape(s.rosaryPrayers)}</h2>${rows(prayers.map((p) => ({ heading: p.label, la: itemText(p, null), tr: itemText(p, locale) })), locale, "h3")}
       <h2 class="part" id="mysteria">${escape(s.rosaryMysteries)}</h2>
       <p class="intro">${escape(s.rosaryMysteriesIntro)}</p>
       <section class="prayer">
@@ -305,14 +305,14 @@ function layout(opts: {
 <link rel="alternate" hreflang="${locale}" href="${abs(opts.path)}" />
 <link rel="alternate" hreflang="${other}" href="${abs(opts.altPath)}" />
 <link rel="alternate" hreflang="x-default" href="${abs(opts.path.replace(/^[a-z]+\//, "en/"))}" />
-<meta property="og:type" content="article" />
+<meta property="og:type" content="${opts.path === `${locale}/` ? "website" : "article"}" />
 <meta property="og:site_name" content="Rosarium" />
 <meta property="og:title" content="${escape(opts.title)}" />
 <meta property="og:description" content="${escape(opts.description)}" />
 <meta property="og:url" content="${abs(opts.path)}" />
 <meta property="og:image" content="${abs("og-image.png")}" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="theme-color" content="#1565C0" />
+<meta name="theme-color" content="#ECEFF1" />
 <link rel="icon" type="image/png" sizes="48x48" href="${base}icon-48.png" />
 <script>${THEME_SCRIPT}</script>
 <style>${STYLE}</style>
@@ -343,7 +343,9 @@ function setPage(entry: Entry, locale: Locale, base: string, appUrl: string): St
   // The description quotes the set's first prayer, or the first of its decades
   // (the chaplet's Pater ætérne, not its Sign of the Cross).
   const lead = entry.items.find((i) => i.decade !== undefined) ?? entry.items[0]!;
-  const first = entry.key ? plainText(itemText(lead, null)) : plainText(itemText({ type: PRAYER_TYPES.HAIL_MARY, label: "" }, null));
+  // Without the litanies' repeat marks ("Kyrie, eléison. 2×"), which read as
+  // noise in a search result.
+  const first = (entry.key ? plainText(itemText(lead, null)) : plainText(itemText({ type: PRAYER_TYPES.HAIL_MARY, label: "" }, null))).replace(/\s*\d+×/g, "");
   const snippet = first.length > 90 ? first.slice(0, first.lastIndexOf(" ", 90)).replace(/[,;:.]$/, "") : first.replace(/[.]$/, "");
   const note = entry.key ? PRAYER_NOTES[entry.key]?.[locale] : undefined;
   const body = `
