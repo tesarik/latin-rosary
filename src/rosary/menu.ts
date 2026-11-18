@@ -78,7 +78,7 @@ export const byLatinName = (a: MenuKey, b: MenuKey): number =>
 const GROUPS: readonly MenuGroup[] = [
   {
     key: "cotidianae",
-    title: "Orationes cotidiánæ",
+    title: "Oratiónes cotidiánæ",
     subtitle: { cs: "Každodenní modlitby", en: "Daily prayers" },
     icon: "sun",
     color: "#1565C0",

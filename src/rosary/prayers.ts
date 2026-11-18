@@ -268,11 +268,11 @@ export type MysterySet = {
 
 export const MYSTERIES: Record<MysteryKey, MysterySet> = {
   radostny: {
-    name: "Mysteria Gaudiosa",
+    name: "Mystéria Gaudiósa",
     nameTr: { cs: "Radostná tajemství", en: "The Joyful Mysteries" },
     color: "#2E7D32",
     mysteries: [
-      "quem, Virgo, de Spiritu Sancto concepísti",
+      "quem, Virgo, de Spíritu Sancto concepísti",
       "quem, Virgo, visitándo Elisabeth portásti",
       "quem, Virgo, genuísti in Betlehem",
       "quem, Virgo, in templo præsentásti",
@@ -296,11 +296,11 @@ export const MYSTERIES: Record<MysteryKey, MysterySet> = {
     },
   },
   bolestny: {
-    name: "Mysteria Dolorosa",
+    name: "Mystéria Dolorósa",
     nameTr: { cs: "Bolestná tajemství", en: "The Sorrowful Mysteries" },
     color: "#C62828",
     mysteries: [
-      "qui pro nobis Sanguinem sudávit",
+      "qui pro nobis Sánguinem sudávit",
       "qui pro nobis flagellátus est",
       "qui pro nobis spinis coronátus est",
       "qui pro nobis crucem baiulávit",
@@ -324,13 +324,13 @@ export const MYSTERIES: Record<MysteryKey, MysterySet> = {
     },
   },
   slavny: {
-    name: "Mysteria Gloriosa",
+    name: "Mystéria Gloriósa",
     nameTr: { cs: "Slavná tajemství", en: "The Glorious Mysteries" },
     color: "#F9A825",
     mysteries: [
-      "qui resurréxit a mortuis",
+      "qui resurréxit a mórtuis",
       "qui in cælum ascéndit",
-      "qui Spiritum Sanctum misit",
+      "qui Spíritum Sanctum misit",
       "qui te, o Virgo, in cælum assúmpsit",
       "qui te, o Virgo, in cælis coronávit",
     ],
@@ -382,12 +382,12 @@ export const PRAYERS: Record<StaticPrayerType, string> = {
 
   [PRAYER_TYPES.GLORY_BE]: `Glória Patri, et Fílio, et Spirítui Sancto. {/}Sicut erat in princípio, et nunc, et semper, {/}et in sǽcula sæculórum. Amen.`,
 
-  [PRAYER_TYPES.FATIMA]: `O mi Iesu, indúlge peccáta nostra, {/}consérva nos ab ígne inférni, {/}duc ómnes ad cæli glóriam, {/}præcípue misericordia túa máxime indigéntes.`,
+  [PRAYER_TYPES.FATIMA]: `O mi Iesu, indúlge peccáta nostra, {/}consérva nos ab igne inférni, {/}duc omnes ad cæli glóriam, {/}præcípue misericórdia tua máxime indigéntes.`,
 
   [PRAYER_TYPES.SALVE_REGINA]: `${SALVE_REGINA_ANTIPHON}
 
 Orémus:
-Deus, cuius Unigénitus per vitam, mortem et resurrectiónem suam nobis salútis ætérnæ præmia comparávit: concéde, quæsumus; ut hæc mysteria sacratíssimo beátæ Maríæ Virginis Rosário recoléntes, et imitémur quod continent, et quod promíttunt, assequámur. Per eúndem Christum Dóminum nostrum. Amen.`,
+Deus, cuius Unigénitus per vitam, mortem et resurrectiónem suam nobis salútis ætérnæ præmia comparávit: concéde, quǽsumus; ut hæc mystéria sacratíssimo beátæ Maríæ Vírginis Rosário recoléntes, et imitémur quod cóntinent, et quod promíttunt, assequámur. Per eúndem Christum Dóminum nostrum. Amen.`,
 
   [PRAYER_TYPES.SALVE_REGINA_LEONINE]: SALVE_REGINA_ANTIPHON,
 

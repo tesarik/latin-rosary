@@ -54,9 +54,17 @@ describe("static prayer pages", () => {
     expect(byName.get("en/alma-redemptoris-mater/index.html")).toContain('class="rubric"');
   });
 
+  it("describes a page without the litanies' repeat marks, and types the index a website", () => {
+    const loreto = byName.get("cs/litaniae-lauretanae/index.html")!;
+    const description = loreto.match(/<meta name="description" content="([^"]*)"/)![1]!;
+    expect(description).not.toMatch(/\d×/);
+    expect(loreto).toContain('og:type" content="article"');
+    expect(byName.get("cs/index.html")!).toContain('og:type" content="website"');
+  });
+
   it("gives the rosary's mysteries in Latin and the translation", () => {
     const html = byName.get("cs/rosarium/index.html")!;
-    expect(html).toContain("quem, Virgo, de Spiritu Sancto concepísti");
+    expect(html).toContain("quem, Virgo, de Spíritu Sancto concepísti");
     expect(html).toContain("kterého jsi, Panno, z Ducha Svatého počala");
     expect(html).toContain("qui adaúgeat nobis fidem");
   });

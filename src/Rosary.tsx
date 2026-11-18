@@ -583,7 +583,7 @@ export default function Rosary() {
   const decadeSet = decade === undefined ? undefined
     : currentPrayer?.part ?? (isRosaryKey(selectedSet) ? selectedSet : undefined);
   // In the full rosary the set's name leads, so its fifteen decades read
-  // "Mysteria Dolorosa · II. qui pro nobis…".
+  // "Mystéria Dolorósa · II. qui pro nobis…".
   const partName = currentPrayer?.part
     ? `${showTranslation ? MYSTERIES[currentPrayer.part].nameTr[locale] : MYSTERIES[currentPrayer.part].name} · `
     : "";
