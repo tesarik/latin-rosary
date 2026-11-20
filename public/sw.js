@@ -30,18 +30,7 @@ self.addEventListener("fetch", (event) => {
   if (req.method !== "GET") return;
 
   if (req.mode === "navigate") {
-    event.respondWith(
-      fetch(req)
-        .then((res) => {
-          const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put(req, copy));
-          return res;
-        })
-        .catch(() => {
-          const base = new URL(self.registration.scope).pathname;
-          return caches.match(req).then((r) => r || caches.match(base + "index.html") || caches.match(base));
-        })
-    );
+    event.respondWith(navigate(req));
     return;
   }
 
@@ -58,3 +47,46 @@ self.addEventListener("fetch", (event) => {
     })
   );
 });
+
+// Opening the app: the network first, so a new build's index.html (which
+// registers the new sw.js?v=…, see CLAUDE.md) is seen at once — but for at
+// most NAV_TIMEOUT_MS. On a weak signal (a church, a cellar) the request can
+// hang for tens of seconds, and the app is kept here anyway: past the timeout
+// the kept page is shown. A late answer is dropped, not cached, so the kept
+// index.html always belongs to the assets kept with it (it would name another
+// build's, not yet fetched, and fail offline). With no kept page, it waits on.
+const NAV_TIMEOUT_MS = 3000;
+
+async function keptPage(req) {
+  const base = new URL(self.registration.scope).pathname;
+  return (await caches.match(req)) || (await caches.match(base + "index.html")) || (await caches.match(base));
+}
+
+async function navigate(req) {
+  const network = fetch(req);
+  network.catch(() => {});
+  let timer;
+  const timeout = new Promise((resolve) => { timer = setTimeout(() => resolve(null), NAV_TIMEOUT_MS); });
+  try {
+    const res = await Promise.race([network, timeout]);
+    if (res) {
+      clearTimeout(timer);
+      if (res.ok) {
+        const copy = res.clone();
+        caches.open(CACHE).then((c) => c.put(req, copy));
+      }
+      return res;
+    }
+    const kept = await keptPage(req);
+    if (kept) return kept;
+    const late = await network;
+    if (late.ok) {
+      const copy = late.clone();
+      caches.open(CACHE).then((c) => c.put(req, copy));
+    }
+    return late;
+  } catch {
+    clearTimeout(timer);
+    return (await keptPage(req)) || Response.error();
+  }
+}

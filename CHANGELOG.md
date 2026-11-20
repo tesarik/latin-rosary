@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.46.1]
+
+### Fixed
+- **The app opens quickly on a weak signal:** it waited for the network for as long as the phone kept trying (tens of seconds in a church or a cellar) before showing the copy it keeps; now it waits three seconds at most. Offline with nothing kept, it no longer fails with a broken page.
+
 ## [0.46.0]
 
 ### Added
