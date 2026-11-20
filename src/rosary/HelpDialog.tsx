@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { STRINGS, type Locale } from "./i18n";
-import { RUBRIC_CAPS, SERIF, headingSize } from "./fonts";
+import { RUBRIC_CAPS, SERIF, headingSize, ui } from "./fonts";
 import { currentLook } from "./look";
 import { MissalArt } from "./MissalArt";
 
@@ -38,14 +38,14 @@ const HELP: Record<Locale, HelpItem[]> = {
       ],
     },
     { group: 0, title: "Nedokončené modlitby", text: "Šipkou ← se vrátíte do nabídky a aplikace si místo zapamatuje. Modlitba se pak nabídne nahoře jako nedokončená; křížkem × ji odtud odeberete. Tlačítko ↺ začne znovu od začátku." },
-    { group: 1, title: "Záložky dole", text: "Růženec: tajemství, dnešní jako první, celý růženec o patnácti desátcích a korunka k Božímu milosrdenství. Modlitby: hledání a skupiny modliteb; karta V tuto dobu ukazuje, co se hodí k dnešnímu dni. Moje: oblíbené modlitby, vlastní plány, vzhled a záloha." },
+    { group: 1, title: "Záložky dole", text: "Růženec: tajemství, dnešní jako první, celý růženec o patnácti desátcích a korunka k Božímu milosrdenství. Modlitby: hledání a skupiny modliteb; karta V tuto dobu ukazuje, co se hodí k dnešnímu dni. Moje: oblíbené modlitby a vlastní plány. Nastavení: vzhled, velikost písma v aplikaci (tlačítka a popisky; text modlitby se zvětšuje v ⋯), volby pro modlitbu, připomínka a záloha." },
     { group: 0, title: "Úmysl", text: "Na prvním kroku růžence, korunky nebo litanie můžete pod názvem modlitby zapsat úmysl, za koho nebo za co se modlíte. Zobrazuje se pak po celou modlitbu a zůstane i příště, dokud ho nezměníte; ťuknutím ho upravíte, smazáním textu odstraníte. Zůstává jen v tomto zařízení." },
-    { group: 0, title: "Nepovinné modlitby", text: "Růženec, korunka k Božímu milosrdenství a modlitby svaté Brigity mají na prvním kroku přepínač S nepovinnými modlitbami. U růžence přidá po znamení kříže úvodní verše a Maria, Matko milosti, u korunky úvodní a závěrečné modlitby z Deníčku sv. Faustyny, u svaté Brigity úvodní modlitbu a sedm rozjímání; bez něj se modlíte jen sedmkrát Otčenáš a Zdrávas. Volba se pamatuje a po začátku modlitby přepínač zmizí." },
+    { group: 0, title: "Nepovinné modlitby", text: "Růženec, korunka k Božímu milosrdenství a modlitby svaté Brigity mají na prvním kroku přepínač S nepovinnými modlitbami. U růžence přidá po znamení kříže úvodní verše a Maria, Matko milosti, u korunky úvodní a závěrečné modlitby z Deníčku sv. Faustyny, u svaté Brigity úvodní modlitbu a sedm rozjímání; bez něj se modlíte jen sedmkrát Otčenáš a Zdrávas. Tlačítko ⓘ vedle přepínače řekne, o jaké modlitby jde a odkud jsou. Volba se pamatuje a po začátku modlitby přepínač zmizí." },
     { group: 1, title: "Oblíbené", text: "Hvězdičkou ☆ v hlavičce modlitby ji přidáte do Oblíbených v záložce Moje. Dalším ťuknutím ji odeberete." },
     { group: 1, title: "Modlitební plány", text: "Sestavte si vlastní pořadí modliteb, klidně i s vlastními texty, a modlete se je jako jednu sadu. Plán můžete poslat odkazem." },
-    { group: 1, title: "Připomínka", text: "V záložce Moje si přidáte do kalendáře každodenní připomínku Anděla Páně, korunky nebo růžence v čase, který si zvolíte. Odkaz v události modlitbu rovnou otevře, u růžence s tajemstvím toho dne." },
+    { group: 1, title: "Připomínka", text: "V záložce Nastavení si přidáte do kalendáře každodenní připomínku Anděla Páně, korunky nebo růžence v čase, který si zvolíte. Odkaz v události modlitbu rovnou otevře, u růžence s tajemstvím toho dne." },
     { group: 0, title: "Nastavení ⋯", text: "V hlavičce modlitby: velikost písma, tmavý režim, ztlumení obrazovky do kostela, ovoce tajemství a verš z Písma u každého desátku růžence a vibrace při každém kroku." },
-    { group: 2, title: "Na ploše a bez internetu", text: "Aplikaci si můžete přidat na plochu: v Safari Sdílet → Přidat na plochu, v Chromu nabídka → Nainstalovat aplikaci. Po prvním otevření funguje i bez připojení. Vše, co si uložíte, zůstává jen v tomto zařízení; v záložce Moje si to můžete zálohovat do souboru a načíst třeba v novém telefonu." },
+    { group: 2, title: "Na ploše a bez internetu", text: "Aplikaci si můžete přidat na plochu: v Safari Sdílet → Přidat na plochu, v Chromu nabídka → Nainstalovat aplikaci. Po prvním otevření funguje i bez připojení. Vše, co si uložíte, zůstává jen v tomto zařízení; v záložce Nastavení si to můžete zálohovat do souboru a načíst třeba v novém telefonu." },
   ],
   en: [
     { group: 0, title: "Praying step by step", text: "Tap the prayer or Next for the next one; swipe left to go on and right to go back. On a computer, use the arrow keys, Space or Enter. The Next button shows what comes next." },
@@ -69,14 +69,14 @@ const HELP: Record<Locale, HelpItem[]> = {
       ],
     },
     { group: 0, title: "Unfinished prayers", text: "The ← arrow takes you back to the menu and keeps your place; the prayer is then offered at the top as unfinished, and its × removes it. The ↺ button starts again from the beginning." },
-    { group: 1, title: "The tabs at the bottom", text: "Rosary: the mysteries, today's first, the full rosary of fifteen decades and the Chaplet of Divine Mercy. Prayers: the search and the groups of prayers; the In season card shows what suits the day. Mine: your favourites, your own plans, the look and the backup." },
+    { group: 1, title: "The tabs at the bottom", text: "Rosary: the mysteries, today's first, the full rosary of fifteen decades and the Chaplet of Divine Mercy. Prayers: the search and the groups of prayers; the In season card shows what suits the day. Mine: your favourites and your own plans. Settings: the look, the text size in the app (buttons and labels; the prayer's text is sized in the ⋯), the options for praying, the reminder and the backup." },
     { group: 0, title: "Intention", text: "On the first step of a rosary, chaplet or litany you can write an intention under the prayer's name: for whom or what you pray. It then shows throughout the prayer and stays for next time until you change it; tap it to edit, empty it to remove it. It stays on this device only." },
-    { group: 0, title: "Optional prayers", text: "The rosary, the Chaplet of Divine Mercy and the Prayers of Saint Bridget have a switch on their first step, With the optional prayers. In the rosary it adds the opening versicles and Mary, Mother of grace after the Sign of the Cross; in the chaplet, the opening and closing prayers from St. Faustina's Diary; in St. Bridget's, the opening prayer and the seven meditations, without which you pray only the seven Our Fathers and Hail Marys. The choice is remembered, and the switch goes once you have begun." },
+    { group: 0, title: "Optional prayers", text: "The rosary, the Chaplet of Divine Mercy and the Prayers of Saint Bridget have a switch on their first step, With the optional prayers. In the rosary it adds the opening versicles and Mary, Mother of grace after the Sign of the Cross; in the chaplet, the opening and closing prayers from St. Faustina's Diary; in St. Bridget's, the opening prayer and the seven meditations, without which you pray only the seven Our Fathers and Hail Marys. The ⓘ beside the switch tells what these prayers are and where they come from. The choice is remembered, and the switch goes once you have begun." },
     { group: 1, title: "Favourites", text: "The star ☆ in a prayer's header adds it to your Favourites under Mine. Tap it again to remove it." },
     { group: 1, title: "Prayer plans", text: "Put prayers together in your own order, with texts of your own if you like, and pray them as one set. You can send a plan as a link." },
-    { group: 1, title: "Reminder", text: "Under Mine, add a daily reminder of the Angelus, the chaplet or the rosary to your calendar, at the hour you choose. The event's link opens the prayer, the rosary with the day's mysteries." },
+    { group: 1, title: "Reminder", text: "Under Settings, add a daily reminder of the Angelus, the chaplet or the rosary to your calendar, at the hour you choose. The event's link opens the prayer, the rosary with the day's mysteries." },
     { group: 0, title: "Settings ⋯", text: "In a prayer's header: text size, dark mode, a dimmed screen for church, the fruit of the mystery and a verse of Scripture at each decade of the rosary, and the vibration on each step." },
-    { group: 2, title: "On the home screen, offline", text: "Add the app to your home screen: in Safari, Share → Add to Home Screen; in Chrome, the menu → Install app. Once opened, it works without a connection. Everything you save stays on this device only; under Mine you can back it up to a file and load it on a new phone, say." },
+    { group: 2, title: "On the home screen, offline", text: "Add the app to your home screen: in Safari, Share → Add to Home Screen; in Chrome, the menu → Install app. Once opened, it works without a connection. Everything you save stays on this device only; under Settings you can back it up to a file and load it on a new phone, say." },
   ],
 };
 
@@ -155,13 +155,13 @@ export default function HelpDialog({ locale, onClose }: Props) {
           style={{
             position: "absolute", top: 8, right: 10, zIndex: 1,
             width: 36, height: 36, border: "none", background: "transparent",
-            color: "var(--text-muted)", fontSize: 22, lineHeight: 1, cursor: "pointer",
+            color: "var(--text-muted)", fontSize: ui(22), lineHeight: 1, cursor: "pointer",
           }}
         >
           ×
         </button>
         <div style={{ overflowY: "auto", padding: "22px 22px 18px", scrollbarWidth: "thin" }}>
-          <h2 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 600, color: "var(--text-strong)", margin: "0 0 12px" }}>{t.helpTitle}</h2>
+          <h2 style={{ fontFamily: SERIF, fontSize: ui(28), fontWeight: 600, color: "var(--text-strong)", margin: "0 0 12px" }}>{t.helpTitle}</h2>
           {currentLook() === "missal" && <MissalArt name="euntes" style={{ margin: "0 0 14px" }} />}
           {HELP_GROUPS[locale].map((heading, g) => (
           <div key={heading} style={{ marginTop: g === 0 ? 0 : 22 }}>
@@ -169,14 +169,14 @@ export default function HelpDialog({ locale, onClose }: Props) {
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {HELP[locale].filter((item) => item.group === g).map((item) => (
               <section key={item.title}>
-                <h4 style={{ fontFamily: SERIF, fontSize: 19, fontWeight: 600, color: "var(--text-strong)", margin: "0 0 2px" }}>{item.title}</h4>
-                <p style={{ fontSize: 14, lineHeight: 1.45, color: "var(--text)", margin: 0 }}>{item.text}</p>
+                <h4 style={{ fontFamily: SERIF, fontSize: ui(19), fontWeight: 600, color: "var(--text-strong)", margin: "0 0 2px" }}>{item.title}</h4>
+                <p style={{ fontSize: ui(14), lineHeight: 1.45, color: "var(--text)", margin: 0 }}>{item.text}</p>
                 {item.rules && (
-                  <dl style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) auto", columnGap: 10, rowGap: 3, margin: "8px 0 0", fontSize: 13, lineHeight: 1.35 }}>
+                  <dl style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) auto", columnGap: 10, rowGap: 3, margin: "8px 0 0", fontSize: ui(13), lineHeight: 1.35 }}>
                     {item.rules.map(([rule, example]) => (
                       <div key={rule} style={{ display: "contents" }}>
                         <dt style={{ color: "var(--text)" }}>{rule}</dt>
-                        <dd style={{ margin: 0, fontFamily: SERIF, fontSize: 15, fontStyle: "italic", color: "var(--text-soft)", whiteSpace: "nowrap" }}>{example}</dd>
+                        <dd style={{ margin: 0, fontFamily: SERIF, fontSize: ui(15), fontStyle: "italic", color: "var(--text-soft)", whiteSpace: "nowrap" }}>{example}</dd>
                       </div>
                     ))}
                   </dl>

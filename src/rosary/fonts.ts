@@ -6,6 +6,11 @@
 export const SERIF = "'EB Garamond', Georgia, serif";
 export const SANS = "Arial, sans-serif";
 
+// A size in the app's own text — buttons, labels, names, menus, never the
+// prayer body (fontSize.ts) — scaled by the Settings tab's text size
+// (uiScale.ts sets --ui-k on <html>).
+export const ui = (px: number) => `calc(${px}px * var(--ui-k, 1))`;
+
 // The rest follows the look (look.ts): these styles read the tokens that
 // index.css sets under each `data-look`, so a look change needs no re-render.
 
@@ -13,7 +18,7 @@ export const SANS = "Arial, sans-serif";
 // (Garamond); Základ sets it in Arial a size smaller (`--name-k`).
 export const nameFont = (px: number) => ({
   fontFamily: "var(--name-font)",
-  fontSize: `calc(${px}px * var(--name-k))`,
+  fontSize: `calc(${px}px * var(--name-k) * var(--ui-k, 1))`,
 });
 
 // A section heading — red small capitals, as a missal sets its rubrics, in
@@ -27,14 +32,14 @@ export const RUBRIC_CAPS = {
   letterSpacing: "var(--heading-spacing)",
   color: "var(--heading-color)",
 } as const;
-export const headingSize = (px: number) => `calc(${px}px * var(--heading-k))`;
+export const headingSize = (px: number) => `calc(${px}px * var(--heading-k) * var(--ui-k, 1))`;
 
 // The line under a Latin name — its translation, or a card's subtitle:
 // Garamond italic in Papír, upright in Misál, Arial in Základ.
 export const CAPTION = {
   fontFamily: "var(--caption-font)",
   fontStyle: "var(--caption-style)",
-  fontSize: "var(--caption-size)",
+  fontSize: "calc(var(--caption-size) * var(--ui-k, 1))",
   lineHeight: 1.2,
   color: "var(--text-muted)",
 } as const;

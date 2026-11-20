@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { ui } from "./fonts";
 import { accentText, type Theme } from "./theme";
 
 // The app's look, chosen in the settings, each in a light and a dark theme:
@@ -82,7 +83,7 @@ export function headerStyles(accent: string, theme: Theme, ruled: boolean) {
       bar: { background: accent } as CSSProperties,
       button: { background: "rgba(255,255,255,0.2)", color: "white" } as CSSProperties,
       buttonOn: { background: "white", color: accent } as CSSProperties,
-      name: { color: "white", fontFamily: "Arial, sans-serif", fontSize: 20, lineHeight: 1.25 } as CSSProperties,
+      name: { color: "white", fontFamily: "Arial, sans-serif", fontSize: ui(20), lineHeight: 1.25 } as CSSProperties,
       toggle: { wrap: "rgba(255,255,255,0.2)", wrapBorder: "none", on: "white", onInk: accent, offInk: "rgba(255,255,255,0.85)" },
     };
   }
@@ -91,7 +92,7 @@ export function headerStyles(accent: string, theme: Theme, ruled: boolean) {
       bar: { background: "var(--surface)", borderBottom: ruled ? `3px double ${accent}` : "none" } as CSSProperties,
       button: { background: "transparent", color: "var(--text-strong)", boxShadow: "inset 0 0 0 1px var(--text-strong)" } as CSSProperties,
       buttonOn: { background: "var(--text-strong)", color: "var(--surface)" } as CSSProperties,
-      name: { color: "var(--text-strong)", fontFamily: "var(--name-font)", fontSize: 25, lineHeight: 1.15 } as CSSProperties,
+      name: { color: "var(--text-strong)", fontFamily: "var(--name-font)", fontSize: ui(25), lineHeight: 1.15 } as CSSProperties,
       toggle: { wrap: "transparent", wrapBorder: "1px solid var(--text-strong)", on: "var(--text-strong)", onInk: "var(--surface)", offInk: "var(--text-strong)" },
     };
   }
@@ -99,7 +100,7 @@ export function headerStyles(accent: string, theme: Theme, ruled: boolean) {
     bar: { background: "var(--surface)", borderBottom: ruled ? `3px solid ${accent}` : "none" } as CSSProperties,
     button: { background: accent + "1c", color: text } as CSSProperties,
     buttonOn: { background: accent, color: "white" } as CSSProperties,
-    name: { color: "var(--text-strong)", fontFamily: "var(--name-font)", fontSize: 25, lineHeight: 1.15 } as CSSProperties,
+    name: { color: "var(--text-strong)", fontFamily: "var(--name-font)", fontSize: ui(25), lineHeight: 1.15 } as CSSProperties,
     toggle: { wrap: accent + "1c", wrapBorder: "none", on: accent, onInk: "white", offInk: text },
   };
 }

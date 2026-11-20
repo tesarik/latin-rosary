@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { MissalArt } from "./MissalArt";
 import { MYSTERIES, type MysteryKey } from "./prayers";
 import { CHAPLETS, FULL_ROSARY } from "./sequence";
@@ -16,9 +16,11 @@ import AboutDialog from "./AboutDialog";
 import HelpDialog from "./HelpDialog";
 import { PlanIcon } from "./PlansScreen";
 import { STAR_PATH } from "./StarIcon";
-import { CAPTION, CARD, RUBRIC_CAPS, headingSize, nameFont } from "./fonts";
-import { currentLook, iconBg, ink, type Look } from "./look";
+import { CAPTION, CARD, RUBRIC_CAPS, headingSize, nameFont, ui } from "./fonts";
+import { MISSAL_RED, currentLook, iconBg, ink } from "./look";
 import LookPicker from "./LookPicker";
+import { SwitchRow, type PrayerSettings } from "./SettingsMenu";
+import { UI_SCALES, type UiScale } from "./uiScale";
 import BackupCard from "./BackupCard";
 import ReminderCard from "./ReminderCard";
 
@@ -37,8 +39,12 @@ type Props = {
   onLocaleChange: (locale: Locale) => void;
   theme: Theme;
   onToggleTheme: () => void;
-  look: Look;
-  onLook: (look: Look) => void;
+  // The prayer screen's preferences (the ⋯ settings' too), for the
+  // Nastavení tab.
+  settings: PrayerSettings;
+  // The app's own text size (uiScale.ts), only here.
+  uiScale: UiScale;
+  onUiScale: (s: UiScale) => void;
   // The first-run welcome card, and closing it.
   showWelcome: boolean;
   onDismissWelcome: () => void;
@@ -166,7 +172,7 @@ function LanguagePicker({ locale, onChange }: { locale: Locale; onChange: (l: Lo
                     background: active ? "var(--surface-hover)" : "transparent",
                     color: "var(--text-strong)",
                     fontFamily: "Arial, sans-serif",
-                    fontSize: 14,
+                    fontSize: ui(14),
                     fontWeight: active ? 600 : 500,
                     cursor: active ? "default" : "pointer",
                     textAlign: "left",
@@ -201,7 +207,7 @@ function Badge({ label, color: raw, theme }: { label: string; color: string; the
       background: missal ? "transparent" : color + "1f",
       color: accentText(color, theme),
       fontFamily: "Arial, sans-serif",
-      fontSize: 11,
+      fontSize: ui(11),
       fontWeight: 700,
       letterSpacing: 0.4,
       textTransform: "uppercase",
@@ -370,7 +376,7 @@ function CollapsiblePrayers({ title, subtitle, icon, color: rawAccent, sections,
           </div>
         </div>
         <span aria-hidden="true" style={{
-          fontSize: 14,
+          fontSize: ui(14),
           color: "var(--text-muted)",
           transform: open ? "rotate(180deg)" : "none",
           transition: "transform 0.2s ease",
@@ -439,7 +445,7 @@ function PrayerRows({ sections, onStart, resume, badges = {}, notes = {}, indent
               border: "none",
               cursor: "pointer",
               fontFamily: "Arial, sans-serif",
-              fontSize: 16,
+              fontSize: ui(16),
               color: "var(--text)",
             }}
             onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
@@ -450,7 +456,7 @@ function PrayerRows({ sections, onStart, resume, badges = {}, notes = {}, indent
               {val.nameTr[locale]}
             </div>
             {notes[key] && (
-              <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 2, fontStyle: "italic" }}>{notes[key]}</div>
+              <div style={{ fontSize: ui(12), color: "var(--text-muted)", marginTop: 2, fontStyle: "italic" }}>{notes[key]}</div>
             )}
             <ResumeLine info={resume[key]} color={val.color} theme={theme} locale={locale} />
           </button>
@@ -469,9 +475,9 @@ function PrayerRows({ sections, onStart, resume, badges = {}, notes = {}, indent
 // back lands where you left. The scroll is recorded on every scroll while the
 // menu is mounted: when it unmounts, the listener is gone before the shorter
 // page clamps the scroll to the top.
-type MenuTab = "rosary" | "prayers" | "mine";
+type MenuTab = "rosary" | "prayers" | "mine" | "settings";
 let menuTab: MenuTab = "rosary";
-const menuScroll: Record<MenuTab, number> = { rosary: 0, prayers: 0, mine: 0 };
+const menuScroll: Record<MenuTab, number> = { rosary: 0, prayers: 0, mine: 0, settings: 0 };
 // The search typed on the start screen, kept the same way: back from a prayer
 // found by searching, the results are still there.
 let menuQuery = "";
@@ -503,9 +509,9 @@ function cardHover(raw: string) {
   };
 }
 
-export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, onOpenPlans, planCount, favorites, locale, onLocaleChange, theme, onToggleTheme, look, onLook, showWelcome, onDismissWelcome, afterRosary = false, onDismissAfterRosary }: Props) {
+export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, onOpenPlans, planCount, favorites, locale, onLocaleChange, theme, onToggleTheme, settings, uiScale, onUiScale, showWelcome, onDismissWelcome, afterRosary = false, onDismissAfterRosary }: Props) {
   // The Misál look's red star above the footer.
-  const missal = look === "missal";
+  const missal = settings.look === "missal";
   const t = STRINGS[locale];
   const [aboutOpen, setAboutOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
@@ -548,6 +554,8 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
   // The gap between cards: none in the missal, where each entry runs from its
   // rule to the next one (so a hovered entry is shaded rule to rule).
   const column: React.CSSProperties = { width: "100%", maxWidth: 380, display: "flex", flexDirection: "column", gap: "var(--card-gap)" };
+  // The switches in the app's own red (the tab bar's), not a prayer's colour.
+  const switchColor = currentLook() === "missal" ? MISSAL_RED : "var(--rubric)";
   const tabTitle = (title: string) => (
     <h1 style={{ ...nameFont(32), fontWeight: 600, lineHeight: 1.1, color: "var(--text-strong)", margin: "4px 0 16px", alignSelf: "center" }}>
       {title}
@@ -611,7 +619,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
                   onClick={onDismissAfterRosary}
                   aria-label={t.afterRosaryClose}
                   title={t.afterRosaryClose}
-                  style={{ width: 40, height: 40, marginRight: -8, border: "none", borderRadius: 10, padding: 0, background: "transparent", color: "var(--text-muted)", fontSize: 24, lineHeight: 1, cursor: "pointer" }}
+                  style={{ width: 40, height: 40, marginRight: -8, border: "none", borderRadius: 10, padding: 0, background: "transparent", color: "var(--text-muted)", fontSize: ui(24), lineHeight: 1, cursor: "pointer" }}
                 >×</button>
               </div>
               <PrayerRows sections={[{ keys: AFTER_ROSARY }]} onStart={onStart} resume={resume} indent="var(--card-px)" theme={theme} locale={locale} />
@@ -634,8 +642,8 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
                       ...nameFont(15), fontWeight: 600,
                     }}>{i + 1}</span>
                     <div style={{ minWidth: 0 }}>
-                      <div style={{ fontFamily: "Arial, sans-serif", fontSize: 15, fontWeight: 700, lineHeight: 1.3, color: "var(--text-strong)" }}>{lead}</div>
-                      <div style={{ fontFamily: "Arial, sans-serif", fontSize: 14, lineHeight: 1.45, color: "var(--text-soft)", marginTop: 2 }}>{withKeys(text)}</div>
+                      <div style={{ fontFamily: "Arial, sans-serif", fontSize: ui(15), fontWeight: 700, lineHeight: 1.3, color: "var(--text-strong)" }}>{lead}</div>
+                      <div style={{ fontFamily: "Arial, sans-serif", fontSize: ui(14), lineHeight: 1.45, color: "var(--text-soft)", marginTop: 2 }}>{withKeys(text)}</div>
                     </div>
                   </li>
                 ))}
@@ -647,7 +655,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
                   style={{
                     minHeight: 40, padding: "0 20px", borderRadius: 10, cursor: "pointer",
                     border: "none", background: "var(--rubric)",
-                    color: "var(--surface)", fontWeight: 700, fontSize: 14, fontFamily: "Arial, sans-serif",
+                    color: "var(--surface)", fontWeight: 700, fontSize: ui(14), fontFamily: "Arial, sans-serif",
                   }}
                 >{t.welcomeDismiss}</button>
               </div>
@@ -676,7 +684,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
                     position: "absolute", top: "50%", right: 8, transform: "translateY(-50%)",
                     width: 40, height: 40, border: "none", borderRadius: 10, padding: 0,
                     background: "transparent", color: "var(--text-muted)",
-                    fontSize: 24, lineHeight: 1, cursor: "pointer",
+                    fontSize: ui(24), lineHeight: 1, cursor: "pointer",
                   }}
                 >
                   ×
@@ -781,7 +789,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
                 background: "var(--surface)",
                 color: "var(--text-strong)",
                 fontFamily: "Arial, sans-serif",
-                fontSize: 16,
+                fontSize: ui(16),
                 outlineColor: "var(--text-muted)",
                 WebkitAppearance: "none",
                 appearance: "none",
@@ -795,7 +803,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
                 style={{
                   position: "absolute", right: 4, top: 4, width: 40, height: 40,
                   border: "none", background: "transparent", borderRadius: 10,
-                  color: "var(--text-muted)", fontSize: 20, lineHeight: 1, cursor: "pointer",
+                  color: "var(--text-muted)", fontSize: ui(20), lineHeight: 1, cursor: "pointer",
                 }}
               >
                 ×
@@ -812,7 +820,7 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
               {found.length > 0 ? (
                 <PrayerRows sections={[{ keys: found }]} onStart={onStart} resume={resume} badges={seasonBadges} notes={angelusNote} indent="var(--card-px)" theme={theme} locale={locale} />
               ) : (
-                <div style={{ padding: "12px var(--card-px)", fontSize: 14, color: "var(--text-muted)" }}>{t.searchNoResults}</div>
+                <div style={{ padding: "12px var(--card-px)", fontSize: ui(14), color: "var(--text-muted)" }}>{t.searchNoResults}</div>
               )}
             </div>
           )}
@@ -907,10 +915,32 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
             onClick={onOpenPlans}
           />
 
-          {/* The look, chosen here as well as in a prayer's ⋯ settings. */}
-          <h2 style={{ ...sectionHeading, margin: "12px var(--heading-indent) 0" }}>{t.settingsHeading}</h2>
-          <div style={{ ...CARD, padding: "12px var(--card-px) 14px" }}>
-            <LookPicker look={look} onChange={onLook} locale={locale} />
+
+        </div>
+      </>)}
+
+      {tab === "settings" && (<>
+        {tabTitle(t.settingsHeading)}
+        <div style={column}>
+          {/* The look and the prayer screen's lasting preferences, the same
+              as a prayer's ⋯ settings. The text size and the rosary's fruit
+              and verse are only there, beside what they change. */}
+          <h2 style={{ ...sectionHeading, margin: "4px var(--heading-indent) 0" }}>{t.settingsLookHeading}</h2>
+          <div style={{ ...CARD, padding: "6px 0" }}>
+            <div style={{ padding: "8px 14px 10px" }}>
+              <LookPicker look={settings.look} onChange={settings.onLook} locale={locale} />
+            </div>
+            <div style={{ padding: "10px 14px 12px", borderTop: "1px solid var(--border)" }}>
+              <UiScalePicker scale={uiScale} onChange={onUiScale} locale={locale} />
+            </div>
+            <SwitchRow label={t.settingsDarkMode} checked={settings.theme === "dark"} onChange={settings.onToggleTheme} color={switchColor} />
+          </div>
+
+          <h2 style={{ ...sectionHeading, margin: "12px var(--heading-indent) 0" }}>{t.settingsPrayerHeading}</h2>
+          <div style={{ ...CARD, padding: "6px 0" }}>
+            <SwitchRow label={t.settingsInterlinear} checked={settings.interlinear} onChange={() => settings.onInterlinear(!settings.interlinear)} color={switchColor} ruled={false} />
+            <SwitchRow label={t.settingsDim} checked={settings.dim} onChange={() => settings.onDim(!settings.dim)} color={switchColor} />
+            <SwitchRow label={t.settingsVibrate} checked={settings.vibrate} onChange={() => settings.onVibrate(!settings.vibrate)} color={switchColor} />
           </div>
 
           {/* A daily reminder, as an event in the user's own calendar. */}
@@ -920,13 +950,12 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
           {/* Everything kept in this browser, to a file and back. */}
           <h2 style={{ ...sectionHeading, margin: "12px var(--heading-indent) 0" }}>{t.backupHeading}</h2>
           <BackupCard locale={locale} />
-
         </div>
       </>)}
 
       {missal && <MissalArt name="stella" width={110} style={{ marginTop: 28 }} />}
       {/* Help and About under every tab, not only the rosary's. */}
-      <div style={{ marginTop: 20, display: "flex", alignItems: "center", gap: 4, color: "var(--text-muted)", fontSize: 13 }}>
+      <div style={{ marginTop: 20, display: "flex", alignItems: "center", gap: 4, color: "var(--text-muted)", fontSize: ui(13) }}>
         <button onClick={() => setHelpOpen(true)} style={footerLink}>{t.helpTitle}</button>
         <span aria-hidden="true">·</span>
         <button onClick={() => setAboutOpen(true)} style={footerLink}>{t.aboutTitle}</button>
@@ -1078,6 +1107,13 @@ function TabBar({ tab, onChange, locale }: { tab: MenuTab; onChange: (tab: MenuT
     ) },
     { key: "prayers", label: t.tabPrayers, icon: <path d="M4 6h16M4 12h16M4 18h16" /> },
     { key: "mine", label: t.tabMine, icon: <path d={STAR_PATH} transform="scale(1.2)" vectorEffect="non-scaling-stroke" strokeLinejoin="round" /> },
+    { key: "settings", label: t.settingsHeading, icon: (
+      <>
+        <circle cx="12" cy="12" r="3.2" />
+        <path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1" />
+        <circle cx="12" cy="12" r="6.5" />
+      </>
+    ) },
   ];
   return (
     <nav aria-label={t.tabsAria} style={{
@@ -1092,7 +1128,7 @@ function TabBar({ tab, onChange, locale }: { tab: MenuTab; onChange: (tab: MenuT
       borderTop: "1px solid var(--border-strong)",
       paddingBottom: "env(safe-area-inset-bottom, 0px)",
     }}>
-      <div style={{ width: "100%", maxWidth: 420, display: "grid", gridTemplateColumns: "repeat(3, 1fr)" }}>
+      <div style={{ width: "100%", maxWidth: 420, display: "grid", gridTemplateColumns: `repeat(${tabs.length}, 1fr)` }}>
         {tabs.map(({ key, label, icon }) => {
           const on = key === tab;
           return (
@@ -1111,7 +1147,7 @@ function TabBar({ tab, onChange, locale }: { tab: MenuTab; onChange: (tab: MenuT
                 border: "none",
                 cursor: "pointer",
                 fontFamily: "Arial, sans-serif",
-                fontSize: 12,
+                fontSize: ui(12),
                 fontWeight: on ? 700 : 400,
                 color: on ? "var(--rubric)" : "var(--text-muted)",
               }}
@@ -1128,13 +1164,52 @@ function TabBar({ tab, onChange, locale }: { tab: MenuTab; onChange: (tab: MenuT
   );
 }
 
+// The app's text size in three steps (uiScale.ts), drawn like the look's
+// chooser: each step's name at the size it gives.
+function UiScalePicker({ scale, onChange, locale }: { scale: UiScale; onChange: (s: UiScale) => void; locale: Locale }) {
+  const t = STRINGS[locale];
+  const labelId = useId();
+  return (
+    <div>
+      <div id={labelId} style={{ fontSize: ui(15), color: "var(--text)", marginBottom: 6, fontFamily: "Arial, sans-serif" }}>{t.uiScaleHeading}</div>
+      <div role="radiogroup" aria-labelledby={labelId} style={{
+        display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 3, padding: 3,
+        borderRadius: 10, border: "1px solid var(--border-strong)",
+      }}>
+        {([0, 1, 2] as const).map((s) => {
+          const on = s === scale;
+          return (
+            <button
+              key={s}
+              role="radio"
+              aria-checked={on}
+              onClick={() => onChange(s)}
+              style={{
+                minHeight: 36, padding: "0 4px", border: "none", borderRadius: 7, cursor: "pointer",
+                background: on ? "var(--text-strong)" : "transparent",
+                color: on ? "var(--surface)" : "var(--text)",
+                fontFamily: "Arial, sans-serif", fontWeight: 600,
+                // Each name at its own step, whatever step is on.
+                fontSize: `${14 * UI_SCALES[s]}px`,
+                transition: "background 0.2s ease, color 0.2s ease",
+              }}
+            >
+              {t.uiScaleNames[s]}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // The muted text links at the foot of the start screen (Help · About).
 const footerLink: React.CSSProperties = {
   background: "transparent",
   border: "none",
   color: "var(--text-muted)",
   fontFamily: "Arial, sans-serif",
-  fontSize: 13,
+  fontSize: ui(13),
   cursor: "pointer",
   padding: 8,
   minHeight: 40,
@@ -1149,7 +1224,7 @@ function withKeys(text: string): React.ReactNode {
     {text.slice(0, m.index)}
     <span style={{
       display: "inline-block", padding: "0 6px", borderRadius: 6, border: "1px solid var(--border-strong)",
-      fontSize: 12, fontWeight: 700, lineHeight: "18px", color: "var(--text-strong)", whiteSpace: "nowrap",
+      fontSize: ui(12), fontWeight: 700, lineHeight: "18px", color: "var(--text-strong)", whiteSpace: "nowrap",
     }}>{m[0]}</span>
     {text.slice(m.index + m[0].length)}
   </>);

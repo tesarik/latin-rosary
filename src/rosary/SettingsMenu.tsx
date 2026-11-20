@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { ui } from "./fonts";
 import { FONT_SCALE_MIN, FONT_SCALE_MAX } from "./fontSize";
 import { STRINGS, type Locale } from "./i18n";
 import type { Theme } from "./theme";
 import { headerStyles, type Look } from "./look";
 import LookPicker from "./LookPicker";
 
-type Props = {
+// The prayer screen's preferences, held by Rosary: offered in the prayer
+// header's ⋯ and on the start screen's Nastavení tab (MysteryMenu).
+export type PrayerSettings = {
   theme: Theme;
   onToggleTheme: () => void;
   fontScale: number;
@@ -20,8 +23,13 @@ type Props = {
   onInterlinear: (on: boolean) => void;
   look: Look;
   onLook: (look: Look) => void;
+};
+
+type Props = PrayerSettings & {
   accentColor: string;
   locale: Locale;
+  // The fruit and verse switch, offered only in the rosary (its decades).
+  showMeditation: boolean;
 };
 
 // The prayer header's "⋯" button: the settings changed now and then, kept out
@@ -29,7 +37,7 @@ type Props = {
 // the star, the language). A popover with the dark theme, the text size
 // (smaller-A / bigger-A, stays open for repeated taps), the haptic tick and
 // the dimmed screen. Outside click or Escape closes it.
-export default function SettingsMenu({ theme, onToggleTheme, fontScale, onFontScale, vibrate, onVibrate, dim, onDim, meditation, onMeditation, interlinear, onInterlinear, look, onLook, accentColor, locale }: Props) {
+export default function SettingsMenu({ theme, onToggleTheme, fontScale, onFontScale, vibrate, onVibrate, dim, onDim, meditation, onMeditation, interlinear, onInterlinear, look, onLook, accentColor, locale, showMeditation }: Props) {
   const t = STRINGS[locale];
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement | null>(null);
@@ -44,8 +52,6 @@ export default function SettingsMenu({ theme, onToggleTheme, fontScale, onFontSc
   }, [open]);
 
   const hs = headerStyles(accentColor, theme, false);
-  const atMin = fontScale <= FONT_SCALE_MIN;
-  const atMax = fontScale >= FONT_SCALE_MAX;
 
   return (
     <div ref={ref} style={{ position: "relative" }}>
@@ -97,20 +103,11 @@ export default function SettingsMenu({ theme, onToggleTheme, fontScale, onFontSc
           <div style={{ padding: "8px 14px 6px" }}>
             <LookPicker look={look} onChange={onLook} locale={locale} />
           </div>
-          <Row label={t.textSizeAria}>
-            <div role="group" aria-label={t.textSizeAria} style={{ display: "flex", gap: 6 }}>
-              <button onClick={() => onFontScale(fontScale - 1)} disabled={atMin} aria-label={t.textSizeDecreaseAria} style={nudgeStyle(atMin, accentColor)}>
-                <span style={{ fontSize: 14 }}>A</span>
-              </button>
-              <button onClick={() => onFontScale(fontScale + 1)} disabled={atMax} aria-label={t.textSizeIncreaseAria} style={nudgeStyle(atMax, accentColor)}>
-                <span style={{ fontSize: 22 }}>A</span>
-              </button>
-            </div>
-          </Row>
+          <TextSizeRow fontScale={fontScale} onFontScale={onFontScale} color={accentColor} locale={locale} />
           <SwitchRow label={t.settingsInterlinear} checked={interlinear} onChange={() => onInterlinear(!interlinear)} color={accentColor} />
           <SwitchRow label={t.settingsDarkMode} checked={theme === "dark"} onChange={onToggleTheme} color={accentColor} />
           <SwitchRow label={t.settingsDim} checked={dim} onChange={() => onDim(!dim)} color={accentColor} />
-          <SwitchRow label={t.settingsMeditation} checked={meditation} onChange={() => onMeditation(!meditation)} color={accentColor} />
+          {showMeditation && <SwitchRow label={t.settingsMeditation} checked={meditation} onChange={() => onMeditation(!meditation)} color={accentColor} />}
           <SwitchRow label={t.settingsVibrate} checked={vibrate} onChange={() => onVibrate(!vibrate)} color={accentColor} />
         </div>
       )}
@@ -118,17 +115,36 @@ export default function SettingsMenu({ theme, onToggleTheme, fontScale, onFontSc
   );
 }
 
-function Row({ label, children }: { label: string; children: ReactNode }) {
+// The text size's smaller-A / bigger-A nudges, disabled at the bounds.
+export function TextSizeRow({ fontScale, onFontScale, color, locale, ruled = false }: { fontScale: number; onFontScale: (i: number) => void; color: string; locale: Locale; ruled?: boolean }) {
+  const t = STRINGS[locale];
+  const atMin = fontScale <= FONT_SCALE_MIN;
+  const atMax = fontScale >= FONT_SCALE_MAX;
   return (
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "6px 14px", minHeight: 48 }}>
-      <span style={{ fontSize: 15, color: "var(--text)" }}>{label}</span>
+    <Row label={t.textSizeAria} ruled={ruled}>
+      <div role="group" aria-label={t.textSizeAria} style={{ display: "flex", gap: 6 }}>
+        <button onClick={() => onFontScale(fontScale - 1)} disabled={atMin} aria-label={t.textSizeDecreaseAria} style={nudgeStyle(atMin, color)}>
+          <span style={{ fontSize: ui(14) }}>A</span>
+        </button>
+        <button onClick={() => onFontScale(fontScale + 1)} disabled={atMax} aria-label={t.textSizeIncreaseAria} style={nudgeStyle(atMax, color)}>
+          <span style={{ fontSize: ui(22) }}>A</span>
+        </button>
+      </div>
+    </Row>
+  );
+}
+
+function Row({ label, children, ruled = false }: { label: string; children: ReactNode; ruled?: boolean }) {
+  return (
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "6px 14px", minHeight: 48, borderTop: ruled ? "1px solid var(--border)" : undefined }}>
+      <span style={{ fontSize: ui(15), color: "var(--text)" }}>{label}</span>
       {children}
     </div>
   );
 }
 
 // A whole row is the switch, so the label is a tap target too.
-function SwitchRow({ label, checked, onChange, color }: { label: string; checked: boolean; onChange: () => void; color: string }) {
+export function SwitchRow({ label, checked, onChange, color, ruled = true }: { label: string; checked: boolean; onChange: () => void; color: string; ruled?: boolean }) {
   return (
     <button
       role="switch"
@@ -144,10 +160,10 @@ function SwitchRow({ label, checked, onChange, color }: { label: string; checked
         minHeight: 48,
         background: "transparent",
         border: "none",
-        borderTop: "1px solid var(--border)",
+        borderTop: ruled ? "1px solid var(--border)" : "none",
         cursor: "pointer",
         fontFamily: "Arial, sans-serif",
-        fontSize: 15,
+        fontSize: ui(15),
         color: "var(--text)",
         textAlign: "left",
       }}

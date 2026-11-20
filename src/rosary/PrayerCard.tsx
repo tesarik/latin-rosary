@@ -1,7 +1,7 @@
-import { SERIF } from "./fonts";
+import { SERIF, ui } from "./fonts";
 import { MissalArt } from "./MissalArt";
 import { currentLook } from "./look";
-import type { CSSProperties, ReactNode, Ref } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties, type MutableRefObject, type ReactNode, type Ref } from "react";
 import { PRAYER_TYPES, PRAYERS, getHailMary, getHailMaryTr } from "./prayers";
 import { useTranslation } from "./translations";
 import { sliceLines, type SequenceItem } from "./sequence";
@@ -121,14 +121,12 @@ const bodyStyle = {
   fontFamily: SERIF,
 };
 
-// The translation under the Latin (PrayerLanguage "both"): a little smaller
-// and clearly lighter (its own token, --tr-text: about 5 : 1 against the page,
-// where the Latin is 10–18 : 1), upright, so the Latin stays the text that is
-// prayed.
+// The translation under the Latin (PrayerLanguage "both"): the Latin's size,
+// so the two read as one text, but clearly lighter (its own token, --tr-text:
+// about 5 : 1 against the page, where the Latin is 10–18 : 1), upright, so the
+// Latin stays the text that is prayed.
 const TR_STYLE: CSSProperties = {
-  fontSize: "0.9em",
   color: "var(--tr-text)",
-  lineHeight: 1.3,
   marginTop: 2,
 };
 
@@ -180,7 +178,7 @@ function PrayerBody({ currentPrayer, accentColor, locale, language, fontSizeClam
       <div lang={bodyLang} style={sizedBodyStyle}>
         {currentPrayer.num !== undefined && (
           <div lang={locale} aria-hidden="true" style={{
-            fontSize: 12, color: "var(--text-muted)", marginBottom: 8,
+            fontSize: ui(12), color: "var(--text-muted)", marginBottom: 8,
             fontFamily: "Arial, sans-serif", letterSpacing: 1,
           }}>
             {currentPrayer.num} / 10
@@ -254,23 +252,24 @@ function PrayerBody({ currentPrayer, accentColor, locale, language, fontSizeClam
 // reference, then the fruit, in the language the prayer is shown in — the
 // Latin with the translation under it in "both". A thin rule parts it from
 // the prayer.
-function MeditationBlock({ m, language, locale, accent }: { m: Meditation; language: PrayerLanguage; locale: Locale; accent: string }) {
+function MeditationBlock({ m, language, locale, accent, fontSizeClamp }: { m: Meditation; language: PrayerLanguage; locale: Locale; accent: string; fontSizeClamp: string }) {
   const t = STRINGS[locale];
   const tr = language === "translation";
   const both = language === "both";
-  const verseStyle: CSSProperties = { fontStyle: "italic", color: "var(--text-soft)", fontSize: "0.85em", lineHeight: 1.35 };
-  const refStyle: CSSProperties = { fontStyle: "normal", fontSize: "0.8em", color: "var(--text-muted)", whiteSpace: "nowrap" };
-  const fruitStyle: CSSProperties = { fontSize: "0.82em", marginTop: 8, color: "var(--text-soft)" };
+  // Set apart from the prayer by the softer ink and a rule above and below:
+  // the verse upright at the prayer's size, its reference after it in
+  // brackets, in italics — "Non est hic, sed surréxit (Lc 24, 6)".
+  const ref = (r: string) => <span style={{ whiteSpace: "nowrap", fontStyle: "italic" }}>({r})</span>;
+  const verseStyle: CSSProperties = { color: "var(--text-soft)" };
+  const fruitStyle: CSSProperties = { marginTop: 10, color: "var(--text-soft)" };
   return (
-    <div style={{ textAlign: "center", fontFamily: SERIF, paddingBottom: 12, marginBottom: 14, borderBottom: "1px solid var(--divider)" }}>
-      <div lang={tr ? locale : undefined} style={verseStyle}>
-        {tr ? m.verse[locale] : m.verse.la} <span style={refStyle}>{tr ? m.ref[locale] : m.ref.la}</span>
-      </div>
-      {both && <div lang={locale} style={{ ...TR_STYLE, fontSize: "0.72em" }}>{m.verse[locale]} <span style={refStyle}>{m.ref[locale]}</span></div>}
+    <div style={{ ...bodyStyle, fontSize: fontSizeClamp, padding: "14px 0", marginBottom: 16, borderTop: "1px solid var(--divider)", borderBottom: "1px solid var(--divider)" }}>
+      <div lang={tr ? locale : undefined} style={verseStyle}>{tr ? m.verse[locale] : m.verse.la} {ref(tr ? m.ref[locale] : m.ref.la)}</div>
+      {both && <div lang={locale} style={TR_STYLE}>{m.verse[locale]} {ref(m.ref[locale])}</div>}
       <div style={fruitStyle}>
         <span lang={tr ? locale : undefined} style={{ color: accent, fontWeight: 600 }}>{tr ? t.meditationFruit : FRUCTUS_LABEL}:</span>{" "}
         <span lang={tr ? locale : undefined}>{tr ? m.fruit[locale] : m.fruit.la}</span>
-        {both && <span lang={locale} style={{ color: "var(--text-muted)" }}> · {m.fruit[locale]}</span>}
+        {both && <span lang={locale} style={{ color: "var(--tr-text)" }}> · {m.fruit[locale]}</span>}
       </div>
     </div>
   );
@@ -308,8 +307,33 @@ export default function PrayerCard({ meditation, currentPrayer, accentColor, cur
   // In the Misál look the last step closes with a tailpiece, as a chapter
   // ends in an old book.
   const finis = currentLook() === "missal" && currentStep === totalSteps - 1;
+  // In the contained card a long text scrolls inside it, and a phone shows no
+  // scrollbar: while more text lies below, the text fades out at the bottom
+  // and a nudging ↓ (tap it to scroll on) says so; both go at the end.
+  const scroller = useRef<HTMLDivElement | null>(null);
+  const setScroller = useCallback((el: HTMLDivElement | null) => {
+    scroller.current = el;
+    if (typeof scrollRef === "function") scrollRef(el);
+    else if (scrollRef) (scrollRef as MutableRefObject<HTMLDivElement | null>).current = el;
+  }, [scrollRef]);
+  const [more, setMore] = useState(false);
+  const checkMore = useCallback(() => {
+    const el = scroller.current;
+    setMore(!!el && el.scrollHeight - el.scrollTop - el.clientHeight > 8);
+  }, []);
+  useEffect(() => {
+    const el = scroller.current;
+    if (!contained || !el) return;
+    checkMore();
+    if (typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(checkMore);
+    ro.observe(el);
+    if (el.firstElementChild) ro.observe(el.firstElementChild);
+    return () => ro.disconnect();
+  }, [contained, checkMore]);
+  const fade = "linear-gradient(to bottom, black calc(100% - 56px), transparent)";
   const body = <>
-    {meditation && <MeditationBlock m={meditation} language={language} locale={locale} accent={accentText(accentColor, theme)} />}
+    {meditation && <MeditationBlock m={meditation} language={language} locale={locale} accent={accentText(accentColor, theme)} fontSizeClamp={fontSizeClamp} />}
     <PrayerBody currentPrayer={currentPrayer} accentColor={accentColor} locale={locale} language={language} fontSizeClamp={fontSizeClamp} theme={theme} />
     {finis && <MissalArt name={finisArt} style={{ marginTop: 22 }} />}
   </>;
@@ -338,9 +362,41 @@ export default function PrayerCard({ meditation, currentPrayer, accentColor, cur
         // Only side padding on the scroller itself: a sticky ℟ band sticks at
         // the scroller's padding edge, so vertical padding would leave a strip
         // above it for text to show through. The vertical space is inside.
-        <div ref={scrollRef} style={{ overflowY: "auto", minHeight: 0, padding: "0 18px" }}>
-          <div style={{ padding: "20px 0" }}>{body}</div>
-        </div>
+        <>
+          <div
+            ref={setScroller}
+            onScroll={checkMore}
+            style={{
+              overflowY: "auto", minHeight: 0, padding: "0 18px",
+              ...(more ? { maskImage: fade, WebkitMaskImage: fade } : {}),
+            }}
+          >
+            <div style={{ padding: "20px 0" }}>{body}</div>
+          </div>
+          {more && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                const el = scroller.current;
+                if (!el) return;
+                const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+                el.scrollBy({ top: el.clientHeight * 0.7, behavior: reduce ? "auto" : "smooth" });
+              }}
+              aria-label={t.moreTextBelow}
+              title={t.moreTextBelow}
+              style={{
+                position: "absolute", bottom: 2, left: "50%", transform: "translateX(-50%)",
+                width: 44, height: 32, padding: 0, border: "none", background: "transparent",
+                cursor: "pointer", color: accentText(accentColor, theme),
+                display: "flex", alignItems: "center", justifyContent: "center",
+              }}
+            >
+              <svg width="22" height="14" viewBox="0 0 22 14" aria-hidden="true" style={{ animation: "nudge 1.6s ease-in-out infinite" }}>
+                <path d="M2 3 L11 11 L20 3" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          )}
+        </>
       ) : body}
     </div>
   );

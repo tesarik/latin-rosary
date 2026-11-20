@@ -1,4 +1,5 @@
 import { STRINGS, type Locale } from "./i18n";
+import { ui } from "./fonts";
 import { ink } from "./look";
 
 type Props = {
@@ -34,7 +35,7 @@ export default function UpdateToast({ locale, onUpdate, onDismiss }: Props) {
         fontFamily: "Arial, sans-serif",
       }}
     >
-      <span style={{ flex: 1, fontSize: 14, color: "var(--text)" }}>{t.updateAvailable}</span>
+      <span style={{ flex: 1, fontSize: ui(14), color: "var(--text)" }}>{t.updateAvailable}</span>
       <button
         onClick={onUpdate}
         style={{
@@ -43,7 +44,7 @@ export default function UpdateToast({ locale, onUpdate, onDismiss }: Props) {
           color: "white",
           borderRadius: 10,
           padding: "8px 16px",
-          fontSize: 14,
+          fontSize: ui(14),
           fontWeight: 600,
           fontFamily: "Arial, sans-serif",
           cursor: "pointer",
@@ -59,7 +60,7 @@ export default function UpdateToast({ locale, onUpdate, onDismiss }: Props) {
           border: "none",
           background: "transparent",
           color: "var(--text-muted)",
-          fontSize: 20,
+          fontSize: ui(20),
           lineHeight: 1,
           width: 28,
           height: 28,

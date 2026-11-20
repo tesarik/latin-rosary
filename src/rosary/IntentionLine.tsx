@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { ui } from "./fonts";
 import { STRINGS, type Locale } from "./i18n";
 import { MAX_INTENTION } from "./intentions";
 
@@ -25,7 +26,7 @@ export default function IntentionLine({ text, offerAdd, onChange, color, locale 
 
   const small: React.CSSProperties = {
     border: "none", background: "transparent", cursor: "pointer", padding: "4px 8px",
-    fontFamily: "Arial, sans-serif", fontSize: 13, minHeight: 28,
+    fontFamily: "Arial, sans-serif", fontSize: ui(13), minHeight: 28,
   };
 
   if (editing) {
@@ -46,7 +47,7 @@ export default function IntentionLine({ text, offerAdd, onChange, color, locale 
           style={{
             flex: 1, minWidth: 0, height: 34, padding: "0 10px", borderRadius: 8,
             border: "1px solid var(--border-strong)", background: "var(--surface)", color: "var(--text)",
-            fontFamily: "Arial, sans-serif", fontSize: 16,
+            fontFamily: "Arial, sans-serif", fontSize: ui(16),
           }}
         />
         <button type="submit" aria-label={t.intentionSave} style={{ ...small, height: 34, borderRadius: 8, border: `1.5px solid ${color}`, color, fontWeight: 700 }}>✓</button>

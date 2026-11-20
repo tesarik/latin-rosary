@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { CAPTION, CARD, RUBRIC_CAPS, headingSize, nameFont } from "./fonts";
+import { CAPTION, CARD, RUBRIC_CAPS, headingSize, nameFont, ui } from "./fonts";
 import { currentLook, headerStyles, iconBg, ink } from "./look";
 import { MissalArt } from "./MissalArt";
 import { STRINGS, type Locale } from "./i18n";
@@ -123,7 +123,7 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
           <>
             {currentLook() === "missal" && <MissalArt name="immaculata" />}
             {plans.length === 0 && (
-              <p style={{ margin: "8px 4px 4px", color: "var(--text-soft)", fontSize: 15, lineHeight: 1.55 }}>
+              <p style={{ margin: "8px 4px 4px", color: "var(--text-soft)", fontSize: ui(15), lineHeight: 1.55 }}>
                 {t.plansEmpty}
               </p>
             )}
@@ -151,7 +151,7 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
                 background: "transparent",
                 color: ink(PLAN_COLOR),
                 fontFamily: "Arial, sans-serif",
-                fontSize: 16,
+                fontSize: ui(16),
                 fontWeight: 600,
                 cursor: "pointer",
               }}
@@ -178,7 +178,7 @@ export default function PlansScreen({ plans, onChange, onStart, onClose, resume,
             // NOT --bg: that token is a gradient, so it's invalid for `color`
             // and the text would silently fall back to the inherited (dark) one.
             color: "var(--surface)",
-            fontSize: 14,
+            fontSize: ui(14),
             boxShadow: "0 6px 24px rgba(0,0,0,0.18)",
           }}
         >
@@ -230,13 +230,13 @@ function Header({ title, backLabel, backAria, onBack, theme }: {
           borderRadius: 10,
           cursor: "pointer",
           ...hs.button,
-          fontSize: 18,
+          fontSize: ui(18),
           fontFamily: "Arial, sans-serif",
         }}
       >
         ←
       </button>
-      <div style={{ flex: 1, textAlign: "center", color: hs.name.color, fontSize: 20, fontWeight: 600 }}>
+      <div style={{ flex: 1, textAlign: "center", color: hs.name.color, fontSize: ui(20), fontWeight: 600 }}>
         {title}
       </div>
       {/* Spacer keeps the title optically centred against the back button. */}
@@ -283,10 +283,10 @@ function PlanRow({ plan, resume, theme, locale, onStart, onEdit, onShare, onDele
           <PlanIcon color={ink(PLAN_COLOR)} />
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ fontSize: 18, fontWeight: 600, color: "var(--text-strong)", overflowWrap: "anywhere" }}>
+          <div style={{ fontSize: ui(18), fontWeight: 600, color: "var(--text-strong)", overflowWrap: "anywhere" }}>
             {plan.name}
           </div>
-          <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 2 }}>
+          <div style={{ fontSize: ui(13), color: "var(--text-muted)", marginTop: 2 }}>
             {t.planCount(planLength(plan.steps))}
           </div>
           <ResumeLine info={resume} color={ink(PLAN_COLOR)} theme={theme} locale={locale} />
@@ -320,7 +320,7 @@ function RowAction({ label, aria, onClick, danger }: {
         borderLeft: "1px solid var(--border)",
         color: danger ? "var(--rubric)" : "var(--text-soft)",
         fontFamily: "Arial, sans-serif",
-        fontSize: 14,
+        fontSize: ui(14),
         cursor: "pointer",
       }}
       onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
@@ -438,7 +438,7 @@ function PlanEditor({ draft, onDraftChange, onSave, onNotice, locale }: {
           background: "var(--surface)",
           color: "var(--text-strong)",
           fontFamily: "Arial, sans-serif",
-          fontSize: 17,
+          fontSize: ui(17),
           fontWeight: 600,
         }}
       />
@@ -457,8 +457,8 @@ function PlanEditor({ draft, onDraftChange, onSave, onNotice, locale }: {
           }}
         >
           <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-            <span style={{ fontSize: 13, color: "var(--text-muted)", flexShrink: 0 }}>{i + 1}.</span>
-            <span style={{ fontSize: 15, color: "var(--text-strong)", overflowWrap: "anywhere" }}>
+            <span style={{ fontSize: ui(13), color: "var(--text-muted)", flexShrink: 0 }}>{i + 1}.</span>
+            <span style={{ fontSize: ui(15), color: "var(--text-strong)", overflowWrap: "anywhere" }}>
               {stepName(draft, step.key)}
               <span style={{ color: "var(--text-muted)" }}> · {isCustomKey(step.key) ? t.planCustomTag : planItemNameTr(step.key, locale)}</span>
             </span>
@@ -466,7 +466,7 @@ function PlanEditor({ draft, onDraftChange, onSave, onNotice, locale }: {
 
           <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
             <StepButton label="−" aria={t.planRepeatDecreaseAria} disabled={step.repeat <= 1} onClick={() => setRepeat(i, step.repeat - 1)} />
-            <span style={{ minWidth: 34, textAlign: "center", fontSize: 14, color: "var(--text)" }}>
+            <span style={{ minWidth: 34, textAlign: "center", fontSize: ui(14), color: "var(--text)" }}>
               ×{step.repeat}
             </span>
             <StepButton label="+" aria={t.planRepeatIncreaseAria} disabled={step.repeat >= MAX_REPEAT} onClick={() => setRepeat(i, step.repeat + 1)} />
@@ -522,7 +522,7 @@ function PlanEditor({ draft, onDraftChange, onSave, onNotice, locale }: {
             background: draft.steps.length === 0 ? "var(--border-strong)" : ink(PLAN_COLOR),
             color: "white",
             fontFamily: "Arial, sans-serif",
-            fontSize: 16,
+            fontSize: ui(16),
             fontWeight: 600,
             cursor: draft.steps.length === 0 ? "default" : "pointer",
           }}
@@ -553,7 +553,7 @@ function StepButton({ label, aria, onClick, disabled, danger }: {
         border: "1px solid var(--border-strong)",
         background: "var(--surface)",
         color: disabled ? "var(--border-strong)" : danger ? "var(--rubric)" : "var(--text-soft)",
-        fontSize: 16,
+        fontSize: ui(16),
         lineHeight: 1,
         cursor: disabled ? "default" : "pointer",
         flexShrink: 0,
@@ -607,7 +607,7 @@ function PrayerPicker({ onPick, onClose, closeLabel, locale }: {
                   border: "none",
                   cursor: "pointer",
                   fontFamily: "Arial, sans-serif",
-                  fontSize: 15,
+                  fontSize: ui(15),
                   color: "var(--text)",
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
@@ -632,7 +632,7 @@ function PrayerPicker({ onPick, onClose, closeLabel, locale }: {
           border: "none",
           color: "var(--text-muted)",
           fontFamily: "Arial, sans-serif",
-          fontSize: 14,
+          fontSize: ui(14),
           cursor: "pointer",
         }}
       >
@@ -664,7 +664,7 @@ const addButton = (): React.CSSProperties => ({
   background: "transparent",
   color: ink(PLAN_COLOR),
   fontFamily: "Arial, sans-serif",
-  fontSize: 15,
+  fontSize: ui(15),
   fontWeight: 600,
   cursor: "pointer",
 });
@@ -677,7 +677,7 @@ const fieldStyle: React.CSSProperties = {
   background: "var(--surface)",
   color: "var(--text-strong)",
   fontFamily: "Arial, sans-serif",
-  fontSize: 15,
+  fontSize: ui(15),
 };
 
 // Write or edit a plan's own prayer: a title, its text, and an optional second
@@ -693,7 +693,7 @@ function CustomPrayerForm({ initial, onSave, onCancel, locale }: {
   const [form, setForm] = useState(initial);
   const ready = form.title.trim() !== "" && form.text.trim() !== "";
   const label = (text: string) => (
-    <span style={{ display: "block", margin: "0 0 4px", fontSize: 13, color: "var(--text-soft)" }}>{text}</span>
+    <span style={{ display: "block", margin: "0 0 4px", fontSize: ui(13), color: "var(--text-soft)" }}>{text}</span>
   );
   return (
     <div style={{
@@ -734,7 +734,7 @@ function CustomPrayerForm({ initial, onSave, onCancel, locale }: {
           onChange={(e) => setForm({ ...form, textTr: e.target.value })}
           style={{ ...fieldStyle, resize: "vertical", lineHeight: 1.45 }}
         />
-        <span style={{ display: "block", marginTop: 4, fontSize: 12, color: "var(--text-muted)" }}>{t.planCustomTextTrHint}</span>
+        <span style={{ display: "block", marginTop: 4, fontSize: ui(12), color: "var(--text-muted)" }}>{t.planCustomTextTrHint}</span>
       </label>
       <div style={{ display: "flex", gap: 8 }}>
         <button onClick={onCancel} style={{ ...addButton(), border: "1px solid var(--border-strong)", color: "var(--text-soft)" }}>

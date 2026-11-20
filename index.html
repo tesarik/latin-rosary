@@ -19,6 +19,9 @@
           // Základ, the default.
           var l = localStorage.getItem("ruzenec_look");
           if (l === "base" || l === "paper" || l === "missal") look = l;
+          // The app's text size (src/rosary/uiScale.ts, UI_SCALES).
+          var k = [1, 1.12, 1.25][Number(localStorage.getItem("ruzenec_ui_scale"))];
+          if (k) document.documentElement.style.setProperty("--ui-k", String(k));
         } catch (e) {}
         document.documentElement.dataset.look = look;
       })();

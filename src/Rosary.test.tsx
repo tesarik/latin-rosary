@@ -100,6 +100,35 @@ describe("the Mine tab", () => {
   });
 });
 
+describe("the Settings tab", () => {
+  it("holds the prayer screen's settings, the same as the ⋯ in a prayer", () => {
+    localStorage.setItem("ruzenec_hint_seen", "1");
+    render(<Rosary />);
+    fireEvent.click(screen.getByRole("button", { name: new RegExp(t.settingsHeading) }));
+    const sw = screen.getByRole("switch", { name: t.settingsDim });
+    expect(sw.getAttribute("aria-checked")).toBe("false");
+    fireEvent.click(sw);
+    expect(screen.getByRole("switch", { name: t.settingsDim }).getAttribute("aria-checked")).toBe("true");
+    expect(localStorage.getItem("ruzenec_dim")).toBe("1");
+    // The text size and the rosary's fruit and verse stay in a prayer's ⋯.
+    expect(screen.queryByRole("group", { name: t.textSizeAria })).toBeNull();
+    expect(screen.queryByRole("switch", { name: t.settingsMeditation })).toBeNull();
+    expect(screen.getByText(t.backupHeading)).toBeTruthy();
+  });
+
+  it("sets the app's text size in three steps, remembered", () => {
+    localStorage.setItem("ruzenec_hint_seen", "1");
+    render(<Rosary />);
+    fireEvent.click(screen.getByRole("button", { name: new RegExp(t.settingsHeading) }));
+    fireEvent.click(screen.getByRole("radio", { name: t.uiScaleNames[2] }));
+    expect(document.documentElement.style.getPropertyValue("--ui-k")).toBe("1.25");
+    expect(localStorage.getItem("ruzenec_ui_scale")).toBe("2");
+    fireEvent.click(screen.getByRole("radio", { name: t.uiScaleNames[0] }));
+    expect(document.documentElement.style.getPropertyValue("--ui-k")).toBe("1");
+    expect(localStorage.getItem("ruzenec_ui_scale")).toBeNull();
+  });
+});
+
 describe("the prayer language switch", () => {
   it("picks the Latin or the translation, and the ⋯ settings put the translation under the Latin", async () => {
     localStorage.setItem("ruzenec_hint_seen", "1");
@@ -243,6 +272,18 @@ describe("St. Bridget's optional prayers", () => {
     fireEvent.click(screen.getByRole("switch", { name: t.optionalPrayers }));
     expect(screen.getByText(t.stepCount(1, 22))).toBeTruthy();
     expect(localStorage.getItem("ruzenec_brigit_full")).toBe("1");
+  });
+});
+
+describe("the ⓘ beside the optional prayers' switch", () => {
+  it("tells what the optional prayers are and where they come from", async () => {
+    localStorage.setItem("ruzenec_hint_seen", "1");
+    location.hash = "#pray=corona";
+    render(<Rosary />);
+    fireEvent.click(screen.getByRole("button", { name: t.optionalPrayersInfo }));
+    const dialog = await screen.findByRole("alertdialog");
+    expect(dialog.textContent).toContain("Diary");
+    fireEvent.click(within(dialog).getByRole("button", { name: t.aboutClose }));
   });
 });
 

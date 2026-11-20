@@ -229,6 +229,12 @@ body {
   line-height: 1;
 }
 
+/* The prayer card's ↓ while more text lies below (PrayerCard). */
+@keyframes nudge {
+  0%, 100% { transform: translateY(-2px); }
+  50%      { transform: translateY(3px); }
+}
+
 /* Reveal for the collapsible "Ordinary prayers" group (MysteryMenu). */
 @keyframes rolldown {
   from { opacity: 0; transform: translateY(-6px); }

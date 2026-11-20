@@ -5,7 +5,7 @@
 import { PRAYER_TYPES, ioseph, type StaticPrayerType } from "./prayers";
 
 // English counterpart of the shared Salve Regína antiphon (see SALVE_REGINA_ANTIPHON).
-const SALVE_REGINA_ANTIPHON_EN = `Hail, holy Queen, Mother of mercy, our life, our sweetness and our hope. To thee do we cry, poor banished children of Eve. To thee do we send up our sighs, mourning and weeping in this valley of tears. Turn then, most gracious Advocate, thine eyes of mercy toward us. And after this our exile, show unto us the blessed fruit of thy womb, Jesus. O clement, O loving, O sweet Virgin Mary.
+const SALVE_REGINA_ANTIPHON_EN = `Hail, holy Queen, Mother of mercy, {/}our life, our sweetness and our hope. {/}To thee do we cry, poor banished children of Eve. {/}To thee do we send up our sighs, mourning and weeping in this valley of tears. {/}Turn then, most gracious Advocate, thine eyes of mercy toward us. {/}And after this our exile, show unto us the blessed fruit of thy womb, Jesus. {/}O clement, O loving, O sweet Virgin Mary.
 
 ℣ Pray for us, O holy Mother of God.
 ℟ That we may be made worthy of the promises of Christ.`;
@@ -89,7 +89,7 @@ export const PRAYERS_EN: Record<StaticPrayerType, string> = {
   [PRAYER_TYPES.SALVE_REGINA]: `${SALVE_REGINA_ANTIPHON_EN}
 
 Let us pray:
-O God, whose only-begotten Son, by his life, death and resurrection, has purchased for us the rewards of eternal salvation: grant, we beseech thee, that meditating upon these mysteries of the most holy Rosary of the Blessed Virgin Mary, we may imitate what they contain and obtain what they promise. Through the same Christ our Lord. Amen.`,
+O God, whose only-begotten Son, by his life, death and resurrection, has purchased for us the rewards of eternal salvation: {/}grant, we beseech thee, that meditating upon these mysteries of the most holy Rosary of the Blessed Virgin Mary, {/}we may imitate what they contain and obtain what they promise. {/}Through the same Christ our Lord. Amen.`,
 
   [PRAYER_TYPES.SALVE_REGINA_LEONINE]: SALVE_REGINA_ANTIPHON_EN,
 
@@ -122,29 +122,29 @@ O God, whose only-begotten Son, by his life, death and resurrection, has purchas
   // The Fifteen Prayers of St. Bridget — OUR OWN literal translation of the
   // Latin (no public-domain English of this Latin was found: Caxton's 1491
   // text is Middle English, the booklets in use are in copyright).
-  [PRAYER_TYPES.BRIGIT_XV_1]: `O Jesus Christ, eternal sweetness of those who love thee, joy surpassing all gladness and all desire, salvation and lover of sinners, who didst declare that thy delight was to be with the children of men, and for man's sake wast made man in the fullness of time: remember all the foreknowledge and the inward sorrow that thou didst bear in thy human body as the time of thy most saving Passion drew near, ordained beforehand in thy divine Heart.
+  [PRAYER_TYPES.BRIGIT_XV_1]: `O Jesus Christ, eternal sweetness of those who love thee, {/}joy surpassing all gladness and all desire, salvation and lover of sinners, {/}who didst declare that thy delight was to be with the children of men, {/}and for man's sake wast made man in the fullness of time: {/}remember all the foreknowledge and the inward sorrow that thou didst bear in thy human body {/}as the time of thy most saving Passion drew near, ordained beforehand in thy divine Heart.
 
-Remember the sadness and bitterness which, as thou thyself didst testify, thou hadst in thy soul when at the Last Supper thou gavest thy Body and Blood to thy disciples, didst wash their feet and, sweetly consoling them, didst foretell thy coming Passion.
+Remember the sadness and bitterness which, as thou thyself didst testify, thou hadst in thy soul {/}when at the Last Supper thou gavest thy Body and Blood to thy disciples, didst wash their feet {/}and, sweetly consoling them, didst foretell thy coming Passion.
 
-Remember all the trembling, anguish and pain that thou didst suffer in thy tender body before the Passion of thy cross, when after thy threefold prayer and thy bloody sweat thou wast betrayed by Judas thy disciple, taken by the chosen people, accused by false witnesses, unjustly judged by three judges, condemned though innocent in the chosen city, at the Paschal time, in the flower of thy youth; stripped of thine own garments and clothed in the garments of others, buffeted, blindfolded, struck in the face, bound to the pillar, scourged, crowned with thorns, struck on the head with a reed, and torn by countless other insults.
+Remember all the trembling, anguish and pain that thou didst suffer in thy tender body before the Passion of thy cross, {/}when after thy threefold prayer and thy bloody sweat thou wast betrayed by Judas thy disciple, {/}taken by the chosen people, accused by false witnesses, unjustly judged by three judges, {/}condemned though innocent in the chosen city, at the Paschal time, in the flower of thy youth; {/}stripped of thine own garments and clothed in the garments of others, buffeted, blindfolded, struck in the face, {/}bound to the pillar, scourged, crowned with thorns, {/}struck on the head with a reed, and torn by countless other insults.
 
-Grant me, O Lord God, I beseech thee, in memory of these sufferings before thy cross, true contrition before my death, a pure confession, worthy satisfaction and the remission of all my sins. Amen.`,
+Grant me, O Lord God, I beseech thee, in memory of these sufferings before thy cross, {/}true contrition before my death, a pure confession, worthy satisfaction and the remission of all my sins. Amen.`,
 
   [PRAYER_TYPES.BRIGIT_XV_2]: `O Jesus, maker of the world, whom no measure can truly bound, who holdest the earth in the palm of thy hand, {/}remember the most bitter pain that thou didst bear when the Jews first fastened thy most holy hands to the cross with blunt nails, {/}and, piercing thy most tender feet, since thou didst not answer to their purpose, added pain upon pain to thy wounds, {/}and so cruelly stretched thee out to the length and breadth of thy cross that the joints of thy limbs were loosed. {/}I beseech thee, by the memory of this most holy and most bitter pain on the cross, to give me thy fear and thy love. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_XV_3]: `O Jesus, heavenly physician, remember the faintness, the bruising and the pain that thou didst suffer, lifted high on the gibbet of the cross, in all thy torn limbs, of which not one remained in its right place, so that no sorrow was found like unto thy sorrow; for from the sole of the foot to the crown of the head there was no soundness in thee; and yet, unmindful of all thy pain, thou didst lovingly pray to the Father for thine enemies, saying: Father, forgive them, for they know not what they do.
+  [PRAYER_TYPES.BRIGIT_XV_3]: `O Jesus, heavenly physician, remember the faintness, the bruising and the pain {/}that thou didst suffer, lifted high on the gibbet of the cross, in all thy torn limbs, {/}of which not one remained in its right place, {/}so that no sorrow was found like unto thy sorrow; {/}for from the sole of the foot to the crown of the head there was no soundness in thee; {/}and yet, unmindful of all thy pain, thou didst lovingly pray to the Father for thine enemies, saying: {/}Father, forgive them, for they know not what they do.
 
 By this mercy, and in memory of that pain, grant that this remembrance of thy most bitter Passion may be the full remission of all my sins. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_XV_4]: `O Jesus, true freedom of the angels, paradise of delights, remember the grief and horror that thou didst endure when all thine enemies stood round thee like most fierce lions and tormented thee with blows, spitting, scratching and other unheard-of pains.
+  [PRAYER_TYPES.BRIGIT_XV_4]: `O Jesus, true freedom of the angels, paradise of delights, {/}remember the grief and horror that thou didst endure {/}when all thine enemies stood round thee like most fierce lions {/}and tormented thee with blows, spitting, scratching and other unheard-of pains.
 
-By these pains, and by all the insulting words and most cruel torments with which all thine enemies afflicted thee, O Lord Jesus Christ, I beseech thee to deliver me from all my enemies, visible and invisible, and to bring me under the shadow of thy wings to the perfection of eternal salvation. Amen.`,
+By these pains, and by all the insulting words and most cruel torments with which all thine enemies afflicted thee, O Lord Jesus Christ, {/}I beseech thee to deliver me from all my enemies, visible and invisible, {/}and to bring me under the shadow of thy wings to the perfection of eternal salvation. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_XV_5]: `O Jesus, mirror of eternal brightness, remember the grief that thou hadst {/}when, in the mirror of thy most serene majesty, thou didst see the predestination of thine elect, to be saved by the merits of thy Passion, and the reprobation of the wicked, to be damned by their own demerits; {/}and by the depth of thy compassion, with which thou didst then grieve for us lost and despairing sinners, {/}and which thou didst show to the thief on the cross, saying: This day thou shalt be with me in paradise, {/}I pray thee, merciful Jesus, to show me mercy in the hour of my death. Amen.`,
+  [PRAYER_TYPES.BRIGIT_XV_5]: `O Jesus, mirror of eternal brightness, remember the grief that thou hadst {/}when, in the mirror of thy most serene majesty, thou didst see {/}the predestination of thine elect, to be saved by the merits of thy Passion, {/}and the reprobation of the wicked, to be damned by their own demerits; {/}and by the depth of thy compassion, with which thou didst then grieve for us lost and despairing sinners, {/}and which thou didst show to the thief on the cross, saying: This day thou shalt be with me in paradise, {/}I pray thee, merciful Jesus, to show me mercy in the hour of my death. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_XV_6]: `O King most lovable and friend wholly to be desired, remember the grief that thou hadst when thou didst hang naked and wretched on the cross, and all thy friends and acquaintance stood against thee, and thou foundest none to comfort thee but thy beloved Mother alone, standing by thee most faithfully in the bitterness of her soul, whom thou didst commend to thy disciple, saying: Woman, behold thy son.
+  [PRAYER_TYPES.BRIGIT_XV_6]: `O King most lovable and friend wholly to be desired, {/}remember the grief that thou hadst when thou didst hang naked and wretched on the cross, {/}and all thy friends and acquaintance stood against thee, {/}and thou foundest none to comfort thee but thy beloved Mother alone, {/}standing by thee most faithfully in the bitterness of her soul, {/}whom thou didst commend to thy disciple, saying: {/}Woman, behold thy son.
 
-I pray thee, most loving Jesus, by the sword of sorrow which then pierced her soul, to have compassion on me in all my tribulations and afflictions of body and spirit, and give me comfort in the time of tribulation and in the hour of my death. Amen.`,
+I pray thee, most loving Jesus, by the sword of sorrow which then pierced her soul, {/}to have compassion on me in all my tribulations and afflictions of body and spirit, {/}and give me comfort in the time of tribulation and in the hour of my death. Amen.`,
 
   [PRAYER_TYPES.BRIGIT_XV_7]: `O Jesus, fountain of inexhaustible pity, {/}who from the depth of thy love didst say on the cross: I thirst, that is, for the salvation of mankind, {/}kindle, I beseech thee, the desires of our hearts for every perfect work, {/}and wholly cool and quench in us the thirst of fleshly lust and the heat of worldly pleasure. Amen.`,
 
@@ -158,19 +158,19 @@ By the breadth and length of thy wounds, teach me, sunk too deep in sin, to keep
 
   [PRAYER_TYPES.BRIGIT_XV_11]: `O Jesus, deepest abyss of mercy, {/}I pray thee, by the depth of thy wounds, which pierced to the marrow of thy bones and thy bowels, {/}to draw me up, who am sunk in sin, {/}and to hide me in the clefts of thy wounds from the face of thine anger, until thy wrath pass away, O Lord. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_XV_12]: `O Jesus, mirror of truth, sign of unity and bond of charity, remember the multitude of thy countless wounds, with which thou wast wounded from the crown of the head to the sole of the foot and reddened with thy most holy Blood: how great a pain thou didst bear for us in thy virginal flesh! Merciful Jesus, what more oughtest thou to have done that thou hast not done?
+  [PRAYER_TYPES.BRIGIT_XV_12]: `O Jesus, mirror of truth, sign of unity and bond of charity, {/}remember the multitude of thy countless wounds, {/}with which thou wast wounded from the crown of the head to the sole of the foot and reddened with thy most holy Blood: {/}how great a pain thou didst bear for us in thy virginal flesh! {/}Merciful Jesus, what more oughtest thou to have done that thou hast not done?
 
-Write, I beseech thee, O merciful Jesus, all thy wounds in my heart with thy most precious Blood, that in them I may read thy pain and thy death, and persevere in thanksgiving continually to the end. Amen.`,
+Write, I beseech thee, O merciful Jesus, all thy wounds in my heart with thy most precious Blood, {/}that in them I may read thy pain and thy death, {/}and persevere in thanksgiving continually to the end. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_XV_13]: `O Jesus, most mighty lion, King immortal and unconquerable, remember the pain that thou didst suffer when all the strength of thy heart and body utterly failed thee, and, bowing thy head, thou didst say: It is consummated.
+  [PRAYER_TYPES.BRIGIT_XV_13]: `O Jesus, most mighty lion, King immortal and unconquerable, {/}remember the pain that thou didst suffer {/}when all the strength of thy heart and body utterly failed thee, {/}and, bowing thy head, thou didst say: It is consummated.
 
 By this anguish and pain have mercy on me when my soul is anguished and troubled in the last consummation of the going forth of my spirit. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_XV_14]: `O Jesus, only-begotten Son of the most high Father, brightness and figure of his substance, remember the earnest commendation with which thou didst commend thy spirit to the Father, saying: Into thy hands, O Lord, I commend my spirit. And with thy body torn and thy heart broken, with a strong cry, opening the depths of thy mercy to redeem us, thou didst give up the ghost.
+  [PRAYER_TYPES.BRIGIT_XV_14]: `O Jesus, only-begotten Son of the most high Father, brightness and figure of his substance, {/}remember the earnest commendation with which thou didst commend thy spirit to the Father, saying: {/}Into thy hands, O Lord, I commend my spirit. {/}And with thy body torn and thy heart broken, with a strong cry, {/}opening the depths of thy mercy {/}to redeem us, thou didst give up the ghost.
 
-By this most precious death I pray thee, King of saints, strengthen me to resist the devil, the world, the flesh and blood, that, dead to the world, I may live to thee; and at the last hour of my departing receive my spirit, an exile and a pilgrim, returning to thee. Amen.`,
+By this most precious death I pray thee, King of saints, {/}strengthen me to resist the devil, the world, the flesh and blood, {/}that, dead to the world, I may live to thee; {/}and at the last hour of my departing receive my spirit, an exile and a pilgrim, returning to thee. Amen.`,
 
-  [PRAYER_TYPES.BRIGIT_XV_15]: `O Jesus, true and fruitful vine, remember the overflowing and abundant shedding of thy Blood, which thou didst pour out most plentifully, as if pressed from a cluster of grapes, when thou alone didst tread the winepress on the cross, and from thy side, pierced by a soldier's lance, didst give us blood and water to drink, so that not the least drop remained in thee; and at last thou wast hung on high like a bundle of myrrh, and thy tender flesh wasted away, and the moisture of thy bowels dried up, and the marrow of thy bones withered.
+  [PRAYER_TYPES.BRIGIT_XV_15]: `O Jesus, true and fruitful vine, {/}remember the overflowing and abundant shedding of thy Blood, {/}which thou didst pour out most plentifully, as if pressed from a cluster of grapes, when thou alone didst tread the winepress on the cross, {/}and from thy side, pierced by a soldier's lance, didst give us blood and water to drink, {/}so that not the least drop remained in thee; {/}and at last thou wast hung on high like a bundle of myrrh, {/}and thy tender flesh wasted away, {/}and the moisture of thy bowels dried up, and the marrow of thy bones withered.
 
 By this most bitter Passion and the shedding of thy precious Blood, merciful Jesus, I pray thee, receive my soul in the agony of my death. Amen.`,
 
@@ -301,7 +301,7 @@ And he shall redeem Israel from all his iniquities.
 ℟ And let my cry come unto thee.
 
 Let us pray.
-O God, the Creator and Redeemer of all the faithful, give to the souls of thy servants departed the remission of all their sins: that, through pious supplication, they may obtain the pardon which they have always desired. Who livest and reignest world without end.
+O God, the Creator and Redeemer of all the faithful, {/}give to the souls of thy servants departed the remission of all their sins: {/}that, through pious supplication, they may obtain the pardon which they have always desired. {/}Who livest and reignest world without end.
 ℟ Amen.`,
 
   // Dies iræ — W. J. Irons' verse translation as printed in the Saint Andrew
@@ -387,7 +387,7 @@ Grant them Thine eternal rest. Amen.`,
   // kept stanza for stanza with the Latin; the Easter sequence's lines are
   // joined to match the Latin's eight. The Kyrie drops the missal's
   // explanatory "(God the Father)" glosses.
-  [PRAYER_TYPES.CONFITEOR]: `I confess to almighty God, to blessed Mary ever Virgin, to blessed Michael the archangel, to blessed John the Baptist, to the holy apostles Peter and Paul, to all the saints, and to you, Father, that I have sinned exceedingly in thought, word and deed, through my fault, through my fault, through my most grievous fault. Therefore I beseech blessed Mary ever Virgin, blessed Michael the archangel, blessed John the Baptist, the holy apostles Peter and Paul, all the saints, and you, Father, to pray to the Lord our God for me.
+  [PRAYER_TYPES.CONFITEOR]: `I confess to almighty God, to blessed Mary ever Virgin, {/}to blessed Michael the archangel, to blessed John the Baptist, {/}to the holy apostles Peter and Paul, to all the saints, and to you, Father, {/}that I have sinned exceedingly in thought, word and deed, {/}through my fault, through my fault, through my most grievous fault. {/}Therefore I beseech blessed Mary ever Virgin, {/}blessed Michael the archangel, blessed John the Baptist, {/}the holy apostles Peter and Paul, all the saints, and you, Father, {/}to pray to the Lord our God for me.
 
 ℣ May almighty God have mercy upon you, forgive you your sins, and bring you to life everlasting.
 ℟ Amen.
@@ -419,17 +419,17 @@ Lamb of God, who takest away the sins of the world, grant us peace.`,
 ℣ Let us give thanks to the Lord our God.
 ℟ It is meet and right.`,
 
-  [PRAYER_TYPES.ANTE_COMMUNIONEM]: `O Lord Jesus Christ, who saidst to Thy Apostles, Peace I leave with you, My peace I give unto you; look not upon my sins, but upon the faith of Thy Church; and vouchsafe to grant her peace and unity according to Thy will: O God, who livest and reignest world without end. Amen.
+  [PRAYER_TYPES.ANTE_COMMUNIONEM]: `O Lord Jesus Christ, who saidst to Thy Apostles, {/}Peace I leave with you, My peace I give unto you; {/}look not upon my sins, but upon the faith of Thy Church; {/}and vouchsafe to grant her peace and unity according to Thy will: {/}O God, who livest and reignest world without end. Amen.
 
-O Lord Jesus Christ, Son of the living God, who according to the will of the Father, through the co-operation of the Holy Ghost, hast by Thy death given life to the world: deliver me by this Thy most holy Body and Blood from all my transgressions and from all evils; make me always adhere to Thy commandments and suffer me never to be separated from Thee; Who with the same God the Father and the Holy Ghost livest and reignest, God, for ever and ever. Amen.
+O Lord Jesus Christ, Son of the living God, {/}who according to the will of the Father, through the co-operation of the Holy Ghost, hast by Thy death given life to the world: {/}deliver me by this Thy most holy Body and Blood from all my transgressions and from all evils; {/}make me always adhere to Thy commandments and suffer me never to be separated from Thee; {/}Who with the same God the Father and the Holy Ghost livest and reignest, God, for ever and ever. Amen.
 
-Let not the partaking of Thy Body, O Lord Jesus Christ, which I, though unworthy, presume to receive, turn to my judgment and condemnation; but through Thy goodness may it be unto me for a safeguard and a healing remedy both of soul and body; who livest and reignest with God the Father in the unity of the Holy Ghost, God, world without end. Amen.
+Let not the partaking of Thy Body, O Lord Jesus Christ, {/}which I, though unworthy, presume to receive, {/}turn to my judgment and condemnation; {/}but through Thy goodness may it be unto me for a safeguard and a healing remedy both of soul and body; {/}who livest and reignest with God the Father in the unity of the Holy Ghost, God, world without end. Amen.
 
 I will take the bread of heaven, and call upon the name of the Lord.`,
 
   [PRAYER_TYPES.POST_COMMUNIONEM]: `Grant, O Lord, that what we have taken with our mouth, we may receive with a pure mind: and that from a temporal gift it may become for us an eternal remedy.
 
-May Thy Body, O Lord, which I have received, and Thy Blood which I have drunk, cleave to my inmost parts, and grant that no stain of sin may remain in me, whom these pure and holy sacraments have refreshed. Who livest and reignest world without end. Amen.`,
+May Thy Body, O Lord, which I have received, and Thy Blood which I have drunk, cleave to my inmost parts, {/}and grant that no stain of sin may remain in me, {/}whom these pure and holy sacraments have refreshed. {/}Who livest and reignest world without end. Amen.`,
 
   // English: the Memoráre, the canticles and Iúdica me from the Saint Andrew
   // Daily Missal (thee/thou in lower case, as elsewhere in this table); Ad te
@@ -459,7 +459,7 @@ Behold the faithful and prudent servant whom the Lord set over his house.
 ℣ Pray for us, holy Joseph.
 ℟ That we may be made worthy of the promises of Christ.
 
-Let us pray. O God, who in thine ineffable providence didst vouchsafe to choose blessed Joseph to be the spouse of thy most holy Mother, grant, we beseech thee, that we may have him for our intercessor in heaven, whom on earth we venerate as our most holy protector: who livest and reignest, world without end. Amen.`,
+Let us pray. {/}O God, who in thine ineffable providence didst vouchsafe to choose blessed Joseph to be the spouse of thy most holy Mother, {/}grant, we beseech thee, that we may have him for our intercessor in heaven, whom on earth we venerate as our most holy protector: {/}who livest and reignest, world without end. Amen.`,
 
   [PRAYER_TYPES.MAGNIFICAT]: `My soul doth magnify the Lord,
 and my spirit hath rejoiced in God my Saviour.
@@ -580,42 +580,42 @@ for ever and ever. Amen.
 ℣ Send forth thy Spirit, and they shall be created.
 ℟ And Thou shalt renew the face of the earth.
 
-Let us pray. O God, who didst instruct the hearts of the faithful by the light of the Holy Spirit, grant us in the same Spirit to be truly wise and ever to rejoice in His consolation, through Jesus Christ our Lord. Amen.`,
+Let us pray. O God, who didst instruct the hearts of the faithful by the light of the Holy Spirit, {/}grant us in the same Spirit to be truly wise and ever to rejoice in His consolation, {/}through Jesus Christ our Lord. Amen.`,
 
   [PRAYER_TYPES.CORONA_SS_1]: `{r}First Mystery{/r}
 Jesus was conceived of the Virgin Mary by the power of the Holy Ghost.
 
-{r}Meditation.{/r} “The Holy Spirit shall descend upon thee, and the power of the most high shall overshadow thee, and therefore the Holy one that shall be born of thee shall be called the Son of God” (St Luke i, 35).
+{r}Meditation.{/r} “The Holy Spirit shall descend upon thee, and the power of the most high shall overshadow thee, {/}and therefore the Holy one that shall be born of thee shall be called the Son of God” (St Luke i, 35).
 
-{r}Application.{/r} Pray earnestly for the help of the divine Spirit and, through the intercession of Mary, for grace to imitate the virtues of Jesus Christ, who is the example of all virtue, and so to be conformed to the image of the Son of God.`,
+{r}Application.{/r} Pray earnestly for the help of the divine Spirit and, through the intercession of Mary, for grace to imitate the virtues of Jesus Christ, {/}who is the example of all virtue, and so to be conformed to the image of the Son of God.`,
 
   [PRAYER_TYPES.CORONA_SS_2]: `{r}Second Mystery{/r}
 The Spirit of God rests upon Jesus.
 
-{r}Meditation.{/r} “Jesus being baptized came forth immediately from the water, and behold the Heavens were opened, and He saw the Spirit of God descend like a dove, and coming, stand over Him” (St Matt. iii, 16).
+{r}Meditation.{/r} “Jesus being baptized came forth immediately from the water, {/}and behold the Heavens were opened, {/}and He saw the Spirit of God descend like a dove, and coming, stand over Him” (St Matt. iii, 16).
 
-{r}Application.{/r} Hold in the highest esteem the priceless gift of sanctifying grace, which the Holy Spirit infused into your heart in Baptism. Keep the promises to the observance of which you have bound yourself. By continual exercise, increase Faith, Hope and Charity. Live always as becomes children of God, and members of his true Church, in order that after this life has run its course, you may be worthy to receive your heavenly inheritance.`,
+{r}Application.{/r} Hold in the highest esteem the priceless gift of sanctifying grace, which the Holy Spirit infused into your heart in Baptism. {/}Keep the promises to the observance of which you have bound yourself. {/}By continual exercise, increase Faith, Hope and Charity. {/}Live always as becomes children of God, and members of his true Church, {/}in order that after this life has run its course, you may be worthy to receive your heavenly inheritance.`,
 
   [PRAYER_TYPES.CORONA_SS_3]: `{r}Third Mystery{/r}
 Jesus was conducted by the Spirit into the desert.
 
-{r}Meditation.{/r} “But Jesus, full of the Holy Spirit, retired from the Jordan, and was conducted by the Spirit into the desert for forty days; and was tempted by the Devil” (St Luke iv, 1, 2).
+{r}Meditation.{/r} “But Jesus, full of the Holy Spirit, retired from the Jordan, {/}and was conducted by the Spirit into the desert for forty days; {/}and was tempted by the Devil” (St Luke iv, 1, 2).
 
-{r}Application.{/r} Be always grateful for the seven gifts given to you by the Holy Spirit in Confirmation; for the spirit of wisdom and understanding, of counsel and fortitude, of knowledge and piety, and of the fear of the Lord. Faithfully adhere to your divine Guide, acting manfully in all the dangers of this life and in temptation, as becomes a perfect Christian and a brave athlete of Jesus Christ.`,
+{r}Application.{/r} Be always grateful for the seven gifts given to you by the Holy Spirit in Confirmation; {/}for the spirit of wisdom and understanding, of counsel and fortitude, of knowledge and piety, and of the fear of the Lord. {/}Faithfully adhere to your divine Guide, {/}acting manfully in all the dangers of this life and in temptation, as becomes a perfect Christian and a brave athlete of Jesus Christ.`,
 
   [PRAYER_TYPES.CORONA_SS_4]: `{r}Fourth Mystery{/r}
 The Holy Spirit in the Church.
 
-{r}Meditation.{/r} “And suddenly there was a sound from Heaven as of a mighty wind coming where they were assembled; and they were all filled with the Holy Spirit, and began to discourse of the wonderful works of God” (Acts ii, 2, 4, 11).
+{r}Meditation.{/r} “And suddenly there was a sound from Heaven as of a mighty wind coming where they were assembled; {/}and they were all filled with the Holy Spirit, and began to discourse of the wonderful works of God” (Acts ii, 2, 4, 11).
 
-{r}Application.{/r} Thank God for making you a child of his Church which the divine Spirit, sent into the world on the day of Pentecost, ever vivifies and rules. Hear and obey the Supreme Pontiff, who by the assistance of the Holy Spirit is the infallible teacher, and the Church, which is the pillar and foundation of truth. Hold fast her doctrines, maintain her cause, defend her rights.`,
+{r}Application.{/r} Thank God for making you a child of his Church which the divine Spirit, sent into the world on the day of Pentecost, ever vivifies and rules. {/}Hear and obey the Supreme Pontiff, who by the assistance of the Holy Spirit is the infallible teacher, {/}and the Church, which is the pillar and foundation of truth. {/}Hold fast her doctrines, maintain her cause, defend her rights.`,
 
   [PRAYER_TYPES.CORONA_SS_5]: `{r}Fifth Mystery{/r}
 The Holy Spirit in the soul of the just man.
 
-{r}Meditation.{/r} “Do you not know that your members are the temple of the Holy Spirit, who is in you” (1 Cor. vi, 19). “Do not extinguish the Spirit” (1 Thess. v, 19). “And grieve not the Holy Spirit of God, whereby you are sealed unto the day of redemption” (Ephes. iv, 30).
+{r}Meditation.{/r} “Do you not know that your members are the temple of the Holy Spirit, who is in you” (1 Cor. vi, 19). {/}“Do not extinguish the Spirit” (1 Thess. v, 19). {/}“And grieve not the Holy Spirit of God, whereby you are sealed unto the day of redemption” (Ephes. iv, 30).
 
-{r}Application.{/r} Be ever mindful of the Holy Spirit who is in you, and watch with all possible care over purity of soul and body. Faithfully obey his divine inspirations, so as to gather therefrom the fruits of the Spirit: Charity, joy, peace, benignity, goodness, longanimity, mildness, faith, modesty, continency, chastity.`,
+{r}Application.{/r} Be ever mindful of the Holy Spirit who is in you, and watch with all possible care over purity of soul and body. {/}Faithfully obey his divine inspirations, {/}so as to gather therefrom the fruits of the Spirit: Charity, joy, peace, benignity, goodness, longanimity, mildness, faith, modesty, continency, chastity.`,
 
   // The four chaplets, from the Raccolta (1910; the Sacred Heart from the 1878
   // edition, with its capitals for the Heart). The headings are ours.
@@ -628,13 +628,13 @@ Glory be to the Father, and to the Son, and to the Holy Spirit. {/}As it was in 
 At the intercession of St Michael and the heavenly choir of the Seraphim, may it please God to make us worthy to receive into our hearts the fire of his perfect charity. Amen.`,
 
   [PRAYER_TYPES.CORONA_ANG_2]: `{r}Second Salutation{/r}
-At the intercession of St Michael and the heavenly choir of the Cherubim, may God grant us grace to abandon the ways of sin, and follow the path of Christian perfection. Amen.`,
+At the intercession of St Michael and the heavenly choir of the Cherubim, {/}may God grant us grace {/}to abandon the ways of sin, and follow the path of Christian perfection. Amen.`,
 
   [PRAYER_TYPES.CORONA_ANG_3]: `{r}Third Salutation{/r}
 At the intercession of St Michael and the sacred choir of the Thrones, may it please God to infuse into our hearts a true and earnest spirit of humility. Amen.`,
 
   [PRAYER_TYPES.CORONA_ANG_4]: `{r}Fourth Salutation{/r}
-At the intercession of St Michael and the heavenly choir of the Dominations, may it please God to grant us grace to have dominion over our senses, and to correct our depraved passions. Amen.`,
+At the intercession of St Michael and the heavenly choir of the Dominations, {/}may it please God to grant us grace {/}to have dominion over our senses, and to correct our depraved passions. Amen.`,
 
   [PRAYER_TYPES.CORONA_ANG_5]: `{r}Fifth Salutation{/r}
 At the intercession of St Michael and the heavenly choir of the Powers, may God vouchsafe to keep our souls from the wiles and temptations of the devil. Amen.`,
@@ -646,49 +646,49 @@ At the intercession of St Michael and the choir of the admirable celestial Virtu
 At the intercession of St Michael and the heavenly choir of the Principalities, may it please God to fill our souls with the spirit of true and hearty obedience. Amen.`,
 
   [PRAYER_TYPES.CORONA_ANG_8]: `{r}Eighth Salutation{/r}
-At the intercession of St Michael and the heavenly choir of Archangels, may it please God to grant us the gift of perseverance in the faith and in all good works, that we may thereby be enabled to attain unto the glory of Paradise. Amen.`,
+At the intercession of St Michael and the heavenly choir of Archangels, {/}may it please God to grant us the gift of perseverance in the faith and in all good works, {/}that we may thereby be enabled to attain unto the glory of Paradise. Amen.`,
 
   [PRAYER_TYPES.CORONA_ANG_9]: `{r}Ninth Salutation{/r}
-At the intercession of St Michael and the heavenly choir of Angels, may God vouchsafe to grant that the Holy Angels may protect us during life, and after death may lead us into the everlasting glory of heaven. Amen.`,
+At the intercession of St Michael and the heavenly choir of Angels, {/}may God vouchsafe to grant {/}that the Holy Angels may protect us during life, and after death may lead us into the everlasting glory of heaven. Amen.`,
 
   [PRAYER_TYPES.CORONA_ANG_ANTIPHONA]: `{r}Antiphon{/r}
-Michael, glorious Prince, chief and champion of the heavenly host, guardian of the souls of men, conqueror of the rebel angels, who art set over the palace of God, our worthy captain under Jesus Christ, endowed with superhuman excellence and virtue; vouchsafe to free us from every evil, who with full confidence have recourse to thee; and by thy powerful protection enable us to make progress every day in the faithful service of our God.
+Michael, glorious Prince, chief and champion of the heavenly host, {/}guardian of the souls of men, conqueror of the rebel angels, {/}who art set over the palace of God, our worthy captain under Jesus Christ, endowed with superhuman excellence and virtue; {/}vouchsafe to free us from every evil, who with full confidence have recourse to thee; {/}and by thy powerful protection enable us to make progress every day in the faithful service of our God.
 
 ℣ Pray for us, most blessed Michael, Prince of the Church of Jesus Christ.
 ℟ That we may be made worthy of his promises.`,
 
-  [PRAYER_TYPES.CORONA_ANG_OREMUS]: `Let us pray. {/}Almighty and eternal God, who in thy own marvellous goodness and pity didst, for the common salvation of man, choose the glorious Archangel Michael to be the Prince of thy Church; {/}make us worthy, we pray Thee, to be delivered by his beneficent protection from all our enemies, {/}that at the hour of our death no one of them may approach to harm us, {/}and that by the same Archangel Michael we may be introduced into the presence of thy high and heavenly Majesty. {/}Through the merits of Jesus Christ our Lord, Amen.`,
+  [PRAYER_TYPES.CORONA_ANG_OREMUS]: `Let us pray. {/}Almighty and eternal God, {/}who in thy own marvellous goodness and pity didst, for the common salvation of man, {/}choose the glorious Archangel Michael to be the Prince of thy Church; {/}make us worthy, we pray Thee, to be delivered by his beneficent protection from all our enemies, {/}that at the hour of our death no one of them may approach to harm us, {/}and that by the same Archangel Michael we may be introduced into the presence of thy high and heavenly Majesty. {/}Through the merits of Jesus Christ our Lord, Amen.`,
 
   [PRAYER_TYPES.CORONA_DOL_INITIUM]: `{r}Act of Contrition{/r}
-My Lord, Thou who alone art most worthy of my love, behold me standing before thy Divine Presence utterly overwhelmed by the thought of the many grievous injuries I have done Thee. I ask thy pardon for them with my whole heart, repenting of them purely for love of Thee, and at the thought of thy great goodness hating and loathing them above every evil of this life. As I would rather have died a thousand times than have offended Thee, so now I am most firmly resolved to die a thousand deaths rather than offend Thee again. My crucified Jesus, I firmly purpose to cleanse my soul as soon as possible by thy most Precious Blood in the Sacrament of Penance. And thou, most tender Virgin, Mother of mercy and Refuge of sinners, do thou obtain for me by virtue of thy bitter pains, the pardon of sin which I desire; whilst, praying according to the mind of so many holy Pontiffs in order to obtain the Indulgences granted to this thy holy Rosary, I hope thereby to obtain remission of all pains due to my sins.`,
+My Lord, Thou who alone art most worthy of my love, {/}behold me standing before thy Divine Presence utterly overwhelmed by the thought of the many grievous injuries I have done Thee. {/}I ask thy pardon for them with my whole heart, {/}repenting of them purely for love of Thee, {/}and at the thought of thy great goodness hating and loathing them above every evil of this life. {/}As I would rather have died a thousand times than have offended Thee, {/}so now I am most firmly resolved to die a thousand deaths rather than offend Thee again. {/}My crucified Jesus, I firmly purpose to cleanse my soul as soon as possible by thy most Precious Blood in the Sacrament of Penance. {/}And thou, most tender Virgin, Mother of mercy and Refuge of sinners, {/}do thou obtain for me by virtue of thy bitter pains, the pardon of sin which I desire; {/}whilst, praying according to the mind of so many holy Pontiffs in order to obtain the Indulgences granted to this thy holy Rosary, {/}I hope thereby to obtain remission of all pains due to my sins.`,
 
   [PRAYER_TYPES.CORONA_DOL_1]: `{r}The First Sorrow{/r}
-With this confidence in my heart, I meditate on the First Sorrow, when Mary, Virgin Mother of my God, presented Jesus her only Son in the Temple, laid Him in the arms of holy and aged Simeon, and heard his prophetic word, ‘The sword of grief shall pierce thy soul,’ foretelling thereby the Passion and Death of her Son Jesus.`,
+With this confidence in my heart, I meditate on the First Sorrow, {/}when Mary, Virgin Mother of my God, presented Jesus her only Son in the Temple, laid Him in the arms of holy and aged Simeon, {/}and heard his prophetic word, ‘The sword of grief shall pierce thy soul,’ {/}foretelling thereby the Passion and Death of her Son Jesus.`,
 
   [PRAYER_TYPES.CORONA_DOL_2]: `{r}The Second Sorrow{/r}
-The Second Sorrow of the Blessed Virgin was when she was obliged to fly into Egypt by reason of the persecution of cruel Herod, who impiously sought to slay her well beloved Son.`,
+The Second Sorrow of the Blessed Virgin was {/}when she was obliged to fly into Egypt by reason of the persecution of cruel Herod, who impiously sought to slay her well beloved Son.`,
 
   [PRAYER_TYPES.CORONA_DOL_3]: `{r}The Third Sorrow{/r}
-The Third Sorrow of the Blessed Virgin was when, after having gone up to Jerusalem at the Paschal Feast with Joseph her spouse and Jesus her beloved Son, she lost Him on the way back to her poor house, and for three days bewailed the loss of her only Love.`,
+The Third Sorrow of the Blessed Virgin was {/}when, after having gone up to Jerusalem at the Paschal Feast with Joseph her spouse and Jesus her beloved Son, {/}she lost Him on the way back to her poor house, {/}and for three days bewailed the loss of her only Love.`,
 
   [PRAYER_TYPES.CORONA_DOL_4]: `{r}The Fourth Sorrow{/r}
-The Fourth Sorrow of the Blessed Virgin was when she met her dear Son Jesus carrying to Mount Calvary on his tender shoulders the heavy Cross whereon He was to be crucified for our salvation.`,
+The Fourth Sorrow of the Blessed Virgin was {/}when she met her dear Son Jesus {/}carrying to Mount Calvary on his tender shoulders the heavy Cross whereon He was to be crucified for our salvation.`,
 
   [PRAYER_TYPES.CORONA_DOL_5]: `{r}The Fifth Sorrow{/r}
-The Fifth Sorrow of the Blessed Virgin was when she saw her Son Jesus raised upon the hard tree of the Cross, and blood flowing from every part of his sacred Body, and then beheld Him die after three hours’ agony.`,
+The Fifth Sorrow of the Blessed Virgin was {/}when she saw her Son Jesus raised upon the hard tree of the Cross, {/}and blood flowing from every part of his sacred Body, {/}and then beheld Him die after three hours’ agony.`,
 
   [PRAYER_TYPES.CORONA_DOL_6]: `{r}The Sixth Sorrow{/r}
-The Sixth Sorrow of the Blessed Virgin was when she saw the lance pierce the sacred Side of Jesus, her beloved Son, the nails withdrawn, and his holy Body laid in her purest bosom.`,
+The Sixth Sorrow of the Blessed Virgin was {/}when she saw the lance pierce the sacred Side of Jesus, her beloved Son, {/}the nails withdrawn, and his holy Body laid in her purest bosom.`,
 
   [PRAYER_TYPES.CORONA_DOL_7]: `{r}The Seventh Sorrow{/r}
-The Seventh and last Sorrow of the Blessed Virgin, Queen and Advocate of us, her servants, miserable sinners, was when she saw the holy Body of her Son buried in the grave.`,
+The Seventh and last Sorrow of the Blessed Virgin, Queen and Advocate of us, her servants, miserable sinners, was {/}when she saw the holy Body of her Son buried in the grave.`,
 
   [PRAYER_TYPES.CORONA_DOL_LACRIMAE]: `{r}Then say Ave thrice in veneration of the tears which Mary shed in her sorrows, to obtain thereby true sorrow for sins and the holy Indulgences attached to this pious exercise.{/r}`,
 
   [PRAYER_TYPES.CORONA_DOL_OREMUS]: `℣ Pray for us, Virgin most sorrowful.
 ℟ That we may be made worthy of the promises of Christ.
 
-Let us pray. Grant, we beseech Thee, O Lord Jesus Christ, that the most blessed Virgin Mary, thy Mother, may intercede for us before the throne of thy mercy, now and at the hour of our death, whose most holy soul was transfixed with the sword of sorrow in the hour of thine own Passion. Through Thee, Jesus Christ, Saviour of the world, who livest and reignest for ever and ever. Amen.`,
+Let us pray. {/}Grant, we beseech Thee, O Lord Jesus Christ, that the most blessed Virgin Mary, thy Mother, may intercede for us before the throne of thy mercy, now and at the hour of our death, whose most holy soul was transfixed with the sword of sorrow in the hour of thine own Passion. {/}Through Thee, Jesus Christ, Saviour of the world, {/}who livest and reignest for ever and ever. Amen.`,
 
   [PRAYER_TYPES.CORONA_SANG_INITIUM]: `℣ O God, come to my assistance.
 ℟ O Lord, make haste to help me.
@@ -696,64 +696,64 @@ Let us pray. Grant, we beseech Thee, O Lord Jesus Christ, that the most blessed 
 ℟ As it was in the beginning, is now, and ever shall be, world without end. Amen.`,
 
   [PRAYER_TYPES.CORONA_SANG_1]: `{r}First Mystery{/r}
-The first time our loving Saviour shed his Precious Blood for us was on the eighth day after his birth, when he was circumcised in order to fulfil the law of Moses. While, then, we reflect that Jesus did this to satisfy the justice of God for our lax ways, let us rouse ourselves to sorrow for them, and promise, with the help of his all-powerful grace, to be henceforth truly chaste in body and in soul.`,
+The first time our loving Saviour shed his Precious Blood for us was on the eighth day after his birth, when he was circumcised in order to fulfil the law of Moses. {/}While, then, we reflect that Jesus did this to satisfy the justice of God for our lax ways, {/}let us rouse ourselves to sorrow for them, {/}and promise, with the help of his all-powerful grace, to be henceforth truly chaste in body and in soul.`,
 
   [PRAYER_TYPES.CORONA_SANG_2]: `{r}Second Mystery{/r}
-Next, in the Garden of Olives, Jesus shed his Blood for us in such quantity that it bathed the earth around. He did this at the sight of the ingratitude with which men would meet his love. Let us, then, repent sincerely that we have hitherto corresponded so ill with the countless blessings of God, and resolve to make good use of his graces and inspirations.`,
+Next, in the Garden of Olives, Jesus shed his Blood for us in such quantity that it bathed the earth around. {/}He did this at the sight of the ingratitude with which men would meet his love. {/}Let us, then, repent sincerely that we have hitherto corresponded so ill with the countless blessings of God, {/}and resolve to make good use of his graces and inspirations.`,
 
   [PRAYER_TYPES.CORONA_SANG_3]: `{r}Third Mystery{/r}
-Next, in his cruel scourging, Jesus shed his Blood when his flesh was so torn that streams of Blood flowed from every part of his body, all of which he offered all the time to his Eternal Father in payment of our impatience and our softness. How comes it, then, that we do not curb our anger and love of self? Henceforth we will try our best to bear our troubles well, and, despising self, take peacefully the injuries which men may do us.`,
+Next, in his cruel scourging, Jesus shed his Blood when his flesh was so torn that streams of Blood flowed from every part of his body, {/}all of which he offered all the time to his Eternal Father in payment of our impatience and our softness. {/}How comes it, then, that we do not curb our anger and love of self? {/}Henceforth we will try our best to bear our troubles well, and, despising self, take peacefully the injuries which men may do us.`,
 
   [PRAYER_TYPES.CORONA_SANG_4]: `{r}Fourth Mystery{/r}
-Again, from the sacred Head of Jesus, Blood poured down when it was crowned with thorns, in punishment of our pride and evil thoughts. Shall we, then, continue to nurture haughtiness, foster foul imaginations, and feed the wayward will within us? Henceforth let there be ever before our eyes our utter nothingness, our misery, and our weakness; and with generous hearts let us resist all the temptations of the devil.`,
+Again, from the sacred Head of Jesus, Blood poured down when it was crowned with thorns, in punishment of our pride and evil thoughts. {/}Shall we, then, continue to nurture haughtiness, foster foul imaginations, and feed the wayward will within us? {/}Henceforth let there be ever before our eyes our utter nothingness, our misery, and our weakness; {/}and with generous hearts let us resist all the temptations of the devil.`,
 
   [PRAYER_TYPES.CORONA_SANG_5]: `{r}Fifth Mystery{/r}
-What streams of Precious Blood did not our loving Lord pour forth from his veins when laden with the heavy Cross on that most grievous journey to Calvary! The very streets and ways of Jerusalem, through which He passed, were watered with it! This He did in satisfaction for the scandals and bad example by which his own creatures had led others astray. Who can tell how many of us are of this unhappy number? Who knows how many he himself alone has, by his own bad example, brought down to hell? And what have we done to remedy this evil? Henceforth let us at least do all we can to save souls by word and by example, making ourselves a pattern to all of goodness and a holy life.`,
+What streams of Precious Blood did not our loving Lord pour forth from his veins when laden with the heavy Cross on that most grievous journey to Calvary! {/}The very streets and ways of Jerusalem, through which He passed, were watered with it! {/}This He did in satisfaction for the scandals and bad example by which his own creatures had led others astray. {/}Who can tell how many of us are of this unhappy number? {/}Who knows how many he himself alone has, by his own bad example, brought down to hell? {/}And what have we done to remedy this evil? {/}Henceforth let us at least do all we can to save souls by word and by example, making ourselves a pattern to all of goodness and a holy life.`,
 
   [PRAYER_TYPES.CORONA_SANG_6]: `{r}Sixth Mystery{/r}
-More, and still more Precious Blood did the Redeemer of mankind shed in his barbarous Crucifixion; when, his veins being rent and arteries burst, there rushed forth in a torrent, from his hands and his feet, that saving balm of life eternal, to pay for all the crimes and enormities of a lost world. Who, after this, would continue in sin, and so renew the cruel crucifixion of the Son of God? Let us weep bitterly for our bad deeds done, and detest them before the feet of the sacred minister of God; let us amend our evil ways, and henceforth begin a truly Christian life, with the remembrance ever in our hearts of all the Blood which our salvation cost the Saviour of men.`,
+More, and still more Precious Blood did the Redeemer of mankind shed in his barbarous Crucifixion; {/}when, his veins being rent and arteries burst, there rushed forth in a torrent, from his hands and his feet, that saving balm of life eternal, to pay for all the crimes and enormities of a lost world. {/}Who, after this, would continue in sin, and so renew the cruel crucifixion of the Son of God? {/}Let us weep bitterly for our bad deeds done, and detest them before the feet of the sacred minister of God; let us amend our evil ways, and henceforth begin a truly Christian life, {/}with the remembrance ever in our hearts of all the Blood which our salvation cost the Saviour of men.`,
 
   [PRAYER_TYPES.CORONA_SANG_7]: `{r}Seventh Mystery{/r}
-Last of all, after his death, when his sacred Side was opened by the lance, and his loving Heart was wounded, Jesus shed Blood, and with it there came forth water, to show us how his Blood was all poured out to the last drop for our salvation. Oh, the great goodness of our redeeming Lord! Who will not love Thee, Saviour of my soul? What heart will not consume itself away for love of Thee, who hast done all this for our redemption? The tongue wants words to praise Thee; so let us invite all creatures upon earth, all angels and all saints in Paradise, and most of all our dear Mother Mary, to bless, praise, and celebrate thy most Precious Blood. Glory to the Blood of Jesus! Now and ever throughout all ages. Amen.`,
+Last of all, after his death, when his sacred Side was opened by the lance, and his loving Heart was wounded, Jesus shed Blood, {/}and with it there came forth water, to show us how his Blood was all poured out to the last drop for our salvation. {/}Oh, the great goodness of our redeeming Lord! {/}Who will not love Thee, Saviour of my soul? {/}What heart will not consume itself away for love of Thee, who hast done all this for our redemption? {/}The tongue wants words to praise Thee; {/}so let us invite all creatures upon earth, all angels and all saints in Paradise, and most of all our dear Mother Mary, to bless, praise, and celebrate thy most Precious Blood. {/}Glory to the Blood of Jesus! Now and ever throughout all ages. Amen.`,
 
   [PRAYER_TYPES.CORONA_SANG_TE_ERGO]: `℣ We beseech Thee, therefore, help thy servants, whom Thou hast redeemed with thy Precious Blood.`,
 
   [PRAYER_TYPES.CORONA_SANG_ORATIO]: `{r}Prayer{/r}
-Most Precious Blood of life eternal! price and ransom of the world! drink and bath of the soul! ever pleading the cause of man before the throne of Mercy; I adore Thee most profoundly; I would, if I were able, make Thee some compensation for the outrages and wrongs Thou dost ever suffer from men, and especially from those who dare in their rashness to blaspheme Thee. Who will not bless this Blood of value infinite? who does not feel himself on fire with the love of Jesus, who shed it all for us? What should I be but for this Blood, which hath redeemed me? And what drew Thee, Thou Precious Blood, from the veins of my Lord, even to the last drop? It was love. O boundless love, which gave to us this saving balsam! O balsam beyond all price, streaming forth from the fount of immeasurable love! Give to all hearts, all tongues, power to praise, celebrate, and thank Thee, now and ever, and throughout all eternity. Amen.`,
+Most Precious Blood of life eternal! price and ransom of the world! drink and bath of the soul! ever pleading the cause of man before the throne of Mercy; {/}I adore Thee most profoundly; {/}I would, if I were able, make Thee some compensation for the outrages and wrongs Thou dost ever suffer from men, {/}and especially from those who dare in their rashness to blaspheme Thee. {/}Who will not bless this Blood of value infinite? {/}who does not feel himself on fire with the love of Jesus, who shed it all for us? {/}What should I be but for this Blood, which hath redeemed me? {/}And what drew Thee, Thou Precious Blood, from the veins of my Lord, even to the last drop? {/}It was love. {/}O boundless love, which gave to us this saving balsam! {/}O balsam beyond all price, streaming forth from the fount of immeasurable love! {/}Give to all hearts, all tongues, power to praise, celebrate, and thank Thee, now and ever, and throughout all eternity. Amen.`,
 
   [PRAYER_TYPES.CORONA_SANG_OREMUS]: `℣ Thou hast redeemed us, O Lord, with thy Blood.
 ℟ And hast made us a kingdom to our God.
 
-Let us pray. Almighty and everlasting God, who hast appointed thine only-begotten Son the Saviour of the world, and hast willed to be appeased by his Blood; grant us, we beseech Thee, so to venerate this Blood, the price of our salvation, and so to be defended on earth by its power from the evils of this present life, that in heaven we may be made glad by its everlasting fruit. Who liveth and reigneth for ever and ever. Amen.`,
+Let us pray. {/}Almighty and everlasting God, who hast appointed thine only-begotten Son the Saviour of the world, and hast willed to be appeased by his Blood; {/}grant us, we beseech Thee, so to venerate this Blood, the price of our salvation, {/}and so to be defended on earth by its power from the evils of this present life, {/}that in heaven we may be made glad by its everlasting fruit. {/}Who liveth and reigneth for ever and ever. Amen.`,
 
   [PRAYER_TYPES.CORONA_COR_INITIUM]: `℣ Incline unto mine aid, O God.
 ℟ O Lord, make haste to help me.`,
 
   [PRAYER_TYPES.CORONA_COR_1]: `{r}I. The Loving Heart{/r}
-Most loving Jesus! my heart leaps for joy in thinking on thy loving Sacred Heart, all tenderness and sweetness for sinful man; and, with trust unbounded, it never doubts thy ready welcome. Ah me! my sins! how many and how great! With Peter and Magdalen, in tears, I bewail and abhor them, because they are an offence to thee, my sole and chief good. Grant me, O grant me pardon for them all! O may I die, I beseech thee, by thy loving heart, may I die rather than offend thee, and may I live only to correspond to thy love!`,
+Most loving Jesus! my heart leaps for joy in thinking on thy loving Sacred Heart, all tenderness and sweetness for sinful man; and, with trust unbounded, it never doubts thy ready welcome. {/}Ah me! my sins! how many and how great! {/}With Peter and Magdalen, in tears, I bewail and abhor them, because they are an offence to thee, my sole and chief good. {/}Grant me, O grant me pardon for them all! {/}O may I die, I beseech thee, by thy loving heart, may I die rather than offend thee, {/}and may I live only to correspond to thy love!`,
 
   [PRAYER_TYPES.CORONA_COR_2]: `{r}II. The Humble Heart{/r}
-My Jesus! I bless thy most humble heart; and I give thanks to thee, who, in making it my model, not only dost urge me, with much pressing, to imitate it, but, at the cost of so many humiliations, dost thyself stoop to point me out the path, and smooth for me the way to follow thee. Foolish and ungrateful that I am, how have I wandered far away from thee! Mercy, my Jesus, mercy! Away, hateful pride and love of worldly honor! With lowly heart I wish to follow thee, my Jesus, through humiliations and the cross, and thus to gain peace and salvation. Only be thou at hand to strengthen me, and I will ever bless thy Sacred Heart.`,
+My Jesus! I bless thy most humble heart; {/}and I give thanks to thee, who, in making it my model, not only dost urge me, with much pressing, to imitate it, {/}but, at the cost of so many humiliations, dost thyself stoop to point me out the path, and smooth for me the way to follow thee. {/}Foolish and ungrateful that I am, how have I wandered far away from thee! {/}Mercy, my Jesus, mercy! Away, hateful pride and love of worldly honor! {/}With lowly heart I wish to follow thee, my Jesus, through humiliations and the cross, and thus to gain peace and salvation. {/}Only be thou at hand to strengthen me, and I will ever bless thy Sacred Heart.`,
 
   [PRAYER_TYPES.CORONA_COR_3]: `{r}III. The Patient Heart{/r}
-My Jesus! I marvel at thy most patient heart, and I thank thee for all those wondrous examples of unwearied patience which thou didst leave me to guide me on my way. It grieves me that I have still to reproach myself with my extravagant delicacy, shrinking from the slightest pain. O pour, then, into my heart, dear Jesus, eager and enduring love of suffering and of the cross, of mortification and of penance, that, following thee to Calvary, I may with thee attain to glory, and to the joys of paradise!`,
+My Jesus! I marvel at thy most patient heart, {/}and I thank thee for all those wondrous examples of unwearied patience which thou didst leave me to guide me on my way. {/}It grieves me that I have still to reproach myself with my extravagant delicacy, shrinking from the slightest pain. {/}O pour, then, into my heart, dear Jesus, eager and enduring love of suffering and of the cross, of mortification and of penance, {/}that, following thee to Calvary, I may with thee attain to glory, and to the joys of paradise!`,
 
   [PRAYER_TYPES.CORONA_COR_4]: `{r}IV. The Gentle Heart{/r}
-Dear Jesus! at the sight of thy most gentle heart, I shudder to see how unlike mine is to thine, since at a shadow, at a look, at a word of opposition, I fret and grieve. O, then, pardon my excesses, and give me grace that, in every contradiction, I may follow the example of thy unchangeable meekness, and so enjoy an everlasting holy peace.`,
+Dear Jesus! at the sight of thy most gentle heart, I shudder to see how unlike mine is to thine, {/}since at a shadow, at a look, at a word of opposition, I fret and grieve. {/}O, then, pardon my excesses, {/}and give me grace that, in every contradiction, I may follow the example of thy unchangeable meekness, {/}and so enjoy an everlasting holy peace.`,
 
   [PRAYER_TYPES.CORONA_COR_5]: `{r}V. The Generous Heart{/r}
-Sing praise to Jesus for his most generous heart, the conqueror of death and hell; yet never wilt thou reach its due with all thy praise. More than ever am I confounded, looking upon my coward heart, which, through human respect, dreads even a passing word. Courage, my soul! it shall be so with thee no more. My Jesus, I pray thee for such strength that, fighting and conquering on earth, I may one day rejoice triumphantly with thee in heaven.`,
+Sing praise to Jesus for his most generous heart, {/}the conqueror of death and hell; yet never wilt thou reach its due with all thy praise. {/}More than ever am I confounded, {/}looking upon my coward heart, which, through human respect, dreads even a passing word. {/}Courage, my soul! it shall be so with thee no more. {/}My Jesus, I pray thee for such strength {/}that, fighting and conquering on earth, I may one day rejoice triumphantly with thee in heaven.`,
 
   [PRAYER_TYPES.CORONA_COR_IACULATORIA]: `O sweetest Heart of Jesus! I implore
 That I may ever love thee more and more.`,
 
   [PRAYER_TYPES.CORONA_COR_MARIA]: `{r}Let us turn to Mary, consecrating ourselves to her more and more, and, trusting in her maternal heart, let us say to her:{/r}
-By the precious gifts of thy sweetest heart, obtain for me, great mother of my God, and my mother Mary, a true and lasting devotion to the Sacred Heart of Jesus, thy well-beloved Son, that, united in every thought and affection with that heart, I may fulfil all the duties of my state of life with ready heart, serving my Jesus ever more, but especially on this day.`,
+By the precious gifts of thy sweetest heart, obtain for me, great mother of my God, and my mother Mary, a true and lasting devotion to the Sacred Heart of Jesus, thy well-beloved Son, {/}that, united in every thought and affection with that heart, {/}I may fulfil all the duties of my state of life with ready heart, serving my Jesus ever more, but especially on this day.`,
 
   [PRAYER_TYPES.CORONA_COR_OREMUS]: `℣ Heart of Jesus burning with love for us.
 ℟ Inflame our hearts with love of thee.
 
-Let us pray. Lord, we beseech thee, let thy Holy Spirit kindle in our hearts that fire of charity which our Lord Jesus Christ, thy Son, sent forth from his inmost heart upon this earth, and willed that it should burn with vehemence. Who liveth and reigneth with thee, in the unity of the same Holy Spirit, God, forever and ever. Amen.`,
+Let us pray. {/}Lord, we beseech thee, let thy Holy Spirit kindle in our hearts that fire of charity {/}which our Lord Jesus Christ, thy Son, sent forth from his inmost heart upon this earth, {/}and willed that it should burn with vehemence. {/}Who liveth and reigneth with thee, in the unity of the same Holy Spirit, God, forever and ever. Amen.`,
 
   [PRAYER_TYPES.VICTIMAE_PASCHALI]: `Forth to the paschal Victim, Christians, bring Your sacrifice of praise:
 The Lamb redeems the sheep; And Christ the sinless one, Hath to the Father sinners reconciled.
@@ -1301,12 +1301,12 @@ might and endless majesty. Amen.
 
 ℣ Thou didst give them bread from heaven.
 ℟ Containing in itself all sweetness.
-Let us pray. O God, who under a wonderful Sacrament hast left us a memorial of thy Passion: grant us, we beseech thee, so to venerate the sacred mysteries of thy Body and Blood, that we may ever feel within us the fruit of thy redemption. Who livest and reignest world without end. Amen.`,
+Let us pray. {/}O God, who under a wonderful Sacrament hast left us a memorial of thy Passion: {/}grant us, we beseech thee, so to venerate the sacred mysteries of thy Body and Blood, {/}that we may ever feel within us the fruit of thy redemption. {/}Who livest and reignest world without end. Amen.`,
 
   [PRAYER_TYPES.ANGELUS]: `℣ The Angel of the Lord declared unto Mary.
 ℟ And she conceived of the Holy Spirit.
 
-Hail Mary, full of grace, the Lord is with thee; blessed art thou among women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.
+Hail Mary, full of grace, the Lord is with thee; blessed art thou among women, and blessed is the fruit of thy womb, Jesus. {/}Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.
 
 ℣ Behold the handmaid of the Lord.
 ℟ Be it done unto me according to thy word.
@@ -1321,7 +1321,7 @@ Hail Mary…
 ℣ Pray for us, O holy Mother of God.
 ℟ That we may be made worthy of the promises of Christ.
 
-Let us pray. Pour forth, we beseech thee, O Lord, thy grace into our hearts, that we to whom the Incarnation of Christ thy Son was made known by the message of an angel, may by his Passion and Cross be brought to the glory of his Resurrection. Through Christ our Lord.
+Let us pray. {/}Pour forth, we beseech thee, O Lord, thy grace into our hearts, that we to whom the Incarnation of Christ thy Son was made known by the message of an angel, {/}may by his Passion and Cross be brought to the glory of his Resurrection. {/}Through Christ our Lord.
 ℟ Amen.`,
 
   [PRAYER_TYPES.REGINA_CAELI]: `Queen of heaven, rejoice, alleluia,
@@ -1332,7 +1332,7 @@ Pray for us to God, alleluia.
 ℣ Rejoice and be glad, O Virgin Mary, alleluia.
 ℟ For the Lord is truly risen, alleluia.
 
-Let us pray. O God, who by the resurrection of thy Son, our Lord Jesus Christ, hast been pleased to give joy to the world: grant, we beseech thee, that through his Mother, the Virgin Mary, we may lay hold of the joys of everlasting life. Through the same Christ our Lord.
+Let us pray. {/}O God, who by the resurrection of thy Son, our Lord Jesus Christ, hast been pleased to give joy to the world: {/}grant, we beseech thee, that through his Mother, the Virgin Mary, we may lay hold of the joys of everlasting life. {/}Through the same Christ our Lord.
 ℟ Amen.`,
 
   [PRAYER_TYPES.ANIMA_CHRISTI]: `Soul of Christ, sanctify me.
@@ -1350,23 +1350,23 @@ that with thy saints I may praise thee
 for ever and ever.
 Amen.`,
 
-  [PRAYER_TYPES.ATHANASIAN_CREED]: `Whosoever wishes to be saved must, above all, hold the catholic faith: which, unless a man keeps whole and undefiled, without doubt he shall perish everlastingly. And the catholic faith is this: that we worship one God in Trinity, and Trinity in unity; neither confounding the persons, nor dividing the substance. For the person of the Father is one, that of the Son another, that of the Holy Spirit another; but the divinity of the Father, of the Son and of the Holy Spirit is one, their glory equal, their majesty coeternal. Such as the Father is, such is the Son, and such is the Holy Spirit. The Father uncreated, the Son uncreated, the Holy Spirit uncreated. The Father immeasurable, the Son immeasurable, the Holy Spirit immeasurable. The Father eternal, the Son eternal, the Holy Spirit eternal. And yet there are not three eternals, but one eternal. As also there are not three uncreated, nor three immeasurable, but one uncreated and one immeasurable. So likewise the Father is almighty, the Son almighty, the Holy Spirit almighty. And yet there are not three almighties, but one almighty. So the Father is God, the Son is God, the Holy Spirit is God. And yet there are not three Gods, but one God. So the Father is Lord, the Son is Lord, the Holy Spirit is Lord. And yet there are not three Lords, but one Lord. For as we are compelled by the Christian truth to confess each person singly to be God and Lord, so are we forbidden by the catholic religion to say that there are three Gods or Lords.
+  [PRAYER_TYPES.ATHANASIAN_CREED]: `Whosoever wishes to be saved must, above all, hold the catholic faith: {/}which, unless a man keeps whole and undefiled, without doubt he shall perish everlastingly. {/}And the catholic faith is this: that we worship one God in Trinity, and Trinity in unity; neither confounding the persons, nor dividing the substance. {/}For the person of the Father is one, that of the Son another, that of the Holy Spirit another; {/}but the divinity of the Father, of the Son and of the Holy Spirit is one, their glory equal, their majesty coeternal. {/}Such as the Father is, such is the Son, and such is the Holy Spirit. {/}The Father uncreated, the Son uncreated, the Holy Spirit uncreated. The Father immeasurable, the Son immeasurable, the Holy Spirit immeasurable. {/}The Father eternal, the Son eternal, the Holy Spirit eternal. {/}And yet there are not three eternals, but one eternal. {/}As also there are not three uncreated, nor three immeasurable, but one uncreated and one immeasurable. {/}So likewise the Father is almighty, the Son almighty, the Holy Spirit almighty. {/}And yet there are not three almighties, but one almighty. {/}So the Father is God, the Son is God, the Holy Spirit is God. {/}And yet there are not three Gods, but one God. {/}So the Father is Lord, the Son is Lord, the Holy Spirit is Lord. {/}And yet there are not three Lords, but one Lord. {/}For as we are compelled by the Christian truth to confess each person singly to be God and Lord, {/}so are we forbidden by the catholic religion to say that there are three Gods or Lords.
 
-The Father was made by none, neither created nor begotten. The Son is from the Father alone, not made nor created, but begotten. The Holy Spirit is from the Father and the Son, not made, nor created, nor begotten, but proceeding. So there is one Father, not three Fathers; one Son, not three Sons; one Holy Spirit, not three Holy Spirits. And in this Trinity there is nothing before or after, nothing greater or less, but all three persons are coeternal together and coequal. So that in all things, as has already been said, both the unity in Trinity and the Trinity in unity is to be worshipped. He therefore who wishes to be saved, let him think thus of the Trinity.
+The Father was made by none, neither created nor begotten. {/}The Son is from the Father alone, not made nor created, but begotten. {/}The Holy Spirit is from the Father and the Son, not made, nor created, nor begotten, but proceeding. {/}So there is one Father, not three Fathers; one Son, not three Sons; one Holy Spirit, not three Holy Spirits. {/}And in this Trinity there is nothing before or after, nothing greater or less, but all three persons are coeternal together and coequal. {/}So that in all things, as has already been said, both the unity in Trinity and the Trinity in unity is to be worshipped. {/}He therefore who wishes to be saved, let him think thus of the Trinity.
 
-But it is necessary for eternal salvation that he also believe faithfully in the Incarnation of our Lord Jesus Christ. It is therefore the right faith that we believe and confess that our Lord Jesus Christ, the Son of God, is God and man. He is God, begotten of the substance of the Father before the ages; and he is man, born in the world of the substance of his mother. Perfect God, perfect man, subsisting of a rational soul and human flesh. Equal to the Father according to his divinity, less than the Father according to his humanity. Who, although he is God and man, is nevertheless not two, but one Christ. One, however, not by the conversion of the divinity into flesh, but by the assumption of the humanity into God. Wholly one, not by a confusion of substance, but by unity of person. For as a rational soul and flesh are one man, so God and man are one Christ. Who suffered for our salvation, descended into hell, on the third day rose again from the dead. He ascended into heaven, is seated at the right hand of God the Father almighty, from thence he shall come to judge the living and the dead. At whose coming all men shall rise again with their bodies, and shall give an account of their own deeds. And those who have done good shall go into life everlasting; but those who have done evil, into everlasting fire. This is the catholic faith, which, unless a man believes faithfully and firmly, he cannot be saved. Amen.`,
+But it is necessary for eternal salvation that he also believe faithfully in the Incarnation of our Lord Jesus Christ. {/}It is therefore the right faith that we believe and confess that our Lord Jesus Christ, the Son of God, is God and man. {/}He is God, begotten of the substance of the Father before the ages; {/}and he is man, born in the world of the substance of his mother. {/}Perfect God, perfect man, subsisting of a rational soul and human flesh. {/}Equal to the Father according to his divinity, less than the Father according to his humanity. {/}Who, although he is God and man, is nevertheless not two, but one Christ. {/}One, however, not by the conversion of the divinity into flesh, but by the assumption of the humanity into God. {/}Wholly one, not by a confusion of substance, but by unity of person. {/}For as a rational soul and flesh are one man, so God and man are one Christ. {/}Who suffered for our salvation, descended into hell, on the third day rose again from the dead. {/}He ascended into heaven, is seated at the right hand of God the Father almighty, from thence he shall come to judge the living and the dead. {/}At whose coming all men shall rise again with their bodies, and shall give an account of their own deeds. {/}And those who have done good shall go into life everlasting; but those who have done evil, into everlasting fire. {/}This is the catholic faith, which, unless a man believes faithfully and firmly, he cannot be saved. Amen.`,
 
-  [PRAYER_TYPES.ALMA_REDEMPTORIS]: `Loving mother of the Redeemer, gate of heaven, star of the sea, assist your people who have fallen yet strive to rise again. To the wonderment of nature you bore your Creator, yet remained a virgin after as before. You who received Gabriel's joyful greeting, have pity on us poor sinners.
+  [PRAYER_TYPES.ALMA_REDEMPTORIS]: `Loving mother of the Redeemer, gate of heaven, star of the sea, {/}assist your people who have fallen yet strive to rise again. {/}To the wonderment of nature you bore your Creator, yet remained a virgin after as before. You who received Gabriel's joyful greeting, {/}have pity on us poor sinners.
 
 {r}In Advent:{/r}
 ℣ The Angel of the Lord declared unto Mary.
 ℟ And she conceived of the Holy Spirit.
-Let us pray. Pour forth, we beseech thee, O Lord, thy grace into our hearts, that we to whom the Incarnation of Christ thy Son was made known by the message of an angel, may by his Passion and Cross be brought to the glory of his Resurrection. Through the same Christ our Lord. Amen.
+Let us pray. {/}Pour forth, we beseech thee, O Lord, thy grace into our hearts, that we to whom the Incarnation of Christ thy Son was made known by the message of an angel, {/}may by his Passion and Cross be brought to the glory of his Resurrection. {/}Through the same Christ our Lord. Amen.
 
 {r}From Christmas to the Purification:{/r}
 ℣ After childbirth thou didst remain a Virgin inviolate.
 ℟ O Mother of God, intercede for us.
-Let us pray. O God, who by the fruitful virginity of blessed Mary hast bestowed upon mankind the rewards of eternal salvation: grant, we beseech thee, that we may know the intercession of her through whom we were made worthy to receive the author of life, our Lord Jesus Christ, thy Son. Amen.`,
+Let us pray. {/}O God, who by the fruitful virginity of blessed Mary hast bestowed upon mankind the rewards of eternal salvation: {/}grant, we beseech thee, that we may know the intercession of her {/}through whom we were made worthy to receive the author of life, our Lord Jesus Christ, thy Son. Amen.`,
 
   [PRAYER_TYPES.AVE_REGINA_CAELORUM]: `{r}From the Purification to Holy Week:{/r}
 Hail, O Queen of heaven enthroned!
@@ -1381,7 +1381,7 @@ plead with Christ our sins to spare.
 
 ℣ Vouchsafe that I may praise thee, O sacred Virgin.
 ℟ Give me strength against thine enemies.
-Let us pray. Grant, O merciful God, a defence to our weakness: that we, who keep the memory of the holy Mother of God, may by the help of her intercession rise again from our iniquities. Through the same Christ our Lord. Amen.`,
+Let us pray. {/}Grant, O merciful God, a defence to our weakness: {/}that we, who keep the memory of the holy Mother of God, {/}may by the help of her intercession rise again from our iniquities. {/}Through the same Christ our Lord. Amen.`,
 
   [PRAYER_TYPES.LITANY_LORETO]: `Lord, have mercy. 2×
 Christ, have mercy. 2×
@@ -1464,12 +1464,12 @@ Let us pray. O God, who didst will that thy Word should take flesh in the womb o
 {r}In Christmastide:{/r}
 ℣ After childbirth thou didst remain a Virgin inviolate.
 ℟ O Mother of God, intercede for us.
-Let us pray. O God, who by the fruitful virginity of blessed Mary hast bestowed upon mankind the rewards of eternal salvation: grant, we beseech thee, that we may know the intercession of her through whom we were made worthy to receive the author of life, our Lord Jesus Christ, thy Son. Amen.
+Let us pray. {/}O God, who by the fruitful virginity of blessed Mary hast bestowed upon mankind the rewards of eternal salvation: {/}grant, we beseech thee, that we may know the intercession of her {/}through whom we were made worthy to receive the author of life, our Lord Jesus Christ, thy Son. Amen.
 
 {r}In Eastertide:{/r}
 ℣ Rejoice and be glad, O Virgin Mary, alleluia.
 ℟ For the Lord is truly risen, alleluia.
-Let us pray. O God, who by the resurrection of thy Son, our Lord Jesus Christ, hast been pleased to give joy to the world: grant, we beseech thee, that through his Mother, the Virgin Mary, we may lay hold of the joys of everlasting life. Through the same Christ our Lord. Amen.`,
+Let us pray. {/}O God, who by the resurrection of thy Son, our Lord Jesus Christ, hast been pleased to give joy to the world: {/}grant, we beseech thee, that through his Mother, the Virgin Mary, we may lay hold of the joys of everlasting life. {/}Through the same Christ our Lord. Amen.`,
 
   [PRAYER_TYPES.LITANY_SACRED_HEART]: `Lord, have mercy. 2×
 Christ, have mercy. 2×

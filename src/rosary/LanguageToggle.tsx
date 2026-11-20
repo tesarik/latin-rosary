@@ -1,4 +1,5 @@
 import { STRINGS, type Locale } from "./i18n";
+import { ui } from "./fonts";
 import type { Theme } from "./theme";
 import { headerStyles } from "./look";
 
@@ -60,7 +61,7 @@ export default function LanguageToggle({ translation, onChange, accentColor, the
         borderRadius: 10,
         background: tg.wrap,
         fontFamily: "Arial, sans-serif",
-        fontSize: 13,
+        fontSize: ui(13),
         lineHeight: 1,
       }}
     >

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { ui } from "./fonts";
 import { ink } from "./look";
 import { createRoot } from "react-dom/client";
 
@@ -71,7 +72,7 @@ function ConfirmDialog({ message, detail, confirmLabel, cancelLabel, color, onCl
     background: filled ? ink(color) : "var(--surface)",
     color: filled ? "white" : "var(--text-soft)",
     fontFamily: "Arial, sans-serif",
-    fontSize: 15,
+    fontSize: ui(15),
     fontWeight: 600,
     cursor: "pointer",
   });
@@ -106,7 +107,7 @@ function ConfirmDialog({ message, detail, confirmLabel, cancelLabel, color, onCl
           fontFamily: "Arial, sans-serif",
         }}
       >
-        <p style={{ margin: 0, color: "var(--text-strong)", fontSize: 16, lineHeight: 1.45 }}>{message}</p>
+        <p style={{ margin: 0, color: "var(--text-strong)", fontSize: ui(16), lineHeight: 1.45 }}>{message}</p>
         {detail && (
           <p style={{
             margin: "10px 0 0",
@@ -114,7 +115,7 @@ function ConfirmDialog({ message, detail, confirmLabel, cancelLabel, color, onCl
             borderRadius: 8,
             background: "var(--surface-hover)",
             color: "var(--text-soft)",
-            fontSize: 13,
+            fontSize: ui(13),
             overflowWrap: "anywhere",
             userSelect: "all",
           }}>
