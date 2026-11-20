@@ -1,12 +1,12 @@
 import { useRef } from "react";
 import { STRINGS, type Locale } from "./i18n";
-import { CARD } from "./fonts";
+import { CARD, ui } from "./fonts";
 import { ink } from "./look";
 import { PLAN_COLOR, requestPersistentStorage } from "./plans";
 import { askConfirm } from "./ConfirmDialog";
 import { applyBackup, exportBackup, parseBackup, summarizeBackup } from "./backup";
 
-// The Mine tab's backup card: everything the app keeps in this browser —
+// The Settings tab's backup card: everything the app keeps in this browser —
 // plans, favourites, kept places, settings — to a JSON file, and back. Loading
 // adds and never deletes (backup.ts), then reloads the page so every screen
 // reads the merged data.
@@ -52,14 +52,14 @@ export default function BackupCard({ locale }: { locale: Locale }) {
     background: "var(--surface)",
     color,
     fontFamily: "Arial, sans-serif",
-    fontSize: 14,
+    fontSize: ui(14),
     fontWeight: 600,
     cursor: "pointer",
   };
 
   return (
     <div style={{ ...CARD, padding: "12px var(--card-px) 14px" }}>
-      <p style={{ margin: "0 0 10px", color: "var(--text-soft)", fontFamily: "Arial, sans-serif", fontSize: 13, lineHeight: 1.5 }}>
+      <p style={{ margin: "0 0 10px", color: "var(--text-soft)", fontFamily: "Arial, sans-serif", fontSize: ui(13), lineHeight: 1.5 }}>
         {t.backupHint}
       </p>
       <div style={{ display: "flex", gap: 8 }}>

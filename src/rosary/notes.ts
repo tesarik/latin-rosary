@@ -94,3 +94,23 @@ const NOTE_KEY: Record<string, string> = { "brigit-brevis": "brigit" };
 
 export const noteFor = (key: string, locale: Locale): string | undefined =>
   (Object.hasOwn(PRAYER_NOTES, NOTE_KEY[key] ?? key) ? PRAYER_NOTES[NOTE_KEY[key] ?? key]![locale] : undefined);
+
+// What the "with the optional prayers" switch adds, and where those prayers
+// come from: shown by the ⓘ beside the switch on the first step of the
+// rosary, the Chaplet of Divine Mercy and St. Bridget's prayers.
+export type OptionalForm = "rosary" | "chaplet" | "brigit";
+
+export const OPTIONAL_NOTES: Record<OptionalForm, Localized> = {
+  rosary: {
+    cs: "Po znamení kříže přidá dvě modlitby, jimiž růženec otevírají staré růžencové příručky: úvodní verše hodinek (Hospodine, rty mé otevři; Bože, ku pomoci mé vzezři) a Maria, Matko milosti s veršem Učiň mne hodna chváliti tebe. Předepsané nejsou. Zdroj: Breviář a Malé hodinky k nejblahoslavenější Panně Marii (1937); Maria, Matko milosti podle Raccolty (1910) a sv. Alfonse, Cesta spásy (1904).",
+    en: "Adds two prayers after the Sign of the Cross, as older rosary manuals open the rosary: the opening versicles of the Hours (O Lord, thou shalt open my lips; O God, hasten to mine aid) and Mother of mercy, Mother of grace with the versicle Vouchsafe that I may praise thee. They are not prescribed. Source: the Breviary and the Little Office of the Blessed Virgin Mary (1915); Mother of mercy from the Raccolta (1910).",
+  },
+  chaplet: {
+    cs: "Přidá modlitby, které sv. Faustyna zapsala do Deníčku a které se ke korunce obvykle připojují, ale předepsané nejsou: na začátku Zemřel jsi, Ježíši a třikrát Ó Krvi a Vodo, na konci Věčný Bože, jehož milosrdenství je nevyčerpatelné. Předepsaná korunka (Otče náš, Zdrávas, Věřím, Věčný Otče, Pro jeho bolestné utrpení, Svatý Bože) je ta, kterou Deníček uvádí jako Pánem danou (č. 476). Latinské znění nepovinných modliteb je náš překlad z polštiny.",
+    en: "Adds the prayers St. Faustina wrote in her Diary that are usually joined to the chaplet but are not prescribed: at the start You expired, Jesus and O Blood and Water three times, at the end Eternal God, in whom mercy is endless. The prescribed chaplet (Our Father, Hail Mary, Creed, Eternal Father, For the sake of his sorrowful Passion, Holy God) is the one the Diary gives as taught by the Lord (no. 476). The Latin of the optional prayers is our own translation from the Polish.",
+  },
+  brigit: {
+    cs: "Bez nich je to jen jádro pobožnosti: sedm Otčenášů a Zdrávasů. S nimi přidá úvodní modlitbu a před každý Otčenáš rozjímání o jednom z prolití Kristovy krve. Pobožnost je doložena jen v národních jazycích; latinské znění je náš vlastní překlad.",
+    en: "Without them, only the core of the devotion: seven Our Fathers and Hail Marys. With them, an opening prayer and, before each Our Father, a meditation on one shedding of Christ's Blood. The devotion is attested only in the vernacular; the Latin is our own translation.",
+  },
+};

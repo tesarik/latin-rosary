@@ -1,4 +1,5 @@
 import { Component, type ReactNode } from "react";
+import { ui } from "./fonts";
 import { STRINGS, loadSavedLocale, detectLocale } from "./i18n";
 import { clearSavedState } from "./storage";
 
@@ -38,7 +39,7 @@ export default class ErrorBoundary extends Component<Props, State> {
     const buttonBase = {
       padding: "12px 20px",
       borderRadius: 12,
-      fontSize: 15,
+      fontSize: ui(15),
       fontWeight: 600,
       fontFamily: "Arial, sans-serif",
       cursor: "pointer",
@@ -73,8 +74,8 @@ export default class ErrorBoundary extends Component<Props, State> {
             <line x1="24" y1="6" x2="24" y2="42" stroke="var(--text-muted)" strokeWidth="4" strokeLinecap="round" style={{ stroke: "var(--text-muted)" }} />
             <line x1="12" y1="18" x2="36" y2="18" stroke="var(--text-muted)" strokeWidth="4" strokeLinecap="round" style={{ stroke: "var(--text-muted)" }} />
           </svg>
-          <div style={{ fontSize: 20, fontWeight: 700, color: "var(--text-strong)" }}>{t.errorTitle}</div>
-          <div style={{ fontSize: 14, color: "var(--text)", margin: "10px 0 20px", lineHeight: 1.4 }}>{t.errorMessage}</div>
+          <div style={{ fontSize: ui(20), fontWeight: 700, color: "var(--text-strong)" }}>{t.errorTitle}</div>
+          <div style={{ fontSize: ui(14), color: "var(--text)", margin: "10px 0 20px", lineHeight: 1.4 }}>{t.errorMessage}</div>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             <button onClick={this.reload} style={{ ...buttonBase, border: "none", background: "#1565C0", color: "white" }}>
               {t.errorReload}

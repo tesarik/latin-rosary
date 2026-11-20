@@ -6,6 +6,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+- **A Settings tab** on the start screen: the look, dark mode and the options for praying (the same as a prayer's ⋯), the calendar reminder and the backup, which move there from *Mine*, and **the size of the app's own text** — buttons, labels, names, menus — in three steps (Normal, Larger, Largest); *Mine* keeps the favourites and the plans. The text size stays in a prayer's ⋯, beside the text it changes.
+- **A long prayer shows that it goes on below:** its text fades out at the foot of the card, with a small ↓ that scrolls it on, until its end is reached (a phone shows no scrollbar, so the end of the Salve Regína was easy to miss).
+- **An ⓘ beside the *With the optional prayers* switch** (the rosary, the Chaplet of Divine Mercy, St. Bridget's prayers) tells what the optional prayers are and where they come from.
+
+### Changed
+- **The fruit of the mystery and verse of Scripture switch** is in a prayer's ⋯ only in the rosary, the one prayer it changes.
+- **The translation under the Latin is now the Latin's size**, only lighter, so the two read as one text.
+- **The verse of Scripture and the fruit of the mystery above a decade** are set at the prayer's size, the verse upright, its reference after it in brackets and italics — *Non est hic, sed surréxit (Lc 24, 6)* — set apart from the prayer by its softer colour and a rule above and below it.
+
+### Fixed
+- **The Latin and the translation pair phrase by phrase** in the Salve Regína and the rosary's closing collect, the Marian antiphons' collects, the Angelus, the Confíteor, the priest's prayers before and after Communion, the collect after the Tantum ergo, the *Fidélium* of De profúndis, St. Joseph's commemoration, the Athanasian Creed, the Fifteen Prayers of St. Bridget, the Chaplet of the Holy Spirit and the four Raccolta chaplets (St. Michael, the Seven Sorrows, the Precious Blood, the Sacred Heart). Until now each long paragraph stood whole above its whole translation.
+
 ## [0.45.2]
 
 ### Fixed

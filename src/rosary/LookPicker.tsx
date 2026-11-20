@@ -1,10 +1,11 @@
 import { useId } from "react";
+import { ui } from "./fonts";
 import { STRINGS, type Locale } from "./i18n";
 import { LOOKS, type Look } from "./look";
 
 // The look's chooser — Základ / Papír / Misál — as three segments under a
 // "Vzhled" caption: in the prayer header's ⋯ settings and in the start
-// screen's Moje tab. Each name is set in its own look's face, a hint of what
+// screen's Nastavení tab. Each name is set in its own look's face, a hint of what
 // it brings.
 const SAMPLE_FONT: Record<Look, string> = {
   base: "Arial, sans-serif",
@@ -17,7 +18,7 @@ export default function LookPicker({ look, onChange, locale }: { look: Look; onC
   const labelId = useId();
   return (
     <div>
-      <div id={labelId} style={{ fontSize: 15, color: "var(--text)", marginBottom: 6, fontFamily: "Arial, sans-serif" }}>{t.lookHeading}</div>
+      <div id={labelId} style={{ fontSize: ui(15), color: "var(--text)", marginBottom: 6, fontFamily: "Arial, sans-serif" }}>{t.lookHeading}</div>
       <div role="radiogroup" aria-labelledby={labelId} style={{
         display: "grid",
         gridTemplateColumns: `repeat(${LOOKS.length}, 1fr)`,
@@ -43,7 +44,7 @@ export default function LookPicker({ look, onChange, locale }: { look: Look; onC
                 background: on ? "var(--text-strong)" : "transparent",
                 color: on ? "var(--surface)" : "var(--text)",
                 fontFamily: SAMPLE_FONT[l],
-                fontSize: l === "base" ? 14 : 17,
+                fontSize: ui(l === "base" ? 14 : 17),
                 fontWeight: 600,
                 transition: "background 0.2s ease, color 0.2s ease",
               }}

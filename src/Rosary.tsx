@@ -23,7 +23,8 @@ import {
 import RosaryBeads from "./rosary/RosaryBeads";
 import PrayerCard from "./rosary/PrayerCard";
 import PrayerSections from "./rosary/PrayerSections";
-import SettingsMenu from "./rosary/SettingsMenu";
+import SettingsMenu, { type PrayerSettings } from "./rosary/SettingsMenu";
+import { applyUiScale, loadUiScale, saveUiScale, type UiScale } from "./rosary/uiScale";
 import { applyLook, headerStyles, ink, loadSavedLook, saveLook, type Look } from "./rosary/look";
 import { hintToShow, loadDim, loadHintsSeen, loadVibrate, loadWelcomeSeen, saveDim, saveHintDone, saveVibrate, saveWelcomeSeen, type Hint, type HintsSeen, loadMeditation, saveMeditation, loadRosaryFull, saveRosaryFull } from "./rosary/prefs";
 import LanguageToggle from "./rosary/LanguageToggle";
@@ -31,13 +32,13 @@ import StarIcon from "./rosary/StarIcon";
 import { loadFavorites, saveFavorites, toggleFavorite } from "./rosary/favorites";
 import { loadIntentions, saveIntentions, withIntention, type Intentions } from "./rosary/intentions";
 import IntentionLine from "./rosary/IntentionLine";
-import { SERIF } from "./rosary/fonts";
+import { SERIF, ui } from "./rosary/fonts";
 import { MEDITATIONS } from "./rosary/meditations";
 import { mysteriesOfDay } from "./rosary/liturgy";
 import { chapletKey, chapletToOpen, loadSavedChapletFull, saveChapletFull } from "./rosary/chaplet";
 import { brigitKey, brigitToOpen, isBrigitKey, loadSavedBrigitFull, saveBrigitFull } from "./rosary/brigit";
 import OptionSwitch from "./rosary/OptionSwitch";
-import { noteFor } from "./rosary/notes";
+import { noteFor, OPTIONAL_NOTES } from "./rosary/notes";
 import { isMenuKey, type MenuKey } from "./rosary/menu";
 import MysteryMenu from "./rosary/MysteryMenu";
 import PlansScreen from "./rosary/PlansScreen";
@@ -107,6 +108,8 @@ export default function Rosary() {
   const [fontScale, setFontScaleState] = useState<number>(() => loadSavedFontScale() ?? DEFAULT_FONT_SCALE);
   const [theme, setThemeState] = useState<Theme>(() => resolveTheme());
   const [look, setLookState] = useState<Look>(() => loadSavedLook());
+  // The app's own text size (uiScale.ts), on the start screen's Settings tab.
+  const [uiScale, setUiScaleState] = useState<UiScale>(loadUiScale);
   // The prayer screen's quieter settings (prefs.ts), in the header's ⋯ menu.
   const [vibrate, setVibrateState] = useState<boolean>(loadVibrate);
   const [dim, setDimState] = useState<boolean>(loadDim);
@@ -201,6 +204,12 @@ export default function Rosary() {
 
   // The look is applied before the state changes, not in an effect: `ink`
   // and `headerStyles` read it while the next render runs.
+  const setUiScale = useCallback((next: UiScale) => {
+    saveUiScale(next);
+    applyUiScale(next);
+    setUiScaleState(next);
+  }, []);
+
   const setLook = useCallback((next: Look) => {
     saveLook(next);
     applyLook(next, theme);
@@ -431,9 +440,9 @@ export default function Rosary() {
   // and St. Bridget's prayers: which form is open, and switching it.
   const isRosarySet = (k: string) => isRosaryKey(k as PrayerSetKey) || isFullRosaryKey(k as PrayerSetKey);
   const optionalForm = selectedSet && currentStep === 0
-    ? isChapletKey(selectedSet) ? { full: selectedSet === "misericordia-plena", save: saveChapletFull, key: chapletKey }
-      : isBrigitKey(selectedSet) ? { full: selectedSet === "brigit", save: saveBrigitFull, key: brigitKey }
-      : isRosarySet(selectedSet) ? { full: rosaryFull, save: saveRosaryFull, key: null }
+    ? isChapletKey(selectedSet) ? { full: selectedSet === "misericordia-plena", save: saveChapletFull, key: chapletKey, note: OPTIONAL_NOTES.chaplet }
+      : isBrigitKey(selectedSet) ? { full: selectedSet === "brigit", save: saveBrigitFull, key: brigitKey, note: OPTIONAL_NOTES.brigit }
+      : isRosarySet(selectedSet) ? { full: rosaryFull, save: saveRosaryFull, key: null, note: OPTIONAL_NOTES.rosary }
       : null
     : null;
   const switchForm = (full: boolean) => {
@@ -517,6 +526,18 @@ export default function Rosary() {
     <UpdateToast locale={locale} onUpdate={applyUpdate} onDismiss={dismissUpdate} />
   ) : null;
 
+  // The prayer screen's preferences: in the prayer header's ⋯ and on the
+  // start screen's Nastavení tab.
+  const prayerSettings: PrayerSettings = {
+    theme, onToggleTheme: toggleTheme,
+    fontScale, onFontScale: setFontScale,
+    vibrate, onVibrate: setVibrate,
+    dim, onDim: setDim,
+    meditation, onMeditation: setMeditation,
+    interlinear, onInterlinear: setInterlinear,
+    look, onLook: setLook,
+  };
+
   if (!started || !selectedSet) {
     return (
       <>
@@ -543,8 +564,9 @@ export default function Rosary() {
             onLocaleChange={setLocale}
             theme={theme}
             onToggleTheme={toggleTheme}
-            look={look}
-            onLook={setLook}
+            settings={prayerSettings}
+            uiScale={uiScale}
+            onUiScale={setUiScale}
             showWelcome={!welcomeSeen}
             onDismissWelcome={dismissWelcome}
             afterRosary={afterRosary}
@@ -610,7 +632,7 @@ export default function Rosary() {
           color: "var(--rubric)",
           padding: "2px 6px",
           fontFamily: SERIF,
-          fontSize: 17,
+          fontSize: ui(17),
           fontWeight: 500,
           lineHeight: 1.3,
         } : {
@@ -620,7 +642,7 @@ export default function Rosary() {
           color: accentText(accentColor, theme),
           padding: "5px 14px",
           borderRadius: 16,
-          fontSize: 13,
+          fontSize: ui(13),
           fontWeight: 600,
           letterSpacing: 0.3,
           lineHeight: 1.35,
@@ -630,7 +652,7 @@ export default function Rosary() {
       </span>
       {/* Where in a linear set you are, "5 z 11" (the rosary has its bar). */}
       {setMeta.kind === "linear" && (
-        <span style={{ marginLeft: 8, fontSize: 12, color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+        <span style={{ marginLeft: 8, fontSize: ui(12), color: "var(--text-muted)", whiteSpace: "nowrap" }}>
           {t.stepCount(currentStep + 1, sequence.length)}
         </span>
       )}
@@ -657,6 +679,8 @@ export default function Rosary() {
             checked={optionalForm.full}
             color={accentColor}
             onChange={switchForm}
+            infoLabel={t.optionalPrayersInfo}
+            onInfo={() => { void askConfirm({ message: optionalForm.note[locale], confirmLabel: t.aboutClose, cancelLabel: null, color: accentColor }); }}
           />
         </div>
       )}
@@ -736,7 +760,7 @@ export default function Rosary() {
               borderRadius: 10,
               cursor: "pointer",
               ...hs.button,
-              fontSize: 18,
+              fontSize: ui(18),
               fontFamily: "Arial, sans-serif",
             }}
           >
@@ -800,20 +824,8 @@ export default function Rosary() {
             );
           })()}
           <SettingsMenu
-            theme={theme}
-            onToggleTheme={toggleTheme}
-            fontScale={fontScale}
-            onFontScale={setFontScale}
-            vibrate={vibrate}
-            onVibrate={setVibrate}
-            dim={dim}
-            meditation={meditation}
-            onMeditation={setMeditation}
-            interlinear={interlinear}
-            onInterlinear={setInterlinear}
-            onDim={setDim}
-            look={look}
-            onLook={setLook}
+            {...prayerSettings}
+            showMeditation={isRosarySet(selectedSet)}
             accentColor={accentColor}
             locale={locale}
           />
@@ -932,7 +944,7 @@ export default function Rosary() {
           background: "var(--surface)",
           border: "1px solid var(--border-strong)",
           borderRadius: 12,
-          fontSize: 13,
+          fontSize: ui(13),
           lineHeight: 1.35,
           color: "var(--text)",
         }}>
@@ -948,7 +960,7 @@ export default function Rosary() {
               background: accentColor + "18",
               color: accentText(accentColor, theme),
               fontWeight: 600,
-              fontSize: 13,
+              fontSize: ui(13),
               cursor: "pointer",
               fontFamily: "Arial, sans-serif",
             }}
@@ -978,7 +990,7 @@ export default function Rosary() {
             background: "var(--surface)",
             color: currentStep === 0 ? "var(--border-strong)" : "var(--text-soft)",
             cursor: currentStep === 0 ? "default" : "pointer",
-            fontSize: 15,
+            fontSize: ui(15),
             fontWeight: 500,
             fontFamily: "Arial, sans-serif",
             transition: "all 0.2s ease",
@@ -1000,7 +1012,7 @@ export default function Rosary() {
               background: accentColor,
               color: "white",
               cursor: "pointer",
-              fontSize: 15,
+              fontSize: ui(15),
               fontWeight: 600,
               fontFamily: "Arial, sans-serif",
               boxShadow: `0 4px 16px ${accentColor}40`,
@@ -1009,7 +1021,7 @@ export default function Rosary() {
           >
             <div>{t.next}</div>
             {nextLabel && (
-              <div style={{ fontSize: 12, fontWeight: 400, opacity: 0.9, marginTop: 2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+              <div style={{ fontSize: ui(12), fontWeight: 400, opacity: 0.9, marginTop: 2, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                 {nextLabel}
               </div>
             )}
@@ -1025,7 +1037,7 @@ export default function Rosary() {
               background: accentColor,
               color: "white",
               cursor: "pointer",
-              fontSize: 15,
+              fontSize: ui(15),
               fontWeight: 600,
               fontFamily: "Arial, sans-serif",
               boxShadow: `0 4px 16px ${accentColor}40`,

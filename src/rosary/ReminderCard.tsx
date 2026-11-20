@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { STRINGS, type Locale } from "./i18n";
-import { CARD } from "./fonts";
+import { CARD, ui } from "./fonts";
 import { ink } from "./look";
 import { PLAN_COLOR } from "./plans";
 import { DEFAULT_TIME, REMINDER_PRAYERS, reminderGoogleUrl, reminderIcs, reminderUrl, type Reminder, type ReminderPrayer } from "./reminder";
 
-// The Mine tab's reminder card: a daily event for the user's own calendar —
+// The Settings tab's reminder card: a daily event for the user's own calendar —
 // the Angelus, the chaplet or today's rosary at an hour of their choosing —
 // as an .ics file (Apple's and most calendars) or a Google Calendar link.
 // The app keeps nothing of it; the calendar does the reminding.
@@ -35,18 +35,18 @@ export default function ReminderCard({ locale }: { locale: Locale }) {
 
   const field: React.CSSProperties = {
     height: 40, padding: "0 10px", borderRadius: 10, border: "1px solid var(--border-strong)",
-    background: "var(--surface)", color: "var(--text)", fontFamily: "Arial, sans-serif", fontSize: 15,
+    background: "var(--surface)", color: "var(--text)", fontFamily: "Arial, sans-serif", fontSize: ui(15),
   };
   const button: React.CSSProperties = {
     flex: 1, minHeight: 40, padding: "8px 12px", borderRadius: 10, border: "1px solid var(--border-strong)",
-    background: "var(--surface)", color, fontFamily: "Arial, sans-serif", fontSize: 14, fontWeight: 600,
+    background: "var(--surface)", color, fontFamily: "Arial, sans-serif", fontSize: ui(14), fontWeight: 600,
     cursor: "pointer", textAlign: "center", textDecoration: "none", display: "flex", alignItems: "center", justifyContent: "center",
   };
-  const label: React.CSSProperties = { display: "flex", flexDirection: "column", gap: 4, fontSize: 12, color: "var(--text-muted)" };
+  const label: React.CSSProperties = { display: "flex", flexDirection: "column", gap: 4, fontSize: ui(12), color: "var(--text-muted)" };
 
   return (
     <div style={{ ...CARD, padding: "12px var(--card-px) 14px", fontFamily: "Arial, sans-serif" }}>
-      <p style={{ margin: "0 0 10px", color: "var(--text-soft)", fontSize: 13, lineHeight: 1.5 }}>{t.reminderHint}</p>
+      <p style={{ margin: "0 0 10px", color: "var(--text-soft)", fontSize: ui(13), lineHeight: 1.5 }}>{t.reminderHint}</p>
       <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
         <label style={{ ...label, flex: 1, minWidth: 0 }}>
           {t.reminderPrayer}

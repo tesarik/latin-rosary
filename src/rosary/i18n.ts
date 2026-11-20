@@ -61,8 +61,12 @@ type Strings = {
   settingsDarkMode: string;
   settingsVibrate: string;
   lookHeading: string;
+  uiScaleHeading: string;
+  uiScaleNames: [string, string, string];
   lookNames: Record<"base" | "paper" | "missal", string>;
   settingsHeading: string;
+  settingsLookHeading: string;
+  settingsPrayerHeading: string;
   settingsDim: string;
   // The switch for the fruit and verse at each decade, and their label.
   settingsMeditation: string;
@@ -121,9 +125,11 @@ type Strings = {
   // The switch on the first step of the Chaplet of Divine Mercy and of St.
   // Bridget's prayers that adds their optional prayers.
   optionalPrayers: string;
+  optionalPrayersInfo: string;
   startRosaryAria: (mysteryName: string) => string;
   startPrayerAria: (prayerName: string) => string;
   stepXofY: (step: number, total: number) => string;
+  moreTextBelow: string;
   jumpToOpeningPaterNoster: (step: number, total: number) => string;
   jumpToDecade: (n: number) => string;
   rosaryAria: (step: number, total: number) => string;
@@ -188,7 +194,7 @@ type Strings = {
   intentionEdit: string;
   intentionPlaceholder: string;
   intentionSave: string;
-  // The Mine tab's reminder card (ReminderCard).
+  // The Settings tab's reminder card (ReminderCard).
   reminderHeading: string;
   reminderHint: string;
   reminderPrayer: string;
@@ -198,7 +204,7 @@ type Strings = {
   reminderIcs: string;
   reminderGoogle: string;
   reminderFileName: string;
-  // The Mine tab's backup card (BackupCard).
+  // The Settings tab's backup card (BackupCard).
   backupHeading: string;
   backupHint: string;
   backupExport: string;
@@ -255,8 +261,12 @@ export const STRINGS: Record<Locale, Strings> = {
     settingsDarkMode: "Tmavý režim",
     settingsVibrate: "Vibrace při každém kroku",
     lookHeading: "Vzhled",
+    uiScaleHeading: "Velikost písma v aplikaci",
+    uiScaleNames: ["Běžná", "Větší", "Největší"],
     lookNames: { base: "Základ", paper: "Papír", missal: "Misál" },
     settingsHeading: "Nastavení",
+    settingsLookHeading: "Zobrazení",
+    settingsPrayerHeading: "Při modlitbě",
     settingsDim: "Ztlumit obrazovku",
     settingsMeditation: "Ovoce tajemství a verš z Písma",
     settingsInterlinear: "Překlad pod latinou",
@@ -305,9 +315,11 @@ export const STRINGS: Record<Locale, Strings> = {
     inSeasonSubtitle: "Antifona doby, svátky a měsíce",
     angelusEastertide: "V době velikonoční se místo něj modlí Regína Cæli",
     optionalPrayers: "S nepovinnými modlitbami",
+    optionalPrayersInfo: "O nepovinných modlitbách",
     startRosaryAria: (n) => `Začít růženec — ${n}`,
     startPrayerAria: (n) => `Začít modlitbu — ${n}`,
     stepXofY: (s, t) => `krok ${s} z ${t}`,
+    moreTextBelow: "Text pokračuje níž",
     jumpToOpeningPaterNoster: (s, t) => `Skočit na Pater Noster úvodu, krok ${s} z ${t}`,
     jumpToDecade: (n) => `Skočit na ${n}. desátek`,
     rosaryAria: (s, t) => `Růženec, krok ${s} z ${t}`,
@@ -437,8 +449,12 @@ export const STRINGS: Record<Locale, Strings> = {
     settingsDarkMode: "Dark mode",
     settingsVibrate: "Vibrate on every step",
     lookHeading: "Look",
+    uiScaleHeading: "Text size in the app",
+    uiScaleNames: ["Normal", "Larger", "Largest"],
     lookNames: { base: "Basic", paper: "Paper", missal: "Missal" },
     settingsHeading: "Settings",
+    settingsLookHeading: "Display",
+    settingsPrayerHeading: "While praying",
     settingsDim: "Dim the screen",
     settingsMeditation: "Fruit of the mystery and a verse",
     settingsInterlinear: "Translation under the Latin",
@@ -487,9 +503,11 @@ export const STRINGS: Record<Locale, Strings> = {
     inSeasonSubtitle: "The antiphon of the season, feasts and months",
     angelusEastertide: "In Eastertide the Regína Cæli is prayed instead",
     optionalPrayers: "With the optional prayers",
+    optionalPrayersInfo: "About the optional prayers",
     startRosaryAria: (n) => `Start rosary — ${n}`,
     startPrayerAria: (n) => `Start prayer — ${n}`,
     stepXofY: (s, t) => `step ${s} of ${t}`,
+    moreTextBelow: "More text below",
     jumpToOpeningPaterNoster: (s, t) => `Jump to opening Pater Noster, step ${s} of ${t}`,
     jumpToDecade: (n) => `Jump to decade ${n}`,
     rosaryAria: (s, t) => `Rosary, step ${s} of ${t}`,

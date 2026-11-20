@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { STRINGS, type Locale } from "./i18n";
 import { analyticsConfigured } from "./analytics";
-import { SERIF } from "./fonts";
+import { SERIF, ui } from "./fonts";
 import { currentLook } from "./look";
 import { MissalArt } from "./MissalArt";
 
@@ -109,7 +109,7 @@ export default function AboutDialog({ locale, onClose }: Props) {
           style={{
             position: "absolute", top: 8, right: 10,
             width: 32, height: 32, border: "none", background: "transparent",
-            color: "var(--text-muted)", fontSize: 22, lineHeight: 1, cursor: "pointer",
+            color: "var(--text-muted)", fontSize: ui(22), lineHeight: 1, cursor: "pointer",
           }}
         >
           ×
@@ -125,34 +125,34 @@ export default function AboutDialog({ locale, onClose }: Props) {
           style={{ display: "block", margin: "0 auto 10px" }}
         />
 
-        <div style={{ textAlign: "center", fontFamily: SERIF, fontSize: 28, fontWeight: 600, color: "var(--text-strong)" }}>{t.appTitle}</div>
-        <div style={{ textAlign: "center", fontSize: 12, color: "var(--text-muted)", marginTop: 2 }}>
+        <div style={{ textAlign: "center", fontFamily: SERIF, fontSize: ui(28), fontWeight: 600, color: "var(--text-strong)" }}>{t.appTitle}</div>
+        <div style={{ textAlign: "center", fontSize: ui(12), color: "var(--text-muted)", marginTop: 2 }}>
           v{__APP_VERSION__}
           {buildDate && ` · ${t.aboutBuilt} ${buildDate}`}
         </div>
-        <div style={{ textAlign: "center", fontSize: 14, color: "var(--text)", margin: "12px 0 14px", lineHeight: 1.4 }}>{t.aboutText}</div>
-        <div style={{ textAlign: "center", fontSize: 13, color: "var(--text-soft)", margin: "-6px 0 14px", lineHeight: 1.45 }}>{t.aboutPromise}</div>
+        <div style={{ textAlign: "center", fontSize: ui(14), color: "var(--text)", margin: "12px 0 14px", lineHeight: 1.4 }}>{t.aboutText}</div>
+        <div style={{ textAlign: "center", fontSize: ui(13), color: "var(--text-soft)", margin: "-6px 0 14px", lineHeight: 1.45 }}>{t.aboutPromise}</div>
         {currentLook() === "missal" && <MissalArt name="pax" style={{ margin: "0 auto 14px" }} />}
 
-        <div style={{ textAlign: "center", fontSize: 14, margin: "0 0 14px" }}>
+        <div style={{ textAlign: "center", fontSize: ui(14), margin: "0 0 14px" }}>
           <a href={`${import.meta.env.BASE_URL}${locale}/`} target="_blank" rel="noopener" style={linkStyle}>{t.aboutPrayerTexts}</a>
         </div>
 
-        <div style={{ textAlign: "center", fontSize: 14, color: "var(--text)" }}>
+        <div style={{ textAlign: "center", fontSize: ui(14), color: "var(--text)" }}>
           <span style={{ color: "var(--text-muted)" }}>{t.aboutCreator}: </span>
           {CREATOR.name}
           {" · "}
           <a href={CREATOR.websiteUrl} target="_blank" rel="noopener noreferrer" style={linkStyle}>{CREATOR.website}</a>
         </div>
 
-        <div style={{ textAlign: "center", borderTop: "1px solid var(--border)", marginTop: 14, paddingTop: 14, fontSize: 13, color: "var(--text-muted)" }}>
+        <div style={{ textAlign: "center", borderTop: "1px solid var(--border)", marginTop: 14, paddingTop: 14, fontSize: ui(13), color: "var(--text-muted)" }}>
           {t.aboutFeedback}{" "}
           <a href={`mailto:${CREATOR.feedbackEmail}`} style={linkStyle}>{CREATOR.feedbackEmail}</a>
         </div>
 
-        <div style={{ marginTop: 12, fontSize: 11, color: "var(--text-muted)", textAlign: "center" }}>{t.aboutArt}</div>
+        <div style={{ marginTop: 12, fontSize: ui(11), color: "var(--text-muted)", textAlign: "center" }}>{t.aboutArt}</div>
         {analyticsConfigured && (
-          <div style={{ marginTop: 12, fontSize: 11, color: "var(--text-muted)", textAlign: "center" }}>
+          <div style={{ marginTop: 12, fontSize: ui(11), color: "var(--text-muted)", textAlign: "center" }}>
             {t.aboutAnalytics}
           </div>
         )}

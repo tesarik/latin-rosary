@@ -1,4 +1,5 @@
 import { STRINGS, type Locale } from "./i18n";
+import { ui } from "./fonts";
 import { accentText, type Theme } from "./theme";
 import { ink } from "./look";
 
@@ -15,7 +16,7 @@ export default function ResumeLine({ info, color, theme, locale }: {
 }) {
   if (!info) return null;
   return (
-    <div style={{ fontFamily: "Arial, sans-serif", fontSize: 13, fontWeight: 600, color: accentText(ink(color), theme), marginTop: 3 }}>
+    <div style={{ fontFamily: "Arial, sans-serif", fontSize: ui(13), fontWeight: 600, color: accentText(ink(color), theme), marginTop: 3 }}>
       {STRINGS[locale].resumeAt(info.step, info.total)}
     </div>
   );
