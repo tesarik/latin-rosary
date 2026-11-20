@@ -129,6 +129,19 @@ describe("the Settings tab", () => {
   });
 });
 
+describe("the search in the prayers' text", () => {
+  it("finds a line of a litany and opens it on that part", async () => {
+    localStorage.setItem("ruzenec_hint_seen", "1");
+    render(<Rosary />);
+    fireEvent.click(screen.getByRole("button", { name: new RegExp(t.tabPrayers) }));
+    fireEvent.change(screen.getByRole("searchbox", { name: t.searchPlaceholder }), { target: { value: "turris eburnea" } });
+    expect(screen.getByText(t.searchInText)).toBeTruthy();
+    fireEvent.click(screen.getByRole("button", { name: t.startPrayerAria("The Litany of Loreto") }));
+    // The Litany of Loreto, on its fourth part (Spéculum iustítiæ).
+    expect(await screen.findByText(t.stepCount(4, 6))).toBeTruthy();
+  });
+});
+
 describe("the prayer language switch", () => {
   it("picks the Latin or the translation, and the ⋯ settings put the translation under the Latin", async () => {
     localStorage.setItem("ruzenec_hint_seen", "1");

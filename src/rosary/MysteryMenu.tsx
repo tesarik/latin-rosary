@@ -1,4 +1,6 @@
-import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { searchTexts, type TextHit } from "./textSearch";
+import { useTranslation } from "./translations";
 import { MissalArt } from "./MissalArt";
 import { MYSTERIES, type MysteryKey } from "./prayers";
 import { CHAPLETS, FULL_ROSARY } from "./sequence";
@@ -16,7 +18,7 @@ import AboutDialog from "./AboutDialog";
 import HelpDialog from "./HelpDialog";
 import { PlanIcon } from "./PlansScreen";
 import { STAR_PATH } from "./StarIcon";
-import { CAPTION, CARD, RUBRIC_CAPS, headingSize, nameFont, ui } from "./fonts";
+import { CAPTION, CARD, RUBRIC_CAPS, SERIF, headingSize, nameFont, ui } from "./fonts";
 import { MISSAL_RED, currentLook, iconBg, ink } from "./look";
 import LookPicker from "./LookPicker";
 import { SwitchRow, type PrayerSettings } from "./SettingsMenu";
@@ -26,6 +28,8 @@ import ReminderCard from "./ReminderCard";
 
 type Props = {
   onStart: (key: PrayerSetKey) => void;
+  // Open a prayer on a given step (a hit of the search in the prayers' text).
+  onStartAt: (key: PrayerSetKey, step: number) => void;
   resume: ResumeInfo;
   // The most recently prayed unfinished set, offered first.
   continueWith: { key: PrayerSetKey; name: string; color: string; step: number; total: number } | null;
@@ -396,6 +400,62 @@ function CollapsiblePrayers({ title, subtitle, icon, color: rawAccent, sections,
 // The rows of prayers, section by section (a section's heading, if it has one,
 // as a small caption), a rule between two rows: the body of an open group, and
 // the search's results.
+// The search's hits in the prayers' text, under a heading of their own: each
+// prayer's name, and the stretch of its text with the words found in bold;
+// a tap opens it on the step the words are on.
+function TextHitRows({ hits, ruled, onStartAt, locale }: { hits: TextHit[]; ruled: boolean; onStartAt: (key: PrayerSetKey, step: number) => void; locale: Locale }) {
+  const t = STRINGS[locale];
+  return (
+    <div>
+      {ruled && <div aria-hidden="true" style={{ height: 1, background: "var(--divider)" }} />}
+      <div style={{ ...RUBRIC_CAPS, padding: `${ruled ? 18 : 8}px var(--card-px) 4px`, fontSize: headingSize(15) }}>{t.searchInText}</div>
+      {hits.map((hit, j) => {
+        const val = menuEntry(hit.key);
+        return (
+          <div key={hit.key}>
+            {j > 0 && <div aria-hidden="true" style={{ height: 1, background: "var(--divider)" }} />}
+            <button
+              onClick={() => onStartAt(hit.key, hit.step)}
+              aria-label={t.startPrayerAria(val.nameTr[locale])}
+              style={{
+                width: "100%", display: "block", textAlign: "left",
+                padding: "8px var(--card-px)", background: "transparent", border: "none", cursor: "pointer",
+                fontFamily: "Arial, sans-serif", color: "var(--text)",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-hover)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+            >
+              <div style={{ ...nameFont(19), fontWeight: 500, color: "var(--text-strong)", lineHeight: 1.2 }}>{val.name}</div>
+              <div lang={hit.tr ? locale : undefined} style={{ fontFamily: SERIF, fontSize: ui(16), lineHeight: 1.3, color: "var(--text-soft)", marginTop: 2 }}>
+                {marked(hit.snippet, hit.marks)}
+              </div>
+            </button>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// A snippet with its marked stretches in bold (overlapping ones merged).
+function marked(text: string, marks: [number, number][]): React.ReactNode {
+  const merged: [number, number][] = [];
+  for (const [a, b] of marks) {
+    const last = merged.at(-1);
+    if (last && a <= last[1]) last[1] = Math.max(last[1], b);
+    else merged.push([a, b]);
+  }
+  const out: React.ReactNode[] = [];
+  let at = 0;
+  merged.forEach(([a, b], i) => {
+    if (a > at) out.push(text.slice(at, a));
+    out.push(<b key={i} style={{ fontWeight: 700, color: "var(--text-strong)" }}>{text.slice(a, b)}</b>);
+    at = b;
+  });
+  if (at < text.length) out.push(text.slice(at));
+  return out;
+}
+
 function PrayerRows({ sections, onStart, resume, badges = {}, notes = {}, indent, theme, locale }: {
   sections: readonly MenuSection[];
   // The rows' left padding: under a group's symbol, or flush in the search.
@@ -509,7 +569,7 @@ function cardHover(raw: string) {
   };
 }
 
-export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, onOpenPlans, planCount, favorites, locale, onLocaleChange, theme, onToggleTheme, settings, uiScale, onUiScale, showWelcome, onDismissWelcome, afterRosary = false, onDismissAfterRosary }: Props) {
+export default function MysteryMenu({ onStart, onStartAt, resume, continueWith, onDiscard, onOpenPlans, planCount, favorites, locale, onLocaleChange, theme, onToggleTheme, settings, uiScale, onUiScale, showWelcome, onDismissWelcome, afterRosary = false, onDismissAfterRosary }: Props) {
   // The Misál look's red star above the footer.
   const missal = settings.look === "missal";
   const t = STRINGS[locale];
@@ -530,6 +590,13 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
   const setQuery = (q: string) => { menuQuery = q; setQueryState(q); };
   const searching = query.trim() !== "";
   const found = searching ? searchMenu(query) : [];
+  // The search in the prayers' own words, below the names found; the
+  // translation joins in once its table has loaded.
+  const table = useTranslation(locale);
+  const textHits = useMemo(
+    () => (searching ? searchTexts(query, locale, table, searchMenu(query)) : []),
+    [searching, query, locale, table],
+  );
   // Today's mysteries lead, larger; the other two sit side by side under them.
   const mysteryKeys = Object.keys(MYSTERIES) as MysteryKey[];
   const otherMysteries = mysteryKeys.filter((k) => k !== todaysMysteries);
@@ -817,9 +884,13 @@ export default function MysteryMenu({ onStart, resume, continueWith, onDiscard, 
               overflow: "hidden",
               padding: "4px 0",
             }}>
-              {found.length > 0 ? (
+              {found.length > 0 && (
                 <PrayerRows sections={[{ keys: found }]} onStart={onStart} resume={resume} badges={seasonBadges} notes={angelusNote} indent="var(--card-px)" theme={theme} locale={locale} />
-              ) : (
+              )}
+              {textHits.length > 0 && (
+                <TextHitRows hits={textHits} ruled={found.length > 0} onStartAt={onStartAt} locale={locale} />
+              )}
+              {found.length === 0 && textHits.length === 0 && (
                 <div style={{ padding: "12px var(--card-px)", fontSize: ui(14), color: "var(--text-muted)" }}>{t.searchNoResults}</div>
               )}
             </div>

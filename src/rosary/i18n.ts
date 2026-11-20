@@ -82,6 +82,7 @@ type Strings = {
   searchPlaceholder: string;
   searchClear: string;
   searchNoResults: string;
+  searchInText: string;
   searchResults: (n: number) => string;
   themeToggleAria: string;
   aboutTitle: string;
@@ -281,6 +282,7 @@ export const STRINGS: Record<Locale, Strings> = {
     searchPlaceholder: "Hledat modlitbu",
     searchClear: "Vymazat hledání",
     searchNoResults: "Žádná modlitba neodpovídá hledání.",
+    searchInText: "V textu modlitby",
     searchResults: (n) => `Nalezeno: ${n}`,
     themeToggleAria: "Přepnout tmavý režim",
     aboutTitle: "O aplikaci",
@@ -469,6 +471,7 @@ export const STRINGS: Record<Locale, Strings> = {
     searchPlaceholder: "Search prayers",
     searchClear: "Clear search",
     searchNoResults: "No prayer matches the search.",
+    searchInText: "In the prayer's text",
     searchResults: (n) => `Found: ${n}`,
     themeToggleAria: "Toggle dark mode",
     aboutTitle: "About",

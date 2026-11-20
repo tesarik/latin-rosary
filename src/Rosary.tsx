@@ -337,13 +337,16 @@ export default function Rosary() {
   // St. Bridget's prayers open in the form their switch picks, or the one
   // with a kept place (brigit.ts); a key naming a form outright (the
   // continue tile's) opens that form.
-  const startSet = useCallback((requested: PrayerSetKey) => {
-    const key: PrayerSetKey = requested === "brigit" ? brigitToOpen(loadSavedBrigitFull(), Object.keys(progress)) : requested;
+  // `at`: open on that step instead of the kept place (a hit of the search in
+  // the prayers' text, which names the step it is on — in St. Bridget's full
+  // form, the one the search reads).
+  const startSet = useCallback((requested: PrayerSetKey, at?: number) => {
+    const key: PrayerSetKey = requested === "brigit" && at === undefined ? brigitToOpen(loadSavedBrigitFull(), Object.keys(progress)) : requested;
     dismissWelcome();
     setAfterRosary(false);
     setSelectedSet(key);
     setSequence(buildSequence(key, plans));
-    setCurrentStep(resumeStep(key, progress[key] ?? 0, plans) ?? 0);
+    setCurrentStep(at ?? resumeStep(key, progress[key] ?? 0, plans) ?? 0);
     setStarted(true);
     // Plan ids are per-device and unbounded — report plans as one bucket.
     track(`pray/${isPlanKey(key) ? "plan" : key}`);
@@ -554,6 +557,7 @@ export default function Rosary() {
         ) : (
           <MysteryMenu
             onStart={startSet}
+            onStartAt={startSet}
             resume={menuResume}
             continueWith={continueWith}
             onDiscard={discardProgress}
