@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.46.0]
+
 ### Added
 - **Search in the prayers' own words:** a line you remember — *turris ebúrnea*, *pod ochranu tvou* — finds its prayer, in Latin or in the translation, with the words shown in bold; a tap opens it on the very step they are on (the part of a litany, the mystery of a chaplet). A text prayed in many prayers, like the Our Father, is found only on its own.
 - **A Settings tab** on the start screen: the look, dark mode and the options for praying (the same as a prayer's ⋯), the calendar reminder and the backup, which move there from *Mine*, and **the size of the app's own text** — buttons, labels, names, menus — in three steps (Normal, Larger, Largest); *Mine* keeps the favourites and the plans. The text size stays in a prayer's ⋯, beside the text it changes.
